@@ -36,7 +36,7 @@
 	$(document).ready( function() {
 		$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
 		$(".employeeDomain").attr("placeholder", "Employee Domain");
-		$("#password").attr("placeholder", "Default Password employeetaps");
+		$("#password").attr("placeholder", "Default Password sysadmin");
 		$("#employeeCode").attr("placeholder", "Employee Code");
 		$("#employeeNik").attr("placeholder", "NIK");
 		$("#firstName").attr("placeholder", "First Name");

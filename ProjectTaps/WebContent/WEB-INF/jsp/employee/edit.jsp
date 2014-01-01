@@ -46,6 +46,7 @@
 		$("#mobileNumberAreaCode").attr("placeholder", "Area");
 		$("#mobileNumberMidNumb").attr("placeholder", "Mobile No");
 		$("#email").attr("placeholder", "Email");
+		$("#password").attr("placeholder", "Default Password sysadmin");
 		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 		if ($("#messageCRUD").val() != "") {
 			setTimeout(function() {

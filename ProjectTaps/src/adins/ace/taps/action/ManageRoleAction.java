@@ -20,24 +20,22 @@ import com.google.gson.GsonBuilder;
 import adins.ace.taps.form.manageRole.ManageRoleForm;
 import adins.ace.taps.manager.ManageRoleManager;
 
-
-
 public class ManageRoleAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		ManageRoleForm erForm = (ManageRoleForm) form;
-		ManageRoleManager erMan = new ManageRoleManager();		
+		ManageRoleManager erMan = new ManageRoleManager();
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		
+
 		if ("wizard".equals(erForm.getTask())) {
 			erForm.setListRole(erMan.searchListRole());
 			return mapping.findForward("WizardManageRole");
 		}
-		
+
 		if ("listMenu".equals(erForm.getTask())) {
-			erForm.setListMenu(erMan.searchListMenu(erForm.getRoleId()));			
+			erForm.setListMenu(erMan.searchListMenu(erForm.getRoleId()));
 			String json = gson.toJson(erForm);
 			PrintWriter out = response.getWriter();
 			out.write(json);
@@ -50,74 +48,77 @@ public class ManageRoleAction extends Action {
 			return null;
 		}
 		if ("insert".equals(erForm.getTask())) {
-			//System.out.println("PAram Insert "+erForm.getParam());
+			// System.out.println("PAram Insert "+erForm.getParam());
 			String empName = erMan.getEmpName(erForm.getParam());
 			if (erMan.insertRoleAdmin(erForm.getParam())) {
-				erForm.setMessage(empName+" granted as administrator");
+				erForm.setMessage(empName + " granted as administrator");
 				erForm.setMessagecolor("green");
 			} else {
-				erForm.setMessage("Failed to grant "+empName+" as administrator");
+				erForm.setMessage("Failed to grant " + empName
+						+ " as administrator");
 				erForm.setMessagecolor("red");
-			}			
-			
+			}
+
 			String json = gson.toJson(erForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
 			return null;
 		}
 		if ("delete".equals(erForm.getTask())) {
-			//System.out.println("PAram Delete "+erForm.getParam());
 			String empName = erMan.getEmpName(erForm.getParam());
 			if (erMan.deleteRoleAdmin(erForm.getParam())) {
-				erForm.setMessage(empName+" revoked as administrator");
+				erForm.setMessage(empName + " revoked as administrator");
 				erForm.setMessagecolor("green");
 			} else {
-				erForm.setMessage("Failed to revoke "+empName+" as administrator");
+				erForm.setMessage("Failed to revoke " + empName
+						+ " as administrator");
 				erForm.setMessagecolor("red");
 			}
 			String json = gson.toJson(erForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
-			
+
 			return null;
 		}
 		if ("updateRoleMenu".equals(erForm.getTask())) {
-			 Map params = new HashMap();
-			 params = gson.fromJson(request.getParameter("params"),HashMap.class);
-			 params.put("roleId", params.get("roleId").toString());
-			 String roleName = erMan.getRoleName(params.get("roleId").toString());
-			 if (erMan.deleteRoleMenu(params)) {
-				 String message = "";
-				 for (String item : (Iterable<String>) params.get("listMenu")) {					 
-					 params.put("menuId", item);
-					 String menuName = erMan.getMenuName(item);
-					 if (erMan.insertRoleMenu(params)) {
-						 message += menuName + " add to role " + roleName +"<br />";
-					 } else {
-						 message += "Oops, there is something wrong to add" +menuName+ " to role " + roleName +"<br />";
-					 }
-					 
-				 } 
-				 erForm.setMessage(message);
-				 erForm.setMessagecolor("green");
-			 } else {
-				 erForm.setMessage("Ooops, there is something wrong.");
-				 erForm.setMessagecolor("red");
-			 }
-			
-			 String json = gson.toJson(erForm);
-			 PrintWriter out = response.getWriter();
-			 out.print(json);
-			 
-			 return null;
+			Map params = new HashMap();
+			params = gson.fromJson(request.getParameter("params"),
+					HashMap.class);
+			params.put("roleId", params.get("roleId").toString());
+			String roleName = erMan
+					.getRoleName(params.get("roleId").toString());
+			if (erMan.deleteRoleMenu(params)) {
+				String message = "";
+				for (String item : (Iterable<String>) params.get("listMenu")) {
+					params.put("menuId", item);
+					String menuName = erMan.getMenuName(item);
+					if (erMan.insertRoleMenu(params)) {
+						message += menuName + " add to role " + roleName
+								+ "<br />";
+					} else {
+						message += "Oops, there is something wrong to add"
+								+ menuName + " to role " + roleName + "<br />";
+					}
+
+				}
+				erForm.setMessage(message);
+				erForm.setMessagecolor("green");
+			} else {
+				erForm.setMessage("Ooops, there is something wrong.");
+				erForm.setMessagecolor("red");
+			}
+			String json = gson.toJson(erForm);
+			PrintWriter out = response.getWriter();
+			out.print(json);
+			return null;
 		}
-		
+
 		Map params = new HashMap();
-		
+
 		if (erForm.getPage() == null) {
 			erForm.setPage(1);
 		}
-		
+
 		if ("first".equals(erForm.getMode())) {
 			erForm.setPage(1);
 		}
@@ -154,17 +155,17 @@ public class ManageRoleAction extends Action {
 			erForm.setMaxpage(((int) Math.ceil(erForm.getCountRecord() / 10)) + 1);
 		}
 
-		if ("listMember".equals(erForm.getTask())) {;
+		if ("listMember".equals(erForm.getTask())) {
 			erForm.setRoleName(erMan.getRoleName(erForm.getParam()));
 			erForm.setListMember(erMan.searchListMember(params));
 			return mapping.findForward("ListMemberRole");
 		}
-		
+
 		if ("home".equals(erForm.getTask())) {
 			erForm.setListRole(erMan.searchListRole());
 			return mapping.findForward("ListRole");
 		}
-		
+
 		erForm.setListRole(erMan.searchListRole());
 		return mapping.findForward("ListRole");
 	}
