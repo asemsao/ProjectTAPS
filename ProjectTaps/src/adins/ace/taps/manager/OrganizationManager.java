@@ -70,4 +70,25 @@ public class OrganizationManager {
 			}
 		}
 	}
+	
+	public boolean deleteOrganization(String organizationCode) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.delete("organization.deleteOrganization", organizationCode);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				flag = false;
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
 }

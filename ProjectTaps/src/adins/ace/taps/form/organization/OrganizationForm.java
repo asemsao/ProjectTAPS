@@ -8,6 +8,7 @@ import adins.ace.taps.bean.organization.OrganizationBean;
 
 @SuppressWarnings("serial")
 public class OrganizationForm extends ActionForm {
+	private String organizationCode;
 	private String task;
 	private String search;
 	private String value;
@@ -98,6 +99,14 @@ public class OrganizationForm extends ActionForm {
 
 	public void setCountRecord(Integer countRecord) {
 		this.countRecord = countRecord;
+	}
+
+	public String getOrganizationCode() {
+		return organizationCode;
+	}
+
+	public void setOrganizationCode(String organizationCode) {
+		this.organizationCode = organizationCode;
 	}
 
 }

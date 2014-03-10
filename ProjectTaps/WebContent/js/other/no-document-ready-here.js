@@ -3,7 +3,7 @@ function confDel() {
 		overlay : true,
 		shadow : true,
 		flat : true,
-		icon : '<img src="../images/LOGO_Taps6.png">',
+		icon : '<img src="images/LOGO_Taps6.png">',
 		title : 'Flat window',
 		content : '',
 		padding : 50,
@@ -13,6 +13,11 @@ function confDel() {
 			$.Metro.initInputs();
 		}
 	});
+}
+
+function deleteBtn() {
+	$("#task").val("delete");
+	$("#CRUDForm").submit();
 }
 
 function appraisalBtn() {

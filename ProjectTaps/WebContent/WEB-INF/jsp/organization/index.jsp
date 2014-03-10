@@ -29,6 +29,10 @@
 			$("#task").val("last");
 			$("#organizationForm").submit();
 		});
+		$(".delete-link").click(function() {
+			$("#deleteId").html($(this).attr('alt').trim());
+			$("#organizationCode").val($(this).attr('alt').trim());
+		});
 	});
 </script>
 <title>Organization</title>
@@ -40,10 +44,12 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/organization" method="post"
-					styleId="organizationForm">
+					styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode"
+						name="organizationForm" />
 
 					<table class="table striped bordered hovered">
 						<thead>
@@ -94,8 +100,11 @@
 										<td class="text-center"><a href="new.jsp"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="javascript:confDel()"
-											data-hint="Delete Organization" data-hint-position="bottom"><img
+										<td class="text-center"><a class="delete-link"
+											href="javascript:confDel()" data-hint="Delete Organization"
+											data-hint-position="bottom"
+											alt="<bean:write name="organization"
+												property="organizationCode" />"><img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>
 								</logic:iterate>
@@ -125,6 +134,14 @@
 							</tr>
 						</tbody>
 					</table>
+					<div id="popup_delete" class="hide">
+						<div class='span3'>
+							Are you sure want to delete <span id="deleteId"></span>? <br />
+							<br /> <br /> <br /> <br />
+							<button id="delete" class="danger float-right"
+								onclick="javascript:deleteBtn();">Delete</button>
+						</div>
+					</div>
 				</html:form>
 			</div>
 		</div>

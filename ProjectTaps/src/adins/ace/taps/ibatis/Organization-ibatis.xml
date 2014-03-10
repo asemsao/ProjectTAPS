@@ -28,8 +28,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		employees e
 		ON o.head_user_domain =
 		e.user_domain
-		AND
-		LOWER(e.flag) =
+		WHERE
+		LOWER(o.flag) =
 		'active'
 		START
 		WITH
@@ -59,8 +59,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		employees e
 		ON o.head_user_domain =
 		e.user_domain
-		AND
-		LOWER(e.flag) =
+		WHERE
+		LOWER(o.flag) =
 		'active'
 		START WITH
 		o.organization_code = 'MAN'
@@ -90,12 +90,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		organization_code = $organizationCode$
 	</update>
 
-	<delete id="deleteOrganization" parameterClass="int">
+	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE
 		organizations SET
 		flag = 'INACTIVE'
 		WHERE organization_code =
-		$organization_code$
+		#organization_code#
 	</delete>
 
 </sqlMap>

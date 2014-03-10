@@ -30,6 +30,18 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
+		if ("delete".equals(orgForm.getTask())) {
+			// tolong di validasi tree dan employee, di validasi di manager atau
+			// disini seterah
+			orgForm.setPage(1);
+			if (orgMan.deleteOrganization(orgForm.getOrganizationCode())) {
+				System.out.println("Sukses");
+			} else {
+				System.out.println("Gagal");
+			}
+			System.out.println("kasih notif ya yang ngerjain");
+		}
+		
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
@@ -51,7 +63,7 @@ public class OrganizationAction extends Action {
 		if ("search".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
-		
+
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
 
