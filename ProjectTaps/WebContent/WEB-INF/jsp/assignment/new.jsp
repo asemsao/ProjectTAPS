@@ -16,8 +16,21 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newAssignmentForm.newTask.value = task;
+		alert(document.getElementsByName("assignment_type"));
 		document.newAssignmentForm.submit();
 	}
+	
+// 	function getRadioValue(theRadioGroup)
+// 	{
+// 	    var elements = document.getElementsByName(theRadioGroup);
+// 	    for (var i = 0, l = elements.length; i < l; i++)
+// 	    {
+// 	        if (elements[i].checked)
+// 	        {
+// 	            return elements[i].value;
+// 	        }
+// 	    }
+// 	}
 </script>
 
 </head>

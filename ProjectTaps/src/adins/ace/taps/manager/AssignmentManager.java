@@ -203,4 +203,25 @@ public class AssignmentManager {
 		}
 		return success;
 	}
+	
+	public boolean addSelfAssignment(NewAssignmentBean bean) {
+		boolean success = true;
+
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addSelfAssignment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed to add self assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
 }
