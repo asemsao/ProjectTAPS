@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="assignment">
+	<select id="employeeReportSupervisor" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean" parameterClass="java.util.Map">
+		SELECT * FROM (
+			SELECT ROWNUM seqnumb, a.* FROM (
+				SELECT to_char(a.assignment_date,'DD-MM-YYYY, HH:MM') AS assignmentDate, 
+					a.task_code AS assignmentCode,
+					a.assignment_category AS assignmentCategory, 
+					e.first_name || ' ' || e.last_name AS fullName,
+					to_char(a.created_date,'DD-MM-YYYY, HH:MM') AS createdDate,
+					to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+					a.current_status AS currentStatus
+				FROM assignments a 
+				LEFT JOIN employees e
+				ON LOWER(a.flag)='active' and report_to = 'DOMAIN205' 
+				WHERE a.assign_to = e.user_domain 
+				<dynamic prepend="AND">
+					<isNotNull property="value">
+						<isNotEmpty property="value">
+							<isEqual property="search" compareValue="taskCode">LOWER(a.task_code)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="taskType">LOWER(a.assignment_category)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="employee">
+								(LOWER(e.first_name) LIKE LOWER ('%$value$%') OR
+								LOWER(e.last_name) LIKE LOWER ('%$value$%'))
+							</isEqual>
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+<!-- 				<dynamic prepend="AND"> -->
+<!-- 					<isNotNull property="startDate"> -->
+<!-- 						<isNotNull property="endDate"> -->
+<!-- 							<isNotEmpty property="startDate"> -->
+<!-- 								<isNotEmpty property="endDate"> -->
+<!-- 									assignment_date BETWEEN TO_DATE(startDate,'') AND TO_DATE(endDate,'') -->
+<!-- 								</isNotEmpty> -->
+<!-- 							</isNotEmpty> -->
+<!-- 						</isNotNull> -->
+<!-- 					</isNotNull> -->
+<!-- 				</dynamic> -->
+				ORDER BY a.created_date
+			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+	</select>
+	
+<!-- insert current_status bergantung pada pilihan save(draft) dan assign(claim) -->
+	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		INSERT INTO assignments 
+		(task_code, assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
+		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
+		VALUES
+		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
+		#description#, #reffTaskCode#, 'ADHOC', #adhocUserDomain#, #assignTo#, #reportTo#, 'INACTIVE', #currentStatus#, 
+		#createBy#, SYSDATE)
+	</insert>
+
+	<insert id="addSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		INSERT INTO assignments 
+		(task_code,assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
+		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
+		VALUES
+		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
+		#description#, #reffTaskCode#, #activityType#, #adhocUserDomain#, #assignTo#, #reportTo#, #flag#, #currentStatus#, 
+		#createBy#, SYSDATE)
+	</insert>
+	
+<!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
+<!-- 	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean"> -->
+<!-- 		UPDATE assignments SET  -->
+<!-- 			assignment_date = #assignmentDate#,  -->
+<!-- 			assignment_due_date = #assignmentDueDate#,  -->
+<!-- 			assignment_type = #assignmentType#,  -->
+<!-- 			assignment_category = #assignmentCategory#,  -->
+<!-- 			organization_code = #organizationCode#,  -->
+<!-- 			project_code = #projectCode#,  -->
+<!-- 			description = #description#,  -->
+<!-- 			reff_task_code = #reffTaskCode#,  -->
+<!-- 			activity_type = #activityType#,  -->
+<!-- 			adhoc_user_domain = #adhocUserDomain#,  -->
+<!-- 			assign_to = #assignTo#,  -->
+<!-- 			report_to = #reportTo#,  -->
+<!-- 			flag = 'INACTIVE',  -->
+<!-- 			current_status = #currentStatus#,  -->
+<!-- 			created_by = #createdBy#,  -->
+<!-- 			created_date = SYSDATE -->
+<!-- 	</update> -->
+	
+	
+</sqlMap>
