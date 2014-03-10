@@ -12,10 +12,14 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 
 @SuppressWarnings("serial")
 public class EmployeeForm extends ActionForm{
+	private String employeeDomain;
 	private String task;
 	private String searchKeyword;
 	private String searchCategory;
 	private FormFile profilePicture;
+	private Integer page;
+	private Integer maxpage;
+	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	public String getTask() {
@@ -54,4 +58,32 @@ public class EmployeeForm extends ActionForm{
 	public void setProfilePicture(FormFile profilePicture) {
 		this.profilePicture = profilePicture;
 	}
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getMaxpage() {
+		return maxpage;
+	}
+
+	public void setMaxpage(Integer maxpage) {
+		this.maxpage = maxpage;
+	}
+	public Integer getCountRecord() {
+		return countRecord;
+	}
+
+	public void setCountRecord(Integer countRecord) {
+		this.countRecord = countRecord;
+	}
+	public String getEmployeeDomain() {
+		return employeeDomain;
+	}
+	public void setEmployeeDomain(String employeeDomain) {
+		this.employeeDomain = employeeDomain;
+	}	
 }

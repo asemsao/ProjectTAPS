@@ -3,6 +3,7 @@ package adins.ace.taps.manager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
@@ -37,11 +38,11 @@ public class EmployeeManager {
 		return flag;
 	}
 	
-	public List getAllEmployees(){
+	public List getAllEmployees(Map params){
 		List empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empList = ibatisSqlMap.queryForList("employee.getAllEmployees", null);			
+			empList = ibatisSqlMap.queryForList("employee.getAllEmployees", params);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
@@ -52,5 +53,24 @@ public class EmployeeManager {
 			}
 		}
 		return empList;		
+	}
+	
+	public Integer countEmployees(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"employee.countEmployees", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 }
