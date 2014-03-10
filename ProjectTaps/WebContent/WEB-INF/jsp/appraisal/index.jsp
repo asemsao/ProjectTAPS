@@ -14,6 +14,11 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
+	function flyToPage(task, param) {
+		document.specialAppraisalForm.task.value = task;
+		document.specialAppraisalForm.param.value = param;
+		document.specialAppraisalForm.submit();
+	}
 </script>
 <jsp:include page="/js/import.jsp" />
 
@@ -53,7 +58,7 @@
 										<td class="text-center"><bean:write
 												name="specialAppraisal" property="appraisalStar" /></td>
 										<td class="text-center"><a
-											href="javascript:flyToPage('View');"
+											href="javascript:flyToPage('View','<bean:write name="specialAppraisal" property="userDomain" />');"
 											data-hint="View Special Appraisal"
 											data-hint-position="bottom"><img alt=""
 												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
@@ -88,9 +93,8 @@
 									</div>
 								</td>
 								<td class="text-center"><a
-											href="javascript:flyToPage('New');"
-											data-hint="View Special Appraisal"
-											data-hint-position="bottom"><img
+									href="javascript:flyToPage('New');"
+									data-hint="View Special Appraisal" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/ADD_STAR.png"></a></td>
 							</tr>
 						</tbody>
@@ -100,6 +104,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="specialAppraisalForm" />
+		<html:hidden property="param" name="specialAppraisalForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

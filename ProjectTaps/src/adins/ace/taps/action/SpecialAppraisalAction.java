@@ -30,6 +30,7 @@ public class SpecialAppraisalAction extends Action {
 			return mapping.findForward("New");
 		}		
 		if("View".equals(mForm.getTask())){
+			mForm.setListSpecialAppraisal(mMan.ViewSpecialAppraisal(mForm.getParam()));
 			return mapping.findForward("View");
 		}
 		if("Back".equals(mForm.getTask())){

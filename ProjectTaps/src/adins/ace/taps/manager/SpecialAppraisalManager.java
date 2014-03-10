@@ -63,6 +63,25 @@ public class SpecialAppraisalManager {
 		}
 		return list;
 	}
+	
+	public List ViewSpecialAppraisal(String userDomain)
+	{
+		List projectMemberList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			projectMemberList = ibatisSqlMap.queryForList("SpecialAppraisal.ViewSpecialAppraisal", userDomain);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return projectMemberList;	
+	}
+	
 //	
 //	public void Insert(SpecialAppraisalBean Bean){
 //		try {

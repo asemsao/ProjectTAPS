@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	
+
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -37,18 +37,21 @@
 							<tr>
 								<td class="size3">Appraisal Date</td>
 								<td>:</td>
-								<td>25/02/2014</td>
+								<td><bean:write name="specialAppraisal"
+										property="createdDate" /></td>
 							</tr>
 							<tr>
 								<td class="size3">Appraisal To</td>
 								<td>:</td>
-								<td>Devri</td>
+								<td><bean:write name="specialAppraisal"
+										property="employeeName" /></td>
 							</tr>
 							<tr>
 								<td class="size3">Appraisal Description</td>
 								<td>:</td>
-								<td>UI UI UI</td>
-							</tr>
+								<td><td><bean:write name="specialAppraisal"
+										property="description" />
+							</td></tr>
 							<tr>
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
@@ -71,12 +74,10 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="text-right">
-									<html:button
+								<td colspan="3" class="text-right"><html:button
 										property="back" onclick="javascript:flyToPage('Back');"
-										styleClass="button success">Back</html:button>
-								</td>
-										
+										styleClass="button success">Back</html:button></td>
+
 							</tr>
 						</tbody>
 					</table>
