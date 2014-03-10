@@ -63,13 +63,11 @@
 										</html:select>
 									</div>
 								</th>
+
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
 										<html:text property="value" name="employeeReportForm"></html:text>
-										<html:button property="btnSearch" styleClass="btn-search"
-											onclick="javascript:flyToPage('search');"></html:button>
-										<%-- 									<html:text property="value" name="employeeReportForm" --%>
-										<%-- 										placeholder="Keyword of Assignment"></html:text> --%>
+										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -126,16 +124,18 @@
 										</ul>
 									</div>
 								</td>
-								<td colspan=2 class="text-right"><a href="new_s.jsp"
+								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
 									data-hint="New Self Assignment" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
 							</tr>
 						</tbody>
+
 					</table>
 				</div>
 			</div>
 		</div>
+		<html:hidden property="task" name="employeeReportForm"/>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

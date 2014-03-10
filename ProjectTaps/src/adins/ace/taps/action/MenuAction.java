@@ -46,7 +46,7 @@ public class MenuAction extends Action {
 		}
 		
 		if("employeeReportSupervisor".equals(mForm.getTask())){
-			return mapping.findForward("employeeReportSupervisor");
+			return mapping.findForward("EmployeeReportSupervisor");
 		}
 		
 		if ("appraisal".equals(mForm.getTask())) {
