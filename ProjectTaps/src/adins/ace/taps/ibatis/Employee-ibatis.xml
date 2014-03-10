@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="employee">
+	<select id="getAllEmployees" 
+		resultClass="adins.ace.taps.bean.employee.EmployeeBean">
+		SELECT EMPLOYEE_CODE AS employeeCode, USER_DOMAIN AS userDomain, 
+		EMPLOYEE_NIK AS nik, FIRST_NAME||' '||LAST_NAME AS employeeName, 
+		ADDRESS AS employeeAddress FROM EMPLOYEES
+	</select>
+</sqlMap>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="project">
+	<select id="getAllProject" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.project.ProjectBean">
+		SELECT
+			p.project_code AS projectCode,
+			p.project_name AS ProjectName,
+			p.client AS client,
+			p.organization_code AS organizationCode,
+			ph.phase AS phase,
+			p.start_date AS startDate,
+			p.end_date AS endDate,
+			(TRUNC(SYSDATE) - p.start_date) AS runningDay
+		FROM projects p, phase ph
+		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active';
+	</select>
+	
+	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" >
+		INSERT INTO projects 
+			(project_code,
+			project_name,
+			client,
+			phase_id,
+			organization_code,
+			start_date,
+			end_date,
+			flag,
+			created_by,
+			created_date)
+		VALUES 
+			(#projectCode#,
+			#projectName#,
+			#client#,
+			#phase#,
+			#organizationCode#,
+			#startDate#,
+			#endDate#,
+			'ACTIVE',
+			#session.userDomain#,
+			sysdate);
+	</insert>
+	
+</sqlMap>

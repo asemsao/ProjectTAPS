@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+
+	<transactionManager type="JDBC" commitRequired="true">
+		<property name="UserTransaction" value="java:comp/UserTransaction" />
+
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="oracle.jdbc.OracleDriver" />
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xe" />
+			<property name="JDBC.Username" value="hr" />
+			<property name="JDBC.Password" value="hr" />
+			<property name="JDBC.DefaultAutoCommit" value="true" />
+		</dataSource>
+
+	</transactionManager>
+
+	<sqlMap resource="adins/ace/ibatis/employee-ibatis-cfg.xml" />
+
+</sqlMapConfig>

@@ -1,0 +1,101 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	background-color: #e3e3e3;
+	background-image: url('../images/bg.jpg');
+	background-attachment: fixed;
+}
+
+.clear {
+	clear: both;
+}
+
+.logo {
+	height: 25px;
+}
+
+.avatar {
+	height: 160px;
+	width: 160px;
+	margin-bottom: 10px;
+}
+
+.float-right {
+	float: right;
+}
+
+.header-taps {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+}
+
+.footer-taps {
+	margin: 10px auto;
+	text-align: center;
+	color: #666;
+	font-family: Calibri;
+	font-size: 0.8em;
+}
+
+.mini-padding {
+	padding-left: 20px;
+}
+
+.hide {
+	display: none;
+}
+
+.in-bl {
+	display: inline-block;
+}
+
+textarea {
+	font-family: 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica,
+		sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	cursor: text;
+}
+
+.row-taps {
+	padding: 20px;
+	padding-top: 0px;
+	background-color: #fff;
+}
+
+.center-taps {
+	float: none !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.left-taps {
+	float: left !important;
+}
+
+.right-taps {
+	float: right !important;
+}
+
+.chart-report {
+	width: 640px;
+	height: 480px;
+	background-color: white;
+}
+
+.shadow-taps {
+	-webkit-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
+	-moz-box-shadow:    2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
+	box-shadow:         2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
+}
+
+.container-taps {
+	padding-top: 40px;
+}
+
+.span-ranking-taps {
+	width: 540px;
+	margin-left: 0px !important;
+	margin-right: 10px;
+}

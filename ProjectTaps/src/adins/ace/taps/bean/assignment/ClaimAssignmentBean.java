@@ -1,0 +1,121 @@
+package adins.ace.taps.bean.assignment;
+
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class ClaimAssignmentBean implements Serializable{
+	private String assignmentDate;
+	private String assignmentDueDate;
+	private String assignmentType;
+	private String assignTo;
+	private String createdBy;
+	private String createdDate;
+	private String reffTaskCode;
+	private String taskCode;
+	private String description;
+	private String detailId;
+	private String claimDate;
+	private String detailDescription;
+	private String manhour;
+	private String updatedBy;
+	private String updatedDate;
+	private String comment;
+	
+	public String getAssignmentDate() {
+		return assignmentDate;
+	}
+	public void setAssignmentDate(String assignmentDate) {
+		this.assignmentDate = assignmentDate;
+	}
+	public String getAssignmentDueDate() {
+		return assignmentDueDate;
+	}
+	public void setAssignmentDueDate(String assignmentDueDate) {
+		this.assignmentDueDate = assignmentDueDate;
+	}
+	public String getAssignmentType() {
+		return assignmentType;
+	}
+	public void setAssignmentType(String assignmentType) {
+		this.assignmentType = assignmentType;
+	}
+	public String getAssignTo() {
+		return assignTo;
+	}
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+	public String getReffTaskCode() {
+		return reffTaskCode;
+	}
+	public void setReffTaskCode(String reffTaskCode) {
+		this.reffTaskCode = reffTaskCode;
+	}
+	public String getTaskCode() {
+		return taskCode;
+	}
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getDetailId() {
+		return detailId;
+	}
+	public void setDetailId(String detailId) {
+		this.detailId = detailId;
+	}
+	public String getClaimDate() {
+		return claimDate;
+	}
+	public void setClaimDate(String claimDate) {
+		this.claimDate = claimDate;
+	}
+	public String getDetailDescription() {
+		return detailDescription;
+	}
+	public void setDetailDescription(String detailDescription) {
+		this.detailDescription = detailDescription;
+	}
+	public String getManhour() {
+		return manhour;
+	}
+	public void setManhour(String manhour) {
+		this.manhour = manhour;
+	}
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+}

@@ -1,0 +1,123 @@
+@media only screen and (max-width: 800px) {
+	table {
+		margin-bottom: 0;
+	}
+	div.table-wrapper {
+		position: relative;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-right: 1px solid #ccc;
+	}
+	div.table-wrapper div.scrollable table {
+		margin-left: 0%;
+	}
+	div.table-wrapper div.scrollable {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+	table td,table th {
+		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+		font-size: 50%;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	table {
+		margin-bottom: 0;
+	}
+	div.table-wrapper {
+		position: relative;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-right: 1px solid #ccc;
+	}
+	div.table-wrapper div.scrollable table {
+		margin-left: 0%;
+	}
+	div.table-wrapper div.scrollable {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+	table td,table th {
+		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+		font-size: 50%;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	table {
+		margin-bottom: 0;
+	}
+	div.table-wrapper {
+		position: relative;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-right: 1px solid #ccc;
+	}
+	div.table-wrapper div.scrollable table {
+		margin-left: 0%;
+	}
+	div.table-wrapper div.scrollable {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+	table td,table th {
+		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+		font-size: 50%;
+	}
+}
+
+@media only screen and (max-width: 360px) {
+	table {
+		margin-bottom: 0;
+	}
+	div.table-wrapper {
+		position: relative;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-right: 1px solid #ccc;
+	}
+	div.table-wrapper div.scrollable table {
+		margin-left: 0%;
+	}
+	div.table-wrapper div.scrollable {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+	table td,table th {
+		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+		font-size: 50%;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	table {
+		margin-bottom: 0;
+	}
+	div.table-wrapper {
+		position: relative;
+		margin-bottom: 20px;
+		overflow: hidden;
+		border-right: 1px solid #ccc;
+	}
+	div.table-wrapper div.scrollable table {
+		margin-left: 0%;
+	}
+	div.table-wrapper div.scrollable {
+		overflow: scroll;
+		overflow-y: hidden;
+	}
+	table td,table th {
+		position: relative;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+}
