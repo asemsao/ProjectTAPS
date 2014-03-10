@@ -4,10 +4,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
-	<select id="getAllEmployees" 
-		resultClass="adins.ace.taps.bean.employee.EmployeeBean">
-		SELECT EMPLOYEE_CODE AS employeeCode, USER_DOMAIN AS userDomain, 
-		EMPLOYEE_NIK AS nik, FIRST_NAME||' '||LAST_NAME AS employeeName, 
-		ADDRESS AS employeeAddress FROM EMPLOYEES
+	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean">
+		SELECT EMPLOYEE_CODE AS
+		employeeCode, USER_DOMAIN AS userDomain,
+		EMPLOYEE_NIK AS nik,
+		FIRST_NAME||' '||LAST_NAME AS employeeName,
+		ADDRESS AS employeeAddress
+		FROM EMPLOYEES
+	</select>
+	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+		INSERT INTO
+		employees(user_domain, employee_nik, employee_code, first_name,
+		last_name, gender,
+		organization_code, address, phone_number,
+		mobile_phone, email,
+		employee_category, flag, created_by, created_date, updated_by,updated_date)
+		VALUES(#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
+		#gender#,'MAN',#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
+		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE,'DOMAIN201',SYSDATE)
 	</select>
 </sqlMap>
