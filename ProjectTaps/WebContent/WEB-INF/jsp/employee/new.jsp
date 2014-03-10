@@ -42,7 +42,7 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 
-	<html:form action="/employee" method="post" styleClass="employeeForm">
+	<html:form enctype="multipart/form-data" action="/employee" method="post" styleClass="employeeForm">
 		<html:hidden property="task" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -127,7 +127,7 @@
 									<div class="input-control text ">
 										<html:text property="newEmployee.businessUnit"
 											name="employeeForm" styleId="businessUnit" readonly="true"></html:text>
-										<button class="btn-search" id="organization"></button>
+										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
 							</tr>
