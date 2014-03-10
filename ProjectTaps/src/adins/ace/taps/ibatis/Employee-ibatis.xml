@@ -24,12 +24,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
-		employees(user_domain, employee_nik, employee_code, first_name,
-		last_name, gender,
-		organization_code, address, phone_number,
+		employees(picture, user_domain, employee_nik, employee_code, first_name,
+		last_name, gender, organization_code, address, phone_number,
 		mobile_phone, email,
 		employee_category, flag, created_by, created_date, updated_by,updated_date)
-		VALUES(#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
+		VALUES(#profilePicture#,#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
 		#gender#,'MAN',#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
 		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE,'DOMAIN201',SYSDATE)
 	</select>

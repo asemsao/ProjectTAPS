@@ -12,9 +12,11 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.upload.FormFile;
 
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.module.PhotoResizeModule;
 
 public class EmployeeAction extends Action {
 	@Override
@@ -40,6 +42,13 @@ public class EmployeeAction extends Action {
 		}
 		else if("saveNewEmployee".equals(mForm.getTask())){
 			boolean flag=false;
+			//Resize Photo
+			PhotoResizeModule resizePhoto = new PhotoResizeModule();
+			FormFile filepic = mForm.getProfilePicture();
+			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
+			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
+			mForm.getNewEmployee().setProfilePicture(result);
+			System.out.println(mForm.getNewEmployee().getProfilePicture());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}

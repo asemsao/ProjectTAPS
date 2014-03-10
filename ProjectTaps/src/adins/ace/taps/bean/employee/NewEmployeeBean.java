@@ -2,8 +2,6 @@ package adins.ace.taps.bean.employee;
 
 import java.io.Serializable;
 
-import org.apache.struts.upload.FormFile;
-
 public class NewEmployeeBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String task;
@@ -20,7 +18,7 @@ public class NewEmployeeBean implements Serializable {
 	private String email;
 	private String golonganNumber;
 	private String golonganLevel;
-	private FormFile profilePicture;
+	private byte[] profilePicture;
 	private String flag;
 	private String createBy;
 	private String createDate;
@@ -110,12 +108,6 @@ public class NewEmployeeBean implements Serializable {
 	public void setGolonganLevel(String golonganLevel) {
 		this.golonganLevel = golonganLevel;
 	}
-	public FormFile getProfilePicture() {
-		return profilePicture;
-	}
-	public void setProfilePicture(FormFile profilePicture) {
-		this.profilePicture = profilePicture;
-	}
 	public String getFlag() {
 		return flag;
 	}
@@ -145,5 +137,11 @@ public class NewEmployeeBean implements Serializable {
 	}
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
+	}
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 }
