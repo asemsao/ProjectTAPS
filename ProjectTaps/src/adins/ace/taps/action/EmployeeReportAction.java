@@ -29,8 +29,8 @@ public class EmployeeReportAction extends Action {
 				if (eForm.getPage() == null) {
 					eForm.setPage(1);
 				}
-
-				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearch(), eForm.getValue()));
+	
+				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
@@ -48,7 +48,7 @@ public class EmployeeReportAction extends Action {
 					 eForm.setPage(1);
 				 }
 			
-				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearch(), eForm.getValue()));
+				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
 				 return mapping.findForward("SearchAssignment");
 			}
 			
@@ -64,7 +64,7 @@ public class EmployeeReportAction extends Action {
 					eForm.setPage(1);
 				}
 			
-				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearch(), eForm.getValue()));
+				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");

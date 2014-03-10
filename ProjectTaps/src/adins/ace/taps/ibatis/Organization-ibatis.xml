@@ -48,8 +48,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM (
 		SELECT LPAD
 		(o.organization_code,LENGTH
-		(o.organization_code) + (LEVEL * 2) - 2,'
-		')
+		(o.organization_code) + (LEVEL * 2) - 2,'-')
 		AS organizationCode,
 		o.organization_name AS organizationName,
 		e.first_name || ' ' || e.last_name AS headName

@@ -4,13 +4,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
-	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean">
-		SELECT EMPLOYEE_CODE AS
-		employeeCode, USER_DOMAIN AS userDomain,
-		EMPLOYEE_NIK AS nik,
+	<select id="countEmployees" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		FROM employees e
+	</select>
+	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean"
+	parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT EMPLOYEE_CODE AS
+		employeeCode, USER_DOMAIN AS employeeDomain,
+		EMPLOYEE_NIK AS employeeNik,
 		FIRST_NAME||' '||LAST_NAME AS employeeName,
 		ADDRESS AS employeeAddress
-		FROM EMPLOYEES
+		FROM EMPLOYEES) a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
