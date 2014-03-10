@@ -164,7 +164,7 @@
 		</div>
 	</div>
 
-	<div id="lookUpOrganization">
+	<div id="lookUpOrganization" class="hide">
 		<html:form action="/organization" method="post">
 			<html:hidden property="task" styleId="task" name="organizationForm"
 				value="next-ajax" />
@@ -192,7 +192,7 @@
 						<th class="text-center" colspan=3>
 							<div class="input-control text">
 								<html:text property="value" name="organizationForm"
-									styleId="value"></html:text>
+									styleId="value" value="devririza"></html:text>
 								<button type="button" id="searchOrganizationOnLookUp"
 									class="btn-search"></button>
 							</div>
@@ -241,17 +241,20 @@
 						<th colspan=3 class="text-center">
 							<div class="pagination">
 								<ul>
-									<li class="first"><a id="first-ajax"><i
+									<li class="first"><a id="first-ajax"
+										onclick="javascript:firstOrganization();"><i
 											class="icon-first-2"></i></a></li>
-									<li class="prev"><a id="prev-ajax"><i
-											class="icon-previous"></i></a></li>
+									<li class="prev"><a id="prev-ajax"
+										onclick="javascript:prevOrganization();"><i class="icon-previous"></i></a></li>
 									<li class="disabled"><a>Page <span id="current-page"><bean:write
 													name="organizationForm" property="page" /></span> of <span
 											id="max-page"> <bean:write name="organizationForm"
 													property="maxpage" /></span></a></li>
-									<li class="next-ajax"><a id="next-ajax"><i
+									<li class="next-ajax"><a id="next-ajax"
+										onclick="javascript:nextOrganization();"><i
 											class="icon-next"></i></a></li>
-									<li class="last"><a><i id="last-ajax"
+									<li class="last"><a id="last-ajax"
+										onclick="javascript:lastOrganization();"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
 											id="total-record"><bean:write name="organizationForm"
@@ -265,7 +268,6 @@
 					</tr>
 				</thead>
 			</table>
-
 		</html:form>
 	</div>
 
