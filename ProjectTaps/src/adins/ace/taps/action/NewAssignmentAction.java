@@ -25,17 +25,17 @@ public class NewAssignmentAction extends Action{
 			aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
 			System.out.println(success);
-			return mapping.findForward("add");
+			return mapping.findForward("SaveAssignment");
 		}
 		else if ("assign".equals(aForm.getTask())){
 			aForm.getAssignmentBean().setCurrentStatus("CLAIM");
 			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
 			System.out.println(success);
-			return mapping.findForward("add");
+			return mapping.findForward("AddAssignment");
 		}
 		else if ("cancel".equals(aForm.getTask())){
 			System.out.println("masuk cancel");
-			return mapping.findForward("employeeReportSupervisor");
+			return mapping.findForward("Cancel");
 		}
 		return mapping.findForward("add");
 	}

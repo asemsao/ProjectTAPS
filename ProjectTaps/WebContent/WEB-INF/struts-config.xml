@@ -49,13 +49,13 @@
 		</action>
 		<action name="employeeReportForm" path="/employeeReportTAPS"
 			scope="request" type="adins.ace.taps.action.EmployeeReportAction">
-			<forward name="EmployeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />
-			<forward name="add" path="/WEB-INF/jsp/assignment/new.jsp" />
+			<forward name="SearchAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="AddAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignmentTAPS"
 			scope="request" type="adins.ace.taps.action.NewAssignmentAction">
-			<forward name="employeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />
-			<forward name="add" path="/WEB-INF/jsp/assignment/new.jsp" />
+			<forward name="Cancel" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="SaveAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />
 		</action>
 	</action-mappings>
 

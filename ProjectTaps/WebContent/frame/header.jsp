@@ -28,7 +28,7 @@ function menu(task) {
     <li>
     <a class="dropdown-toggle element" href="#"><i class="icon-user-3"></i> Supervisor</a>
     <ul class="dropdown-menu" data-role="dropdown">
-    <li><a href="javascript:menu('assignment');"><span class="icon-clipboard-2"></span> Employee Report</a></li>
+    <li><a href="javascript:menu('employeeReportSupervisor');"><span class="icon-clipboard-2"></span> Employee Report</a></li>
     <li><a href="javascript:menu('assignment');"><span class="icon-list"></span> Assignment</a></li>
     </ul>
     </li>
