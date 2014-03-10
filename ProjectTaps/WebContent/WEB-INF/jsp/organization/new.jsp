@@ -41,6 +41,7 @@
 														success : function(data) {
 															var json = $
 																	.parseJSON(data);
+
 															var content = "<table ";
 											content += "class='table striped bordered hovered'>";
 															content += "<thead>";
@@ -59,20 +60,20 @@
 															content += "</tr>";
 															content += "</thead>";
 															content += "<tbody>";
-															for ( var i in json) {
+															for ( var i in json.listOrganizations) {
 																content += "<tr>";
 																content += "<td class='text-center'>";
 																content += "<input type='radio' name='organization_choose'";
-												content += "value='"+json[i].organizationCode+"' />";
+												content += "value='"+json.listOrganizations[i].organizationCode+"' />";
 																content += "</td>";
 																content += "<td>";
-																content += json[i].organizationCode;
+																content += json.listOrganizations[i].organizationCode;
 																content += "</td>";
 																content += "<td>";
-																content += json[i].organizationName;
+																content += json.listOrganizations[i].organizationName;
 																content += "</td>";
 																content += "<td>";
-																content += json[i].headName;
+																content += json.listOrganizations[i].headName;
 																content += "</td>";
 																content += "</tr>";
 															}
@@ -82,6 +83,15 @@
 																	"#table-ajax-organization")
 																	.html(
 																			content);
+															$("#current-page")
+																	.html(
+																			json.page);
+															$("#max-page")
+																	.html(
+																			json.maxpage);
+															$("#max-page")
+																	.html(
+																			json.countRecord);
 														}
 													});
 										});
@@ -235,15 +245,17 @@
 											class="icon-first-2"></i></a></li>
 									<li class="prev"><a id="prev-ajax"><i
 											class="icon-previous"></i></a></li>
-									<li class="disabled"><a>Page <bean:write
-												name="organizationForm" property="page" /> of <bean:write
-												name="organizationForm" property="maxpage" /></a></li>
+									<li class="disabled"><a>Page <span id="current-page"><bean:write
+													name="organizationForm" property="page" /></span> of <span
+											id="max-page"> <bean:write name="organizationForm"
+													property="maxpage" /></span></a></li>
 									<li class="next-ajax"><a id="next-ajax"><i
 											class="icon-next"></i></a></li>
 									<li class="last"><a><i id="last-ajax"
 											class="icon-last-2"></i></a></li>
-									<li class="disabled"><a>Total Record <bean:write
-												name="organizationForm" property="countRecord" /></a></li>
+									<li class="disabled"><a>Total Record <span
+											id="total-record"><bean:write name="organizationForm"
+													property="countRecord" /></span></a></li>
 								</ul>
 							</div>
 						</th>

@@ -11,6 +11,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
+<script>
+	function button(task) 
+	{
+		document.projectForm.task.value = task;
+		document.projectForm.submit();
+	}
+</script>
 
 <title>Project</title>
 </head>
@@ -55,7 +62,7 @@
 							<th class="text-center">Organization</th>
 							<th class="text-center">Phase</th>
 							<th class="text-center">Start Date</th>
-							<th class="text-center">Est Finish Date</th>
+							<th class="text-center">Finish Date</th>
 							<th class="text-center">Running (day)</th>
 							<th class="text-center">Structure</th>
 							<th class="text-center">Edit</th>
@@ -75,9 +82,9 @@
 								<td><bean:write name="project" property="endDate" /></td>
 								<td><bean:write name="project" property="runningDay" /></td>
 								<td class="text-center"><a href="structure.jsp"
-									data-hint="Member Project" data-hint-position="bottom"><img
+									data-hint="Project's Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
-								<td class="text-center"><a href="new.jsp"
+								<td class="text-center"><a href="javascript:button('edit')"
 									data-hint="Edit Project" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 								<td class="text-center"><a href="javascript:confDel()"
@@ -88,7 +95,7 @@
 						</logic:notEmpty>
 						<logic:empty name="projectForm" property="listProject">
 							<tr>
-								<td class="text-center" colspan="7">No Project</td>
+								<td class="text-center" colspan="7">No Project Available</td>
 							</tr>
 						</logic:empty>
 						<tr>
@@ -109,9 +116,11 @@
 								</div>
 							</td>
 
-							<td colspan=2 class="text-right"><a href="new.jsp"
+							<td colspan=2 class="text-right"><a href="javascript:button('new');"
 								data-hint="Add Project" data-hint-position="bottom"><img
 									alt="" src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
+									
+							<html:hidden property="task" styleId="task" name="projectForm" />
 						</tr>
 					</tbody>
 				</table>

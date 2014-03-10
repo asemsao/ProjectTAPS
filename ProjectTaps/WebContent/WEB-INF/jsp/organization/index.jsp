@@ -58,8 +58,7 @@
 						name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
-					<html:hidden property="organizationCode" styleId="organizationCode"
-						name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode" name="organizationForm" />
 
 					<table class="table striped bordered hovered">
 						<thead>
