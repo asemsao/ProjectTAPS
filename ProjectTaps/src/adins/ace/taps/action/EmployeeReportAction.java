@@ -36,6 +36,6 @@ public class EmployeeReportAction extends Action{
 			eForm.setPage(1);
 		}
 		eForm.setListAssignment(eMan.getListAssignment(eForm.getPage()));
-		return mapping.findForward("indexSupervisor");
+		return mapping.findForward("employeeReportSupervisor");
 	}
 }

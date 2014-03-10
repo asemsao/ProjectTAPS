@@ -35,7 +35,7 @@ public class NewAssignmentAction extends Action{
 		}
 		else if ("cancel".equals(aForm.getTask())){
 			System.out.println("masuk cancel");
-			return mapping.findForward("indexSupervisor");
+			return mapping.findForward("employeeReportSupervisor");
 		}
 		return mapping.findForward("add");
 	}
