@@ -89,7 +89,6 @@
 				onmouseout="unhover(this)" onclick="button('login')"></html:image>
 		</html:form>
 	</div>
-	<div class="footer-taps">Copyright &copy; 2014 ACE Batch-18. All
-		rights reserved.</div>
+	<div class="footer-taps">AdIns Taps Project. Copyright &copy; 2014 ACE Batch-18. All rights reserved.</div>
 </body>
 </html>
