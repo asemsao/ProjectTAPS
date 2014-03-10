@@ -30,17 +30,17 @@
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
-<!-- 				<dynamic prepend="AND"> -->
-<!-- 					<isNotNull property="startDate"> -->
-<!-- 						<isNotNull property="endDate"> -->
-<!-- 							<isNotEmpty property="startDate"> -->
-<!-- 								<isNotEmpty property="endDate"> -->
-<!-- 									assignment_date BETWEEN TO_DATE(startDate,'') AND TO_DATE(endDate,'') -->
-<!-- 								</isNotEmpty> -->
-<!-- 							</isNotEmpty> -->
-<!-- 						</isNotNull> -->
-<!-- 					</isNotNull> -->
-<!-- 				</dynamic> -->
+				<dynamic prepend="AND">
+					<isNotNull property="startDate">
+						<isNotNull property="endDate">
+							<isNotEmpty property="startDate">
+								<isNotEmpty property="endDate">
+									assignment_due_date BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY')
+								</isNotEmpty>
+							</isNotEmpty>
+						</isNotNull>
+					</isNotNull>
+				</dynamic>
 				ORDER BY a.created_date
 			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
 		)

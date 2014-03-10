@@ -44,7 +44,7 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignmentSupervisor(Integer page, String search, String value) {
+	public List searchAssignmentSupervisor(Integer page, String search, String value, String startDate, String endDate) {
 		List list = new ArrayList();
 		Map rowCount = new HashMap();
 
@@ -54,7 +54,9 @@ public class AssignmentManager {
 		rowCount.put("rowEnd", rowEnd);
 		rowCount.put("search", search);
 		rowCount.put("value", value);
-
+		rowCount.put("startDate", startDate);
+		rowCount.put("endDate", endDate);
+		
 		try {
 			ibatisSQLMap.startTransaction();
 			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", rowCount);
@@ -97,7 +99,7 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignmentEmployee(Integer page, String search, String value) {
+	public List searchAssignmentEmployee(Integer page, String search, String value, String startDate, String endDate) {
 		List list = new ArrayList();
 		Map rowCount = new HashMap();
 
@@ -107,7 +109,9 @@ public class AssignmentManager {
 		rowCount.put("rowEnd", rowEnd);
 		rowCount.put("search", search);
 		rowCount.put("value", value);
-
+		rowCount.put("startDate", startDate);
+		rowCount.put("endDate", endDate);
+		
 		try {
 			ibatisSQLMap.startTransaction();
 			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", rowCount);
@@ -150,7 +154,7 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignment(Integer page, String search, String value) {
+	public List searchAssignment(Integer page, String search, String value, String startDate, String endDate) {
 		List list = new ArrayList();
 		Map rowCount = new HashMap();
 
@@ -160,7 +164,9 @@ public class AssignmentManager {
 		rowCount.put("rowEnd", rowEnd);
 		rowCount.put("search", search);
 		rowCount.put("value", value);
-
+		rowCount.put("startDate", startDate);
+		rowCount.put("endDate", endDate);
+		
 		try {
 			ibatisSQLMap.startTransaction();
 			list = ibatisSQLMap.queryForList("assignment.listAssignment", rowCount);
