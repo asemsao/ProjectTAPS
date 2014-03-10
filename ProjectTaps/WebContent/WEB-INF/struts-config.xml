@@ -20,6 +20,7 @@
 		<action name="organizationForm" path="/organization" scope="request"
 			type="adins.ace.taps.action.OrganizationAction">
 				<forward name="ListOrganization" path="/WEB-INF/jsp/organization/index.jsp" />
+				<forward name="New" path="/WEB-INF/jsp/organization/new.jsp" />
 		</action>
 		<action name="employeeForm" path="/employee" scope="request"
 			type="adins.ace.taps.action.EmployeeAction">

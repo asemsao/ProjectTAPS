@@ -34,6 +34,15 @@
 			$("#organizationCode").val($(this).attr('alt').trim());
 		});
 	});
+	
+	function button(task) {
+		document.organizationForm.task.value = task;
+		document.organizationForm.submit();
+	}
+	
+	$(document).ready(function() {
+		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+	});
 </script>
 <title>Organization</title>
 </head>
@@ -97,7 +106,7 @@
 										<td class="text-center"><a href="structure.jsp"
 											data-hint="Member Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
-										<td class="text-center"><a href="new.jsp"
+										<td class="text-center"><a href="edit.jsp"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a class="delete-link"
@@ -127,10 +136,10 @@
 										</ul>
 									</div>
 								</td>
-								<td class="text-center"><a href="new.jsp"
-									data-hint="Add Organization" data-hint-position="bottom"><img
+								<td class="text-center"><a href="javascript:button('new');"
+									data-hint="Add Employee" data-hint-position="bottom"><img
 										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png"></a></td>
+										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
 							</tr>
 						</tbody>
 					</table>

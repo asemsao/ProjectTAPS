@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 
-<title>Add Organization</title>
+<title>Edit Organization</title>
 </head>
 
 <body class="metro">
@@ -21,7 +21,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="3">Add Organization</th>
+								<th colspan="3">Edit Organization</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -89,10 +89,10 @@
 			</div>
 		</div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide">
-	<jsp:include page="/lookup/_employee.jsp" /></div>
-	<div id="popup_organization" class="hide">
-	<jsp:include page="/lookup/_organization.jsp" /></div>
+	<div id="popup_employee" class="hide"><jsp:include
+			page="/lookup/_employee.jsp" /></div>
+	<div id="popup_organization" class="hide"><jsp:include
+			page="/lookup/_organization.jsp" /></div>
 </body>
 
 </html>
