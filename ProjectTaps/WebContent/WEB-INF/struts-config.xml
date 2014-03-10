@@ -4,7 +4,7 @@
 <struts-config>
 
 	<form-beans>
-		<form-bean name="projectForm" type="adins.ace.taps.form.report.ProjectForm" />
+		<form-bean name="projectForm" type="adins.ace.taps.form.project.ProjectForm" />
 		<form-bean name="reportForm" type="adins.ace.taps.form.report.ReportForm" />
 		<form-bean name="organizationForm" type="adins.ace.taps.form.organization.OrganizationForm" />
 		<form-bean name="employeeForm" type="adins.ace.taps.form.employee.EmployeeForm" />
@@ -18,6 +18,7 @@
 		<action name="projectForm" path="/project" scope="request"
 			type="adins.ace.taps.action.ProjectAction">
 				<forward name="ListProject" path="/WEB-INF/jsp/project/index.jsp" />
+				<forward name="AddProject" path="/WEB-INF/jsp/project/" />
 		</action>	
 		<action name="reportForm" path="/report" scope="request"
 			type="adins.ace.taps.action.ReportAction">
@@ -41,7 +42,7 @@
 				<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
 				<forward name="Employee" path="/employee.do" />
 				<forward name="Organization" path="/organization.do" />
-				<forward name="Project" path="/WEB-INF/jsp/project/index.jsp" />
+				<forward name="Project" path="/project.do" />
 				<forward name="Report" path="/WEB-INF/jsp/report/index.jsp" />
 				<forward name="Assignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 				<forward name="EmployeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />

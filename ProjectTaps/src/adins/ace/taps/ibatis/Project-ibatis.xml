@@ -4,18 +4,18 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="project">
-	<select id="getAllProject" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.project.ProjectBean">
+	<select id="getAllProject"  resultClass="adins.ace.taps.bean.project.ProjectBean">
 		SELECT
 			p.project_code AS projectCode,
 			p.project_name AS ProjectName,
 			p.client AS client,
 			p.organization_code AS organizationCode,
-			ph.phase AS phase,
+			ph.phase_name AS phase,
 			p.start_date AS startDate,
 			p.end_date AS endDate,
 			(TRUNC(SYSDATE) - p.start_date) AS runningDay
-		FROM projects p, phase ph
-		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active';
+		FROM projects p, phases ph
+		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active'
 	</select>
 	
 <!-- 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" > -->

@@ -19,11 +19,12 @@ public class ProjectAction extends Action
 			throws Exception {
 		ProjectForm pForm = (ProjectForm) form;
 		ProjectManager pMan = new ProjectManager();
+		
 		pForm.setListProject(pMan.getAllProject());			
 		
-//		if ("edit".equals(mForm.getTask())) {
-//			return mapping.findForward("Edit");
-//		}
+		if ("addProject".equals(pForm.getTask())) {
+			return mapping.findForward("AddProject");
+		}
 //		if("new".equals(mForm.getTask())){
 //			return mapping.findForward("New");
 //		}
