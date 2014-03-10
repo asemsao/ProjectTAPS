@@ -71,7 +71,7 @@
 									<div class="pr">
 										<div class="input-control text">
 											<input type="text" placeholder="Project" readonly="readonly" />
-											<button class="btn-search" id="project"></button>
+											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
 							</tr>
@@ -81,7 +81,7 @@
 								<td><div class="pr">
 										<div class="input-control text">
 											<input type="text" placeholder="Employee" readonly="readonly" />
-											<button class="btn-search" id="employee"></button>
+											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div></td>
 							</tr>
