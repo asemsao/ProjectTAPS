@@ -22,4 +22,5 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 	<sqlMap resource="adins/ace/taps/ibatis/Employee-ibatis.xml" />
 	<sqlMap resource="adins/ace/taps/ibatis/Organization-ibatis.xml" />
 	<sqlMap resource="adins/ace/taps/ibatis/Report-ibatis.xml" />
+	<sqlMap resource="adins/ace/taps/ibatis/Assignment-ibatis.xml" />
 </sqlMapConfig>
