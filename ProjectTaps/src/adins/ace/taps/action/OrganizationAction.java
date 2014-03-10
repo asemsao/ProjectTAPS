@@ -101,13 +101,8 @@ public class OrganizationAction extends Action {
 				|| "last-ajax".equalsIgnoreCase(orgForm.getTask())) {
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String json = gson.toJson(orgForm.getListOrganizations());
-			Map other = new HashMap();
-			other.put("page", orgForm.getPage());
-			other.put("maxpage", orgForm.getMaxpage());
+			String json = gson.toJson(orgForm);
 			out.print(json);
-			// out.print(other);
-			System.out.println(other);
 			return null;
 		}
 		return mapping.findForward("ListOrganization");
