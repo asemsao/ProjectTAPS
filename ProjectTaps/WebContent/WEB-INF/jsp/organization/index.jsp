@@ -13,6 +13,7 @@
 <jsp:include page="/js/import.jsp" />
 <script>
 	$(document).ready(function() {
+		alert("s");
 		$("#new").click(function() {
 			$("#task").val("new");
 			$("#CRUDForm").submit();

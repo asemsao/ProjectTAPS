@@ -11,92 +11,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script language="JavaScript">
-	$(document)
-			.ready(
-					function() {
-						$(
-								"#searchOrganizationOnLookUp, #next-ajax, #prev-ajax, #first-ajax, #last-ajax")
-								.click(
-										function(e) {
-											$("#task").val($(this).attr("id"));
-											var task = $("#task").val();
-											var search = $("#search").val();
-											var value = $("#value").val();
-											var page = $("#page").val();
-											var maxpage = $("#maxpage").val();
-											var data = "task=" + task
-													+ "&search=" + search
-													+ "&value=" + value
-													+ "&page=" + page
-													+ "&maxpage=" + maxpage;
-											$
-													.ajax({
-														url : "/ProjectTaps/organization.do",
-														type : "POST",
-														data : data,
-														context : this,
-														error : function() {
-														},
-														success : function(data) {
-															var json = $
-																	.parseJSON(data);
-
-															var content = "<table ";
-											content += "class='table striped bordered hovered'>";
-															content += "<thead>";
-															content += "<tr>";
-															content += "<td>No</td>";
-															content += "<td>Name</td>";
-															content += "</tr>";
-															content += "</thead>";
-															content += "<tbody>";
-															content += "<thead>";
-															content += "<tr>";
-															content += "<th class='text-center'>Choose</th>";
-															content += "<th class='text-center'>Organization Code</th>";
-															content += "<th class='text-center'>Organization Name</th>";
-															content += "<th class='text-center'>Head Name</th>";
-															content += "</tr>";
-															content += "</thead>";
-															content += "<tbody>";
-															for ( var i in json.listOrganizations) {
-																content += "<tr>";
-																content += "<td class='text-center'>";
-																content += "<input type='radio' name='organization_choose'";
-												content += "value='"+json.listOrganizations[i].organizationCode+"' />";
-																content += "</td>";
-																content += "<td>";
-																content += json.listOrganizations[i].organizationCode;
-																content += "</td>";
-																content += "<td>";
-																content += json.listOrganizations[i].organizationName;
-																content += "</td>";
-																content += "<td>";
-																content += json.listOrganizations[i].headName;
-																content += "</td>";
-																content += "</tr>";
-															}
-															content += "</tbody>";
-															content += "</table>";
-															$(
-																	"#table-ajax-organization")
-																	.html(
-																			content);
-															$("#current-page")
-																	.html(
-																			json.page);
-															$("#max-page")
-																	.html(
-																			json.maxpage);
-															$("#max-page")
-																	.html(
-																			json.countRecord);
-														}
-													});
-										});
-					});
-</script>
+<script
+	src="<%=request.getContextPath()%>/js/lookup/organizationLookup.js"></script>
 
 
 <title>Add Organization</title>
@@ -146,7 +62,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text size3">
-									<input type="text" placeholder="Parent Organization"
+									<input type="text" placeholder="Nampung ID nanti di hidden"
+										readonly="readonly" id="parent_organization_id" /> <input
+										type="text" placeholder="Parent Organization"
 										readonly="readonly" id="parent_organization" />
 									<button class="btn-search" id="organization"></button>
 								</div>
@@ -242,19 +160,20 @@
 							<div class="pagination">
 								<ul>
 									<li class="first"><a id="first-ajax"
-										onclick="javascript:firstOrganization();"><i
+										onclick="javascript:paging('first-ajax');"><i
 											class="icon-first-2"></i></a></li>
 									<li class="prev"><a id="prev-ajax"
-										onclick="javascript:prevOrganization();"><i class="icon-previous"></i></a></li>
+										onclick="javascript:paging('prev-ajax');"><i
+											class="icon-previous"></i></a></li>
 									<li class="disabled"><a>Page <span id="current-page"><bean:write
 													name="organizationForm" property="page" /></span> of <span
 											id="max-page"> <bean:write name="organizationForm"
 													property="maxpage" /></span></a></li>
 									<li class="next-ajax"><a id="next-ajax"
-										onclick="javascript:nextOrganization();"><i
+										onclick="javascript:paging('next-ajax');"><i
 											class="icon-next"></i></a></li>
 									<li class="last"><a id="last-ajax"
-										onclick="javascript:lastOrganization();"><i
+										onclick="javascript:paging('last-ajax');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
 											id="total-record"><bean:write name="organizationForm"
