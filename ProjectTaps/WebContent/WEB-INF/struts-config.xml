@@ -55,12 +55,12 @@
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
 			<forward name="Employee" path="/employee.do" />
 			<forward name="Organization" path="/organization.do" />
-			<forward name="Appraisal" path="/specialAppraisal.do" />
-			<forward name="Project" path="/project.do" />
+			<forward name="Project" path="/WEB-INF/jsp/project/index.jsp" />
 			<forward name="Report" path="/WEB-INF/jsp/report/index.jsp" />
 			<forward name="Assignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 			<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
-
+			<forward name="EmployeeReport" path="/employeeReport.do" />
+			<forward name="Appraisal" path="/WEB-INF/jsp/appraisal/index.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">

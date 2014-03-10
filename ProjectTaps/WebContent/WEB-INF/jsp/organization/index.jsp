@@ -13,6 +13,15 @@
 <jsp:include page="/js/import.jsp" />
 <script>
 	$(document).ready(function() {
+		$("#new").click(function() {
+			$("#task").val("new");
+			$("#CRUDForm").submit();
+		});
+		$(".editOrganization").click(function() {
+			$("#task").val("edit");
+			$("#organizationCode").val($(this).attr('alt').trim());
+			$("#CRUDForm").submit();
+		});
 		$("#first").click(function() {
 			$("#task").val("first");
 			$("#CRUDForm").submit();
@@ -33,22 +42,7 @@
 			$("#deleteId").html($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
-	});
 
-	function button(task) {
-		document.organizationForm.task.value = task;
-		document.organizationForm.submit();
-	}
-
-	function button2(task, organizationCode) {
-		document.organizationForm.organizationCode.value = organizationCode;
-		document.organizationForm.task.value = task;
-		document.forms[0].submit();
-	}
-
-	$(document).ready(function() {
-		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-	});
 </script>
 <title>Organization</title>
 </head>
@@ -113,9 +107,8 @@
 										<td class="text-center"><a href="structure.jsp"
 											data-hint="Member Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
-										<td class="text-center"><a
-											href="javascript:button2('edit','<bean:write name="organization"
-										property="organizationCode" />');"
+										<td class="text-center"><a class='editOrganization'
+											alt="<bean:write name="organization" property="organizationCode" />"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a class="delete-link"
@@ -145,8 +138,8 @@
 										</ul>
 									</div>
 								</td>
-								<td class="text-center"><a href="javascript:button('new');"
-									data-hint="Add Organization" data-hint-position="bottom"><img
+								<td class="text-center"><a id="new"
+									data-hint="Add Employee" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
 							</tr>
