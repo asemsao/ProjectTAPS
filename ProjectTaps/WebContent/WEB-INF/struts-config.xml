@@ -45,6 +45,7 @@
 				<forward name="Report" path="/WEB-INF/jsp/report/index.jsp" />
 				<forward name="Assignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 				<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
+				<forward name="EmployeeReport" path="/employeeReport.do" />
 				<forward name="Appraisal" path="/WEB-INF/jsp/appraisal/index.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
