@@ -37,7 +37,6 @@ public class EmployeeManager {
 		}
 		return flag;
 	}
-	
 	public List getAllEmployees(Map params){
 		List empList = null;
 		try {
@@ -53,6 +52,23 @@ public class EmployeeManager {
 			}
 		}
 		return empList;		
+	}
+	
+	public List getEditEmployees(Map params){
+		List empEdit = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			empEdit = ibatisSqlMap.queryForList("employee.getEditEmployees", params);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return empEdit;		
 	}
 	
 	public Integer countEmployees(Map params) {

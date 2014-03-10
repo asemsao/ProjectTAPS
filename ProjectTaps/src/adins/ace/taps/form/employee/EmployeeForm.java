@@ -22,6 +22,7 @@ public class EmployeeForm extends ActionForm{
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
+	private NewEmployeeBean editEmployee = new NewEmployeeBean();
 	public String getTask() {
 		return task;
 	}
@@ -85,5 +86,11 @@ public class EmployeeForm extends ActionForm{
 	}
 	public void setEmployeeDomain(String employeeDomain) {
 		this.employeeDomain = employeeDomain;
+	}
+	public NewEmployeeBean getEditEmployee() {
+		return editEmployee;
+	}
+	public void setEditEmployee(NewEmployeeBean editEmployee) {
+		this.editEmployee = editEmployee;
 	}	
 }

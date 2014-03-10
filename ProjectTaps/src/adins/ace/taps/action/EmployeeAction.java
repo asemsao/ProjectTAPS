@@ -29,7 +29,6 @@ public class EmployeeAction extends Action {
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
-		
 		if ("edit".equals(mForm.getTask())) {
 			System.out.println("edit");
 			return mapping.findForward("Edit");
@@ -48,8 +47,12 @@ public class EmployeeAction extends Action {
 			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
 			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
 			mForm.getNewEmployee().setProfilePicture(result);
-			System.out.println(mForm.getNewEmployee().getProfilePicture());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
+			System.out.println(flag);
+		}
+		else if("saveEditEmployee".equals(mForm.getTask())){
+			boolean flag=false;
+			
 			System.out.println(flag);
 		}
 		
