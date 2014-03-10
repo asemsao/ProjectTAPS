@@ -15,23 +15,23 @@
 	$(document).ready(function() {
 		$("#first").click(function() {
 			$("#task").val("first");
-			$("#organizationForm").submit();
+			$("#CRUDForm").submit();
 		});
 		$("#prev").click(function() {
 			$("#task").val("prev");
-			$("#organizationForm").submit();
+			$("#CRUDForm").submit();
 		});
 		$("#next").click(function() {
 			$("#task").val("next");
-			$("#organizationForm").submit();
+			$("#CRUDForm").submit();
 		});
 		$("#last").click(function() {
 			$("#task").val("last");
-			$("#organizationForm").submit();
+			$("#CRUDForm").submit();
 		});
 		$(".delete-link").click(function() {
 			$("#deleteId").html($(this).attr('alt').trim());
-			$("#organizationCode").val($(this).attr('alt').trim());
+			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 	});
 </script>
