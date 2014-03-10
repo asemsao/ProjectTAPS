@@ -14,7 +14,97 @@
 					a.current_status AS currentStatus
 				FROM assignments a 
 				LEFT JOIN employees e
-				ON LOWER(a.flag)='active' and report_to = 'DOMAIN205' 
+				ON LOWER(a.flag)='active' AND a.report_to = 'DOMAIN205' 
+				WHERE a.assign_to = e.user_domain 
+				<dynamic prepend="AND">
+					<isNotNull property="value">
+						<isNotEmpty property="value">
+							<isEqual property="search" compareValue="taskCode">LOWER(a.task_code)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="taskType">LOWER(a.assignment_category)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="employee">
+								(LOWER(e.first_name) LIKE LOWER ('%$value$%') OR
+								LOWER(e.last_name) LIKE LOWER ('%$value$%'))
+							</isEqual>
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+<!-- 				<dynamic prepend="AND"> -->
+<!-- 					<isNotNull property="startDate"> -->
+<!-- 						<isNotNull property="endDate"> -->
+<!-- 							<isNotEmpty property="startDate"> -->
+<!-- 								<isNotEmpty property="endDate"> -->
+<!-- 									assignment_date BETWEEN TO_DATE(startDate,'') AND TO_DATE(endDate,'') -->
+<!-- 								</isNotEmpty> -->
+<!-- 							</isNotEmpty> -->
+<!-- 						</isNotNull> -->
+<!-- 					</isNotNull> -->
+<!-- 				</dynamic> -->
+				ORDER BY a.created_date
+			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+	</select>
+	
+	<select id="employeeReportEmployee" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean" parameterClass="java.util.Map">
+		SELECT * FROM (
+			SELECT ROWNUM seqnumb, a.* FROM (
+				SELECT to_char(a.assignment_date,'DD-MM-YYYY, HH:MM') AS assignmentDate, 
+					a.task_code AS assignmentCode,
+					a.assignment_category AS assignmentCategory, 
+					e.first_name || ' ' || e.last_name AS fullName,
+					to_char(a.created_date,'DD-MM-YYYY, HH:MM') AS createdDate,
+					to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+					a.current_status AS currentStatus
+				FROM assignments a 
+				LEFT JOIN employees e
+				ON LOWER(a.flag)='active' AND a.assign_to = 'DOMAIN205' 
+				WHERE a.assign_to = e.user_domain 
+				<dynamic prepend="AND">
+					<isNotNull property="value">
+						<isNotEmpty property="value">
+							<isEqual property="search" compareValue="taskCode">LOWER(a.task_code)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="taskType">LOWER(a.assignment_category)
+								LIKE LOWER ('%$value$%')</isEqual>
+							<isEqual property="search" compareValue="employee">
+								(LOWER(e.first_name) LIKE LOWER ('%$value$%') OR
+								LOWER(e.last_name) LIKE LOWER ('%$value$%'))
+							</isEqual>
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+<!-- 				<dynamic prepend="AND"> -->
+<!-- 					<isNotNull property="startDate"> -->
+<!-- 						<isNotNull property="endDate"> -->
+<!-- 							<isNotEmpty property="startDate"> -->
+<!-- 								<isNotEmpty property="endDate"> -->
+<!-- 									assignment_date BETWEEN TO_DATE(startDate,'') AND TO_DATE(endDate,'') -->
+<!-- 								</isNotEmpty> -->
+<!-- 							</isNotEmpty> -->
+<!-- 						</isNotNull> -->
+<!-- 					</isNotNull> -->
+<!-- 				</dynamic> -->
+				ORDER BY a.created_date
+			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+	</select>
+	
+	<select id="listAssignment" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean" parameterClass="java.util.Map">
+		SELECT * FROM (
+			SELECT ROWNUM seqnumb, a.* FROM (
+				SELECT to_char(a.assignment_date,'DD-MM-YYYY, HH:MM') AS assignmentDate, 
+					a.task_code AS assignmentCode,
+					a.assignment_category AS assignmentCategory, 
+					e.first_name || ' ' || e.last_name AS fullName,
+					to_char(a.created_date,'DD-MM-YYYY, HH:MM') AS createdDate,
+					to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+					a.current_status AS currentStatus
+				FROM assignments a 
+				LEFT JOIN employees e
+				ON LOWER(a.flag)='active' AND a.report_to = 'DOMAIN205' AND a.assignment_Category = 'ASSIGNMENT'
 				WHERE a.assign_to = e.user_domain 
 				<dynamic prepend="AND">
 					<isNotNull property="value">
