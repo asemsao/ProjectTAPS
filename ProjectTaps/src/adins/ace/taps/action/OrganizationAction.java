@@ -63,6 +63,15 @@ public class OrganizationAction extends Action {
 		if ("search".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
+		if ("edit".equals(orgForm.getTask())) {
+			return mapping.findForward("Edit");
+		}
+		if("new".equals(orgForm.getTask())){
+			return mapping.findForward("New");
+		}
+		if("cancel".equals(orgForm.getTask())){
+			return mapping.findForward("ListEmployee");
+		}
 
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
