@@ -19,8 +19,12 @@ public class MenuAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		MenuForm mForm = (MenuForm) form;
-		//HttpSession session = request.getSession(true);
-
+		HttpSession session = request.getSession(true);
+		
+		if(session.getAttribute("link") != null){
+			session.removeAttribute("link");
+		}
+		
 		if ("dashboard".equals(mForm.getTask())) {
 			return mapping.findForward("Dashboard");
 		}
@@ -42,11 +46,18 @@ public class MenuAction extends Action {
 		}
 		
 		if("assignment".equals(mForm.getTask())){
+			session.setAttribute("link", "assignment");
 			return mapping.findForward("Assignment");
 		}
 		
 		if("employeeReportSupervisor".equals(mForm.getTask())){
+			session.setAttribute("link", "employeeReportSupervisor");
 			return mapping.findForward("EmployeeReportSupervisor");
+		}
+		
+		if("employeeReport".equals(mForm.getTask())){
+			session.setAttribute("link", "employeeReport");
+			return mapping.findForward("EmployeeReport");
 		}
 		
 		if ("appraisal".equals(mForm.getTask())) {

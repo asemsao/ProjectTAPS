@@ -3,6 +3,7 @@
 
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -21,9 +25,9 @@ public class OrganizationAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println("Organization");
 		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
+		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 
 		if (orgForm.getPage() == null) {
@@ -41,36 +45,32 @@ public class OrganizationAction extends Action {
 			}
 			System.out.println("kasih notif ya yang ngerjain");
 		}
-		
-		if ("first".equals(orgForm.getTask())) {
+
+		if ("first".equals(orgForm.getTask())
+				|| "first-ajax".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
 
-		if ("last".equals(orgForm.getTask())) {
+		if ("last".equals(orgForm.getTask())
+				|| "last-ajax".equals(orgForm.getTask())) {
 			orgForm.setPage(orgForm.getMaxpage());
 		}
 
-		if ("prev".equals(orgForm.getTask())) {
+		if ("prev".equals(orgForm.getTask())
+				|| "prev-ajax".equals(orgForm.getTask())) {
 			if (orgForm.getPage() > 1) {
 				orgForm.setPage(orgForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(orgForm.getTask())) {
+		if ("next".equals(orgForm.getTask())
+				|| "next-ajax".equals(orgForm.getTask())) {
 			if (orgForm.getPage() < orgForm.getMaxpage()) {
 				orgForm.setPage(orgForm.getPage() + 1);
 			}
 		}
+
 		if ("search".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
-		}
-		if ("edit".equals(orgForm.getTask())) {
-			return mapping.findForward("Edit");
-		}
-		if("new".equals(orgForm.getTask())){
-			return mapping.findForward("New");
-		}
-		if("cancel".equals(orgForm.getTask())){
-			return mapping.findForward("ListEmployee");
 		}
 
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
@@ -82,6 +82,28 @@ public class OrganizationAction extends Action {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
+		}
+
+		if ("new".equals(orgForm.getTask())) {
+			return mapping.findForward("New");
+		}
+		if ("edit".equals(orgForm.getTask())) {
+			return mapping.findForward("Edit");
+		}
+		if ("cancel".equals(orgForm.getTask())) {
+			return mapping.findForward("ListEmployee");
+		}
+
+		if ("lookupsearch".equalsIgnoreCase(orgForm.getTask())
+				|| "first-ajax".equalsIgnoreCase(orgForm.getTask())
+				|| "prev-ajax".equalsIgnoreCase(orgForm.getTask())
+				|| "next-ajax".equalsIgnoreCase(orgForm.getTask())
+				|| "last-ajax".equalsIgnoreCase(orgForm.getTask())) {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(orgForm);
+			out.print(json);
+			return null;
 		}
 		return mapping.findForward("ListOrganization");
 	}

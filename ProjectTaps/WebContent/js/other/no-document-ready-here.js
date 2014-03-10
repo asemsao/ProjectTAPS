@@ -30,7 +30,7 @@ function chooseBussinessUnit() {
 	$("#parent_organization").val(choosen.split('@')[1]);
 	$("#organization_id").val(choosen.split('@')[0]);
 	$("#parent_organization").val(choosen.split('@')[1]);
-	$.Dialog.close();
+//	$.Dialog.close();
 }
 
 function chooseEmployee() {

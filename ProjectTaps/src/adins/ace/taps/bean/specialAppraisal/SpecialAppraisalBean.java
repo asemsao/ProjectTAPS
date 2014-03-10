@@ -16,8 +16,10 @@ public class SpecialAppraisalBean implements Serializable{
 	private String employeeName;
 	private String firstName;
 	private String lastName;
+	private String sessionUserDomain;
 	
 	
+
 	public Integer getStarId() {
 		return starId;
 	}
@@ -84,7 +86,12 @@ public class SpecialAppraisalBean implements Serializable{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+	public String getSessionUserDomain() {
+		return sessionUserDomain;
+	}
+	public void setSessionUserDomain(String sessionUserDomain) {
+		this.sessionUserDomain = sessionUserDomain;
+	}
 	
 }
 
