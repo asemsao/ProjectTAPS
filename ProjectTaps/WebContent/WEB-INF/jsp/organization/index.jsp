@@ -58,7 +58,8 @@
 						name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
-					<html:hidden property="organizationCode" styleId="organizationCode" name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode"
+						name="organizationForm" />
 
 					<table class="table striped bordered hovered">
 						<thead>
@@ -138,9 +139,9 @@
 									</div>
 								</td>
 								<td class="text-center"><a id="new"
-									data-hint="Add Employee" data-hint-position="bottom"><img
+									data-hint="Add Organizations" data-hint-position="bottom"><img
 										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
+										src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png"></a></td>
 							</tr>
 						</tbody>
 					</table>
