@@ -9,6 +9,7 @@ import adins.ace.taps.bean.project.ProjectBean;
 public class ProjectForm extends ActionForm
 {
 	private String task;
+	private String param;
 	private String value;
 	private String search;
 	private List<ProjectBean> listProject;
@@ -18,6 +19,13 @@ public class ProjectForm extends ActionForm
 	}
 	public void setTask(String task) {
 		this.task = task;
+	}
+	
+	public String getParam() {
+		return param;
+	}
+	public void setParam(String param) {
+		this.param = param;
 	}
 	public String getValue() {
 		return value;
