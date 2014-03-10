@@ -34,6 +34,11 @@ public class ProjectAction extends Action
 		{
 			return mapping.findForward("AddProject");
 		}
+		if("member".equals(pForm.getTask()))
+		{
+			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			return mapping.findForward("ViewMember");
+		}
 		
 		return mapping.findForward("ListProject");
 	}

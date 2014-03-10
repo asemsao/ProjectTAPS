@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -7,13 +10,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<jsp:include page="../js/import.jsp" />
+<jsp:include page="/js/import.jsp" />
+<script>
+	function button(task) 
+	{
+		document.projectForm.task.value = task;
+		document.projectForm.submit();
+	}
+</script>
 <title>Member Structure</title>
 </head>
 
 <body class="metro">
-	<jsp:include page="../frame/header.jsp" />
-
+	<jsp:include page="/frame/header.jsp" />
+	<html:form action="/project" method="post" styleClass="projectForm">
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
@@ -27,7 +37,7 @@
 							<th colspan=5>Custom Development Department</th>
 						</tr>
 						<tr>
-							<th colspan=1>Member</th>
+							<th colspan=1>Project</th>
 							<th colspan=5>Timesheet and Performance Sheet</th>
 						</tr>
 						<tr>
@@ -78,10 +88,10 @@
 							<td>Toto Hugo</td>
 							<td class="text-center"><a href="add.jsp"
 								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
+									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 							<td class="text-center"><a href="#"
 								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
+									alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 						</tr>
 						<tr>
 							<td colspan=5 class="text-center">
@@ -104,7 +114,7 @@
 						<tr>
 							<td colspan=5 class="text-right">
 								<button id="add-btn" onclick="" class="success">Add</button>
-								<button id="back-btn" onclick="">Back</button>
+								<button id="back-btn" onclick="javascript:button('cancel')">Back</button>
 							</td>
 						</tr>
 					</tbody>
@@ -113,8 +123,8 @@
 			</div>
 		</div>
 	</div>
-
-	<jsp:include page="../frame/footer.jsp" />
+	</html:form>
+	<jsp:include page="/frame/footer.jsp" />
 </body>
 
 </html>
