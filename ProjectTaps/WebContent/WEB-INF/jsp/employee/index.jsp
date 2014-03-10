@@ -11,36 +11,36 @@
 <jsp:include page="/js/import.jsp" />
 
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#new").click(function() {
-		$("#task").val("new");
-		$("#CRUDForm").submit();
-	});
-	$(".editEmployee").click(function() {
-		$("#task").val("edit");
-		$("#employeeDomain").val($(this).attr('alt').trim());
-		$("#CRUDForm").submit();
-	});
-	$("#first").click(function() {
-		$("#task").val("first");
-		$("#CRUDForm").submit();
-	});
-	$("#prev").click(function() {
-		$("#task").val("prev");
-		$("#CRUDForm").submit();
-	});
-	$("#next").click(function() {
-		$("#task").val("next");
-		$("#CRUDForm").submit();
-	});
-	$("#last").click(function() {
-		$("#task").val("last");
-		$("#CRUDForm").submit();
-	});
-	$(".delete-link").click(function() {
-		$("#deleteId").html($(this).attr('alt').trim());
-		$("#CRUDForm").val($(this).attr('alt').trim());
-	});
+	$(document).ready(function() {
+		$("#new").click(function() {
+			$("#task").val("new");
+			$("#CRUDForm").submit();
+		});
+		$(".editEmployee").click(function() {
+			$("#task").val("edit");
+			$("#employeeDomain").val($(this).attr('alt').trim());
+			$("#CRUDForm").submit();
+		});
+		$("#first").click(function() {
+			$("#task").val("first");
+			$("#CRUDForm").submit();
+		});
+		$("#prev").click(function() {
+			$("#task").val("prev");
+			$("#CRUDForm").submit();
+		});
+		$("#next").click(function() {
+			$("#task").val("next");
+			$("#CRUDForm").submit();
+		});
+		$("#last").click(function() {
+			$("#task").val("last");
+			$("#CRUDForm").submit();
+		});
+		$(".delete-link").click(function() {
+			$("#deleteId").html($(this).attr('alt').trim());
+			$("#CRUDForm").val($(this).attr('alt').trim());
+		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 	});
 </script>
@@ -51,11 +51,13 @@ $(document).ready(function() {
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employee" method="post" styleClass="employeeForm" styleId="CRUDForm">
+	<html:form action="/employee" method="post" styleClass="employeeForm"
+		styleId="CRUDForm">
 		<html:hidden property="task" styleId="task" name="employeeForm" />
 		<html:hidden property="page" name="employeeForm" />
 		<html:hidden property="maxpage" name="employeeForm" />
-		<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
+		<html:hidden property="employeeDomain" styleId="employeeDomain"
+			name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -104,7 +106,7 @@ $(document).ready(function() {
 										<td><bean:write name="employee" property="employeeNik" /></td>
 										<td><bean:write name="employee" property="employeeName" /></td>
 										<td><bean:write name="employee"
-												property="employeeAddress" /></td>										
+												property="employeeAddress" /></td>
 										<td class="text-center"><a class='editEmployee'
 											alt="<bean:write name="employee" property="employeeDomain" />"
 											data-hint="Edit Employee" data-hint-position="bottom"><img

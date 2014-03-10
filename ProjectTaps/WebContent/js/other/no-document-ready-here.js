@@ -1,3 +1,8 @@
+function menu(task) {
+	document.menuForm.task.value = task;
+	document.menuForm.submit();
+}
+
 function confDel() {
 	$.Dialog({
 		overlay : true,
