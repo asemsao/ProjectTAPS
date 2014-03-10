@@ -39,7 +39,7 @@
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-begin">
 										<html:text property="startDate" name="employeeReportForm"></html:text>
-										<button class="btn-date"></button>
+										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
 							</tr>
@@ -48,7 +48,7 @@
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-end">
 										<html:text property="endDate" name="employeeReportForm"></html:text>
-										<button class="btn-date"></button>
+										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
 							</tr>
@@ -125,10 +125,17 @@
 										</ul>
 									</div>
 								</td>
+								<%if ("assignment".equals(session.getAttribute("link"))){ %>
+								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
+									data-hint="New Assignment" data-hint-position="bottom"><img
+										alt=""
+										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
+								<%} else if ("employeeReport".equals(session.getAttribute("link"))){ %>
 								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
 									data-hint="New Self Assignment" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
+								<%} %>
 							</tr>
 						</tbody>
 					</table>

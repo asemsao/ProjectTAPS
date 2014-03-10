@@ -15,6 +15,8 @@
 			type="adins.ace.taps.form.assignment.EmployeeReportForm" />
 		<form-bean name="newAssignmentForm"
 			type="adins.ace.taps.form.assignment.NewAssignmentForm" />
+		<form-bean name="newSelfAssignmentForm"
+			type="adins.ace.taps.form.assignment.NewSelfAssignmentForm" />
 		<form-bean name="specialAppraisalForm"
 			type="adins.ace.taps.form.specialAppraisal.SpecialAppraisalForm" />
 	</form-beans>
@@ -73,11 +75,17 @@
 			<forward name="ListAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 			<forward name="SearchAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 			<forward name="AddAssignment" path="/newAssignment.do" />
+			<forward name="AddSelfAssignment" path="/newSelfAssignment.do" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />
+		</action>
+		<action name="newSelfAssignmentForm" path="/newSelfAssignment"
+			scope="request" type="adins.ace.taps.action.NewSelfAssignmentAction">
+			<forward name="Cancel" path="/employeeReport.do" />
+			<forward name="NewSelfAssignment" path="/WEB-INF/jsp/assignment/new_s.jsp" />
 		</action>
 	</action-mappings>
 

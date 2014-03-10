@@ -33,7 +33,7 @@ public class EmployeeReportAction extends Action {
 				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearch(), eForm.getValue()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
-				return mapping.findForward("AddAssignment");
+				return mapping.findForward("AddSelfAssignment");
 			}
 			
 			if (eForm.getPage() == null) {
