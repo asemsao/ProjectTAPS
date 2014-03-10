@@ -39,7 +39,7 @@
 		document.organizationForm.task.value = task;
 		document.organizationForm.submit();
 	}
-	
+
 	function button2(task, organizationCode) {
 		document.organizationForm.organizationCode.value = organizationCode;
 		document.organizationForm.task.value = task;
@@ -60,6 +60,8 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/organization" method="post" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode"
+						name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
 					<html:hidden property="organizationCode" styleId="organizationCode"

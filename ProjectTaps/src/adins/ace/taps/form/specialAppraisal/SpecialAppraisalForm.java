@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
-import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 
 @SuppressWarnings("serial")
@@ -13,6 +12,27 @@ public class SpecialAppraisalForm extends ActionForm{
 	private String search;
 	private String value;
 	private List<SpecialAppraisalBean> listSpecialAppraisal;
+	private Integer page;
+	private Integer maxpage;
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getMaxpage() {
+		return maxpage;
+	}
+	public void setMaxpage(Integer maxpage) {
+		this.maxpage = maxpage;
+	}
+	public Integer getCountRecord() {
+		return countRecord;
+	}
+	public void setCountRecord(Integer countRecord) {
+		this.countRecord = countRecord;
+	}
+	private Integer countRecord;
 	
 	public List<SpecialAppraisalBean> getListSpecialAppraisal() {
 		return listSpecialAppraisal;

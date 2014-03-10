@@ -3,6 +3,9 @@
 
 package adins.ace.taps.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.*;
 
 import org.apache.struts.action.Action;
@@ -20,9 +23,9 @@ public class SpecialAppraisalAction extends Action {
 			throws Exception {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
-		
+//		Map params = new HashMap();
 		mForm.setListSpecialAppraisal(mMan.getAll());	
-		
+//		
 		if ("detail".equals(mForm.getTask())) {
 			return mapping.findForward("Detail");
 		}
@@ -32,7 +35,36 @@ public class SpecialAppraisalAction extends Action {
 		if("cancel".equals(mForm.getTask())){
 			return mapping.findForward("ListSpecialAppraisal");
 		}
-		
+//		if (mForm.getPage() == null) {
+//			mForm.setPage(1);
+//		}
+//		if ("first".equals(mForm.getTask())) {
+//			mForm.setPage(1);
+//		}
+//
+//		if ("last".equals(mForm.getTask())) {
+//			mForm.setPage(mForm.getMaxpage());
+//		}
+//
+//		if ("prev".equals(mForm.getTask())) {
+//			if (mForm.getPage() > 1) {
+//				mForm.setPage(mForm.getPage() - 1);
+//			}
+//		}
+//		if ("next".equals(mForm.getTask())) {
+//			if (mForm.getPage() < mForm.getMaxpage()) {
+//				mForm.setPage(mForm.getPage() + 1);
+//			}
+//		}
+//		params.put("start", (mForm.getPage() - 1) * 10 + 1);
+//		params.put("end", (mForm.getPage() * 10));
+//		mForm.setListSpecialAppraisal(mMan.searchOrganizations(params));
+//		mForm.setCountRecord(mMan.countSpecialAppraisal(params));
+//		if (mForm.getCountRecord() % 10 == 0) {
+//			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
+//		} else {
+//			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
+//		}
 		return mapping.findForward("ListSpecialAppraisal");
 	}
 }
