@@ -13,6 +13,10 @@
 <jsp:include page="/js/import.jsp" />
 <script>
 	$(document).ready(function() {
+		$("#new").click(function() {
+			$("#new").val("first");
+			$("#CRUDForm").submit();
+		});
 		$("#first").click(function() {
 			$("#task").val("first");
 			$("#CRUDForm").submit();
@@ -34,12 +38,12 @@
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 	});
-	
+
 	function button(task) {
 		document.organizationForm.task.value = task;
 		document.organizationForm.submit();
 	}
-	
+
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 	});
@@ -52,8 +56,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/organization" method="post"
-					styleId="CRUDForm">
+				<html:form action="/organization" method="post" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
@@ -136,7 +139,7 @@
 										</ul>
 									</div>
 								</td>
-								<td class="text-center"><a href="javascript:button('new');"
+								<td class="text-center"><a id="new"
 									data-hint="Add Employee" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
