@@ -20,18 +20,21 @@ public class EmployeeAction extends Action {
 			throws Exception {
 		EmployeeForm mForm = (EmployeeForm) form;
 		EmployeeManager mMan = new EmployeeManager();
-		mForm.setListEmployees(mMan.getAllEmployees());			
-		
+		mForm.setListEmployees(mMan.getAllEmployees());
 		if ("edit".equals(mForm.getTask())) {
 			return mapping.findForward("Edit");
 		}
-		if("new".equals(mForm.getTask())){
+		else if("new".equals(mForm.getTask())){
 			return mapping.findForward("New");
 		}
-		if("cancel".equals(mForm.getTask())){
+		else if("cancel".equals(mForm.getTask())){
 			return mapping.findForward("ListEmployee");
 		}
-		
+		else if("saveNewEmployee".equals(mForm.getTask())){
+			boolean flag=false;
+			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
+			System.out.println(flag);
+		}
 		return mapping.findForward("ListEmployee");
 	}
 }

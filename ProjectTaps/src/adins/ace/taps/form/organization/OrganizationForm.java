@@ -18,6 +18,15 @@ public class OrganizationForm extends ActionForm {
 	private Integer maxpage;
 	private String category;
 	private Integer countRecord;
+	private OrganizationBean orgBean = new OrganizationBean();
+
+	public OrganizationBean getOrgBean() {
+		return orgBean;
+	}
+
+	public void setOrgBean(OrganizationBean orgBean) {
+		this.orgBean = orgBean;
+	}
 
 	public String getKeyword() {
 		return keyword;
