@@ -57,7 +57,7 @@
 			<forward name="Organization" path="/organization.do" />
 			<forward name="Project" path="/WEB-INF/jsp/project/index.jsp" />
 			<forward name="Report" path="/WEB-INF/jsp/report/index.jsp" />
-			<forward name="Assignment" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="Assignment" path="/employeeReport.do" />
 			<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Appraisal" path="/WEB-INF/jsp/appraisal/index.jsp" />

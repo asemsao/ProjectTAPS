@@ -58,7 +58,7 @@
 										<html:select property="search" name="employeeReportForm">
 											<html:option value="">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
-											<html:option value="taskType">Assignment Type</html:option>
+											<html:option value="taskType">Assignment Category</html:option>
 											<html:option value="employee">Employee Name</html:option>
 										</html:select>
 									</div>
@@ -74,7 +74,7 @@
 							<tr>
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
-								<th class="text-center">Assignment Type</th>
+								<th class="text-center">Assignment Category</th>
 								<th class="text-center">Employee Name</th>
 								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>

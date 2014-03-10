@@ -20,7 +20,11 @@ public class MenuAction extends Action {
 			throws Exception {
 		MenuForm mForm = (MenuForm) form;
 		HttpSession session = request.getSession(true);
-
+		
+		if(session.getAttribute("link") != null){
+			session.removeAttribute("link");
+		}
+		
 		if ("dashboard".equals(mForm.getTask())) {
 			return mapping.findForward("Dashboard");
 		}
