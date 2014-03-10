@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.newAssignmentForm.task.value = task;
+		document.newAssignmentForm.newTask.value = task;
 		document.newAssignmentForm.submit();
 	}
 </script>
@@ -23,7 +23,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignmentTAPS" method="POST">
+	<html:form action="/newAssignment" method="POST">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -106,6 +106,7 @@
 				</div>
 			</div>
 		</div>
+		<html:hidden property="newTask" name="newAssignmentForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" /></body>
 <div id="popup_employee" class="hide"><jsp:include

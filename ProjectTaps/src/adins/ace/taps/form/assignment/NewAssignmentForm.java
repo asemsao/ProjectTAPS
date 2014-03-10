@@ -7,7 +7,7 @@ import adins.ace.taps.bean.assignment.NewAssignmentBean;
 @SuppressWarnings("serial")
 public class NewAssignmentForm extends ActionForm{
 	private NewAssignmentBean assignmentBean = new NewAssignmentBean();
-	private String task;
+	private String newTask;
 	
 	public NewAssignmentBean getAssignmentBean() {
 		return assignmentBean;
@@ -15,10 +15,11 @@ public class NewAssignmentForm extends ActionForm{
 	public void setAssignmentBean(NewAssignmentBean assignmentBean) {
 		this.assignmentBean = assignmentBean;
 	}
-	public String getTask() {
-		return task;
+	public String getNewTask() {
+		return newTask;
 	}
-	public void setTask(String task) {
-		this.task = task;
+	public void setNewTask(String newTask) {
+		this.newTask = newTask;
 	}
+	
 }
