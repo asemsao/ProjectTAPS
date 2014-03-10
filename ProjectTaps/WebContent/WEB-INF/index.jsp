@@ -15,6 +15,7 @@
 <link href="css/style-login.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <script src="js/jquery/jquery.min.js"></script>
+<script src="js/other/parallax.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
