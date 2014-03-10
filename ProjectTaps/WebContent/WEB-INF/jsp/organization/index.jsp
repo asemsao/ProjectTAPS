@@ -39,9 +39,10 @@
 		});
 	});
 
-	function button(task) {
+	function button2(task, organizationCode) {
+		document.organizationForm.organizationCode.value = organizationCode;
 		document.organizationForm.task.value = task;
-		document.organizationForm.submit();
+		document.forms[0].submit();
 	}
 
 	$(document).ready(function() {
@@ -109,7 +110,9 @@
 										<td class="text-center"><a href="structure.jsp"
 											data-hint="Member Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
-										<td class="text-center"><a href="edit.jsp"
+										<td class="text-center"><a
+											href="javascript:button2('edit','<bean:write name="organization"
+										property="organizationCode" />');"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a class="delete-link"

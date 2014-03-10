@@ -2,6 +2,7 @@ package adins.ace.taps.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -19,6 +20,8 @@ public class EmployeeReportAction extends Action{
 		
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
+		HttpSession session = request.getSession(true);
+		System.out.println(session.getAttribute("link"));
 		
 		if ("search".equals(eForm.getTask())){
 			if (eForm.getPage() == null){
@@ -26,16 +29,16 @@ public class EmployeeReportAction extends Action{
 			}
 			
 			eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(),eForm.getSearch(),eForm.getValue()));
-			return mapping.findForward("indexSupervisor");
+			return mapping.findForward("SearchAssignment");
 		}
 		else if ("add".equals(eForm.getTask())){
-			return mapping.findForward("add");
+			return mapping.findForward("AddAssignment");
 		}
 		
 		if (eForm.getPage() == null){
 			eForm.setPage(1);
 		}
 		eForm.setListAssignment(eMan.getListAssignment(eForm.getPage()));
-		return mapping.findForward("employeeReportSupervisor");
+		return mapping.findForward("ListAssignment");
 	}
 }

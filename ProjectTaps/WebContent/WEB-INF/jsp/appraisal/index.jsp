@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,86 +34,25 @@
 						</tr>
 					</thead>
 					<tbody>
+					<logic:notEmpty name="specialAppraisalForm" property="listSpecialAppraisal">
+								<logic:iterate id="specialAppraisal" name="specialAppraisalForm"
+									property="listSpecialAppraisal">
 						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
+							<td class="text-center"><bean:write name="specialAppraisal" property="createdDate" /></td>
+							<td class="text-center"><bean:write name="specialAppraisal" property="employeeName" /></td>
+							<td class="text-center"><bean:write name="specialAppraisal" property="appraisalStar" /></td>
 							<td class="text-center"><a href="view.jsp"
 								data-hint="View Appraisal" data-hint-position="bottom"><img
 									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
-						<tr>
-							<td class="text-center">01/03/2014</td>
-							<td class="text-center">Devri</td>
-							<td class="text-center">10</td>
-							<td class="text-center"><a href="view.jsp"
-								data-hint="View Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-						</tr>
+						</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty name="specialAppraisalForm" property="listSpecialAppraisal">
+								<tr>
+									<td class="text-center" colspan="7">Special Appraisal Not Found</td>
+								</tr>
+							</logic:empty>
+					
 						<tr>
 							<td colspan=3 class="text-center">
 								<div class="pagination">

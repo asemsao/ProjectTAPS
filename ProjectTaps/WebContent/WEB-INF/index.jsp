@@ -15,6 +15,7 @@
 <link href="css/style-login.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <script src="js/jquery/jquery.min.js"></script>
+<script src="js/other/parallax.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -88,7 +89,6 @@
 				onmouseout="unhover(this)" onclick="button('login')"></html:image>
 		</html:form>
 	</div>
-	<div class="footer-taps">Copyright &copy; 2014 ACE Batch-18. All
-		rights reserved.</div>
+	<div class="footer-taps">AdIns Taps Project. Copyright &copy; 2014 ACE Batch-18. All rights reserved.</div>
 </body>
 </html>

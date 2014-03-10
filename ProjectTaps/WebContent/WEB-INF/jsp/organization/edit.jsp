@@ -29,7 +29,7 @@
 								<td>Organization Code</td>
 								<td>:</td>
 								<td><div class="input-control text size3">
-										<input type="text" placeholder="Organization Code" />
+										<html:text name="organizationForm" property="orgBean.organizationCode"/>
 									</div></td>
 							</tr>
 							<tr>

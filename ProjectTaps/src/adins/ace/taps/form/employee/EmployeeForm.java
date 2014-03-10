@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.employee.NewEmployeeBean;
 
 
 @SuppressWarnings("serial")
@@ -14,6 +15,7 @@ public class EmployeeForm extends ActionForm{
 	private String searchKeyword;
 	private String searchCategory;
 	private List<EmployeeBean> listEmployees;
+	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	public String getTask() {
 		return task;
 	}
@@ -37,5 +39,11 @@ public class EmployeeForm extends ActionForm{
 	}
 	public void setListEmployees(List<EmployeeBean> listEmployees) {
 		this.listEmployees = listEmployees;
+	}
+	public NewEmployeeBean getNewEmployee() {
+		return newEmployee;
+	}
+	public void setNewEmployee(NewEmployeeBean newEmployee) {
+		this.newEmployee = newEmployee;
 	}
 }
