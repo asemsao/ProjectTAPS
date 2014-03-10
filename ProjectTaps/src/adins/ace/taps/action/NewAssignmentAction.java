@@ -20,23 +20,23 @@ public class NewAssignmentAction extends Action{
 		NewAssignmentForm aForm = (NewAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		
-		System.out.println(aForm.getTask());
-		if ("save".equals(aForm.getTask())){
+		System.out.println(aForm.getNewTask());
+		if ("save".equals(aForm.getNewTask())){
 			aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
 			System.out.println(success);
-			return mapping.findForward("add");
+			return mapping.findForward("NewAssignment");
 		}
-		else if ("assign".equals(aForm.getTask())){
+		else if ("assign".equals(aForm.getNewTask())){
 			aForm.getAssignmentBean().setCurrentStatus("CLAIM");
 			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
 			System.out.println(success);
-			return mapping.findForward("add");
+			return mapping.findForward("NewAssignment");
 		}
-		else if ("cancel".equals(aForm.getTask())){
+		else if ("cancel".equals(aForm.getNewTask())){
 			System.out.println("masuk cancel");
-			return mapping.findForward("employeeReportSupervisor");
+			return mapping.findForward("Cancel");
 		}
-		return mapping.findForward("add");
+		return mapping.findForward("NewAssignment");
 	}
 }

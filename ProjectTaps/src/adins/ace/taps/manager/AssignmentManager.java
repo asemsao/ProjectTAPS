@@ -27,7 +27,6 @@ public class AssignmentManager {
 		rowCount.put("rowStart", rowStart);
 		rowCount.put("rowEnd", rowEnd);
 
-		System.out.println("masuk manager" + page);
 		try {
 			ibatisSQLMap.startTransaction();
 			list = ibatisSQLMap.queryForList(
@@ -56,7 +55,6 @@ public class AssignmentManager {
 		rowCount.put("search", search);
 		rowCount.put("value", value);
 
-		System.out.println("masuk search" + page);
 		try {
 			ibatisSQLMap.startTransaction();
 			list = ibatisSQLMap.queryForList(

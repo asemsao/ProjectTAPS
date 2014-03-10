@@ -19,23 +19,23 @@ public class EmployeeReportAction extends Action{
 		
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
-		
+
 		if ("search".equals(eForm.getTask())){
 			if (eForm.getPage() == null){
 				eForm.setPage(1);
 			}
 			
 			eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(),eForm.getSearch(),eForm.getValue()));
-			return mapping.findForward("indexSupervisor");
+			return mapping.findForward("SearchAssignment");
 		}
 		else if ("add".equals(eForm.getTask())){
-			return mapping.findForward("add");
+			return mapping.findForward("AddAssignment");
 		}
 		
 		if (eForm.getPage() == null){
 			eForm.setPage(1);
 		}
 		eForm.setListAssignment(eMan.getListAssignment(eForm.getPage()));
-		return mapping.findForward("employeeReportSupervisor");
+		return mapping.findForward("ListAssignment");
 	}
 }

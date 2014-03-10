@@ -25,7 +25,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employeeReportTAPS" method="post">
+	<html:form action="/employeeReport" method="post">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -63,13 +63,11 @@
 										</html:select>
 									</div>
 								</th>
+
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
 										<html:text property="value" name="employeeReportForm"></html:text>
-										<html:button property="btnSearch" styleClass="btn-search"
-											onclick="javascript:flyToPage('search');"></html:button>
-										<%-- 									<html:text property="value" name="employeeReportForm" --%>
-										<%-- 										placeholder="Keyword of Assignment"></html:text> --%>
+										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -113,20 +111,21 @@
 								<td colspan=5 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a><i class="icon-first-2"></i></a></li>
-											<li class="prev"><a><i class="icon-previous"></i></a></li>
-											<li><a>1</a></li>
-											<li><a>2</a></li>
-											<li class="active"><a>3</a></li>
-											<li class="spaces"><a>...</a></li>
-											<li class="disabled"><a>4</a></li>
-											<li><a>500</a></li>
-											<li class="next"><a><i class="icon-next"></i></a></li>
-											<li class="last"><a><i class="icon-last-2"></i></a></li>
+											<li class="first"><a id="first"><i
+													class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev"><i
+													class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <bean:write
+														name="employeeReportForm" property="page" /> of <bean:write
+														name="employeeReportForm" property="maxpage" /></a></li>
+											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
+											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <bean:write
+														name="employeeReportForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
-								<td colspan=2 class="text-right"><a href="new_s.jsp"
+								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
 									data-hint="New Self Assignment" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
@@ -136,6 +135,7 @@
 				</div>
 			</div>
 		</div>
+		<html:hidden property="task" name="employeeReportForm"/>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

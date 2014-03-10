@@ -45,7 +45,7 @@
 				<forward name="Project" path="/project.do" />
 				<forward name="Report" path="/WEB-INF/jsp/report/index.jsp" />
 				<forward name="Assignment" path="/WEB-INF/jsp/assignment/index.jsp" />
-				<forward name="EmployeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />
+				<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
 				<forward name="Appraisal" path="/WEB-INF/jsp/appraisal/index.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
@@ -54,15 +54,16 @@
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
 			<forward name="AddOrganization" path="/WEB-INF/jsp/organization/AddOrganization.jsp" />
 		</action>
-		<action name="employeeReportForm" path="/employeeReportTAPS"
+		<action name="employeeReportForm" path="/employeeReport"
 			scope="request" type="adins.ace.taps.action.EmployeeReportAction">
-			<forward name="EmployeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />
-			<forward name="add" path="/WEB-INF/jsp/assignment/new.jsp" />
+			<forward name="ListAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="SearchAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="AddAssignment" path="/newAssignment.do" />
 		</action>
-		<action name="newAssignmentForm" path="/newAssignmentTAPS"
+		<action name="newAssignmentForm" path="/newAssignment"
 			scope="request" type="adins.ace.taps.action.NewAssignmentAction">
-			<forward name="employeeReportSupervisor" path="/WEB-INF/jsp/assignment/index.jsp" />
-			<forward name="add" path="/WEB-INF/jsp/assignment/new.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
+			<forward name="NewAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />
 		</action>
 	</action-mappings>
 
