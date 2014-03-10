@@ -18,7 +18,7 @@
 		<action name="projectForm" path="/project" scope="request"
 			type="adins.ace.taps.action.ProjectAction">
 				<forward name="ListProject" path="/WEB-INF/jsp/project/index.jsp" />
-				<forward name="AddProject" path="/WEB-INF/jsp/project/" />
+				<forward name="AddProject" path="/WEB-INF/jsp/project/new.jsp" />
 		</action>	
 		<action name="reportForm" path="/report" scope="request"
 			type="adins.ace.taps.action.ReportAction">
