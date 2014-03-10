@@ -12,11 +12,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
+	function button(task,param)
+	{
+		document.projectForm.task.value = task;
+		document.projectForm.param.value = param;
+		document.projectForm.submit();
+	}
 	function button(task) 
 	{
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	
 </script>
 
 <title>Project</title>
@@ -81,7 +88,7 @@
 								<td><bean:write name="project" property="startDate" /></td>
 								<td><bean:write name="project" property="endDate" /></td>
 								<td><bean:write name="project" property="runningDay" /></td>
-								<td class="text-center"><a href="structure.jsp"
+								<td class="text-center"><a href="javascript:button('member','<bean:write name="project" property="projectCode" />');"
 									data-hint="Project's Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
 								<td class="text-center"><a href="javascript:button('edit')"
@@ -120,7 +127,8 @@
 								data-hint="Add Project" data-hint-position="bottom"><img
 									alt="" src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
 									
-							<html:hidden property="task" styleId="task" name="projectForm" />
+							<html:hidden property="task" name="projectForm" />
+							<html:hidden property="param" name="projectForm" />
 						</tr>
 					</tbody>
 				</table>

@@ -8,9 +8,9 @@ public class StructureProjectBean implements Serializable
 	private String projectCode;
 	private String projectName;
 	private String projectRole;
-	private String firstName;
-	private String lastName;
-	private String employeeName;
+	private String assignee;
+	private String directReport;
+	
 	public String getOrganizationName() {
 		return organizationName;
 	}
@@ -35,23 +35,17 @@ public class StructureProjectBean implements Serializable
 	public void setProjectRole(String projectRole) {
 		this.projectRole = projectRole;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getAssignee() {
+		return assignee;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setAssignee(String assignee) {
+		this.assignee = assignee;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getDirectReport() {
+		return directReport;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmployeeName() {
-		return employeeName;
-	}
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public void setDirectReport(String directReport) {
+		this.directReport = directReport;
 	}
 	
 	

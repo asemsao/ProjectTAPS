@@ -18,6 +18,28 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active'
 	</select>
 	
+	<select id="getAllProjectMember" resultClass="adins.ace.taps.bean.project.StructureProjectBean" parameterClass="java.lang.String">
+		SELECT   
+			o.organization_name AS organizationName,
+         	p.project_code AS projectCode,
+	        p.project_name AS projectName,
+	        ps.project_role AS projectRole,
+	        e.first_name || ' ' || e.last_name AS assignee,
+	        emp.first_name || ' ' || emp.last_name AS directReport
+  		FROM   
+  			organizations o,
+         	projects p,
+         	employees e,
+         	employees emp,
+         	project_structure ps
+ 		WHERE       
+ 			p.project_code = ps.project_code
+	        AND o.organization_code = p.organization_code
+	        AND e.user_domain = ps.assignee_user_domain
+	        AND emp.user_domain = ps.directreport_user_domain
+			AND ps.project_code = #projectCode#
+	</select>
+	
 <!-- 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" > -->
 <!-- 		INSERT INTO projects  -->
 <!-- 			(project_code, -->

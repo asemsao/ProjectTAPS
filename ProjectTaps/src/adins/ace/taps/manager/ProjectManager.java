@@ -31,4 +31,22 @@ public class ProjectManager
 		}
 		return projectList;		
 	}
+	
+	public List getAllMember(String prjtCode)
+	{
+		List projectMemberList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			projectMemberList = ibatisSqlMap.queryForList("project.getAllProjectMember", prjtCode);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return projectMemberList;	
+	}
 }
