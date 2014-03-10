@@ -26,13 +26,13 @@ public class SpecialAppraisalAction extends Action {
 //		Map params = new HashMap();
 		mForm.setListSpecialAppraisal(mMan.getAll());	
 //		
-		if ("detail".equals(mForm.getTask())) {
-			return mapping.findForward("Detail");
-		}
-		if("new".equals(mForm.getTask())){
+		if("New".equals(mForm.getTask())){
 			return mapping.findForward("New");
+		}		
+		if("View".equals(mForm.getTask())){
+			return mapping.findForward("View");
 		}
-		if("cancel".equals(mForm.getTask())){
+		if("Back".equals(mForm.getTask())){
 			return mapping.findForward("ListSpecialAppraisal");
 		}
 //		if (mForm.getPage() == null) {

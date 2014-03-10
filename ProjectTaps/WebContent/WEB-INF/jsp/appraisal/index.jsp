@@ -10,28 +10,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script>
-	$(document).ready(function() {
-		$("#first").click(function() {
-			$("#task").val("first");
-			$("#CRUDForm").submit();
-		});
-		$("#prev").click(function() {
-			$("#task").val("prev");
-			$("#CRUDForm").submit();
-		});
-		$("#next").click(function() {
-			$("#task").val("next");
-			$("#CRUDForm").submit();
-		});
-		$("#last").click(function() {
-			$("#task").val("last");
-			$("#CRUDForm").submit();
-		});
-	});
-
-	$(document).ready(function() {
-		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-	});
+	function flyToPage(task) {
+		document.specialAppraisalForm.task.value = task;
+		document.specialAppraisalForm.submit();
+	}
 </script>
 <jsp:include page="/js/import.jsp" />
 
@@ -40,50 +22,53 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
+	<html:form action="/specialAppraisal" method="post">
+		<div class="container container-taps">
+			<div class="grid">
+				<div class="row row-taps shadow-taps">
 
-	<div class="container container-taps">
-		<div class="grid">
-			<div class="row row-taps shadow-taps">
-
-				<table class="table striped bordered hovered">
-					<thead>
-						<tr>
-							<th colspan=4 class="text-center"><h3>Special Appraisal</h3></th>
-						</tr>
-						<tr>
-							<th class="text-center">Appraisal Date</th>
-							<th class="text-center">Appraisal To</th>
-							<th class="text-center">Appraisal Star</th>
-							<th class="text-center">View</th>
-						</tr>
-					</thead>
-					<tbody>
-						<logic:notEmpty name="specialAppraisalForm"
-							property="listSpecialAppraisal">
-							<logic:iterate id="specialAppraisal" name="specialAppraisalForm"
+					<table class="table striped bordered hovered">
+						<thead>
+							<tr>
+								<th colspan=4 class="text-center"><h3>Special
+										Appraisal</h3></th>
+							</tr>
+							<tr>
+								<th class="text-center">Appraisal Date</th>
+								<th class="text-center">Appraisal To</th>
+								<th class="text-center">Appraisal Star</th>
+								<th class="text-center">View</th>
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty name="specialAppraisalForm"
+								property="listSpecialAppraisal">
+								<logic:iterate id="specialAppraisal" name="specialAppraisalForm"
+									property="listSpecialAppraisal">
+									<tr>
+										<td class="text-center"><bean:write
+												name="specialAppraisal" property="createdDate" /></td>
+										<td class="text-center"><bean:write
+												name="specialAppraisal" property="employeeName" /></td>
+										<td class="text-center"><bean:write
+												name="specialAppraisal" property="appraisalStar" /></td>
+										<td class="text-center"><a
+											href="javascript:flyToPage('View');"
+											data-hint="View Special Appraisal"
+											data-hint-position="bottom"><img alt=""
+												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+									</tr>
+								</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty name="specialAppraisalForm"
 								property="listSpecialAppraisal">
 								<tr>
-									<td class="text-center"><bean:write
-											name="specialAppraisal" property="createdDate" /></td>
-									<td class="text-center"><bean:write
-											name="specialAppraisal" property="employeeName" /></td>
-									<td class="text-center"><bean:write
-											name="specialAppraisal" property="appraisalStar" /></td>
-									<td class="text-center"><a href="view.jsp"
-										data-hint="View Appraisal" data-hint-position="bottom"><img
-											alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+									<td class="text-center" colspan="7">Special Appraisal Not
+										Found</td>
 								</tr>
-							</logic:iterate>
-						</logic:notEmpty>
-						<logic:empty name="specialAppraisalForm"
-							property="listSpecialAppraisal">
-							<tr>
-								<td class="text-center" colspan="7">Special Appraisal Not
-									Found</td>
-							</tr>
-						</logic:empty>
+							</logic:empty>
 
-						<tr>
+							<tr>
 							<tr>
 								<td colspan=5 class="text-center">
 									<div class="pagination">
@@ -102,16 +87,20 @@
 										</ul>
 									</div>
 								</td>
-							<td class="text-center"><a href="new.jsp"
-								data-hint="New Special Appraisal" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/ADD_STAR.png"></a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+								<td class="text-center"><a
+											href="javascript:flyToPage('New');"
+											data-hint="View Special Appraisal"
+											data-hint-position="bottom"><img
+										alt="" src="<%=request.getContextPath()%>/images/ADD_STAR.png"></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
+			</div>
 		</div>
-	</div>
+		<html:hidden property="task" name="specialAppraisalForm" />
+	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 

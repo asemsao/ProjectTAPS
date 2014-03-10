@@ -48,6 +48,8 @@
 
 		<action name="specialAppraisalForm" path="/specialAppraisal"
 			scope="request" type="adins.ace.taps.action.SpecialAppraisalAction">
+			<forward name="View" path="/WEB-INF/jsp/appraisal/view.jsp" />
+			<forward name="New" path="/WEB-INF/jsp/appraisal/new.jsp" />
 			<forward name="ListSpecialAppraisal" path="/WEB-INF/jsp/appraisal/index.jsp" />
 		</action>
 
