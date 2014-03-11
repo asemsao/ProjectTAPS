@@ -10,7 +10,6 @@ import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
 public class SpecialAppraisalManager {
 	public SqlMapClient ibatisSqlMap = null;
 
@@ -18,124 +17,148 @@ public class SpecialAppraisalManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
-	public List getAll(){
+	public List getAll() {
 		List list = null;
 		SpecialAppraisalBean bean = new SpecialAppraisalBean();
 		try {
 			System.out.println("masuk list");
 			ibatisSqlMap.startTransaction();
-			list = ibatisSqlMap.queryForList("SpecialAppraisal.getAllSpecialAppraisal",null);			
+			list = ibatisSqlMap.queryForList(
+					"SpecialAppraisal.getAllSpecialAppraisal", null);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("gagal list");
 			e.printStackTrace();
-		} finally{
-			try{
+		} finally {
+			try {
 				ibatisSqlMap.endTransaction();
-			}
-			catch (Exception e2) {
+			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}
 		return list;
 	}
-	
-	public List getDetail(Integer starId){
+
+	public SpecialAppraisalBean getUserDomain(String starId) {
 		List list = null;
 		SpecialAppraisalBean bean = new SpecialAppraisalBean();
 		try {
 			ibatisSqlMap.startTransaction();
-			list = ibatisSqlMap.queryForList("SpecialAppraisal.getDetailSpecialAppraisal",starId);			
+			bean = (SpecialAppraisalBean) ibatisSqlMap.queryForObject("SpecialAppraisal.ViewSpecialAppraisal", starId);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally{
-			try{
+		} finally {
+			try {
 				ibatisSqlMap.endTransaction();
-			}
-			catch (Exception e2) {
+			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}
-		return list;
+		return bean;
 	}
-	
-	public List ViewSpecialAppraisal(String userDomain)
-	{
-		List projectMemberList = null;
-		try {
-			ibatisSqlMap.startTransaction();
-			projectMemberList = ibatisSqlMap.queryForList("SpecialAppraisal.ViewSpecialAppraisal", userDomain);		
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally{
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return projectMemberList;	
-	}
-	
-//	
-//	public void Insert(SpecialAppraisalBean Bean){
+
+//	public SpecialAppraisalBean getUserDomain(String userDomain) {
+//		SpecialAppraisalBean mBean = new SpecialAppraisalBean();
+//
 //		try {
 //			ibatisSqlMap.startTransaction();
-//			ibatisSqlMap.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
+//			mBean = (SpecialAppraisalBean) ibatisSqlMap.queryForObject("SpecialAppraisal.ViewSpecialAppraisal", userDomain);
+//			//mBean = (SpecialAppraisalBean) ibatisSqlMap.queryForList("SpecialAppraisal.ViewSpecialAppraisal", userDomain);
 //			ibatisSqlMap.commitTransaction();
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}finally{
-//			try{
-//				ibatisSqlMap.endTransaction();
-//			}
-//			catch (Exception e2) {
-//				// TODO: handle exception
-//				e2.printStackTrace();
-//			}
-//		}
-//	}
-//	
-//	public List<SpecialAppraisalBean> searchOrganizations(Map params) {
-//		List<SpecialAppraisalBean> spcList = null;
-//		try {
-//			ibatisSqlMap.startTransaction();
-//			spcList = ibatisSqlMap.queryForList(
-//					"SpecialAppraisal.searchSpecialAppraisal.", params);
-//		} catch (Exception e) {
-//			e.printStackTrace();
 //		} finally {
 //			try {
 //				ibatisSqlMap.endTransaction();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
+//			} catch (Exception e) {
+//				e.printStackTrace();
 //			}
 //		}
-//		return spcList;
+//		return mBean;
+//
 //	}
-//	
-//	public Integer countSpecialAppraisal(Map params) {
-//		Integer count = null;
-//		try {
-//			ibatisSqlMap.startTransaction();
-//			count = (Integer) ibatisSqlMap.queryForObject(
-//					"SpecialAppraisal.countSpecialAppraisal", params);
-//			ibatisSqlMap.commitTransaction();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				ibatisSqlMap.endTransaction();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//			}
-//		}
-//		return count;
-//	}
+
+	// public List ViewSpecialAppraisal(String userDomain)
+	// {
+	// List projectMemberList = null;
+	// try {
+	// ibatisSqlMap.startTransaction();
+	// projectMemberList =
+	// ibatisSqlMap.queryForObject("SpecialAppraisal.ViewSpecialAppraisal",
+	// userDomain);
+	// System.out.println("ud :    "+userDomain);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// } finally{
+	// try {
+	// ibatisSqlMap.endTransaction();
+	// } catch (Exception e2) {
+	// e2.printStackTrace();
+	// }
+	// }
+	// return projectMemberList;
+	// }
+
+	//
+	// public void Insert(SpecialAppraisalBean Bean){
+	// try {
+	// ibatisSqlMap.startTransaction();
+	// ibatisSqlMap.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
+	// ibatisSqlMap.commitTransaction();
+	// } catch (SQLException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }finally{
+	// try{
+	// ibatisSqlMap.endTransaction();
+	// }
+	// catch (Exception e2) {
+	// // TODO: handle exception
+	// e2.printStackTrace();
+	// }
+	// }
+	// }
+	//
+	// public List<SpecialAppraisalBean> searchOrganizations(Map params) {
+	// List<SpecialAppraisalBean> spcList = null;
+	// try {
+	// ibatisSqlMap.startTransaction();
+	// spcList = ibatisSqlMap.queryForList(
+	// "SpecialAppraisal.searchSpecialAppraisal.", params);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// } finally {
+	// try {
+	// ibatisSqlMap.endTransaction();
+	// } catch (Exception e2) {
+	// e2.printStackTrace();
+	// }
+	// }
+	// return spcList;
+	// }
+	//
+	// public Integer countSpecialAppraisal(Map params) {
+	// Integer count = null;
+	// try {
+	// ibatisSqlMap.startTransaction();
+	// count = (Integer) ibatisSqlMap.queryForObject(
+	// "SpecialAppraisal.countSpecialAppraisal", params);
+	// ibatisSqlMap.commitTransaction();
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// } finally {
+	// try {
+	// ibatisSqlMap.endTransaction();
+	// } catch (Exception e2) {
+	// e2.printStackTrace();
+	// }
+	// }
+	// return count;
+	// }
 }

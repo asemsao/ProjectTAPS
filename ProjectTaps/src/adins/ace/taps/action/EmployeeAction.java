@@ -3,6 +3,7 @@
 
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
@@ -25,12 +29,16 @@ public class EmployeeAction extends Action {
 			throws Exception {
 		EmployeeForm mForm = (EmployeeForm) form;
 		EmployeeManager mMan = new EmployeeManager();
+		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
+		
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
+		
 		if ("edit".equals(mForm.getTask())) {
-			System.out.println("edit");
+			params.put("employeeDomain", mForm.getEmployeeDomain());
+			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
@@ -56,43 +64,72 @@ public class EmployeeAction extends Action {
 			System.out.println(flag);
 		}
 		
-		if ("first".equals(mForm.getTask())
+		else if ("first".equals(mForm.getTask())
 				|| "first-ajax".equals(mForm.getTask())) {
+			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
-		if ("last".equals(mForm.getTask())
+		else if ("last".equals(mForm.getTask())
 				|| "last-ajax".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
 		}
 
-		if ("prev".equals(mForm.getTask())
+		else if ("prev".equals(mForm.getTask())
 				|| "prev-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(mForm.getTask())
+		else if ("next".equals(mForm.getTask())
 				|| "next-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
 			}
 		}
 
+
 		if ("search".equals(mForm.getTask())) {
-			mForm.setPage(1);
+			System.out.println("search");
+			System.out.println("CATEGORY"+mForm.getSearchCategory());
+			System.out.println(mForm.getSearchKeyword());
+			
+			if (mForm.getPage() == null) {
+				mForm.setPage(1);
+			}
 		}
-		
+		System.out.println("A"+mForm.getSearchCategory());
+		System.out.println("OP"+mForm.getSearchKeyword());
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
-
-		mForm.setListEmployees(mMan.getAllEmployees(params));
+		params.put("category", mForm.getSearchCategory());
+		params.put("keyword", mForm.getSearchKeyword());
+		
+		mForm.setListEmployees(mMan.searchEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
+		
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {
 			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
 		}
+		
+		if ("search-lookup-employee".equalsIgnoreCase(mForm.getTask())
+				|| "first-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "prev-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "next-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "last-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())) {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(mForm);
+			out.print(json);
+			return null;
+		}
+		
 		return mapping.findForward("ListEmployee");
 	}
 }

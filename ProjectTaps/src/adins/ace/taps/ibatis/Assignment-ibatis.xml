@@ -60,7 +60,7 @@
 				FROM assignments a 
 				LEFT JOIN employees e
 				ON LOWER(a.flag)='active' AND a.assign_to = 'DOMAIN205' 
-				WHERE a.assign_to = e.user_domain 
+				WHERE a.report_to = e.user_domain 
 				<dynamic prepend="AND">
 					<isNotNull property="value">
 						<isNotEmpty property="value">
@@ -143,20 +143,39 @@
 		(task_code, assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
 		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
 		VALUES
-		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
+		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, 'ADHOC', #adhocUserDomain#, #assignTo#, #reportTo#, 'INACTIVE', #currentStatus#, 
 		#createBy#, SYSDATE)
 	</insert>
 
-	<insert id="addSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+	<insert id="addSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewSelfAssignmentBean">
 		INSERT INTO assignments 
 		(task_code,assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
 		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
 		VALUES
-		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
+		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, #activityType#, #adhocUserDomain#, #assignTo#, #reportTo#, 'INACTIVE', #currentStatus#, 
 		#createBy#, SYSDATE)
 	</insert>
+	
+	<select id="searchOrganizationCode" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT organization_code AS organizationCode
+		FROM employees 
+		WHERE user_domain = #userDomain#
+	</select>
+	
+	<select id="searchHeadOrganizationCode" resultClass="adins.ace.taps.bean.assignment.NewSelfAssignmentBean" parameterClass="java.lang.String">
+		SELECT o.organization_name AS organizationName,
+            mgr.first_name || ' ' || mgr.last_name AS headUserName
+        FROM organizations o, employees mgr, employees e
+        WHERE mgr.user_domain = o.head_user_domain
+        AND o.organization_code = e.organization_code AND e.user_domain = #userDomain#
+	</select>
+	
+	<select id="getMaxTaskCode" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT LPAD(SUBSTR(MAX(task_code), 8, 11) + 1, 5, 0) FROM assignments
+		WHERE task_code LIKE UPPER ('%$paramTaskCode$%')
+	</select>
 	
 <!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
 <!-- 	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean"> -->

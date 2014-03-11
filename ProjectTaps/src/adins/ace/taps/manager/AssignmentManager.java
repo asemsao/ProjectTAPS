@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.bean.assignment.NewSelfAssignmentBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -204,7 +205,7 @@ public class AssignmentManager {
 		return success;
 	}
 	
-	public boolean addSelfAssignment(NewAssignmentBean bean) {
+	public boolean addSelfAssignment(NewSelfAssignmentBean bean) {
 		boolean success = true;
 
 		try {
@@ -223,5 +224,69 @@ public class AssignmentManager {
 			}
 		}
 		return success;
+	}
+	
+	public String searchOrganizationCode(String userDomain) {
+		String organizationCode = "";
+
+		try {
+			ibatisSQLMap.startTransaction();
+			organizationCode = (String) ibatisSQLMap.queryForObject("assignment.searchOrganizationCode", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed search organization");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return organizationCode;
+	}
+	
+	public NewSelfAssignmentBean searchHeadOrganizationCode(String userDomain) {
+		NewSelfAssignmentBean organization = new NewSelfAssignmentBean();
+
+		try {
+			ibatisSQLMap.startTransaction();
+			organization = (NewSelfAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchHeadOrganizationCode", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed search organization");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return organization;
+	}
+	
+	public String getMaxTaskCode(String paramTaskCode) {
+		String generateTaskCode = "";
+		
+		try {
+			ibatisSQLMap.startTransaction();
+			generateTaskCode = (String) ibatisSQLMap.queryForObject("assignment.getMaxTaskCode", paramTaskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed get max task code");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (generateTaskCode == null){
+			generateTaskCode = "00001";
+		}
+		return generateTaskCode;
 	}
 }

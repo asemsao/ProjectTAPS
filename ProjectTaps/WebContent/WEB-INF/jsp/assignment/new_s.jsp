@@ -16,7 +16,21 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newSelfAssignmentForm.newTask.value = task;
+		document.newSelfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+		document.newSelfAssignmentForm.activityType.value = getRadioValue("activity_type");
 		document.newSelfAssignmentForm.submit();
+	}
+	
+	function getRadioValue(theRadioGroup)
+	{
+	    var elements = document.getElementsByName(theRadioGroup);
+	    for (var i = 0, l = elements.length; i < l; i++)
+	    {
+	        if (elements[i].checked)
+	        {
+	            return elements[i].value;
+	        }
+	    }
 	}
 </script>
 
@@ -36,10 +50,10 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Due Date</td>
+								<td>Assignment Date</td>
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="selfAssignBean.assignmentDueDate"
+										<html:text property="selfAssignBean.assignmentDate"
 											name="newSelfAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
@@ -50,7 +64,7 @@
 								<td>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="Bussiness Unit" /> <span
+											checked="checked" value="BU" /> <span
 											class="check"></span> Business Unit
 										</label>
 									</div>
@@ -65,8 +79,9 @@
 								<td>Assign By</td>
 								<td>:</td>
 								<td><div id="bu">
-										Customer Development Department &nbsp;&nbsp; <b>Report to
-										</b> : Toto Hugo
+										<bean:write property="selfAssignBean.organizationName" name="newSelfAssignmentForm"/>
+										 &nbsp;&nbsp; <b>Report to
+										</b> : <bean:write property="selfAssignBean.headUserName" name="newSelfAssignmentForm"/>
 									</div>
 									<div class="pr">
 										<div class="input-control text">
@@ -198,8 +213,8 @@
 								<td colspan=3 class="text-right"><html:button
 										property="save" onclick="javascript:flyToPage('save');"
 										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('assign');"
-										styleClass="button success">Assign</html:button> <html:button
+										property="assign" onclick="javascript:flyToPage('RFA');"
+										styleClass="button success">RFA</html:button> <html:button
 										property="cancel" onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 							</tr>
@@ -209,6 +224,8 @@
 			</div>
 		</div>
 		<html:hidden property="newTask" name="newSelfAssignmentForm" />
+		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
+		<html:hidden property="activityType" name="newSelfAssignmentForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="popup_employee" class="hide"><jsp:include

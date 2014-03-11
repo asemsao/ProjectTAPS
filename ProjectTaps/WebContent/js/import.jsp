@@ -20,4 +20,3 @@
 <script src="js/other/selectize.js"></script>
 <script src="js/other/no-document-ready-here.js"></script>
 <script src="js/other/responsive-table.js"></script>
-<script src="js/other/parallax.js"></script>

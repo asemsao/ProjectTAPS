@@ -37,6 +37,10 @@
 			$("#task").val("last");
 			$("#CRUDForm").submit();
 		});
+		$("#search").click(function() {
+			$("#task").val("search");
+			$("#CRUDForm").submit();
+		});
 		$(".delete-link").click(function() {
 			$("#deleteId").html($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim());
@@ -56,8 +60,7 @@
 		<html:hidden property="task" styleId="task" name="employeeForm" />
 		<html:hidden property="page" name="employeeForm" />
 		<html:hidden property="maxpage" name="employeeForm" />
-		<html:hidden property="employeeDomain" styleId="employeeDomain"
-			name="employeeForm" />
+		<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -82,7 +85,7 @@
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="employeeForm"
 											styleId="searchKeyword"></html:text>
-										<button class="btn-search"></button>
+										<button id="search" class="btn-search"></button>
 									</div>
 								</th>
 							</tr>

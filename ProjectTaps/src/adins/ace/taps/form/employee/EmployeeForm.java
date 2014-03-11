@@ -21,8 +21,8 @@ public class EmployeeForm extends ActionForm{
 	private Integer maxpage;
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
+	private List<NewEmployeeBean> editEmployees;
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
-	private NewEmployeeBean editEmployee = new NewEmployeeBean();
 	public String getTask() {
 		return task;
 	}
@@ -87,10 +87,10 @@ public class EmployeeForm extends ActionForm{
 	public void setEmployeeDomain(String employeeDomain) {
 		this.employeeDomain = employeeDomain;
 	}
-	public NewEmployeeBean getEditEmployee() {
-		return editEmployee;
+	public List<NewEmployeeBean> getEditEmployees() {
+		return editEmployees;
 	}
-	public void setEditEmployee(NewEmployeeBean editEmployee) {
-		this.editEmployee = editEmployee;
-	}	
+	public void setEditEmployees(List<NewEmployeeBean> editEmployees) {
+		this.editEmployees = editEmployees;
+	}
 }

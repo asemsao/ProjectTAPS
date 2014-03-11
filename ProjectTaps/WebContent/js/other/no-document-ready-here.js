@@ -29,12 +29,7 @@ function appraisalBtn() {
 	window.location.replace("index.jsp");
 }
 
-function chooseEmployee() {
-	var choosen = $("input[name='employee_choose']:checked").val();
-	$("#employee_id").val(choosen.split('@')[0]);
-	$("#employee_name").val(choosen.split('@')[1]);
-	$.Dialog.close();
-}
+
 
 function chooseEmployee2() {
 	var choosen = $("input[name='employee_choose']:checked").val();

@@ -1,21 +1,4 @@
 $(document).ready(function() {
-	$("#employee").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : '',
-			padding : 10,
-			onShow : function(_dialog) {
-				$.Dialog.title("Employee");
-				$.Dialog.content($("#popup_employee").html());
-				$.Metro.initInputs();
-			}
-		});
-	});
-
 	$("#employee-2").on('click', function() {
 		$.Dialog({
 			overlay : true,
@@ -49,25 +32,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	$("#organization").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpOrganization").html(),
-			padding : 10,
-			title : 'Bussiness Unit'
-		});
-	});
-
-	function dialogFunction() {
-		$("#next-ajax").click(function(e) {
-			alert(1);
-		});
-	}
 
 	$("#project").on('click', function() {
 		$.Dialog({

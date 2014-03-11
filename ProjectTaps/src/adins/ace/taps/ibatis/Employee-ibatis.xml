@@ -4,11 +4,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
+	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
+
 	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
 		FROM employees e
 	</select>
-	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean"
+	
+	<select id="searchEmployees" resultClass="employeeBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
@@ -19,11 +22,28 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FIRST_NAME||' '||LAST_NAME AS employeeName,
 		ADDRESS AS
 		employeeAddress
-		FROM EMPLOYEES) a
-		WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		FROM EMPLOYEES 
+		<dynamic prepend="WHERE">
+					<isNotNull property="keyword">
+						<isNotEmpty property="keyword">
+							<isEqual property="category" compareValue="employeeDomain">(LOWER(USER_DOMAIN)
+								LIKE LOWER ('%$keyword$%'))</isEqual>
+							<isEqual property="category" compareValue="employeeCode">(LOWER(EMPLOYEE_CODE)
+								LIKE LOWER ('%$keyword$%'))</isEqual>
+							<isEqual property="category" compareValue="employeeName">(LOWER(FIRST_NAME) 
+								LIKE LOWER ('%$keyword$%') OR
+								LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%'))
+							</isEqual>
+							<isEqual property="category" compareValue="employeeAddress">(LOWER(ADDRESS) 
+								LIKE LOWER ('%$keyword$%'))
+							</isEqual>
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.EditEmployeeBean"
+	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT picture AS profilePicture, user_domain AS
 		employeeDomain, employee_nik AS employeeNik, employee_code AS
@@ -36,7 +56,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		email,
 		SUBSTR(employee_category,1,1) AS golonganNumber,
 		SUBSTR(employee_category,2,2) AS golonganLevel, flag AS flag FROM
-		employees
+		employees where user_domain = UPPER(#employeeDomain#)
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO

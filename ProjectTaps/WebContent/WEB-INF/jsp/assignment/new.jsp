@@ -16,21 +16,21 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newAssignmentForm.newTask.value = task;
-		alert(document.getElementsByName("assignment_type"));
+		document.newAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 		document.newAssignmentForm.submit();
 	}
 	
-// 	function getRadioValue(theRadioGroup)
-// 	{
-// 	    var elements = document.getElementsByName(theRadioGroup);
-// 	    for (var i = 0, l = elements.length; i < l; i++)
-// 	    {
-// 	        if (elements[i].checked)
-// 	        {
-// 	            return elements[i].value;
-// 	        }
-// 	    }
-// 	}
+	function getRadioValue(theRadioGroup)
+	{
+	    var elements = document.getElementsByName(theRadioGroup);
+	    for (var i = 0, l = elements.length; i < l; i++)
+	    {
+	        if (elements[i].checked)
+	        {
+	            return elements[i].value;
+	        }
+	    }
+	}
 </script>
 
 </head>
@@ -70,7 +70,7 @@
 								<td>:</td>
 								<td><div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="Bussiness Unit" /> <span
+											checked="checked" value="BU" /> <span
 											class="check"></span> Business Unit
 										</label>
 									</div>
@@ -131,6 +131,7 @@
 			</div>
 		</div>
 		<html:hidden property="newTask" name="newAssignmentForm" />
+		<html:hidden property="assignmentType" name="newAssignmentForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" /></body>
 <div id="popup_employee" class="hide"><jsp:include

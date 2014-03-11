@@ -5,16 +5,25 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class NewSelfAssignmentBean implements Serializable {
 	private String taskCode = "";
-	private String createBy = "";
+	private String assignmentDate = "";
 	private String assignmentDueDate = "";
 	private String assignmentType = "";
-	private String assignBy = "";
-	private String reportTo = "";
+	private String assignmentCategory = "";
+	private String organizationCode = "";
+	private String organizationName = "";
+	private String headUserName = "";
+	private String projectCode = "";
 	private String activityType = "";
-	private String reffTaskCode = "";
 	private String manHours = "";
 	private String description = "";
+	private String reffTaskCode = "";
+	private String adhocUserDomain = "";
+	private String assignTo = "";
+	private String reportTo = "";
+	private String flag = "";
 	private String currentStatus = "";
+	private String createBy = "";
+	private String createDate = "";
 
 	public String getTaskCode() {
 		return taskCode;
@@ -24,12 +33,12 @@ public class NewSelfAssignmentBean implements Serializable {
 		this.taskCode = taskCode;
 	}
 
-	public String getCreateBy() {
-		return createBy;
+	public String getAssignmentDate() {
+		return assignmentDate;
 	}
 
-	public void setCreateBy(String createBy) {
-		this.createBy = createBy;
+	public void setAssignmentDate(String assignmentDate) {
+		this.assignmentDate = assignmentDate;
 	}
 
 	public String getAssignmentDueDate() {
@@ -48,20 +57,44 @@ public class NewSelfAssignmentBean implements Serializable {
 		this.assignmentType = assignmentType;
 	}
 
-	public String getAssignBy() {
-		return assignBy;
+	public String getAssignmentCategory() {
+		return assignmentCategory;
 	}
 
-	public void setAssignBy(String assignBy) {
-		this.assignBy = assignBy;
+	public void setAssignmentCategory(String assignmentCategory) {
+		this.assignmentCategory = assignmentCategory;
 	}
 
-	public String getReportTo() {
-		return reportTo;
+	public String getOrganizationCode() {
+		return organizationCode;
 	}
 
-	public void setReportTo(String reportTo) {
-		this.reportTo = reportTo;
+	public void setOrganizationCode(String organizationCode) {
+		this.organizationCode = organizationCode;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public String getHeadUserName() {
+		return headUserName;
+	}
+
+	public void setHeadUserName(String headUserName) {
+		this.headUserName = headUserName;
+	}
+
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
 	}
 
 	public String getActivityType() {
@@ -70,14 +103,6 @@ public class NewSelfAssignmentBean implements Serializable {
 
 	public void setActivityType(String activityType) {
 		this.activityType = activityType;
-	}
-
-	public String getReffTaskCode() {
-		return reffTaskCode;
-	}
-
-	public void setReffTaskCode(String reffTaskCode) {
-		this.reffTaskCode = reffTaskCode;
 	}
 
 	public String getManHours() {
@@ -96,12 +121,68 @@ public class NewSelfAssignmentBean implements Serializable {
 		this.description = description;
 	}
 
+	public String getReffTaskCode() {
+		return reffTaskCode;
+	}
+
+	public void setReffTaskCode(String reffTaskCode) {
+		this.reffTaskCode = reffTaskCode;
+	}
+
+	public String getAdhocUserDomain() {
+		return adhocUserDomain;
+	}
+
+	public void setAdhocUserDomain(String adhocUserDomain) {
+		this.adhocUserDomain = adhocUserDomain;
+	}
+
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+
+	public String getReportTo() {
+		return reportTo;
+	}
+
+	public void setReportTo(String reportTo) {
+		this.reportTo = reportTo;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
 	public String getCurrentStatus() {
 		return currentStatus;
 	}
 
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
+	}
+
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 }

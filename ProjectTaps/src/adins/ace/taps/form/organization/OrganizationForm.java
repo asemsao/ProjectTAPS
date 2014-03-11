@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
 
 @SuppressWarnings("serial")
@@ -17,7 +18,12 @@ public class OrganizationForm extends ActionForm {
 	private Integer maxpage;
 	private Integer countRecord;
 	private OrganizationBean orgBean = new OrganizationBean();
+	private List<OrganizationBean> listOrganizations;
 	private String message;
+	private List<EmployeeBean> listEmployees;
+	private Integer pageEmployee;
+	private Integer maxpageEmployee;
+	private Integer countRecordEmployee;
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;
@@ -42,8 +48,6 @@ public class OrganizationForm extends ActionForm {
 	public void setMaxpage(Integer maxpage) {
 		this.maxpage = maxpage;
 	}
-
-	private List<OrganizationBean> listOrganizations;
 
 	public String getTask() {
 		return task;
@@ -109,4 +113,35 @@ public class OrganizationForm extends ActionForm {
 		this.message = message;
 	}
 
+	public List<EmployeeBean> getListEmployees() {
+		return listEmployees;
+	}
+
+	public void setListEmployees(List<EmployeeBean> listEmployees) {
+		this.listEmployees = listEmployees;
+	}
+
+	public Integer getPageEmployee() {
+		return pageEmployee;
+	}
+
+	public void setPageEmployee(Integer pageEmployee) {
+		this.pageEmployee = pageEmployee;
+	}
+
+	public Integer getMaxpageEmployee() {
+		return maxpageEmployee;
+	}
+
+	public void setMaxpageEmployee(Integer maxpageEmployee) {
+		this.maxpageEmployee = maxpageEmployee;
+	}
+
+	public Integer getCountRecordEmployee() {
+		return countRecordEmployee;
+	}
+
+	public void setCountRecordEmployee(Integer countRecordEmployee) {
+		this.countRecordEmployee = countRecordEmployee;
+	}
 }
