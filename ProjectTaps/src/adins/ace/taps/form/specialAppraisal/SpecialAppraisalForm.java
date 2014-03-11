@@ -9,16 +9,30 @@ import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 @SuppressWarnings("serial")
 public class SpecialAppraisalForm extends ActionForm {
 	private String task;
-	private String search;
-	private String value;
 	private List<SpecialAppraisalBean> listSpecialAppraisal;
 	private Integer page;
 	private Integer maxpage;
 	private String param;
+	private String searchCategory;
+	private String searchKeyword;
 	private SpecialAppraisalBean appraisalBean = new SpecialAppraisalBean();
-	
-	
-	
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
 	public SpecialAppraisalBean getAppraisalBean() {
 		return appraisalBean;
 	}
@@ -76,22 +90,6 @@ public class SpecialAppraisalForm extends ActionForm {
 
 	public void setTask(String task) {
 		this.task = task;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 	
 }

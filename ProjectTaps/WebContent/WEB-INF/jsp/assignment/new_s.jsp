@@ -85,7 +85,8 @@
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<input type="text" placeholder="Project" readonly="readonly" />
+											<html:text property="selfAssignBean.projectCode"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -95,7 +96,8 @@
 								<td><div class="pr">:</div></td>
 								<td><div class="pr">
 										<div class="input-control text">
-											<input type="text" placeholder="Employee" readonly="readonly" />
+											<html:text property="selfAssignBean.reportTo"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div></td>
@@ -127,8 +129,8 @@
 								<td><div class="adhoc">:</div></td>
 								<td><div class="adhoc">
 										<div class="input-control text">
-											<input type="text" placeholder="Ad Hoc To"
-												readonly="readonly" />
+											<html:text property="selfAssignBean.adhocUserDomain"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="employee-2"></button>
 										</div>
 									</div></td>
@@ -137,8 +139,8 @@
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<input type="text" placeholder="Reff Task Code"
-											readonly="readonly" />
+										<html:text property="selfAssignBean.reffTaskCode"
+											name="newSelfAssignmentForm"></html:text>
 										<button type="button" class="btn-search" id="task"></button>
 									</div></td>
 							</tr>

@@ -17,7 +17,6 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
@@ -120,6 +119,8 @@ public class OrganizationAction extends Action {
 
 		paramsEmployee.put("start", (orgForm.getPageEmployee() - 1) * 10 + 1);
 		paramsEmployee.put("end", (orgForm.getPageEmployee() * 10));
+		paramsEmployee.put("category", orgForm.getSearchCategory());
+		paramsEmployee.put("keyword", orgForm.getSearchKeyword());
 		orgForm.setListEmployees(empMan.searchEmployees(paramsEmployee));
 		orgForm.setCountRecordEmployee(empMan.countEmployees(paramsEmployee));
 		if (orgForm.getCountRecordEmployee() % 10 == 0) {

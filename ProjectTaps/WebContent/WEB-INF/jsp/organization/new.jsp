@@ -101,7 +101,7 @@
 					<tr>
 						<th class="text-center" colspan=1>
 							<div class="input-control select">
-								<html:select property="search" name="organizationForm"
+								<html:select property="searchCategory" name="organizationForm"
 									styleId="search-organization">
 									<html:option value="">All</html:option>
 									<html:option value="organizationCode">Organization Code</html:option>
@@ -112,7 +112,7 @@
 						</th>
 						<th class="text-center" colspan=3>
 							<div class="input-control text">
-								<html:text property="value" name="organizationForm"
+								<html:text property="searchKeyword" name="organizationForm"
 									styleId="value-organization" value="devririza"></html:text>
 								<button type="button" class="btn-search"
 									onclick="javascript:pagingOrganization('search-lookup-organization');"></button>
@@ -194,7 +194,7 @@
 		</html:form>
 	</div>
 
-	<div id="lookUpEmployee" class="hide">
+	<div id="lookUpEmployee">
 		<html:form action="/organization" method="post">
 			<html:hidden property="task" styleId="task-employee"
 				name="organizationForm" />
@@ -211,8 +211,8 @@
 					<tr>
 						<th class="text-center" colspan=2>
 							<div class="input-control select">
-								<html:select property="search" name="organizationForm"
-									styleId="search-employee">
+								<html:select property="searchCategory" name="organizationForm"
+									styleClass="search-category-employee">
 									<html:option value="All">All</html:option>
 									<html:option value="employeeDomain">Employee Domain</html:option>
 									<html:option value="employeeCode">Employee Code</html:option>
@@ -223,8 +223,9 @@
 						</th>
 						<th class="text-center" colspan=3>
 							<div class="input-control text">
-								<html:text property="value" name="organizationForm"
-									styleId="value-employee" value="employee"></html:text>
+								<html:text property="searchKeyword" name="organizationForm"
+									styleClass="search-keyword-employee"
+									onkeydown="if (event.keyCode == 13){ javascript:pagingEmployee('search-lookup-employee'); return false;}"></html:text>
 								<button type="button" class="btn-search"
 									onclick="javascript:pagingEmployee('search-lookup-employee');"></button>
 							</div>
@@ -296,8 +297,7 @@
 							</div>
 						</th>
 						<th class="text-center"><button type="button"
-								class='button success'
-								onclick="javascript:chooseEmployee()">Add</button></th>
+								class='button success' onclick="javascript:chooseEmployee()">Add</button></th>
 					</tr>
 				</thead>
 			</table>

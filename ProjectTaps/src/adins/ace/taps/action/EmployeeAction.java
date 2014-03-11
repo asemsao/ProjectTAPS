@@ -21,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.module.PhotoResizeModule;
+import adins.ace.taps.module.QueryActiveDirectory;
 
 public class EmployeeAction extends Action {
 	@Override
@@ -42,6 +43,9 @@ public class EmployeeAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
+			//TESTING
+			QueryActiveDirectory que = new QueryActiveDirectory();
+			mForm.setListAD(que.queryAD());
 			return mapping.findForward("New");
 		}
 		else if("cancel".equals(mForm.getTask())){
