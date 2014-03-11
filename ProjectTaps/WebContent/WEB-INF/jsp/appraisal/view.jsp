@@ -37,21 +37,21 @@
 							<tr>
 								<td class="size3">Appraisal Date</td>
 								<td>:</td>
-								<td><bean:write name="specialAppraisal"
-										property="createdDate" /></td>
+								<td><bean:write name="specialAppraisalForm"
+										property="appraisalBean.createdDate" /></td>
 							</tr>
 							<tr>
 								<td class="size3">Appraisal To</td>
 								<td>:</td>
-								<td><bean:write name="specialAppraisal"
-										property="employeeName" /></td>
+								<td><bean:write name="specialAppraisalForm"
+										property="appraisalBean.employeeName" /></td>
 							</tr>
 							<tr>
 								<td class="size3">Appraisal Description</td>
 								<td>:</td>
-								<td><td><bean:write name="specialAppraisal"
-										property="description" />
-							</td></tr>
+								<td><bean:write name="specialAppraisalForm"
+										property="appraisalBean.description" /></td>
+							</tr>
 							<tr>
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>

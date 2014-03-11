@@ -14,7 +14,7 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
-	function flyToPage(task, param) {
+	function flyToPage2(task, param) {
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.param.value = param;
 		document.specialAppraisalForm.submit();
@@ -58,7 +58,7 @@
 										<td class="text-center"><bean:write
 												name="specialAppraisal" property="appraisalStar" /></td>
 										<td class="text-center"><a
-											href="javascript:flyToPage('View','<bean:write name="specialAppraisal" property="userDomain" />');"
+											href="javascript:flyToPage2('View','<bean:write name="specialAppraisal" property="starId" />');"
 											data-hint="View Special Appraisal"
 											data-hint-position="bottom"><img alt=""
 												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>

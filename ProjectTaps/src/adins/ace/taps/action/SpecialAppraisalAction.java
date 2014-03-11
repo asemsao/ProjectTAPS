@@ -30,7 +30,9 @@ public class SpecialAppraisalAction extends Action {
 			return mapping.findForward("New");
 		}		
 		if("View".equals(mForm.getTask())){
-			mForm.setListSpecialAppraisal(mMan.ViewSpecialAppraisal(mForm.getParam()));
+			System.out.println("Task View : "+mForm.getTask());
+			System.out.println("Task Param : "+mForm.getParam());
+			mForm.setAppraisalBean(mMan.getUserDomain(mForm.getParam()));
 			return mapping.findForward("View");
 		}
 		if("Back".equals(mForm.getTask())){
