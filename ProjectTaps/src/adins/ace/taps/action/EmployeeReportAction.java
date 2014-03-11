@@ -21,7 +21,6 @@ public class EmployeeReportAction extends Action {
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		System.out.println(session.getAttribute("link"));
 
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			
