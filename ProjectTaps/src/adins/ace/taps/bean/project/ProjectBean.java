@@ -8,6 +8,7 @@ public class ProjectBean implements Serializable
 	private String projectName;
 	private String client;
 	private String organizationCode;
+	private String organizationName;
 	private String phase;
 	private String startDate;
 	private String endDate;
@@ -60,6 +61,12 @@ public class ProjectBean implements Serializable
 	}
 	public void setRunningDay(int runningDay) {
 		this.runningDay = runningDay;
+	}
+	public String getOrganizationName() {
+		return organizationName;
+	}
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
 	}
 	
 	
