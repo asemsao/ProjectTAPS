@@ -15,16 +15,22 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.OrganizationManager;
+import adins.ace.taps.manager.ProjectManager;
 
 public class AjaxAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		EmployeeManager empMan = new EmployeeManager();
-
 		AjaxForm ajaxForm = (AjaxForm) form;
+
+		EmployeeManager empMan = new EmployeeManager();
+		OrganizationManager orgMan = new OrganizationManager();
+		AssignmentManager asgMan = new AssignmentManager();
+		ProjectManager prjMan = new ProjectManager();
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
@@ -57,13 +63,23 @@ public class AjaxAction extends Action {
 
 		params.put("start", (ajaxForm.getPage() - 1) * 10 + 1);
 		params.put("end", (ajaxForm.getPage() * 10));
-		System.out.println(ajaxForm.getSearchCategory());
-		System.out.println(ajaxForm.getSearchKeyword());
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
 
-		ajaxForm.setListEmployees(empMan.searchEmployees(params));
-		ajaxForm.setCountRecord(empMan.countEmployees(params));
+		if ("employees".equals(ajaxForm.getMode())) {
+			ajaxForm.setListEmployees(empMan.searchEmployees(params));
+			ajaxForm.setCountRecord(empMan.countEmployees(params));
+		}
+		if ("organizations".equals(ajaxForm.getMode())) {
+			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
+			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
+		}
+		if ("assignments".equals(ajaxForm.getMode())) {
+
+		}
+		if ("projects".equals(ajaxForm.getMode())) {
+
+		}
 
 		if (ajaxForm.getCountRecord() % 10 == 0) {
 			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / 10));
