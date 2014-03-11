@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.form.organization.OrganizationForm;
+import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
 
 public class OrganizationAction extends Action {
@@ -84,6 +85,8 @@ public class OrganizationAction extends Action {
 		}
 
 		if ("new".equals(orgForm.getTask())) {
+			EmployeeManager empMan = new EmployeeManager();
+			orgForm.setListEmployees(empMan.searchEmployees(params));
 			return mapping.findForward("New");
 		}
 		if ("edit".equals(orgForm.getTask())) {

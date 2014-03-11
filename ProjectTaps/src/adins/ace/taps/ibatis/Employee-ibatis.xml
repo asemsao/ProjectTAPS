@@ -4,11 +4,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
+	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
+
 	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
 		FROM employees e
 	</select>
-	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean"
+	
+	<select id="searchEmployees" resultClass="employeeBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
@@ -23,6 +26,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
+
 	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.EditEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT picture AS profilePicture, user_domain AS

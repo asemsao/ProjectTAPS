@@ -112,7 +112,8 @@
 								<html:text property="value" name="organizationForm"
 									styleId="value" value="devririza"></html:text>
 								<button type="button" id="searchOrganizationOnLookUp"
-									class="btn-search" onclick="javascript:pagingOrganization('lookupsearch');"></button>
+									class="btn-search"
+									onclick="javascript:pagingOrganization('lookupsearch');"></button>
 							</div>
 						</th>
 					</tr>
@@ -189,6 +190,9 @@
 			</table>
 		</html:form>
 	</div>
+	<div id="lookUpEmployee" class="hide">
+	</div>
+
 
 	<jsp:include page="/frame/footer.jsp" />
 	<!-- 	<div id="popup_employee" class="hide"> -->

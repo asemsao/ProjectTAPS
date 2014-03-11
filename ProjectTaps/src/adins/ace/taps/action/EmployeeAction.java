@@ -86,7 +86,7 @@ public class EmployeeAction extends Action {
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
 
-		mForm.setListEmployees(mMan.getAllEmployees(params));
+		mForm.setListEmployees(mMan.searchEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
