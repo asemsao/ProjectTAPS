@@ -75,7 +75,13 @@
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
 								<th class="text-center">Assignment Category</th>
-								<th class="text-center">Employee Name</th>
+								
+								<%if ("employeeReport".equals(session.getAttribute("link"))){ %>
+									<th class="text-center">Assign By</th>
+								<%} else { %>
+									<th class="text-center">Employee Name</th>
+								<%} %>
+								
 								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>
 								<th class="text-center">Status</th>
