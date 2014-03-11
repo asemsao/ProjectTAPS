@@ -14,6 +14,7 @@
 <body class="metro">
 	<html:form action="/ajax" method="post">
 		<html:hidden property="task" styleId="task-employee" name="ajaxForm" />
+		<html:hidden property="task" styleId="mode-employee" name="ajaxForm" />
 		<html:hidden property="page" styleId="page-employee" name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-employee"
 			name="ajaxForm" />

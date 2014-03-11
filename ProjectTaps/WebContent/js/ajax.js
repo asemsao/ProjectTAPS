@@ -36,8 +36,9 @@ function setParameterEmployee() {
 	var value = $(".search-keyword-employee").get(1).value;
 	var page = $("#page-employee").val();
 	var maxpage = $("#maxpage-employee").val();
+	var mode = $("#mode-employee").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage;
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
 	return data;
 }
 
@@ -86,6 +87,7 @@ function setResponseEmployee(data) {
 	$("#current-page-employee").html(json.page);
 	$("#maxpage-employee").val(json.maxpage);
 	$("#max-page-employee").html(json.maxpage);
+	$("#total-record-employee").html(json.countRecord);
 	$(".search-category-employee").val(json.searchCategory);
 	$(".search-keyword-employee").val(json.searchKeyword);
 }

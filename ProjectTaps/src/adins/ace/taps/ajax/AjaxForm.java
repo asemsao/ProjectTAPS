@@ -18,9 +18,6 @@ public class AjaxForm extends ActionForm {
 	private List<EmployeeBean> listEmployees;
 	private List<OrganizationBean> listOrganizations;
 	private String mode;
-	// private Integer pageEmployee;
-	// private Integer maxpageEmployee;
-	// private Integer countRecordEmployee;
 
 	public String getTask() {
 		return task;
