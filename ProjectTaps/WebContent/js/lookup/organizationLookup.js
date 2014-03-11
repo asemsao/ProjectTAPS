@@ -30,11 +30,11 @@ function loadOrganization() {
 }
 
 function setParameter() {
-	var task = $("#task").val();
-	var search = $("#search").val();
-	var value = $("#value").val();
-	var page = $("#page").val();
-	var maxpage = $("#maxpage").val();
+	var task = $("#task-organization").val();
+	var search = $("#search-organization").val();
+	var value = $("#value-organization").val();
+	var page = $("#page-organization").val();
+	var maxpage = $("#maxpage-organization").val();
 	var data = "task=" + task + "&search=" + search + "&value=" + value
 			+ "&page=" + page + "&maxpage=" + maxpage;
 	return data;
@@ -77,14 +77,14 @@ function setResponseOrganization(data) {
 	content += "</tbody>";
 	content += "</table>";
 	$("#table-ajax-organization").html(content);
-	$("#current-page").html(json.page);
-	$("#max-page").html(json.maxpage);
-	$("#total-record").html(json.countRecord);
+	$("#current-page-organization").html(json.page);
+	$("#max-page-organization").html(json.maxpage);
+	$("#total-record-organization").html(json.countRecord);
 }
 
 function pagingOrganization(direction) {
 	$.Dialog.close();
-	$("#task").val(direction);
+	$("#task-organization").val(direction);
 	var data = setParameter();
 	$.ajax({
 		url : "/ProjectTaps/organization.do",
@@ -109,4 +109,27 @@ function chooseBussinessUnit() {
 	$("#organization_id").val(choosen.split('@')[0]);
 	$("#organization").val(choosen.split('@')[1]);
 	$.Dialog.close();
+}
+
+
+
+// numpang employee
+function pagingEmployee(direction) {
+	alert(direction);
+	// $.Dialog.close();
+	// $("#task-organization").val(direction);
+	// var data = setParameter();
+	// $.ajax({
+	// url : "/ProjectTaps/organization.do",
+	// type : "POST",
+	// data : data,
+	// context : this,
+	// error : function() {
+	// console.log("problem was here!");
+	// },
+	// success : function(data) {
+	// setResponseOrganization(data);
+	// }
+	// });
+	// loadOrganization();
 }

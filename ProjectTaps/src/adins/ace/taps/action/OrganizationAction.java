@@ -17,6 +17,7 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
@@ -27,9 +28,13 @@ public class OrganizationAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
+		EmployeeManager empMan = new EmployeeManager();
+		
 		OrganizationForm orgForm = (OrganizationForm) form;
+
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
+		Map paramsEmp = new HashMap();
 
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
@@ -47,37 +52,44 @@ public class OrganizationAction extends Action {
 		}
 
 		if ("first".equals(orgForm.getTask())
-				|| "first-ajax".equals(orgForm.getTask())) {
+				|| "first-lookup-organization".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
 
 		if ("last".equals(orgForm.getTask())
-				|| "last-ajax".equals(orgForm.getTask())) {
+				|| "last-lookup-organization".equals(orgForm.getTask())) {
 			orgForm.setPage(orgForm.getMaxpage());
 		}
 
 		if ("prev".equals(orgForm.getTask())
-				|| "prev-ajax".equals(orgForm.getTask())) {
+				|| "prev-lookup-organization".equals(orgForm.getTask())) {
 			if (orgForm.getPage() > 1) {
 				orgForm.setPage(orgForm.getPage() - 1);
 			}
 		}
 		if ("next".equals(orgForm.getTask())
-				|| "next-ajax".equals(orgForm.getTask())) {
+				|| "next-lookup-organization".equals(orgForm.getTask())) {
 			if (orgForm.getPage() < orgForm.getMaxpage()) {
 				orgForm.setPage(orgForm.getPage() + 1);
 			}
 		}
 
-		if ("search".equals(orgForm.getTask())) {
+		if ("search".equals(orgForm.getTask())
+				|| "search-lookup-organization".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
 
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
+		
+		paramsEmp.put("start", (orgForm.getPage() - 1) * 10 + 1);
+		paramsEmp.put("end", (orgForm.getPage() * 10));
 
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
+		
+		orgForm.setListEmployees(empMan.searchEmployees(paramsEmp));
+
 		if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
@@ -85,8 +97,6 @@ public class OrganizationAction extends Action {
 		}
 
 		if ("new".equals(orgForm.getTask())) {
-			EmployeeManager empMan = new EmployeeManager();
-			orgForm.setListEmployees(empMan.searchEmployees(params));
 			return mapping.findForward("New");
 		}
 		if ("edit".equals(orgForm.getTask())) {
@@ -95,18 +105,41 @@ public class OrganizationAction extends Action {
 		if ("cancel".equals(orgForm.getTask())) {
 			return mapping.findForward("ListEmployee");
 		}
-
-		if ("lookupsearch".equalsIgnoreCase(orgForm.getTask())
-				|| "first-ajax".equalsIgnoreCase(orgForm.getTask())
-				|| "prev-ajax".equalsIgnoreCase(orgForm.getTask())
-				|| "next-ajax".equalsIgnoreCase(orgForm.getTask())
-				|| "last-ajax".equalsIgnoreCase(orgForm.getTask())) {
+		
+		// AJAX ORGANIZATION
+		if ("search-lookup-organization".equalsIgnoreCase(orgForm.getTask())
+				|| "first-lookup-organization".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "prev-lookup-organization".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "next-lookup-organization".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "last-lookup-organization".equalsIgnoreCase(orgForm
+						.getTask())) {
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(orgForm);
 			out.print(json);
 			return null;
 		}
+		
+		// AJAX EMPLOYEES
+		if ("search-lookup-employee".equalsIgnoreCase(orgForm.getTask())
+				|| "first-lookup-employee".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "prev-lookup-employee".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "next-lookup-employee".equalsIgnoreCase(orgForm
+						.getTask())
+				|| "last-lookup-employee".equalsIgnoreCase(orgForm
+						.getTask())) {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(orgForm.getListEmployees());
+			out.print(json);
+			return null;
+		}
+
 		return mapping.findForward("ListOrganization");
 	}
 }
