@@ -40,12 +40,21 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
-	<html:form enctype="multipart/form-data" action="/employee" method="post" styleClass="employeeForm">
+	<html:form enctype="multipart/form-data" action="/employee"
+		method="post" styleClass="employeeForm">
 		<html:hidden property="task" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
+
+	<logic:notEmpty name="employeeForm" property="listAD">
+		<logic:iterate id="employee" name="employeeForm"
+			property="listAD">
+			<bean:write name="employee" property="fullName" />
+			<bean:write name="employee" property="userDomain" />
+		</logic:iterate>
+	</logic:notEmpty>
+	
 					<table class="table">
 						<thead>
 							<tr>
@@ -64,8 +73,7 @@
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"><br>
 									<div class="input-control file ">
-										<html:file property="profilePicture"
-											accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 							</tr>
