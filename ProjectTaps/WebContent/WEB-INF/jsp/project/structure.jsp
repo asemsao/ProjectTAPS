@@ -34,11 +34,11 @@
 						</tr>
 						<tr>
 							<th colspan=1>Business Unit</th>
-							<th colspan=5>Custom Development Department</th>
+							<th colspan=5><bean:write name="project" property="organizationName" /></th>
 						</tr>
 						<tr>
 							<th colspan=1>Project</th>
-							<th colspan=5>Timesheet and Performance Sheet</th>
+							<th colspan=5><bean:write name="project" property="projectName" /></th>
 						</tr>
 						<tr>
 							<th class="text-center">Role</th>
