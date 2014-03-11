@@ -16,6 +16,7 @@
 		document.specialAppraisalForm.submit();
 	}
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
@@ -43,9 +44,9 @@
 							<tr>
 								<td class="size3">Appraisal To</td>
 								<td>:</td>
-								<td><div class="input-control text size3">
-								<input type="text" placeholder="Employee" readonly="readonly" />
-										<button class="btn-search" id="employee"></button>
+								<td><div class="input-control text">
+										<input type="text" placeholder="Employee" readonly="readonly" />
+										<button class="btn-search" type="button" id="employee"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -90,11 +91,16 @@
 		</div>
 		<html:hidden property="task" name="specialAppraisalForm" />
 	</html:form>
+
+	<div id="lookUpEmployee">
+		<jsp:include page="/lookup/_employee.jsp" />
+	</div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide"><jsp:include
-			page="/lookup/_employee.jsp" /></div>
-	<%-- 	<div id="popup_appraisal" class="hide"><jsp:include --%>
-	<%-- 			page="/lookup/_appraisal.jsp" /></div> --%>
+	<%-- 	<div id="popup_employee" class="hide"><jsp:include --%>
+	<%-- 			page="/lookup/_employee.jsp" /></div> --%>
+
+
+
 </body>
 
 </html>

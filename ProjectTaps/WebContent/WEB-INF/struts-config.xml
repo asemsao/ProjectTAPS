@@ -17,19 +17,23 @@
 			type="adins.ace.taps.form.assignment.NewAssignmentForm" />
 		<form-bean name="newSelfAssignmentForm"
 			type="adins.ace.taps.form.assignment.NewSelfAssignmentForm" />
+		<form-bean name="ajaxForm" type="adins.ace.taps.ajax.AjaxForm" />
 		<form-bean name="specialAppraisalForm"
 			type="adins.ace.taps.form.specialAppraisal.SpecialAppraisalForm" />
 	</form-beans>
 
 	<action-mappings>
-		<action name="projectForm" path="/project" scope="request" type="adins.ace.taps.action.ProjectAction">
-				<forward name="ListProject" path="/WEB-INF/jsp/project/index.jsp" />
-				<forward name="AddProject" path="/WEB-INF/jsp/project/new.jsp" />
-				<forward name="ViewMember" path="/WEB-INF/jsp/project/structure.jsp" />
-				<forward name="AddMember" path="/WEB-INF/jsp/project/add.jsp" />
-		</action>	
-		<action name="reportForm" path="/report" scope="request"
+		<action name="ajaxForm" path="/ajax" scope="request"
+			type="adins.ace.taps.ajax.AjaxAction" />
 
+		<action name="projectForm" path="/project" scope="request"
+			type="adins.ace.taps.action.ProjectAction">
+			<forward name="ListProject" path="/WEB-INF/jsp/project/index.jsp" />
+			<forward name="AddProject" path="/WEB-INF/jsp/project/new.jsp" />
+			<forward name="ViewMember" path="/WEB-INF/jsp/project/structure.jsp" />
+			<forward name="AddMember" path="/WEB-INF/jsp/project/add.jsp" />
+		</action>
+		<action name="reportForm" path="/report" scope="request"
 			type="adins.ace.taps.action.ReportAction">
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
 			<forward name="View" path="/WEB-INF/jsp/report/view.jsp" />
@@ -66,7 +70,7 @@
 			<forward name="Assignment" path="/employeeReport.do" />
 			<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
 			<forward name="EmployeeReport" path="/employeeReport.do" />
-			
+
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">
@@ -91,6 +95,7 @@
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewSelfAssignment" path="/WEB-INF/jsp/assignment/new_s.jsp" />
 		</action>
+
 	</action-mappings>
 
 	<message-resources parameter="Application" />

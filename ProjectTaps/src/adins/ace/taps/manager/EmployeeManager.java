@@ -10,21 +10,20 @@ import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-
-
 public class EmployeeManager {
 	public SqlMapClient ibatisSqlMap = null;
 
 	public EmployeeManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
-	public boolean insertNewEmployee(NewEmployeeBean newEmployee){
-		boolean flag=false;
+
+	public boolean insertNewEmployee(NewEmployeeBean newEmployee) {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.queryForObject("employee.addEmployee", newEmployee);
 			ibatisSqlMap.commitTransaction();
-			flag=true;
+			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -36,41 +35,44 @@ public class EmployeeManager {
 		}
 		return flag;
 	}
-	public List<EmployeeBean> searchEmployees(Map params){
+
+	public List<EmployeeBean> searchEmployees(Map params) {
 		List<EmployeeBean> empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			System.out.println("row"+params.get("rowEnd"));
-			empList = ibatisSqlMap.queryForList("employee.searchEmployees", params);			
+			System.out.println("row dave");
+			empList = ibatisSqlMap.queryForList("employee.searchEmployees",
+					params);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-		return empList;		
+		return empList;
 	}
-	
-	public NewEmployeeBean getEditEmployees(Map params){
+
+	public NewEmployeeBean getEditEmployees(Map params) {
 		NewEmployeeBean empEdit = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empEdit = (NewEmployeeBean) ibatisSqlMap.queryForObject("employee.getEditEmployees", params);
+			empEdit = (NewEmployeeBean) ibatisSqlMap.queryForObject(
+					"employee.getEditEmployees", params);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-		return empEdit;		
+		return empEdit;
 	}
-	
+
 	public Integer countEmployees(Map params) {
 		Integer count = null;
 		try {
