@@ -35,7 +35,7 @@ public class SpecialAppraisalAction extends Action {
 			return mapping.findForward("New");
 		}
 		else if("Appraisal".equals(mForm.getTask())){
-			System.out.println("appraisal insert");
+			System.out.println("insert");
 			mMan.Insert(mForm.getAppraisalBean());
 			mForm.setListSpecialAppraisal(mMan.getAll());	
 			return mapping.findForward("ListSpecialAppraisal");
