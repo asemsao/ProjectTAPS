@@ -33,13 +33,9 @@ public class OrganizationAction extends Action {
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
-		Map paramsEmployee = new HashMap();
 
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
-		}
-		if (orgForm.getPageEmployee() == null) {
-			orgForm.setPageEmployee(1);
 		}
 
 		if ("delete".equals(orgForm.getTask())) {
@@ -76,63 +72,24 @@ public class OrganizationAction extends Action {
 			}
 		}
 
-		if ("first-lookup-employee".equals(orgForm.getTask())) {
-			orgForm.setPageEmployee(1);
-		}
-
-		if ("last-lookup-employee".equals(orgForm.getTask())) {
-			orgForm.setPageEmployee(orgForm.getMaxpageEmployee());
-		}
-
-		if ("prev-lookup-employee".equals(orgForm.getTask())) {
-			if (orgForm.getPageEmployee() > 1) {
-				orgForm.setPageEmployee(orgForm.getPageEmployee() - 1);
-			}
-		}
-		if ("next-lookup-employee".equals(orgForm.getTask())) {
-			System.out.println("jancuk");
-			System.out.println(orgForm.getPageEmployee());
-			System.out.println(orgForm.getMaxpageEmployee());
-			if (orgForm.getPageEmployee() < orgForm.getMaxpageEmployee()) {
-				orgForm.setPageEmployee(orgForm.getPageEmployee() + 1);
-				System.out.println("cek");
-				System.out.println(orgForm.getPageEmployee());
-			}
-		}
-
 		if ("search".equals(orgForm.getTask())
-				|| "search-lookup-organization".equals(orgForm.getTask())
-				|| "search-lookup-employee".equals(orgForm.getTask())) {
+				|| "search-lookup-organization".equals(orgForm.getTask())) {
 			System.out.println("search");
 			orgForm.setPage(1);
 		}
-		
+
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
 		params.put("category", orgForm.getSearchCategory());
 		params.put("keyword", orgForm.getSearchKeyword());
-		
+
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
-		
+
 		if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
-		}
-
-		paramsEmployee.put("start", (orgForm.getPageEmployee() - 1) * 10 + 1);
-		paramsEmployee.put("end", (orgForm.getPageEmployee() * 10));
-		paramsEmployee.put("category", orgForm.getSearchCategory());
-		paramsEmployee.put("keyword", orgForm.getSearchKeyword());
-		orgForm.setListEmployees(empMan.searchEmployees(paramsEmployee));
-		orgForm.setCountRecordEmployee(empMan.countEmployees(paramsEmployee));
-		if (orgForm.getCountRecordEmployee() % 10 == 0) {
-			orgForm.setMaxpageEmployee((int) Math.ceil(orgForm
-					.getCountRecordEmployee() / 10));
-		} else {
-			orgForm.setMaxpageEmployee(((int) Math.ceil(orgForm
-					.getCountRecordEmployee() / 10)) + 1);
 		}
 
 		if ("new".equals(orgForm.getTask())) {
@@ -155,12 +112,7 @@ public class OrganizationAction extends Action {
 				|| "next-lookup-organization".equalsIgnoreCase(orgForm
 						.getTask())
 				|| "last-lookup-organization".equalsIgnoreCase(orgForm
-						.getTask())
-				|| "search-lookup-employee".equalsIgnoreCase(orgForm.getTask())
-				|| "first-lookup-employee".equalsIgnoreCase(orgForm.getTask())
-				|| "prev-lookup-employee".equalsIgnoreCase(orgForm.getTask())
-				|| "next-lookup-employee".equalsIgnoreCase(orgForm.getTask())
-				|| "last-lookup-employee".equalsIgnoreCase(orgForm.getTask())) {
+						.getTask())) {
 
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(orgForm);
