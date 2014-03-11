@@ -52,10 +52,8 @@ public class AjaxAction extends Action {
 			}
 		}
 
-		// params.put("start", (ajaxForm.getPage() - 1) * 10 + 1);
-		// params.put("end", (ajaxForm.getPage() * 10));
-		params.put("start", 1);
-		params.put("end", 10);
+		params.put("start", (ajaxForm.getPage() - 1) * 10 + 1);
+		params.put("end", (ajaxForm.getPage() * 10));
 		ajaxForm.setListEmployees(empMan.searchEmployees(params));
 		ajaxForm.setCountRecord(empMan.countEmployees(params));
 		ajaxForm.setTask("test");
@@ -65,12 +63,12 @@ public class AjaxAction extends Action {
 			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / 10)) + 1);
 		}
 
-		System.out.println("test");
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(ajaxForm);
+		// System.out.println("test");
+		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		// String json = gson.toJson(ajaxForm);
 		// out.print(json);
 
-		return null;
+		return mapping.findForward("employees");
 	}
 
 }

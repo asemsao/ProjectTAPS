@@ -15,12 +15,16 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
+	$(document).ready(function() {
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
+
 	<html:form action="/specialAppraisal" method="post">
 		<div class="container container-taps">
 			<div class="grid">
@@ -93,7 +97,7 @@
 	</html:form>
 
 	<div id="lookUpEmployee">
-		<jsp:include page="/lookup/_employee.jsp" />
+		test
 	</div>
 	<jsp:include page="/frame/footer.jsp" />
 	<%-- 	<div id="popup_employee" class="hide"><jsp:include --%>
