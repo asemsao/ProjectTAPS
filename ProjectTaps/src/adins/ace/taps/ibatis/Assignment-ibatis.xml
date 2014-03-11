@@ -143,7 +143,7 @@
 		(task_code, assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
 		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
 		VALUES
-		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
+		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, 'ADHOC', #adhocUserDomain#, #assignTo#, #reportTo#, 'INACTIVE', #currentStatus#, 
 		#createBy#, SYSDATE)
 	</insert>
@@ -153,10 +153,21 @@
 		(task_code,assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
 		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
 		VALUES
-		('1',#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
+		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, #activityType#, #adhocUserDomain#, #assignTo#, #reportTo#, 'INACTIVE', #currentStatus#, 
 		#createBy#, SYSDATE)
 	</insert>
+	
+	<select id="searchOrganizationCode" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT organization_code AS organizationCode 
+		FROM employees 
+		WHERE user_domain = #userDomain#
+	</select>
+	
+	<select id="getMaxTaskCode" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT LPAD(SUBSTR(MAX(task_code), 8, 11) + 1, 5, 0) FROM assignments
+		WHERE task_code LIKE UPPER ('%$paramTaskCode$%')
+	</select>
 	
 <!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
 <!-- 	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean"> -->

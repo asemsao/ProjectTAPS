@@ -36,11 +36,11 @@ public class EmployeeManager {
 		}
 		return flag;
 	}
-	public List getAllEmployees(Map params){
-		List empList = null;
+	public List<EmployeeBean> searchEmployees(Map params){
+		List<EmployeeBean> empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empList = ibatisSqlMap.queryForList("employee.getAllEmployees", params);			
+			empList = ibatisSqlMap.queryForList("employee.searchEmployees", params);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{

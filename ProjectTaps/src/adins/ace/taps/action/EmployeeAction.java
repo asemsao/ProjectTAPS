@@ -3,6 +3,7 @@
 
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
@@ -25,10 +29,13 @@ public class EmployeeAction extends Action {
 			throws Exception {
 		EmployeeForm mForm = (EmployeeForm) form;
 		EmployeeManager mMan = new EmployeeManager();
+		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
+		
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
+		
 		if ("edit".equals(mForm.getTask())) {
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
@@ -59,6 +66,7 @@ public class EmployeeAction extends Action {
 		
 		else if ("first".equals(mForm.getTask())
 				|| "first-ajax".equals(mForm.getTask())) {
+			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
@@ -87,7 +95,7 @@ public class EmployeeAction extends Action {
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
 
-		mForm.setListEmployees(mMan.getAllEmployees(params));
+		mForm.setListEmployees(mMan.searchEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
 		
 		if (mForm.getCountRecord() % 10 == 0) {
@@ -95,6 +103,23 @@ public class EmployeeAction extends Action {
 		} else {
 			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
 		}
+		
+		if ("search-lookup-employee".equalsIgnoreCase(mForm.getTask())
+				|| "first-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "prev-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "next-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())
+				|| "last-lookup-employee".equalsIgnoreCase(mForm
+						.getTask())) {
+
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(mForm);
+			out.print(json);
+			return null;
+		}
+		
 		return mapping.findForward("ListEmployee");
 	}
 }

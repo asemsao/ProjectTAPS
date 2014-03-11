@@ -15,6 +15,17 @@ public class SpecialAppraisalForm extends ActionForm {
 	private Integer page;
 	private Integer maxpage;
 	private String param;
+	private SpecialAppraisalBean appraisalBean = new SpecialAppraisalBean();
+	
+	
+	
+	public SpecialAppraisalBean getAppraisalBean() {
+		return appraisalBean;
+	}
+
+	public void setAppraisalBean(SpecialAppraisalBean appraisalBean) {
+		this.appraisalBean = appraisalBean;
+	}
 
 	public String getParam() {
 		return param;
@@ -82,4 +93,5 @@ public class SpecialAppraisalForm extends ActionForm {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
 }
