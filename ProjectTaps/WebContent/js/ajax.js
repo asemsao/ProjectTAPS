@@ -37,13 +37,12 @@ function setParameterEmployee() {
 	var page = $("#page-employee").val();
 	var maxpage = $("#maxpage-employee").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&pageEmployee=" + page + "&maxpageEmployee=" + maxpage;
+			+ value + "&page=" + page + "&maxpage=" + maxpage;
 	return data;
 }
 
 function setResponseEmployee(data) {
 	var json = $.parseJSON(data);
-
 	var content = "<table ";
 	content += "class='table striped bordered hovered'>";
 	content += "<thead>";
@@ -83,13 +82,12 @@ function setResponseEmployee(data) {
 	content += "</tbody>";
 	content += "</table>";
 	$("#table-ajax-employee").html(content);
-	$("#page-employee").val(json.pageEmployee);
-	$("#current-page-employee").html(json.pageEmployee);
-	$("#maxpage-employee").val(json.maxpageEmployee);
-	$("#max-page-employee").html(json.maxpageEmployee);
+	$("#page-employee").val(json.page);
+	$("#current-page-employee").html(json.page);
+	$("#maxpage-employee").val(json.maxpage);
+	$("#max-page-employee").html(json.maxpage);
 	$(".search-category-employee").val(json.searchCategory);
 	$(".search-keyword-employee").val(json.searchKeyword);
-
 }
 
 function pagingEmployee(direction) {
@@ -116,7 +114,7 @@ function pagingEmployee(direction) {
 
 function chooseEmployee() {
 	var choosen = $("input[name='employee_choose']:checked").val();
-	$("#employee_id").val(choosen.split('@')[0]);
-	$("#employee_name").val(choosen.split('@')[1]);
+	$("#employee-domain").val(choosen.split('@')[0]);
+	$("#employee-name").val(choosen.split('@')[1]);
 	$.Dialog.close();
 }
