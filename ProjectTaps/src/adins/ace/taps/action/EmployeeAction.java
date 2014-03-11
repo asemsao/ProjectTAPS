@@ -30,10 +30,8 @@ public class EmployeeAction extends Action {
 			mForm.setPage(1);
 		}
 		if ("edit".equals(mForm.getTask())) {
-			System.out.println(mForm.getEmployeeDomain());
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
-			System.out.println(mForm.getNewEmployee().getBusinessUnit());
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
