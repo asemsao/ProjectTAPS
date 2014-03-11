@@ -37,6 +37,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							<isEqual property="category" compareValue="employeeAddress">(LOWER(ADDRESS) 
 								LIKE LOWER ('%$keyword$%'))
 							</isEqual>
+							<isEqual property="category" compareValue="All">(LOWER(USER_DOMAIN)
+								LIKE LOWER ('%$keyword$%') OR LOWER(EMPLOYEE_CODE)
+								LIKE LOWER ('%$keyword$%') OR LOWER(FIRST_NAME) 
+								LIKE LOWER ('%$keyword$%') OR
+								LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%') OR LOWER(ADDRESS) 
+								LIKE LOWER ('%$keyword$%'))
+							</isEqual>
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
