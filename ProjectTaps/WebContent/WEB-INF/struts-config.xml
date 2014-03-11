@@ -83,6 +83,7 @@
 			<forward name="AddAssignment" path="/newAssignment.do" />
 			<forward name="AddSelfAssignment" path="/newSelfAssignment.do" />
 			<forward name="Draft" path="/newSelfAssignment.do" />
+			<forward name="DraftSupervisor" path="/newAssignment.do" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">

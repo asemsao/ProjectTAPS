@@ -38,7 +38,7 @@ public class EmployeeReportAction extends Action {
 				if("DRAFT".equals(eForm.getCurrentStatus())){
 					return mapping.findForward("Draft");
 				}
-//				} else if("CLAIM".equals(eForm.getCurrentStatus())){
+//				else if("CLAIM".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("Claim");
 //				} else if("RFA".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("RFA");
@@ -65,9 +65,11 @@ public class EmployeeReportAction extends Action {
 				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				 return mapping.findForward("SearchAssignment");
 			} else if ("view".equals(eForm.getTask())){
-//				if("DRAFT".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("DraftSupervisor");
-//				} else if("CLAIM".equals(eForm.getCurrentStatus())){
+				session.setAttribute("taskCode", eForm.getTaskCode());
+				if("DRAFT".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("DraftSupervisor");
+				}
+//				else if("CLAIM".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("ClaimSupervisor");
 //				} else if("RFA".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("RFASupervisor");
@@ -96,9 +98,11 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
 			} else if ("view".equals(eForm.getTask())){
-//				if("DRAFT".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("DraftSupervisor");
-//				} else if("CLAIM".equals(eForm.getCurrentStatus())){
+				session.setAttribute("taskCode", eForm.getTaskCode());
+				if("DRAFT".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("DraftSupervisor");
+				}
+//				else if("CLAIM".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("ClaimSupervisor");
 //				} else if("RFA".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("RFASupervisor");
