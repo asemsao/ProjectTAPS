@@ -8,6 +8,8 @@ import adins.ace.taps.bean.assignment.NewSelfAssignmentBean;
 public class NewSelfAssignmentForm extends ActionForm {
 	private NewSelfAssignmentBean selfAssignBean = new NewSelfAssignmentBean();
 	private String newTask;
+	private String assignmentType;
+	private String activityType;
 
 	public NewSelfAssignmentBean getSelfAssignBean() {
 		return selfAssignBean;
@@ -23,6 +25,22 @@ public class NewSelfAssignmentForm extends ActionForm {
 
 	public void setNewTask(String newTask) {
 		this.newTask = newTask;
+	}
+
+	public String getAssignmentType() {
+		return assignmentType;
+	}
+
+	public void setAssignmentType(String assignmentType) {
+		this.assignmentType = assignmentType;
+	}
+
+	public String getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(String activityType) {
+		this.activityType = activityType;
 	}
 
 }

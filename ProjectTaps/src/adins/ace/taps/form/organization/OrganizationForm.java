@@ -19,8 +19,8 @@ public class OrganizationForm extends ActionForm {
 	private Integer countRecord;
 	private OrganizationBean orgBean = new OrganizationBean();
 	private List<OrganizationBean> listOrganizations;
-	private List<EmployeeBean> listEmployees;
 	private String message;
+	private List<EmployeeBean> listEmployees;
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;
@@ -119,6 +119,4 @@ public class OrganizationForm extends ActionForm {
 	public void setListEmployees(List<EmployeeBean> listEmployees) {
 		this.listEmployees = listEmployees;
 	}
-
-
 }

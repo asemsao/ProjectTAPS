@@ -16,7 +16,21 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newSelfAssignmentForm.newTask.value = task;
+		document.newSelfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+		document.newSelfAssignmentForm.activityType.value = getRadioValue("activity_type");
 		document.newSelfAssignmentForm.submit();
+	}
+	
+	function getRadioValue(theRadioGroup)
+	{
+	    var elements = document.getElementsByName(theRadioGroup);
+	    for (var i = 0, l = elements.length; i < l; i++)
+	    {
+	        if (elements[i].checked)
+	        {
+	            return elements[i].value;
+	        }
+	    }
 	}
 </script>
 
@@ -209,6 +223,8 @@
 			</div>
 		</div>
 		<html:hidden property="newTask" name="newSelfAssignmentForm" />
+		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
+		<html:hidden property="activityType" name="newSelfAssignmentForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="popup_employee" class="hide"><jsp:include

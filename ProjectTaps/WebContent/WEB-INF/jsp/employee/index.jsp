@@ -60,8 +60,7 @@
 		<html:hidden property="task" styleId="task" name="employeeForm" />
 		<html:hidden property="page" name="employeeForm" />
 		<html:hidden property="maxpage" name="employeeForm" />
-		<html:hidden property="employeeDomain" styleId="employeeDomain"
-			name="employeeForm" />
+		<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
