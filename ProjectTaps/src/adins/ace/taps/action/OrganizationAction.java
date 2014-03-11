@@ -103,14 +103,18 @@ public class OrganizationAction extends Action {
 		if ("search".equals(orgForm.getTask())
 				|| "search-lookup-organization".equals(orgForm.getTask())
 				|| "search-lookup-employee".equals(orgForm.getTask())) {
+			System.out.println("search");
 			orgForm.setPage(1);
-			orgForm.setPageEmployee(1);
 		}
-
+		
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
+		params.put("category", orgForm.getSearchCategory());
+		params.put("keyword", orgForm.getSearchKeyword());
+		
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
+		
 		if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
