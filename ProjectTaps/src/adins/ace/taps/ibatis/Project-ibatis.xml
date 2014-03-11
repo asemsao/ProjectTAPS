@@ -11,8 +11,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			p.client AS client,
 			p.organization_code AS organizationCode,
 			ph.phase_name AS phase,
-			p.start_date AS startDate,
-			p.end_date AS endDate,
+			to_char(p.start_date,'DD-MON-YYYY') AS startDate,
+			to_char(p.end_date,'DD-MON-YYYY') AS endDate,
 			(TRUNC(SYSDATE) - p.start_date) AS runningDay
 		FROM projects p, phases ph
 		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active'
@@ -31,7 +31,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
          	projects p,
          	employees e,
          	employees emp,
-         	project_structure ps
+         	project_structures ps
  		WHERE       
  			p.project_code = ps.project_code
 	        AND o.organization_code = p.organization_code

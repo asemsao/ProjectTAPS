@@ -92,13 +92,23 @@ public class EmployeeAction extends Action {
 			}
 		}
 
-		else if ("search".equals(mForm.getTask())) {
-			mForm.setPage(1);
+
+		if ("search".equals(mForm.getTask())) {
+			System.out.println("search");
+			System.out.println("CATEGORY"+mForm.getSearchCategory());
+			System.out.println(mForm.getSearchKeyword());
+			
+			if (mForm.getPage() == null) {
+				mForm.setPage(1);
+			}
 		}
-		
+		System.out.println("A"+mForm.getSearchCategory());
+		System.out.println("OP"+mForm.getSearchKeyword());
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
-
+		params.put("category", mForm.getSearchCategory());
+		params.put("keyword", mForm.getSearchKeyword());
+		
 		mForm.setListEmployees(mMan.searchEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
 		

@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function button(task,param)
+	function flyToPage(task,param)
 	{
 		document.projectForm.task.value = task;
 		document.projectForm.param.value = param;
@@ -83,12 +83,12 @@
 								<td><bean:write name="project" property="projectCode" /></td>
 								<td><bean:write name="project" property="projectName" /></td>
 								<td><bean:write name="project" property="client" /></td>
-								<td><bean:write name="project" property="organizationCode" /></td>
+								<td class="text-center"><bean:write name="project" property="organizationCode" /></td>
 								<td><bean:write name="project" property="phase" /></td>
 								<td><bean:write name="project" property="startDate" /></td>
 								<td><bean:write name="project" property="endDate" /></td>
-								<td><bean:write name="project" property="runningDay" /></td>
-								<td class="text-center"><a href="javascript:button('member','<bean:write name="project" property="projectCode" />');"
+								<td class="text-center"><bean:write name="project" property="runningDay" /></td>
+								<td class="text-center"><a href="javascript:flyToPage('member','<bean:write name="project" property="projectCode" />');"
 									data-hint="Project's Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
 								<td class="text-center"><a href="javascript:button('edit')"

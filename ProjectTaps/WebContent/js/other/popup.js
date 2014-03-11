@@ -1,21 +1,4 @@
 $(document).ready(function() {
-	$("#employee").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : '',
-			padding : 10,
-			onShow : function(_dialog) {
-				$.Dialog.title("Employee");
-				$.Dialog.content($("#popup_employee").html());
-				$.Metro.initInputs();
-			}
-		});
-	});
-
 	$("#employee-2").on('click', function() {
 		$.Dialog({
 			overlay : true,

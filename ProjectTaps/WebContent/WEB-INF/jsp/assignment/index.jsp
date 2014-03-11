@@ -20,6 +20,11 @@
 		document.employeeReportForm.task.value = task;
 		document.employeeReportForm.submit();
 	}
+	function flyToPage(task,param) {
+		document.employeeReportForm.task.value = task;
+		document.employeeReportForm.param.value = param;
+		document.employeeReportForm.submit();
+	}
 </script>
 
 </head>
@@ -75,7 +80,13 @@
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
 								<th class="text-center">Assignment Category</th>
-								<th class="text-center">Employee Name</th>
+								
+								<%if ("employeeReport".equals(session.getAttribute("link"))){ %>
+									<th class="text-center">Assign By</th>
+								<%} else { %>
+									<th class="text-center">Employee Name</th>
+								<%} %>
+								
 								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>
 								<th class="text-center">Status</th>
@@ -97,8 +108,8 @@
 										<td><bean:write property="assignmentDueDate"
 												name="assignment" /></td>
 										<td><bean:write property="createdDate" name="assignment" /></td>
-										<td><bean:write property="currentStatus"
-												name="assignment" /></td>
+										<td><a href = "javascript:flyToPage('view','<bean:write property="assignmentCode" name="assignment" />');">
+											<bean:write property="currentStatus" name="assignment" /></a></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -143,6 +154,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="employeeReportForm"/>
+		<html:hidden property="param" name="employeeReportForm"/>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
