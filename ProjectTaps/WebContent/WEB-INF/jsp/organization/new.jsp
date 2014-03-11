@@ -51,8 +51,10 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text size3">
-									<input type="text" placeholder="Head of Organization"
-										readonly="readonly" />
+									<input type="text" placeholder="Ini di Hide"
+										readonly="readonly" id="employee_id" /> <input type="text"
+										placeholder="Head of Organization" readonly="readonly"
+										id="employee_name" />
 									<button class="btn-search" id="employee"></button>
 								</div>
 							</td>
@@ -295,7 +297,7 @@
 						</th>
 						<th class="text-center"><button type="button"
 								class='button success'
-								onclick="javascript:chooseBussinessUnit()">Add</button></th>
+								onclick="javascript:chooseEmployee()">Add</button></th>
 					</tr>
 				</thead>
 			</table>
