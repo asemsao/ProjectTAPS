@@ -1,13 +1,11 @@
 package adins.ace.taps.manager;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
-import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -42,6 +40,7 @@ public class EmployeeManager {
 		List<EmployeeBean> empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
+			System.out.println("row"+params.get("rowEnd"));
 			empList = ibatisSqlMap.queryForList("employee.searchEmployees", params);			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,11 +54,11 @@ public class EmployeeManager {
 		return empList;		
 	}
 	
-	public List<EmployeeBean> getEditEmployees(Map params){
-		List<EmployeeBean> empEdit = null;
+	public NewEmployeeBean getEditEmployees(Map params){
+		NewEmployeeBean empEdit = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empEdit = ibatisSqlMap.queryForList("employee.getEditEmployees", params);			
+			empEdit = (NewEmployeeBean) ibatisSqlMap.queryForObject("employee.getEditEmployees", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{

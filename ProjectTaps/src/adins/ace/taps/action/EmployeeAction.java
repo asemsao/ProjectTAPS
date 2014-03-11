@@ -37,7 +37,8 @@ public class EmployeeAction extends Action {
 		}
 		
 		if ("edit".equals(mForm.getTask())) {
-			System.out.println("edit");
+			params.put("employeeDomain", mForm.getEmployeeDomain());
+			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
@@ -63,39 +64,50 @@ public class EmployeeAction extends Action {
 			System.out.println(flag);
 		}
 		
-		if ("first".equals(mForm.getTask())
+		else if ("first".equals(mForm.getTask())
 				|| "first-ajax".equals(mForm.getTask())) {
 			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
-		if ("last".equals(mForm.getTask())
+		else if ("last".equals(mForm.getTask())
 				|| "last-ajax".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
 		}
 
-		if ("prev".equals(mForm.getTask())
+		else if ("prev".equals(mForm.getTask())
 				|| "prev-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(mForm.getTask())
+		else if ("next".equals(mForm.getTask())
 				|| "next-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
 			}
 		}
 
+
 		if ("search".equals(mForm.getTask())) {
-			mForm.setPage(1);
+			System.out.println("search");
+			System.out.println("CATEGORY"+mForm.getSearchCategory());
+			System.out.println(mForm.getSearchKeyword());
+			
+			if (mForm.getPage() == null) {
+				mForm.setPage(1);
+			}
 		}
-		
+		System.out.println("A"+mForm.getSearchCategory());
+		System.out.println("OP"+mForm.getSearchKeyword());
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
-
+		params.put("category", mForm.getSearchCategory());
+		params.put("keyword", mForm.getSearchKeyword());
+		
 		mForm.setListEmployees(mMan.searchEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
+		
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {

@@ -54,7 +54,7 @@
 								<td>Employee Domain</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="editEmployee.employeeDomain"
+										<html:text property="newEmployee.employeeDomain"
 											name="employeeForm" styleId="employeeDomain"></html:text>
 									</div></td>
 								<td rowspan="6" class="text-center"><img
@@ -69,7 +69,7 @@
 								<td>Employee Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="editEmployee.employeeCode"
+										<html:text property="newEmployee.employeeCode"
 											name="employeeForm" styleId="employeeCode"></html:text>
 									</div></td>
 							</tr>
@@ -77,7 +77,7 @@
 								<td>Employee NIK</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="editEmployee.employeeNik"
+										<html:text property="newEmployee.employeeNik"
 											name="employeeForm" styleId="employeeNik"></html:text>
 									</div></td>
 							</tr>
@@ -85,7 +85,7 @@
 								<td>Employee First Name</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="editEmployee.firstName"
+										<html:text property="newEmployee.firstName"
 											name="employeeForm" styleId="firstName"></html:text>
 									</div></td>
 							</tr>
@@ -93,7 +93,7 @@
 								<td>Employee Last Name</td>
 								<td>:</td>
 								<td><div class="input-control text ">
-										<html:text property="editEmployee.lastName" name="employeeForm"
+										<html:text property="newEmployee.lastName" name="employeeForm"
 											styleId="lastName"></html:text>
 									</div></td>
 							</tr>
@@ -102,13 +102,13 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <html:radio property="editEmployee.gender"
+										<label> <html:radio property="newEmployee.gender"
 												value="M" name="employeeForm"></html:radio> <span
 											class="check"></span> Male
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <html:radio property="editEmployee.gender"
+										<label> <html:radio property="newEmployee.gender"
 												value="F" name="employeeForm"></html:radio> <span
 											class="check"></span> Female
 										</label>
@@ -120,7 +120,7 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:text property="editEmployee.businessUnit"
+										<html:text property="newEmployee.businessUnit"
 											name="employeeForm" styleId="businessUnit" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
@@ -130,7 +130,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="editEmployee.employeeAddress"
+										<html:textarea property="newEmployee.employeeAddress"
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -138,7 +138,7 @@
 								<td>Phone No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="editEmployee.phoneNumber"
+										<html:text property="newEmployee.phoneNumber"
 											name="employeeForm" styleId="phoneNumber"></html:text>
 									</div></td>
 							</tr>
@@ -146,7 +146,7 @@
 								<td>Mobile No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="editEmployee.mobileNumber"
+										<html:text property="newEmployee.mobileNumber"
 											name="employeeForm" styleId="mobileNumber"></html:text>
 									</div></td>
 							</tr>
@@ -154,7 +154,7 @@
 								<td>Email</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="editEmployee.email" name="employeeForm"
+										<html:text property="newEmployee.email" name="employeeForm"
 											styleId="email"></html:text>
 									</div></td>
 							</tr>
@@ -164,7 +164,7 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="editEmployee.golonganNumber"
+											<html:select property="newEmployee.golonganNumber"
 												name="employeeForm">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
@@ -179,7 +179,7 @@
 
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="editEmployee.golonganLevel"
+											<html:select property="newEmployee.golonganLevel"
 												name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
@@ -202,7 +202,6 @@
 							</tr>
 						</tbody>
 					</table>
-
 				</div>
 			</div>
 		</div>
