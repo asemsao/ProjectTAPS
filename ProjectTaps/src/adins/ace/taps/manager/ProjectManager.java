@@ -1,7 +1,9 @@
 package adins.ace.taps.manager;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -48,5 +50,28 @@ public class ProjectManager
 			}
 		}
 		return projectMemberList;	
+	}
+	
+	public void addProject(AddProjectBean apBean)
+	{
+		try 
+		{		
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("project.addProject", apBean);
+			ibatisSqlMap.commitTransaction();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

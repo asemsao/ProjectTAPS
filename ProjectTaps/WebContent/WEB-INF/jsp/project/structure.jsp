@@ -24,7 +24,7 @@
 		document.projectForm.submit();
 	}
 </script>
-<title>Member Structure</title>
+<title>Project Member</title>
 </head>
 
 <body class="metro">
@@ -36,7 +36,7 @@
 				<table class="table striped bordered hovered">
 					<thead>
 						<tr>
-							<th colspan=6><h3>Members Structure</h3></th>
+							<th colspan=6><h3>Project Member</h3></th>
 						</tr>
 						<tr>
 							<th colspan=1>Business Unit</th>

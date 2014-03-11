@@ -17,6 +17,12 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	$(document).ready(function() {
+		$("#projectCode").attr("placeholder", "Project Code");
+		$("#projectName").attr("placeholder", "Project Name");
+		$("#client").attr("placeholder", "Client");
+		$("#businessUnit").attr("placeholder", "Business unit");
+	});
 </script>
 
 <title>Add Project</title>
@@ -41,21 +47,24 @@
 							<td>Project Code</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Code" />
+									<html:text property="addProject.projectCode"
+											name="projectForm" styleId="projectCode"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Project Name</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Name" />
+									<html:text property="addProject.projectName"
+											name="projectForm" styleId="projectName"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Client</td>
 							<td>:</td>
 							<td><div class="input-control text">
-									<input type="text" placeholder="Client" />
+									<html:text property="addProject.client"
+											name="projectForm" styleId="client"></html:text>
 								</div></td>
 						</tr>
 						<tr>
@@ -63,14 +72,13 @@
 							<td>:</td>
 							<td>
 								<div class="input-control select">
-									<select>
-										<option value="">Phase</option>
-										<option value="requirement">Requirement</option>
-										<option value="development">Development</option>
+									<html:select property="addProject.phaseId" name="projectForm">
+										<option value="REQ">Requirement</option>
+										<option value="DEV">Development</option>
 										<option value="UAT">UAT</option>
-										<option value="live">Live</option>
-										<option value="close">Closed</option>
-									</select>
+										<option value="LIV">Live</option>
+										<option value="CLD">Closed</option>
+									</html:select>
 								</div>
 							</td>
 						</tr>
@@ -79,9 +87,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<input type="text" placeholder="Business Unit"
-										readonly="readonly" />
-									<button class="btn-search" id="organization"></button>
+									<html:text property="addProject.organizationCode"
+											name="projectForm" styleId="businessUnit" ></html:text>
+									<button type="button" class="btn-search" id="organization"></button>
 								</div>
 
 							</td>
@@ -91,8 +99,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text" id="datepicker-begin">
-									<input type="text">
-									<button class="btn-date"></button>
+									<html:text property="addProject.startDate"
+											name="projectForm"></html:text>
+									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
 						</tr>
@@ -101,19 +110,20 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text " id="datepicker-end">
-									<input type="text">
-									<button class="btn-date"></button>
+									<html:text property="addProject.endDate"
+											name="projectForm"></html:text>
+									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="3" class="text-right">
-								<button id="save-btn" onclick="" class="success">Save</button>
+								<button id="save-btn" onclick="javascript:button('saveProject');" class="success">Save</button>
 								<button id="cancel-btn" onclick="javascript:button('cancel');">Cancel</button>
 							</td>
-							
-							<html:hidden property="task" styleId="task" name="projectForm" />
 						</tr>
+						
+						<html:hidden property="task" styleId="task" name="projectForm" />
 					</tbody>
 				</table>
 			</div>
