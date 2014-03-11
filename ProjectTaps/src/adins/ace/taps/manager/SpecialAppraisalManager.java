@@ -21,14 +21,14 @@ public class SpecialAppraisalManager {
 		List list = null;
 		SpecialAppraisalBean bean = new SpecialAppraisalBean();
 		try {
-			System.out.println("masuk list");
+			// System.out.println("masuk list");
 			ibatisSqlMap.startTransaction();
 			list = ibatisSqlMap.queryForList(
 					"SpecialAppraisal.getAllSpecialAppraisal", null);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("gagal list");
+			// System.out.println("gagal list");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -66,7 +66,8 @@ public class SpecialAppraisalManager {
 	public void Insert(SpecialAppraisalBean Bean) {
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
+			ibatisSqlMap
+					.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,12 +81,13 @@ public class SpecialAppraisalManager {
 			}
 		}
 	}
-	
+
 	public List searchSpecialAppraisal(Map params) {
 		List list = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			list = ibatisSqlMap.queryForList("SpecialAppraisal.searchSpecialAppraisal", params);
+			list = ibatisSqlMap.queryForList(
+					"SpecialAppraisal.searchSpecialAppraisal", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (Exception e) {
 			e.printStackTrace();
