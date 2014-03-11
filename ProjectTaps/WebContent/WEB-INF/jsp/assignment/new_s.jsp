@@ -50,10 +50,10 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Due Date</td>
+								<td>Assignment Date</td>
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="selfAssignBean.assignmentDueDate"
+										<html:text property="selfAssignBean.assignmentDate"
 											name="newSelfAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
@@ -64,7 +64,7 @@
 								<td>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="Bussiness Unit" /> <span
+											checked="checked" value="BU" /> <span
 											class="check"></span> Business Unit
 										</label>
 									</div>
@@ -79,12 +79,14 @@
 								<td>Assign By</td>
 								<td>:</td>
 								<td><div id="bu">
-										Customer Development Department &nbsp;&nbsp; <b>Report to
-										</b> : Toto Hugo
+										<bean:write property="selfAssignBean.organizationName" name="newSelfAssignmentForm"/>
+										 &nbsp;&nbsp; <b>Report to
+										</b> : <bean:write property="selfAssignBean.headUserName" name="newSelfAssignmentForm"/>
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<input type="text" placeholder="Project" readonly="readonly" />
+											<html:text property="selfAssignBean.projectCode"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -94,7 +96,8 @@
 								<td><div class="pr">:</div></td>
 								<td><div class="pr">
 										<div class="input-control text">
-											<input type="text" placeholder="Employee" readonly="readonly" />
+											<html:text property="selfAssignBean.reportTo"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div></td>
@@ -126,8 +129,8 @@
 								<td><div class="adhoc">:</div></td>
 								<td><div class="adhoc">
 										<div class="input-control text">
-											<input type="text" placeholder="Ad Hoc To"
-												readonly="readonly" />
+											<html:text property="selfAssignBean.adhocUserDomain"
+											name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="employee-2"></button>
 										</div>
 									</div></td>
@@ -136,8 +139,8 @@
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<input type="text" placeholder="Reff Task Code"
-											readonly="readonly" />
+										<html:text property="selfAssignBean.reffTaskCode"
+											name="newSelfAssignmentForm"></html:text>
 										<button type="button" class="btn-search" id="task"></button>
 									</div></td>
 							</tr>
@@ -212,8 +215,8 @@
 								<td colspan=3 class="text-right"><html:button
 										property="save" onclick="javascript:flyToPage('save');"
 										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('assign');"
-										styleClass="button success">Assign</html:button> <html:button
+										property="assign" onclick="javascript:flyToPage('RFA');"
+										styleClass="button success">RFA</html:button> <html:button
 										property="cancel" onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 							</tr>

@@ -245,7 +245,28 @@ public class AssignmentManager {
 		}
 		return organizationCode;
 	}
+	
+	public NewSelfAssignmentBean searchHeadOrganizationCode(String userDomain) {
+		NewSelfAssignmentBean organization = new NewSelfAssignmentBean();
 
+		try {
+			ibatisSQLMap.startTransaction();
+			organization = (NewSelfAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchHeadOrganizationCode", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed search organization");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return organization;
+	}
+	
 	public String getMaxTaskCode(String paramTaskCode) {
 		String generateTaskCode = "";
 		

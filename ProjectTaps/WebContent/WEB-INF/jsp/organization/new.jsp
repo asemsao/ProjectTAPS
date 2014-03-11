@@ -51,8 +51,10 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text size3">
-									<input type="text" placeholder="Head of Organization"
-										readonly="readonly" />
+									<input type="text" placeholder="Ini di Hide"
+										readonly="readonly" id="employee_id" /> <input type="text"
+										placeholder="Head of Organization" readonly="readonly"
+										id="employee_name" />
 									<button class="btn-search" id="employee"></button>
 								</div>
 							</td>
@@ -166,10 +168,11 @@
 									<li class="prev"><a
 										onclick="javascript:pagingOrganization('prev-lookup-organization');"><i
 											class="icon-previous"></i></a></li>
-									<li class="disabled"><a>Page <span id="current-page-organization"><bean:write
+									<li class="disabled"><a>Page <span
+											id="current-page-organization"><bean:write
 													name="organizationForm" property="page" /></span> of <span
-											id="max-page-organization"> <bean:write name="organizationForm"
-													property="maxpage" /></span></a></li>
+											id="max-page-organization"> <bean:write
+													name="organizationForm" property="maxpage" /></span></a></li>
 									<li class="next"><a
 										onclick="javascript:pagingOrganization('next-lookup-organization');"><i
 											class="icon-next"></i></a></li>
@@ -177,8 +180,8 @@
 										onclick="javascript:pagingOrganization('last-lookup-organization');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
-											id="total-record-organization"><bean:write name="organizationForm"
-													property="countRecord" /></span></a></li>
+											id="total-record-organization"><bean:write
+													name="organizationForm" property="countRecord" /></span></a></li>
 								</ul>
 							</div>
 						</th>
@@ -191,13 +194,13 @@
 		</html:form>
 	</div>
 
-	<div id="lookUpEmployee">
+	<div id="lookUpEmployee" class="hide">
 		<html:form action="/organization" method="post">
 			<html:hidden property="task" styleId="task-employee"
 				name="organizationForm" />
-			<html:hidden styleId="page-employee" property="page"
+			<html:hidden styleId="page-employee" property="pageEmployee"
 				name="organizationForm" />
-			<html:hidden styleId="maxpage-employee" property="maxpage"
+			<html:hidden styleId="maxpage-employee" property="maxpageEmployee"
 				name="organizationForm" />
 
 			<table class="table striped bordered hovered">
@@ -206,7 +209,7 @@
 						<th colspan=5 class="text-center">Employee List</th>
 					</tr>
 					<tr>
-						<th class="text-center" colspan=1>
+						<th class="text-center" colspan=2>
 							<div class="input-control select">
 								<html:select property="search" name="organizationForm"
 									styleId="search-employee">
@@ -218,7 +221,7 @@
 								</html:select>
 							</div>
 						</th>
-						<th class="text-center" colspan=4>
+						<th class="text-center" colspan=3>
 							<div class="input-control text">
 								<html:text property="value" name="organizationForm"
 									styleId="value-employee" value="employee"></html:text>
@@ -275,8 +278,11 @@
 									<li class="prev"><a
 										onclick="javascript:pagingEmployee('prev-lookup-employee');"><i
 											class="icon-previous"></i></a></li>
-									<li class="disabled"><a>Page <span id="current-page-employee"></span> of <span
-											id="max-page-employee"></span></a></li>
+									<li class="disabled"><a>Page <span
+											id="current-page-employee"><bean:write
+													name="organizationForm" property="pageEmployee" /></span> of <span
+											id="max-page-employee"><bean:write
+													name="organizationForm" property="maxpageEmployee" /></span></a></li>
 									<li class="next"><a
 										onclick="javascript:pagingEmployee('next-lookup-employee');"><i
 											class="icon-next"></i></a></li>
@@ -284,13 +290,14 @@
 										onclick="javascript:pagingEmployee('last-lookup-employee');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
-											id="total-record-employee"></span></a></li>
+											id="total-record-employee"><bean:write
+													name="organizationForm" property="countRecordEmployee" /></span></a></li>
 								</ul>
 							</div>
 						</th>
 						<th class="text-center"><button type="button"
 								class='button success'
-								onclick="javascript:chooseBussinessUnit()">Add</button></th>
+								onclick="javascript:chooseEmployee()">Add</button></th>
 					</tr>
 				</thead>
 			</table>

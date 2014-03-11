@@ -8,6 +8,7 @@ import org.apache.struts.action.ActionForm;
 public class EmployeeReportForm extends ActionForm {
 	private List listAssignment;
 	private String task;
+	private String param;
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
@@ -30,6 +31,14 @@ public class EmployeeReportForm extends ActionForm {
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public String getParam() {
+		return param;
+	}
+
+	public void setParam(String param) {
+		this.param = param;
 	}
 
 	public Integer getPage() {
