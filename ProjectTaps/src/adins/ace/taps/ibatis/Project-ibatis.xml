@@ -40,29 +40,29 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			AND ps.project_code = #projectCode#
 	</select>
 	
-<!-- 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" > -->
-<!-- 		INSERT INTO projects  -->
-<!-- 			(project_code, -->
-<!-- 			project_name, -->
-<!-- 			client, -->
-<!-- 			phase_id, -->
-<!-- 			organization_code, -->
-<!-- 			start_date, -->
-<!-- 			end_date, -->
-<!-- 			flag, -->
-<!-- 			created_by, -->
-<!-- 			created_date) -->
-<!-- 		VALUES  -->
-<!-- 			(#projectCode#, -->
-<!-- 			#projectName#, -->
-<!-- 			#client#, -->
-<!-- 			#phase#, -->
-<!-- 			#organizationCode#, -->
-<!-- 			#startDate#, -->
-<!-- 			#endDate#, -->
-<!-- 			'ACTIVE', -->
-<!-- 			#session.userDomain#, -->
-<!-- 			sysdate); -->
-<!-- 	</insert> -->
+	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" >
+		INSERT INTO projects 
+			(project_code,
+			project_name,
+			client,
+			phase_id,
+			organization_code,
+			start_date,
+			end_date,
+			flag,
+			created_by,
+			created_date)
+		VALUES 
+			(#projectCode#,
+			#projectName#,
+			#client#,
+			#phaseId#,
+			#organizationCode#,
+			#startDate#,
+			#endDate#,
+			'ACTIVE',
+			'domain100',
+			sysdate)
+	</insert>
 	
 </sqlMap>
