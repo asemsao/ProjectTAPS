@@ -11,12 +11,36 @@
 <jsp:include page="/js/import.jsp" />
 
 <script type="text/javascript">
-	function button(task) {
-		document.employeeForm.task.value = task;
-		document.employeeForm.submit();
-	}
-	
 	$(document).ready(function() {
+		$("#new").click(function() {
+			$("#task").val("new");
+			$("#CRUDForm").submit();
+		});
+		$(".editEmployee").click(function() {
+			$("#task").val("edit");
+			$("#employeeDomain").val($(this).attr('alt').trim());
+			$("#CRUDForm").submit();
+		});
+		$("#first").click(function() {
+			$("#task").val("first");
+			$("#CRUDForm").submit();
+		});
+		$("#prev").click(function() {
+			$("#task").val("prev");
+			$("#CRUDForm").submit();
+		});
+		$("#next").click(function() {
+			$("#task").val("next");
+			$("#CRUDForm").submit();
+		});
+		$("#last").click(function() {
+			$("#task").val("last");
+			$("#CRUDForm").submit();
+		});
+		$(".delete-link").click(function() {
+			$("#deleteId").html($(this).attr('alt').trim());
+			$("#CRUDForm").val($(this).attr('alt').trim());
+		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 	});
 </script>
@@ -27,8 +51,13 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employee" method="post" styleClass="employeeForm">
-		<html:hidden property="task" name="employeeForm" />
+	<html:form action="/employee" method="post" styleClass="employeeForm"
+		styleId="CRUDForm">
+		<html:hidden property="task" styleId="task" name="employeeForm" />
+		<html:hidden property="page" name="employeeForm" />
+		<html:hidden property="maxpage" name="employeeForm" />
+		<html:hidden property="employeeDomain" styleId="employeeDomain"
+			name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -78,8 +107,8 @@
 										<td><bean:write name="employee" property="employeeName" /></td>
 										<td><bean:write name="employee"
 												property="employeeAddress" /></td>
-										<td class="text-center"><a
-											href="javascript:button('edit','<bean:write name="employee" property="employeeDomain"/>');"
+										<td class="text-center"><a class='editEmployee'
+											alt="<bean:write name="employee" property="employeeDomain" />"
 											data-hint="Edit Employee" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a href="javascript:confDel()"
@@ -97,20 +126,21 @@
 								<td colspan=6 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a><i class="icon-first-2"></i></a></li>
-											<li class="prev"><a><i class="icon-previous"></i></a></li>
-											<li><a>1</a></li>
-											<li><a>2</a></li>
-											<li class="active"><a>3</a></li>
-											<li class="spaces"><a>...</a></li>
-											<li class="disabled"><a>4</a></li>
-											<li><a>500</a></li>
-											<li class="next"><a><i class="icon-next"></i></a></li>
-											<li class="last"><a><i class="icon-last-2"></i></a></li>
+											<li class="first"><a id="first"><i
+													class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev"><i
+													class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <bean:write
+														name="employeeForm" property="page" /> of <bean:write
+														name="employeeForm" property="maxpage" /></a></li>
+											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
+											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <bean:write
+														name="employeeForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
-								<td class="text-center"><a href="javascript:button('new');"
+								<td class="text-center"><a id="new"
 									data-hint="Add Employee" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>

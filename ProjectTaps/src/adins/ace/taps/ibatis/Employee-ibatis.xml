@@ -4,22 +4,50 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
-	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean">
-		SELECT EMPLOYEE_CODE AS
-		employeeCode, USER_DOMAIN AS userDomain,
-		EMPLOYEE_NIK AS nik,
+	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		FROM employees e
+	</select>
+	<select id="getAllEmployees" resultClass="adins.ace.taps.bean.employee.EmployeeBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT EMPLOYEE_CODE AS
+		employeeCode, USER_DOMAIN AS employeeDomain,
+		EMPLOYEE_NIK AS
+		employeeNik,
 		FIRST_NAME||' '||LAST_NAME AS employeeName,
-		ADDRESS AS employeeAddress
-		FROM EMPLOYEES
+		ADDRESS AS
+		employeeAddress
+		FROM EMPLOYEES) a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.EditEmployeeBean"
+		parameterClass="java.util.Map">
+		SELECT picture AS profilePicture, user_domain AS
+		employeeDomain, employee_nik AS employeeNik, employee_code AS
+		employeeCode,
+		first_name AS firstName,
+		last_name AS lastName, gender AS
+		gender, organization_code AS businessUnit, address AS employeeAddress,
+		phone_number AS phoneNumber,
+		mobile_phone AS mobileNumber, email AS
+		email,
+		SUBSTR(employee_category,1,1) AS golonganNumber,
+		SUBSTR(employee_category,2,2) AS golonganLevel, flag AS flag FROM
+		employees
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
-		employees(user_domain, employee_nik, employee_code, first_name,
-		last_name, gender,
-		organization_code, address, phone_number,
+		employees(picture, user_domain, employee_nik, employee_code,
+		first_name,
+		last_name, gender, organization_code, address,
+		phone_number,
 		mobile_phone, email,
-		employee_category, flag, created_by, created_date, updated_by,updated_date)
-		VALUES(#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
+		employee_category, flag, created_by,
+		created_date, updated_by,updated_date)
+		VALUES(#profilePicture#,#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
 		#gender#,'MAN',#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
 		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE,'DOMAIN201',SYSDATE)
 	</select>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -65,7 +64,7 @@
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"><br>
 									<div class="input-control file ">
-										<html:file property="newEmployee.profilePicture"
+										<html:file property="profilePicture"
 											accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>

@@ -39,8 +39,10 @@ public class OrganizationAction extends Action {
 			// disini seterah
 			orgForm.setPage(1);
 			if (orgMan.deleteOrganization(orgForm.getOrganizationCode())) {
+				orgForm.setMessage("Delete Organization Successfull!");
 				System.out.println("Sukses");
 			} else {
+				orgForm.setMessage("Delete Organization Failed!");
 				System.out.println("Gagal");
 			}
 			System.out.println("kasih notif ya yang ngerjain");

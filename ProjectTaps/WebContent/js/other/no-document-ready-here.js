@@ -1,3 +1,8 @@
+function menu(task) {
+	document.menuForm.task.value = task;
+	document.menuForm.submit();
+}
+
 function confDel() {
 	$.Dialog({
 		overlay : true,
@@ -22,15 +27,6 @@ function deleteBtn() {
 
 function appraisalBtn() {
 	window.location.replace("index.jsp");
-}
-
-function chooseBussinessUnit() {
-	var choosen = $("input[name='organization_choose']:checked").val();
-	$("#parent_organization_id").val(choosen.split('@')[0]);
-	$("#parent_organization").val(choosen.split('@')[1]);
-	$("#organization_id").val(choosen.split('@')[0]);
-	$("#parent_organization").val(choosen.split('@')[1]);
-//	$.Dialog.close();
 }
 
 function chooseEmployee() {

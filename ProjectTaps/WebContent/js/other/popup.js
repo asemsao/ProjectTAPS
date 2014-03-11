@@ -57,15 +57,17 @@ $(document).ready(function() {
 			flat : true,
 			icon : '<img src="images/LOGO_Taps6.png">',
 			title : 'Flat window',
-			content : '',
+			content : $("#lookUpOrganization").html(),
 			padding : 10,
-			onShow : function(_dialog) {
-				$.Dialog.title("Bussiness Unit");
-				$.Dialog.content($("#popup_organization").html());
-				$.Metro.initInputs();
-			}
+			title : 'Bussiness Unit'
 		});
 	});
+
+	function dialogFunction() {
+		$("#next-ajax").click(function(e) {
+			alert(1);
+		});
+	}
 
 	$("#project").on('click', function() {
 		$.Dialog({

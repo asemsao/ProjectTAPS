@@ -22,15 +22,23 @@ public class ProjectAction extends Action
 		
 		pForm.setListProject(pMan.getAllProject());			
 		
-		if ("addProject".equals(pForm.getTask())) {
+		if ("new".equals(pForm.getTask())) 
+		{
 			return mapping.findForward("AddProject");
 		}
-//		if("new".equals(mForm.getTask())){
-//			return mapping.findForward("New");
-//		}
-//		if("cancel".equals(mForm.getTask())){
-//			return mapping.findForward("ListEmployee");
-//		}
+		if("cancel".equals(pForm.getTask()))
+		{
+			return mapping.findForward("ListProject");
+		}
+		if("edit".equals(pForm.getTask()))
+		{
+			return mapping.findForward("AddProject");
+		}
+		if("member".equals(pForm.getTask()))
+		{
+			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			return mapping.findForward("ViewMember");
+		}
 		
 		return mapping.findForward("ListProject");
 	}

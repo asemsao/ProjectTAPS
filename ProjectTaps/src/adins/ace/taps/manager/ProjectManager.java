@@ -18,10 +18,8 @@ public class ProjectManager
 	{
 		List projectList = null;
 		try {
-			System.out.println("keluar");
 			ibatisSqlMap.startTransaction();
-			projectList = ibatisSqlMap.queryForList("project.getAllProject", null);
-			System.out.println("sukses");
+			projectList = ibatisSqlMap.queryForList("project.getAllProject", null);		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
@@ -32,5 +30,23 @@ public class ProjectManager
 			}
 		}
 		return projectList;		
+	}
+	
+	public List getAllMember(String prjtCode)
+	{
+		List projectMemberList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			projectMemberList = ibatisSqlMap.queryForList("project.getAllProjectMember", prjtCode);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return projectMemberList;	
 	}
 }

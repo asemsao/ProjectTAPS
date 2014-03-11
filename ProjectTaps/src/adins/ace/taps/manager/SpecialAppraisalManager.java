@@ -2,7 +2,9 @@ package adins.ace.taps.manager;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -62,22 +64,78 @@ public class SpecialAppraisalManager {
 		return list;
 	}
 	
-	public void Insert(SpecialAppraisalBean Bean){
+	public List ViewSpecialAppraisal(String userDomain)
+	{
+		List projectMemberList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
-			ibatisSqlMap.commitTransaction();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			projectMemberList = ibatisSqlMap.queryForList("SpecialAppraisal.ViewSpecialAppraisal", userDomain);		
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
+		} finally{
+			try {
 				ibatisSqlMap.endTransaction();
-			}
-			catch (Exception e2) {
-				// TODO: handle exception
+			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
+		return projectMemberList;	
 	}
+	
+//	
+//	public void Insert(SpecialAppraisalBean Bean){
+//		try {
+//			ibatisSqlMap.startTransaction();
+//			ibatisSqlMap.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
+//			ibatisSqlMap.commitTransaction();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally{
+//			try{
+//				ibatisSqlMap.endTransaction();
+//			}
+//			catch (Exception e2) {
+//				// TODO: handle exception
+//				e2.printStackTrace();
+//			}
+//		}
+//	}
+//	
+//	public List<SpecialAppraisalBean> searchOrganizations(Map params) {
+//		List<SpecialAppraisalBean> spcList = null;
+//		try {
+//			ibatisSqlMap.startTransaction();
+//			spcList = ibatisSqlMap.queryForList(
+//					"SpecialAppraisal.searchSpecialAppraisal.", params);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				ibatisSqlMap.endTransaction();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//		return spcList;
+//	}
+//	
+//	public Integer countSpecialAppraisal(Map params) {
+//		Integer count = null;
+//		try {
+//			ibatisSqlMap.startTransaction();
+//			count = (Integer) ibatisSqlMap.queryForObject(
+//					"SpecialAppraisal.countSpecialAppraisal", params);
+//			ibatisSqlMap.commitTransaction();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				ibatisSqlMap.endTransaction();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//		return count;
+//	}
 }

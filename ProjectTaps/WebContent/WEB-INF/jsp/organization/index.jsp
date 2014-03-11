@@ -3,16 +3,29 @@
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+// 					height : "120px",
+// 					width : "360px",
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 		$("#new").click(function() {
 			$("#task").val("new");
 			$("#CRUDForm").submit();
@@ -39,10 +52,9 @@
 			$("#CRUDForm").submit();
 		});
 		$(".delete-link").click(function() {
-			$("#deleteId").html($(this).attr('alt').trim());
-			$("#CRUDForm").val($(this).attr('alt').trim());
+			$("#deleteId").html($(this).attr('alt').trim().replace(/\-/g, ''));
+			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
 		});
-		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 	});
 </script>
 <title>Organization</title>
@@ -55,9 +67,13 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/organization" method="post" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode"
+						name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
 					<html:hidden property="organizationCode" styleId="organizationCode"
+						name="organizationForm" />
+					<html:hidden property="message" styleId="messageCRUD"
 						name="organizationForm" />
 
 					<table class="table striped bordered hovered">
@@ -131,16 +147,16 @@
 														name="organizationForm" property="page" /> of <bean:write
 														name="organizationForm" property="maxpage" /></a></li>
 											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+											<li class="last"><a id="last"><i class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="organizationForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
 								<td class="text-center"><a id="new"
-									data-hint="Add Employee" data-hint-position="bottom"><img
+									data-hint="Add Organizations" data-hint-position="bottom"><img
 										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
+										src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png"></a></td>
 							</tr>
 						</tbody>
 					</table>

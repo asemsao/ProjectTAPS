@@ -13,12 +13,11 @@ public class OrganizationForm extends ActionForm {
 	private String search;
 	private String value;
 	private String sessionUserDomain;
-	private String keyword;
 	private Integer page;
 	private Integer maxpage;
-	private String category;
 	private Integer countRecord;
 	private OrganizationBean orgBean = new OrganizationBean();
+	private String message;
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;
@@ -26,14 +25,6 @@ public class OrganizationForm extends ActionForm {
 
 	public void setOrgBean(OrganizationBean orgBean) {
 		this.orgBean = orgBean;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
 	}
 
 	public Integer getPage() {
@@ -50,14 +41,6 @@ public class OrganizationForm extends ActionForm {
 
 	public void setMaxpage(Integer maxpage) {
 		this.maxpage = maxpage;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	private List<OrganizationBean> listOrganizations;
@@ -116,6 +99,14 @@ public class OrganizationForm extends ActionForm {
 
 	public void setOrganizationCode(String organizationCode) {
 		this.organizationCode = organizationCode;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

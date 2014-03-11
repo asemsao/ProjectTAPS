@@ -16,8 +16,21 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newAssignmentForm.newTask.value = task;
+		alert(document.getElementsByName("assignment_type"));
 		document.newAssignmentForm.submit();
 	}
+	
+// 	function getRadioValue(theRadioGroup)
+// 	{
+// 	    var elements = document.getElementsByName(theRadioGroup);
+// 	    for (var i = 0, l = elements.length; i < l; i++)
+// 	    {
+// 	        if (elements[i].checked)
+// 	        {
+// 	            return elements[i].value;
+// 	        }
+// 	    }
+// 	}
 </script>
 
 </head>
@@ -40,7 +53,7 @@
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="assignmentBean.assignmentDate"
 											name="newAssignmentForm"></html:text>
-										<button class="btn-date"></button>
+										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -49,16 +62,27 @@
 								<td><div class="input-control text" id="datepicker-end">
 										<html:text property="assignmentBean.assignmentDueDate"
 											name="newAssignmentForm"></html:text>
-										<button class="btn-date"></button>
+										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td><html:radio property="assignmentBean.assignmentType"
-										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio>
-									<html:radio property="assignmentBean.assignmentType"
-										name="newAssignmentForm" value="project">Project</html:radio>
+								<td><div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											checked="checked" value="Bussiness Unit" /> <span
+											class="check"></span> Business Unit
+										</label>
+									</div>
+									<div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											value="Project" /> <span class="check"></span> Project
+										</label>
+									</div>
+<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
+<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
+<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
+<%-- 										name="newAssignmentForm" value="project">Project</html:radio> --%>
 								</td>
 							</tr>
 							<tr>
@@ -68,13 +92,13 @@
 										<div class="input-control text">
 											<html:text property="assignmentBean.projectCode"
 												name="newAssignmentForm" readonly="readonly"></html:text>
-											<button class="btn-search" id="project"></button>
+											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div> <br />
 									<div class="input-control text">
 										<html:text property="assignmentBean.assignTo"
 											name="newAssignmentForm" readonly="readonly"></html:text>
-										<button class="btn-search" id="employee"></button>
+										<button type="button" class="btn-search" id="employee"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -83,7 +107,7 @@
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode"
 											name="newAssignmentForm" readonly="readonly"></html:text>
-										<button class="btn-search" id="task"></button>
+										<button type="button" class="btn-search" id="task"></button>
 									</div></td>
 							</tr>
 							<tr>
