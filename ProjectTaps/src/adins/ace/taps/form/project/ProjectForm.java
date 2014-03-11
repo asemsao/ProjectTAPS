@@ -10,6 +10,7 @@ public class ProjectForm extends ActionForm
 {
 	private String task;
 	private String param;
+	private String param2;
 	private String value;
 	private String search;
 	private String organizationName;
@@ -58,6 +59,12 @@ public class ProjectForm extends ActionForm
 	}
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+	public String getParam2() {
+		return param2;
+	}
+	public void setParam2(String param2) {
+		this.param2 = param2;
 	}
 	
 	

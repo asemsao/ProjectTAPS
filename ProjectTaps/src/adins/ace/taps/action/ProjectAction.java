@@ -58,7 +58,10 @@ public class ProjectAction extends Action
 			pForm.setProjectName(spBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
-		
+		if("editMember".equals(pForm.getTask()))
+		{
+			return mapping.findForward("AddMember");
+		}
 		
 		return mapping.findForward("ListProject");
 	}

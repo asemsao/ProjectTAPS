@@ -12,6 +12,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
+	function flyToPage(task,param2)
+	{
+		document.projectForm.task.value = task;
+		document.projectForm.param2.value = param2;
+		document.projectForm.submit();
+	}
 	function button(task) 
 	{
 		document.projectForm.task.value = task;
@@ -34,11 +40,11 @@
 						</tr>
 						<tr>
 							<th colspan=1>Business Unit</th>
-							<th colspan=5><bean:write property="organizationName" /></th>
+							<td colspan=5><strong><bean:write property="organizationName" /></strong></td>
 						</tr>
 						<tr>
-							<th colspan=1>Project</th>
-							<th colspan=5><bean:write property="projectName" /></th>
+							<th colspan=1>Project Name</th>
+							<td colspan=5><strong><bean:write property="projectName" /></strong></td>
 						</tr>
 						<tr>
 							<th class="text-center">Role</th>
@@ -55,7 +61,7 @@
 								<td><bean:write name="project" property="projectRole" /></td>
 								<td><bean:write name="project" property="assignee" /></td>
 								<td><bean:write name="project" property="directReport" /></td>
-								<td class="text-center"><a href="add.jsp"
+								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="projectRole" />')"
 									data-hint="Edit Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 								<td class="text-center"><a href="#"
@@ -95,7 +101,9 @@
 						</tr>
 					</tbody>
 				</table>
-
+				<html:hidden property="task" name="projectForm" />
+				<html:hidden property="param" name="projectForm" />
+				<html:hidden property="param2" name="projectForm" />
 			</div>
 		</div>
 	</div>
