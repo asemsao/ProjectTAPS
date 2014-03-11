@@ -31,7 +31,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
          	projects p,
          	employees e,
          	employees emp,
-         	project_structure ps
+         	project_structures ps
  		WHERE       
  			p.project_code = ps.project_code
 	        AND o.organization_code = p.organization_code

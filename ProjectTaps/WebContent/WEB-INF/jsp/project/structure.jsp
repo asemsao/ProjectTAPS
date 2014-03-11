@@ -34,11 +34,11 @@
 						</tr>
 						<tr>
 							<th colspan=1>Business Unit</th>
-							<th colspan=5><bean:write name="project" property="organizationName" /></th>
+							<th colspan=5><bean:write property="organizationName" /></th>
 						</tr>
 						<tr>
 							<th colspan=1>Project</th>
-							<th colspan=5><bean:write name="project" property="projectName" /></th>
+							<th colspan=5><bean:write property="projectName" /></th>
 						</tr>
 						<tr>
 							<th class="text-center">Role</th>
@@ -49,50 +49,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Member Manager</td>
-							<td>Toto Hugo</td>
-							<td>Ricky Suryo Utomo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>System Analyst</td>
-							<td>Hizkia Purba</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>Programmer Analyst</td>
-							<td>Edo R. Hermanto</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>Programmer</td>
-							<td>Rudy Chandra</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
-						</tr>
+						<logic:notEmpty name="projectForm" property="listProject">
+						<logic:iterate id="project" name="projectForm" property="listProject">
+							<tr>
+								<td><bean:write name="project" property="projectRole" /></td>
+								<td><bean:write name="project" property="assignee" /></td>
+								<td><bean:write name="project" property="directReport" /></td>
+								<td class="text-center"><a href="add.jsp"
+									data-hint="Edit Member" data-hint-position="bottom"><img
+										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+								<td class="text-center"><a href="#"
+									data-hint="Delete Member" data-hint-position="bottom"><img
+										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+							</tr>
+						</logic:iterate>
+						</logic:notEmpty>
+						<logic:empty name="projectForm" property="listProject">
+							<tr>
+								<td class="text-center" colspan="7">No Member</td>
+							</tr>
+						</logic:empty>
 						<tr>
 							<td colspan=5 class="text-center">
 								<div class="pagination">
@@ -113,7 +89,7 @@
 						</tr>
 						<tr>
 							<td colspan=5 class="text-right">
-								<button id="add-btn" onclick="" class="success">Add</button>
+								<button id="add-btn" onclick="javascript:button('addMember')" class="success">Add</button>
 								<button id="back-btn" onclick="javascript:button('cancel')">Back</button>
 							</td>
 						</tr>

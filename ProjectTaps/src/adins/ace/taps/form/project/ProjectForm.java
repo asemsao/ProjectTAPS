@@ -12,7 +12,9 @@ public class ProjectForm extends ActionForm
 	private String param;
 	private String value;
 	private String search;
-	private List<ProjectBean> listProject;
+	private String organizationName;
+	private String projectName;
+	private List listProject;
 	
 	public String getTask() {
 		return task;
@@ -39,11 +41,23 @@ public class ProjectForm extends ActionForm
 	public void setSearch(String search) {
 		this.search = search;
 	}
-	public List<ProjectBean> getListProject() {
+	public List getListProject() {
 		return listProject;
 	}
-	public void setListProject(List<ProjectBean> listProject) {
+	public void setListProject(List listProject) {
 		this.listProject = listProject;
+	}
+	public String getOrganizationName() {
+		return organizationName;
+	}
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	
 	
