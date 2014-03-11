@@ -2,20 +2,20 @@ package adins.ace.taps.form.assignment;
 
 import org.apache.struts.action.ActionForm;
 
-import adins.ace.taps.bean.assignment.NewSelfAssignmentBean;
+import adins.ace.taps.bean.assignment.NewAssignmentBean;
 
 @SuppressWarnings("serial")
 public class NewSelfAssignmentForm extends ActionForm {
-	private NewSelfAssignmentBean selfAssignBean = new NewSelfAssignmentBean();
+	private NewAssignmentBean selfAssignBean = new NewAssignmentBean();
 	private String newTask;
 	private String assignmentType;
 	private String activityType;
 
-	public NewSelfAssignmentBean getSelfAssignBean() {
+	public NewAssignmentBean getSelfAssignBean() {
 		return selfAssignBean;
 	}
 
-	public void setSelfAssignBean(NewSelfAssignmentBean selfAssignBean) {
+	public void setSelfAssignBean(NewAssignmentBean selfAssignBean) {
 		this.selfAssignBean = selfAssignBean;
 	}
 

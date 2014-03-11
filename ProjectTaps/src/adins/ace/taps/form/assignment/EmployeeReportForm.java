@@ -8,12 +8,13 @@ import org.apache.struts.action.ActionForm;
 public class EmployeeReportForm extends ActionForm {
 	private List listAssignment;
 	private String task;
-	private String param;
+	private String taskCode;
+	private String currentStatus;
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
-	private String search;
-	private String value;
+	private String searchCategory;
+	private String searchKeyword;
 	private String startDate;
 	private String endDate;
 
@@ -33,12 +34,20 @@ public class EmployeeReportForm extends ActionForm {
 		this.task = task;
 	}
 
-	public String getParam() {
-		return param;
+	public String getTaskCode() {
+		return taskCode;
 	}
 
-	public void setParam(String param) {
-		this.param = param;
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
 	}
 
 	public Integer getPage() {
@@ -65,20 +74,20 @@ public class EmployeeReportForm extends ActionForm {
 		this.countRecord = countRecord;
 	}
 
-	public String getSearch() {
-		return search;
+	public String getSearchCategory() {
+		return searchCategory;
 	}
 
-	public void setSearch(String search) {
-		this.search = search;
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
 	}
 
-	public String getValue() {
-		return value;
+	public String getSearchKeyword() {
+		return searchKeyword;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 	public String getStartDate() {

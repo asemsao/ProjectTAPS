@@ -51,10 +51,15 @@
 			$("#task").val("last");
 			$("#CRUDForm").submit();
 		});
+		$("#search").click(function() {
+			$("#task").val("search");
+			$("#CRUDForm").submit();
+		});
 		$(".delete-link").click(function() {
 			$("#deleteId").html($(this).attr('alt').trim().replace(/\-/g, ''));
 			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
 		});
+		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
 	});
 </script>
 <title>Organization</title>
@@ -84,18 +89,19 @@
 							<tr>
 								<th class="text-center" colspan=1>
 									<div class="input-control select">
-										<select>
-											<option value="">All</option>
-											<option value="organizationCode">Organization Code</option>
-											<option value="organizationName">Organization Name</option>
-											<option value="headName">Head Name</option>
-										</select>
+										<html:select property="searchCategory" name="organizationForm">
+											<html:option value="all">All</html:option>
+											<html:option value="organizationCode">Organization Code</html:option>
+											<html:option value="organizationName">Organization Name</html:option>
+											<html:option value="headName">Head Name</html:option>
+										</html:select>
 									</div>
 								</th>
 								<th class="text-center" colspan=5>
 									<div class="input-control text">
-										<input type="text" placeholder="Keyword of Organization" />
-										<button class="btn-search"></button>
+										<html:text property="searchKeyword" name="organizationForm"
+											styleId="searchKeyword"></html:text>
+										<button id="search" class="btn-search"></button>
 									</div>
 								</th>
 							</tr>

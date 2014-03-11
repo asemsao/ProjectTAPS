@@ -15,7 +15,11 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
+	$(document).ready(function() {
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?task=employees");
+	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
@@ -43,9 +47,12 @@
 							<tr>
 								<td class="size3">Appraisal To</td>
 								<td>:</td>
-								<td><div class="input-control text size3">
-								<input type="text" placeholder="Employee" readonly="readonly" />
-										<button class="btn-search" id="employee"></button>
+								<td><div class="input-control text">
+										<html:hidden property="appraisalBean.userDomain"
+											name="specialAppraisalForm" styleId="employee-domain" />
+										<input type="text" placeholder="Employee" id="employee-name"
+											readonly="readonly" />
+										<button class="btn-search" type="button" id="employee"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -80,7 +87,7 @@
 								<td colspan="3" class="text-right"><html:button
 										property="save" onclick="javascript:flyToPage('Appraisal');"
 										styleClass="button success">Appraisal</html:button> <html:button
-										property="save" onclick="javascript:flyToPage('Cancel');"
+										property="cancel" onclick="javascript:flyToPage('Cancel');"
 										styleClass="button success">Cancel</html:button></td>
 							</tr>
 						</tbody>
@@ -90,11 +97,9 @@
 		</div>
 		<html:hidden property="task" name="specialAppraisalForm" />
 	</html:form>
+
+	<div id="lookUpEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide"><jsp:include
-			page="/lookup/_employee.jsp" /></div>
-	<%-- 	<div id="popup_appraisal" class="hide"><jsp:include --%>
-	<%-- 			page="/lookup/_appraisal.jsp" /></div> --%>
 </body>
 
 </html>

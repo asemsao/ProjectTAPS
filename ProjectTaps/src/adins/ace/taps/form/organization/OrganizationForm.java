@@ -11,8 +11,8 @@ import adins.ace.taps.bean.organization.OrganizationBean;
 public class OrganizationForm extends ActionForm {
 	private String organizationCode;
 	private String task;
-	private String search;
-	private String value;
+	private String searchCategory;
+	private String searchKeyword;
 	private String sessionUserDomain;
 	private Integer page;
 	private Integer maxpage;
@@ -63,22 +63,6 @@ public class OrganizationForm extends ActionForm {
 
 	public void setTask(String task) {
 		this.task = task;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 
 	public List<OrganizationBean> getListOrganizations() {
@@ -143,5 +127,21 @@ public class OrganizationForm extends ActionForm {
 
 	public void setCountRecordEmployee(Integer countRecordEmployee) {
 		this.countRecordEmployee = countRecordEmployee;
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 }

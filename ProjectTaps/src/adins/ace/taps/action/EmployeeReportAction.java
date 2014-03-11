@@ -28,11 +28,27 @@ public class EmployeeReportAction extends Action {
 				if (eForm.getPage() == null) {
 					eForm.setPage(1);
 				}
-	
-				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
+				
+				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
+			} else if ("view".equals(eForm.getTask())){
+				session.setAttribute("taskCode", eForm.getTaskCode());
+				if("DRAFT".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("Draft");
+				}
+				else if("CLAIM".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("Claim");
+				}
+//				else if("RFA".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("RFA");
+//				} else if("CORRECTION".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("Correction");
+//				} else if("APPROVED".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("Approved");
+//				}
+				return mapping.findForward("View");
 			}
 			
 			if (eForm.getPage() == null) {
@@ -47,8 +63,24 @@ public class EmployeeReportAction extends Action {
 					 eForm.setPage(1);
 				 }
 			
-				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
+				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				 return mapping.findForward("SearchAssignment");
+			} else if ("view".equals(eForm.getTask())){
+				session.setAttribute("taskCode", eForm.getTaskCode());
+				if("DRAFT".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("DraftSupervisor");
+				}
+				else if("CLAIM".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("ClaimSupervisor");
+				}
+//				else if("RFA".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("RFASupervisor");
+//				} else if("CORRECTION".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("CorrectionSupervisor");
+//				} else if("APPROVED".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("ApprovedSupervisor");
+//				}
+//				
 			}
 			
 			if (eForm.getPage() == null) {
@@ -63,10 +95,26 @@ public class EmployeeReportAction extends Action {
 					eForm.setPage(1);
 				}
 			
-				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearch(), eForm.getValue(), eForm.getStartDate(), eForm.getEndDate()));
+				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
+			} else if ("view".equals(eForm.getTask())){
+				session.setAttribute("taskCode", eForm.getTaskCode());
+				if("DRAFT".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("DraftSupervisor");
+				}
+				else if("CLAIM".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("ClaimSupervisor");
+				}
+//				else if("RFA".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("RFASupervisor");
+//				} else if("CORRECTION".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("CorrectionSupervisor");
+//				} else if("APPROVED".equals(eForm.getCurrentStatus())){
+//					return mapping.findForward("ApprovedSupervisor");
+//				}
+				
 			}
 			 
 			if (eForm.getPage() == null) {

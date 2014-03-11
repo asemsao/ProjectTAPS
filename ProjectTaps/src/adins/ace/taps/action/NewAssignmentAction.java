@@ -28,7 +28,18 @@ public class NewAssignmentAction extends Action {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
-
+		
+		if (session.getAttribute("taskCode") != null){
+			System.out.println(session.getAttribute("taskCode"));
+			aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+			session.removeAttribute("taskCode");
+			return mapping.findForward("NewAssignment");
+		}
+		
+		if (aForm.getNewTask() == null){
+			return mapping.findForward("NewAssignment");
+		}
+		
 		if ("cancel".equals(aForm.getNewTask())) {
 			System.out.println("masuk cancel");
 			return mapping.findForward("Cancel");
@@ -53,13 +64,15 @@ public class NewAssignmentAction extends Action {
 			
 			if ("save".equals(aForm.getNewTask())) {
 				aForm.getAssignmentBean().setCurrentStatus("DRAFT");
+				aForm.getAssignmentBean().setFlag("ACTIVE");
 			} else if ("assign".equals(aForm.getNewTask())) {
 				aForm.getAssignmentBean().setCurrentStatus("CLAIM");
+				aForm.getAssignmentBean().setFlag("INACTIVE");
 			}
 			
 			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
 			System.out.println(success);
-			return mapping.findForward("NewAssignment");
+			return mapping.findForward("Cancel");
 		}
 	}
 }

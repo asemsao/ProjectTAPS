@@ -8,6 +8,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.project.ProjectBean;
 import adins.ace.taps.bean.project.StructureProjectBean;
 import adins.ace.taps.form.project.ProjectForm;
 import adins.ace.taps.manager.ProjectManager;
@@ -28,21 +29,27 @@ public class ProjectAction extends Action
 		{
 			return mapping.findForward("AddProject");
 		}
+		if("saveProject".equals(pForm.getTask()))
+		{
+			System.out.println(pForm.getAddProject().getStartDate());
+			pMan.addProject(pForm.getAddProject());
+			return mapping.findForward("ListProject");
+		}
 		if("cancel".equals(pForm.getTask()))
 		{
 			return mapping.findForward("ListProject");
 		}
 		if("edit".equals(pForm.getTask()))
 		{
-			return mapping.findForward("AddProject");
+			return mapping.findForward("EditProject");
 		}
 		if("member".equals(pForm.getTask()))
 		{
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
-			StructureProjectBean spBean = new StructureProjectBean();
-			spBean = (StructureProjectBean) pForm.getListProject().get(0);
-			pForm.setOrganizationName(spBean.getOrganizationName());
-			pForm.setProjectName(spBean.getProjectName());
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
 		if("addMember".equals(pForm.getTask()))
@@ -60,7 +67,7 @@ public class ProjectAction extends Action
 		}
 		if("editMember".equals(pForm.getTask()))
 		{
-			return mapping.findForward("AddMember");
+			return mapping.findForward("EditMember");
 		}
 		
 		return mapping.findForward("ListProject");

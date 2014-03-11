@@ -27,7 +27,7 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/specialAppraisal" method="post">
+	<html:form action="/specialAppraisal" method="post" styleClass="specialAppraisalForm">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -90,20 +90,21 @@
 								<td colspan=3 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"><i
+											<li class="first"><a href="javascript:flyToPage('first');"><i
 													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"><i
+											<li class="prev"><a href="javascript:flyToPage('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="specialAppraisalForm" property="page" /> of <bean:write
 														name="specialAppraisalForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+											<li class="next"><a href="javascript:flyToPage('next');"><i class="icon-next"></i></a></li>
+											<li class="last"><a href="javascript:flyToPage('last');"><i class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="specialAppraisalForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
+								
 								<td class="text-center"><a
 									href="javascript:flyToPage('New');"
 									data-hint="View Special Appraisal" data-hint-position="bottom"><img
@@ -117,6 +118,8 @@
 		</div>
 		<html:hidden property="task" name="specialAppraisalForm" />
 		<html:hidden property="param" name="specialAppraisalForm" />
+		<html:hidden property="maxpage" name="specialAppraisalForm" />
+		<html:hidden property="page" name="specialAppraisalForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

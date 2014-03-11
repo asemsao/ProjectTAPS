@@ -47,8 +47,8 @@ function setParameterOrganization() {
 	var value = $("#value-organization").val();
 	var page = $("#page-organization").val();
 	var maxpage = $("#maxpage-organization").val();
-	var data = "task=" + task + "&search=" + search + "&value=" + value
-			+ "&page=" + page + "&maxpage=" + maxpage;
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage;
 	return data;
 }
 
@@ -127,7 +127,7 @@ function chooseBussinessUnit() {
 
 // numpang employee
 
-function loadEmployee() {
+function loadEmployee(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
 			overlay : true,
@@ -139,22 +139,25 @@ function loadEmployee() {
 			padding : 10,
 			title : 'Employee'
 		});
+		$(".search-category-employee").get(1).value = searchCategory;
+		$(".search-keyword-employee").get(1).value = searchKeyword;
 	}, 500);
 }
 
 function setParameterEmployee() {
 	var task = $("#task-employee").val();
-	var search = $("#search-employee").val();
-	var value = $("#value-employee").val();
+	var search = $(".search-category-employee").get(1).value;
+	var value = $(".search-keyword-employee").get(1).value;
 	var page = $("#page-employee").val();
 	var maxpage = $("#maxpage-employee").val();
-	var data = "task=" + task + "&search=" + search + "&value=" + value
-			+ "&pageEmployee=" + page + "&maxpageEmployee=" + maxpage;
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&pageEmployee=" + page + "&maxpageEmployee=" + maxpage;
 	return data;
 }
 
 function setResponseEmployee(data) {
 	var json = $.parseJSON(data);
+
 	var content = "<table ";
 	content += "class='table striped bordered hovered'>";
 	content += "<thead>";
@@ -198,10 +201,14 @@ function setResponseEmployee(data) {
 	$("#current-page-employee").html(json.pageEmployee);
 	$("#maxpage-employee").val(json.maxpageEmployee);
 	$("#max-page-employee").html(json.maxpageEmployee);
-	$("#total-record-employee").html(json.countRecordEmployee);
+	$(".search-category-employee").val(json.searchCategory);
+	$(".search-keyword-employee").val(json.searchKeyword);
+
 }
 
 function pagingEmployee(direction) {
+	var searchCategory = $(".search-category-employee").get(1).value;
+	var searchKeyword = $(".search-keyword-employee").get(1).value;
 	$.Dialog.close();
 	$("#task-employee").val(direction);
 	var data = setParameterEmployee();
@@ -217,7 +224,8 @@ function pagingEmployee(direction) {
 			setResponseEmployee(data);
 		}
 	});
-	loadEmployee();
+
+	loadEmployee(searchCategory, searchKeyword);
 }
 
 function chooseEmployee() {
