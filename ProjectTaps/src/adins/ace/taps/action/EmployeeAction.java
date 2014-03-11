@@ -30,7 +30,6 @@ public class EmployeeAction extends Action {
 			mForm.setPage(1);
 		}
 		if ("edit".equals(mForm.getTask())) {
-			System.out.println("edit");
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
@@ -80,7 +79,12 @@ public class EmployeeAction extends Action {
 		}
 
 		if ("search".equals(mForm.getTask())) {
-			mForm.setPage(1);
+			System.out.println("search");
+			System.out.println(mForm.getSearchCategory());
+			System.out.println(mForm.getSearchKeyword());
+			if (mForm.getPage() == null) {
+				mForm.setPage(1);
+			}
 		}
 		
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);

@@ -90,6 +90,7 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("edit".equals(orgForm.getTask())) {
+			System.out.println(orgForm.getOrganizationCode());
 			return mapping.findForward("Edit");
 		}
 		if ("cancel".equals(orgForm.getTask())) {
