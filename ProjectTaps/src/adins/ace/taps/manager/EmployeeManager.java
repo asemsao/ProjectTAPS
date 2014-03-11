@@ -40,7 +40,6 @@ public class EmployeeManager {
 		List<EmployeeBean> empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			System.out.println("row"+params.get("rowEnd"));
 			empList = ibatisSqlMap.queryForList("employee.searchEmployees", params);			
 		} catch (Exception e) {
 			e.printStackTrace();
