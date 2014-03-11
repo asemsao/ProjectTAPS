@@ -89,7 +89,7 @@
 								<td><bean:write name="project" property="endDate" /></td>
 								<td class="text-center"><bean:write name="project" property="runningDay" /></td>
 								<td class="text-center"><a href="javascript:flyToPage('member','<bean:write name="project" property="projectCode" />');"
-									data-hint="Project's Member" data-hint-position="bottom"><img
+									data-hint="Project Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
 								<td class="text-center"><a href="javascript:button('edit')"
 									data-hint="Edit Project" data-hint-position="bottom"><img

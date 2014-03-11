@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.employee.NewEmployeeBean;
+import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
 
 public class ProjectForm extends ActionForm
@@ -16,6 +18,7 @@ public class ProjectForm extends ActionForm
 	private String organizationName;
 	private String projectName;
 	private List listProject;
+	private AddProjectBean addProject = new AddProjectBean();
 	
 	public String getTask() {
 		return task;
@@ -65,6 +68,12 @@ public class ProjectForm extends ActionForm
 	}
 	public void setParam2(String param2) {
 		this.param2 = param2;
+	}
+	public AddProjectBean getAddProject() {
+		return addProject;
+	}
+	public void setAddProject(AddProjectBean addProject) {
+		this.addProject = addProject;
 	}
 	
 	
