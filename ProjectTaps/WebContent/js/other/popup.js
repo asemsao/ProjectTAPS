@@ -50,25 +50,6 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#organization").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpOrganization").html(),
-			padding : 10,
-			title : 'Bussiness Unit'
-		});
-	});
-
-	function dialogFunction() {
-		$("#next-ajax").click(function(e) {
-			alert(1);
-		});
-	}
-
 	$("#project").on('click', function() {
 		$.Dialog({
 			overlay : true,

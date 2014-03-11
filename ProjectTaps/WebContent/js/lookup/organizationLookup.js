@@ -1,4 +1,19 @@
 // LOOK UP ORGANIZATION
+$(document).ready(function() {
+	$("#organization").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpOrganization").html(),
+			padding : 10,
+			title : 'Bussiness Unit'
+		});
+	});
+});
+
 function loadOrganization() {
 	setTimeout(function() {
 		$.Dialog({
@@ -67,7 +82,7 @@ function setResponseOrganization(data) {
 	$("#total-record").html(json.countRecord);
 }
 
-function paging(direction) {
+function pagingOrganization(direction) {
 	$.Dialog.close();
 	$("#task").val(direction);
 	var data = setParameter();
@@ -87,7 +102,8 @@ function paging(direction) {
 }
 
 function chooseBussinessUnit() {
-	var choosen = $("input[name='organization_choose']:checked").val().replace(/\-/g,'');
+	var choosen = $("input[name='organization_choose']:checked").val().replace(
+			/\-/g, '');
 	$("#parent_organization_id").val(choosen.split('@')[0]);
 	$("#parent_organization").val(choosen.split('@')[1]);
 	$("#organization_id").val(choosen.split('@')[0]);
