@@ -28,6 +28,13 @@ public class NewSelfAssignmentAction extends Action{
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		
+		if (session.getAttribute("taskCode") != null){
+			System.out.println(session.getAttribute("taskCode"));
+			aForm.setSelfAssignBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+			session.removeAttribute("taskCode");
+			return mapping.findForward("NewSelfAssignment");
+		}
+		
 		if (aForm.getNewTask() == null){
 			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
 			return mapping.findForward("NewSelfAssignment");

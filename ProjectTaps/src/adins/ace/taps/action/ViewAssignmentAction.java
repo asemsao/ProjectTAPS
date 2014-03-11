@@ -11,17 +11,21 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.form.assignment.ViewAssignmentForm;
+import adins.ace.taps.manager.AssignmentManager;
+
 public class ViewAssignmentAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-//		NewAssignmentForm aForm = (NewAssignmentForm) form;
-//		AssignmentManager aMan = new AssignmentManager();
+		ViewAssignmentForm aForm = (ViewAssignmentForm) form;
+		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		
 		if ("DRAFT".equals(session.getAttribute("taskCode"))){
 			
+			return mapping.findForward(null);
 		}
 		else if ("CLAIM".equals(session.getAttribute("taskCode"))){
 			

@@ -21,8 +21,7 @@ public class OrganizationManager {
 		List<OrganizationBean> orgList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			orgList = ibatisSqlMap.queryForList(
-					"organization.searchOrganizations", params);
+			orgList = ibatisSqlMap.queryForList("organization.searchOrganizations", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

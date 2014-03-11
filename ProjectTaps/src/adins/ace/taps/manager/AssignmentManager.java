@@ -288,4 +288,25 @@ public class AssignmentManager {
 		}
 		return generateTaskCode;
 	}
+	
+	public NewAssignmentBean searchRecordAssignment(String taskCode) {
+		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+		System.out.println(taskCode);
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed get max task code");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println(assignmentBean.getTaskCode());
+		return assignmentBean;
+	}
 }
