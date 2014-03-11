@@ -28,6 +28,10 @@
 		<action name="ajaxForm" path="/ajax" scope="request"
 			type="adins.ace.taps.ajax.AjaxAction">
 			<forward name="employees" path="/WEB-INF/jsp/ajax/employees.jsp" />
+			<forward name="organizations" path="/WEB-INF/jsp/ajax/organizations.jsp" />
+			<forward name="assignments" path="/WEB-INF/jsp/ajax/assignments.jsp" />
+			<forward name="projects" path="/WEB-INF/jsp/ajax/projects.jsp" />
+			<forward name="employees2" path="/WEB-INF/jsp/ajax/employees2.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
