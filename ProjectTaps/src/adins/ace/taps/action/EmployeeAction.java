@@ -30,7 +30,10 @@ public class EmployeeAction extends Action {
 			mForm.setPage(1);
 		}
 		if ("edit".equals(mForm.getTask())) {
-			System.out.println("edit");
+			System.out.println(mForm.getEmployeeDomain());
+			params.put("employeeDomain", mForm.getEmployeeDomain());
+			mForm.setNewEmployee(mMan.getEditEmployees(params));
+			System.out.println(mForm.getNewEmployee().getBusinessUnit());
 			return mapping.findForward("Edit");
 		}
 		else if("new".equals(mForm.getTask())){
@@ -56,30 +59,30 @@ public class EmployeeAction extends Action {
 			System.out.println(flag);
 		}
 		
-		if ("first".equals(mForm.getTask())
+		else if ("first".equals(mForm.getTask())
 				|| "first-ajax".equals(mForm.getTask())) {
 			mForm.setPage(1);
 		}
 
-		if ("last".equals(mForm.getTask())
+		else if ("last".equals(mForm.getTask())
 				|| "last-ajax".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
 		}
 
-		if ("prev".equals(mForm.getTask())
+		else if ("prev".equals(mForm.getTask())
 				|| "prev-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(mForm.getTask())
+		else if ("next".equals(mForm.getTask())
 				|| "next-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
 			}
 		}
 
-		if ("search".equals(mForm.getTask())) {
+		else if ("search".equals(mForm.getTask())) {
 			mForm.setPage(1);
 		}
 		
@@ -88,6 +91,7 @@ public class EmployeeAction extends Action {
 
 		mForm.setListEmployees(mMan.getAllEmployees(params));
 		mForm.setCountRecord(mMan.countEmployees(params));
+		
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {

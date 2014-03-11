@@ -23,7 +23,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.EditEmployeeBean"
+	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT picture AS profilePicture, user_domain AS
 		employeeDomain, employee_nik AS employeeNik, employee_code AS
@@ -36,7 +36,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		email,
 		SUBSTR(employee_category,1,1) AS golonganNumber,
 		SUBSTR(employee_category,2,2) AS golonganLevel, flag AS flag FROM
-		employees
+		employees where user_domain = UPPER(#employeeDomain#)
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
