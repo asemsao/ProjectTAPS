@@ -5,58 +5,83 @@
 	<select id="getAllSpecialAppraisal"
 		resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
 		SELECT to_char(s.created_date,'DD-MM-YYYY') AS
-		createdDate,s.user_domain as userDomain,
-		e.first_name||' '||e.last_name AS employeeName,
-		SUM(s.star_after)-SUM(s.star_before) AS appraisalStar, s.description as description, s.star_id AS starId
-		FROM stars s,
-		employees e
-		WHERE s.user_domain=e.user_domain
-		group by s.created_date,s.user_domain, s.star_id,
-		e.first_name||' '||e.last_name, s.description
+        createdDate,s.user_domain as userDomain,
+        e.first_name||' '||e.last_name
+        AS employeeName,
+        SUM(s.star_after)-SUM(s.star_before) AS appraisalStar,
+        s.description as description, s.star_id AS starId
+        FROM stars s,
+        employees e
+        WHERE s.user_domain=e.user_domain
+        group by
+        s.created_date,s.user_domain,
+        e.first_name||' '||e.last_name, s.description, s.star_id ORDER BY s.star_id desc
 	</select>
 
 	<select id="ViewSpecialAppraisal"
 		resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
 		SELECT to_char(s.created_date,'DD-MM-YYYY') AS
 		createdDate,s.user_domain as userDomain,
-		e.first_name||' '||e.last_name AS employeeName,
-		SUM(s.star_after)-SUM(s.star_before) AS appraisalStar, s.description AS description, s.star_id AS starId
+		e.first_name||' '||e.last_name
+		AS employeeName,
+		SUM(s.star_after)-SUM(s.star_before) AS appraisalStar,
+		s.description AS description, s.star_id AS starId
 		FROM stars s,
 		employees e
-		WHERE s.user_domain=e.user_domain and s.star_id=LOWER(#starId#)
-		group by s.created_date,s.user_domain, s.star_id,
-		e.first_name||' '||e.last_name, s.description
+		WHERE s.user_domain=e.user_domain and
+		s.star_id=LOWER(#starId#)
+		group by s.created_date,s.user_domain,
+		e.first_name||' '||e.last_name, s.description,
+		s.star_id
 	</select>
 
-	<!-- <select id="countSpecialAppraisal" resultClass="int" -->
-	<!-- parameterClass="java.util.Map"> -->
-	<!-- SELECT COUNT(1) -->
-	<!-- FROM stars s, employees e -->
-	<!-- WHERE -->
-	<!-- s.user_domain=e.user_domain -->
-	<!-- </select> -->
+	<insert id="insertSpecialAppraisal"
+		parameterClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
+		INSERT INTO stars (star_id,
+		user_domain,
+		description,
+		star_before,
+		star_after,
+		created_by,
+		created_date)
+		VALUES (SEQUENCE_STARS.NEXTVAL,
+		'domain1',
+		#description#,
+		0,
+		3,
+		'domain4',
+		#createdDate#)
+	</insert>
 
-	<!-- <select id="searchSpecialAppraisal" resultClass="SpecialAppraisalBean" -->
-	<!-- parameterClass="java.util.Map"> -->
-	<!-- SELECT * -->
-	<!-- FROM (SELECT ROWNUM seqnum, a.* -->
-	<!-- FROM (SELECT -->
-	<!-- to_char(s.created_date,'DD-MM-YYYY') AS -->
-	<!-- createdDate, -->
-	<!-- e.first_name||' -->
-	<!-- '||e.last_name AS employeeName, -->
-	<!-- SUM(s.star_after)-SUM(s.star_before) AS -->
-	<!-- appraisalStar -->
-	<!-- FROM stars s, -->
-	<!-- employees e -->
-	<!-- WHERE s.user_domain=e.user_domain -->
-	<!-- group by s.created_date, -->
-	<!-- e.first_name||' '||e.last_name -->
-	<!-- ) -->
-	<!-- a -->
-	<!-- WHERE <![CDATA[ ROWNUM <= #end#]]> -->
-	<!-- ) -->
-	<!-- WHERE <![CDATA[ seqnum >= #start#]]> -->
-	<!-- </select> -->
+	<select id="searchSpecialAppraisal" resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT to_char(s.created_date,'DD-MM-YYYY') AS
+        createdDate,s.user_domain as userDomain,
+        e.first_name||' '||e.last_name
+        AS employeeName,
+        SUM(s.star_after)-SUM(s.star_before) AS appraisalStar,
+        s.description as description, s.star_id AS starId
+        FROM stars s,
+        employees e
+        WHERE s.user_domain=e.user_domain
+		<dynamic prepend="AND">
+					<isNotNull property="keyword">
+						<isNotEmpty property="keyword">
+							<isEqual property="category" compareValue="employeeName">(LOWER(FIRST_NAME) 
+								LIKE LOWER ('%$keyword$%') OR
+								LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%'))
+							</isEqual>
+						</isNotEmpty>
+					</isNotNull>
+		</dynamic>
+		group by
+        s.created_date,s.user_domain,
+        e.first_name||' '||e.last_name, s.description, s.star_id ORDER BY s.star_id desc 
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+		
+	</select>
 
 </sqlMap>

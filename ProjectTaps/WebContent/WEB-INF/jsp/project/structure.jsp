@@ -12,6 +12,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
+	function flyToPage(task,param2)
+	{
+		document.projectForm.task.value = task;
+		document.projectForm.param2.value = param2;
+		document.projectForm.submit();
+	}
 	function button(task) 
 	{
 		document.projectForm.task.value = task;
@@ -34,11 +40,11 @@
 						</tr>
 						<tr>
 							<th colspan=1>Business Unit</th>
-							<th colspan=5><bean:write name="project" property="organizationName" /></th>
+							<td colspan=5><strong><bean:write property="organizationName" /></strong></td>
 						</tr>
 						<tr>
-							<th colspan=1>Project</th>
-							<th colspan=5><bean:write name="project" property="projectName" /></th>
+							<th colspan=1>Project Name</th>
+							<td colspan=5><strong><bean:write property="projectName" /></strong></td>
 						</tr>
 						<tr>
 							<th class="text-center">Role</th>
@@ -49,50 +55,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Member Manager</td>
-							<td>Toto Hugo</td>
-							<td>Ricky Suryo Utomo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>System Analyst</td>
-							<td>Hizkia Purba</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>Programmer Analyst</td>
-							<td>Edo R. Hermanto</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="../images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="../images/DELETE.png"></a></td>
-						</tr>
-						<tr>
-							<td>Programmer</td>
-							<td>Rudy Chandra</td>
-							<td>Toto Hugo</td>
-							<td class="text-center"><a href="add.jsp"
-								data-hint="Edit Member" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-							<td class="text-center"><a href="#"
-								data-hint="Delete Member" data-hint-position="bottom"><img
-									alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
-						</tr>
+						<logic:notEmpty name="projectForm" property="listProject">
+						<logic:iterate id="project" name="projectForm" property="listProject">
+							<tr>
+								<td><bean:write name="project" property="projectRole" /></td>
+								<td><bean:write name="project" property="assignee" /></td>
+								<td><bean:write name="project" property="directReport" /></td>
+								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="projectRole" />')"
+									data-hint="Edit Member" data-hint-position="bottom"><img
+										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+								<td class="text-center"><a href="#"
+									data-hint="Delete Member" data-hint-position="bottom"><img
+										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+							</tr>
+						</logic:iterate>
+						</logic:notEmpty>
+						<logic:empty name="projectForm" property="listProject">
+							<tr>
+								<td class="text-center" colspan="7">No Member</td>
+							</tr>
+						</logic:empty>
 						<tr>
 							<td colspan=5 class="text-center">
 								<div class="pagination">
@@ -113,13 +95,15 @@
 						</tr>
 						<tr>
 							<td colspan=5 class="text-right">
-								<button id="add-btn" onclick="" class="success">Add</button>
+								<button id="add-btn" onclick="javascript:button('addMember')" class="success">Add</button>
 								<button id="back-btn" onclick="javascript:button('cancel')">Back</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-
+				<html:hidden property="task" name="projectForm" />
+				<html:hidden property="param" name="projectForm" />
+				<html:hidden property="param2" name="projectForm" />
 			</div>
 		</div>
 	</div>

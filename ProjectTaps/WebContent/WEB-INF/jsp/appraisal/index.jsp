@@ -34,13 +34,25 @@
 
 					<table class="table striped bordered hovered">
 						<thead>
-							<tr>
+						<tr>
 								<th colspan=4 class="text-center"><h3>Special
 										Appraisal</h3></th>
 							</tr>
+								<th>
+								Employee Name  :
+								</th>
+
+								<th colspan=3>
+									<div class="input-control text">
+										<html:text property="searchKeyword" name="specialAppraisalForm" styleId="searchKeyword"></html:text>
+										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
+									</div>
+								</th>
+							</tr>
+							
 							<tr>
 								<th class="text-center">Appraisal Date</th>
-								<th class="text-center">Appraisal To</th>
+								<th class="text-center">Employee Name</th>
 								<th class="text-center">Appraisal Star</th>
 								<th class="text-center">View</th>
 							</tr>
@@ -75,7 +87,7 @@
 
 							<tr>
 							<tr>
-								<td colspan=5 class="text-center">
+								<td colspan=3 class="text-center">
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"><i
