@@ -112,7 +112,7 @@
 								<html:text property="value" name="organizationForm"
 									styleId="value" value="devririza"></html:text>
 								<button type="button" id="searchOrganizationOnLookUp"
-									class="btn-search"></button>
+									class="btn-search" onclick="javascript:pagingOrganization('lookupsearch');"></button>
 							</div>
 						</th>
 					</tr>
@@ -160,20 +160,20 @@
 							<div class="pagination">
 								<ul>
 									<li class="first"><a id="first-ajax"
-										onclick="javascript:paging('first-ajax');"><i
+										onclick="javascript:pagingOrganization('first-ajax');"><i
 											class="icon-first-2"></i></a></li>
 									<li class="prev"><a id="prev-ajax"
-										onclick="javascript:paging('prev-ajax');"><i
+										onclick="javascript:pagingOrganization('prev-ajax');"><i
 											class="icon-previous"></i></a></li>
 									<li class="disabled"><a>Page <span id="current-page"><bean:write
 													name="organizationForm" property="page" /></span> of <span
 											id="max-page"> <bean:write name="organizationForm"
 													property="maxpage" /></span></a></li>
 									<li class="next-ajax"><a id="next-ajax"
-										onclick="javascript:paging('next-ajax');"><i
+										onclick="javascript:pagingOrganization('next-ajax');"><i
 											class="icon-next"></i></a></li>
 									<li class="last"><a id="last-ajax"
-										onclick="javascript:paging('last-ajax');"><i
+										onclick="javascript:pagingOrganization('last-ajax');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
 											id="total-record"><bean:write name="organizationForm"
@@ -189,9 +189,6 @@
 			</table>
 		</html:form>
 	</div>
-
-
-
 
 	<jsp:include page="/frame/footer.jsp" />
 	<!-- 	<div id="popup_employee" class="hide"> -->
