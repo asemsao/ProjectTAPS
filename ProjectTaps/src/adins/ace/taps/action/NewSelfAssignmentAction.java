@@ -28,6 +28,13 @@ public class NewSelfAssignmentAction extends Action{
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		
+		if (session.getAttribute("taskCode") != null){
+			System.out.println(session.getAttribute("taskCode"));
+			aForm.setSelfAssignBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+			session.removeAttribute("taskCode");
+			return mapping.findForward("NewSelfAssignment");
+		}
+		
 		if (aForm.getNewTask() == null){
 			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
 			return mapping.findForward("NewSelfAssignment");
@@ -55,11 +62,14 @@ public class NewSelfAssignmentAction extends Action{
 			aForm.getSelfAssignBean().setTaskCode(paramCode);
 			aForm.getSelfAssignBean().setReportTo("domain100");
 			aForm.getSelfAssignBean().setCreateBy("domain3");
+			aForm.getSelfAssignBean().setAssignTo("domain3");
 			
 			if ("save".equals(aForm.getNewTask())) {
 				aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
+				aForm.getSelfAssignBean().setFlag("ACTIVE");
 			} else if ("RFA".equals(aForm.getNewTask())) {
 				aForm.getSelfAssignBean().setCurrentStatus("RFA");
+				aForm.getSelfAssignBean().setFlag("INACTIVE");
 			}
 			
 			boolean success = aMan.addSelfAssignment(aForm.getSelfAssignBean());

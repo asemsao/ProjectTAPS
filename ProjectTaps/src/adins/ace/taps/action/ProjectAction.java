@@ -28,13 +28,19 @@ public class ProjectAction extends Action
 		{
 			return mapping.findForward("AddProject");
 		}
+		if("saveProject".equals(pForm.getTask()))
+		{
+			System.out.println(pForm.getAddProject().getStartDate());
+			pMan.addProject(pForm.getAddProject());
+			return mapping.findForward("ListProject");
+		}
 		if("cancel".equals(pForm.getTask()))
 		{
 			return mapping.findForward("ListProject");
 		}
 		if("edit".equals(pForm.getTask()))
 		{
-			return mapping.findForward("AddProject");
+			return mapping.findForward("EditProject");
 		}
 		if("member".equals(pForm.getTask()))
 		{
@@ -60,7 +66,7 @@ public class ProjectAction extends Action
 		}
 		if("editMember".equals(pForm.getTask()))
 		{
-			return mapping.findForward("AddMember");
+			return mapping.findForward("EditMember");
 		}
 		
 		return mapping.findForward("ListProject");

@@ -20,9 +20,10 @@
 		document.employeeReportForm.task.value = task;
 		document.employeeReportForm.submit();
 	}
-	function flyToPage(task,param) {
+	function flyToPage(task, taskCode, currentStatus) {
 		document.employeeReportForm.task.value = task;
-		document.employeeReportForm.param.value = param;
+		document.employeeReportForm.taskCode.value = taskCode;
+		document.employeeReportForm.currentStatus.value = currentStatus;
 		document.employeeReportForm.submit();
 	}
 </script>
@@ -60,19 +61,22 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="search" name="employeeReportForm">
-											<html:option value="">All</html:option>
+										<html:select property="searchCategory"
+											name="employeeReportForm">
+											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
 											<html:option value="taskType">Assignment Category</html:option>
 											<html:option value="employee">Employee Name</html:option>
+											<html:option value="status">Status</html:option>
 										</html:select>
 									</div>
 								</th>
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="value" name="employeeReportForm"></html:text>
-										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
+										<html:text property="searchKeyword" name="employeeReportForm"></html:text>
+										<button class="btn-search"
+											onclick="javascript:flyToPage('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -80,13 +84,19 @@
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
 								<th class="text-center">Assignment Category</th>
-								
-								<%if ("employeeReport".equals(session.getAttribute("link"))){ %>
-									<th class="text-center">Assign By</th>
-								<%} else { %>
-									<th class="text-center">Employee Name</th>
-								<%} %>
-								
+
+								<%
+									if ("employeeReport".equals(session.getAttribute("link"))) {
+								%>
+								<th class="text-center">Assign By</th>
+								<%
+									} else {
+								%>
+								<th class="text-center">Employee Name</th>
+								<%
+									}
+								%>
+
 								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>
 								<th class="text-center">Status</th>
@@ -108,8 +118,11 @@
 										<td><bean:write property="assignmentDueDate"
 												name="assignment" /></td>
 										<td><bean:write property="createdDate" name="assignment" /></td>
-										<td><a href = "javascript:flyToPage('view','<bean:write property="assignmentCode" name="assignment" />');">
-											<bean:write property="currentStatus" name="assignment" /></a></td>
+										<td><a
+											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+												name="assignment" />', '<bean:write
+													property="currentStatus" name="assignment" />' );"><bean:write
+													property="currentStatus" name="assignment" /></a></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -136,25 +149,34 @@
 										</ul>
 									</div>
 								</td>
-								<%if ("assignment".equals(session.getAttribute("link"))){ %>
-								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
-									data-hint="New Assignment" data-hint-position="bottom"><img
-										alt=""
+								<%
+									if ("assignment".equals(session.getAttribute("link"))) {
+								%>
+								<td colspan=2 class="text-right"><a
+									href="javascript:flyToPage('add');" data-hint="New Assignment"
+									data-hint-position="bottom"><img alt=""
 										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
-								<%} else if ("employeeReport".equals(session.getAttribute("link"))){ %>
-								<td colspan=2 class="text-right"><a href="javascript:flyToPage('add');"
+								<%
+									} else if ("employeeReport"
+												.equals(session.getAttribute("link"))) {
+								%>
+								<td colspan=2 class="text-right"><a
+									href="javascript:flyToPage('add');"
 									data-hint="New Self Assignment" data-hint-position="bottom"><img
 										alt=""
 										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
-								<%} %>
+								<%
+									}
+								%>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="employeeReportForm"/>
-		<html:hidden property="param" name="employeeReportForm"/>
+		<html:hidden property="task" name="employeeReportForm" />
+		<html:hidden property="taskCode" name="employeeReportForm" />
+		<html:hidden property="currentStatus" name="employeeReportForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

@@ -81,7 +81,7 @@
 								<td colspan="3" class="text-right"><html:button
 										property="save" onclick="javascript:flyToPage('Appraisal');"
 										styleClass="button success">Appraisal</html:button> <html:button
-										property="save" onclick="javascript:flyToPage('Cancel');"
+										property="cancel" onclick="javascript:flyToPage('Cancel');"
 										styleClass="button success">Cancel</html:button></td>
 							</tr>
 						</tbody>

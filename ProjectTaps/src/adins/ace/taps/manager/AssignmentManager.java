@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
-import adins.ace.taps.bean.assignment.NewSelfAssignmentBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -22,16 +21,16 @@ public class AssignmentManager {
 	// EmployeeReportSupervisor
 	public List getListAssignmentSupervisor(Integer page) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
 
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,22 +44,22 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignmentSupervisor(Integer page, String search, String value, String startDate, String endDate) {
+	public List searchAssignmentSupervisor(Integer page, String searchCategory, String searchKeyword, String startDate, String endDate) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
-		rowCount.put("search", search);
-		rowCount.put("value", value);
-		rowCount.put("startDate", startDate);
-		rowCount.put("endDate", endDate);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
+		parameterAssignment.put("searchCategory", searchCategory);
+		parameterAssignment.put("searchKeyword", searchKeyword);
+		parameterAssignment.put("startDate", startDate);
+		parameterAssignment.put("endDate", endDate);
 		
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -77,16 +76,16 @@ public class AssignmentManager {
 	// EmployeeReport
 	public List getListAssignmentEmployee(Integer page) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
 
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,22 +99,22 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignmentEmployee(Integer page, String search, String value, String startDate, String endDate) {
+	public List searchAssignmentEmployee(Integer page, String searchCategory, String searchKeyword, String startDate, String endDate) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
-		rowCount.put("search", search);
-		rowCount.put("value", value);
-		rowCount.put("startDate", startDate);
-		rowCount.put("endDate", endDate);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
+		parameterAssignment.put("searchCategory", searchCategory);
+		parameterAssignment.put("searchKeyword", searchKeyword);
+		parameterAssignment.put("startDate", startDate);
+		parameterAssignment.put("endDate", endDate);
 		
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,16 +131,16 @@ public class AssignmentManager {
 	//Assignment
 	public List getListAssignment(Integer page) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
 
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.listAssignment", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.listAssignment", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -155,22 +154,22 @@ public class AssignmentManager {
 		return list;
 	}
 
-	public List searchAssignment(Integer page, String search, String value, String startDate, String endDate) {
+	public List searchAssignment(Integer page, String searchCategory, String searchKeyword, String startDate, String endDate) {
 		List list = new ArrayList();
-		Map rowCount = new HashMap();
+		Map parameterAssignment = new HashMap();
 
 		Integer rowEnd = page * 10;
 		Integer rowStart = rowEnd - 9;
-		rowCount.put("rowStart", rowStart);
-		rowCount.put("rowEnd", rowEnd);
-		rowCount.put("search", search);
-		rowCount.put("value", value);
-		rowCount.put("startDate", startDate);
-		rowCount.put("endDate", endDate);
+		parameterAssignment.put("rowStart", rowStart);
+		parameterAssignment.put("rowEnd", rowEnd);
+		parameterAssignment.put("searchCategory", searchCategory);
+		parameterAssignment.put("searchKeyword", searchKeyword);
+		parameterAssignment.put("startDate", startDate);
+		parameterAssignment.put("endDate", endDate);
 		
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.listAssignment", rowCount);
+			list = ibatisSQLMap.queryForList("assignment.listAssignment", parameterAssignment);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,7 +204,7 @@ public class AssignmentManager {
 		return success;
 	}
 	
-	public boolean addSelfAssignment(NewSelfAssignmentBean bean) {
+	public boolean addSelfAssignment(NewAssignmentBean bean) {
 		boolean success = true;
 
 		try {
@@ -246,12 +245,12 @@ public class AssignmentManager {
 		return organizationCode;
 	}
 	
-	public NewSelfAssignmentBean searchHeadOrganizationCode(String userDomain) {
-		NewSelfAssignmentBean organization = new NewSelfAssignmentBean();
+	public NewAssignmentBean searchHeadOrganizationCode(String userDomain) {
+		NewAssignmentBean organization = new NewAssignmentBean();
 
 		try {
 			ibatisSQLMap.startTransaction();
-			organization = (NewSelfAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchHeadOrganizationCode", userDomain);
+			organization = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchHeadOrganizationCode", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed search organization");
@@ -288,5 +287,26 @@ public class AssignmentManager {
 			generateTaskCode = "00001";
 		}
 		return generateTaskCode;
+	}
+	
+	public NewAssignmentBean searchRecordAssignment(String taskCode) {
+		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+		System.out.println(taskCode);
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed get max task code");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println(assignmentBean.getTaskCode());
+		return assignmentBean;
 	}
 }
