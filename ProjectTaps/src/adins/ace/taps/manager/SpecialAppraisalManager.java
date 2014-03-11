@@ -98,4 +98,23 @@ public class SpecialAppraisalManager {
 		}
 		return list;
 	}
+	
+	public Integer countSpecialAppraisal(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"SpecialAppraisal.countSpecialAppraisal", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
 }

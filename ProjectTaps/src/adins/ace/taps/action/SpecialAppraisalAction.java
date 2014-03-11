@@ -26,6 +26,11 @@ public class SpecialAppraisalAction extends Action {
 		Map params = new HashMap();
 		mForm.setListSpecialAppraisal(mMan.getAll());	
 
+		System.out.println(mForm.getTask());
+		if (mForm.getPage() == null) {
+			mForm.setPage(1);
+		}
+		
 		if("New".equals(mForm.getTask())){
 			return mapping.findForward("New");
 		}
@@ -49,19 +54,50 @@ public class SpecialAppraisalAction extends Action {
 			mForm.setListSpecialAppraisal(mMan.getAll());	
 			return mapping.findForward("ListSpecialAppraisal");
 		}
+		else if ("first".equals(mForm.getTask())
+				|| "first-ajax".equals(mForm.getTask())) {
+			System.out.println("cek");
+			mForm.setPage(1);
+		}
+
+		else if ("last".equals(mForm.getTask())
+				|| "last-ajax".equals(mForm.getTask())) {
+			mForm.setPage(mForm.getMaxpage());
+		}
+
+		else if ("prev".equals(mForm.getTask())
+				|| "prev-ajax".equals(mForm.getTask())) {
+			if (mForm.getPage() > 1) {
+				mForm.setPage(mForm.getPage() - 1);
+			}
+		}
+		else if ("next".equals(mForm.getTask())
+				|| "next-ajax".equals(mForm.getTask())) {
+			if (mForm.getPage() < mForm.getMaxpage()) {
+				mForm.setPage(mForm.getPage() + 1);
+			}
+		}
 		
 		if ("search".equals(mForm.getTask())) {
-			System.out.println("A"+mForm.getSearchCategory());
-			System.out.println("OP"+mForm.getSearchKeyword());
-			params.put("start", 1);
-			params.put("end", 10);
-			params.put("category", "employeeName");
-			params.put("keyword", mForm.getSearchKeyword());
-			
-			mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
-			return mapping.findForward("ListSpecialAppraisal");
-			}
+				mForm.setPage(1);			
+		}
 
+		System.out.println("A"+mForm.getSearchCategory());
+		System.out.println("OP"+mForm.getSearchKeyword());
+		params.put("start", (mForm.getPage() - 1) * 10 + 1);
+		params.put("end", (mForm.getPage() * 10));
+		params.put("category", "employeeName");
+		params.put("keyword", mForm.getSearchKeyword());
+		
+		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
+		mForm.setCountRecord(mMan.countSpecialAppraisal(params));	
+
+		if (mForm.getCountRecord() % 10 == 0) {
+			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
+		} else {
+			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
+		}
+		
 		return mapping.findForward("ListSpecialAppraisal");
 	}
 }
