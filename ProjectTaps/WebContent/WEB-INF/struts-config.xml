@@ -80,7 +80,7 @@
 			<forward name="SearchAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 			<forward name="AddAssignment" path="/newAssignment.do" />
 			<forward name="AddSelfAssignment" path="/newSelfAssignment.do" />
-			<forward name="View" path="/newAssignment.do" />
+			<forward name="Draft" path="/newSelfAssignment.do" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">

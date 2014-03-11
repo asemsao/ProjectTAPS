@@ -204,5 +204,18 @@
 <!-- 			created_date = SYSDATE -->
 <!-- 	</update> -->
 	
-	
+	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
+		SELECT a.task_code AS taskCode,
+            a.assignment_date AS assignmentDate, 
+            a.assignment_type AS assignmentType, 
+            a.report_to AS reportTo, 
+            a.organization_code AS organizationCode, 
+            a.project_code AS projectCode, 
+            a.reff_task_code AS reffTaskCode,
+            a.activity_type AS activityType,
+            a.adhoc_user_domain AS adhocUserDomain, 
+            a.description AS description
+        FROM assignments a 
+        WHERE a.task_code = #taskCode#
+	</select>
 </sqlMap>
