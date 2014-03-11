@@ -28,7 +28,14 @@ public class NewAssignmentAction extends Action {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
-
+		
+		if (session.getAttribute("taskCode") != null){
+			System.out.println(session.getAttribute("taskCode"));
+			aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+			session.removeAttribute("taskCode");
+			return mapping.findForward("NewAssignment");
+		}
+		
 		if (aForm.getNewTask() == null){
 			return mapping.findForward("NewAssignment");
 		}

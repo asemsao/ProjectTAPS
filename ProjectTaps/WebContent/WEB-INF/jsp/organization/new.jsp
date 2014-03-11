@@ -194,7 +194,7 @@
 		</html:form>
 	</div>
 
-	<div id="lookUpEmployee">
+	<div id="lookUpEmployee" class="hide">
 		<html:form action="/organization" method="post">
 			<html:hidden property="task" styleId="task-employee"
 				name="organizationForm" />

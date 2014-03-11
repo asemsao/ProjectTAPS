@@ -108,7 +108,7 @@
 					a.current_status AS currentStatus
 				FROM assignments a 
 				LEFT JOIN employees e
-				ON LOWER(a.flag)='active' AND a.report_to = 'DOMAIN205' AND a.assignment_Category = 'ASSIGNMENT'
+				ON LOWER(a.flag)='active' AND a.report_to = 'domain100' AND a.assignment_Category = 'ASSIGNMENT'
 				WHERE a.assign_to = e.user_domain 
 				<dynamic prepend="AND">
 					<isNotNull property="searchKeyword">
@@ -209,13 +209,16 @@
             a.assignment_date AS assignmentDate, 
             a.assignment_type AS assignmentType, 
             a.report_to AS reportTo, 
-            a.organization_code AS organizationCode, 
+            o.organization_code AS organizationCode, 
+            o.organization_name AS organizationName,
+            mgr.first_name || ' ' || mgr.last_name AS headUserName,
             a.project_code AS projectCode, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
             a.adhoc_user_domain AS adhocUserDomain, 
             a.description AS description
-        FROM assignments a 
-        WHERE a.task_code = #taskCode#
+        FROM assignments a, organizations o, employees e, employees mgr 
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain
 	</select>
 </sqlMap>
