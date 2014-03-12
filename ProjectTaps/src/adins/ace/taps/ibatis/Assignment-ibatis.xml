@@ -44,9 +44,9 @@
 					</isNotNull>
 				</dynamic>
 				ORDER BY a.created_date DESC
-			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
-		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 	
 	<select id="employeeReportEmployee" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean" parameterClass="java.util.Map">
@@ -99,9 +99,9 @@
 					</isNotNull>
 				</dynamic>
 				ORDER BY a.created_date DESC
-			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
-		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 	
 	<select id="countEmployeeReportEmployee" resultClass="int" parameterClass="java.util.Map">
@@ -188,9 +188,9 @@
 					</isNotNull>
 				</dynamic>
 				ORDER BY a.created_date DESC
-			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
+			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
-		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 	
 <!-- insert current_status bergantung pada pilihan save(draft) dan assign(claim) -->

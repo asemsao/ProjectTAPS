@@ -50,8 +50,8 @@ public class EmployeeReportAction extends Action {
 			}
 		}
 		
-		params.put("rowStart", (eForm.getPage() - 1) * 10 + 1);
-		params.put("rowEnd", (eForm.getPage() * 10));
+		params.put("start", (eForm.getPage() - 1) * 10 + 1);
+		params.put("end", (eForm.getPage() * 10));
 		System.out.println(params.get("rowStart"));
 		System.out.println(params.get("rowEnd"));
 		if ("employeeReport".equals(session.getAttribute("link"))) {
@@ -78,8 +78,8 @@ public class EmployeeReportAction extends Action {
 				return mapping.findForward("View");
 			}
 			
-			params.put("searchCategory", eForm.getSearchCategory());
-			params.put("searchKeyword", eForm.getSearchKeyword());
+			params.put("category", eForm.getSearchCategory());
+			params.put("keyword", eForm.getSearchKeyword());
 			System.out.println(eForm.getSearchCategory());
 			System.out.println(eForm.getEndDate());
 			params.put("startDate", eForm.getStartDate());
