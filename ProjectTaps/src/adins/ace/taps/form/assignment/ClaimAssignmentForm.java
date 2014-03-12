@@ -29,19 +29,19 @@ public class ClaimAssignmentForm extends ActionForm {
 		this.claimBean = claimBean;
 	}
 
-	public List getListDetailClaim() {
+	public List<ClaimAssignmentBean> getListDetailClaim() {
 		return listDetailClaim;
 	}
 
-	public void setListDetailClaim(List listDetailClaim) {
+	public void setListDetailClaim(List<ClaimAssignmentBean> listDetailClaim) {
 		this.listDetailClaim = listDetailClaim;
 	}
 
-	public List getHistoryComment() {
+	public List<ClaimAssignmentBean> getHistoryComment() {
 		return historyComment;
 	}
 
-	public void setHistoryComment(List historyComment) {
+	public void setHistoryComment(List<ClaimAssignmentBean> historyComment) {
 		this.historyComment = historyComment;
 	}
 

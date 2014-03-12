@@ -99,26 +99,26 @@
 												<logic:iterate id="assignment" property="listDetailClaim"
 													name="claimAssignmentForm">
 													<tr>
-														<td class="text-center"><bean:write property=""
+														<td class="text-center"><bean:write property="claimDate"
 																name="assignment" /></td>
-														<td><html:textarea property="claimDate"
-																name="claimAssignmentForm" rows="2"
+														<td><html:textarea property="detailDescription"
+																name="assignment" rows="2"
 																styleClass="input-control textarea"></html:textarea></td>
 														<td class="text-center">
 															<div class="input-control select">
 																<html:select property="manHours" name="assignment">
 																	<html:option value="">00:00</html:option>
-																	<html:option value="00:30">00:30</html:option>
-																	<html:option value="01:00">01:00</html:option>
-																	<html:option value="01:30">01:30</html:option>
-																	<html:option value="02:00">02:00</html:option>
-																	<html:option value="02:30">02:30</html:option>
-																	<html:option value="03:00">03:00</html:option>
-																	<html:option value="03:30">03:30</html:option>
-																	<html:option value="04:00">04:00</html:option>
-																	<html:option value="04:30">04:30</html:option>
-																	<html:option value="05:00">05:00</html:option>
-																	<html:option value="05:30">05:30</html:option>
+																	<html:option value="0.5">00:30</html:option>
+																	<html:option value="1">01:00</html:option>
+																	<html:option value="1.5">01:30</html:option>
+																	<html:option value="2">02:00</html:option>
+																	<html:option value="2.5">02:30</html:option>
+																	<html:option value="3">03:00</html:option>
+																	<html:option value="3.5">03:30</html:option>
+																	<html:option value="4">04:00</html:option>
+																	<html:option value="4.5">04:30</html:option>
+																	<html:option value="5">05:00</html:option>
+																	<html:option value="5.5">05:30</html:option>
 																	<html:option value="06:00">06:00</html:option>
 																	<html:option value="06:30">06:30</html:option>
 																	<html:option value="07:00">07:00</html:option>
