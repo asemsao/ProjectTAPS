@@ -2,6 +2,7 @@ package adins.ace.taps.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -16,11 +17,14 @@ public class ClaimAssignmentAction extends Action{
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm)form;
 		AssignmentManager aMan = new AssignmentManager();
+		HttpSession session = request.getSession(true);
 		
-		
+		String taskCode = (String) session.getAttribute("taskCode");
+		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
+		aForm.setHistoryComment(null);
+		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 		return mapping.findForward("Claim");
 	}
 }
