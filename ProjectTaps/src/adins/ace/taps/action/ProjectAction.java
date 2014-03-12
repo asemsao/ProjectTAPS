@@ -41,6 +41,7 @@ public class ProjectAction extends Action
 		}
 		if("edit".equals(pForm.getTask()))
 		{
+			
 			return mapping.findForward("EditProject");
 		}
 		if("member".equals(pForm.getTask()))
