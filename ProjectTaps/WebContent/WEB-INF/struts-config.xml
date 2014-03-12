@@ -79,7 +79,7 @@
 			<forward name="Assignment" path="/employeeReport.do" />
 			<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
 			<forward name="EmployeeReport" path="/employeeReport.do" />
-
+			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">

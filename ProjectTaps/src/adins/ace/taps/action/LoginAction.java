@@ -40,10 +40,14 @@ public class LoginAction extends Action {
 				//Testing ntar dihapus
 				String username = "budi.ss";
 				String password = "Terev9977";
+				////
 				String domainName = "nu-ace.ad-ins.com";
 
 				pass = loginAuth.getAuthenticationUser(username, password, domainName);
 
+				///TESTING HAPUS NANTI
+				pass = true;
+				/////
 				tForm.setPassword("");
 				tForm.setUsername("");
 				if (pass) {
@@ -54,31 +58,19 @@ public class LoginAction extends Action {
 					///TESTING HAPUS NANTI
 					username = "domain205";
 					/////
-					session.setAttribute("supervisor", "false");
-					session.setAttribute("employee", "false");
-					session.setAttribute("head bu", "false");
-					session.setAttribute("head dept", "false");
-					session.setAttribute("admnistrator", "false");
-					session.setAttribute("bom", "false");
-					
 					params.put("userDomain", username);
+					session.setAttribute("spv", "false");
+					session.setAttribute("emp", "false");
+					session.setAttribute("hbu", "false");
+					session.setAttribute("hde", "false");
+					session.setAttribute("adm", "false");
+					session.setAttribute("bom", "false");
 					
 					List<String> roleList = lMan.roleList(params);
 					for (int i = 0; i < roleList.size(); i++) {
 						session.setAttribute(roleList.get(i), "true");
 					}
-					for (int i = 0; i < roleList.size(); i++) {
-						System.out.print(roleList.get(i));
-						System.out.println(session.getAttribute(roleList.get(i)));
-					}
-					/*
 					session.setAttribute("username", username);
-					session.setAttribute("spv", "true");
-					session.setAttribute("emp", "true");
-					session.setAttribute("hbu", "true");
-					session.setAttribute("hde", "true");
-					session.setAttribute("adm", "true");
-					session.setAttribute("bom", "true");*/
 					return mapping.findForward("Dashboard");
 				} else {
 					return mapping.findForward("Welcome");

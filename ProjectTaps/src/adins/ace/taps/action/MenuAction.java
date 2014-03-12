@@ -63,6 +63,11 @@ public class MenuAction extends Action {
 		if ("appraisal".equals(mForm.getTask())) {
 			return mapping.findForward("Appraisal");
 		}
+		
+		if ("logout".equals(mForm.getTask())) {
+			session.invalidate();
+			return mapping.findForward("Welcome");
+		}
 		return mapping.findForward("Dashboard");
 	}
 }
