@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -23,7 +24,6 @@ public class OrganizationAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
-
 		OrganizationForm orgForm = (OrganizationForm) form;
 
 		PrintWriter out = response.getWriter();
@@ -90,8 +90,12 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("edit".equals(orgForm.getTask())) {
-			System.out.println(orgForm.getOrganizationCode());
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode().replaceAll("-", "")));
 			return mapping.findForward("Edit");
+		}
+		if ("saveEdit".equals(orgForm.getTask())) {
+			orgMan.submitEdit(orgForm.getOrgBean());
+			
 		}
 		if ("cancel".equals(orgForm.getTask())) {
 			return mapping.findForward("ListEmployee");

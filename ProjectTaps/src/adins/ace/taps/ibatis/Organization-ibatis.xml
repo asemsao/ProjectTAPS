@@ -16,8 +16,36 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#headDomain#, #organizationLevel#,
 		#parentCode#,
 		'ACTIVE',
-		'domain100', SYSDATE)
+		'domain100',
+		SYSDATE)
 	</insert>
+
+	<select id="getOrganizationCode" resultClass="organizationBean">
+		SELECT
+		o.organization_code AS organizationCode,
+		o.organization_name AS
+		organizationName,
+		e.first_name || ' ' || e.last_name AS headName,
+		o.parent_organization_code AS parentCode,
+		o.organization_level AS
+		organizationLevel
+		FROM organizations o
+		LEFT JOIN
+		employees e
+		ON
+		o.head_user_domain = e.user_domain where
+		o.organization_code=UPPER(#organizationCode#)
+	</select>
+
+	<update id="editOrganization" parameterClass="organizationBean">
+		UPDATE
+		organizations SET
+		organization_name = #organizationName#,
+		organization_level = #organizationLevel#,
+		updated_by = 'domain100',
+		updated_date = SYSDATE
+		WHERE organization_code=UPPER(#organizationCode#)
+	</update>
 
 	<select id="countOrganizations" resultClass="int"
 		parameterClass="java.util.Map">
@@ -26,7 +54,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		LEFT
 		JOIN
 		employees e
-		ON o.head_user_domain =
+		ON
+		o.head_user_domain =
 		e.user_domain
 		WHERE
 		LOWER(o.flag) =
@@ -38,15 +67,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE LOWER ('%$keyword$%'))</isEqual>
 					<isEqual property="category" compareValue="organizationName">(LOWER(o.organization_name)
 						LIKE LOWER ('%$keyword$%'))</isEqual>
-					<isEqual property="category" compareValue="headName">(LOWER(e.first_name) 
+					<isEqual property="category" compareValue="headName">(LOWER(e.first_name)
 						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
-						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%')
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%')
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -57,7 +90,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		CONNECT
 		BY
 		PRIOR
-		o.organization_code =
+		o.organization_code
+		=
 		o.parent_organization_code
 	</select>
 
@@ -68,7 +102,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM (
 		SELECT LPAD
 		(o.organization_code,LENGTH
-		(o.organization_code) + (LEVEL * 2) - 2,'-')
+		(o.organization_code) + (LEVEL * 2) -
+		2,'-')
 		AS organizationCode,
 		o.organization_name AS organizationName,
 		e.first_name || ' ' || e.last_name AS headName
@@ -88,15 +123,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE LOWER ('%$keyword$%'))</isEqual>
 					<isEqual property="category" compareValue="organizationName">(LOWER(o.organization_name)
 						LIKE LOWER ('%$keyword$%'))</isEqual>
-					<isEqual property="category" compareValue="headName">(LOWER(e.first_name) 
+					<isEqual property="category" compareValue="headName">(LOWER(e.first_name)
 						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
-						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%')
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%')
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -115,19 +154,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
-	<update id="editOrganization" parameterClass="organizationBean">
-		UPDATE
-		organizations SET
-		organization_name = $organizationName$,
-		head_user_domain = $headDomain$,
-		organization_level =
-		$organizationLevel$,
-		parent_organization_code = $parentCode$,
-		updated_by = #sessionUserDomain#,
-		updated_date = SYSDATE
-		WHERE
-		organization_code = $organizationCode$
-	</update>
+<!-- 	<update id="editOrganization" parameterClass="organizationBean"> -->
+<!-- 		UPDATE -->
+<!-- 		organizations SET -->
+<!-- 		organization_name = $organizationName$, -->
+<!-- 		head_user_domain = $headDomain$, -->
+<!-- 		organization_level = -->
+<!-- 		$organizationLevel$, -->
+<!-- 		parent_organization_code = $parentCode$, -->
+<!-- 		updated_by = #sessionUserDomain#, -->
+<!-- 		updated_date = SYSDATE -->
+<!-- 		WHERE -->
+<!-- 		organization_code = $organizationCode$ -->
+<!-- 	</update> -->
 
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE
