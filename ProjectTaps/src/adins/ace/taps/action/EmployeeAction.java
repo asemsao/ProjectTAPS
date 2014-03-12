@@ -21,7 +21,6 @@ import com.google.gson.GsonBuilder;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.module.PhotoResizeModule;
-import adins.ace.taps.module.QueryActiveDirectory;
 
 public class EmployeeAction extends Action {
 	@Override
@@ -42,14 +41,14 @@ public class EmployeeAction extends Action {
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			return mapping.findForward("Edit");
 		}
-		else if("new".equals(mForm.getTask())){
+		if("new".equals(mForm.getTask())){
 			//TESTING
 			return mapping.findForward("New");
 		}
-		else if("cancel".equals(mForm.getTask())){
+		if("cancel".equals(mForm.getTask())){
 			return mapping.findForward("ListEmployee");
 		}
-		else if("saveNewEmployee".equals(mForm.getTask())){
+		if("saveNewEmployee".equals(mForm.getTask())){
 			boolean flag=false;
 			//Resize Photo
 			PhotoResizeModule resizePhoto = new PhotoResizeModule();
@@ -60,30 +59,35 @@ public class EmployeeAction extends Action {
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
-		else if("saveEditEmployee".equals(mForm.getTask())){
+		if("saveEditEmployee".equals(mForm.getTask())){
 			boolean flag=false;
-			
+			PhotoResizeModule resizePhoto = new PhotoResizeModule();
+			FormFile filepic = mForm.getProfilePicture();
+			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
+			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
+			mForm.getNewEmployee().setProfilePicture(result);
+			//flag = mMan.updateEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
 		
-		else if ("first".equals(mForm.getTask())
+		if ("first".equals(mForm.getTask())
 				|| "first-ajax".equals(mForm.getTask())) {
 			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
-		else if ("last".equals(mForm.getTask())
+		if ("last".equals(mForm.getTask())
 				|| "last-ajax".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
 		}
 
-		else if ("prev".equals(mForm.getTask())
+		if ("prev".equals(mForm.getTask())
 				|| "prev-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
 		}
-		else if ("next".equals(mForm.getTask())
+		if ("next".equals(mForm.getTask())
 				|| "next-ajax".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
