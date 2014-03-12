@@ -4,7 +4,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="project">
-	<select id="getAllProject"  resultClass="adins.ace.taps.bean.project.ProjectBean">
+	<select id="searchProject"  resultClass="adins.ace.taps.bean.project.ProjectBean">
 		SELECT
 			p.project_code AS projectCode,
 			p.project_name AS projectName,
