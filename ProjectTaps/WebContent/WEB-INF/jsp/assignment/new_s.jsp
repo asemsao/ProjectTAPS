@@ -36,6 +36,9 @@
 						$("#lookUpEmployee2")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+						$("#lookUpAssignment")
+						.load(
+								"/ProjectTaps/ajax.do?mode=assignments&task=assignments");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -151,8 +154,8 @@
 								<td>:</td>
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.reffTaskCode"
-											name="newSelfAssignmentForm"></html:text>
-										<button type="button" class="btn-search" id="task"></button>
+											name="newSelfAssignmentForm" styleId="assignment-code"></html:text>
+										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -240,8 +243,10 @@
 		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
 		<html:hidden property="activityType" name="newSelfAssignmentForm" />
 	</html:form>
+	
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
+	<div id="lookUpAssignment"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
