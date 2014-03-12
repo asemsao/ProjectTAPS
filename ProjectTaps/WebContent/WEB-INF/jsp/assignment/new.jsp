@@ -10,7 +10,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
-
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+			});
+</script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Assignment</title>
 
 <script type="text/javascript">
@@ -19,17 +26,14 @@
 		document.newAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 		document.newAssignmentForm.submit();
 	}
-	
-	function getRadioValue(theRadioGroup)
-	{
-	    var elements = document.getElementsByName(theRadioGroup);
-	    for (var i = 0, l = elements.length; i < l; i++)
-	    {
-	        if (elements[i].checked)
-	        {
-	            return elements[i].value;
-	        }
-	    }
+
+	function getRadioValue(theRadioGroup) {
+		var elements = document.getElementsByName(theRadioGroup);
+		for ( var i = 0, l = elements.length; i < l; i++) {
+			if (elements[i].checked) {
+				return elements[i].value;
+			}
+		}
 	}
 </script>
 
@@ -70,19 +74,18 @@
 								<td>:</td>
 								<td><div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span
-											class="check"></span> Business Unit
+											checked="checked" value="BU" /> <span class="check"></span>
+											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
 											value="Project" /> <span class="check"></span> Project
 										</label>
-									</div>
-<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
-<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-<%-- 										name="newAssignmentForm" value="project">Project</html:radio> --%>
+									</div> <%-- 									<html:radio property="assignmentBean.assignmentType" --%>
+									<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
+									<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
+									<%-- 										name="newAssignmentForm" value="project">Project</html:radio> --%>
 								</td>
 							</tr>
 							<tr>
@@ -96,8 +99,11 @@
 										</div>
 									</div> <br />
 									<div class="input-control text">
-										<html:text property="assignmentBean.assignTo"
-											name="newAssignmentForm" readonly="readonly"></html:text>
+										<html:hidden property="assignmentBean.assignTo"
+											name="newAssignmentForm"
+											styleId="employee-domain" />
+										<input type="text" placeholder="Employee" id="employee-name"
+											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
 									</div></td>
 							</tr>
@@ -133,12 +139,16 @@
 		<html:hidden property="newTask" name="newAssignmentForm" />
 		<html:hidden property="assignmentType" name="newAssignmentForm" />
 	</html:form>
+
+
+	<div id="lookUpEmployee" class="hide"></div>
+
 	<jsp:include page="/frame/footer.jsp" /></body>
-<div id="popup_employee" class="hide"><jsp:include
-		page="/lookup/_employee.jsp" /></div>
-<div id="popup_project" class="hide">
-	<jsp:include page="/lookup/_project.jsp" /></div>
-<div id="popup_task" class="hide">
-	<jsp:include page="/lookup/_task.jsp" /></div>
+<%-- <div id="popup_employee" class="hide"><jsp:include --%>
+<%-- 		page="/lookup/_employee.jsp" /></div> --%>
+<!-- <div id="popup_project" class="hide"> -->
+<%-- 	<jsp:include page="/lookup/_project.jsp" /></div> --%>
+<!-- <div id="popup_task" class="hide"> -->
+<%-- 	<jsp:include page="/lookup/_task.jsp" /></div> --%>
 </body>
 </html>

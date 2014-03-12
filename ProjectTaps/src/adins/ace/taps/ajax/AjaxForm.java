@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.organization.OrganizationBean;
 
 public class AjaxForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
@@ -15,11 +16,8 @@ public class AjaxForm extends ActionForm {
 	private Integer maxpage;
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
-
-	// private List<OrganizationBean> listOrganizations;
-	// private Integer pageEmployee;
-	// private Integer maxpageEmployee;
-	// private Integer countRecordEmployee;
+	private List<OrganizationBean> listOrganizations;
+	private String mode;
 
 	public String getTask() {
 		return task;
@@ -79,6 +77,22 @@ public class AjaxForm extends ActionForm {
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public List<OrganizationBean> getListOrganizations() {
+		return listOrganizations;
+	}
+
+	public void setListOrganizations(List<OrganizationBean> listOrganizations) {
+		this.listOrganizations = listOrganizations;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 
 }

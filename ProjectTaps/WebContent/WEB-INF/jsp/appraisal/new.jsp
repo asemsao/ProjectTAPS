@@ -15,9 +15,11 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
-	$(document).ready(function() {
-		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?task=employees");
-	});
+	$(document).ready(
+			function() {
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>

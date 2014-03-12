@@ -71,7 +71,7 @@
 		created_by,
 		created_date)
 		VALUES (SEQUENCE_STARS.NEXTVAL,
-		'domain1',
+		#userDomain#,
 		#description#,
 		0,
 		3,
