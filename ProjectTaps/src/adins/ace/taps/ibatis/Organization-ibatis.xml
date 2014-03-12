@@ -16,7 +16,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#headDomain#, #organizationLevel#,
 		#parentCode#,
 		'ACTIVE',
-		#sessionUserDomain#, SYSDATE)
+		'domain100', SYSDATE)
 	</insert>
 
 	<select id="countOrganizations" resultClass="int"
