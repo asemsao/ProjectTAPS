@@ -29,7 +29,7 @@ public class ClaimAssignmentAction extends Action{
 		else if ("RFA".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
-		else if ("claim".equals(aForm.getTask())){
+		else if ("cancel".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
 		

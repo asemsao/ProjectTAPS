@@ -12,6 +12,15 @@ public class ClaimAssignmentForm extends ActionForm {
 	private ClaimAssignmentBean claimBean = new ClaimAssignmentBean();
 	private List listDetailClaim;
 	private List historyComment;
+	private String totalManhours;
+
+	public String getTotalManhours() {
+		return totalManhours;
+	}
+
+	public void setTotalManhours(String totalManhours) {
+		this.totalManhours = totalManhours;
+	}
 
 	public String getTask() {
 		return task;
@@ -29,19 +38,19 @@ public class ClaimAssignmentForm extends ActionForm {
 		this.claimBean = claimBean;
 	}
 
-	public List<ClaimAssignmentBean> getListDetailClaim() {
+	public List getListDetailClaim() {
 		return listDetailClaim;
 	}
 
-	public void setListDetailClaim(List<ClaimAssignmentBean> listDetailClaim) {
+	public void setListDetailClaim(List listDetailClaim) {
 		this.listDetailClaim = listDetailClaim;
 	}
 
-	public List<ClaimAssignmentBean> getHistoryComment() {
+	public List getHistoryComment() {
 		return historyComment;
 	}
 
-	public void setHistoryComment(List<ClaimAssignmentBean> historyComment) {
+	public void setHistoryComment(List historyComment) {
 		this.historyComment = historyComment;
 	}
 

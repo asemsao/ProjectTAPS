@@ -30,7 +30,6 @@ public class NewAssignmentAction extends Action {
 		Date date = new Date();
 		
 		if (session.getAttribute("taskCode") != null){
-			System.out.println(session.getAttribute("taskCode"));
 			aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
 			session.removeAttribute("taskCode");
 			return mapping.findForward("NewAssignment");
@@ -70,7 +69,14 @@ public class NewAssignmentAction extends Action {
 				aForm.getAssignmentBean().setFlag("INACTIVE");
 			}
 			
-			boolean success = aMan.addAssignment(aForm.getAssignmentBean());
+			boolean success = true;
+			if (session.getAttribute("task") != null && "view".equals(session.getAttribute("task"))){
+//				success = aMan.editAssignment(aForm.getAssignmentBean());
+			}
+			else {
+				success = aMan.addAssignment(aForm.getAssignmentBean());
+			}
+			
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		}

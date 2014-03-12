@@ -72,7 +72,13 @@ public class NewSelfAssignmentAction extends Action{
 				aForm.getSelfAssignBean().setFlag("INACTIVE");
 			}
 			
-			boolean success = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+			boolean success = true;
+			if (session.getAttribute("task") != null && "view".equals(session.getAttribute("task"))){
+//				success = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+			}
+			else {
+				success = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+			}
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		}

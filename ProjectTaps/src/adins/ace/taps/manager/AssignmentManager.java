@@ -46,7 +46,7 @@ public class AssignmentManager {
 		}
 		return list;
 	}
-
+	
 	public List searchAssignmentSupervisor(Integer page, String category,
 			String keyword, String startDate, String endDate) {
 		List list = new ArrayList();
@@ -102,8 +102,7 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList(
-					"assignment.employeeReportEmployee", params);
+			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

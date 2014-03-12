@@ -13,8 +13,8 @@ public class EmployeeReportForm extends ActionForm {
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
-	private String searchCategory;
-	private String searchKeyword;
+	private String category;
+	private String keyword;
 	private String startDate;
 	private String endDate;
 
@@ -74,20 +74,20 @@ public class EmployeeReportForm extends ActionForm {
 		this.countRecord = countRecord;
 	}
 
-	public String getSearchCategory() {
-		return searchCategory;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setSearchCategory(String searchCategory) {
-		this.searchCategory = searchCategory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public String getSearchKeyword() {
-		return searchKeyword;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public String getStartDate() {

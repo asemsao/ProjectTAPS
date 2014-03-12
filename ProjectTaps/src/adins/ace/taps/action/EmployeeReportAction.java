@@ -52,8 +52,8 @@ public class EmployeeReportAction extends Action {
 		
 		params.put("start", (eForm.getPage() - 1) * 10 + 1);
 		params.put("end", (eForm.getPage() * 10));
-		System.out.println(params.get("rowStart"));
-		System.out.println(params.get("rowEnd"));
+		System.out.println(params.get("start"));
+		System.out.println(params.get("end"));
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			System.out.println("masuk employee repooootttt");
 			if ("search".equals(eForm.getTask())) {
@@ -63,6 +63,7 @@ public class EmployeeReportAction extends Action {
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				if("DRAFT".equals(eForm.getCurrentStatus())){
+					session.setAttribute("task", "view");
 					return mapping.findForward("Draft");
 				}
 				else if("CLAIM".equals(eForm.getCurrentStatus())){
@@ -78,10 +79,8 @@ public class EmployeeReportAction extends Action {
 				return mapping.findForward("View");
 			}
 			
-			params.put("category", eForm.getSearchCategory());
-			params.put("keyword", eForm.getSearchKeyword());
-			System.out.println(eForm.getSearchCategory());
-			System.out.println(eForm.getEndDate());
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
 			eForm.setCountRecord(eMan.countEmployeeReportEmployee(params));
@@ -97,7 +96,7 @@ public class EmployeeReportAction extends Action {
 		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
 			
 			if ("search".equals(eForm.getTask())) {
-				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
+				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getCategory(), eForm.getKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				 return mapping.findForward("SearchAssignment");
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
@@ -122,7 +121,7 @@ public class EmployeeReportAction extends Action {
 		} else if ("assignment".equals(session.getAttribute("link"))) {
 			
 			if ("search".equals(eForm.getTask())) {
-				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
+				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getCategory(), eForm.getKeyword(), eForm.getStartDate(), eForm.getEndDate()));
 				return mapping.findForward("SearchAssignment");
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");

@@ -61,7 +61,7 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="searchCategory"
+										<html:select property="category"
 											name="employeeReportForm">
 											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
@@ -74,7 +74,7 @@
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="employeeReportForm"></html:text>
+										<html:text property="keyword" name="employeeReportForm"></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
 									</div>
