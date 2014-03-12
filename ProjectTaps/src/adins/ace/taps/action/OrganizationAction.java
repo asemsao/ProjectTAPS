@@ -14,11 +14,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.form.organization.OrganizationForm;
-import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
 
 public class OrganizationAction extends Action {
@@ -27,7 +24,6 @@ public class OrganizationAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
-		EmployeeManager empMan = new EmployeeManager();
 
 		OrganizationForm orgForm = (OrganizationForm) form;
 
@@ -49,24 +45,20 @@ public class OrganizationAction extends Action {
 			}
 		}
 
-		if ("first".equals(orgForm.getTask())
-				|| "first-lookup-organization".equals(orgForm.getTask())) {
+		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
 
-		if ("last".equals(orgForm.getTask())
-				|| "last-lookup-organization".equals(orgForm.getTask())) {
+		if ("last".equals(orgForm.getTask())) {
 			orgForm.setPage(orgForm.getMaxpage());
 		}
 
-		if ("prev".equals(orgForm.getTask())
-				|| "prev-lookup-organization".equals(orgForm.getTask())) {
+		if ("prev".equals(orgForm.getTask())) {
 			if (orgForm.getPage() > 1) {
 				orgForm.setPage(orgForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(orgForm.getTask())
-				|| "next-lookup-organization".equals(orgForm.getTask())) {
+		if ("next".equals(orgForm.getTask())) {
 			if (orgForm.getPage() < orgForm.getMaxpage()) {
 				orgForm.setPage(orgForm.getPage() + 1);
 			}
@@ -101,23 +93,6 @@ public class OrganizationAction extends Action {
 		}
 		if ("cancel".equals(orgForm.getTask())) {
 			return mapping.findForward("ListEmployee");
-		}
-
-		// AJAX
-		if ("search-lookup-organization".equalsIgnoreCase(orgForm.getTask())
-				|| "first-lookup-organization".equalsIgnoreCase(orgForm
-						.getTask())
-				|| "prev-lookup-organization".equalsIgnoreCase(orgForm
-						.getTask())
-				|| "next-lookup-organization".equalsIgnoreCase(orgForm
-						.getTask())
-				|| "last-lookup-organization".equalsIgnoreCase(orgForm
-						.getTask())) {
-
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String json = gson.toJson(orgForm);
-			out.print(json);
-			return null;
 		}
 
 		return mapping.findForward("ListOrganization");
