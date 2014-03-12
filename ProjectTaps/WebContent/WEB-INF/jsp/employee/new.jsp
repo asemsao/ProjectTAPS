@@ -22,19 +22,28 @@
 			document.employeeForm.submit();
 		}
 	}
-	$(document).ready(function() {
-		$("#employeeDomain").attr("placeholder", "Employee Domain");
-		$("#employeeCode").attr("placeholder", "Employee Code");
-		$("#employeeNik").attr("placeholder", "NIK");
-		$("#firstName").attr("placeholder", "First Name");
-		$("#lastName").attr("placeholder", "Last Name");
-		$("#businessUnit").attr("placeholder", "Business Unit");
-		$("#employeeAddress").attr("placeholder", "Address");
-		$("#phoneNumber").attr("placeholder", "Phone Number");
-		$("#mobileNumber").attr("placeholder", "Mobile Number");
-		$("#email").attr("placeholder", "Email");
-	});
+	$(document)
+			.ready(
+					function() {
+						$(".employeeDomain").attr("placeholder",
+								"Employee Domain");
+						$("#employeeCode").attr("placeholder", "Employee Code");
+						$("#employeeNik").attr("placeholder", "NIK");
+						$("#firstName").attr("placeholder", "First Name");
+						$("#lastName").attr("placeholder", "Last Name");
+						$("#businessUnit").attr("placeholder", "Business Unit");
+						$("#employeeAddress").attr("placeholder", "Address");
+						$("#phoneNumber").attr("placeholder", "Phone Number");
+						$("#mobileNumber").attr("placeholder", "Mobile Number");
+						$("#email").attr("placeholder", "Email");
+						$("#lookUpOrganization")
+								.load(
+										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+						$("#lookUpActiveDirectory").load(
+								"/ProjectTaps/ajax.do?mode=ad&task=ad");
+					});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
 <title>Employee</title>
 </head>
@@ -47,14 +56,6 @@
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 
-	<logic:notEmpty name="employeeForm" property="listAD">
-		<logic:iterate id="employee" name="employeeForm"
-			property="listAD">
-			<bean:write name="employee" property="fullName" />
-			<bean:write name="employee" property="userDomain" />
-		</logic:iterate>
-	</logic:notEmpty>
-	
 					<table class="table">
 						<thead>
 							<tr>
@@ -66,8 +67,11 @@
 								<td>Employee Domain</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="newEmployee.employeeDomain"
-											name="employeeForm" styleId="employeeDomain"></html:text>
+										<div class="input-control text ">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain" styleClass="employeeDomain" readonly="true"></html:text>
+											<button type="button" class="btn-search" id="activeDirectory"></button>
+										</div>
 									</div></td>
 								<td rowspan="6" class="text-center"><img
 									src="<%=request.getContextPath()%>/images/user.png"
@@ -132,8 +136,11 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:text property="newEmployee.businessUnit"
-											name="employeeForm" styleId="businessUnit" readonly="true"></html:text>
+										<html:hidden property="newEmployee.businessUnit"
+											name="employeeForm" styleId="organization-code"></html:hidden>
+										<input type="hidden" id="organization-code" /> <input
+											type="text" placeholder="Organization" readonly="readonly"
+											id="organization-name" />
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -219,9 +226,9 @@
 			</div>
 		</div>
 	</html:form>
+	<div id="lookUpOrganization" class="hide"></div>
+	<div id="lookUpActiveDirectory" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_organization" class="hide"><jsp:include
-			page="/lookup/_organization.jsp" /></div>
 </body>
 
 </html>
