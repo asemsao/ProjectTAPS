@@ -10,16 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees");
-			});
-</script>
-<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Assignment</title>
-
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newAssignmentForm.newTask.value = task;
@@ -35,8 +26,13 @@
 			}
 		}
 	}
+	$(document).ready(
+			function() {
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+			});
 </script>
-
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
@@ -100,8 +96,7 @@
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
-											name="newAssignmentForm"
-											styleId="employee-domain" />
+											name="newAssignmentForm" styleId="employee-domain" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
@@ -140,15 +135,7 @@
 		<html:hidden property="assignmentType" name="newAssignmentForm" />
 	</html:form>
 
-
 	<div id="lookUpEmployee" class="hide"></div>
-
 	<jsp:include page="/frame/footer.jsp" /></body>
-<%-- <div id="popup_employee" class="hide"><jsp:include --%>
-<%-- 		page="/lookup/_employee.jsp" /></div> --%>
-<!-- <div id="popup_project" class="hide"> -->
-<%-- 	<jsp:include page="/lookup/_project.jsp" /></div> --%>
-<!-- <div id="popup_task" class="hide"> -->
-<%-- 	<jsp:include page="/lookup/_task.jsp" /></div> --%>
 </body>
 </html>

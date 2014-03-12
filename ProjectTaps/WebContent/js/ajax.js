@@ -11,6 +11,18 @@ $(document).ready(function() {
 			title : 'Employees'
 		});
 	});
+	$("#employee2").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpEmployee2").html(),
+			padding : 10,
+			title : 'Employees'
+		});
+	});
 	$("#organization").on('click', function() {
 		$.Dialog({
 			overlay : true,
@@ -25,6 +37,9 @@ $(document).ready(function() {
 	});
 });
 
+// ===============================================================================
+// Fungsi ajax look up untuk employees
+// ===============================================================================
 function loadEmployee(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -133,6 +148,121 @@ function chooseEmployee() {
 	$.Dialog.close();
 }
 
+//===============================================================================
+//Fungsi ajax look up untuk employees2
+//===============================================================================
+function loadEmployee2(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpEmployee2").html(),
+			padding : 10,
+			title : 'Employee'
+		});
+		$(".search-category-employee-2").get(1).value = searchCategory;
+		$(".search-keyword-employee-2").get(1).value = searchKeyword;
+	}, 500);
+}
+
+function setParameterEmployee2() {
+	var task = $("#task-employee-2").val();
+	var search = $(".search-category-employee-2").get(1).value;
+	var value = $(".search-keyword-employee-2").get(1).value;
+	var page = $("#page-employee-2").val();
+	var maxpage = $("#maxpage-employee-2").val();
+	var mode = $("#mode-employee-2").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	return data;
+}
+
+function setResponseEmployee2(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Choose</th>";
+	content += "<th class='text-center'>Domain</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Name</th>";
+	content += "<th class='text-center'>Address</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployees2) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += "<input type='radio' name='employee_choose2'";
+		content += "value='" + json.listEmployees2[i].employeeDomain + "@"
+				+ json.listEmployees2[i].employeeName + "' />";
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployees2[i].employeeDomain;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployees2[i].employeeCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployees2[i].employeeName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployees2[i].employeeAddress;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-employee-2").html(content);
+	$("#page-employee-2").val(json.page);
+	$("#current-page-employee-2").html(json.page);
+	$("#maxpage-employee-2").val(json.maxpage);
+	$("#max-page-employee-2").html(json.maxpage);
+	$("#total-record-employee-2").html(json.countRecord);
+	$(".search-category-employee-2").val(json.searchCategory);
+	$(".search-keyword-employee-2").val(json.searchKeyword);
+}
+
+function pagingEmployee2(direction) {
+	var searchCategory = $(".search-category-employee-2").get(1).value;
+	var searchKeyword = $(".search-keyword-employee-2").get(1).value;
+	$.Dialog.close();
+	$("#task-employee-2").val(direction);
+	var data = setParameterEmployee2();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseEmployee2(data);
+		}
+	});
+
+	loadEmployee2(searchCategory, searchKeyword);
+}
+
+function chooseEmployee2() {
+	var choosen = $("input[name='employee_choose2']:checked").val();
+	$("#employee-domain-2").val(choosen.split('@')[0]);
+	$("#employee-name-2").val(choosen.split('@')[1]);
+	$.Dialog.close();
+}
+
+
+
+// ===============================================================================
+// Fungsi ajax look up untuk organizations
 // ===============================================================================
 function loadOrganization(searchCategory, searchKeyword) {
 	setTimeout(function() {
