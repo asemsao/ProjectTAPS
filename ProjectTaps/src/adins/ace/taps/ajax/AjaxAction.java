@@ -70,15 +70,22 @@ public class AjaxAction extends Action {
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
+		if ("employees2".equals(ajaxForm.getMode())) {
+			ajaxForm.setListEmployees2(empMan.searchEmployees(params));
+			ajaxForm.setCountRecord(empMan.countEmployees(params));
+		}
 		if ("organizations".equals(ajaxForm.getMode())) {
 			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
 			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
 		}
 		if ("assignments".equals(ajaxForm.getMode())) {
-			
+
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
-			
+			ajaxForm.setListProject(prjMan.searchProject(params));
+		}
+		if ("ad".equals(ajaxForm.getMode())) {
+
 		}
 
 		if (ajaxForm.getCountRecord() % 10 == 0) {
@@ -102,8 +109,20 @@ public class AjaxAction extends Action {
 		if ("employees".equals(ajaxForm.getTask())) {
 			return mapping.findForward("employees");
 		}
+		if ("employees2".equals(ajaxForm.getTask())) {
+			return mapping.findForward("employees2");
+		}
 		if ("organizations".equals(ajaxForm.getTask())) {
 			return mapping.findForward("organizations");
+		}
+		if ("assignments".equals(ajaxForm.getTask())) {
+			return mapping.findForward("assignments");
+		}
+		if ("projects".equals(ajaxForm.getTask())) {
+			return mapping.findForward("projects");
+		}
+		if ("ad".equals(ajaxForm.getTask())) {
+			return mapping.findForward("ad");
 		}
 		return null;
 	}

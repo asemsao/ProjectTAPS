@@ -18,6 +18,7 @@ public class AjaxForm extends ActionForm {
 	private Integer maxpage;
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
+	private List<EmployeeBean> listEmployees2;
 	private List<OrganizationBean> listOrganizations;
 	private List<EmployeeReportBean> listEmployeeReport;
 	private List<ProjectBean> listProject;
@@ -114,6 +115,14 @@ public class AjaxForm extends ActionForm {
 
 	public void setListProject(List<ProjectBean> listProject) {
 		this.listProject = listProject;
+	}
+
+	public List<EmployeeBean> getListEmployees2() {
+		return listEmployees2;
+	}
+
+	public void setListEmployees2(List<EmployeeBean> listEmployees2) {
+		this.listEmployees2 = listEmployees2;
 	}
 
 }

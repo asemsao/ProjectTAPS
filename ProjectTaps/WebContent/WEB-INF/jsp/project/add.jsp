@@ -11,21 +11,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function button(task) 
-	{
+	function button(task) {
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	$(document)
+			.ready(
+					function() {
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees");
+						$("#lookUpEmployee2")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+					});
 </script>
 <title>Add Project Structure</title>
 </head>
 
 <body class="metro">
-<jsp:include page="/frame/header.jsp" />
+	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/project" method="post" styleClass="projectForm">
-	<div class="container container-taps">
-		<div class="grid">
-			<div class="row row-taps shadow-taps">
+		<div class="container container-taps">
+			<div class="grid">
+				<div class="row row-taps shadow-taps">
 					<table class="table">
 						<thead>
 							<tr>
@@ -47,9 +56,12 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Assign To"
+										<!-- nama property nanti di sesuaiin ya sen -->
+										<html:hidden property="" name="projectForm"
+											styleId="employee-domain"></html:hidden>
+										<input type="text" placeholder="Assign to" id="employee-name"
 											readonly="readonly" />
-										<button class="btn-search" id="employee"></button>
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -58,8 +70,12 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Report To" readonly="readonly" />
-										<button class="btn-search" id="employee-2"></button>
+										<!-- nama property nanti di sesuaiin ya sen -->
+										<html:hidden property="" name="projectForm"
+											styleId="employee-domain-2"></html:hidden>
+										<input type="text" placeholder="Report to"
+											id="employee-name-2" readonly="readonly" />
+										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
 							</tr>
@@ -71,18 +87,18 @@
 							</tr>
 							<html:hidden property="task" name="projectForm" />
 							<html:hidden property="param" name="projectForm" />
-							
+
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</html:form>
+
+
+	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpEmployee2" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide"><jsp:include
-			page="/lookup/_employee.jsp" /></div>
-	<div id="popup_employee-2" class="hide">
-		<jsp:include page="/lookup/_employee.jsp" /></div>
 </body>
 
 </html>
