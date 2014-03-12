@@ -22,6 +22,17 @@ public class ClaimAssignmentAction extends Action{
 		HttpSession session = request.getSession(true);
 		
 		String taskCode = (String) session.getAttribute("taskCode");
+		
+		if ("claim".equals(aForm.getTask())){
+			return mapping.findForward("Cancel");
+		}
+		else if ("RFA".equals(aForm.getTask())){
+			return mapping.findForward("Cancel");
+		}
+		else if ("claim".equals(aForm.getTask())){
+			return mapping.findForward("Cancel");
+		}
+		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setHistoryComment(null);
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));

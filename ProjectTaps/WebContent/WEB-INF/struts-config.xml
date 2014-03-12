@@ -112,6 +112,7 @@
 		</action>
 		<action name="claimAssignmentForm" path="/claimAssignment"
 			scope="request" type="adins.ace.taps.action.ClaimAssignmentAction">
+			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
 		</action>
 	</action-mappings>

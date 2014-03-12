@@ -11,6 +11,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
+<script type="text/javascript">
+	function flyToPage(task) {
+		document.newAssignmentForm.task.value = task;
+		document.newAssignmentForm.submit();
+	}
+</script>
 
 <title>Assignment</title>
 </head>
@@ -44,9 +50,9 @@
 						<tr>
 							<td>Assignment Type</td>
 							<td>:</td>
-							<td colspan=2>
-								<logic:equal property="claimBean.assignmentType"
-									name="claimAssignmentForm" value="BU">Business Unit - 
+							<td colspan=2><logic:equal
+									property="claimBean.assignmentType" name="claimAssignmentForm"
+									value="BU">Business Unit - 
 									<bean:write property="claimBean.organizationName"
 										name="claimAssignmentForm" />
 								</logic:equal> <logic:equal property="claimBean.assignmentType"
@@ -173,11 +179,13 @@
 						</tr>
 						<tr>
 							<td colspan=4 class="text-right"><html:button
-									property="claim-btn" styleClass="button success">Claim</html:button>
-								<html:button property="claimclose-btn"
+									property="claim-btn" onclick="javascript:flyToPage('claim');"
+									styleClass="button success">Claim</html:button> <html:button
+									property="claimclose-btn"
+									onclick="javascript:flyToPage('RFA');"
 									styleClass="button success">RFA</html:button> <html:button
-									property="cancel-btn" styleClass="button info">Cancel</html:button>
-							</td>
+									property="cancel-btn" onclick="javascript:flyToPage('cancel');"
+									styleClass="button info">Cancel</html:button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -194,20 +202,22 @@
 								<td class="text-center text-bold">Date</td>
 								<td class="text-center text-bold">Comment</td>
 								<td class="text-center text-bold">From</td>
+								<td class="text-center text-bold">To</td>
 								<td class="text-center text-bold">Status</td>
 							</tr>
 							<logic:iterate id="assignment" property="historyComment"
 								name="claimAssignmentForm">
 								<tr>
-									<%-- 							<td class="text-center"><bean:write property="" --%>
-									<%-- 									name="claimAssignmentForm" /></td> --%>
-									<%-- 							<td class="text-center"><bean:write property="" --%>
-									<%-- 									name="claimAssignmentForm" /></td> --%>
-									<%-- 							<td class="text-center"><bean:write property="" --%>
-									<%-- 									name="claimAssignmentForm" /></td> --%>
-									<%-- 							<td class="text-center"><bean:write property="" --%>
-									<%-- 									name="claimAssignmentForm" /></td> --%>
-								</tr>
+									<td class="text-center"><bean:write property="commentDate"
+											name="assignment" /></td>
+									<td><bean:write property="assignmentComment"
+											name="assignment" /></td>
+									<td class="text-center"><bean:write property="commentFrom"
+											name="assignment" /></td>
+									<td class="text-center"><bean:write property="commentTo"
+											name="assignment" /></td>
+									<td class="text-center"><bean:write property="status"
+											name="assignment" /></td>
 							</logic:iterate>
 						</tbody>
 					</table>

@@ -251,5 +251,15 @@
 		WHERE task_code = #taskCode#
 	</select>
 	
-	
+	<select id="searchHistoryComment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
+		SELECT history_id AS detailId,
+			TO_CHAR(created_date,'DD-MM-YYYY') AS commentDate,
+			comment AS assignmentComment,
+			status AS status,
+			e1.first_name || ' ' || e1.last_name AS commentFrom,
+			e2.first_name || ' ' || e2.last_name AS commentTo
+		FROM detail_assignment_claim d, employees e1, employees e2
+		WHERE task_code = #taskCode# AND e1.user_domain = d.created_by 
+		AND e2.user_domain = d.comment_to
+	</select>
 </sqlMap>
