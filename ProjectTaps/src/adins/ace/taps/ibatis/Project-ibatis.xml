@@ -23,7 +23,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			p.project_name AS projectName,
 			o.organization_name AS organizationName 
 		FROM projects p, organizations o
-		WHERE p.organization_code = o.organization_code AND LOWER(p.flag) = 'active' AND p.project_code = #projectCode#
+		WHERE p.organization_code = o.organization_code AND p.project_code = #projectCode#
 	</select>
 	
 	<select id="getAllProjectMember" resultClass="adins.ace.taps.bean.project.StructureProjectBean" parameterClass="java.lang.String">

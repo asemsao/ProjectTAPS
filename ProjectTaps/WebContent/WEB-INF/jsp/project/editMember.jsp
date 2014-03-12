@@ -17,7 +17,7 @@
 		document.projectForm.submit();
 	}
 </script>
-<title>Edit Project Structure</title>
+<title>Edit Project Member</title>
 </head>
 
 <body class="metro">
@@ -29,7 +29,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="3"><h3>Edit Project Structure</h3></th>
+								<th colspan="3"><h3>Edit Project Member</h3></th>
 							</tr>
 						</thead>
 						<tbody>

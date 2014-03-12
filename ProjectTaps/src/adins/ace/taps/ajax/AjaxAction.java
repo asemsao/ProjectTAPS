@@ -102,6 +102,9 @@ public class AjaxAction extends Action {
 		if ("employees".equals(ajaxForm.getTask())) {
 			return mapping.findForward("employees");
 		}
+		if ("organizations".equals(ajaxForm.getTask())) {
+			return mapping.findForward("organizations");
+		}
 		return null;
 	}
 }

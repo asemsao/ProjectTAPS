@@ -41,6 +41,7 @@ public class ProjectAction extends Action
 		}
 		if("edit".equals(pForm.getTask()))
 		{
+			
 			return mapping.findForward("EditProject");
 		}
 		if("member".equals(pForm.getTask()))
@@ -59,10 +60,10 @@ public class ProjectAction extends Action
 		if("back".equals(pForm.getTask()))
 		{
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
-			StructureProjectBean spBean = new StructureProjectBean();
-			spBean = (StructureProjectBean) pForm.getListProject().get(0);
-			pForm.setOrganizationName(spBean.getOrganizationName());
-			pForm.setProjectName(spBean.getProjectName());
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
 		if("editMember".equals(pForm.getTask()))

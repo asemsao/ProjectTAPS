@@ -19,7 +19,7 @@
 	}
 </script>
 
-<title>Edit Project</title>
+<title>Edit Project</title> 
 </head>
 
 <body class="metro">
@@ -41,21 +41,24 @@
 							<td>Project Code</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Code" />
+									<html:text property="addProject.projectCode"
+											name="projectForm" styleId="projectCode"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Project Name</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Name" />
+									<html:text property="addProject.projectName"
+											name="projectForm" styleId="projectName"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Client</td>
 							<td>:</td>
 							<td><div class="input-control text">
-									<input type="text" placeholder="Client" />
+									<html:text property="addProject.client"
+											name="projectForm" styleId="client"></html:text>
 								</div></td>
 						</tr>
 						<tr>
@@ -63,14 +66,14 @@
 							<td>:</td>
 							<td>
 								<div class="input-control select">
-									<select>
+									<html:select property="addProject.phaseId" name="projectForm">
 										<option value="">Phase</option>
 										<option value="requirement">Requirement</option>
 										<option value="development">Development</option>
 										<option value="UAT">UAT</option>
 										<option value="live">Live</option>
 										<option value="close">Closed</option>
-									</select>
+									</html:select>
 								</div>
 							</td>
 						</tr>
@@ -79,8 +82,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<input type="text" placeholder="Business Unit"
-										readonly="readonly" />
+									<html:text property="addProject.organizationCode"
+											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
 									<button class="btn-search" id="organization"></button>
 								</div>
 
@@ -91,7 +94,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text" id="datepicker-begin">
-									<input type="text">
+									<html:text property="addProject.startDate"
+											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
 							</td>
@@ -101,7 +105,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text " id="datepicker-end">
-									<input type="text">
+									<html:text property="addProject.endDate"
+											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
 							</td>
