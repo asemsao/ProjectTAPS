@@ -92,8 +92,8 @@
 		</div>
 	</div>
 
-	<div id="lookUpOrganization"></div>
 	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpOrganization" class="hide"></div>
 
 	<jsp:include page="/frame/footer.jsp" />
 </body>
