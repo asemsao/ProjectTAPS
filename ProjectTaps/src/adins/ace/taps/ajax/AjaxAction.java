@@ -75,10 +75,10 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
 		}
 		if ("assignments".equals(ajaxForm.getMode())) {
-
+			
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
-
+			
 		}
 
 		if (ajaxForm.getCountRecord() % 10 == 0) {
