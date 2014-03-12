@@ -31,8 +31,8 @@ public class ProjectAction extends Action
 		}
 		if("saveProject".equals(pForm.getTask()))
 		{
-			System.out.println(pForm.getAddProject().getStartDate());
 			pMan.addProject(pForm.getAddProject());
+			pForm.setListProject(pMan.getAllProject());	
 			return mapping.findForward("ListProject");
 		}
 		if("cancel".equals(pForm.getTask()))

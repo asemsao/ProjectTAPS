@@ -17,14 +17,15 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	
 	$(document).ready(function() {
 		$("#projectCode").attr("placeholder", "Project Code");
 		$("#projectName").attr("placeholder", "Project Name");
 		$("#client").attr("placeholder", "Client");
-		$("#businessUnit").attr("placeholder", "Business unit");
+		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 	});
 </script>
-
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add Project</title>
 </head>
 
@@ -87,11 +88,12 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<html:text property="addProject.organizationCode"
-											name="projectForm" styleId="businessUnit" ></html:text>
-									<button type="button" class="btn-search" id="organization"></button>
-								</div>
-
+									<html:hidden property="addProject.organizationCode"
+											name="projectForm" styleId="organization-code" ></html:hidden>
+										<input type="text" placeholder="Business Unit"
+											readonly="readonly" id="parent-organization-name" />
+										<button type="button" class="btn-search" id="organization"></button>
+									</div>
 							</td>
 						</tr>
 						<tr>
@@ -130,8 +132,7 @@
 		</div>
 	</div>
 	</html:form>
+	<div id="lookUpOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_organization" class="hide"><jsp:include
-			page="/lookup/_organization.jsp" /></div>	
 </body>
 </html>
