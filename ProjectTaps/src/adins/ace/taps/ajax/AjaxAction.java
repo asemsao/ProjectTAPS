@@ -65,8 +65,6 @@ public class AjaxAction extends Action {
 		params.put("end", (ajaxForm.getPage() * 10));
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
-		System.out.println(ajaxForm.getSearchCategory());
-		System.out.println(ajaxForm.getSearchKeyword());
 		System.out.println(params);
 		
 		if ("employees".equals(ajaxForm.getMode())) {
