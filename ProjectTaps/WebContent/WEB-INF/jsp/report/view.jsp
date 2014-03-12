@@ -25,34 +25,43 @@
 		document.reportForm.submit();
 	}
 	$(function() {
-		$('#graph').highcharts(
-				{
-					data : {
-						table : document.getElementById('datatable')
-					},
-					chart : {
-						type : 'column'
-					},
-					title : {
-						text : 'Statistic Of Employee'
-					},
-					yAxis : {
-						allowDecimals : false,
-						title : {
-							text : 'Range'
-						}
-					},
-					tooltip : {
-						formatter : function() {
-							return '<b>' + this.series.name + '</b><br/>'
-									+ this.point.y + ' '
-									+ this.point.name.toLowerCase();
-						}
-					},
-					credits : {
-						enabled : false
-					},
-				});
+		$('#graph')
+				.highcharts(
+						{
+							data : {
+								table : document.getElementById('datatable')
+							},
+							chart : {
+								type : 'column'
+							},
+							title : {
+								text : 'Statistic Of Employee'
+							},
+							yAxis : {
+								allowDecimals : false,
+								title : {
+									text : 'Range'
+								}
+							},
+							tooltip : {
+								headerFormat : '<span style="font-size:10px">{point.key}</span><table>',
+								pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}</td><td>:</td>'
+										+ '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+								footerFormat : '</table>',
+								shared : true,
+								useHTML : true
+							},
+							// tooltip : {
+							// formatter : function() {
+							// return '<b>' + this.series.name + '</b><br/>'
+							// + this.point.y + ' '
+							// + this.point.name.toLowerCase();
+							// }
+							// },
+							credits : {
+								enabled : false
+							},
+						});
 	});
 </script>
 <title>Report</title>
@@ -68,67 +77,137 @@
 				<div class="row row-taps shadow-taps">
 					<div id="graph"
 						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-					<table id="datatable" class="table striped bordered hovered">
-						<thead>
-							<tr>
-								<th></th>
-								<th>Assignment</th>
-								<th>Manhour</th>
-								<th>Star</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>Kamashwanee</th>
-								<td class="text-center">20</td>
-								<td class="text-center">88</td>
-								<td class="text-center">80</td>
-							</tr>
-							<tr>
-								<th>Kowawa</th>
-								<td class="text-center">18</td>
-								<td class="text-center">80</td>
-								<td class="text-center">74</td>
-							</tr>
-							<tr>
-								<th>MeyTan</th>
-								<td class="text-center">22</td>
-								<td class="text-center">84</td>
-								<td class="text-center">82</td>
-							</tr>
-							<tr>
-								<th>Leon</th>
-								<td class="text-center">16</td>
-								<td class="text-center">72</td>
-								<td class="text-center">68</td>
-							</tr>
-							<tr>
-								<th>Venace</th>
-								<td class="text-center">14</td>
-								<td class="text-center">70</td>
-								<td class="text-center">64</td>
-							</tr>
-							<tr>
-								<th>Raisa</th>
-								<td class="text-center">14</td>
-								<td class="text-center">66</td>
-								<td class="text-center">65</td>
-							</tr>
-							<tr>
-								<th>Yousuck</th>
-								<td class="text-center">12</td>
-								<td class="text-center">64</td>
-								<td class="text-center">60</td>
-							</tr>
-							<tr>
-								<th>Asemsao</th>
-								<td class="text-center">19</td>
-								<td class="text-center">80</td>
-								<td class="text-center">77</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="hide">
+						<table id="datatable" class="table striped bordered hovered">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Assignment</th>
+									<th>Manhour</th>
+									<th>Star</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Kamashwanee</th>
+									<td class="text-center">20</td>
+									<td class="text-center">88</td>
+									<td class="text-center">80</td>
+								</tr>
+								<tr>
+									<th>Kowawa</th>
+									<td class="text-center">18</td>
+									<td class="text-center">80</td>
+									<td class="text-center">74</td>
+								</tr>
+								<tr>
+									<th>MeyTan</th>
+									<td class="text-center">22</td>
+									<td class="text-center">84</td>
+									<td class="text-center">82</td>
+								</tr>
+								<tr>
+									<th>Leon</th>
+									<td class="text-center">16</td>
+									<td class="text-center">72</td>
+									<td class="text-center">68</td>
+								</tr>
+								<tr>
+									<th>Venace</th>
+									<td class="text-center">14</td>
+									<td class="text-center">70</td>
+									<td class="text-center">64</td>
+								</tr>
+								<tr>
+									<th>Raisa</th>
+									<td class="text-center">14</td>
+									<td class="text-center">66</td>
+									<td class="text-center">65</td>
+								</tr>
+								<tr>
+									<th>Yousuck</th>
+									<td class="text-center">12</td>
+									<td class="text-center">64</td>
+									<td class="text-center">60</td>
+								</tr>
+								<tr>
+									<th>Asemsao</th>
+									<td class="text-center">19</td>
+									<td class="text-center">80</td>
+									<td class="text-center">77</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<table id="datatableshow" class="table striped bordered hovered">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Assignment</th>
+									<th>Manhour</th>
+									<th>Star</th>
+									<th>Organization</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Kamashwanee</th>
+									<td class="text-center">20</td>
+									<td class="text-center">88</td>
+									<td class="text-center">80</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Kowawa</th>
+									<td class="text-center">18</td>
+									<td class="text-center">80</td>
+									<td class="text-center">74</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>MeyTan</th>
+									<td class="text-center">22</td>
+									<td class="text-center">84</td>
+									<td class="text-center">82</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Leon</th>
+									<td class="text-center">16</td>
+									<td class="text-center">72</td>
+									<td class="text-center">68</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Venace</th>
+									<td class="text-center">14</td>
+									<td class="text-center">70</td>
+									<td class="text-center">64</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Raisa</th>
+									<td class="text-center">14</td>
+									<td class="text-center">66</td>
+									<td class="text-center">65</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Yousuck</th>
+									<td class="text-center">12</td>
+									<td class="text-center">64</td>
+									<td class="text-center">60</td>
+									<td class="text-center">ACE</td>
+								</tr>
+								<tr>
+									<th>Asemsao</th>
+									<td class="text-center">19</td>
+									<td class="text-center">80</td>
+									<td class="text-center">77</td>
+									<td class="text-center">ACE</td>
+								</tr>
+							</tbody>
+						</table>
 
 					<table class="table striped bordered hovered">
 						<thead>
