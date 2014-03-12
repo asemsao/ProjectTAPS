@@ -58,7 +58,6 @@ public class EmployeeReportAction extends Action {
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				if("DRAFT".equals(eForm.getCurrentStatus())){
-					session.setAttribute("task", "view");
 					return mapping.findForward("Draft");
 				}
 				else if("CLAIM".equals(eForm.getCurrentStatus())){
@@ -154,11 +153,13 @@ public class EmployeeReportAction extends Action {
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
 			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
+
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
 			} else {
 				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
+
 			eForm.setListAssignment(eMan.searchAssignmentSupervisor(params));
 		}		
 			

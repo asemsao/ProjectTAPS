@@ -3,7 +3,7 @@ package adins.ace.taps.bean.assignment;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class ApprovalSelfAssignmentBean implements Serializable{
+public class unusedApprovalSelfAssignmentBean implements Serializable{
 	private String assignmentDate;
 	private String assignmentDueDate;
 	private String assignmentType;

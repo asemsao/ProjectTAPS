@@ -65,7 +65,7 @@
 							property="listEmployees2">
 							<tr>
 								<td class="text-center"><input type='radio'
-									name='employee_choose'
+									name='employee_choose2'
 									value='<bean:write name="employee"
 										property="employeeDomain" />@<bean:write name="employee"
 										property="employeeName" />' />
