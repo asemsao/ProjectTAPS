@@ -332,23 +332,41 @@
 	</select>
 	
 <!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
-<!-- 	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean"> -->
-<!-- 		UPDATE assignments SET  -->
-<!-- 			assignment_date = #assignmentDate#,  -->
-<!-- 			assignment_due_date = #assignmentDueDate#,  -->
-<!-- 			assignment_type = #assignmentType#,  -->
-<!-- 			organization_code = #organizationCode#,  -->
-<!-- 			project_code = #projectCode#,  -->
-<!-- 			description = #description#,  -->
-<!-- 			reff_task_code = #reffTaskCode#,  -->
-<!-- 			adhoc_user_domain = #adhocUserDomain#,  -->
-<!-- 			assign_to = #assignTo#,  -->
-<!-- 			flag = #flag#,  -->
-<!-- 			current_status = #currentStatus#,  -->
-<!-- 			updated_by = #updatedBy#,  -->
-<!-- 			updated_date = SYSDATE -->
-<!-- 		WHERE task_code = #taskCode# -->
-<!-- 	</update> -->
+	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE assignments SET 
+			assignment_date = #assignmentDate#, 
+			assignment_due_date = #assignmentDueDate#, 
+			assignment_type = #assignmentType#, 
+			organization_code = #organizationCode#, 
+			project_code = #projectCode#, 
+			description = #description#, 
+			reff_task_code = #reffTaskCode#, 
+			assign_to = #assignTo#, 
+			flag = #flag#, 
+			current_status = #currentStatus#, 
+			updated_by = #updatedBy#, 
+			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
+	
+	<update id="editSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE assignments SET 
+			assignment_date = #assignmentDate#, 
+			assignment_due_date = #assignmentDueDate#, 
+			assignment_type = #assignmentType#, 
+			organization_code = #organizationCode#, 
+			report_to = #reportTo#,
+			activity_type = #activityType#,
+			adhoc_user_domain = #adhocUserDomain#,
+			project_code = #projectCode#, 
+			description = #description#, 
+			reff_task_code = #reffTaskCode#, 
+			flag = #flag#, 
+			current_status = #currentStatus#, 
+			updated_by = #updatedBy#, 
+			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
 	
 	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
 		SELECT a.task_code AS taskCode,

@@ -68,6 +68,7 @@ public class NewAssignmentAction extends Action {
 	
 				boolean success = false;
 				if (session.getAttribute("taskCode") != null) {
+					aForm.getAssignmentBean().setTaskCode((String) session.getAttribute("taskCode"));
 					success = aMan.editAssignment(aForm.getAssignmentBean());
 				}
 				else {

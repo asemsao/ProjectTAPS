@@ -28,60 +28,61 @@ public class NewSelfAssignmentAction extends Action {
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 
-		if (session.getAttribute("taskCode") != null) {
-			System.out.println(session.getAttribute("taskCode"));
-			aForm.setSelfAssignBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
-			return mapping.findForward("NewSelfAssignment");
-		}
+		
 
 		if (aForm.getNewTask() == null) {
 			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
+			if (session.getAttribute("taskCode") != null) {
+				aForm.setSelfAssignBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+			}
 			return mapping.findForward("NewSelfAssignment");
 		}
-
-		if ("cancel".equals(aForm.getNewTask())) {
-			session.removeAttribute("taskCode");
-			return mapping.findForward("Cancel");
-		} else {
-			aForm.getSelfAssignBean().setAssignmentType(
-					aForm.getAssignmentType());
-			aForm.getSelfAssignBean().setActivityType(aForm.getActivityType());
-
-			String paramCode = "";
-
-			if ("BU".equals(aForm.getAssignmentType())) {
-				aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
-				paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
-			} else if ("Project".equals(aForm.getAssignmentType())) {
-				paramCode = aForm.getSelfAssignBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
+		else {
+			if ("cancel".equals(aForm.getNewTask())) {
+				session.removeAttribute("taskCode");
+				return mapping.findForward("Cancel");
+			} else {
+				aForm.getSelfAssignBean().setAssignmentType(
+						aForm.getAssignmentType());
+				aForm.getSelfAssignBean().setActivityType(aForm.getActivityType());
+	
+				String paramCode = "";
+	
+				if ("BU".equals(aForm.getAssignmentType())) {
+					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
+					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
+				} else if ("Project".equals(aForm.getAssignmentType())) {
+					paramCode = aForm.getSelfAssignBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
+				}
+	
+				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
+	
+				aForm.getSelfAssignBean().setTaskCode(paramCode);
+				aForm.getSelfAssignBean().setReportTo("domain100");
+				aForm.getSelfAssignBean().setCreateBy("domain3");
+				aForm.getSelfAssignBean().setAssignTo("domain3");
+	
+				if ("save".equals(aForm.getNewTask())) {
+					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
+					aForm.getSelfAssignBean().setFlag("ACTIVE");
+				} else if ("RFA".equals(aForm.getNewTask())) {
+					aForm.getSelfAssignBean().setCurrentStatus("RFA");
+					aForm.getSelfAssignBean().setFlag("INACTIVE");
+				}
+	
+				boolean success = false;
+				if (session.getAttribute("taskCode") != null) {
+					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
+					success = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+				}
+				else {
+					success = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+				}
+				
+				System.out.println(success);
+				session.removeAttribute("taskCode");
+				return mapping.findForward("Cancel");
 			}
-
-			paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
-
-			aForm.getSelfAssignBean().setTaskCode(paramCode);
-			aForm.getSelfAssignBean().setReportTo("domain100");
-			aForm.getSelfAssignBean().setCreateBy("domain3");
-			aForm.getSelfAssignBean().setAssignTo("domain3");
-
-			if ("save".equals(aForm.getNewTask())) {
-				aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
-				aForm.getSelfAssignBean().setFlag("ACTIVE");
-			} else if ("RFA".equals(aForm.getNewTask())) {
-				aForm.getSelfAssignBean().setCurrentStatus("RFA");
-				aForm.getSelfAssignBean().setFlag("INACTIVE");
-			}
-
-			boolean success = false;
-			if (session.getAttribute("taskCode") != null) {
-				System.out.println("masuk edit");
-			}
-			else {
-				success = aMan.addSelfAssignment(aForm.getSelfAssignBean());
-			}
-			
-			System.out.println(success);
-			session.removeAttribute("taskCode");
-			return mapping.findForward("Cancel");
 		}
 	}
 }
