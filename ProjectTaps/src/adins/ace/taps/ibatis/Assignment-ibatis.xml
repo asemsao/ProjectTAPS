@@ -75,7 +75,15 @@
 								LOWER(e.last_name) LIKE LOWER ('%$searchKeyword$%'))
 							</isEqual>
 							<isEqual property="searchCategory" compareValue="status">LOWER(a.current_status)
-								LIKE LOWER ('%$searchKeyword$%')</isEqual>
+								LIKE LOWER ('%$searchKeyword$%')
+							</isEqual>
+							<isEqual property="searchCategory" compareValue="All">(LOWER(a.task_code)
+								LIKE LOWER ('%$searchKeyword$%') OR LOWER(a.assignment_category)
+								LIKE LOWER ('%$searchKeyword$%') OR LOWER(e.first_name) 
+								LIKE LOWER ('%$searchKeyword$%') OR LOWER(e.last_name) 
+								LIKE LOWER ('%$searchKeyword$%') OR LOWER(a.current_status)
+								LIKE LOWER ('%$searchKeyword$%'))
+							</isEqual>
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
@@ -94,6 +102,48 @@
 			) a WHERE <![CDATA[ROWNUM <= #rowEnd#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #rowStart#]]>
+	</select>
+	
+	<select id="countEmployeeReportEmployee" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1) FROM assignments a 
+		LEFT JOIN employees e
+		ON LOWER(a.flag)='active' AND a.assign_to = 'domain3' 
+		WHERE a.report_to = e.user_domain 
+		<dynamic prepend="AND">
+			<isNotNull property="searchKeyword">
+				<isNotEmpty property="searchKeyword">
+					<isEqual property="searchCategory" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$searchKeyword$%')</isEqual>
+					<isEqual property="searchCategory" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$searchKeyword$%')</isEqual>
+					<isEqual property="searchCategory" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$searchKeyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$searchKeyword$%'))
+					</isEqual>
+					<isEqual property="searchCategory" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$searchKeyword$%')
+					</isEqual>
+					<isEqual property="searchCategory" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$searchKeyword$%') OR LOWER(a.assignment_category)
+						LIKE LOWER ('%$searchKeyword$%') OR LOWER(e.first_name) 
+						LIKE LOWER ('%$searchKeyword$%') OR LOWER(e.last_name) 
+						LIKE LOWER ('%$searchKeyword$%') OR LOWER(a.current_status)
+						LIKE LOWER ('%$searchKeyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
 	</select>
 	
 	<select id="listAssignment" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean" parameterClass="java.util.Map">

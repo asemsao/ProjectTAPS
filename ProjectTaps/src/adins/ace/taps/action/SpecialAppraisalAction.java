@@ -82,8 +82,6 @@ public class SpecialAppraisalAction extends Action {
 				mForm.setPage(1);			
 		}
 
-		System.out.println("A"+mForm.getSearchCategory());
-		System.out.println("OP"+mForm.getSearchKeyword());
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
 		params.put("category", "employeeName");

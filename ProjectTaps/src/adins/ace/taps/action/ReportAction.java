@@ -20,7 +20,6 @@ public class ReportAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		ReportForm mForm = (ReportForm) form;
 		ReportManager rMan = new ReportManager();
 		if ("view".equals(mForm.getTask())) {
