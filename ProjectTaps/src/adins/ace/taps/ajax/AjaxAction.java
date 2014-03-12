@@ -81,7 +81,7 @@ public class AjaxAction extends Action {
 		}
 		if ("assignments".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployeeReport(asgMan
-					.searchAssignmentEmployee(params));
+					.searchEmployeeReportEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
 		if ("projects".equals(ajaxForm.getMode())) {

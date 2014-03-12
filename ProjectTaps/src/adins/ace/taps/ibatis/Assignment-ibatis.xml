@@ -332,30 +332,34 @@
 	</select>
 	
 <!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
-<!-- 	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean"> -->
-<!-- 		UPDATE assignments SET  -->
-<!-- 			assignment_date = #assignmentDate#,  -->
-<!-- 			assignment_due_date = #assignmentDueDate#,  -->
-<!-- 			assignment_type = #assignmentType#,  -->
-<!-- 			assignment_category = #assignmentCategory#,  -->
-<!-- 			organization_code = #organizationCode#,  -->
-<!-- 			project_code = #projectCode#,  -->
-<!-- 			description = #description#,  -->
-<!-- 			reff_task_code = #reffTaskCode#,  -->
-<!-- 			activity_type = #activityType#,  -->
-<!-- 			adhoc_user_domain = #adhocUserDomain#,  -->
-<!-- 			assign_to = #assignTo#,  -->
-<!-- 			report_to = #reportTo#,  -->
-<!-- 			flag = 'INACTIVE',  -->
-<!-- 			current_status = #currentStatus#,  -->
-<!-- 			created_by = #createdBy#,  -->
-<!-- 			created_date = SYSDATE -->
-<!-- 	</update> -->
+	<update id="editAssignment" parameterClass="adins.ace.bean.NewAssignmentBean">
+		UPDATE assignments SET 
+			assignment_date = #assignmentDate#, 
+			assignment_due_date = #assignmentDueDate#, 
+			assignment_type = #assignmentType#, 
+			assignment_category = #assignmentCategory#, 
+			organization_code = #organizationCode#, 
+			project_code = #projectCode#, 
+			description = #description#, 
+			reff_task_code = #reffTaskCode#, 
+			activity_type = #activityType#, 
+			adhoc_user_domain = #adhocUserDomain#, 
+			assign_to = #assignTo#, 
+			report_to = #reportTo#, 
+			flag = 'INACTIVE', 
+			current_status = #currentStatus#, 
+			created_by = #createdBy#, 
+			created_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
 	
 	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
 		SELECT a.task_code AS taskCode,
-            a.assignment_date AS assignmentDate, 
+            TO_CHAR(a.assignment_date,'DD/MM/YYYY') AS assignmentDate, 
+            TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
             a.assignment_type AS assignmentType, 
+            a.assign_to AS assignTo,
+            e.first_name || ' ' || e.last_name AS assignToFullName,
             a.report_to AS reportTo, 
             o.organization_code AS organizationCode, 
             o.organization_name AS organizationName,
@@ -372,8 +376,8 @@
 	
 	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
 		SELECT a.task_code AS taskCode,
-			TO_CHAR(a.assignment_due_date,'DD-MM-YYYY') AS assignmentDueDate, 
-            TO_CHAR(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+			TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
+            TO_CHAR(a.assignment_date,'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
             a.assignment_type AS assignmentType,
             e.first_name || ' ' || e.last_name AS fullName,
             a.report_to AS reportTo,
@@ -392,7 +396,7 @@
 	
 	<select id="searchDetailClaim" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
 		SELECT detail_id AS detailId,
-			TO_CHAR(created_date,'DD-MM-YYYY') AS claimDate,
+			TO_CHAR(created_date,'DD/MM/YYYY') AS claimDate,
 			description AS detailDescription,
 			manhour AS manHours
 		FROM detail_claim_assignments
