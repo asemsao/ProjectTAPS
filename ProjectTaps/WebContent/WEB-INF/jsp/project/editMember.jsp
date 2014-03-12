@@ -38,7 +38,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Role in Project" />
+										<html:text property="addSProject.projectRole"
+											name="projectForm"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -47,8 +48,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Assign To"
-											readonly="readonly" />
+										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
+										<input type="text" placeholder="Assign to" id="employee-name" readonly="readonly" />
 										<button class="btn-search" id="employee"></button>
 									</div>
 								</td>
@@ -58,7 +59,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Report To" readonly="readonly" />
+										<html:hidden property="addSProject.directreportUserDomain" name="projectForm" styleId="employee-domain-2"></html:hidden>
+										<input type="text" placeholder="Assign to" id="employee-name-2" readonly="readonly" />
 										<button class="btn-search" id="employee-2"></button>
 									</div>
 								</td>

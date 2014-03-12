@@ -44,6 +44,11 @@ public class ProjectAction extends Action {
 			pForm.setListPhase(pMan.getPhase());
 			return mapping.findForward("EditProject");
 		}
+		if ("updateProject".equals(pForm.getTask())) {
+			pMan.updateProject(pForm.getpBean());
+			pForm.setListProject(pMan.searchProject(params));
+			return mapping.findForward("ListProject");
+		}
 		if ("member".equals(pForm.getTask())) {
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
 			ProjectBean pBean = new ProjectBean();
@@ -53,7 +58,22 @@ public class ProjectAction extends Action {
 			return mapping.findForward("ViewMember");
 		}
 		if ("addMember".equals(pForm.getTask())) {
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("AddMember");
+		}
+		if ("saveMember".equals(pForm.getTask())) {
+			
+			pForm.getAddSProject().setProjectCode(pForm.getParam());
+			pMan.addProjectMember(pForm.getAddSProject());
+			
+			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			return mapping.findForward("ViewMember");
 		}
 		if ("back".equals(pForm.getTask())) {
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
@@ -64,6 +84,7 @@ public class ProjectAction extends Action {
 			return mapping.findForward("ViewMember");
 		}
 		if ("editMember".equals(pForm.getTask())) {
+			pForm.setAddSProject(pMan.getProjectMemberById(pForm.getParam2()));
 			return mapping.findForward("EditMember");
 		}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.project.AddProjectBean;
+import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -108,5 +109,62 @@ public class ProjectManager {
 			}
 		}
 		return list;
+	}
+	
+	public void updateProject(ProjectBean bean)
+	{	
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.updateProject", bean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void addProjectMember(AddStructureProjectBean bean) {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("project.addProjectMember", bean);
+			ibatisSqlMap.commitTransaction();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public AddStructureProjectBean getProjectMemberById(String projectRole) {
+		AddStructureProjectBean bean = new AddStructureProjectBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (AddStructureProjectBean) ibatisSqlMap.queryForObject(
+					"project.getProjectMemberById", projectRole);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
 	}
 }

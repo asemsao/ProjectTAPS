@@ -77,7 +77,7 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<html:text property="pBean.organizationName"
+									<html:text property="pBean.organizationCode"
 											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
 									<button type="button" class="btn-search" id="organization"></button>
 								</div>
@@ -108,7 +108,7 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="text-right">
-								<button id="save-btn" onclick="" class="success">Save</button>
+								<button id="save-btn" onclick="javascript:button('updateProject')" class="success">Save</button>
 								<button id="cancel-btn" onclick="javascript:button('cancel');">Cancel</button>
 							</td>
 						</tr>
