@@ -26,6 +26,11 @@
 			}
 		}
 	}
+	
+	function checkRadioButtonValue(){
+		
+	}
+	
 	$(document).ready(
 			function() {
 				$("#lookUpEmployee").load(
@@ -34,7 +39,7 @@
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
-<body class="metro">
+<body class="metro" onload="javascript:checkRadioButtonValue();">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/newAssignment" method="POST">
 		<div class="container container-taps">

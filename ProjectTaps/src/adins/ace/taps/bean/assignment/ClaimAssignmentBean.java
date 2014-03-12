@@ -23,14 +23,11 @@ public class ClaimAssignmentBean implements Serializable {
 	private String updatedBy;
 	private String updatedDate;
 	private String comment;
-
-	public String getProjectName() {
-		return projectName;
-	}
-
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
+	private String assignmentComment;
+	private String commentDate;
+	private String commentFrom;
+	private String commentTo;
+	private String status;
 
 	public String getAssignmentDate() {
 		return assignmentDate;
@@ -62,6 +59,14 @@ public class ClaimAssignmentBean implements Serializable {
 
 	public void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 	public String getFullName() {
@@ -174,6 +179,46 @@ public class ClaimAssignmentBean implements Serializable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public String getAssignmentComment() {
+		return assignmentComment;
+	}
+
+	public void setAssignmentComment(String assignmentComment) {
+		this.assignmentComment = assignmentComment;
+	}
+
+	public String getCommentDate() {
+		return commentDate;
+	}
+
+	public void setCommentDate(String commentDate) {
+		this.commentDate = commentDate;
+	}
+
+	public String getCommentFrom() {
+		return commentFrom;
+	}
+
+	public void setCommentFrom(String commentFrom) {
+		this.commentFrom = commentFrom;
+	}
+
+	public String getCommentTo() {
+		return commentTo;
+	}
+
+	public void setCommentTo(String commentTo) {
+		this.commentTo = commentTo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

@@ -14,7 +14,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -44,7 +43,10 @@ public class OrganizationAction extends Action {
 				orgForm.setMessage("Delete Organization Failed!");
 			}
 		}
-
+		if ("Save".equals(orgForm.getTask())) {
+			System.out.println("insert");
+			orgMan.submitInsert(orgForm.getOrgBean());
+		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}

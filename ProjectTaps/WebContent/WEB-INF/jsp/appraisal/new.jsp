@@ -13,6 +13,7 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.specialAppraisalForm.task.value = task;
+		alert(task);
 		document.specialAppraisalForm.submit();
 	}
 	$(document).ready(
@@ -90,7 +91,7 @@
 										property="save" onclick="javascript:flyToPage('Appraisal');"
 										styleClass="button success">Appraisal</html:button> <html:button
 										property="cancel" onclick="javascript:flyToPage('Cancel');"
-										styleClass="button success">Cancel</html:button></td>
+										styleClass="button info">Cancel</html:button></td>
 							</tr>
 						</tbody>
 					</table>
