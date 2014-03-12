@@ -86,4 +86,27 @@ public class ProjectManager {
 			}
 		}
 	}
+	
+	public List getPhase()
+	{
+		List list = null;
+		try 
+		{
+			ibatisSqlMap.startTransaction();
+			list = ibatisSqlMap.queryForList("project.getPhase", null);
+			ibatisSqlMap.commitTransaction();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }

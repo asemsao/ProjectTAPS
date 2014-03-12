@@ -31,8 +31,7 @@ public class ProjectAction extends Action {
 			return mapping.findForward("AddProject");
 		}
 
-		if("saveProject".equals(pForm.getTask()))
-		{
+		if("saveProject".equals(pForm.getTask())){
 			pMan.addProject(pForm.getAddProject());
 			pForm.setListProject(pMan.searchProject(params));	
 			return mapping.findForward("ListProject");
@@ -41,7 +40,8 @@ public class ProjectAction extends Action {
 			return mapping.findForward("ListProject");
 		}
 		if ("edit".equals(pForm.getTask())) {
-
+			pForm.setpBean(pMan.getProjectById(pForm.getParam()));
+			pForm.setListPhase(pMan.getPhase());
 			return mapping.findForward("EditProject");
 		}
 		if ("member".equals(pForm.getTask())) {

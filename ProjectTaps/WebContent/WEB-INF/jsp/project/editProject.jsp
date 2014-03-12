@@ -41,7 +41,7 @@
 							<td>Project Code</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<html:text property="addProject.projectCode"
+									<html:text property="pBean.projectCode"
 											name="projectForm" styleId="projectCode"></html:text>
 								</div></td>
 						</tr>
@@ -49,7 +49,7 @@
 							<td>Project Name</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<html:text property="addProject.projectName"
+									<html:text property="pBean.projectName"
 											name="projectForm" styleId="projectName"></html:text>
 								</div></td>
 						</tr>
@@ -57,7 +57,7 @@
 							<td>Client</td>
 							<td>:</td>
 							<td><div class="input-control text">
-									<html:text property="addProject.client"
+									<html:text property="pBean.client"
 											name="projectForm" styleId="client"></html:text>
 								</div></td>
 						</tr>
@@ -66,13 +66,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control select">
-									<html:select property="addProject.phaseId" name="projectForm">
-										<option value="">Phase</option>
-										<option value="requirement">Requirement</option>
-										<option value="development">Development</option>
-										<option value="UAT">UAT</option>
-										<option value="live">Live</option>
-										<option value="close">Closed</option>
+									<html:select property="pBean.phase" name="projectForm">
+										<html:optionsCollection name = "projectForm" property = "listPhase" label = "phaseName" value = "phase" />
 									</html:select>
 								</div>
 							</td>
@@ -82,9 +77,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<html:text property="addProject.organizationCode"
+									<html:text property="pBean.organizationName"
 											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
-									<button class="btn-search" id="organization"></button>
+									<button type="button" class="btn-search" id="organization"></button>
 								</div>
 
 							</td>
@@ -94,7 +89,7 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text" id="datepicker-begin">
-									<html:text property="addProject.startDate"
+									<html:text property="pBean.startDate"
 											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
@@ -105,7 +100,7 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text " id="datepicker-end">
-									<html:text property="addProject.endDate"
+									<html:text property="pBean.endDate"
 											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
@@ -116,9 +111,8 @@
 								<button id="save-btn" onclick="" class="success">Save</button>
 								<button id="cancel-btn" onclick="javascript:button('cancel');">Cancel</button>
 							</td>
-							
-							<html:hidden property="task" styleId="task" name="projectForm" />
 						</tr>
+						<html:hidden property="task" styleId="task" name="projectForm" />
 					</tbody>
 				</table>
 			</div>
@@ -126,7 +120,5 @@
 	</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_organization" class="hide"><jsp:include
-			page="/lookup/_organization.jsp" /></div>	
 </body>
 </html>
