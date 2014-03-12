@@ -36,11 +36,8 @@
 						$("#phoneNumber").attr("placeholder", "Phone Number");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
 						$("#email").attr("placeholder", "Email");
-						$("#lookUpOrganization")
-								.load(
-										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-						$("#lookUpActiveDirectory").load(
-								"/ProjectTaps/ajax.do?mode=ad&task=ad");
+						$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+						$("#lookUpActiveDirectory").load("/ProjectTaps/ajax.do?mode=ad&task=ad");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
