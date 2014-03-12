@@ -18,6 +18,7 @@
 <script src="<%=request.getContextPath()%>/js/highchart/highcharts.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/data.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/exporting.js"></script>
+<script src="<%=request.getContextPath()%>/js/highchart/jspdf.min.js"></script>
 
 <script type="text/javascript">
 	function button(task) {
@@ -25,6 +26,20 @@
 		document.reportForm.submit();
 	}
 	$(function() {
+		var specialElementHandlers = {
+			'#editor' : function(element, renderer) {
+				return true;
+			}
+		};
+		$('#cmd').click(function() {
+			var doc = new jsPDF();
+			doc.fromHTML($('#print').html(), 10, 10, {
+				'width' : 1024,
+				'height' : 640,
+				'elementHandlers' : specialElementHandlers
+			});
+			doc.save('coba.pdf');
+		});
 		$('#graph')
 				.highcharts(
 						{
@@ -139,7 +154,9 @@
 							</tbody>
 						</table>
 					</div>
-					<table id="datatableshow" class="table striped bordered hovered">
+					<button type="button" id="cmd">generate PDF</button>
+					<div id="print">
+						<table id="datatableshow" class="table striped bordered hovered">
 							<thead>
 								<tr>
 									<th></th>
@@ -208,7 +225,7 @@
 								</tr>
 							</tbody>
 						</table>
-
+					</div>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
