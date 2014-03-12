@@ -91,7 +91,7 @@
 								<td class="text-center"><a href="javascript:flyToPage('member','<bean:write name="project" property="projectCode" />');"
 									data-hint="Project Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
-								<td class="text-center"><a href="javascript:button('edit')"
+								<td class="text-center"><a href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');"
 									data-hint="Edit Project" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 								<td class="text-center"><a href="javascript:confDel()"
@@ -102,7 +102,7 @@
 						</logic:notEmpty>
 						<logic:empty name="projectForm" property="listProject">
 							<tr>
-								<td class="text-center" colspan="7">No Project Available</td>
+								<td class="text-center" colspan="7">Project Not Available</td>
 							</tr>
 						</logic:empty>
 						<tr>
