@@ -15,16 +15,22 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.OrganizationManager;
+import adins.ace.taps.manager.ProjectManager;
 
 public class AjaxAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		EmployeeManager empMan = new EmployeeManager();
-
 		AjaxForm ajaxForm = (AjaxForm) form;
+
+		EmployeeManager empMan = new EmployeeManager();
+		OrganizationManager orgMan = new OrganizationManager();
+		AssignmentManager asgMan = new AssignmentManager();
+		ProjectManager prjMan = new ProjectManager();
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
@@ -51,24 +57,73 @@ public class AjaxAction extends Action {
 				ajaxForm.setPage(ajaxForm.getPage() + 1);
 			}
 		}
+		if ("search".equals(ajaxForm.getTask())) {
+			ajaxForm.setPage(1);
+		}
 
 		params.put("start", (ajaxForm.getPage() - 1) * 10 + 1);
 		params.put("end", (ajaxForm.getPage() * 10));
-		ajaxForm.setListEmployees(empMan.searchEmployees(params));
-		ajaxForm.setCountRecord(empMan.countEmployees(params));
-		ajaxForm.setTask("test");
+		params.put("category", ajaxForm.getSearchCategory());
+		params.put("keyword", ajaxForm.getSearchKeyword());
+
+		if ("employees".equals(ajaxForm.getMode())) {
+			ajaxForm.setListEmployees(empMan.searchEmployees(params));
+			ajaxForm.setCountRecord(empMan.countEmployees(params));
+		}
+		if ("employees2".equals(ajaxForm.getMode())) {
+			ajaxForm.setListEmployees2(empMan.searchEmployees(params));
+			ajaxForm.setCountRecord(empMan.countEmployees(params));
+		}
+		if ("organizations".equals(ajaxForm.getMode())) {
+			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
+			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
+		}
+		if ("assignments".equals(ajaxForm.getMode())) {
+
+		}
+		if ("projects".equals(ajaxForm.getMode())) {
+			ajaxForm.setListProject(prjMan.searchProject(params));
+		}
+		if ("ad".equals(ajaxForm.getMode())) {
+
+		}
+
 		if (ajaxForm.getCountRecord() % 10 == 0) {
 			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / 10));
 		} else {
 			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / 10)) + 1);
 		}
 
-		// System.out.println("test");
-		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		// String json = gson.toJson(ajaxForm);
-		// out.print(json);
+		if ("search".equalsIgnoreCase(ajaxForm.getTask())
+				|| "first".equalsIgnoreCase(ajaxForm.getTask())
+				|| "prev".equalsIgnoreCase(ajaxForm.getTask())
+				|| "next".equalsIgnoreCase(ajaxForm.getTask())
+				|| "last".equalsIgnoreCase(ajaxForm.getTask())) {
 
-		return mapping.findForward("employees");
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(ajaxForm);
+			out.print(json);
+			return null;
+		}
+
+		if ("employees".equals(ajaxForm.getTask())) {
+			return mapping.findForward("employees");
+		}
+		if ("employees2".equals(ajaxForm.getTask())) {
+			return mapping.findForward("employees2");
+		}
+		if ("organizations".equals(ajaxForm.getTask())) {
+			return mapping.findForward("organizations");
+		}
+		if ("assignments".equals(ajaxForm.getTask())) {
+			return mapping.findForward("assignments");
+		}
+		if ("projects".equals(ajaxForm.getTask())) {
+			return mapping.findForward("projects");
+		}
+		if ("ad".equals(ajaxForm.getTask())) {
+			return mapping.findForward("ad");
+		}
+		return null;
 	}
-
 }

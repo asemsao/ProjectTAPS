@@ -18,6 +18,8 @@ public class ProjectForm extends ActionForm
 	private String organizationName;
 	private String projectName;
 	private List listProject;
+	private List listPhase;
+	private ProjectBean pBean = new ProjectBean();
 	private AddProjectBean addProject = new AddProjectBean();
 	
 	public String getTask() {
@@ -75,6 +77,19 @@ public class ProjectForm extends ActionForm
 	public void setAddProject(AddProjectBean addProject) {
 		this.addProject = addProject;
 	}
+	public ProjectBean getpBean() {
+		return pBean;
+	}
+	public void setpBean(ProjectBean pBean) {
+		this.pBean = pBean;
+	}
+	public List getListPhase() {
+		return listPhase;
+	}
+	public void setListPhase(List listPhase) {
+		this.listPhase = listPhase;
+	}
+	
 	
 	
 }

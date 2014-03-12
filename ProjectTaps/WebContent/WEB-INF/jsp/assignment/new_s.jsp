@@ -10,9 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
-
 <title>New Self Assignment</title>
-
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.newSelfAssignmentForm.newTask.value = task;
@@ -20,20 +18,27 @@
 		document.newSelfAssignmentForm.activityType.value = getRadioValue("activity_type");
 		document.newSelfAssignmentForm.submit();
 	}
-	
-	function getRadioValue(theRadioGroup)
-	{
-	    var elements = document.getElementsByName(theRadioGroup);
-	    for (var i = 0, l = elements.length; i < l; i++)
-	    {
-	        if (elements[i].checked)
-	        {
-	            return elements[i].value;
-	        }
-	    }
-	}
-</script>
 
+	function getRadioValue(theRadioGroup) {
+		var elements = document.getElementsByName(theRadioGroup);
+		for ( var i = 0, l = elements.length; i < l; i++) {
+			if (elements[i].checked) {
+				return elements[i].value;
+			}
+		}
+	}
+	$(document)
+			.ready(
+					function() {
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees");
+						$("#lookUpEmployee2")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+					});
+</script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
@@ -64,8 +69,8 @@
 								<td>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span
-											class="check"></span> Business Unit
+											checked="checked" value="BU" /> <span class="check"></span>
+											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
@@ -79,14 +84,16 @@
 								<td>Assign By</td>
 								<td>:</td>
 								<td><div id="bu">
-										<bean:write property="selfAssignBean.organizationName" name="newSelfAssignmentForm"/>
-										 &nbsp;&nbsp; <b>Report to
-										</b> : <bean:write property="selfAssignBean.headUserName" name="newSelfAssignmentForm"/>
+										<bean:write property="selfAssignBean.organizationName"
+											name="newSelfAssignmentForm" />
+										&nbsp;&nbsp; <b>Report to </b> :
+										<bean:write property="selfAssignBean.headUserName"
+											name="newSelfAssignmentForm" />
 									</div>
 									<div class="pr">
 										<div class="input-control text">
 											<html:text property="selfAssignBean.projectCode"
-											name="newSelfAssignmentForm"></html:text>
+												name="newSelfAssignmentForm"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -96,8 +103,10 @@
 								<td><div class="pr">:</div></td>
 								<td><div class="pr">
 										<div class="input-control text">
-											<html:text property="selfAssignBean.reportTo"
-											name="newSelfAssignmentForm"></html:text>
+											<html:hidden property="selfAssignBean.reportTo"
+												name="newSelfAssignmentForm" styleId="employee-domain"></html:hidden>
+											<input type="text" placeholder="Employee" id="employee-name"
+												readonly="readonly" />
 											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div></td>
@@ -129,9 +138,11 @@
 								<td><div class="adhoc">:</div></td>
 								<td><div class="adhoc">
 										<div class="input-control text">
-											<html:text property="selfAssignBean.adhocUserDomain"
-											name="newSelfAssignmentForm"></html:text>
-											<button type="button" class="btn-search" id="employee-2"></button>
+											<html:hidden property="selfAssignBean.adhocUserDomain"
+												name="newSelfAssignmentForm" styleId="employee-domain-2"></html:hidden>
+											<input type="text" placeholder="Employee"
+												id="employee-name-2" readonly="readonly" />
+											<button type="button" class="btn-search" id="employee2"></button>
 										</div>
 									</div></td>
 							</tr>
@@ -209,7 +220,7 @@
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
 										name="newSelfAssignmentForm"
-										styleClass="input-control textarea"></html:textarea> </textarea></td>
+										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right"><html:button
@@ -229,14 +240,8 @@
 		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
 		<html:hidden property="activityType" name="newSelfAssignmentForm" />
 	</html:form>
+	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpEmployee2" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide"><jsp:include
-			page="/lookup/_employee.jsp" /></div>
-	<div id="popup_employee-2" class="hide">
-		<jsp:include page="/lookup/_employee.jsp" /></div>
-	<div id="popup_project" class="hide">
-		<jsp:include page="/lookup/_project.jsp" /></div>
-	<div id="popup_task" class="hide">
-		<jsp:include page="/lookup/_task.jsp" /></div>
 </body>
 </html>

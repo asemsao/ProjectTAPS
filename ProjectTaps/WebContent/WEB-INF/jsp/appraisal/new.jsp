@@ -15,16 +15,17 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
-	$(document).ready(function() {
-		$("#lookUpEmployee").load("/ProjectTaps/ajax.do");
-	});
+	$(document).ready(
+			function() {
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
 	<html:form action="/specialAppraisal" method="post">
 		<div class="container container-taps">
 			<div class="grid">
@@ -49,7 +50,10 @@
 								<td class="size3">Appraisal To</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<input type="text" placeholder="Employee" readonly="readonly" />
+										<html:hidden property="appraisalBean.userDomain"
+											name="specialAppraisalForm" styleId="employee-domain" />
+										<input type="text" placeholder="Employee" id="employee-name"
+											readonly="readonly" />
 										<button class="btn-search" type="button" id="employee"></button>
 									</div></td>
 							</tr>
@@ -96,15 +100,8 @@
 		<html:hidden property="task" name="specialAppraisalForm" />
 	</html:form>
 
-	<div id="lookUpEmployee">
-		test
-	</div>
+	<div id="lookUpEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<%-- 	<div id="popup_employee" class="hide"><jsp:include --%>
-	<%-- 			page="/lookup/_employee.jsp" /></div> --%>
-
-
-
 </body>
 
 </html>

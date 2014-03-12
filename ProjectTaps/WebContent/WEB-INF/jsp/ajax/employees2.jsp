@@ -8,26 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AJAX EMPLOYEES</title>
+<title>AJAX EMPLOYEES 2</title>
 </head>
 
 <body class="metro">
 	<html:form action="/ajax" method="post">
-		<html:hidden property="task" styleId="task-employee" name="ajaxForm" />
-		<html:hidden property="mode" styleId="mode-employee" name="ajaxForm" />
-		<html:hidden property="page" styleId="page-employee" name="ajaxForm" />
-		<html:hidden property="maxpage" styleId="maxpage-employee"
+		<html:hidden property="task" styleId="task-employee-2" name="ajaxForm" />
+		<html:hidden property="mode" styleId="mode-employee-2" name="ajaxForm" />
+		<html:hidden property="page" styleId="page-employee-2" name="ajaxForm" />
+		<html:hidden property="maxpage" styleId="maxpage-employee-2"
 			name="ajaxForm" />
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
-					<th colspan=5 class="text-center">Employee List</th>
+					<th colspan=5 class="text-center">Employee List 2</th>
 				</tr>
 				<tr>
 					<th class="text-center" colspan=2>
 						<div class="input-control select">
 							<html:select property="searchCategory" name="ajaxForm"
-								styleClass="search-category-employee">
+								styleClass="search-category-employee-2">
 								<html:option value="All">All</html:option>
 								<html:option value="employeeDomain">Employee Domain</html:option>
 								<html:option value="employeeCode">Employee Code</html:option>
@@ -39,16 +39,16 @@
 					<th class="text-center" colspan=3>
 						<div class="input-control text">
 							<html:text property="searchKeyword" name="ajaxForm"
-								styleClass="search-keyword-employee"
-								onkeydown="if (event.keyCode == 13){ javascript:pagingEmployee('search'); return false;}"></html:text>
+								styleClass="search-keyword-employee-2"
+								onkeydown="if (event.keyCode == 13){ javascript:pagingEmployee2('search'); return false;}"></html:text>
 							<button type="button" class="btn-search"
-								onclick="javascript:pagingEmployee('search');"></button>
+								onclick="javascript:pagingEmployee2('search');"></button>
 						</div>
 					</th>
 				</tr>
 			</thead>
 		</table>
-		<div id="table-ajax-employee">
+		<div id="table-ajax-employee-2">
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
@@ -60,9 +60,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<logic:notEmpty name="ajaxForm" property="listEmployees">
+					<logic:notEmpty name="ajaxForm" property="listEmployees2">
 						<logic:iterate id="employee" name="ajaxForm"
-							property="listEmployees">
+							property="listEmployees2">
 							<tr>
 								<td class="text-center"><input type='radio'
 									name='employee_choose'
@@ -79,7 +79,7 @@
 							</tr>
 						</logic:iterate>
 					</logic:notEmpty>
-					<logic:empty name="ajaxForm" property="listEmployees">
+					<logic:empty name="ajaxForm" property="listEmployees2">
 						<tr>
 							<td class="text-center" colspan=5>Data not found</td>
 						</tr>
@@ -94,29 +94,29 @@
 						<div class="pagination">
 							<ul>
 								<li class="first"><a
-									onclick="javascript:pagingEmployee('first');"><i
+									onclick="javascript:pagingEmployee2('first');"><i
 										class="icon-first-2"></i></a></li>
 								<li class="prev"><a
-									onclick="javascript:pagingEmployee('prev');"><i
+									onclick="javascript:pagingEmployee2('prev');"><i
 										class="icon-previous"></i></a></li>
 								<li class="disabled"><a>Page <span
-										id="current-page-employee"><bean:write name="ajaxForm"
-												property="page" /></span> of <span id="max-page-employee"><bean:write
+										id="current-page-employee-2"><bean:write name="ajaxForm"
+												property="page" /></span> of <span id="max-page-employee-2"><bean:write
 												name="ajaxForm" property="maxpage" /></span></a></li>
 								<li class="next"><a
-									onclick="javascript:pagingEmployee('next');"><i
+									onclick="javascript:pagingEmployee2('next');"><i
 										class="icon-next"></i></a></li>
 								<li class="last"><a
-									onclick="javascript:pagingEmployee('last');"><i
+									onclick="javascript:pagingEmployee2('last');"><i
 										class="icon-last-2"></i></a></li>
 								<li class="disabled"><a>Total Record <span
-										id="total-record-employee"><bean:write name="ajaxForm"
+										id="total-record-employee-2"><bean:write name="ajaxForm"
 												property="countRecord" /></span></a></li>
 							</ul>
 						</div>
 					</th>
 					<th class="text-center"><button type="button"
-							class='button success' onclick="javascript:chooseEmployee()">Add</button></th>
+							class='button success' onclick="javascript:chooseEmployee2()">Add</button></th>
 				</tr>
 			</thead>
 		</table>

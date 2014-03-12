@@ -19,7 +19,7 @@
 	}
 </script>
 
-<title>Edit Project</title>
+<title>Edit Project</title> 
 </head>
 
 <body class="metro">
@@ -41,21 +41,24 @@
 							<td>Project Code</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Code" />
+									<html:text property="pBean.projectCode"
+											name="projectForm" styleId="projectCode"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Project Name</td>
 							<td>:</td>
 							<td><div class="input-control text ">
-									<input type="text" placeholder="Project Name" />
+									<html:text property="pBean.projectName"
+											name="projectForm" styleId="projectName"></html:text>
 								</div></td>
 						</tr>
 						<tr>
 							<td>Client</td>
 							<td>:</td>
 							<td><div class="input-control text">
-									<input type="text" placeholder="Client" />
+									<html:text property="pBean.client"
+											name="projectForm" styleId="client"></html:text>
 								</div></td>
 						</tr>
 						<tr>
@@ -63,14 +66,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control select">
-									<select>
-										<option value="">Phase</option>
-										<option value="requirement">Requirement</option>
-										<option value="development">Development</option>
-										<option value="UAT">UAT</option>
-										<option value="live">Live</option>
-										<option value="close">Closed</option>
-									</select>
+									<html:select property="pBean.phase" name="projectForm">
+										<html:optionsCollection name = "projectForm" property = "listPhase" label = "phaseName" value = "phase" />
+									</html:select>
 								</div>
 							</td>
 						</tr>
@@ -79,9 +77,9 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<input type="text" placeholder="Business Unit"
-										readonly="readonly" />
-									<button class="btn-search" id="organization"></button>
+									<html:text property="pBean.organizationName"
+											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
+									<button type="button" class="btn-search" id="organization"></button>
 								</div>
 
 							</td>
@@ -91,7 +89,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text" id="datepicker-begin">
-									<input type="text">
+									<html:text property="pBean.startDate"
+											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
 							</td>
@@ -101,7 +100,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text " id="datepicker-end">
-									<input type="text">
+									<html:text property="pBean.endDate"
+											name="projectForm"></html:text>
 									<button class="btn-date"></button>
 								</div>
 							</td>
@@ -111,9 +111,8 @@
 								<button id="save-btn" onclick="" class="success">Save</button>
 								<button id="cancel-btn" onclick="javascript:button('cancel');">Cancel</button>
 							</td>
-							
-							<html:hidden property="task" styleId="task" name="projectForm" />
 						</tr>
+						<html:hidden property="task" styleId="task" name="projectForm" />
 					</tbody>
 				</table>
 			</div>
@@ -121,7 +120,5 @@
 	</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_organization" class="hide"><jsp:include
-			page="/lookup/_organization.jsp" /></div>	
 </body>
 </html>

@@ -52,7 +52,7 @@
 							<img src="<%=request.getContextPath()%>/images/ava.jpg" />Wirya
 							Jaya
 						</button></li>
-					<li><a title="Logout" href="#" class="element"><span
+					<li><a title="Logout" href="javascript:menu('logout');" class="element"><span
 							class="icon-exit"></span> Sign out</a></li>
 				</ul>
 

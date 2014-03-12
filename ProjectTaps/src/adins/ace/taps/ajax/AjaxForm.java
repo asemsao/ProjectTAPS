@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.organization.OrganizationBean;
+import adins.ace.taps.bean.project.ProjectBean;
 
 public class AjaxForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
@@ -15,11 +18,11 @@ public class AjaxForm extends ActionForm {
 	private Integer maxpage;
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
-
-	// private List<OrganizationBean> listOrganizations;
-	// private Integer pageEmployee;
-	// private Integer maxpageEmployee;
-	// private Integer countRecordEmployee;
+	private List<EmployeeBean> listEmployees2;
+	private List<OrganizationBean> listOrganizations;
+	private List<EmployeeReportBean> listEmployeeReport;
+	private List<ProjectBean> listProject;
+	private String mode;
 
 	public String getTask() {
 		return task;
@@ -79,6 +82,47 @@ public class AjaxForm extends ActionForm {
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public List<OrganizationBean> getListOrganizations() {
+		return listOrganizations;
+	}
+
+	public void setListOrganizations(List<OrganizationBean> listOrganizations) {
+		this.listOrganizations = listOrganizations;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public List<EmployeeReportBean> getListEmployeeReport() {
+		return listEmployeeReport;
+	}
+
+	public void setListEmployeeReport(
+			List<EmployeeReportBean> listEmployeeReport) {
+		this.listEmployeeReport = listEmployeeReport;
+	}
+
+	public List<ProjectBean> getListProject() {
+		return listProject;
+	}
+
+	public void setListProject(List<ProjectBean> listProject) {
+		this.listProject = listProject;
+	}
+
+	public List<EmployeeBean> getListEmployees2() {
+		return listEmployees2;
+	}
+
+	public void setListEmployees2(List<EmployeeBean> listEmployees2) {
+		this.listEmployees2 = listEmployees2;
 	}
 
 }

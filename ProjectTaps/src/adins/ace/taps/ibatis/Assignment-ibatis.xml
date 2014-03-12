@@ -271,4 +271,35 @@
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain
 	</select>
+	
+	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
+		SELECT a.task_code AS taskCode,
+			a.assignment_due_date AS assignmentDueDate, 
+            a.assignment_date AS assignmentDate, 
+            a.assignment_type AS assignmentType,
+            e.first_name || ' ' || e.last_name AS fullName,
+            a.report_to AS reportTo,
+            a.created_by AS createdBy, 
+            o.organization_name AS organizationName,
+            spv.first_name || ' ' || spv.last_name AS createdByName,
+            p.project_name AS projectName, 
+            a.reff_task_code AS reffTaskCode,
+            a.activity_type AS activityType,
+            a.description AS description
+        FROM assignments a, organizations o, employees e, employees spv, projects p  
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        AND e.organization_code = o.organization_code AND o.head_user_domain = spv.user_domain
+        AND a.project_code = p.project_code(+)
+	</select>
+	
+	<select id="searchDetailClaim" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
+		SELECT detail_id AS detailId,
+			created_date AS claimDate,
+			description AS detailDescription,
+			manhour AS manHours
+		FROM detail_assignment_claim
+		WHERE task_code = #taskCode#
+	</select>
+	
+	
 </sqlMap>

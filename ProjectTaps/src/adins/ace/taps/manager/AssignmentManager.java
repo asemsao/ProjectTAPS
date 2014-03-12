@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -260,7 +261,6 @@ public class AssignmentManager {
 			generateTaskCode = (String) ibatisSQLMap.queryForObject("assignment.getMaxTaskCode", paramTaskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed get max task code");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -283,7 +283,6 @@ public class AssignmentManager {
 			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordAssignment", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed get max task code");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -294,5 +293,43 @@ public class AssignmentManager {
 		}
 		System.out.println(assignmentBean.getTaskCode());
 		return assignmentBean;
-	}	
+	}
+	
+	public ClaimAssignmentBean searchRecordClaimAssignment(String taskCode) {
+		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
+		System.out.println(taskCode);
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordClaimAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return assignmentBean;
+	}
+	
+	public List searchListDetailClaim(String taskCode){
+		List listDetailClaim = new ArrayList();
+		
+		try {
+			ibatisSQLMap.startTransaction();
+			listDetailClaim = ibatisSQLMap.queryForList("assignment.searchDetailClaim", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return listDetailClaim;
+	}
 }
