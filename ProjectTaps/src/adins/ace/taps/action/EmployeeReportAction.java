@@ -50,10 +50,6 @@ public class EmployeeReportAction extends Action {
 			}
 		}
 		
-		params.put("start", (eForm.getPage() - 1) * 10 + 1);
-		params.put("end", (eForm.getPage() * 10));
-		System.out.println(params.get("start"));
-		System.out.println(params.get("end"));
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			System.out.println("masuk employee repooootttt");
 			if ("search".equals(eForm.getTask())) {
@@ -79,6 +75,10 @@ public class EmployeeReportAction extends Action {
 				return mapping.findForward("View");
 			}
 			
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			System.out.println(params.get("start"));
+			System.out.println(params.get("end"));
 			params.put("category", eForm.getCategory());
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
@@ -91,13 +91,12 @@ public class EmployeeReportAction extends Action {
 				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
 			System.out.println("max page dalam"+eForm.getMaxpage());
-			eForm.setListAssignment(eMan.searchAssignmentEmployee(params));
+			eForm.setListAssignment(eMan.searchEmployeeReportEmployee(params));
 			
 		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
 			
 			if ("search".equals(eForm.getTask())) {
-				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getCategory(), eForm.getKeyword(), eForm.getStartDate(), eForm.getEndDate()));
-				 return mapping.findForward("SearchAssignment");
+				eForm.setPage(1);
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				if("DRAFT".equals(eForm.getCurrentStatus())){
@@ -116,13 +115,28 @@ public class EmployeeReportAction extends Action {
 //				
 			}
 			
-			eForm.setListAssignment(eMan.getListAssignmentSupervisor(eForm.getPage()));
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			System.out.println(params.get("start"));
+			System.out.println(params.get("end"));
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
+			params.put("startDate", eForm.getStartDate());
+			params.put("endDate", eForm.getEndDate());
+			eForm.setCountRecord(eMan.countEmployeeReportSupervisor(params));
+			System.out.println(eForm.getCountRecord());
+			if (eForm.getCountRecord() % 10 == 0) {
+				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
+			} else {
+				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
+			}
+			System.out.println("max page dalam"+eForm.getMaxpage());
+			eForm.setListAssignment(eMan.searchEmployeeReportSupervisor(params));
 			
 		} else if ("assignment".equals(session.getAttribute("link"))) {
 			
 			if ("search".equals(eForm.getTask())) {
-				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getCategory(), eForm.getKeyword(), eForm.getStartDate(), eForm.getEndDate()));
-				return mapping.findForward("SearchAssignment");
+				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
 			} else if ("view".equals(eForm.getTask())){
@@ -143,7 +157,23 @@ public class EmployeeReportAction extends Action {
 				
 			}
 			 
-			eForm.setListAssignment(eMan.getListAssignment(eForm.getPage()));
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			System.out.println(params.get("start"));
+			System.out.println(params.get("end"));
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
+			params.put("startDate", eForm.getStartDate());
+			params.put("endDate", eForm.getEndDate());
+			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
+			System.out.println(eForm.getCountRecord());
+			if (eForm.getCountRecord() % 10 == 0) {
+				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
+			} else {
+				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
+			}
+			System.out.println("max page dalam"+eForm.getMaxpage());
+			eForm.setListAssignment(eMan.searchAssignmentSupervisor(params));
 		}		
 			
 		return mapping.findForward("ListAssignment");
