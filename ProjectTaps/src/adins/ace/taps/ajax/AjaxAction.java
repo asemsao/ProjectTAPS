@@ -2,6 +2,7 @@ package adins.ace.taps.ajax;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,12 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import adins.ace.taps.bean.module.ActiveDirectoryBean;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
 import adins.ace.taps.manager.ProjectManager;
+import adins.ace.taps.module.QueryActiveDirectory;
 
 public class AjaxAction extends Action {
 	@Override
@@ -31,6 +34,7 @@ public class AjaxAction extends Action {
 		OrganizationManager orgMan = new OrganizationManager();
 		AssignmentManager asgMan = new AssignmentManager();
 		ProjectManager prjMan = new ProjectManager();
+		QueryActiveDirectory queAD = new QueryActiveDirectory();
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
@@ -88,7 +92,13 @@ public class AjaxAction extends Action {
 			ajaxForm.setListProject(prjMan.searchProject(params));
 		}
 		if ("ad".equals(ajaxForm.getMode())) {
-
+			if(Integer.parseInt(params.get("end").toString())>queAD.queryAD().size()){
+				params.put("end", queAD.queryAD().size());
+			}
+			
+			List<ActiveDirectoryBean> listAD = queAD.queryAD().subList(Integer.parseInt(params.get("start").toString())-1, Integer.parseInt(params.get("end").toString())-1);
+			ajaxForm.setListAD(listAD);
+			ajaxForm.setCountRecord(queAD.queryAD().size());
 		}
 
 		if (ajaxForm.getCountRecord() % 10 == 0) {

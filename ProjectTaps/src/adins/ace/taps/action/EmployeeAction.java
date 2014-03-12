@@ -44,8 +44,6 @@ public class EmployeeAction extends Action {
 		}
 		else if("new".equals(mForm.getTask())){
 			//TESTING
-			QueryActiveDirectory que = new QueryActiveDirectory();
-			mForm.setListAD(que.queryAD());
 			return mapping.findForward("New");
 		}
 		else if("cancel".equals(mForm.getTask())){

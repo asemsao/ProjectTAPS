@@ -21,7 +21,6 @@ public class EmployeeForm extends ActionForm{
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
-	private List<ActiveDirectoryBean> listAD;
 	private List<EmployeeBean> listEmployees;
 	private List<NewEmployeeBean> editEmployees;
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
@@ -94,11 +93,5 @@ public class EmployeeForm extends ActionForm{
 	}
 	public void setEditEmployees(List<NewEmployeeBean> editEmployees) {
 		this.editEmployees = editEmployees;
-	}
-	public List<ActiveDirectoryBean> getListAD() {
-		return listAD;
-	}
-	public void setListAD(List<ActiveDirectoryBean> listAD) {
-		this.listAD = listAD;
 	}
 }
