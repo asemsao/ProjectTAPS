@@ -22,8 +22,16 @@ public class CorrectionAssignmentAction extends Action{
 		HttpSession session = request.getSession(true);
 		
 		String taskCode = (String) session.getAttribute("taskCode");
-		
-		if ("claim".equals(aForm.getTask())){
+		if ("assginment".equals(aForm.getTask())) {
+			aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
+			aForm.setHistoryComment(null);
+			aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+			return mapping.findForward("Correction");
+		}
+		else if("selfAssginment".equals(aForm.getTask())){
+			return mapping.findForward("SelfCorrection");
+		}
+		else if ("claim".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
 		else if ("RFA".equals(aForm.getTask())){
@@ -32,10 +40,7 @@ public class CorrectionAssignmentAction extends Action{
 		else if ("cancel".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
-		
-		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setHistoryComment(null);
-		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
-		return mapping.findForward("Correction");
+		System.out.println(aForm.getTask());
+		return mapping.findForward("Cancel");
 	}
 }
