@@ -68,7 +68,6 @@ public class OrganizationAction extends Action {
 
 		if ("search".equals(orgForm.getTask())
 				|| "search-lookup-organization".equals(orgForm.getTask())) {
-			System.out.println("search");
 			orgForm.setPage(1);
 		}
 
