@@ -66,7 +66,7 @@ public class EmployeeAction extends Action {
 			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
 			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
 			mForm.getNewEmployee().setProfilePicture(result);
-			//flag = mMan.updateEmployee(mForm.getNewEmployee());
+			flag = mMan.updateEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
 		
