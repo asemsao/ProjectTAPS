@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/selectize.css">
 <link rel="stylesheet" href="css/responsive-table.css">
-<link rel="stylesheet" href="css/rating.css">
-<link rel="stylesheet" href="css/timepickr.css">
 
 <script src="js/jquery/jquery-1.8.3.js"></script>
 <script src="js/jquery/jquery.min.js"></script>
@@ -22,6 +20,3 @@
 <!-- <script src="js/other/selectize.js"></script> -->
 <script src="js/other/no-document-ready-here.js"></script>
 <script src="js/other/responsive-table.js"></script>
-<script src="js/rating/jquery.barrating.js"></script>
-<script src="js/rating/rating.js"></script>
-<script src="js/timepickr/timepickr.js"></script>
