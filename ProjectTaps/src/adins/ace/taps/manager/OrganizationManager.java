@@ -114,7 +114,7 @@ public class OrganizationManager {
 		}
 		return orgBean;
 	}
-	
+
 	public void submitEdit(OrganizationBean orgBean) {
 		try {
 			ibatisSqlMap.startTransaction();
