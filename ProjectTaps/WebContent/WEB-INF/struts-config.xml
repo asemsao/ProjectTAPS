@@ -33,6 +33,7 @@
 			<forward name="projects" path="/WEB-INF/jsp/ajax/projects.jsp" />
 			<forward name="employees2" path="/WEB-INF/jsp/ajax/employees2.jsp" />
 			<forward name="ad" path="/WEB-INF/jsp/ajax/ad.jsp" />
+			<forward name="employeesOnProject" path="/WEB-INF/jsp/ajax/employeesOnProject.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
@@ -100,7 +101,8 @@
 			<forward name="DraftSupervisor" path="/newAssignment.do" />
 			<forward name="Claim" path="/claimAssignment.do" />
 			<forward name="ClaimSupervisor" path="/claimSupervisorAssignment.do" />
-			<forward name="CorrectionSupervisor" path="/correctionSupervisorAssignment.do?task=assginment" />
+			<forward name="CorrectionSupervisor"
+				path="/correctionSupervisorAssignment.do?task=assginment" />
 			<forward name="Correction" path="/correctionAssignment.do?task=assginment" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"

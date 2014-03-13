@@ -92,9 +92,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		e.FIRST_NAME||' '||e.LAST_NAME AS employeeName,
 		e.ADDRESS
 		AS
-		employeeAddress
+		employeeAddress,
+		ps.project_role AS projectRole
 		FROM EMPLOYEES e
-		JOIN PROJECT_STRUCTURES ps
+		JOIN
+		PROJECT_STRUCTURES ps
 		ON
 		e.user_domain = ps.assignee_user_domain
 		<dynamic prepend="WHERE">
@@ -130,7 +132,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
-	<select id="countEmployeesOnProject" resultClass="employeeBean"
+	<select id="countEmployeesOnProject" resultClass="int"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
