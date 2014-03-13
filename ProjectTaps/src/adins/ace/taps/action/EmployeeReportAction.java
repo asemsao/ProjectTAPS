@@ -44,7 +44,6 @@ public class EmployeeReportAction extends Action {
 			}
 		}
 		else if ("next".equals(eForm.getTask())) {
-			System.out.println(eForm.getMaxpage());
 			if (eForm.getPage() < eForm.getMaxpage()) {
 				eForm.setPage(eForm.getPage() + 1);
 			}
@@ -63,10 +62,11 @@ public class EmployeeReportAction extends Action {
 				else if("CLAIM".equals(eForm.getCurrentStatus())){
 					return mapping.findForward("Claim");
 				}
+				else if("CORRECTION".equals(eForm.getCurrentStatus())){
+					return mapping.findForward("Correction");
+				}			
 //				else if("RFA".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("RFA");
-//				} else if("CORRECTION".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("Correction");
 //				} else if("APPROVED".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("Approved");
 //				}
@@ -98,14 +98,15 @@ public class EmployeeReportAction extends Action {
 				else if("CLAIM".equals(eForm.getCurrentStatus())){
 					return mapping.findForward("ClaimSupervisor");
 				}
-//				else if("RFA".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("RFASupervisor");
-//				} else if("CORRECTION".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("CorrectionSupervisor");
-//				} else if("APPROVED".equals(eForm.getCurrentStatus())){
-//					return mapping.findForward("ApprovedSupervisor");
-//				}
-//				
+				else if("CORRECTION".equals(eForm.getCurrentStatus())){
+					System.out.println(eForm.getTaskType());
+					return mapping.findForward("Correction");
+				}			
+	//			else if("RFA".equals(eForm.getCurrentStatus())){
+	//				return mapping.findForward("RFA");
+	//			} else if("APPROVED".equals(eForm.getCurrentStatus())){
+	//				return mapping.findForward("Approved");
+	//			}
 			}
 			
 			params.put("start", (eForm.getPage() - 1) * 10 + 1);
