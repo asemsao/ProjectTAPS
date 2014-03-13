@@ -24,6 +24,7 @@ public class ClaimAssignmentAction extends Action{
 		String taskCode = (String) session.getAttribute("taskCode");
 		
 		if ("claim".equals(aForm.getTask())){
+			
 			return mapping.findForward("Cancel");
 		}
 		else if ("RFA".equals(aForm.getTask())){

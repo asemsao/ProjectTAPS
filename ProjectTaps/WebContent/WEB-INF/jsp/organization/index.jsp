@@ -19,8 +19,8 @@
 						color : 'white'
 					},
 					shadow : true,
-// 					height : "120px",
-// 					width : "360px",
+					// 					height : "120px",
+					// 					width : "360px",
 					position : 'top-right',
 					content : $("#messageCRUD").val()
 				});
@@ -28,6 +28,11 @@
 		}
 		$("#new").click(function() {
 			$("#task").val("new");
+			$("#CRUDForm").submit();
+		});
+		$(".sturctureOrganization").click(function() {
+			$("#task").val("structure");
+			$("#organizationCode").val($(this).attr('alt').trim());
 			$("#CRUDForm").submit();
 		});
 		$(".editOrganization").click(function() {
@@ -126,11 +131,12 @@
 										<td><bean:write name="organization"
 												property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
-										<td class="text-center"><a href="structure.jsp"
+										<td class="text-center"><a class="sturctureOrganization"
+											alt="<bean:write name='organization' property='organizationCode' />"
 											data-hint="Member Organization" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
+												src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
 										<td class="text-center"><a class='editOrganization'
-											alt="<bean:write name="organization" property="organizationCode" />"
+											alt="<bean:write name='organization' property='organizationCode' />"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a class="delete-link"

@@ -49,7 +49,7 @@
 								<td>:</td>
 								<td><div class="input-control text size3">
 										<html:text property="orgBean.organizationCode"
-											name="organizationForm" styleId="organizationCode"></html:text>
+											name="organizationForm" styleId="organizationCode" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
