@@ -108,17 +108,17 @@
 								<logic:iterate id="assignment" name="employeeReportForm"
 									property="listAssignment">
 									<tr>
-										<td><bean:write property="assignmentDate"
+										<td class="text-center"><bean:write property="assignmentDate"
 												name="assignment" /></td>
-										<td><bean:write property="assignmentCode"
+										<td class="text-center"><bean:write property="assignmentCode"
 												name="assignment" /></td>
-										<td><bean:write property="assignmentCategory"
+										<td class="text-center"><bean:write property="assignmentCategory"
 												name="assignment" /></td>
 										<td><bean:write property="fullName" name="assignment" /></td>
-										<td><bean:write property="assignmentDueDate"
+										<td class="text-center"><bean:write property="assignmentDueDate"
 												name="assignment" /></td>
-										<td><bean:write property="createdDate" name="assignment" /></td>
-										<td><a
+										<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
+										<td class="text-center"><a
 											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write
 													property="currentStatus" name="assignment" />' );"><bean:write
