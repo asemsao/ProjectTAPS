@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 import adins.ace.taps.ibatis.IbatisHelper;
@@ -22,7 +23,8 @@ public class OrganizationManager {
 		List<OrganizationBean> orgList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			orgList = ibatisSqlMap.queryForList("organization.searchOrganizations", params);
+			orgList = ibatisSqlMap.queryForList(
+					"organization.searchOrganizations", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -60,8 +62,10 @@ public class OrganizationManager {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("organization.insertOrganization", eBean);
 			ibatisSqlMap.commitTransaction();
+			System.out.println("success");
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("gagal");
 		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
@@ -70,12 +74,13 @@ public class OrganizationManager {
 			}
 		}
 	}
-	
+
 	public boolean deleteOrganization(String organizationCode) {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.delete("organization.deleteOrganization", organizationCode);
+			ibatisSqlMap.delete("organization.deleteOrganization",
+					organizationCode);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
@@ -90,5 +95,40 @@ public class OrganizationManager {
 			}
 		}
 		return flag;
+	}
+
+	public OrganizationBean getOrgCode(String organizationCode) {
+		OrganizationBean orgBean = new OrganizationBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			orgBean = (OrganizationBean) ibatisSqlMap.queryForObject(
+					"organization.getOrganizationCode", organizationCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return orgBean;
+	}
+
+	public void submitEdit(OrganizationBean orgBean) {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("organization.editOrganization", orgBean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

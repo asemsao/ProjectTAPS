@@ -51,6 +51,9 @@ public class ProjectAction extends Action {
 		if ("search".equals(pForm.getTask())) {
 			pForm.setPage(1);
 		}
+		if ("addProject".equals(pForm.getTask())) {
+			return mapping.findForward("AddProject");
+		}
 		if ("saveProject".equals(pForm.getTask())) {
 			pMan.addProject(pForm.getAddProject());
 		}
@@ -58,9 +61,7 @@ public class ProjectAction extends Action {
 			System.out.println("Cancel");
 		}
 
-		if ("new".equals(pForm.getTask())) {
-			return mapping.findForward("AddProject");
-		}
+		
 		if ("edit".equals(pForm.getTask())) {
 			pForm.setpBean(pMan.getProjectById(pForm.getParam()));
 			pForm.setListPhase(pMan.getPhase());
@@ -68,7 +69,9 @@ public class ProjectAction extends Action {
 		}
 		if ("updateProject".equals(pForm.getTask())) {
 			pMan.updateProject(pForm.getpBean());
+			//MASIH BELOM KELAR
 			pForm.setListProject(pMan.searchProject(params));
+			//SAMPE SINI
 			return mapping.findForward("ListProject");
 		}
 		if ("member".equals(pForm.getTask())) {

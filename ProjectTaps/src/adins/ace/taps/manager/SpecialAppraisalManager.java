@@ -18,7 +18,6 @@ public class SpecialAppraisalManager {
 	}
 
 	public SpecialAppraisalBean getUserDomain(String starId) {
-		List list = null;
 		SpecialAppraisalBean bean = new SpecialAppraisalBean();
 		try {
 			ibatisSqlMap.startTransaction();

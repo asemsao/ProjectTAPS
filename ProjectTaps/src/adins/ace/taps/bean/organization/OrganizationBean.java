@@ -10,12 +10,21 @@ public class OrganizationBean implements Serializable {
 	private String headDomain;
 	private Integer organizationLevel;
 	private String parentCode;
+	private String parentName;
 	private String flag;
 	private String createdBy;
 	private String createdDate;
 	private String updateBy;
 	private String updateDate;
 	private String sessionUserDomain;
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 
 	public String getOrganizationCode() {
 		return organizationCode;
