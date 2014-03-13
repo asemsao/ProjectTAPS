@@ -10,22 +10,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
 		SELECT
-		p.project_code AS
-		projectCode,
-		p.project_name AS projectName,
-		p.client AS client,
-		p.organization_code AS organizationCode,
-		ph.phase_name AS phase,
-		to_char(p.start_date,'DD-MM-YYYY') AS startDate,
-		to_char(p.end_date,'DD-MM-YYYY') AS endDate,
-		(TRUNC(SYSDATE) -
-		p.start_date) AS runningDay
-		FROM projects p, phases ph
+			p.project_code AS
+			projectCode,
+			p.project_name AS projectName,
+			p.client AS client,
+			p.organization_code AS organizationCode,
+			ph.phase_name AS phase,
+			to_char(p.start_date,'DD-MM-YYYY') AS startDate,
+			to_char(p.end_date,'DD-MM-YYYY') AS endDate,
+			(TRUNC(SYSDATE) - p.start_date) AS runningDay
+		FROM 
+			projects p, 
+			phases ph
 		WHERE
-		p.phase_id =
-		ph.phase_id AND LOWER(flag) = 'active'
-		)
-		a
+			p.phase_id = ph.phase_id AND LOWER(flag) = 'active'
+		ORDER BY 
+			p.start_date DESC
+		)a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
