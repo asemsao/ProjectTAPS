@@ -25,15 +25,21 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		o.organization_code AS organizationCode,
 		o.organization_name AS
 		organizationName,
+		o.head_user_domain AS headDomain,
 		e.first_name || ' ' || e.last_name AS headName,
 		o.parent_organization_code AS parentCode,
 		o.organization_level AS
-		organizationLevel
-		FROM organizations o
+		organizationLevel, r.organization_name as
+		parentName
+		FROM organizations
+		o
 		LEFT JOIN
 		employees e
 		ON
-		o.head_user_domain = e.user_domain where
+		o.head_user_domain = e.user_domain LEFT JOIN
+		organizations r
+		ON o.parent_organization_code = r.organization_code
+		where
 		o.organization_code=UPPER(#organizationCode#)
 	</select>
 
@@ -41,10 +47,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPDATE
 		organizations SET
 		organization_name = #organizationName#,
-		organization_level = #organizationLevel#,
+		head_user_domain = #headDomain#,
+		organization_level =
+		#organizationLevel#,
+		parent_organization_code = #parentCode#,
 		updated_by = 'domain100',
 		updated_date = SYSDATE
-		WHERE organization_code=UPPER(#organizationCode#)
+		WHERE
+		organization_code=UPPER(#organizationCode#)
 	</update>
 
 	<select id="countOrganizations" resultClass="int"
@@ -73,10 +83,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="all">(LOWER(o.organization_code)
-						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
-						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name) LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -103,13 +115,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		2,'-')
 		AS organizationCode,
 		o.organization_name AS organizationName,
-		e.first_name || ' ' || e.last_name AS headName
+		e.first_name || ' ' || e.last_name AS headName, r.organization_name as
+		parentName
 		FROM organizations o
 		LEFT
 		JOIN
 		employees e
-		ON o.head_user_domain =
+		ON o.head_user_domain
+		=
 		e.user_domain
+		LEFT JOIN
+		organizations r
+		ON o.parent_organization_code =
+		r.organization_code
 		WHERE
 		LOWER(o.flag) =
 		'active'
@@ -151,19 +169,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
-<!-- 	<update id="editOrganization" parameterClass="organizationBean"> -->
-<!-- 		UPDATE -->
-<!-- 		organizations SET -->
-<!-- 		organization_name = $organizationName$, -->
-<!-- 		head_user_domain = $headDomain$, -->
-<!-- 		organization_level = -->
-<!-- 		$organizationLevel$, -->
-<!-- 		parent_organization_code = $parentCode$, -->
-<!-- 		updated_by = #sessionUserDomain#, -->
-<!-- 		updated_date = SYSDATE -->
-<!-- 		WHERE -->
-<!-- 		organization_code = $organizationCode$ -->
-<!-- 	</update> -->
 
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE

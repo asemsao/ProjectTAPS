@@ -86,29 +86,26 @@
 											name="organizationForm" styleId="employee-domain" />
 										<html:text property="orgBean.headName" name="organizationForm"
 											styleId="employee-name" readonly="true"></html:text>
-										<button type="button" class="btn-search" id="organization"></button>
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
 							</tr>
-							
-								<tr>
+
+							<tr>
 								<td>Parent Organization</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
 											name="organizationForm" styleId="parent-organization-code" />
-										<html:text property="orgBean.headName" name="organizationForm"
-											styleId="employee-name" readonly="true"></html:text>
-										
-										<input type="text" placeholder="Parent Organization"
-											readonly="readonly" id="parent-organization-name" />
+										<html:text property="orgBean.parentName"
+											name="organizationForm" styleId="parent-organization-name"
+											readonly="true"></html:text>
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
 							</tr>
-							
+
 							<tr>
 								<td colspan="3" class="text-right"><html:button
 										property="save" onclick="javascript:flyToPage('saveEdit');"

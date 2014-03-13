@@ -54,6 +54,7 @@
 			<forward name="ListOrganization" path="/WEB-INF/jsp/organization/index.jsp" />
 			<forward name="Edit" path="/WEB-INF/jsp/organization/edit.jsp" />
 			<forward name="New" path="/WEB-INF/jsp/organization/new.jsp" />
+			<forward name="Structure" path="/WEB-INF/jsp/organization/structure.jsp" />
 		</action>
 		<action name="employeeForm" path="/employee" scope="request"
 			type="adins.ace.taps.action.EmployeeAction">

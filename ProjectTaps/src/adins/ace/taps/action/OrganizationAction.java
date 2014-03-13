@@ -33,6 +33,23 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
+		if ("new".equals(orgForm.getTask())) {
+			return mapping.findForward("New");
+		}
+		if ("edit".equals(orgForm.getTask())) {
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			return mapping.findForward("Edit");
+		}
+		if ("saveEdit".equals(orgForm.getTask())) {
+			System.out.println("Save Edit");
+			orgMan.submitEdit(orgForm.getOrgBean());
+
+		}
+		if ("cancel".equals(orgForm.getTask())) {
+			return mapping.findForward("ListEmployee");
+		}
+
 		if ("delete".equals(orgForm.getTask())) {
 			// tolong di validasi tree dan employee, di validasi di manager atau
 			// disini seterah
@@ -83,21 +100,6 @@ public class OrganizationAction extends Action {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
-		}
-
-		if ("new".equals(orgForm.getTask())) {
-			return mapping.findForward("New");
-		}
-		if ("edit".equals(orgForm.getTask())) {
-			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode().replaceAll("-", "")));
-			return mapping.findForward("Edit");
-		}
-		if ("saveEdit".equals(orgForm.getTask())) {
-			orgMan.submitEdit(orgForm.getOrgBean());
-			
-		}
-		if ("cancel".equals(orgForm.getTask())) {
-			return mapping.findForward("ListEmployee");
 		}
 
 		return mapping.findForward("ListOrganization");
