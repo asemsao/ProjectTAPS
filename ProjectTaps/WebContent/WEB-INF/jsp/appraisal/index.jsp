@@ -37,18 +37,38 @@
 						<tr>
 								<th colspan=4 class="text-center"><h3>Special
 										Appraisal</h3></th>
-							</tr>
-								<th>
-								Employee Name  :
+						</tr>
+						<tr>
+								<th colspan=2 class="text-center">Appraisal Date From</th>
+								<th colspan=3>
+									<div class="input-control text" id="datepicker-begin">
+										<html:text property="startDate" name="specialAppraisalForm" styleId="startDate"></html:text>
+										<button type="button" class="btn-date"></button>
+									</div>
 								</th>
-
+							
+						</tr>
+						<tr>
+								<th colspan=2 class="text-center">Appraisal Date To</th>
+								<th colspan=3>
+									<div class="input-control text" id="datepicker-begin">
+										<html:text property="endDate" name="specialAppraisalForm" styleId="endDate"></html:text>
+										<button type="button" class="btn-date"></button>
+									</div>
+								</th>
+							
+						</tr>
+						<tr>
+								<th colspan=2 class="text-center">Employee Name</th>
 								<th colspan=3>
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="specialAppraisalForm" styleId="searchKeyword"></html:text>
 										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
 									</div>
 								</th>
-							</tr>
+						</tr>
+							
+
 							
 							<tr>
 								<th class="text-center">Appraisal Date</th>

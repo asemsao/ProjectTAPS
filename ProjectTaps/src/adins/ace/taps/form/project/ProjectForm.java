@@ -9,102 +9,152 @@ import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
 
-public class ProjectForm extends ActionForm
-{
+public class ProjectForm extends ActionForm {
+	private static final long serialVersionUID = 1L;
 	private String task;
-	private String param;
-	private String param2;
-	private String value;
-	private String search;
+	private String paramProjectCode;
+	private String paramAssigneeUserDomain;
+	private String searchKeyword;
+	private String searchCategory;
 	private String organizationName;
 	private String projectName;
 	private String projectCode;
-	private List listProject;
+	private List<ProjectBean> listProject;
 	private List listPhase;
 	private ProjectBean pBean = new ProjectBean();
 	private AddProjectBean addProject = new AddProjectBean();
 	private AddStructureProjectBean addSProject = new AddStructureProjectBean();
+	private Integer page;
+	private Integer maxpage;
 	
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getMaxpage() {
+		return maxpage;
+	}
+
+	public void setMaxpage(Integer maxpage) {
+		this.maxpage = maxpage;
+	}
+
+	public Integer getCountRecord() {
+		return countRecord;
+	}
+
+	public void setCountRecord(Integer countRecord) {
+		this.countRecord = countRecord;
+	}
+
+	private Integer countRecord;
+
 	public String getTask() {
 		return task;
 	}
+
 	public void setTask(String task) {
 		this.task = task;
 	}
-	
-	public String getParam() {
-		return param;
+
+	public String getParamProjectCode() {
+		return paramProjectCode;
 	}
-	public void setParam(String param) {
-		this.param = param;
+
+	public void setParamProjectCode(String paramProjectCode) {
+		this.paramProjectCode = paramProjectCode;
 	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
-	public List getListProject() {
+
+	public List<ProjectBean> getListProject() {
 		return listProject;
 	}
-	public void setListProject(List listProject) {
+
+	public void setListProject(List<ProjectBean> listProject) {
 		this.listProject = listProject;
 	}
+
 	public String getOrganizationName() {
 		return organizationName;
 	}
+
 	public void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName;
 	}
+
 	public String getProjectName() {
 		return projectName;
 	}
+
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public String getParam2() {
-		return param2;
+
+	public String getParamAssigneeUserDomain() {
+		return paramAssigneeUserDomain;
 	}
-	public void setParam2(String param2) {
-		this.param2 = param2;
+
+	public void setParamAssigneeUserDomain(String paramAssigneeUserDomain) {
+		this.paramAssigneeUserDomain = paramAssigneeUserDomain;
 	}
+
 	public AddProjectBean getAddProject() {
 		return addProject;
 	}
+
 	public void setAddProject(AddProjectBean addProject) {
 		this.addProject = addProject;
 	}
+
 	public ProjectBean getpBean() {
 		return pBean;
 	}
+
 	public void setpBean(ProjectBean pBean) {
 		this.pBean = pBean;
 	}
+
 	public List getListPhase() {
 		return listPhase;
 	}
+
 	public void setListPhase(List listPhase) {
 		this.listPhase = listPhase;
 	}
+
 	public AddStructureProjectBean getAddSProject() {
 		return addSProject;
 	}
+
 	public void setAddSProject(AddStructureProjectBean addSProject) {
 		this.addSProject = addSProject;
 	}
+
 	public String getProjectCode() {
 		return projectCode;
 	}
+
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
 	}
-	
-	
-	
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSearchCategory() {
+		return searchCategory;
+	}
+
+	public void setSearchCategory(String searchCategory) {
+		this.searchCategory = searchCategory;
+	}
+
 }

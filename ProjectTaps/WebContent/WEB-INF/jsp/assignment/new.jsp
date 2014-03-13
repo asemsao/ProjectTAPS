@@ -26,16 +26,20 @@
 			}
 		}
 	}
-	
-	function checkRadioButtonValue(){
-		
+
+	function checkRadioButtonValue() {
+
 	}
-	
+
 	$(document).ready(
 			function() {
 				$("#lookUpEmployee").load(
 						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+				$("#lookUpProject").load(
+						"/ProjectTaps/ajax.do?mode=projects&task=projects");
 				$("#employee-name").val($("#employee-fullName").val());
+				$("#project-name").val($("#project-fullName").val());
+				$("#timepicker").timeselector();
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -72,6 +76,13 @@
 									</div></td>
 							</tr>
 							<tr>
+								<td>Assignment Time</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<input type="text" id="timepicker" value="00:00" readonly="readonly" />
+									</div></td>
+							</tr>
+							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td><div class="input-control radio margin10">
@@ -82,29 +93,29 @@
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											value="Project" /> <span class="check"></span> Project
+											value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div> <%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-									<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
-									<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-									<%-- 										name="newAssignmentForm" value="project">Project</html:radio> --%>
-								</td>
+									</div></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
-											<html:text property="assignmentBean.projectCode"
-												name="newAssignmentForm" readonly="readonly"></html:text>
+											<html:hidden property="assignmentBean.projectCode"
+												name="newAssignmentForm" styleId="project-code"></html:hidden>
+											<html:hidden property="assignmentBean.projectName"
+												name="newAssignmentForm" styleId="project-fullName"></html:hidden>
+											<input type="text" placeholder="Project" id="project-name"
+												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
- 											name="newAssignmentForm" styleId="employee-domain" /> 
- 										<html:hidden property="assignmentBean.assignToFullName"
- 											name="newAssignmentForm" styleId="employee-fullName" /> 
+											name="newAssignmentForm" styleId="employee-domain" />
+										<html:hidden property="assignmentBean.assignToFullName"
+											name="newAssignmentForm" styleId="employee-fullName" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
@@ -140,10 +151,12 @@
 			</div>
 		</div>
 		<html:hidden property="newTask" name="newAssignmentForm" />
-		<html:hidden property="assignmentType" name="newAssignmentForm" />
+		<html:hidden property="assignmentType" name="newAssignmentForm"
+			styleId="assignment-type" />
 	</html:form>
 
 	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>

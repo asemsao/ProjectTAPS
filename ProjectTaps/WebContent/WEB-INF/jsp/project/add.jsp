@@ -77,7 +77,7 @@
 								</td>
 							</tr>
 							<html:hidden property="task" name="projectForm" />
-							<html:hidden property="param" name="projectForm" />
+							<html:hidden property="paramProjectCode" name="projectForm" />
 
 						</tbody>
 					</table>

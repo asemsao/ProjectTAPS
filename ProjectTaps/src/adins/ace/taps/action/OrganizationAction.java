@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -23,7 +24,6 @@ public class OrganizationAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
-
 		OrganizationForm orgForm = (OrganizationForm) form;
 
 		PrintWriter out = response.getWriter();
@@ -33,15 +33,59 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
-		if ("delete".equals(orgForm.getTask())) {
-			// tolong di validasi tree dan employee, di validasi di manager atau
-			// disini seterah
-			orgForm.setPage(1);
-			if (orgMan.deleteOrganization(orgForm.getOrganizationCode())) {
-				orgForm.setMessage("Delete Organization Successfull!");
-			} else {
-				orgForm.setMessage("Delete Organization Failed!");
+		if ("structure".equals(orgForm.getTask())) {
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			orgForm.setListMemberOrganizations(orgMan.searchMemberOrganizations(params));
+			
+			return mapping.findForward("Structure");
+		}
+
+		if ("new".equals(orgForm.getTask())) {
+			return mapping.findForward("New");
+		}
+		if ("Save".equals(orgForm.getTask())) {
+			try {
+				orgMan.submitInsert(orgForm.getOrgBean());
+				orgForm.setMessage("Insert Organization Successfull!");
+			} catch (Exception e) {
+				orgForm.setMessage("Insert Organization Failed!");
 			}
+		}
+		if ("Save".equals(orgForm.getTask())) {
+			try {
+				orgMan.submitInsert(orgForm.getOrgBean());
+				orgForm.setMessage("Insert Organization Successfull!");
+			} catch (Exception e) {
+				orgForm.setMessage("Insert Organization Failed!");
+			}
+		}
+		if ("edit".equals(orgForm.getTask())) {
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			return mapping.findForward("Edit");
+		}
+		if ("saveEdit".equals(orgForm.getTask())) {
+			try {
+				orgMan.submitEdit(orgForm.getOrgBean());
+				orgForm.setMessage("Edit Organization Successfull!");
+			} catch (Exception e) {
+				orgForm.setMessage("Edit Organization Failed!");
+			}
+		}
+		if ("delete".equals(orgForm.getTask())) {
+			orgForm.setPage(1);
+			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode()
+					.replaceAll("-", "")) == 0) {
+				if (orgMan.countChildOrganizations(orgForm
+						.getOrganizationCode().replaceAll("-", "")) == 0) {
+					orgMan.deleteOrganization(orgForm.getOrganizationCode()
+							.replaceAll("-", ""));
+					orgForm.setMessage("Delete Organization Successfull!");
+				} else
+					orgForm.setMessage("Delete Organization Failed! has child");
+			} else
+				orgForm.setMessage("Delete Organization Failed! has member");
 		}
 		if ("Save".equals(orgForm.getTask())) {
 			System.out.println("insert");
@@ -66,8 +110,7 @@ public class OrganizationAction extends Action {
 			}
 		}
 
-		if ("search".equals(orgForm.getTask())
-				|| "search-lookup-organization".equals(orgForm.getTask())) {
+		if ("search".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
 
@@ -83,17 +126,6 @@ public class OrganizationAction extends Action {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
-		}
-
-		if ("new".equals(orgForm.getTask())) {
-			return mapping.findForward("New");
-		}
-		if ("edit".equals(orgForm.getTask())) {
-			System.out.println(orgForm.getOrganizationCode());
-			return mapping.findForward("Edit");
-		}
-		if ("cancel".equals(orgForm.getTask())) {
-			return mapping.findForward("ListEmployee");
 		}
 
 		return mapping.findForward("ListOrganization");

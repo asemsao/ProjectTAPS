@@ -33,6 +33,7 @@
 			<forward name="projects" path="/WEB-INF/jsp/ajax/projects.jsp" />
 			<forward name="employees2" path="/WEB-INF/jsp/ajax/employees2.jsp" />
 			<forward name="ad" path="/WEB-INF/jsp/ajax/ad.jsp" />
+			<forward name="employeesOnProject" path="/WEB-INF/jsp/ajax/employeesOnProject.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
@@ -54,6 +55,7 @@
 			<forward name="ListOrganization" path="/WEB-INF/jsp/organization/index.jsp" />
 			<forward name="Edit" path="/WEB-INF/jsp/organization/edit.jsp" />
 			<forward name="New" path="/WEB-INF/jsp/organization/new.jsp" />
+			<forward name="Structure" path="/WEB-INF/jsp/organization/structure.jsp" />
 		</action>
 		<action name="employeeForm" path="/employee" scope="request"
 			type="adins.ace.taps.action.EmployeeAction">
@@ -99,6 +101,9 @@
 			<forward name="DraftSupervisor" path="/newAssignment.do" />
 			<forward name="Claim" path="/claimAssignment.do" />
 			<forward name="ClaimSupervisor" path="/claimSupervisorAssignment.do" />
+			<forward name="CorrectionSupervisor"
+				path="/correctionSupervisorAssignment.do?task=assginment" />
+			<forward name="Correction" path="/correctionAssignment.do?task=assginment" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
@@ -114,6 +119,21 @@
 			scope="request" type="adins.ace.taps.action.ClaimAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
+		</action>
+		<action name="claimAssignmentForm" path="/claimSupervisorAssignment"
+			scope="request" type="adins.ace.taps.action.ClaimSupervisorAssignmentAction">
+			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
+		</action>
+		<action name="claimAssignmentForm" path="/correctionSupervisorAssignment"
+			scope="request" type="adins.ace.taps.action.CorrectionSupervisorAssignmentAction">
+			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
+		</action>
+		<action name="claimAssignmentForm" path="/correctionAssignment"
+			scope="request" type="adins.ace.taps.action.CorrectionAssignmentAction">
+			<forward name="Cancel" path="/employeeReport.do" />
+			<forward name="Correction" path="/WEB-INF/jsp/assignment/claim.jsp" />
 		</action>
 	</action-mappings>
 

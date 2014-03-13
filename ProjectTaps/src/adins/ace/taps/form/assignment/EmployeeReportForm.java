@@ -11,6 +11,7 @@ public class EmployeeReportForm extends ActionForm {
 	private List<EmployeeReportBean> listAssignment;
 	private String task;
 	private String taskCode;
+	private String taskType;
 	private String currentStatus;
 	private Integer page;
 	private Integer maxpage;
@@ -42,6 +43,14 @@ public class EmployeeReportForm extends ActionForm {
 
 	public void setTaskCode(String taskCode) {
 		this.taskCode = taskCode;
+	}
+	
+	public String getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(String taskType) {
+		this.taskType = taskType;
 	}
 
 	public String getCurrentStatus() {

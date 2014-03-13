@@ -22,6 +22,8 @@
 		$("#projectCode").attr("placeholder", "Project Code");
 		$("#projectName").attr("placeholder", "Project Name");
 		$("#client").attr("placeholder", "Client");
+		$("#startDate").attr("placeholder", "Start Date");
+		$("#endDate").attr("placeholder", "Finish Date");
 		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 	});
 </script>
@@ -102,7 +104,7 @@
 							<td>
 								<div class="input-control text" id="datepicker-begin">
 									<html:text property="addProject.startDate"
-											name="projectForm"></html:text>
+											name="projectForm" styleId = "startDate" readonly="true"></html:text>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
@@ -113,7 +115,7 @@
 							<td>
 								<div class="input-control text " id="datepicker-end">
 									<html:text property="addProject.endDate"
-											name="projectForm"></html:text>
+											name="projectForm" styleId = "endDate" readonly="true"></html:text>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>

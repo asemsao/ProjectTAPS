@@ -69,8 +69,7 @@ public class AjaxAction extends Action {
 		params.put("end", (ajaxForm.getPage() * 10));
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
-		System.out.println(params);
-		
+
 		if ("employees".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
@@ -78,6 +77,12 @@ public class AjaxAction extends Action {
 		if ("employees2".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployees2(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
+		}
+		if ("employeesOnProject".equals(ajaxForm.getMode())) {
+			params.put("paramProjectCode", "TAPS");
+			ajaxForm.setListEmployeesOnProject(empMan
+					.searchEmployeesOnProject(params));
+			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
 		}
 		if ("organizations".equals(ajaxForm.getMode())) {
 			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
@@ -90,13 +95,17 @@ public class AjaxAction extends Action {
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
 			ajaxForm.setListProject(prjMan.searchProject(params));
+			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
 		if ("ad".equals(ajaxForm.getMode())) {
-			if(Integer.parseInt(params.get("end").toString())>queAD.queryAD().size()){
+			if (Integer.parseInt(params.get("end").toString()) > queAD
+					.queryAD().size()) {
 				params.put("end", queAD.queryAD().size());
 			}
-			
-			List<ActiveDirectoryBean> listAD = queAD.queryAD().subList(Integer.parseInt(params.get("start").toString())-1, Integer.parseInt(params.get("end").toString())-1);
+
+			List<ActiveDirectoryBean> listAD = queAD.queryAD().subList(
+					Integer.parseInt(params.get("start").toString()) - 1,
+					Integer.parseInt(params.get("end").toString()) - 1);
 			ajaxForm.setListAD(listAD);
 			ajaxForm.setCountRecord(queAD.queryAD().size());
 		}
@@ -124,6 +133,9 @@ public class AjaxAction extends Action {
 		}
 		if ("employees2".equals(ajaxForm.getTask())) {
 			return mapping.findForward("employees2");
+		}
+		if ("employeesOnProject".equals(ajaxForm.getTask())) {
+			return mapping.findForward("employeesOnProject");
 		}
 		if ("organizations".equals(ajaxForm.getTask())) {
 			return mapping.findForward("organizations");

@@ -16,7 +16,11 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	$(document).ready(function() {
+		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Edit Project Member</title>
 </head>
 
@@ -34,6 +38,16 @@
 						</thead>
 						<tbody>
 							<tr>
+								<td>Assignee</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
+										<html:text property="addSProject.assigneeName" styleId="employee-name" readonly="true"></html:text>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<td>Role</td>
 								<td>:</td>
 								<td>
@@ -41,37 +55,26 @@
 										<html:text property="addSProject.projectRole" name="projectForm"></html:text>
 									</div>
 								</td>
-							</tr>
-							<tr>
-								<td>Assignee</td>
-								<td>:</td>
-								<td>
-									<div class="input-control text">
-										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
-										<input type="text" placeholder="Assign to" id="employee-name" readonly="readonly" />
-										<button class="btn-search" id="employee"></button>
-									</div>
-								</td>
-							</tr>
+							</tr>	
 							<tr>
 								<td>Direct Report</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addSProject.directreportUserDomain" name="projectForm" styleId="employee-domain-2"></html:hidden>
-										<input type="text" placeholder="Assign to" id="employee-name-2" readonly="readonly" />
-										<button class="btn-search" id="employee-2"></button>
+										<html:text property="addSProject.directreportName" styleId="employee-name-2" readonly="readonly"></html:text>
+										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="" class="button success">Save</button>
+									<button id="save-btn" onclick="javascript:button('updateMember')" class="button success">Save</button>
 									<button id="cancel-btn-2" onclick="javascript:button('back')">Cancel</button>
 								</td>
 							</tr>
 							<html:hidden property="task" name="projectForm" />
-							<html:hidden property="param" name="projectForm" />
+							<html:hidden property="paramProjectCode" name="projectForm" />
 							
 						</tbody>
 					</table>
@@ -80,10 +83,7 @@
 		</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_employee" class="hide"><jsp:include
-			page="/lookup/_employee.jsp" /></div>
-	<div id="popup_employee-2" class="hide">
-		<jsp:include page="/lookup/_employee.jsp" /></div>
+	<div id="lookUpEmployee2" class="hide"></div>
 </body>
 
 </html>

@@ -21,11 +21,9 @@ public class NewAssignmentAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
 		NewAssignmentForm aForm = (NewAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 
@@ -42,21 +40,19 @@ public class NewAssignmentAction extends Action {
 			} else {
 				aForm.getAssignmentBean().setAssignmentType(
 						aForm.getAssignmentType());
-	
+				
 				String paramCode = "";
-	
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getAssignmentBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("Project".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getAssignmentBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
+					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
 				}
-	
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
 				System.out.println(paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setReportTo("domain100");
-				aForm.getAssignmentBean().setCreateBy("domain100");
+				aForm.getAssignmentBean().setCreatedBy("domain100");
 	
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
