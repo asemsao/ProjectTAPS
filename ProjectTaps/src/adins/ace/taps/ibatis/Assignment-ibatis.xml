@@ -384,6 +384,7 @@
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
             a.adhoc_user_domain AS adhocUserDomain, 
+            a.current_status AS status,
             a.description AS description
         FROM assignments a, organizations o, employees e, employees mgr, projects p
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
@@ -428,6 +429,7 @@
             p.project_name AS projectName, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
+            a.current_status AS status,
             a.description AS description
         FROM assignments a, organizations o, employees e, employees spv, projects p  
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
@@ -454,7 +456,8 @@
             e2.first_name || ' ' || e2.last_name AS commentTo
         FROM assignment_comments c, employees e1, employees e2
         WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
-        AND e2.user_domain = c.comment_to;
+        AND e2.user_domain = c.comment_to
+        ORDER BY c.created_date
 	</select>
 	
 	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
