@@ -58,67 +58,67 @@ public class ProjectAction extends Action {
 			pMan.addProject(pForm.getAddProject());
 		}
 		if ("cancel".equals(pForm.getTask())) {
-			
+
 		}
 
-		
 		if ("edit".equals(pForm.getTask())) {
-			pForm.setpBean(pMan.getProjectById(pForm.getParam()));
+			pForm.setpBean(pMan.getProjectById(pForm.getParamProjectCode()));
 			pForm.setListPhase(pMan.getPhase());
 			return mapping.findForward("EditProject");
 		}
 		if ("updateProject".equals(pForm.getTask())) {
 			pMan.updateProject(pForm.getpBean());
-			pForm.setListProject(pMan.searchProject(params));	
+			pForm.setListProject(pMan.searchProject(params));
 		}
 		if ("member".equals(pForm.getTask())) {
-			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
 			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParam());
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
 		if ("addMember".equals(pForm.getTask())) {
 			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParam());
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("AddMember");
 		}
 		if ("saveMember".equals(pForm.getTask())) {
 
-			pForm.getAddSProject().setProjectCode(pForm.getParam());
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.addProjectMember(pForm.getAddSProject());
 
-			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
 			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParam());
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
 		if ("back".equals(pForm.getTask())) {
-			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
 			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParam());
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
 		if ("editMember".equals(pForm.getTask())) {
 			params = new HashMap();
-			params.put("param", pForm.getParam());
-			params.put("param2", pForm.getParam2());
+			params.put("paramProjectCode", pForm.getParamProjectCode());
+			params.put("paramAssigneeUserDomain",
+					pForm.getParamAssigneeUserDomain());
 			pForm.setAddSProject(pMan.getProjectMemberById(params));
 			return mapping.findForward("EditMember");
 		}
 		if ("updateMember".equals(pForm.getTask())) {
-			pForm.getAddSProject().setProjectCode(pForm.getParam());
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.updateMember(pForm.getAddSProject());
 
-			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
 			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParam());
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
