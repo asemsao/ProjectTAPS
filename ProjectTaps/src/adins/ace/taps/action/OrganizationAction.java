@@ -33,8 +33,20 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
+		if ("structure".equals(orgForm.getTask())) {
+			return mapping.findForward("Structure");
+		}
+		
 		if ("new".equals(orgForm.getTask())) {
 			return mapping.findForward("New");
+		}
+		if ("Save".equals(orgForm.getTask())) {
+			try {
+				orgMan.submitInsert(orgForm.getOrgBean());
+				orgForm.setMessage("Insert Organization Successfull!");
+			} catch (Exception e) {
+				orgForm.setMessage("Insert Organization Failed!");
+			}
 		}
 		if ("Save".equals(orgForm.getTask())) {
 			try{
@@ -61,11 +73,21 @@ public class OrganizationAction extends Action {
 			// tolong di validasi tree dan employee, di validasi di manager atau
 			// disini seterah
 			orgForm.setPage(1);
-			if (orgMan.deleteOrganization(orgForm.getOrganizationCode())) {
-				orgForm.setMessage("Delete Organization Successfull!");
-			} else {
-				orgForm.setMessage("Delete Organization Failed!");
+			System.out.println(" orgForm.getOrganizationCode() "+orgForm.getOrganizationCode().replaceAll("-", ""));
+			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode().replaceAll("-", ""))==0)
+			{
+				if (orgMan.countChildOrganizations(orgForm.getOrganizationCode().replaceAll("-", ""))==0)
+				{
+					orgMan.deleteOrganization(orgForm.getOrganizationCode().replaceAll("-", ""));
+					orgForm.setMessage("Delete Organization Successfull!");
+				}
+				else orgForm.setMessage("Delete Organization Failed! has child");
 			}
+			else orgForm.setMessage("Delete Organization Failed! has member");
+		}
+		if ("Save".equals(orgForm.getTask())) {
+			System.out.println("insert");
+			orgMan.submitInsert(orgForm.getOrgBean());
 		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);

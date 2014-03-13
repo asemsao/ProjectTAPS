@@ -78,7 +78,7 @@
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											value="Project" /> <span class="check"></span> Project
+											value="PROJECT" /> <span class="check"></span> Project
 										</label>
 									</div>
 								</td>

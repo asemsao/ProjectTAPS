@@ -56,6 +56,44 @@ public class OrganizationManager {
 		return count;
 	}
 
+	public Integer countChildOrganizations(String organization_code) {
+		Integer countChild = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			countChild = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countChildOrganizations", organization_code);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return countChild;
+	}
+
+	public Integer countMemberOrganizations(String organization_code) {
+		Integer countMember = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			countMember = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countMemberOrganizations", organization_code);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return countMember;
+	}
+
 	public void submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
 		try {
@@ -75,14 +113,65 @@ public class OrganizationManager {
 		}
 	}
 
-	public boolean deleteOrganization(String organizationCode) {
+	public boolean deleteOrganization(String organization_code) {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.delete("organization.deleteOrganization",
-					organizationCode);
+			ibatisSqlMap.update("organization.deleteOrganization",
+					organization_code);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
+			System.out.println("update berhasil " + organization_code);
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				flag = false;
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
+
+	public boolean checkChildOrganization(String organization_code) {
+		boolean flag = false;
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.checkChildOrganization", organization_code);
+			ibatisSqlMap.commitTransaction();
+			if (count > 0) {
+				flag = true;
+			}
+		} catch (SQLException e) {
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				flag = false;
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
+
+	public boolean checkMemberOrganization(String organization_code) {
+		boolean flag = false;
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.checkMemberOrganization", organization_code);
+			ibatisSqlMap.commitTransaction();
+			if (count > 0) {
+				flag = true;
+			}
 		} catch (SQLException e) {
 			flag = false;
 			e.printStackTrace();
@@ -131,4 +220,5 @@ public class OrganizationManager {
 			}
 		}
 	}
+
 }
