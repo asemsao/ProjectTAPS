@@ -100,6 +100,8 @@
 			<forward name="DraftSupervisor" path="/newAssignment.do" />
 			<forward name="Claim" path="/claimAssignment.do" />
 			<forward name="ClaimSupervisor" path="/claimSupervisorAssignment.do" />
+			<forward name="CorrectionSupervisor" path="/correctionSupervisorAssignment.do?task=assginment" />
+			<forward name="Correction" path="/correctionAssignment.do?task=assginment" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
@@ -120,6 +122,16 @@
 			scope="request" type="adins.ace.taps.action.ClaimSupervisorAssignmentAction">
 			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
 			<forward name="Cancel" path="/employeeReport.do" />
+		</action>
+		<action name="claimAssignmentForm" path="/correctionSupervisorAssignment"
+			scope="request" type="adins.ace.taps.action.CorrectionSupervisorAssignmentAction">
+			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
+		</action>
+		<action name="claimAssignmentForm" path="/correctionAssignment"
+			scope="request" type="adins.ace.taps.action.CorrectionAssignmentAction">
+			<forward name="Cancel" path="/employeeReport.do" />
+			<forward name="Correction" path="/WEB-INF/jsp/assignment/claim.jsp" />
 		</action>
 	</action-mappings>
 

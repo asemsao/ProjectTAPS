@@ -63,7 +63,12 @@ public class EmployeeReportAction extends Action {
 					return mapping.findForward("Claim");
 				}
 				else if("CORRECTION".equals(eForm.getCurrentStatus())){
-					return mapping.findForward("Correction");
+					session.setAttribute("status", eForm.getCurrentStatus());
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("Correction");
+					} else if("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("SelfAssignmentCorrection");
+					}
 				}			
 //				else if("RFA".equals(eForm.getCurrentStatus())){
 //					return mapping.findForward("RFA");
@@ -99,8 +104,12 @@ public class EmployeeReportAction extends Action {
 					return mapping.findForward("ClaimSupervisor");
 				}
 				else if("CORRECTION".equals(eForm.getCurrentStatus())){
-					System.out.println(eForm.getTaskType());
-					return mapping.findForward("Correction");
+					session.setAttribute("status", eForm.getCurrentStatus());
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("CorrectionSupervisor");
+					} else if("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
+					}					
 				}			
 	//			else if("RFA".equals(eForm.getCurrentStatus())){
 	//				return mapping.findForward("RFA");
