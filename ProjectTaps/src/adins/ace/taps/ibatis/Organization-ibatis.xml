@@ -26,7 +26,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		o.organization_name AS
 		organizationName,
 		o.head_user_domain AS headDomain,
-		e.first_name || ' ' || e.last_name AS headName,
+		e.first_name || ' '
+		|| e.last_name AS headName,
 		o.parent_organization_code AS parentCode,
 		o.organization_level AS
 		organizationLevel, r.organization_name as
@@ -36,9 +37,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		LEFT JOIN
 		employees e
 		ON
-		o.head_user_domain = e.user_domain LEFT JOIN
+		o.head_user_domain
+		= e.user_domain LEFT JOIN
 		organizations r
-		ON o.parent_organization_code = r.organization_code
+		ON o.parent_organization_code
+		= r.organization_code
 		where
 		o.organization_code=UPPER(#organizationCode#)
 	</select>
@@ -168,8 +171,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-
-
+	
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE
 		organizations SET
