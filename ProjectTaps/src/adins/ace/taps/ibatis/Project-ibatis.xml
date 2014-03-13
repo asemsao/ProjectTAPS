@@ -26,8 +26,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			p.organization_code AS organizationCode,
 			o.organization_name AS organizationName,
 			p.phase_id AS phase,
-			to_char(p.start_date,'DD-MON-YYYY') AS startDate,
-			to_char(p.end_date,'DD-MON-YYYY') AS endDate,
+			to_char(p.start_date,'DD/MM/YYYY') AS startDate,
+			to_char(p.end_date,'DD/MM/YYYY') AS endDate,
 			o.organization_name AS organizationName 
 		FROM projects p, organizations o
 		WHERE p.organization_code = o.organization_code AND p.project_code = #projectCode# 
@@ -109,21 +109,46 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			project_role,
 			assignee_user_domain,
 			directreport_user_domain,
-			flag)
+			flag,
+			created_by,
+			created_date)
 		VALUES 
 			(#projectCode#,
 			#projectRole#,
 			#assigneeUserDomain#,
 			#directreportUserDomain#,
-			'ACTIVE')
+			'ACTIVE',
+			'domain100',
+			sysdate)
 	</insert>
 	
 	<select id="getProjectMemberById"  resultClass="adins.ace.taps.bean.project.AddStructureProjectBean" parameterClass="java.util.Map">
 		SELECT
-			project_role AS projectRole,
-			assignee_user_domain AS assigneeUserDomain,
-			directreport_user_domain AS directreportUserDomain
-		FROM project_structures
-		WHERE assignee_user_domain = #param2# AND project_code = #param#
+			ps.project_role AS projectRole,
+			ps.assignee_user_domain AS assigneeUserDomain,
+			e.first_name ||' '|| e.last_name AS assigneeName,
+			ps.directreport_user_domain AS directreportUserDomain,
+			emp.first_name ||' '|| emp.last_name AS directreportName
+		FROM project_structures ps,employees e,employees emp
+		WHERE
+		 	e.user_domain = ps.assignee_user_domain
+	        AND emp.user_domain = ps.directreport_user_domain
+			AND ps.assignee_user_domain = #param2# 
+			AND ps.project_code = #param# 
 	</select>
+	
+	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		UPDATE project_structures
+		SET 
+			project_code = #projectCode#,
+			assignee_user_domain = #assigneeUserDomain#,
+			directreport_user_domain = #directreportUserDomain#,
+			project_role = #projectRole#,
+			updated_by = 'domain100',
+			updated_date = sysdate
+		WHERE  
+			project_code = #projectCode#
+			AND assignee_user_domain = #assigneeUserDomain# 
+	</update>
+	
 </sqlMap>

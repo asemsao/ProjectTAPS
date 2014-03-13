@@ -86,11 +86,20 @@ public class ProjectAction extends Action {
 		if ("editMember".equals(pForm.getTask())) {
 			params = new HashMap();
 			params.put("param", pForm.getParam());
-			System.out.println(pForm.getParam());
-			System.out.println(pForm.getParam2());
 			params.put("param2", pForm.getParam2());
 			pForm.setAddSProject(pMan.getProjectMemberById(params));
 			return mapping.findForward("EditMember");
+		}
+		if ("updateMember".equals(pForm.getTask())) {
+			pForm.getAddSProject().setProjectCode(pForm.getParam());
+			pMan.updateMember(pForm.getAddSProject());
+			
+			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			return mapping.findForward("ViewMember");
 		}
 
 		return mapping.findForward("ListProject");

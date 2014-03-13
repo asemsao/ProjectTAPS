@@ -166,4 +166,26 @@ public class ProjectManager {
 		}
 		return bean;
 	}
+	
+	public void updateMember(AddStructureProjectBean bean)
+	{	
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.updateMember", bean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
