@@ -22,7 +22,8 @@ public class ProjectManager {
 		List<ProjectBean> projectList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			projectList = ibatisSqlMap.queryForList("project.searchProject",params);
+			projectList = ibatisSqlMap.queryForList("project.searchProject",
+					params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -33,6 +34,25 @@ public class ProjectManager {
 			}
 		}
 		return projectList;
+	}
+
+	public Integer countProject(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"project.countProject", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 
 	public ProjectBean getProjectById(String prjtCode) {
@@ -87,52 +107,41 @@ public class ProjectManager {
 			}
 		}
 	}
-	
-	public List getPhase()
-	{
+
+	public List getPhase() {
 		List list = null;
-		try 
-		{
+		try {
 			ibatisSqlMap.startTransaction();
 			list = ibatisSqlMap.queryForList("project.getPhase", null);
 			ibatisSqlMap.commitTransaction();
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try 
-			{
+			try {
 				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return list;
 	}
-	
-	public void updateProject(ProjectBean bean)
-	{	
-		try
-		{
+
+	public void updateProject(ProjectBean bean) {
+		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateProject", bean);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-		finally 
-		{
-			try 
-			{
+		} finally {
+			try {
 				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public void addProjectMember(AddStructureProjectBean bean) {
 		try {
 			ibatisSqlMap.startTransaction();
@@ -149,12 +158,13 @@ public class ProjectManager {
 			}
 		}
 	}
-	
+
 	public AddStructureProjectBean getProjectMemberById(Map params) {
 		AddStructureProjectBean bean = new AddStructureProjectBean();
 		try {
 			ibatisSqlMap.startTransaction();
-			bean = (AddStructureProjectBean) ibatisSqlMap.queryForObject("project.getProjectMemberById", params);
+			bean = (AddStructureProjectBean) ibatisSqlMap.queryForObject(
+					"project.getProjectMemberById", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -165,5 +175,27 @@ public class ProjectManager {
 			}
 		}
 		return bean;
+	}
+	
+	public void updateMember(AddStructureProjectBean bean)
+	{	
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.updateMember", bean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
