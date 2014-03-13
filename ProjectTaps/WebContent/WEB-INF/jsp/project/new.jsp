@@ -104,7 +104,7 @@
 							<td>
 								<div class="input-control text" id="datepicker-begin">
 									<html:text property="addProject.startDate"
-											name="projectForm" styleId = "startDate"></html:text>
+											name="projectForm" styleId = "startDate" readonly="true"></html:text>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
@@ -115,7 +115,7 @@
 							<td>
 								<div class="input-control text " id="datepicker-end">
 									<html:text property="addProject.endDate"
-											name="projectForm" styleId = "endDate"></html:text>
+											name="projectForm" styleId = "endDate" readonly="true"></html:text>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
