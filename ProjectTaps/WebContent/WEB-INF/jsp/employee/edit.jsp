@@ -57,7 +57,7 @@
 								<td>:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.employeeDomain"
-											name="employeeForm" styleId="employeeDomain"></html:text>
+											name="employeeForm" styleId="employeeDomain" readonly="true"></html:text>
 									</div></td>
 								<td rowspan="6" class="text-center"><img
 									src="<%=request.getContextPath()%>/images/user.png"
@@ -124,9 +124,9 @@
 									<div class="input-control text ">
 										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<input type="hidden" id="organization-code" /> <input
-											type="text" placeholder="Organization" readonly="readonly"
-											id="organization-name" />
+										
+										<html:text property="newEmployee.businessUnit"
+											name="employeeForm" styleId="organization-name" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
