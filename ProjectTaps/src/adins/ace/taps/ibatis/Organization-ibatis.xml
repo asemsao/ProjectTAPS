@@ -194,7 +194,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT user_domain AS memberDomain,
 		employee_code AS memberCode, first_name || ' ' || last_name AS memberName
 		FROM employees
-		WHERE organization_code = #organization_code#
+		WHERE organization_code = #organization_code# AND user_domain != #head_domain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">

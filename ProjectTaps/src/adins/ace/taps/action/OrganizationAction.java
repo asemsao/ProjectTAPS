@@ -33,8 +33,6 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
-
-
 		if ("new".equals(orgForm.getTask())) {
 			return mapping.findForward("New");
 		}
@@ -107,8 +105,6 @@ public class OrganizationAction extends Action {
 		if ("search".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
-		
-
 
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
@@ -117,30 +113,34 @@ public class OrganizationAction extends Action {
 
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
-System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+orgForm.getTask());
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+				+ orgForm.getTask());
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 			params.put("end", (orgForm.getPage() * 10));
 			params.put("category", orgForm.getSearchCategory());
 			params.put("keyword", orgForm.getSearchKeyword());
-			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode().replaceAll("-", "")));
-			params.put("organization_code", orgForm.getOrganizationCode().replaceAll("-", ""));
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			params.put("organization_code", orgForm.getOrganizationCode()
+					.replaceAll("-", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
-			System.out.println("dsfdsafas "+orgForm.getOrgBean().getHeadDomain());
-			orgForm.setListMemberOrganizations(orgMan.searchMemberOrganizations(params));
-			System.out.println("size : "+orgForm.getListMemberOrganizations().size());
-			
+			System.out.println("dsfdsafas "
+					+ orgForm.getOrgBean().getHeadDomain());
+			orgForm.setListMemberOrganizations(orgMan
+					.searchMemberOrganizations(params));
+			System.out.println("size : "
+					+ orgForm.getListMemberOrganizations().size());
+
 			return mapping.findForward("Structure");
 		}
-		
+
 		if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
 		}
-		
-
 
 		return mapping.findForward("ListOrganization");
 	}
