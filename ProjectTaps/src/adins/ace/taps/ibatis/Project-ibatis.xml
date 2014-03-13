@@ -33,13 +33,55 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
-		SELECT
-		COUNT (1)
+		SELECT COUNT (1)
 		FROM
 		projects p, phases ph
 		WHERE
 		p.phase_id = ph.phase_id
 		AND LOWER(flag) = 'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="projectCode">
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectName">
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="client">
+						(LOWER(p.client)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="phase">
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="organization">
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+					</isEqual>
+					<isEqual property="category" compareValue="all">
+						(
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.client) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+						)
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 	</select>
 
 	<select id="getProjectById" resultClass="adins.ace.taps.bean.project.ProjectBean"
@@ -56,8 +98,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		phase,
 		to_char(p.start_date,'DD-MM-YYYY') AS startDate,
 		to_char(p.end_date,'DD-MM-YYYY') AS endDate,
-		o.organization_name AS organizationName
-		FROM projects p, organizations o
+		o.organization_name AS
+		organizationName FROM projects p, organizations o
 		WHERE
 		p.organization_code =
 		o.organization_code AND p.project_code =
@@ -140,55 +182,63 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		updated_date = sysdate
 		WHERE project_code = #projectCode#
 	</update>
-	
-	<insert id="addProjectMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean" >
-		INSERT INTO project_structures 
-			(project_code,
-			project_role,
-			assignee_user_domain,
-			directreport_user_domain,
-			flag,
-			created_by,
-			created_date)
-		VALUES 
-			(#projectCode#,
-			#projectRole#,
-			#assigneeUserDomain#,
-			#directreportUserDomain#,
-			'ACTIVE',
-			'domain100',
-			sysdate)
+	<insert id="addProjectMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		INSERT INTO
+		project_structures
+		(project_code,
+		project_role,
+		assignee_user_domain,
+		directreport_user_domain,
+		flag,
+		created_by,
+		created_date)
+		VALUES
+		(#projectCode#,
+		#projectRole#,
+		#assigneeUserDomain#,
+		#directreportUserDomain#,
+		'ACTIVE',
+		'domain100',
+		sysdate)
 
 	</insert>
 
 	<select id="getProjectMemberById" resultClass="adins.ace.taps.bean.project.AddStructureProjectBean"
 		parameterClass="java.util.Map">
-		SELECT
-			ps.project_role AS projectRole,
-			ps.assignee_user_domain AS assigneeUserDomain,
-			e.first_name ||' '|| e.last_name AS assigneeName,
-			ps.directreport_user_domain AS directreportUserDomain,
-			emp.first_name ||' '|| emp.last_name AS directreportName
-		FROM project_structures ps,employees e,employees emp
+		SELECT ps.project_role AS projectRole,
+		ps.assignee_user_domain AS assigneeUserDomain,
+		e.first_name ||' '||
+		e.last_name AS assigneeName,
+		ps.directreport_user_domain AS
+		directreportUserDomain,
+		emp.first_name ||' '|| emp.last_name AS
+		directreportName
+		FROM project_structures
+		ps,employees e,employees emp
 		WHERE
-		 	e.user_domain = ps.assignee_user_domain
-	        AND emp.user_domain = ps.directreport_user_domain
-			AND ps.assignee_user_domain = #param2# 
-			AND ps.project_code = #param# 
+		e.user_domain = ps.assignee_user_domain
+		AND emp.user_domain =
+		ps.directreport_user_domain
+		AND ps.assignee_user_domain = #param2#
+		AND
+		ps.project_code = #param#
 	</select>
-	
+
 	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
-		UPDATE project_structures
-		SET 
-			project_code = #projectCode#,
-			assignee_user_domain = #assigneeUserDomain#,
-			directreport_user_domain = #directreportUserDomain#,
-			project_role = #projectRole#,
-			updated_by = 'domain100',
-			updated_date = sysdate
-		WHERE  
-			project_code = #projectCode#
-			AND assignee_user_domain = #assigneeUserDomain# 
+		UPDATE
+		project_structures
+		SET
+		project_code = #projectCode#,
+		assignee_user_domain = #assigneeUserDomain#,
+		directreport_user_domain =
+		#directreportUserDomain#,
+		project_role = #projectRole#,
+		updated_by =
+		'domain100',
+		updated_date = sysdate
+		WHERE
+		project_code = #projectCode#
+		AND assignee_user_domain = #assigneeUserDomain#
 	</update>
-	
+
 </sqlMap>
