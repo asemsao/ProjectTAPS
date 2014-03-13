@@ -15,7 +15,18 @@ public class SpecialAppraisalForm extends ActionForm {
 	private String param;
 	private String searchCategory;
 	private String searchKeyword;
+	private String searchDate;
 	private SpecialAppraisalBean appraisalBean = new SpecialAppraisalBean();
+
+	
+	
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
+	}
 
 	public String getSearchCategory() {
 		return searchCategory;
