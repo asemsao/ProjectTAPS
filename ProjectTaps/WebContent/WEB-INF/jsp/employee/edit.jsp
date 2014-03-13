@@ -31,8 +31,10 @@
 		$("#phoneNumber").attr("placeholder", "Phone Number");
 		$("#mobileNumber").attr("placeholder", "Mobile Number");
 		$("#email").attr("placeholder", "Email");
+		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
 <title>Employee</title>
 </head>
@@ -120,8 +122,11 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:text property="newEmployee.businessUnit"
-											name="employeeForm" styleId="businessUnit" readonly="true"></html:text>
+										<html:hidden property="newEmployee.businessUnit"
+											name="employeeForm" styleId="organization-code"></html:hidden>
+										<input type="hidden" id="organization-code" /> <input
+											type="text" placeholder="Organization" readonly="readonly"
+											id="organization-name" />
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -206,9 +211,8 @@
 			</div>
 		</div>
 	</html:form>
+	<div id="lookUpOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
-	<div id="popup_organization" class="hide"><jsp:include
-			page="/lookup/_organization.jsp" /></div>
 </body>
 
 </html>

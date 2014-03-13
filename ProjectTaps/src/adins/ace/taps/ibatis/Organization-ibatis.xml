@@ -72,14 +72,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LOWER(e.last_name) LIKE LOWER
 						('%$keyword$%'))
 					</isEqual>
-					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
+					<isEqual property="category" compareValue="all">(LOWER(o.organization_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
-						LIKE LOWER
-						('%$keyword$%') OR LOWER(e.first_name)
-						LIKE LOWER ('%$keyword$%')
-						OR
-						LOWER(e.last_name) LIKE LOWER
-						('%$keyword$%')
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -141,7 +138,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 		START WITH
-		o.organization_code = 'MAN'
+		o.organization_level = 0
 		CONNECT
 		BY
 		PRIOR

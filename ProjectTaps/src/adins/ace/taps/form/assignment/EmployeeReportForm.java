@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.assignment.EmployeeReportBean;
+
 @SuppressWarnings("serial")
 public class EmployeeReportForm extends ActionForm {
-	private List listAssignment;
+	private List<EmployeeReportBean> listAssignment;
 	private String task;
 	private String taskCode;
 	private String currentStatus;
@@ -18,11 +20,11 @@ public class EmployeeReportForm extends ActionForm {
 	private String startDate;
 	private String endDate;
 
-	public List getListAssignment() {
+	public List<EmployeeReportBean> getListAssignment() {
 		return listAssignment;
 	}
 
-	public void setListAssignment(List listAssignment) {
+	public void setListAssignment(List<EmployeeReportBean> listAssignment) {
 		this.listAssignment = listAssignment;
 	}
 

@@ -24,6 +24,33 @@ public class NewAssignmentBean implements Serializable {
 	private String currentStatus = "";
 	private String createBy = "";
 	private String createDate = "";
+	private String updatedBy = "";
+	private String updatedDate = "";
+	private String assignToFullName = "";
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public String getAssignToFullName() {
+		return assignToFullName;
+	}
+
+	public void setAssignToFullName(String assignToFullName) {
+		this.assignToFullName = assignToFullName;
+	}
 
 	public String getTaskCode() {
 		return taskCode;
