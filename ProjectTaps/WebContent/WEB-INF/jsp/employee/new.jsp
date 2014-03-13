@@ -22,16 +22,13 @@
 			document.employeeForm.submit();
 		}
 	}
-	$(document)
-			.ready(
-					function() {
-						$(".employeeDomain").attr("placeholder",
-								"Employee Domain");
+	$(document).ready(function() {
+						$(".employeeDomain").attr("placeholder","Employee Domain");
 						$("#employeeCode").attr("placeholder", "Employee Code");
 						$("#employeeNik").attr("placeholder", "NIK");
 						$("#firstName").attr("placeholder", "First Name");
 						$("#lastName").attr("placeholder", "Last Name");
-						$("#businessUnit").attr("placeholder", "Business Unit");
+						$(".businessUnit").attr("placeholder", "Business Unit");
 						$("#employeeAddress").attr("placeholder", "Address");
 						$("#phoneNumber").attr("placeholder", "Phone Number");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
@@ -135,9 +132,7 @@
 									<div class="input-control text ">
 										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<input type="hidden" id="organization-code" /> <input
-											type="text" placeholder="Organization" readonly="readonly"
-											id="organization-name" />
+										<input type="text" readonly="readonly" id="organization-name" class="businessUnit"/>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>

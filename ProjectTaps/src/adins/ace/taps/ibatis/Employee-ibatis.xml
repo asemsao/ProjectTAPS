@@ -98,6 +98,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
+	
+	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
+		parameterClass="java.lang.String">
+		SELECT picture AS profilePicture from employees WHERE user_domain=#employeeDomain#
+	</select>
 
 	<select id="searchEmployeesOnProject" resultClass="employeeBean"
 		parameterClass="java.util.Map">
@@ -207,7 +212,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
-
 	<update id="saveEditEmployees" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		UPDATE employees
 		SET picture=#profilePicture#,
@@ -242,7 +246,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		where UPPER(user_domain) =
 		UPPER(#employeeDomain#)
 	</select>
-	<insert id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+	<insert id="insertEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
 		employees(picture, user_domain, employee_nik, employee_code,
 		first_name,

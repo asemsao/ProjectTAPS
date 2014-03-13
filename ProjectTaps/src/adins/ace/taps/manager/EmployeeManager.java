@@ -40,7 +40,7 @@ public class EmployeeManager {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("employee.addEmployee", newEmployee);
+			ibatisSqlMap.insert("employee.insertEmployee", newEmployee);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
@@ -71,6 +71,23 @@ public class EmployeeManager {
 			}
 		}
 		return empList;
+	}
+
+	public NewEmployeeBean getPhotoEmployees(String employeeDomain) {
+		NewEmployeeBean photo = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			photo = (NewEmployeeBean) ibatisSqlMap.queryForObject("employee.getPhotoEmployees", employeeDomain);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return photo;
 	}
 
 	public NewEmployeeBean getEditEmployees(Map params) {

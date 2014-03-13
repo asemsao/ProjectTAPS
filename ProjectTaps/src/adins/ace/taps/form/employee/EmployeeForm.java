@@ -7,7 +7,6 @@ import org.apache.struts.upload.FormFile;
 
 import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
-import adins.ace.taps.bean.module.ActiveDirectoryBean;
 
 @SuppressWarnings("serial")
 public class EmployeeForm extends ActionForm {
@@ -64,14 +63,6 @@ public class EmployeeForm extends ActionForm {
 		this.newEmployee = newEmployee;
 	}
 
-	public FormFile getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(FormFile profilePicture) {
-		this.profilePicture = profilePicture;
-	}
-
 	public Integer getPage() {
 		return page;
 	}
@@ -119,4 +110,13 @@ public class EmployeeForm extends ActionForm {
 	public void setProjectRole(String projectRole) {
 		this.projectRole = projectRole;
 	}
+
+	public FormFile getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(FormFile profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
 }

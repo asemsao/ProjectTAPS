@@ -49,14 +49,19 @@
 
 						$("#timepicker").timeselector();
 
-						$('#project-name').bind("change", function() {
-							var project_code = $("#project-code").val();
-							$("#lookUpEmployeeOnProject").html('');
-							$("#lookUpEmployeeOnProject")
-							.load(
-									"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-											+ project_code);
-						});
+						$('#project-name')
+								.bind(
+										"change",
+										function() {
+											var project_code = $(
+													"#project-code").val();
+											$("#lookUpEmployeeOnProject").html(
+													'');
+											$("#lookUpEmployeeOnProject")
+													.load(
+															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+																	+ project_code);
+										});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -122,6 +127,8 @@
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
 												name="newAssignmentForm" styleId="project-code"></html:hidden>
+											<html:hidden property="assignmentBean.projectName"
+												name="newAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>

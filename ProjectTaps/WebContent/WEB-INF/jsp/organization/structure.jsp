@@ -34,7 +34,7 @@
 			$("#CRUDForm").submit();
 		});
 		$("#search").click(function() {
-			$("#task").val("search");
+			$("#task").val("structure");
 			$("#CRUDForm").submit();
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
@@ -46,7 +46,7 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post">
+	<html:form action="/organization" method="post" styleId="CRUDForm">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -74,10 +74,10 @@
 										<div class="control-group">
 											<html:select property="searchCategory"
 												name="organizationForm">
-												<html:option value="all">All</html:option>
-												<html:option value="userDomain">Employee Domain</html:option>
-												<html:option value="employeeCode">Employee Code</html:option>
-												<html:option value="employeeName">Employee Name</html:option>
+												<html:option value="">All</html:option>
+												<html:option value="memberDomain">Employee Domain</html:option>
+												<html:option value="memberCode">Employee Code</html:option>
+												<html:option value="memberName">Employee Name</html:option>
 											</html:select>
 										</div>
 									</div>

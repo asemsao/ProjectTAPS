@@ -13,6 +13,7 @@ public class NewAssignmentBean implements Serializable {
 	private String organizationName = "";
 	private String headUserName = "";
 	private String projectCode = "";
+	private String projectName = "";
 	private String activityType = "";
 	private String manHours = "";
 	private String description = "";
@@ -29,6 +30,12 @@ public class NewAssignmentBean implements Serializable {
 	private String assignToFullName = "";
 	private String detailId = "";
 	
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 	public String getDetailId() {
 		return detailId;
 	}

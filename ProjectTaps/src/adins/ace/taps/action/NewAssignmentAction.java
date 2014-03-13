@@ -49,6 +49,7 @@ public class NewAssignmentAction extends Action {
 					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
+				System.out.println(paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setReportTo("domain100");
 				aForm.getAssignmentBean().setCreatedBy("domain100");

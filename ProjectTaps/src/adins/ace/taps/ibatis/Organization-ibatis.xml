@@ -186,31 +186,25 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
-
 	<select id="searchMemberOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
-		SELECT e.user_domain AS memberDomain,
-		e.employee_code AS memberCode, e.first_name || ' ' || e.last_name AS
-		memberName,e.organization_code AS organizationCode,
-		emp.first_name || ' ' || emp.last_name AS headName
-		FROM employees e, employees emp, organizations o
-		WHERE e.organization_code=o.organization_code and emp.user_domain =
-		o.head_user_domain and
-		<![CDATA[ e.user_domain = emp.user_domain]]> and o.organization_code = #organization_code#
-
+		SELECT user_domain AS memberDomain,
+		employee_code AS memberCode, first_name || ' ' || last_name AS memberName
+		FROM employees
+		WHERE organization_code = #organization_code# AND user_domain != #head_domain#
 		<dynamic prepend="AND">
-			<isNotNull property="searchValue">
-				<isNotEmpty property="searchValue">
-					<isEqual property="kategori" compareValue="1">UPPER(e.user_domain)
-						LIKE UPPER ('%$searchValue$%')</isEqual>
-					<isEqual property="kategori" compareValue="2">UPPER(e.employee_code)
-						LIKE UPPER ('%$searchValue$%')</isEqual>
-					<isEqual property="kategori" compareValue="3">
-						(UPPER(e.first_name) LIKE UPPER (
-						'%$searchValue$%') OR UPPER(e.last_name) LIKE UPPER ('%$searchValue$%'))
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="memberDomain">UPPER(user_domain)
+						LIKE UPPER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="memberCode">UPPER(employee_code)
+						LIKE UPPER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="memberName">
+						(UPPER(first_name) LIKE UPPER (
+						'%$keyword$%') OR UPPER(last_name) LIKE UPPER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -229,4 +223,24 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE organization_code =
 		#organization_code#
 	</delete>
+
+	<select id="checkChildOrganization" parameterClass="java.lang.String"
+		resultClass="int">
+		SELECT
+		COUNT(1)
+		FROM organizations
+		WHERE
+		parent_organization_code =
+		#organization_code#
+	</select>
+
+	<select id="checkMemberOrganization" parameterClass="java.lang.String"
+		resultClass="int">
+		SELECT
+		COUNT(1)
+		FROM employees
+		WHERE
+		organization_code =
+		#organization_code#
+	</select>
 </sqlMap>

@@ -1,5 +1,8 @@
 package adins.ace.taps.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,9 +27,22 @@ public class CorrectionAssignmentAction extends Action{
 		String taskCode = (String) session.getAttribute("taskCode");
 		
 		if ("claim".equals(aForm.getTask())){
+			aForm.getClaimBean().setStatus("CORRECTION");
+			if(!("".equals(aForm.getClaimBean().getComment()))){
+				aMan.addHistoryComment(aForm.getClaimBean());
+			}
 			return mapping.findForward("Cancel");
 		}
 		else if ("RFA".equals(aForm.getTask())){
+			aForm.getClaimBean().setStatus("RFA");
+			aMan.addHistoryComment(aForm.getClaimBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "RFA");
+			paramStatus.put("updatedBy","domain3");
+			paramStatus.put("taskCode",taskCode);
+			paramStatus.put("flag","INACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			System.out.println(success);
 			return mapping.findForward("Cancel");
 		}
 		else if ("cancel".equals(aForm.getTask())){

@@ -23,6 +23,8 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/claimAssignment" method="POST">
+		<html:hidden property="claimBean.status" name="claimAssignmentForm"
+			styleId="status" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -31,18 +33,19 @@
 							<tr>
 								<td colspan=4 class="text-center text-bold">
 									<h3>
-									<%
-										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%>
+										<%
+											if ("CORRECTION".equals(session.getAttribute("status"))) {
+										%>
 										Correction Assignment
-									<%
-										}else{
-									%>
+										<%
+											} else {
+										%>
 										View Assignment
-									<%
-										}
-									%>
-									</h3></td>
+										<%
+											}
+										%>
+									</h3>
+								</td>
 							</tr>
 						</thead>
 						<tbody>
@@ -114,15 +117,15 @@
 															<td class="text-center"><bean:write
 																	property="claimDate" name="assignment" /></td>
 															<%
-																if ("employeeReport"
-																			.equals(session.getAttribute("link"))) {
+																if ("employeeReport".equals(session
+																					.getAttribute("link"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<%
-																}else if("employeeReportSupervisor"
-																		.equals(session.getAttribute("link"))) {
+																} else if ("employeeReportSupervisor".equals(session
+																					.getAttribute("link"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -132,12 +135,12 @@
 															%>
 															<td class="text-center">
 																<div class="input-control select">
-																<%
-																	if ("employeeReport"
-																				.equals(session.getAttribute("link"))) {
-																%>
-																	<html:select property="manHours" name="assignment" >
-																	<html:option value="">00:00</html:option>
+																	<%
+																		if ("employeeReport".equals(session
+																							.getAttribute("link"))) {
+																	%>
+																	<html:select property="manHours" name="assignment">
+																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
 																		<html:option value="1.5">01:30</html:option>
@@ -187,12 +190,13 @@
 																		<html:option value="23.5">23:30</html:option>
 																		<html:option value="24">24:00</html:option>
 																	</html:select>
-																<%
-																	}else if("employeeReportSupervisor"
-																			.equals(session.getAttribute("link"))) {
-																%>
-																	<html:select property="manHours" name="assignment" disabled="true">
-																	<html:option value="">00:00</html:option>
+																	<%
+																		} else if ("employeeReportSupervisor".equals(session
+																							.getAttribute("link"))) {
+																	%>
+																	<html:select property="manHours" name="assignment"
+																		disabled="true">
+																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
 																		<html:option value="1.5">01:30</html:option>
@@ -242,10 +246,10 @@
 																		<html:option value="23.5">23:30</html:option>
 																		<html:option value="24">24:00</html:option>
 																	</html:select>
-																<%
-																	}
-																%>
-																		
+																	<%
+																		}
+																	%>
+
 																</div>
 															</td>
 														</tr>
@@ -263,8 +267,7 @@
 							</tr>
 							<tr>
 								<%
-									if ("employeeReport"
-												.equals(session.getAttribute("link"))) {
+									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -272,26 +275,35 @@
 										name="claimAssignmentForm" rows="3"
 										styleClass="input-control textarea"></html:textarea></td>
 								<%
-									} 
+									}
 								%>
 							</tr>
 							<tr>
 								<%
-									if ("employeeReport"
-												.equals(session.getAttribute("link"))) {
+									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-								<td colspan=4 class="text-right"><html:button
-										property="claim-btn" onclick="javascript:flyToPage('claim');"
-										styleClass="button success">Claim</html:button> <html:button
-										property="claimclose-btn"
+								<td colspan=4 class="text-right">
+									<%
+										if ("CORRECTION".equals(session.getAttribute("status"))) {
+									%> <html:button property="claim-btn"
+										onclick="javascript:flyToPage('correction');"
+										styleClass="button success">Claim</html:button> 
+									<%
+									 	} else {
+									 %> <html:button property="claim-btn"
+										onclick="javascript:flyToPage('claim');"
+										styleClass="button success">Claim</html:button> <%
+									 	}
+									 %> <html:button property="claimclose-btn"
 										onclick="javascript:flyToPage('RFA');"
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+										styleClass="button info">Cancel</html:button>
+								</td>
 								<%
-									} else if("employeeReportSupervisor"
-											.equals(session.getAttribute("link"))) {
+									} else if ("employeeReportSupervisor".equals(session
+												.getAttribute("link"))) {
 								%>
 								<td colspan=4 class="text-right"><html:button
 										property="cancel-btn"
@@ -309,7 +321,7 @@
 						<table class="table striped bordered hovered">
 							<thead>
 								<tr>
-									<th colspan=4 class="text-center text-bold">History
+									<th colspan=5 class="text-center text-bold">History
 										Comment</th>
 								</tr>
 							</thead>
