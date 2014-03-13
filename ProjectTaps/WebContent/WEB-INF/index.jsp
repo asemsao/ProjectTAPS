@@ -64,7 +64,7 @@
 </head>
 <body class="metro login-background">
 	<div class="panel-taps">
-		<br /> <br /> <img src="images/LOGO_Taps6.png" class="logo-taps" />
+		<br /> <br /> <img src="images/LOGO_PANJANG3_LOGIN.png" class="logo-taps" />
 		<h1 class="title-taps">Sign in to TAPS</h1>
 		<html:form action="/ACE" method="post">
 			<html:hidden property="task" name="loginForm" />

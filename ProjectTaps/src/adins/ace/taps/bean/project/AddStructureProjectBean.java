@@ -7,7 +7,9 @@ public class AddStructureProjectBean implements Serializable
 	private String projectCode;
 	private String projectRole;
 	private String assigneeUserDomain;
+	private String assigneeName;
 	private String directreportUserDomain;
+	private String directreportName;
 	private String flag;
 	public String getProjectCode() {
 		return projectCode;
@@ -39,6 +41,18 @@ public class AddStructureProjectBean implements Serializable
 	}
 	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+	public String getAssigneeName() {
+		return assigneeName;
+	}
+	public void setAssigneeName(String assigneeName) {
+		this.assigneeName = assigneeName;
+	}
+	public String getDirectreportName() {
+		return directreportName;
+	}
+	public void setDirectreportName(String directreportName) {
+		this.directreportName = directreportName;
 	}
 	
 	

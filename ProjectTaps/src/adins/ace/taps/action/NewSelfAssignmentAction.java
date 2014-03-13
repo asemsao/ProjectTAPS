@@ -24,16 +24,14 @@ public class NewSelfAssignmentAction extends Action {
 		NewSelfAssignmentForm aForm = (NewSelfAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 
-		
-
 		if (aForm.getNewTask() == null) {
 			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
+			System.out.println(session.getAttribute("taskCode"));
 			if (session.getAttribute("taskCode") != null) {
-				aForm.setSelfAssignBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment((String) session.getAttribute("taskCode")));
 			}
 			return mapping.findForward("NewSelfAssignment");
 		}
@@ -47,19 +45,16 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.getSelfAssignBean().setActivityType(aForm.getActivityType());
 	
 				String paramCode = "";
-	
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("Project".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getSelfAssignBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
 				}
-	
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
-	
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
 				aForm.getSelfAssignBean().setReportTo("domain100");
-				aForm.getSelfAssignBean().setCreateBy("domain3");
+				aForm.getSelfAssignBean().setCreatedBy("domain3");
 				aForm.getSelfAssignBean().setAssignTo("domain3");
 	
 				if ("save".equals(aForm.getNewTask())) {
@@ -70,16 +65,19 @@ public class NewSelfAssignmentAction extends Action {
 					aForm.getSelfAssignBean().setFlag("INACTIVE");
 				}
 	
-				boolean success = false;
+				boolean insertToAssignment = false;
+				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
-					success = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+//					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 				}
 				else {
-					success = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+					insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
 				}
 				
-				System.out.println(success);
+				System.out.println(insertToAssignment + " " + insertToDetailClaim);
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}

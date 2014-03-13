@@ -299,7 +299,7 @@
 		VALUES
 		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, 'ADHOC', #adhocUserDomain#, #assignTo#, #reportTo#, #flag#, #currentStatus#, 
-		#createBy#, SYSDATE)
+		#createdBy#, SYSDATE)
 	</insert>
 
 	<insert id="addSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
@@ -309,7 +309,7 @@
 		VALUES
 		(#taskCode#,#assignmentDate#, #assignmentDueDate#, #assignmentType#, 'SELF ASSIGNMENT', #organizationCode#, #projectCode#, 
 		#description#, #reffTaskCode#, #activityType#, #adhocUserDomain#, #assignTo#, #reportTo#, #flag#, #currentStatus#, 
-		#createBy#, SYSDATE)
+		#createdBy#, SYSDATE)
 	</insert>
 	
 	<select id="searchOrganizationCode" resultClass="java.lang.String" parameterClass="java.lang.String">
@@ -384,9 +384,32 @@
             a.activity_type AS activityType,
             a.adhoc_user_domain AS adhocUserDomain, 
             a.description AS description
-        FROM assignments a, organizations o, employees e, employees mgr 
+        FROM assignments a, organizations o, employees e, employees mgr
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
-        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain
+        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
+	</select>
+	
+	<select id="searchRecordSelfAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
+		SELECT a.task_code AS taskCode,
+            TO_CHAR(a.assignment_date,'DD/MM/YYYY') AS assignmentDate, 
+            TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
+            a.assignment_type AS assignmentType, 
+            a.assign_to AS assignTo,
+            e.first_name || ' ' || e.last_name AS assignToFullName,
+            a.report_to AS reportTo, 
+            o.organization_code AS organizationCode, 
+            o.organization_name AS organizationName,
+            mgr.first_name || ' ' || mgr.last_name AS headUserName,
+            a.project_code AS projectCode, 
+            a.reff_task_code AS reffTaskCode,
+            a.activity_type AS activityType,
+            a.adhoc_user_domain AS adhocUserDomain, 
+            a.description AS description,
+            d.manhour AS manHours
+        FROM assignments a, organizations o, employees e, employees mgr, detail_claim_assignments d
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
+        AND a.task_code = d.task_code
 	</select>
 	
 	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
@@ -416,17 +439,32 @@
 			manhour AS manHours
 		FROM detail_claim_assignments
 		WHERE task_code = #taskCode#
+		ORDER BY detail_id
 	</select>
 
 	<select id="searchHistoryComment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
-		SELECT history_id AS detailId,
-			TO_CHAR(created_date,'DD-MM-YYYY') AS commentDate,
-			comment AS assignmentComment,
-			status AS status,
-			e1.first_name || ' ' || e1.last_name AS commentFrom,
-			e2.first_name || ' ' || e2.last_name AS commentTo
-		FROM detail_assignment_claim d, employees e1, employees e2
-		WHERE task_code = #taskCode# AND e1.user_domain = d.created_by 
-		AND e2.user_domain = d.comment_to
+		SELECT history_id AS historyId,
+            TO_CHAR(c.created_date,'DD-MM-YYYY') AS commentDate,
+            c.comments AS assignmentComment,
+            c.status AS status,
+            e1.first_name || ' ' || e1.last_name AS commentFrom,
+            e2.first_name || ' ' || e2.last_name AS commentTo
+        FROM assignment_comments c, employees e1, employees e2
+        WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
+        AND e2.user_domain = c.comment_to;
 	</select>
+	
+	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		INSERT INTO detail_claim_assignments (detail_id,task_code,manhour,description,created_by,created_date) 
+		VALUES (SEQUENCE_CLAIMS.NEXTVAL,#taskCode#,#manHours#,#description#,#createdBy#,SYSDATE)
+	</insert>
+	
+	<update id="editClaimSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE detail_claim_assignments SET
+			manhour = #manHours#,
+			description = #description#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
 </sqlMap>

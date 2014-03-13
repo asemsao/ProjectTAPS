@@ -2,21 +2,6 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="SpecialAppraisal">
-	<select id="getAllSpecialAppraisal"
-		resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
-		SELECT to_char(s.created_date,'DD-MM-YYYY') AS
-        createdDate,s.user_domain as userDomain,
-        e.first_name||' '||e.last_name
-        AS employeeName,
-        SUM(s.star_after)-SUM(s.star_before) AS appraisalStar,
-        s.description as description, s.star_id AS starId
-        FROM stars s,
-        employees e
-        WHERE s.user_domain=e.user_domain
-        group by
-        s.created_date,s.user_domain,
-        e.first_name||' '||e.last_name, s.description, s.star_id ORDER BY s.star_id desc
-	</select>
 	
 	<select id="countSpecialAppraisal" resultClass="int" parameterClass="java.util.Map">
 		SELECT count(1)
@@ -39,9 +24,22 @@
 						</isNotEmpty>
 					</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+					<isNotNull property="startDate">
+						<isNotNull property="endDate">
+							<isNotEmpty property="startDate">
+								<isNotEmpty property="endDate">
+									(S.CREATED_DATE BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY'))
+								</isNotEmpty>
+							</isNotEmpty>
+						</isNotNull>
+					</isNotNull>
+		</dynamic>
+
 		group by
         s.created_date,s.user_domain,
         e.first_name||' '||e.last_name, s.description, s.star_id ORDER BY s.star_id desc)
+
         </select>
 
 	<select id="ViewSpecialAppraisal"
@@ -100,6 +98,17 @@
 								LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%'))
 							</isEqual>
 						</isNotEmpty>
+					</isNotNull>
+		</dynamic>
+				<dynamic prepend="AND">
+					<isNotNull property="startDate">
+						<isNotNull property="endDate">
+							<isNotEmpty property="startDate">
+								<isNotEmpty property="endDate">
+									(S.CREATED_DATE BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY'))
+								</isNotEmpty>
+							</isNotEmpty>
+						</isNotNull>
 					</isNotNull>
 		</dynamic>
 		group by

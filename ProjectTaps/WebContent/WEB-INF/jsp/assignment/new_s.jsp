@@ -159,7 +159,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Manhours</td>
+								<td>ManHours</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">
@@ -242,6 +242,7 @@
 		<html:hidden property="newTask" name="newSelfAssignmentForm" />
 		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
 		<html:hidden property="activityType" name="newSelfAssignmentForm" />
+		<html:hidden property="selfAssignBean.detailId" name="newSelfAssignmentForm"/>
 	</html:form>
 	
 	<div id="lookUpEmployee" class="hide"></div>

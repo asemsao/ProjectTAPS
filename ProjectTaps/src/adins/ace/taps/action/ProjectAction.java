@@ -25,20 +25,43 @@ public class ProjectAction extends Action {
 		ProjectManager pMan = new ProjectManager();
 		Map params = new HashMap();
 
-		pForm.setListProject(pMan.searchProject(params));
+		if (pForm.getPage() == null) {
+			pForm.setPage(1);
+		}
 
-		if ("new".equals(pForm.getTask())) {
+		if ("first".equals(pForm.getTask())) {
+			pForm.setPage(1);
+		}
+
+		if ("last".equals(pForm.getTask())) {
+			pForm.setPage(pForm.getMaxpage());
+		}
+
+		if ("prev".equals(pForm.getTask())) {
+			if (pForm.getPage() > 1) {
+				pForm.setPage(pForm.getPage() - 1);
+			}
+		}
+		if ("next".equals(pForm.getTask())) {
+			if (pForm.getPage() < pForm.getMaxpage()) {
+				pForm.setPage(pForm.getPage() + 1);
+			}
+		}
+
+		if ("search".equals(pForm.getTask())) {
+			pForm.setPage(1);
+		}
+		if ("addProject".equals(pForm.getTask())) {
 			return mapping.findForward("AddProject");
 		}
-
-		if("saveProject".equals(pForm.getTask())){
+		if ("saveProject".equals(pForm.getTask())) {
 			pMan.addProject(pForm.getAddProject());
-			pForm.setListProject(pMan.searchProject(params));	
-			return mapping.findForward("ListProject");
 		}
 		if ("cancel".equals(pForm.getTask())) {
-			return mapping.findForward("ListProject");
+			System.out.println("Cancel");
 		}
+
+		
 		if ("edit".equals(pForm.getTask())) {
 			pForm.setpBean(pMan.getProjectById(pForm.getParam()));
 			pForm.setListPhase(pMan.getPhase());
@@ -46,7 +69,9 @@ public class ProjectAction extends Action {
 		}
 		if ("updateProject".equals(pForm.getTask())) {
 			pMan.updateProject(pForm.getpBean());
+			//MASIH BELOM KELAR
 			pForm.setListProject(pMan.searchProject(params));
+			//SAMPE SINI
 			return mapping.findForward("ListProject");
 		}
 		if ("member".equals(pForm.getTask())) {
@@ -64,10 +89,10 @@ public class ProjectAction extends Action {
 			return mapping.findForward("AddMember");
 		}
 		if ("saveMember".equals(pForm.getTask())) {
-			
+
 			pForm.getAddSProject().setProjectCode(pForm.getParam());
 			pMan.addProjectMember(pForm.getAddSProject());
-			
+
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
 			ProjectBean pBean = new ProjectBean();
 			pBean = pMan.getProjectById(pForm.getParam());
@@ -86,11 +111,34 @@ public class ProjectAction extends Action {
 		if ("editMember".equals(pForm.getTask())) {
 			params = new HashMap();
 			params.put("param", pForm.getParam());
-			System.out.println(pForm.getParam());
-			System.out.println(pForm.getParam2());
 			params.put("param2", pForm.getParam2());
 			pForm.setAddSProject(pMan.getProjectMemberById(params));
 			return mapping.findForward("EditMember");
+		}
+		if ("updateMember".equals(pForm.getTask())) {
+			pForm.getAddSProject().setProjectCode(pForm.getParam());
+			pMan.updateMember(pForm.getAddSProject());
+
+			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParam());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			return mapping.findForward("ViewMember");
+		}
+
+		params.put("start", (pForm.getPage() - 1) * 10 + 1);
+		params.put("end", (pForm.getPage() * 10));
+		params.put("category", pForm.getSearchCategory());
+		params.put("keyword", pForm.getSearchKeyword());
+
+		pForm.setListProject(pMan.searchProject(params));
+		pForm.setCountRecord(pMan.countProject(params));
+
+		if (pForm.getCountRecord() % 10 == 0) {
+			pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+		} else {
+			pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 		}
 
 		return mapping.findForward("ListProject");
