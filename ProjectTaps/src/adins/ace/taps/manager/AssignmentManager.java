@@ -261,6 +261,25 @@ public class AssignmentManager {
 		System.out.println(assignmentBean.getTaskCode());
 		return assignmentBean;
 	}
+	
+	public NewAssignmentBean searchRecordSelfAssignment(String taskCode) {
+		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordSelfAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println(assignmentBean.getTaskCode());
+		return assignmentBean;
+	}
 
 	public ClaimAssignmentBean searchRecordClaimAssignment(String taskCode) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
@@ -362,7 +381,7 @@ public class AssignmentManager {
 		boolean success = false;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.update("assignment.editDetailClaim", bean);
+			ibatisSQLMap.update("assignment.editClaimSelfAssignment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to edit detail claim assignment");
