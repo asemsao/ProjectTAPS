@@ -34,6 +34,10 @@ public class OrganizationAction extends Action {
 		}
 
 		if ("structure".equals(orgForm.getTask())) {
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			orgForm.setListMemberOrganizations(orgMan.searchMemberOrganizations(params));
+			
 			return mapping.findForward("Structure");
 		}
 		

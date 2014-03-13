@@ -36,6 +36,24 @@ public class OrganizationManager {
 		}
 		return orgList;
 	}
+	
+	public List<OrganizationBean> searchMemberOrganizations(Map params) {
+		List<OrganizationBean> orgList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			orgList = ibatisSqlMap.queryForList(
+					"organization.searchMemberOrganizations", params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return orgList;
+	}
 
 	public Integer countOrganizations(Map params) {
 		Integer count = null;

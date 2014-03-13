@@ -171,7 +171,42 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
+
+	<select id="searchMemberOrganizations" resultClass="organizationBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
+		SELECT e.user_domain AS memberDomain,
+		e.employee_code AS memberCode, e.first_name || ' ' || e.last_name AS
+		memberName,e.organization_code AS organizationCode,
+		emp.first_name || ' ' || emp.last_name AS headName
+		FROM employees e, employees emp, organizations o
+		WHERE e.organization_code=o.organization_code and emp.user_domain =
+		o.head_user_domain and
+		<![CDATA[ e.user_domain = emp.user_domain]]> and o.organization_code = #organization_code#
+
+		<dynamic prepend="AND">
+			<isNotNull property="searchValue">
+				<isNotEmpty property="searchValue">
+					<isEqual property="kategori" compareValue="1">UPPER(e.user_domain)
+						LIKE UPPER ('%$searchValue$%')</isEqual>
+					<isEqual property="kategori" compareValue="2">UPPER(e.employee_code)
+						LIKE UPPER ('%$searchValue$%')</isEqual>
+					<isEqual property="kategori" compareValue="3">
+						(UPPER(e.first_name) LIKE UPPER (
+						'%$searchValue$%') OR UPPER(e.last_name) LIKE UPPER ('%$searchValue$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		)
+		a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE
 		organizations SET
