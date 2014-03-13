@@ -56,6 +56,7 @@ public class EmployeeReportAction extends Action {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
+				session.setAttribute("status", eForm.getCurrentStatus());
 				if("DRAFT".equals(eForm.getCurrentStatus())){
 					return mapping.findForward("Draft");
 				}
@@ -63,7 +64,6 @@ public class EmployeeReportAction extends Action {
 					return mapping.findForward("Claim");
 				}
 				else if("CORRECTION".equals(eForm.getCurrentStatus())){
-					session.setAttribute("status", eForm.getCurrentStatus());
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("Correction");
 					} else if("SELF ASSIGNMENT".equals(eForm.getTaskType())) {

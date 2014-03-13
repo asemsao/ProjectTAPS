@@ -31,16 +31,38 @@
 
 	}
 
-	$(document).ready(
-			function() {
-				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees");
-				$("#lookUpProject").load(
-						"/ProjectTaps/ajax.do?mode=projects&task=projects");
-				$("#employee-name").val($("#employee-fullName").val());
-				$("#project-name").val($("#project-fullName").val());
-				$("#timepicker").timeselector();
-			});
+	$(document)
+			.ready(
+					function() {
+						var project_code = $("#project-code").val();
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees");
+						$("#lookUpEmployeeOnProject")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+												+ project_code);
+						$("#lookUpProject")
+								.load(
+										"/ProjectTaps/ajax.do?mode=projects&task=projects");
+						$("#employee-name").val($("#employee-fullName").val());
+
+						$("#timepicker").timeselector();
+
+						$('#project-name')
+								.bind(
+										"change",
+										function() {
+											var project_code = $(
+													"#project-code").val();
+											$("#lookUpEmployeeOnProject").html(
+													'');
+											$("#lookUpEmployeeOnProject")
+													.load(
+															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+																	+ project_code);
+										});
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
@@ -79,7 +101,8 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<input type="text" id="timepicker" value="00:00" readonly="readonly" />
+										<input type="text" id="timepicker" value="00:00"
+											readonly="readonly" />
 									</div></td>
 							</tr>
 							<tr>
@@ -157,6 +180,7 @@
 
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpProject" class="hide"></div>
+	<div id="lookUpEmployeeOnProject"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>

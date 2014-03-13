@@ -35,6 +35,13 @@ public class ClaimAssignmentAction extends Action{
 			}
 			return mapping.findForward("Cancel");
 		}
+		else if ("correction".equals(aForm.getTask())){
+			aForm.getClaimBean().setStatus("CORRECTION");
+			if(!("".equals(aForm.getClaimBean().getComment()))){
+				aMan.addHistoryComment(aForm.getClaimBean());
+			}
+			return mapping.findForward("Cancel");
+		}
 		else if ("RFA".equals(aForm.getTask())){
 			aForm.getClaimBean().setStatus("RFA");
 			aMan.addHistoryComment(aForm.getClaimBean());
@@ -52,7 +59,7 @@ public class ClaimAssignmentAction extends Action{
 		}
 		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setHistoryComment(null);
+		aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 		return mapping.findForward("Claim");
 	}

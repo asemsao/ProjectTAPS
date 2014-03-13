@@ -103,7 +103,8 @@
 			<forward name="ClaimSupervisor" path="/claimSupervisorAssignment.do" />
 			<forward name="CorrectionSupervisor"
 				path="/correctionSupervisorAssignment.do?task=assginment" />
-			<forward name="Correction" path="/correctionAssignment.do?task=assginment" />
+<!-- 			<forward name="Correction" path="/correctionAssignment.do?task=assignment" /> -->
+			<forward name="Correction" path="/claimAssignment.do" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">

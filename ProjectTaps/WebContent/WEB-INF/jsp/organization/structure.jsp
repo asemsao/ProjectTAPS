@@ -47,6 +47,12 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post" styleId="CRUDForm">
+		<html:hidden property="task" name="organizationForm" styleId="task"/>
+		<html:hidden property="mode" name="organizationForm" />
+		<html:hidden property="organizationCode" name="organizationForm" />
+		<html:hidden property="orgBean.headDomain" name="organizationForm" />
+		<html:hidden property="page" name="organizationForm" />
+		<html:hidden property="maxpage" name="organizationForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -60,12 +66,12 @@
 						<tbody>
 							<tr>
 								<td><b>Business Unit</b></td>
-								<td colspan="2"> : <bean:write name="organizationForm"
+								<td colspan="2">: <bean:write name="organizationForm"
 										property="orgBean.organizationName" /></td>
 							</tr>
 							<tr>
 								<td><b>Business Unit Head</b></td>
-								<td colspan="2"> : <bean:write name="organizationForm"
+								<td colspan="2">: <bean:write name="organizationForm"
 										property="orgBean.headName" /></td>
 							</tr>
 							<tr>
@@ -92,7 +98,7 @@
 							</tr>
 						</tbody>
 					</table>
-					
+
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -109,10 +115,8 @@
 									<tr>
 										<td><bean:write name="organization"
 												property="memberDomain" /></td>
-										<td><bean:write name="organization"
-												property="memberCode" /></td>
-										<td><bean:write name="organization"
-												property="memberName" /></td>
+										<td><bean:write name="organization" property="memberCode" /></td>
+										<td><bean:write name="organization" property="memberName" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -134,7 +138,8 @@
 										</ul>
 									</div>
 								</td>
-								<td class="text-center"><td colspan=3 class="text-right"><html:button
+								<td class="text-center">
+								<td colspan=3 class="text-right"><html:button
 										property="cancel" onclick="javascript:flyToPage('Cancel');"
 										styleClass="button info">Back</html:button></td>
 							</tr>
@@ -144,7 +149,7 @@
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="organizationForm" />
+
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
