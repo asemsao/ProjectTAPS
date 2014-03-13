@@ -38,8 +38,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="addSProject.projectRole"
-											name="projectForm"></html:text>
+										<html:text property="addSProject.projectRole" name="projectForm"></html:text>
 									</div>
 								</td>
 							</tr>

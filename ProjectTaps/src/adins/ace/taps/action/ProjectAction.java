@@ -84,7 +84,12 @@ public class ProjectAction extends Action {
 			return mapping.findForward("ViewMember");
 		}
 		if ("editMember".equals(pForm.getTask())) {
-			pForm.setAddSProject(pMan.getProjectMemberById(pForm.getParam2()));
+			params = new HashMap();
+			params.put("param", pForm.getParam());
+			System.out.println(pForm.getParam());
+			System.out.println(pForm.getParam2());
+			params.put("param2", pForm.getParam2());
+			pForm.setAddSProject(pMan.getProjectMemberById(params));
 			return mapping.findForward("EditMember");
 		}
 

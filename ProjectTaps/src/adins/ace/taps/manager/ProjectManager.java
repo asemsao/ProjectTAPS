@@ -150,12 +150,11 @@ public class ProjectManager {
 		}
 	}
 	
-	public AddStructureProjectBean getProjectMemberById(String projectRole) {
+	public AddStructureProjectBean getProjectMemberById(Map params) {
 		AddStructureProjectBean bean = new AddStructureProjectBean();
 		try {
 			ibatisSqlMap.startTransaction();
-			bean = (AddStructureProjectBean) ibatisSqlMap.queryForObject(
-					"project.getProjectMemberById", projectRole);
+			bean = (AddStructureProjectBean) ibatisSqlMap.queryForObject("project.getProjectMemberById", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
