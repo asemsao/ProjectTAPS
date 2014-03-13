@@ -33,14 +33,18 @@ public class OrganizationAction extends Action {
 			orgForm.setPage(1);
 		}
 
+		if ("structure".equals(orgForm.getTask())) {
+			return mapping.findForward("Structure");
+		}
+		
 		if ("new".equals(orgForm.getTask())) {
 			return mapping.findForward("New");
 		}
 		if ("Save".equals(orgForm.getTask())) {
-			try{
+			try {
 				orgMan.submitInsert(orgForm.getOrgBean());
 				orgForm.setMessage("Insert Organization Successfull!");
-			}catch(Exception e){
+			} catch (Exception e) {
 				orgForm.setMessage("Insert Organization Failed!");
 			}
 		}
@@ -50,10 +54,10 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			try{
+			try {
 				orgMan.submitEdit(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Organization Successfull!");
-			}catch(Exception e){
+			} catch (Exception e) {
 				orgForm.setMessage("Edit Organization Failed!");
 			}
 		}
