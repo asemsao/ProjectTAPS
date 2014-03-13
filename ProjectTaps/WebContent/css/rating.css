@@ -200,15 +200,15 @@ only screen and (min-device-pixel-ratio : 1.5),
         background-size: 24px 48px;
     }
     .rating-kiri .br-widget a {
-    	background: url('../img/star@2x_meyah.png');
+    	background: url('../images/star/star@2x_meyah.png');
         background-size: 24px 48px;
     }
     .rating-tengah .br-widget a {
-    	background: url('../img/star@2x_tengah.png');
+    	background: url('../images/star/star@2x_tengah.png');
         background-size: 24px 48px;
     }
     .rating-kanan .br-widget a {
-    	background: url('../img/star@2x_ijo.png');
+    	background: url('../images/star/star@2x_ijo.png');
         background-size: 24px 48px;
     }
 }
@@ -219,7 +219,7 @@ only screen and (min-device-pixel-ratio : 1.5),
 }
 
 .rating-kiri .br-widget a {
-    background: url('../img/star_meyah_kecil.png');
+    background: url('../images/star/star_meyah_kecil.png');
     width: 24px;
     height: 24px;
     display: block;
@@ -239,7 +239,7 @@ only screen and (min-device-pixel-ratio : 1.5),
 }
 
 .rating-tengah .br-widget a {
-    background: url('../img/star_tengah_kecil.png');
+    background: url('../images/star/star_tengah_kecil.png');
     width: 24px;
     height: 24px;
     display: block;
@@ -259,7 +259,7 @@ only screen and (min-device-pixel-ratio : 1.5),
 }
 
 .rating-kanan .br-widget a {
-    background: url('../img/star_ijo_kecil.png');
+    background: url('../images/star/star_ijo_kecil.png');
     width: 24px;
     height: 24px;
     display: block;
@@ -270,4 +270,22 @@ only screen and (min-device-pixel-ratio : 1.5),
 .rating-kanan .br-widget a.br-active,
 .rating-kanan .br-widget a.br-selected {
     background-position: 0 24px;
+}
+
+
+
+.rating-kiri .br-current-rating {
+	text-align: center;
+	color: red;
+	font-size: 0.85em;
+}
+.rating-tengah .br-current-rating {
+	text-align: center;
+	color: #666;
+	font-size: 0.9em;
+}
+.rating-kanan .br-current-rating {
+	text-align: center;
+	color: green;
+	font-size: 0.85em;
 }
