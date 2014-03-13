@@ -285,30 +285,64 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <html:button property="claim-btn"
+									%> 
+										<html:button property="claim-btn"
 										onclick="javascript:flyToPage('correction');"
-										styleClass="button success">Claim</html:button> 
-									<%
-									 	} else {
-									 %> <html:button property="claim-btn"
-										onclick="javascript:flyToPage('claim');"
-										styleClass="button success">Claim</html:button> <%
-									 	}
-									 %> <html:button property="claimclose-btn"
+										styleClass="button success">Claim</html:button> <html:button
+										property="claimclose-btn"
 										onclick="javascript:flyToPage('RFA');"
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button>
+										styleClass="button info">Cancel</html:button> <%
+									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+									 %> 
+									 	<html:button property="claim-btn"
+										onclick="javascript:flyToPage('claim');"
+										styleClass="button success">Claim</html:button> <html:button
+										property="claimclose-btn"
+										onclick="javascript:flyToPage('RFA');"
+										styleClass="button success">RFA</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button> <%
+									 	} else {
+									 %> 
+									 	<html:button property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button> <%
+									 	}
+									 %>
 								</td>
 								<%
 									} else if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {
-								%>
-								<td colspan=4 class="text-right"><html:button
-										property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button></td>
+								%>	<td colspan=4 class="text-right">
+									<%
+										if ("RFA".equals(session.getAttribute("status"))) {
+									%>
+										<html:button property="approve-btn"
+											onclick="javascript:flyToPage('approve');"
+											styleClass="button success">Approve</html:button>
+										<html:button property="correction-btn"
+											onclick="javascript:flyToPage('correction');"
+											styleClass="button warning">Correction</html:button>
+										<html:button property="reject-btn"
+											onclick="javascript:flyToPage('reject');"
+											styleClass="button danger">Reject</html:button>
+										<html:button property="cancel-btn"
+											onclick="javascript:flyToPage('cancel');"
+											styleClass="button info">Cancel</html:button>
+									<%
+									 	} else {
+									%>
+										<html:button property="cancel-btn"
+											onclick="javascript:flyToPage('cancel');"
+											styleClass="button info">Close</html:button>
+									<%
+										}
+									%>
+									</td>
 								<%
 									}
 								%>
