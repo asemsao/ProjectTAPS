@@ -74,6 +74,16 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
+	<select id="saveEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+		UPDATE employees
+		SET picture=#profilePicture#, 
+		employee_nik=#employeeNik#, employee_code=#employeeCode#,
+		first_name=#firstName#,last_name=#lastName#, gender=#gender#, 
+		organization_code=#businessUnit#, address=#employeeAddress#,
+		phone_number=#phoneNumber#,mobile_phone=#mobileNumber#, email=#email#,
+		employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE', updated_by='DOMAIN201',
+		updated_date=SYSDATE WHERE user_domain=#employeeDomain#
+	</select>
 	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT picture AS profilePicture, user_domain AS
@@ -87,7 +97,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		email,
 		SUBSTR(employee_category,1,1) AS golonganNumber,
 		SUBSTR(employee_category,2,2) AS golonganLevel, flag AS flag FROM
-		employees where user_domain = UPPER(#employeeDomain#)
+		employees where UPPER(user_domain) = UPPER(#employeeDomain#)
 	</select>
 	<select id="addEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
@@ -97,9 +107,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		phone_number,
 		mobile_phone, email,
 		employee_category, flag, created_by,
-		created_date, updated_by,updated_date)
+		created_date)
 		VALUES(#profilePicture#,#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
-		#gender#,'MAN',#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
-		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE,'DOMAIN201',SYSDATE)
+		#gender#,#businessUnit#,#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
+		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE)
 	</select>
 </sqlMap>
