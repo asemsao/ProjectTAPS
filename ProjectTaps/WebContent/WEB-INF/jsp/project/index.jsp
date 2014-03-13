@@ -143,7 +143,7 @@
 									</div>
 								</td>
 								<td colspan=2 class="text-right"><a
-									href="javascript:button('new');" data-hint="Add Project"
+									href="javascript:button('addProject');" data-hint="Add Project"
 									data-hint-position="bottom"><img alt=""
 										src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
 							</tr>

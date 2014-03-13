@@ -56,14 +56,20 @@ public class SpecialAppraisalAction extends Action {
 		if ("search".equals(mForm.getTask())) {
 			mForm.setPage(1);
 		}
+		
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
 		params.put("category", "employeeName");
 		params.put("keyword", mForm.getSearchKeyword());
+		params.put("startDate", mForm.getStartDate());
+		params.put("endDate", mForm.getEndDate());
 
 		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
 		mForm.setCountRecord(mMan.countSpecialAppraisal(params));
-
+		
+		System.out.println("record="+mMan.countSpecialAppraisal(params));
+		
+		
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {

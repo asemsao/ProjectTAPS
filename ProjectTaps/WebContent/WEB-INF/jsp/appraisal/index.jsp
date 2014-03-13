@@ -39,10 +39,20 @@
 										Appraisal</h3></th>
 						</tr>
 						<tr>
-								<th colspan=2 class="text-center">Appraisal Date</th>
+								<th colspan=2 class="text-center">Appraisal Date From</th>
 								<th colspan=3>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="searchDate" name="specialAppraisalForm" styleId="searchDate"></html:text>
+										<html:text property="startDate" name="specialAppraisalForm" styleId="startDate"></html:text>
+										<button type="button" class="btn-date"></button>
+									</div>
+								</th>
+							
+						</tr>
+						<tr>
+								<th colspan=2 class="text-center">Appraisal Date To</th>
+								<th colspan=3>
+									<div class="input-control text" id="datepicker-begin">
+										<html:text property="endDate" name="specialAppraisalForm" styleId="endDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>

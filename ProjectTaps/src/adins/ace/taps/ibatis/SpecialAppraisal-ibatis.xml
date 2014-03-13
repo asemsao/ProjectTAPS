@@ -24,9 +24,22 @@
 						</isNotEmpty>
 					</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+					<isNotNull property="startDate">
+						<isNotNull property="endDate">
+							<isNotEmpty property="startDate">
+								<isNotEmpty property="endDate">
+									(S.CREATED_DATE BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY'))
+								</isNotEmpty>
+							</isNotEmpty>
+						</isNotNull>
+					</isNotNull>
+		</dynamic>
+
 		group by
         s.created_date,s.user_domain,
         e.first_name||' '||e.last_name, s.description, s.star_id ORDER BY s.star_id desc)
+
         </select>
 
 	<select id="ViewSpecialAppraisal"
@@ -85,6 +98,17 @@
 								LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%'))
 							</isEqual>
 						</isNotEmpty>
+					</isNotNull>
+		</dynamic>
+				<dynamic prepend="AND">
+					<isNotNull property="startDate">
+						<isNotNull property="endDate">
+							<isNotEmpty property="startDate">
+								<isNotEmpty property="endDate">
+									(S.CREATED_DATE BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY'))
+								</isNotEmpty>
+							</isNotEmpty>
+						</isNotNull>
 					</isNotNull>
 		</dynamic>
 		group by
