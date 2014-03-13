@@ -22,8 +22,7 @@ public class ProjectManager {
 		List<ProjectBean> projectList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			projectList = ibatisSqlMap.queryForList("project.searchProject",
-					params);
+			projectList = ibatisSqlMap.queryForList("project.searchProject",params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
