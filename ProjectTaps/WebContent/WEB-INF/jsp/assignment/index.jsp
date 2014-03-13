@@ -20,9 +20,10 @@
 		document.employeeReportForm.task.value = task;
 		document.employeeReportForm.submit();
 	}
-	function flyToPage(task, taskCode, currentStatus) {
+	function flyToPage(task, taskCode, taskType, currentStatus) {
 		document.employeeReportForm.task.value = task;
 		document.employeeReportForm.taskCode.value = taskCode;
+		document.employeeReportForm.taskType.value = taskType;
 		document.employeeReportForm.currentStatus.value = currentStatus;
 		document.employeeReportForm.submit();
 	}
@@ -120,7 +121,8 @@
 										<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
 										<td class="text-center"><a
 											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
-												name="assignment" />', '<bean:write
+												name="assignment" />', '<bean:write property="assignmentCategory"
+												name="assignment" />','<bean:write
 													property="currentStatus" name="assignment" />' );"><bean:write
 													property="currentStatus" name="assignment" /></a></td>
 									</tr>
@@ -176,6 +178,7 @@
 		</div>
 		<html:hidden property="task" name="employeeReportForm" />
 		<html:hidden property="taskCode" name="employeeReportForm" />
+		<html:hidden property="taskType" name="employeeReportForm" />
 		<html:hidden property="currentStatus" name="employeeReportForm" />
 		<html:hidden property="page" name="employeeReportForm" />
 		<html:hidden property="maxpage" name="employeeReportForm" />
