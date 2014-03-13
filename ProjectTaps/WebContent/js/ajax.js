@@ -73,10 +73,9 @@ $(document).ready(function() {
 	});
 });
 
-
-//===============================================================================
-//Fungsi ajax look up untuk Active Directory Employee
-//===============================================================================
+// ===============================================================================
+// Fungsi ajax look up untuk Active Directory Employee
+// ===============================================================================
 function loadActiveDirectory(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -172,10 +171,9 @@ function pagingActiveDirectory(direction) {
 function chooseActiveDirectory() {
 	var choosen = $("input[name='ad_choose']:checked").val();
 	$("#activeDirectory-domain").val(choosen);
-	
+
 	$.Dialog.close();
 }
-
 
 // ===============================================================================
 // Fungsi ajax look up untuk employees
@@ -288,9 +286,9 @@ function chooseEmployee() {
 	$.Dialog.close();
 }
 
-//===============================================================================
-//Fungsi ajax look up untuk employees2
-//===============================================================================
+// ===============================================================================
+// Fungsi ajax look up untuk employees2
+// ===============================================================================
 function loadEmployee2(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -398,8 +396,6 @@ function chooseEmployee2() {
 	$("#employee-name-2").val(choosen.split('@')[1]);
 	$.Dialog.close();
 }
-
-
 
 // ===============================================================================
 // Fungsi ajax look up untuk organizations
@@ -510,9 +506,9 @@ function chooseOrganization() {
 	$.Dialog.close();
 }
 
-//===============================================================================
-//Fungsi ajax look up untuk assignment
-//===============================================================================
+// ===============================================================================
+// Fungsi ajax look up untuk assignment
+// ===============================================================================
 function loadAssignment(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -564,7 +560,8 @@ function setResponseAssignment(data) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
 		content += "<input type='radio' name='assignment_choose'";
-		content += "value='" + json.listEmployeeReport[i].assignmentCode + "' />";
+		content += "value='" + json.listEmployeeReport[i].assignmentCode
+				+ "' />";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listEmployeeReport[i].assignmentDate;
@@ -623,9 +620,9 @@ function chooseAssignment() {
 	$.Dialog.close();
 }
 
-//===============================================================================
-//Fungsi ajax look up untuk project
-//===============================================================================
+// ===============================================================================
+// Fungsi ajax look up untuk project
+// ===============================================================================
 function loadProject(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -678,7 +675,8 @@ function setResponseProject(data) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
 		content += "<input type='radio' name='project_choose'";
-		content += "value='" + json.listProject[i].projectCode + "' />";
+		content += "value='" + json.listProject[i].projectCode + "@"
+				+ json.listProject[i].projectName + "'/>";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listProject[i].projectCode;
@@ -736,8 +734,7 @@ function pagingProject(direction) {
 
 function chooseProject() {
 	var choosen = $("input[name='project_choose']:checked").val();
-	$("#project-code").val(choosen);
+	$("#project-code").val(choosen.split('@')[0]);
+	$("#project-name").val(choosen.split('@')[1]);
 	$.Dialog.close();
 }
-
-

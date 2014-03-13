@@ -26,15 +26,17 @@
 			}
 		}
 	}
-	
-	function checkRadioButtonValue(){
-		
+
+	function checkRadioButtonValue() {
+
 	}
-	
+
 	$(document).ready(
 			function() {
 				$("#lookUpEmployee").load(
 						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+				$("#lookUpProject").load(
+						"/ProjectTaps/ajax.do?mode=projects&task=projects");
 				$("#employee-name").val($("#employee-fullName").val());
 			});
 </script>
@@ -84,27 +86,25 @@
 										<label> <input type="radio" name="assignment_type"
 											value="Project" /> <span class="check"></span> Project
 										</label>
-									</div> <%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-									<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
-									<%-- 									<html:radio property="assignmentBean.assignmentType" --%>
-									<%-- 										name="newAssignmentForm" value="project">Project</html:radio> --%>
-								</td>
+									</div></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
-											<html:text property="assignmentBean.projectCode"
-												name="newAssignmentForm" readonly="readonly"></html:text>
+											<html:hidden property="assignmentBean.projectCode"
+												name="newAssignmentForm" styleId="project-code"></html:hidden>
+											<input type="text" placeholder="Project" id="project-name"
+												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
- 											name="newAssignmentForm" styleId="employee-domain" /> 
- 										<html:hidden property="assignmentBean.assignToFullName"
- 											name="newAssignmentForm" styleId="employee-fullName" /> 
+											name="newAssignmentForm" styleId="employee-domain" />
+										<html:hidden property="assignmentBean.assignToFullName"
+											name="newAssignmentForm" styleId="employee-fullName" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
@@ -144,6 +144,7 @@
 	</html:form>
 
 	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>
