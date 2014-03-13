@@ -120,7 +120,7 @@ $(document).ready(
 			$("#bu").show();
 			$(".adhoc").hide();
 			$("input[name='assignment_type']").change(function() {
-				if ($(this).val() == "Project") {
+				if ($(this).val() == "PROJECT") {
 					$(".pr").show();
 					$("#bu").hide();
 				} else {

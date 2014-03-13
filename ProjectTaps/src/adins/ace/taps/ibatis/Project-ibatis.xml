@@ -21,10 +21,53 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			projects p, 
 			phases ph
 		WHERE
-			p.phase_id = ph.phase_id AND LOWER(flag) = 'active'
-		ORDER BY 
-			p.start_date DESC
-		)a
+			p.phase_id =
+			ph.phase_id AND LOWER(flag) = 'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="projectCode">
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectName">
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="client">
+						(LOWER(p.client)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="phase">
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="organization">
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+					</isEqual>
+					<isEqual property="category" compareValue="all">
+						(
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.client) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+						)
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		)
+		a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
