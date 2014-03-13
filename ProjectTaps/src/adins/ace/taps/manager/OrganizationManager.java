@@ -136,56 +136,6 @@ public class OrganizationManager {
 		return flag;
 	}
 
-	public boolean checkChildOrganization(String organization_code) {
-		boolean flag = false;
-		Integer count = null;
-		try {
-			ibatisSqlMap.startTransaction();
-			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.checkChildOrganization", organization_code);
-			ibatisSqlMap.commitTransaction();
-			if (count > 0) {
-				flag = true;
-			}
-		} catch (SQLException e) {
-			flag = false;
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e2) {
-				flag = false;
-				e2.printStackTrace();
-			}
-		}
-		return flag;
-	}
-
-	public boolean checkMemberOrganization(String organization_code) {
-		boolean flag = false;
-		Integer count = null;
-		try {
-			ibatisSqlMap.startTransaction();
-			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.checkMemberOrganization", organization_code);
-			ibatisSqlMap.commitTransaction();
-			if (count > 0) {
-				flag = true;
-			}
-		} catch (SQLException e) {
-			flag = false;
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e2) {
-				flag = false;
-				e2.printStackTrace();
-			}
-		}
-		return flag;
-	}
-
 	public OrganizationBean getOrgCode(String organizationCode) {
 		OrganizationBean orgBean = new OrganizationBean();
 		try {

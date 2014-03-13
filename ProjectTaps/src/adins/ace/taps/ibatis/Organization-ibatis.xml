@@ -193,25 +193,4 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE organization_code =
 		#organization_code#
 	</delete>
-
-	<select id="checkChildOrganization" parameterClass="java.lang.String"
-		resultClass="int">
-		SELECT
-		COUNT(1)
-		FROM organizations
-		WHERE
-		parent_organization_code =
-		#organization_code#
-	</select>
-
-	<select id="checkMemberOrganization" parameterClass="java.lang.String"
-		resultClass="int">
-		SELECT
-		COUNT(1)
-		FROM employees
-		WHERE
-		organization_code =
-		#organization_code#
-	</select>
-
 </sqlMap>
