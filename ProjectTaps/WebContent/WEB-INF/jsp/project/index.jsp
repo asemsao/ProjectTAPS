@@ -48,20 +48,22 @@
 							<tr>
 								<th class="text-center" colspan=2>
 									<div class="input-control select">
-										<select>
-											<option value="">All</option>
-											<option value="projectCode">Project Code</option>
-											<option value="projectName">Project Name</option>
-											<option value="client">Client</option>
-											<option value="phase">Phase</option>
-											<option value="organization">Organization</option>
-										</select>
+										<html:select property="searchCategory" name="projectForm">
+											<html:option value="all">All</html:option>
+											<html:option value="projectCode">Project Code</html:option>
+											<html:option value="projectName">Project Name</html:option>
+											<html:option value="client">Client</html:option>
+											<html:option value="phase">Phase</html:option>
+											<html:option value="organization">Organization</html:option>
+										</html:select>
 									</div>
 								</th>
 								<th class="text-center" colspan=9>
 									<div class="input-control text">
-										<input type="text" placeholder="Keyword of Projects" />
-										<button class="btn-search"></button>
+										<html:text property="searchKeyword" name="projectForm"
+											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
+										<button class="btn-search" type="button"
+											onclick="javascript:button('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -84,14 +86,19 @@
 								<logic:iterate id="project" name="projectForm"
 									property="listProject">
 									<tr>
-										<td class="text-center"><bean:write name="project" property="projectCode" /></td>
+										<td class="text-center"><bean:write name="project"
+												property="projectCode" /></td>
 										<td><bean:write name="project" property="projectName" /></td>
-										<td class="text-center"><bean:write name="project" property="client" /></td>
+										<td class="text-center"><bean:write name="project"
+												property="client" /></td>
 										<td class="text-center"><bean:write name="project"
 												property="organizationCode" /></td>
-										<td class="text-center"><bean:write name="project" property="phase" /></td>
-										<td class="text-center"><bean:write name="project" property="startDate" /></td>
-										<td class="text-center"><bean:write name="project" property="endDate" /></td>
+										<td class="text-center"><bean:write name="project"
+												property="phase" /></td>
+										<td class="text-center"><bean:write name="project"
+												property="startDate" /></td>
+										<td class="text-center"><bean:write name="project"
+												property="endDate" /></td>
 										<td class="text-center"><bean:write name="project"
 												property="runningDay" /></td>
 										<td class="text-center"><a
@@ -118,9 +125,11 @@
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"
-												href="javascript:button('first');"><i class="icon-first-2"></i></a></li>
+												href="javascript:button('first');"><i
+													class="icon-first-2"></i></a></li>
 											<li class="prev"><a id="prev"
-												href="javascript:button('prev');"><i class="icon-previous"></i></a></li>
+												href="javascript:button('prev');"><i
+													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="projectForm" property="page" /> of <bean:write
 														name="projectForm" property="maxpage" /></a></li>
