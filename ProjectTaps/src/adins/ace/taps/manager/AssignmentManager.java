@@ -53,7 +53,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 
@@ -94,7 +93,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 
@@ -134,7 +132,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 

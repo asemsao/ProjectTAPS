@@ -8,6 +8,9 @@ public class OrganizationBean implements Serializable {
 	private String organizationName;
 	private String headName;
 	private String headDomain;
+	private String memberDomain;
+	private String memberName;
+	private String memberCode;
 	private Integer organizationLevel;
 	private String parentCode;
 	private String parentName;
@@ -56,6 +59,30 @@ public class OrganizationBean implements Serializable {
 
 	public void setHeadDomain(String headDomain) {
 		this.headDomain = headDomain;
+	}
+
+	public String getMemberDomain() {
+		return memberDomain;
+	}
+
+	public void setMemberDomain(String memberDomain) {
+		this.memberDomain = memberDomain;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getMemberCode() {
+		return memberCode;
+	}
+
+	public void setMemberCode(String memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public Integer getOrganizationLevel() {

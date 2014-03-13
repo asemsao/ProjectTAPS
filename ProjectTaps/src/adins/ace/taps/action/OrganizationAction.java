@@ -34,9 +34,13 @@ public class OrganizationAction extends Action {
 		}
 
 		if ("structure".equals(orgForm.getTask())) {
+			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+					.replaceAll("-", "")));
+			orgForm.setListMemberOrganizations(orgMan.searchMemberOrganizations(params));
+			
 			return mapping.findForward("Structure");
 		}
-		
+
 		if ("new".equals(orgForm.getTask())) {
 			return mapping.findForward("New");
 		}
@@ -49,10 +53,10 @@ public class OrganizationAction extends Action {
 			}
 		}
 		if ("Save".equals(orgForm.getTask())) {
-			try{
+			try {
 				orgMan.submitInsert(orgForm.getOrgBean());
 				orgForm.setMessage("Insert Organization Successfull!");
-			}catch(Exception e){
+			} catch (Exception e) {
 				orgForm.setMessage("Insert Organization Failed!");
 			}
 		}
@@ -62,28 +66,26 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			try{
+			try {
 				orgMan.submitEdit(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Organization Successfull!");
-			}catch(Exception e){
+			} catch (Exception e) {
 				orgForm.setMessage("Edit Organization Failed!");
 			}
 		}
 		if ("delete".equals(orgForm.getTask())) {
-			// tolong di validasi tree dan employee, di validasi di manager atau
-			// disini seterah
 			orgForm.setPage(1);
-			System.out.println(" orgForm.getOrganizationCode() "+orgForm.getOrganizationCode().replaceAll("-", ""));
-			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode().replaceAll("-", ""))==0)
-			{
-				if (orgMan.countChildOrganizations(orgForm.getOrganizationCode().replaceAll("-", ""))==0)
-				{
-					orgMan.deleteOrganization(orgForm.getOrganizationCode().replaceAll("-", ""));
+			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode()
+					.replaceAll("-", "")) == 0) {
+				if (orgMan.countChildOrganizations(orgForm
+						.getOrganizationCode().replaceAll("-", "")) == 0) {
+					orgMan.deleteOrganization(orgForm.getOrganizationCode()
+							.replaceAll("-", ""));
 					orgForm.setMessage("Delete Organization Successfull!");
-				}
-				else orgForm.setMessage("Delete Organization Failed! has child");
-			}
-			else orgForm.setMessage("Delete Organization Failed! has member");
+				} else
+					orgForm.setMessage("Delete Organization Failed! has child");
+			} else
+				orgForm.setMessage("Delete Organization Failed! has member");
 		}
 		if ("Save".equals(orgForm.getTask())) {
 			System.out.println("insert");

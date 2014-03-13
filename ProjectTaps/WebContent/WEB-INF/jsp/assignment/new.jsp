@@ -39,6 +39,7 @@
 						"/ProjectTaps/ajax.do?mode=projects&task=projects");
 				$("#employee-name").val($("#employee-fullName").val());
 				$("#project-name").val($("#project-fullName").val());
+				$("#timepicker").timeselector();
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -72,6 +73,13 @@
 										<html:text property="assignmentBean.assignmentDueDate"
 											name="newAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
+									</div></td>
+							</tr>
+							<tr>
+								<td>Assignment Time</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<input type="text" id="timepicker" value="00:00" readonly="readonly" />
 									</div></td>
 							</tr>
 							<tr>
