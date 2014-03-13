@@ -38,6 +38,7 @@
 				$("#lookUpProject").load(
 						"/ProjectTaps/ajax.do?mode=projects&task=projects");
 				$("#employee-name").val($("#employee-fullName").val());
+				$("#project-name").val($("#project-fullName").val());
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -95,6 +96,8 @@
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
 												name="newAssignmentForm" styleId="project-code"></html:hidden>
+											<html:hidden property="assignmentBean.projectName"
+												name="newAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>

@@ -69,7 +69,7 @@ public class NewSelfAssignmentAction extends Action {
 				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
-//					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
 					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 				}
 				else {
