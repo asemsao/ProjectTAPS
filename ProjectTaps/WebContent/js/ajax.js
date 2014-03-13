@@ -682,7 +682,7 @@ function setResponseProject(data) {
 		content += json.listProject[i].projectCode;
 		content += "</td>";
 		content += "<td>";
-		content += json.listProject[i].projectName;
+		content += json.listProject[i].projectShortName;
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listProject[i].client;

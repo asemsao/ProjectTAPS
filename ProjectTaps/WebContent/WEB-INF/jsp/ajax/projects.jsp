@@ -74,7 +74,7 @@
 								</td>
 								<td class="text-center"><bean:write name="project"
 										property="projectCode" /></td>
-								<td><bean:write name="project" property="projectName" /></td>
+								<td><bean:write name="project" property="projectShortName" /></td>
 								<td class="text-center"><bean:write name="project"
 										property="client" /></td>
 								<td class="text-center"><bean:write name="project"
