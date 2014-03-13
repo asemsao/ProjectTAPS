@@ -46,7 +46,7 @@ public class NewAssignmentAction extends Action {
 					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getAssignmentBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("Project".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getAssignmentBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
+					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);

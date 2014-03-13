@@ -90,6 +90,7 @@ public class AjaxAction extends Action {
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
 			ajaxForm.setListProject(prjMan.searchProject(params));
+			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
 		if ("ad".equals(ajaxForm.getMode())) {
 			if(Integer.parseInt(params.get("end").toString())>queAD.queryAD().size()){

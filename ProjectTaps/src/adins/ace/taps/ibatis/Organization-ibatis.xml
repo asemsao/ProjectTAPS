@@ -107,6 +107,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		o.parent_organization_code
 	</select>
 
+	<select id="countChildOrganizations" resultClass="int">
+		SELECT COUNT(1)
+		AS totalChild FROM organizations
+		WHERE parent_organization_code =
+		#organization_code#
+	</select>
+
+	<select id="countMemberOrganizations" resultClass="int">
+		SELECT
+		COUNT(1) AS totalMember FROM employees
+		WHERE organization_code =
+		#organization_code#
+	</select>
+
 	<select id="searchOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
@@ -172,6 +186,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
+
 	<select id="searchMemberOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
@@ -214,5 +229,4 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE organization_code =
 		#organization_code#
 	</delete>
-
 </sqlMap>

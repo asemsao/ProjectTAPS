@@ -12,7 +12,7 @@ import org.apache.struts.action.ActionMapping;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 
-public class ClaimAssignmentAction extends Action{
+public class CorrectionSupervisorAssignmentAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -23,14 +23,7 @@ public class ClaimAssignmentAction extends Action{
 		
 		String taskCode = (String) session.getAttribute("taskCode");
 		
-		if ("claim".equals(aForm.getTask())){
-			
-			return mapping.findForward("Cancel");
-		}
-		else if ("RFA".equals(aForm.getTask())){
-			return mapping.findForward("Cancel");
-		}
-		else if ("cancel".equals(aForm.getTask())){
+		if ("cancel".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
 		

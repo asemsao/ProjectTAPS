@@ -62,6 +62,7 @@
 		});
 		$(".delete-link").click(function() {
 			$("#deleteId").html($(this).attr('alt').trim().replace(/\-/g, ''));
+			$("#organizationCode").val($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
