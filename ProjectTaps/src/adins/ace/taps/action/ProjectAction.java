@@ -51,32 +51,15 @@ public class ProjectAction extends Action {
 		if ("search".equals(pForm.getTask())) {
 			pForm.setPage(1);
 		}
-
-		params.put("start", (pForm.getPage() - 1) * 10 + 1);
-		params.put("end", (pForm.getPage() * 10));
-		params.put("category", pForm.getSearchCategory());
-		params.put("keyword", pForm.getSearchKeyword());
-
-		pForm.setListProject(pMan.searchProject(params));
-		pForm.setCountRecord(pMan.countProject(params));
-
-		if (pForm.getCountRecord() % 10 == 0) {
-			pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-		} else {
-			pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+		if ("saveProject".equals(pForm.getTask())) {
+			pMan.addProject(pForm.getAddProject());
+		}
+		if ("cancel".equals(pForm.getTask())) {
+			System.out.println("Cancel");
 		}
 
 		if ("new".equals(pForm.getTask())) {
 			return mapping.findForward("AddProject");
-		}
-
-		if ("saveProject".equals(pForm.getTask())) {
-			pMan.addProject(pForm.getAddProject());
-			pForm.setListProject(pMan.searchProject(params));
-			return mapping.findForward("ListProject");
-		}
-		if ("cancel".equals(pForm.getTask())) {
-			return mapping.findForward("ListProject");
 		}
 		if ("edit".equals(pForm.getTask())) {
 			pForm.setpBean(pMan.getProjectById(pForm.getParam()));
@@ -132,13 +115,27 @@ public class ProjectAction extends Action {
 		if ("updateMember".equals(pForm.getTask())) {
 			pForm.getAddSProject().setProjectCode(pForm.getParam());
 			pMan.updateMember(pForm.getAddSProject());
-			
+
 			pForm.setListProject(pMan.getAllMember(pForm.getParam()));
 			ProjectBean pBean = new ProjectBean();
 			pBean = pMan.getProjectById(pForm.getParam());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
+		}
+
+		params.put("start", (pForm.getPage() - 1) * 10 + 1);
+		params.put("end", (pForm.getPage() * 10));
+		params.put("category", pForm.getSearchCategory());
+		params.put("keyword", pForm.getSearchKeyword());
+
+		pForm.setListProject(pMan.searchProject(params));
+		pForm.setCountRecord(pMan.countProject(params));
+
+		if (pForm.getCountRecord() % 10 == 0) {
+			pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+		} else {
+			pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 		}
 
 		return mapping.findForward("ListProject");
