@@ -293,6 +293,7 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.startTransaction();
 			listDetailClaim = ibatisSQLMap.queryForList("assignment.searchDetailClaim", taskCode);
+			System.out.println("dapat data");
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
