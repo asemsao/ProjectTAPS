@@ -26,11 +26,11 @@
 			}
 		}
 	}
-	
-	function checkRadioButtonValue(){
-		
+
+	function checkRadioButtonValue() {
+
 	}
-	
+
 	$(document).ready(
 			function() {
 				$("#lookUpEmployee").load(
@@ -82,7 +82,7 @@
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											value="Project" /> <span class="check"></span> Project
+											value="PROJECT" /> <span class="check"></span> Project
 										</label>
 									</div> <%-- 									<html:radio property="assignmentBean.assignmentType" --%>
 									<%-- 										name="newAssignmentForm" value="businessUnit">Business Unit</html:radio> --%>
@@ -102,9 +102,9 @@
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
- 											name="newAssignmentForm" styleId="employee-domain" /> 
- 										<html:hidden property="assignmentBean.assignToFullName"
- 											name="newAssignmentForm" styleId="employee-fullName" /> 
+											name="newAssignmentForm" styleId="employee-domain" />
+										<html:hidden property="assignmentBean.assignToFullName"
+											name="newAssignmentForm" styleId="employee-fullName" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
@@ -140,7 +140,8 @@
 			</div>
 		</div>
 		<html:hidden property="newTask" name="newAssignmentForm" />
-		<html:hidden property="assignmentType" name="newAssignmentForm" />
+		<html:hidden property="assignmentType" name="newAssignmentForm"
+			styleId="assignment-type" />
 	</html:form>
 
 	<div id="lookUpEmployee" class="hide"></div>

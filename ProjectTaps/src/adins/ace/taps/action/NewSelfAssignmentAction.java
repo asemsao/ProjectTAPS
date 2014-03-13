@@ -49,7 +49,7 @@ public class NewSelfAssignmentAction extends Action {
 					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("Project".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getSelfAssignBean().getProjectCode().substring(0, 3) + dateFormat.format(date);
+					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
@@ -69,7 +69,7 @@ public class NewSelfAssignmentAction extends Action {
 				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
-//					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
 					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 				}
 				else {
