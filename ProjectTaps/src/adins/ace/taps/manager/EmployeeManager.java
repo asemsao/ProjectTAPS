@@ -21,7 +21,7 @@ public class EmployeeManager {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.queryForObject("employee.saveEditEmployees", newEmployee);
+			ibatisSqlMap.update("employee.saveEditEmployees", newEmployee);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
@@ -40,7 +40,7 @@ public class EmployeeManager {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.queryForObject("employee.addEmployee", newEmployee);
+			ibatisSqlMap.insert("employee.addEmployee", newEmployee);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
