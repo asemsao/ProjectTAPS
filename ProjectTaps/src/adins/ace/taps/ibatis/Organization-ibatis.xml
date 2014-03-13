@@ -16,7 +16,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#headDomain#, #organizationLevel#,
 		#parentCode#,
 		'ACTIVE',
-		#sessionUserDomain#, SYSDATE)
+		'domain100', SYSDATE)
 	</insert>
 
 	<select id="countOrganizations" resultClass="int"
@@ -42,11 +42,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE LOWER ('%$keyword$%') OR
 						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
-					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
+					<isEqual property="category" compareValue="all">(LOWER(o.organization_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
 						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
 						LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.last_name) LIKE LOWER ('%$keyword$%')
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>

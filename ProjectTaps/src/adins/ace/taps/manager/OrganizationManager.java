@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.organization.OrganizationBean;
+import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;

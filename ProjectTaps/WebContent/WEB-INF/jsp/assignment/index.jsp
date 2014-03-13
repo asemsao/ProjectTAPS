@@ -61,7 +61,7 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="searchCategory"
+										<html:select property="category"
 											name="employeeReportForm">
 											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
@@ -74,7 +74,7 @@
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="employeeReportForm"></html:text>
+										<html:text property="keyword" name="employeeReportForm"></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
 									</div>
@@ -135,15 +135,15 @@
 								<td colspan=5 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"><i
+											<li class="first"><a href="javascript:flyToPage('first');"><i
 													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"><i
+											<li class="prev"><a href="javascript:flyToPage('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="employeeReportForm" property="page" /> of <bean:write
 														name="employeeReportForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+											<li class="next"><a href="javascript:flyToPage('next');"><i class="icon-next"></i></a></li>
+											<li class="last"><a href="javascript:flyToPage('last');"><i id="last" class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="employeeReportForm" property="countRecord" /></a></li>
 										</ul>
@@ -177,6 +177,8 @@
 		<html:hidden property="task" name="employeeReportForm" />
 		<html:hidden property="taskCode" name="employeeReportForm" />
 		<html:hidden property="currentStatus" name="employeeReportForm" />
+		<html:hidden property="page" name="employeeReportForm" />
+		<html:hidden property="maxpage" name="employeeReportForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

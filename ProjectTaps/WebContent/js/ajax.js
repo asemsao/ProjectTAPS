@@ -1,4 +1,16 @@
 $(document).ready(function() {
+	$("#activeDirectory").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpActiveDirectory").html(),
+			padding : 10,
+			title : 'Employees AD'
+		});
+	});
 	$("#employee").on('click', function() {
 		$.Dialog({
 			overlay : true,
@@ -35,7 +47,135 @@ $(document).ready(function() {
 			title : 'Organizations'
 		});
 	});
+	$("#assigment").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpAssignment").html(),
+			padding : 10,
+			title : 'Assignment'
+		});
+	});
+	$("#project").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpProject").html(),
+			padding : 10,
+			title : 'Project'
+		});
+	});
 });
+
+
+//===============================================================================
+//Fungsi ajax look up untuk Active Directory Employee
+//===============================================================================
+function loadActiveDirectory(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpActiveDirectory").html(),
+			padding : 10,
+			title : 'Employees AD'
+		});
+		$(".search-category-ActiveDirectory").get(1).value = searchCategory;
+		$(".search-keyword-ActiveDirectory").get(1).value = searchKeyword;
+	}, 500);
+}
+
+function setParameterActiveDirectory() {
+	var task = $("#task-ActiveDirectory").val();
+	var search = $(".search-category-ActiveDirectory").get(1).value;
+	var value = $(".search-keyword-ActiveDirectory").get(1).value;
+	var page = $("#page-ActiveDirectory").val();
+	var maxpage = $("#maxpage-ActiveDirectory").val();
+	var mode = $("#mode-ActiveDirectory").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	return data;
+}
+
+function setResponseActiveDirectory(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Choose</th>";
+	content += "<th class='text-center'>Domain</th>";
+	content += "<th class='text-center'>Name</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listAD) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += "<input type='radio' name='ad_choose'";
+		content += "value='" + json.listAD[i].userDomain + "' />";
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listAD[i].userDomain;
+		content += "</td>";
+		content += "<td>";
+		content += json.listAD[i].fullName;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-ActiveDirectory").html(content);
+	$("#page-ActiveDirectory").val(json.page);
+	$("#current-page-ActiveDirectory").html(json.page);
+	$("#maxpage-ActiveDirectory").val(json.maxpage);
+	$("#max-page-ActiveDirectory").html(json.maxpage);
+	$("#total-record-ActiveDirectory").html(json.countRecord);
+	$(".search-category-ActiveDirectory").val(json.searchCategory);
+	$(".search-keyword-ActiveDirectory").val(json.searchKeyword);
+}
+
+function pagingActiveDirectory(direction) {
+	var searchCategory = $(".search-category-ActiveDirectory").get(1).value;
+	var searchKeyword = $(".search-keyword-ActiveDirectory").get(1).value;
+	$.Dialog.close();
+	$("#task-ActiveDirectory").val(direction);
+	var data = setParameterActiveDirectory();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseActiveDirectory(data);
+		}
+	});
+
+	loadActiveDirectory(searchCategory, searchKeyword);
+}
+
+function chooseActiveDirectory() {
+	var choosen = $("input[name='ad_choose']:checked").val();
+	$("#activeDirectory-domain").val(choosen);
+	
+	$.Dialog.close();
+}
+
 
 // ===============================================================================
 // Fungsi ajax look up untuk employees
@@ -369,3 +509,235 @@ function chooseOrganization() {
 	$("#organization-name").val(choosen.split('@')[1]);
 	$.Dialog.close();
 }
+
+//===============================================================================
+//Fungsi ajax look up untuk assignment
+//===============================================================================
+function loadAssignment(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpAssignment").html(),
+			padding : 10,
+			title : 'Assignment'
+		});
+		$(".search-category-assignment").get(1).value = searchCategory;
+		$(".search-keyword-assignment").get(1).value = searchKeyword;
+	}, 500);
+}
+
+function setParameterAssignment() {
+	var task = $("#task-assignment").val();
+	var search = $(".search-category-assignment").get(1).value;
+	var value = $(".search-keyword-assignment").get(1).value;
+	var page = $("#page-assignment").val();
+	var maxpage = $("#maxpage-assignment").val();
+	var mode = $("#mode-assignment").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	return data;
+}
+
+function setResponseAssignment(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Choose</th>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Type</th>";
+	content += "<th class='text-center'>Employee</th>";
+	content += "<th class='text-center'>Deadline</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeeReport) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += "<input type='radio' name='assignment_choose'";
+		content += "value='" + json.listEmployeeReport[i].assignmentCode + "' />";
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].fullName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-assignment").html(content);
+	$("#page-assignment").val(json.page);
+	$("#current-page-assignment").html(json.page);
+	$("#maxpage-assignment").val(json.maxpage);
+	$("#max-page-assignment").html(json.maxpage);
+	$("#total-record-assignment").html(json.countRecord);
+	$(".search-category-assignment").val(json.searchCategory);
+	$(".search-keyword-assignment").val(json.searchKeyword);
+}
+
+function pagingAssignment(direction) {
+	var searchCategory = $(".search-category-assignment").get(1).value;
+	var searchKeyword = $(".search-keyword-assignment").get(1).value;
+	$.Dialog.close();
+	$("#task-assignment").val(direction);
+	var data = setParameterAssignment();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseAssignment(data);
+		}
+	});
+
+	loadAssignment(searchCategory, searchKeyword);
+}
+
+function chooseAssignment() {
+	var choosen = $("input[name='assignment_choose']:checked").val();
+	$("#assignment-code").val(choosen);
+	$.Dialog.close();
+}
+
+//===============================================================================
+//Fungsi ajax look up untuk project
+//===============================================================================
+function loadProject(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpProject").html(),
+			padding : 10,
+			title : 'Project'
+		});
+		$(".search-category-project").get(1).value = searchCategory;
+		$(".search-keyword-project").get(1).value = searchKeyword;
+	}, 500);
+}
+
+function setParameterProject() {
+	var task = $("#task-project").val();
+	var search = $(".search-category-project").get(1).value;
+	var value = $(".search-keyword-project").get(1).value;
+	var page = $("#page-project").val();
+	var maxpage = $("#maxpage-project").val();
+	var mode = $("#mode-project").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	return data;
+}
+
+function setResponseProject(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Choose</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Name</th>";
+	content += "<th class='text-center'>Client</th>";
+	content += "<th class='text-center'>Start Date</th>";
+	content += "<th class='text-center'>Phase</th>";
+	content += "<th class='text-center'>Organization</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listProject) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += "<input type='radio' name='project_choose'";
+		content += "value='" + json.listProject[i].projectCode + "' />";
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listProject[i].projectCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listProject[i].projectName;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listProject[i].client;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listProject[i].startDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listProject[i].phase;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listProject[i].organizationCode;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-project").html(content);
+	$("#page-project").val(json.page);
+	$("#current-page-project").html(json.page);
+	$("#maxpage-project").val(json.maxpage);
+	$("#max-page-project").html(json.maxpage);
+	$("#total-record-project").html(json.countRecord);
+	$(".search-category-project").val(json.searchCategory);
+	$(".search-keyword-project").val(json.searchKeyword);
+}
+
+function pagingProject(direction) {
+	var searchCategory = $(".search-category-project").get(1).value;
+	var searchKeyword = $(".search-keyword-project").get(1).value;
+	$.Dialog.close();
+	$("#task-project").val(direction);
+	var data = setParameterProject();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseProject(data);
+		}
+	});
+
+	loadProject(searchCategory, searchKeyword);
+}
+
+function chooseProject() {
+	var choosen = $("input[name='project_choose']:checked").val();
+	$("#project-code").val(choosen);
+	$.Dialog.close();
+}
+
+

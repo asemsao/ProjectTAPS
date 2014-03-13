@@ -1,5 +1,8 @@
 package adins.ace.taps.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,16 +24,35 @@ public class EmployeeReportAction extends Action {
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
+		Map params = new HashMap();
+		
+		if (eForm.getPage() == null) {
+			eForm.setPage(1);
+		}
+		
+		if ("first".equals(eForm.getTask())) {
+			eForm.setPage(1);
+		}
 
+		else if ("last".equals(eForm.getTask())) {
+			eForm.setPage(eForm.getMaxpage());
+		}
+
+		else if ("prev".equals(eForm.getTask())) {
+			if (eForm.getPage() > 1) {
+				eForm.setPage(eForm.getPage() - 1);
+			}
+		}
+		else if ("next".equals(eForm.getTask())) {
+			System.out.println(eForm.getMaxpage());
+			if (eForm.getPage() < eForm.getMaxpage()) {
+				eForm.setPage(eForm.getPage() + 1);
+			}
+		}
+		
 		if ("employeeReport".equals(session.getAttribute("link"))) {
-			
 			if ("search".equals(eForm.getTask())) {
-				if (eForm.getPage() == null) {
-					eForm.setPage(1);
-				}
-				
-				eForm.setListAssignment(eMan.searchAssignmentEmployee(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
-				return mapping.findForward("SearchAssignment");
+				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())){
@@ -51,20 +73,23 @@ public class EmployeeReportAction extends Action {
 				return mapping.findForward("View");
 			}
 			
-			if (eForm.getPage() == null) {
-				eForm.setPage(1);
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
+			params.put("startDate", eForm.getStartDate());
+			params.put("endDate", eForm.getEndDate());
+			eForm.setCountRecord(eMan.countEmployeeReportEmployee(params));
+			if (eForm.getCountRecord() % 10 == 0) {
+				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
+			} else {
+				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
-			eForm.setListAssignment(eMan.getListAssignmentEmployee(eForm.getPage()));
+			eForm.setListAssignment(eMan.searchEmployeeReportEmployee(params));
 			
-		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
-			
+		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {			
 			if ("search".equals(eForm.getTask())) {
-				 if (eForm.getPage() == null) {
-					 eForm.setPage(1);
-				 }
-			
-				 eForm.setListAssignment(eMan.searchAssignmentSupervisor(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
-				 return mapping.findForward("SearchAssignment");
+				eForm.setPage(1);
 			} else if ("view".equals(eForm.getTask())){
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				if("DRAFT".equals(eForm.getCurrentStatus())){
@@ -83,20 +108,24 @@ public class EmployeeReportAction extends Action {
 //				
 			}
 			
-			if (eForm.getPage() == null) {
-				eForm.setPage(1);
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
+			params.put("startDate", eForm.getStartDate());
+			params.put("endDate", eForm.getEndDate());
+			eForm.setCountRecord(eMan.countEmployeeReportSupervisor(params));
+			if (eForm.getCountRecord() % 10 == 0) {
+				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
+			} else {
+				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
-			eForm.setListAssignment(eMan.getListAssignmentSupervisor(eForm.getPage()));
+			eForm.setListAssignment(eMan.searchEmployeeReportSupervisor(params));
 			
 		} else if ("assignment".equals(session.getAttribute("link"))) {
 			
 			if ("search".equals(eForm.getTask())) {
-				if (eForm.getPage() == null) {
-					eForm.setPage(1);
-				}
-			
-				eForm.setListAssignment(eMan.searchAssignment(eForm.getPage(), eForm.getSearchCategory(), eForm.getSearchKeyword(), eForm.getStartDate(), eForm.getEndDate()));
-				return mapping.findForward("SearchAssignment");
+				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
 			} else if ("view".equals(eForm.getTask())){
@@ -117,12 +146,23 @@ public class EmployeeReportAction extends Action {
 				
 			}
 			 
-			if (eForm.getPage() == null) {
-				eForm.setPage(1);
-			}
-			eForm.setListAssignment(eMan.getListAssignment(eForm.getPage()));
-		}
+			params.put("start", (eForm.getPage() - 1) * 10 + 1);
+			params.put("end", (eForm.getPage() * 10));
+			params.put("category", eForm.getCategory());
+			params.put("keyword", eForm.getKeyword());
+			params.put("startDate", eForm.getStartDate());
+			params.put("endDate", eForm.getEndDate());
+			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
 
+			if (eForm.getCountRecord() % 10 == 0) {
+				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
+			} else {
+				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
+			}
+
+			eForm.setListAssignment(eMan.searchAssignmentSupervisor(params));
+		}		
+			
 		return mapping.findForward("ListAssignment");
 	}
 }

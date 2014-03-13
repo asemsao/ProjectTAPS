@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.module.ActiveDirectoryBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.bean.project.ProjectBean;
 
@@ -22,6 +23,7 @@ public class AjaxForm extends ActionForm {
 	private List<OrganizationBean> listOrganizations;
 	private List<EmployeeReportBean> listEmployeeReport;
 	private List<ProjectBean> listProject;
+	private List<ActiveDirectoryBean> listAD;
 	private String mode;
 
 	public String getTask() {
@@ -123,6 +125,14 @@ public class AjaxForm extends ActionForm {
 
 	public void setListEmployees2(List<EmployeeBean> listEmployees2) {
 		this.listEmployees2 = listEmployees2;
+	}
+
+	public List<ActiveDirectoryBean> getListAD() {
+		return listAD;
+	}
+
+	public void setListAD(List<ActiveDirectoryBean> listAD) {
+		this.listAD = listAD;
 	}
 
 }

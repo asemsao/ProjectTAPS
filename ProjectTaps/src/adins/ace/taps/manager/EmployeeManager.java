@@ -16,6 +16,25 @@ public class EmployeeManager {
 	public EmployeeManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
+	
+	public boolean updateEmployee(NewEmployeeBean newEmployee) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.queryForObject("employee.saveEditEmployees", newEmployee);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
 
 	public boolean insertNewEmployee(NewEmployeeBean newEmployee) {
 		boolean flag = false;

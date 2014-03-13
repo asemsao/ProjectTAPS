@@ -12,6 +12,15 @@ public class ClaimAssignmentForm extends ActionForm {
 	private ClaimAssignmentBean claimBean = new ClaimAssignmentBean();
 	private List listDetailClaim;
 	private List historyComment;
+	private String totalManhours;
+
+	public String getTotalManhours() {
+		return totalManhours;
+	}
+
+	public void setTotalManhours(String totalManhours) {
+		this.totalManhours = totalManhours;
+	}
 
 	public String getTask() {
 		return task;

@@ -26,15 +26,21 @@
 			}
 		}
 	}
+	
+	function checkRadioButtonValue(){
+		
+	}
+	
 	$(document).ready(
 			function() {
 				$("#lookUpEmployee").load(
 						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+				$("#employee-name").val($("#employee-fullName").val());
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
-<body class="metro">
+<body class="metro" onload="javascript:checkRadioButtonValue();">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/newAssignment" method="POST">
 		<div class="container container-taps">
@@ -96,7 +102,9 @@
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
-											name="newAssignmentForm" styleId="employee-domain" />
+ 											name="newAssignmentForm" styleId="employee-domain" /> 
+ 										<html:hidden property="assignmentBean.assignToFullName"
+ 											name="newAssignmentForm" styleId="employee-fullName" /> 
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
