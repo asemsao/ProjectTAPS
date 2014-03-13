@@ -20,6 +20,7 @@ public class AjaxForm extends ActionForm {
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
 	private List<EmployeeBean> listEmployees2;
+	private List<EmployeeBean> listEmployeesOnProject;
 	private List<OrganizationBean> listOrganizations;
 	private List<EmployeeReportBean> listEmployeeReport;
 	private List<ProjectBean> listProject;
@@ -133,6 +134,15 @@ public class AjaxForm extends ActionForm {
 
 	public void setListAD(List<ActiveDirectoryBean> listAD) {
 		this.listAD = listAD;
+	}
+
+	public List<EmployeeBean> getListEmployeesOnProject() {
+		return listEmployeesOnProject;
+	}
+
+	public void setListEmployeesOnProject(
+			List<EmployeeBean> listEmployeesOnProject) {
+		this.listEmployeesOnProject = listEmployeesOnProject;
 	}
 
 }

@@ -379,14 +379,16 @@
             o.organization_code AS organizationCode, 
             o.organization_name AS organizationName,
             mgr.first_name || ' ' || mgr.last_name AS headUserName,
-            a.project_code AS projectCode, 
+            a.project_code AS projectCode,
+            p.project_name AS projectName, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
             a.adhoc_user_domain AS adhocUserDomain, 
             a.description AS description
-        FROM assignments a, organizations o, employees e, employees mgr
+        FROM assignments a, organizations o, employees e, employees mgr, projects p
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
+        AND a.project_code = p.project_code(+) 
 	</select>
 	
 	<select id="searchRecordSelfAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
@@ -401,15 +403,16 @@
             o.organization_name AS organizationName,
             mgr.first_name || ' ' || mgr.last_name AS headUserName,
             a.project_code AS projectCode, 
+            p.project_name AS projectName, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
             a.adhoc_user_domain AS adhocUserDomain, 
             a.description AS description,
             d.manhour AS manHours
-        FROM assignments a, organizations o, employees e, employees mgr, detail_claim_assignments d
+        FROM assignments a, organizations o, employees e, employees mgr, detail_claim_assignments d, projects p  
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
-        AND a.task_code = d.task_code
+        AND a.task_code = d.task_code AND a.project_code = p.project_code(+)
 	</select>
 	
 	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
@@ -465,6 +468,20 @@
 			description = #description#,
 			updated_by = #updatedBy#,
 			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
+	
+	<insert id="addHistoryComment">
+		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
+		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#status#,#commentTo#,#createdBy#,SYSDATE)
+	</insert>
+	
+	<update id="updateStatusAssignment" parameterClass="java.util.Map">
+		UPDATE assignments SET
+			current_status = #status#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE,
+			flag = #flag#
 		WHERE task_code = #taskCode#
 	</update>
 </sqlMap>

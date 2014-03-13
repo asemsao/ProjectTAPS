@@ -12,8 +12,8 @@ import adins.ace.taps.bean.project.ProjectBean;
 public class ProjectForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
 	private String task;
-	private String param;
-	private String param2;
+	private String paramProjectCode;
+	private String paramAssigneeUserDomain;
 	private String searchKeyword;
 	private String searchCategory;
 	private String organizationName;
@@ -61,12 +61,12 @@ public class ProjectForm extends ActionForm {
 		this.task = task;
 	}
 
-	public String getParam() {
-		return param;
+	public String getParamProjectCode() {
+		return paramProjectCode;
 	}
 
-	public void setParam(String param) {
-		this.param = param;
+	public void setParamProjectCode(String paramProjectCode) {
+		this.paramProjectCode = paramProjectCode;
 	}
 
 	public List<ProjectBean> getListProject() {
@@ -93,12 +93,12 @@ public class ProjectForm extends ActionForm {
 		this.projectName = projectName;
 	}
 
-	public String getParam2() {
-		return param2;
+	public String getParamAssigneeUserDomain() {
+		return paramAssigneeUserDomain;
 	}
 
-	public void setParam2(String param2) {
-		this.param2 = param2;
+	public void setParamAssigneeUserDomain(String paramAssigneeUserDomain) {
+		this.paramAssigneeUserDomain = paramAssigneeUserDomain;
 	}
 
 	public AddProjectBean getAddProject() {

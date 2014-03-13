@@ -3,7 +3,10 @@
 
 package adins.ace.taps.action;
 
-import java.io.PrintWriter;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +18,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.module.PhotoResizeModule;
@@ -29,11 +30,49 @@ public class EmployeeAction extends Action {
 			throws Exception {
 		EmployeeForm mForm = (EmployeeForm) form;
 		EmployeeManager mMan = new EmployeeManager();
-		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 		
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
+		}
+		
+		if("getPhoto".equals(mForm.getTask())){
+			NewEmployeeBean bean = new NewEmployeeBean();
+			bean = mMan.getPhotoEmployees(mForm.getEmployeeDomain());
+			BufferedInputStream input = null;
+	        BufferedOutputStream output = null;
+
+			OutputStream outStream = response.getOutputStream();
+	        
+			try {
+				response.setContentType("image/*");
+		            try {
+		                output = new BufferedOutputStream(outStream);
+		                byte[] buffer = bean.getProfilePicture();
+		                response.reset();
+		                response.setContentLength(buffer.length);
+				        outStream.write(buffer);
+				        outStream.flush();
+		            } catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+		                if (output != null) 
+		                	try { 
+		                		output.flush();
+		                		output.close(); 
+		                	} catch (IOException logOrIgnore) {
+		                		System.err.println(logOrIgnore);
+		                	}
+		                if (input != null) 
+		                	try { 
+		                		input.close(); 
+		                	} catch (IOException logOrIgnore) {
+		                		System.err.println(logOrIgnore);
+		                	}
+		            }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if ("edit".equals(mForm.getTask())) {
@@ -42,7 +81,6 @@ public class EmployeeAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if("new".equals(mForm.getTask())){
-			//TESTING
 			return mapping.findForward("New");
 		}
 		if("cancel".equals(mForm.getTask())){
@@ -51,6 +89,7 @@ public class EmployeeAction extends Action {
 		if("saveNewEmployee".equals(mForm.getTask())){
 			boolean flag=false;
 			//Resize Photo
+			System.out.println("ss"+mForm.getProfilePicture());
 			PhotoResizeModule resizePhoto = new PhotoResizeModule();
 			FormFile filepic = mForm.getProfilePicture();
 			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
@@ -60,35 +99,34 @@ public class EmployeeAction extends Action {
 			System.out.println(flag);
 		}
 		if("saveEditEmployee".equals(mForm.getTask())){
+			//kerjain cek photo
 			boolean flag=false;
+			System.out.println("aa"+mForm.getProfilePicture());
+			System.out.println("aa"+mForm.getNewEmployee().getProfilePicture());
 			PhotoResizeModule resizePhoto = new PhotoResizeModule();
 			FormFile filepic = mForm.getProfilePicture();
 			String filePathUpload = getServlet().getServletContext().getRealPath("/") +"upload";
 			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
 			mForm.getNewEmployee().setProfilePicture(result);
-			flag = mMan.updateEmployee(mForm.getNewEmployee());
+			//flag = mMan.updateEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
 		
-		if ("first".equals(mForm.getTask())
-				|| "first-ajax".equals(mForm.getTask())) {
+		if ("first".equals(mForm.getTask())) {
 			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
-		if ("last".equals(mForm.getTask())
-				|| "last-ajax".equals(mForm.getTask())) {
+		if ("last".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
 		}
 
-		if ("prev".equals(mForm.getTask())
-				|| "prev-ajax".equals(mForm.getTask())) {
+		if ("prev".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
 		}
-		if ("next".equals(mForm.getTask())
-				|| "next-ajax".equals(mForm.getTask())) {
+		if ("next".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
 			}
@@ -110,22 +148,6 @@ public class EmployeeAction extends Action {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {
 			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
-		}
-		
-		if ("search-lookup-employee".equalsIgnoreCase(mForm.getTask())
-				|| "first-lookup-employee".equalsIgnoreCase(mForm
-						.getTask())
-				|| "prev-lookup-employee".equalsIgnoreCase(mForm
-						.getTask())
-				|| "next-lookup-employee".equalsIgnoreCase(mForm
-						.getTask())
-				|| "last-lookup-employee".equalsIgnoreCase(mForm
-						.getTask())) {
-
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String json = gson.toJson(mForm);
-			out.print(json);
-			return null;
 		}
 		
 		return mapping.findForward("ListEmployee");

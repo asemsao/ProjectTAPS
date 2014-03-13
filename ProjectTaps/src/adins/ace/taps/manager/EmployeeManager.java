@@ -16,7 +16,7 @@ public class EmployeeManager {
 	public EmployeeManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
-	
+
 	public boolean updateEmployee(NewEmployeeBean newEmployee) {
 		boolean flag = false;
 		try {
@@ -40,7 +40,7 @@ public class EmployeeManager {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("employee.addEmployee", newEmployee);
+			ibatisSqlMap.insert("employee.insertEmployee", newEmployee);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
@@ -59,7 +59,8 @@ public class EmployeeManager {
 		List<EmployeeBean> empList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empList = ibatisSqlMap.queryForList("employee.searchEmployees", params);
+			empList = ibatisSqlMap.queryForList("employee.searchEmployees",
+					params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -70,6 +71,23 @@ public class EmployeeManager {
 			}
 		}
 		return empList;
+	}
+
+	public NewEmployeeBean getPhotoEmployees(String employeeDomain) {
+		NewEmployeeBean photo = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			photo = (NewEmployeeBean) ibatisSqlMap.queryForObject("employee.getPhotoEmployees", employeeDomain);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return photo;
 	}
 
 	public NewEmployeeBean getEditEmployees(Map params) {
@@ -96,6 +114,43 @@ public class EmployeeManager {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
 					"employee.countEmployees", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	public List<EmployeeBean> searchEmployeesOnProject(Map params) {
+		List<EmployeeBean> empList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			empList = ibatisSqlMap.queryForList(
+					"employee.searchEmployeesOnProject", params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return empList;
+	}
+
+	public Integer countEmployeesOnProject(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"employee.countEmployeesOnProject", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

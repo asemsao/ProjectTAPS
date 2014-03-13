@@ -26,7 +26,7 @@
 		$("#employeeNik").attr("placeholder", "NIK");
 		$("#firstName").attr("placeholder", "First Name");
 		$("#lastName").attr("placeholder", "Last Name");
-		$("#businessUnit").attr("placeholder", "Business Unit");
+		$(".businessUnit").attr("placeholder", "Business Unit");
 		$("#employeeAddress").attr("placeholder", "Address");
 		$("#phoneNumber").attr("placeholder", "Phone Number");
 		$("#mobileNumber").attr("placeholder", "Mobile Number");
@@ -40,7 +40,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employee" method="POST" styleClass="employeeForm">
+	<html:form enctype="multipart/form-data" action="/employee" method="POST" styleClass="employeeForm">
 		<html:hidden property="task" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -59,11 +59,12 @@
 										<html:text property="newEmployee.employeeDomain"
 											name="employeeForm" styleId="employeeDomain" readonly="true"></html:text>
 									</div></td>
-								<td rowspan="6" class="text-center"><img
-									src="<%=request.getContextPath()%>/images/user.png"
-									class="cycle avatar"><br>
+								<td rowspan="6" class="text-center">
+									<img class="cycle avatar" src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"/>
+									<br>
+									<html:hidden property="newEmployee.profilePicture" name="employeeForm" />
 									<div class="input-control file ">
-										<html:file property="profilePicture" accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/jpg"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 							</tr>
@@ -122,11 +123,10 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:hidden property="newEmployee.businessUnit"
+									<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										
-										<html:text property="newEmployee.businessUnit"
-											name="employeeForm" styleId="organization-name" readonly="true"></html:text>
+										<input type="text" readonly="readonly" id="organization-name" class="businessUnit"
+										value="<bean:write name="employeeForm" property="newEmployee.businessUnit" />"/>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>

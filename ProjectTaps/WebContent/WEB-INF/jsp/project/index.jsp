@@ -12,9 +12,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function flyToPage(task, param) {
+	function flyToPage(task, paramProjectCode) {
 		document.projectForm.task.value = task;
-		document.projectForm.param.value = param;
+		document.projectForm.paramProjectCode.value = paramProjectCode;
 		document.projectForm.submit();
 	}
 	function button(task) {
@@ -36,7 +36,7 @@
 					<html:hidden property="task" name="projectForm" />
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
-					<html:hidden property="param" name="projectForm" />
+					<html:hidden property="paramProjectCode" name="projectForm" />
 
 					<table class="table striped bordered hovered">
 						<thead>

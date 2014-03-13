@@ -38,6 +38,8 @@
 				$("#lookUpProject").load(
 						"/ProjectTaps/ajax.do?mode=projects&task=projects");
 				$("#employee-name").val($("#employee-fullName").val());
+				$("#project-name").val($("#project-fullName").val());
+				$("#timepicker").timeselector();
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -74,6 +76,13 @@
 									</div></td>
 							</tr>
 							<tr>
+								<td>Assignment Time</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<input type="text" id="timepicker" value="00:00" readonly="readonly" />
+									</div></td>
+							</tr>
+							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td><div class="input-control radio margin10">
@@ -95,6 +104,8 @@
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
 												name="newAssignmentForm" styleId="project-code"></html:hidden>
+											<html:hidden property="assignmentBean.projectName"
+												name="newAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>

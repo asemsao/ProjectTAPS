@@ -12,10 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function flyToPage(task,param2)
+	function flyToPage(task,paramAssigneeUserDomain)
 	{
 		document.projectForm.task.value = task;
-		document.projectForm.param2.value = param2;
+		document.projectForm.paramAssigneeUserDomain.value = paramAssigneeUserDomain;
 		document.projectForm.submit();
 	}
 	function button(task) 
@@ -102,8 +102,8 @@
 					</tbody>
 				</table>
 				<html:hidden property="task" name="projectForm" />
-				<html:hidden property="param" name="projectForm" />
-				<html:hidden property="param2" name="projectForm" />
+				<html:hidden property="paramProjectCode" name="projectForm" />
+				<html:hidden property="paramAssigneeUserDomain" name="projectForm" />
 			</div>
 		</div>
 	</div>
