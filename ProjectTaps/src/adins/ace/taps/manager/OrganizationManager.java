@@ -181,30 +181,23 @@ public class OrganizationManager {
 		return flag;
 	}
 
-	public boolean checkMemberOrganization(String organization_code) {
-		boolean flag = false;
+	public int countMemberOrganization(Map params) {
 		Integer count = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.checkMemberOrganization", organization_code);
+					"organization.countMemberOrganization", params);
 			ibatisSqlMap.commitTransaction();
-			if (count > 0) {
-				flag = true;
-			}
-
 		} catch (SQLException e) {
-			flag = false;
 			e.printStackTrace();
 		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e2) {
-				flag = false;
 				e2.printStackTrace();
 			}
 		}
-		return flag;
+		return count;
 	}
 
 	public OrganizationBean getOrgCode(String organizationCode) {
