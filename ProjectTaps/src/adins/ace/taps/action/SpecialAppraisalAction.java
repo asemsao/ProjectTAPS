@@ -24,31 +24,20 @@ public class SpecialAppraisalAction extends Action {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
 		Map params = new HashMap();
-		mForm.setListSpecialAppraisal(mMan.getAll());
-
-		System.out.println(mForm.getTask());
+		
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
-
 		if ("New".equals(mForm.getTask())) {
 			return mapping.findForward("New");
 		} else if ("Appraisal".equals(mForm.getTask())) {
 			System.out.println("insert");
 			mMan.Insert(mForm.getAppraisalBean());
-			mForm.setListSpecialAppraisal(mMan.getAll());
-			return mapping.findForward("ListSpecialAppraisal");
-		} else if ("Cancel".equals(mForm.getTask())) {
-			mForm.setListSpecialAppraisal(mMan.getAll());
-			return mapping.findForward("ListSpecialAppraisal");
 		} else if ("View".equals(mForm.getTask())) {
 			System.out.println("Task View : " + mForm.getTask());
 			System.out.println("Task Param : " + mForm.getParam());
 			mForm.setAppraisalBean(mMan.getUserDomain(mForm.getParam()));
 			return mapping.findForward("View");
-		} else if ("Back".equals(mForm.getTask())) {
-			mForm.setListSpecialAppraisal(mMan.getAll());
-			return mapping.findForward("ListSpecialAppraisal");
 		} else if ("first".equals(mForm.getTask())) {
 			System.out.println("cek");
 			mForm.setPage(1);
