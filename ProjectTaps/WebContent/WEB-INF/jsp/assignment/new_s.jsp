@@ -159,7 +159,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Manhours</td>
+								<td>ManHours</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">

@@ -17,30 +17,6 @@ public class SpecialAppraisalManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
-	public List getAll() {
-		List list = null;
-		SpecialAppraisalBean bean = new SpecialAppraisalBean();
-		try {
-			// System.out.println("masuk list");
-			ibatisSqlMap.startTransaction();
-			list = ibatisSqlMap.queryForList(
-					"SpecialAppraisal.getAllSpecialAppraisal", null);
-			ibatisSqlMap.commitTransaction();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			// System.out.println("gagal list");
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
-			}
-		}
-		return list;
-	}
-
 	public SpecialAppraisalBean getUserDomain(String starId) {
 		SpecialAppraisalBean bean = new SpecialAppraisalBean();
 		try {

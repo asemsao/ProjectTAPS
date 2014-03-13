@@ -77,8 +77,8 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<html:text property="pBean.organizationCode"
-											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
+									<html:hidden property="pBean.organizationCode" name="projectForm" styleId="organization-code" ></html:hidden>
+									<html:text property="pBean.organizationName" name="projectForm" styleId="businessUnit" readonly="true"></html:text>
 									<button type="button" class="btn-search" id="organization"></button>
 								</div>
 
@@ -91,7 +91,7 @@
 								<div class="input-control text" id="datepicker-begin">
 									<html:text property="pBean.startDate"
 											name="projectForm"></html:text>
-									<button class="btn-date"></button>
+									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
 						</tr>
@@ -102,7 +102,7 @@
 								<div class="input-control text " id="datepicker-end">
 									<html:text property="pBean.endDate"
 											name="projectForm"></html:text>
-									<button class="btn-date"></button>
+									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
 						</tr>
