@@ -36,6 +36,25 @@ public class OrganizationManager {
 		}
 		return orgList;
 	}
+	
+	public List<OrganizationBean> searchMemberOrganizations(Map params) {
+		List<OrganizationBean> orgList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			orgList = ibatisSqlMap.queryForList(
+					"organization.searchMemberOrganizations", params);
+			System.out.println("size di manager : "+orgList.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return orgList;
+	}
 
 	public Integer countOrganizations(Map params) {
 		Integer count = null;
@@ -122,6 +141,7 @@ public class OrganizationManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 			System.out.println("update berhasil " + organization_code);
+
 		} catch (SQLException e) {
 			flag = false;
 			e.printStackTrace();
@@ -172,6 +192,7 @@ public class OrganizationManager {
 			if (count > 0) {
 				flag = true;
 			}
+
 		} catch (SQLException e) {
 			flag = false;
 			e.printStackTrace();
