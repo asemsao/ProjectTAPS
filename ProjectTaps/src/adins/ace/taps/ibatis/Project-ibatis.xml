@@ -40,7 +40,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	        p.project_name AS projectName,
 	        ps.project_role AS projectRole,
 	        e.first_name || ' ' || e.last_name AS assignee,
-	        emp.first_name || ' ' || emp.last_name AS directReport
+	        emp.first_name || ' ' || emp.last_name AS directReport,
+	        ps.assignee_user_domain AS assigneeUserDomain
   		FROM   
   			organizations o,
          	projects p,
@@ -87,4 +88,42 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM phases
 	</select>
 	
+	<update id="updateProject" parameterClass="adins.ace.taps.bean.project.ProjectBean">
+		UPDATE projects 
+		SET 
+			project_code = #projectCode#,
+			project_name = #projectName#,
+			client = #client#,
+			phase_id = #phase#,
+			organization_code = #organizationCode#,
+			start_date = #startDate#,
+			end_date = #endDate#,
+			updated_by = 'domain100',
+			updated_date = sysdate
+		WHERE  project_code = #projectCode#
+	</update>
+	
+	<insert id="addProjectMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean" >
+		INSERT INTO project_structures 
+			(project_code,
+			project_role,
+			assignee_user_domain,
+			directreport_user_domain,
+			flag)
+		VALUES 
+			(#projectCode#,
+			#projectRole#,
+			#assigneeUserDomain#,
+			#directreportUserDomain#,
+			'ACTIVE')
+	</insert>
+	
+	<select id="getProjectMemberById"  resultClass="adins.ace.taps.bean.project.AddStructureProjectBean" parameterClass="java.util.Map">
+		SELECT
+			project_role AS projectRole,
+			assignee_user_domain AS assigneeUserDomain,
+			directreport_user_domain AS directreportUserDomain
+		FROM project_structures
+		WHERE assignee_user_domain = #param2# AND project_code = #param#
+	</select>
 </sqlMap>

@@ -15,18 +15,14 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
-	$(document)
-			.ready(
-					function() {
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
-						$("#lookUpEmployee2")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-					});
+	$(document).ready(function() {
+		$("#role").attr("placeholder", "Role in Project");
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+	});
 </script>
-<title>Add Project Structure</title>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
+<title>Add Project Member</title>
 </head>
 
 <body class="metro">
@@ -38,7 +34,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="3"><h3>Add Project Structure</h3></th>
+								<th colspan="3"><h3>Add Project Member<br/><br/>"<bean:write property="projectName" />"</h3></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -47,7 +43,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<input type="text" placeholder="Role in Project" />
+										<html:text property="addSProject.projectRole" name="projectForm" styleId="role">
+										</html:text>
 									</div>
 								</td>
 							</tr>
@@ -56,11 +53,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<!-- nama property nanti di sesuaiin ya sen -->
-										<html:hidden property="" name="projectForm"
-											styleId="employee-domain"></html:hidden>
-										<input type="text" placeholder="Assign to" id="employee-name"
-											readonly="readonly" />
+										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
+										<input type="text" placeholder="Assign to" id="employee-name" readonly="readonly" />
 										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
@@ -70,18 +64,15 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<!-- nama property nanti di sesuaiin ya sen -->
-										<html:hidden property="" name="projectForm"
-											styleId="employee-domain-2"></html:hidden>
-										<input type="text" placeholder="Report to"
-											id="employee-name-2" readonly="readonly" />
+										<html:hidden property="addSProject.directreportUserDomain" name="projectForm" styleId="employee-domain-2"></html:hidden>
+										<input type="text" placeholder="Report to" id="employee-name-2" readonly="readonly" />
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="" class="button success">Save</button>
+									<button id="save-btn" onclick="javascript:button('saveMember')" class="button success">Save</button>
 									<button id="cancel-btn-2" onclick="javascript:button('back')">Cancel</button>
 								</td>
 							</tr>
@@ -94,8 +85,6 @@
 			</div>
 		</div>
 	</html:form>
-
-
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />

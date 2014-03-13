@@ -61,7 +61,7 @@
 								<td><bean:write name="project" property="projectRole" /></td>
 								<td><bean:write name="project" property="assignee" /></td>
 								<td><bean:write name="project" property="directReport" /></td>
-								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="projectRole" />')"
+								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')"
 									data-hint="Edit Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 								<td class="text-center"><a href="#"
