@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -28,6 +29,8 @@ public class AjaxAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		HttpSession session = request.getSession();
+
 		AjaxForm ajaxForm = (AjaxForm) form;
 
 		EmployeeManager empMan = new EmployeeManager();
@@ -71,9 +74,6 @@ public class AjaxAction extends Action {
 		params.put("keyword", ajaxForm.getSearchKeyword());
 
 		if ("employees".equals(ajaxForm.getMode())) {
-			if (!("".equals(ajaxForm.getOrganizationCode()))) {
-				params.put("organization", ajaxForm.getOrganizationCode());
-			}
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
@@ -82,16 +82,32 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("employeesOnProject".equals(ajaxForm.getMode())) {
-			if (!("".equals(ajaxForm.getProjectCode()))) {
+			if ("".equals(ajaxForm.getProjectCode())) {
+				ajaxForm.setCountRecord(0);
+			} else {
 				params.put("project", ajaxForm.getProjectCode());
+				ajaxForm.setListEmployeesOnProject(empMan
+						.searchEmployeesOnProject(params));
+				ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
 			}
-			ajaxForm.setListEmployeesOnProject(empMan
-					.searchEmployeesOnProject(params));
-			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
+		}
+		if ("employeesOnOrganization".equals(ajaxForm.getMode())) {
+			// nanti dari session
+			ajaxForm.setOrganizationCode("CDD");
+			params.put("organization", ajaxForm.getOrganizationCode());
+			ajaxForm.setListEmployeesOnOrganization(empMan
+					.searchEmployees(params));
+			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("organizations".equals(ajaxForm.getMode())) {
 			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
 			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
+		}
+		if ("parentOrganizations".equals(ajaxForm.getMode())) {
+			params.put("level", ajaxForm.getLevel() - 1);
+			ajaxForm.setListOrganizations(orgMan
+					.searchParentOrganizations(params));
+			ajaxForm.setCountRecord(orgMan.countParentOrganizations(params));
 		}
 		if ("assignments".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployeeReport(asgMan
@@ -139,10 +155,16 @@ public class AjaxAction extends Action {
 		if ("employees2".equals(ajaxForm.getTask())) {
 			return mapping.findForward("employees2");
 		}
+		if ("employeesOnOrganization".equals(ajaxForm.getTask())) {
+			return mapping.findForward("employeesOnOrganization");
+		}
 		if ("employeesOnProject".equals(ajaxForm.getTask())) {
 			return mapping.findForward("employeesOnProject");
 		}
 		if ("organizations".equals(ajaxForm.getTask())) {
+			return mapping.findForward("organizations");
+		}
+		if ("parentOrganizations".equals(ajaxForm.getTask())) {
 			return mapping.findForward("organizations");
 		}
 		if ("assignments".equals(ajaxForm.getTask())) {

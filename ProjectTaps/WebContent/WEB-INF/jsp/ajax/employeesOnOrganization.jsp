@@ -8,50 +8,52 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AJAX EMPLOYEES ON PROJECT</title>
+<title>AJAX EMPLOYEES ON ORGANIZATION</title>
 </head>
 
 <body class="metro">
 	<html:form action="/ajax" method="post">
-		<html:hidden property="task" styleId="task-employee-on-project"
+		<html:hidden property="task" styleId="task-employee-on-organization"
 			name="ajaxForm" />
-		<html:hidden property="mode" styleId="mode-employee-on-project"
+		<html:hidden property="mode" styleId="mode-employee-on-organization"
 			name="ajaxForm" />
-		<html:hidden property="page" styleId="page-employee-on-project"
+		<html:hidden property="page" styleId="page-employee-on-organization"
 			name="ajaxForm" />
-		<html:hidden property="maxpage" styleId="maxpage-employee-on-project"
-			name="ajaxForm" />
+		<html:hidden property="organizationCode"
+			styleId="organization-code" name="ajaxForm" />
+		<html:hidden property="maxpage"
+			styleId="maxpage-employee-on-organization" name="ajaxForm" />
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
-					<th colspan=5 class="text-center">Employee List</th>
+					<th colspan=5 class="text-center">Employee in Organization</th>
 				</tr>
 				<tr>
 					<th class="text-center" colspan=2>
 						<div class="input-control select">
 							<html:select property="searchCategory" name="ajaxForm"
-								styleClass="search-category-employee-on-project">
+								styleClass="search-category-employee-on-organization">
 								<html:option value="All">All</html:option>
 								<html:option value="employeeDomain">Employee Domain</html:option>
 								<html:option value="employeeCode">Employee Code</html:option>
 								<html:option value="employeeName">Employee Name</html:option>
-								<html:option value="projectRole">Role</html:option>
+								<html:option value="employeeAddress">Employee Address</html:option>
 							</html:select>
 						</div>
 					</th>
 					<th class="text-center" colspan=3>
 						<div class="input-control text">
 							<html:text property="searchKeyword" name="ajaxForm"
-								styleClass="search-keyword-employee-on-project"
-								onkeydown="if (event.keyCode == 13){ javascript:pagingEmployeeOnProject('search'); return false;}"></html:text>
+								styleClass="search-keyword-employee-on-organization"
+								onkeydown="if (event.keyCode == 13){ javascript:pagingEmployeeOnOrganization('search'); return false;}"></html:text>
 							<button type="button" class="btn-search"
-								onclick="javascript:pagingEmployeeOnProject('search');"></button>
+								onclick="javascript:pagingEmployeeOnOrganization('search');"></button>
 						</div>
 					</th>
 				</tr>
 			</thead>
 		</table>
-		<div id="table-ajax-employee-on-project">
+		<div id="table-ajax-employee-on-organization">
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
@@ -59,16 +61,17 @@
 						<th class="text-center">Domain</th>
 						<th class="text-center">Code</th>
 						<th class="text-center">Name</th>
-						<th class="text-center">Role</th>
+						<th class="text-center">Address</th>
 					</tr>
 				</thead>
 				<tbody>
-					<logic:notEmpty name="ajaxForm" property="listEmployeesOnProject">
+					<logic:notEmpty name="ajaxForm"
+						property="listEmployeesOnOrganization">
 						<logic:iterate id="employee" name="ajaxForm"
-							property="listEmployeesOnProject">
+							property="listEmployeesOnOrganization">
 							<tr>
 								<td class="text-center"><input type='radio'
-									name='employee_choose_on_project'
+									name='employee_choose_on_organization'
 									value='<bean:write name="employee"
 										property="employeeDomain" />@<bean:write name="employee"
 										property="employeeName" />' />
@@ -78,11 +81,11 @@
 								<td class="text-center"><bean:write name="employee"
 										property="employeeCode" /></td>
 								<td><bean:write name="employee" property="employeeName" /></td>
-								<td><bean:write name="employee" property="projectRole" /></td>
+								<td><bean:write name="employee" property="employeeAddress" /></td>
 							</tr>
 						</logic:iterate>
 					</logic:notEmpty>
-					<logic:empty name="ajaxForm" property="listEmployeesOnProject">
+					<logic:empty name="ajaxForm" property="listEmployeesOnOrganization">
 						<tr>
 							<td class="text-center" colspan=5>Data not found</td>
 						</tr>
@@ -97,31 +100,31 @@
 						<div class="pagination">
 							<ul>
 								<li class="first"><a
-									onclick="javascript:pagingEmployeeOnProject('first');"><i
+									onclick="javascript:pagingEmployeeOnOrganization('first');"><i
 										class="icon-first-2"></i></a></li>
 								<li class="prev"><a
-									onclick="javascript:pagingEmployeeOnProject('prev');"><i
+									onclick="javascript:pagingEmployeeOnOrganization('prev');"><i
 										class="icon-previous"></i></a></li>
 								<li class="disabled"><a>Page <span
-										id="current-page-employee-on-project"><bean:write
+										id="current-page-employee-on-organization"><bean:write
 												name="ajaxForm" property="page" /></span> of <span
-										id="max-page-employee-on-project"><bean:write
+										id="max-page-employee-on-organization"><bean:write
 												name="ajaxForm" property="maxpage" /></span></a></li>
 								<li class="next"><a
-									onclick="javascript:pagingEmployeeOnProject('next');"><i
+									onclick="javascript:pagingEmployeeOnOrganization('next');"><i
 										class="icon-next"></i></a></li>
 								<li class="last"><a
-									onclick="javascript:pagingEmployeeOnProject('last');"><i
+									onclick="javascript:pagingEmployeeOnOrganization('last');"><i
 										class="icon-last-2"></i></a></li>
 								<li class="disabled"><a>Total Record <span
-										id="total-record-employee-on-project"><bean:write
+										id="total-record-employee-on-organization"><bean:write
 												name="ajaxForm" property="countRecord" /></span></a></li>
 							</ul>
 						</div>
 					</th>
 					<th class="text-center"><button type="button"
 							class='button success'
-							onclick="javascript:chooseEmployeeOnProject()">Add</button></th>
+							onclick="javascript:chooseEmployeeOnOrganization()">Add</button></th>
 				</tr>
 			</thead>
 		</table>

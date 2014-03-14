@@ -35,9 +35,12 @@
 			.ready(
 					function() {
 						var project_code = $("#project-code").val();
-						$("#lookUpEmployee")
+						var organization_code = $("#organization-code-view")
+								.val();
+						$("#lookUpEmployeeOnOrganization")
 								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
+										"/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode="
+												+ organization_code);
 						$("#lookUpEmployeeOnProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
@@ -141,7 +144,14 @@
 											name="newAssignmentForm" styleId="employee-fullName" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
-										<button type="button" class="btn-search" id="employee"></button>
+										<div class="pr" class="in-bl">
+											<button type="button" class="btn-search"
+												id="employeeOnProject"></button>
+										</div>
+										<div id="bu" class="in-bl">
+											<button type="button" class="btn-search"
+												id="employeeOnOrganization"></button>
+										</div>
 									</div></td>
 							</tr>
 							<tr>
@@ -173,14 +183,17 @@
 				</div>
 			</div>
 		</div>
+		<!-- ini nanti ambil session -->
+		<input type="hidden" id="organization-code-view" value="CDD" />
 		<html:hidden property="newTask" name="newAssignmentForm" />
 		<html:hidden property="assignmentType" name="newAssignmentForm"
 			styleId="assignment-type" />
 	</html:form>
 
-	<div id="lookUpEmployee" class="hide"></div>
+
 	<div id="lookUpProject" class="hide"></div>
-	<div id="lookUpEmployeeOnProject"></div>
+	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
+	<div id="lookUpEmployeeOnProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>

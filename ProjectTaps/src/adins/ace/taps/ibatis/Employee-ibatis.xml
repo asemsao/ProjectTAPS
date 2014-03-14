@@ -98,12 +98,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
 	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.lang.String">
-		SELECT picture AS profilePicture from employees WHERE user_domain=#employeeDomain#
+		SELECT picture AS profilePicture from employees WHERE
+		user_domain=#employeeDomain#
 	</select>
-
 	<select id="searchEmployeesOnProject" resultClass="employeeBean"
 		parameterClass="java.util.Map">
 		SELECT *
@@ -213,17 +212,38 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 
 	<update id="saveEditEmployees" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
-		UPDATE employees
-		SET picture=#profilePicture#,
-		employee_nik=#employeeNik#,
-		employee_code=#employeeCode#,
-		first_name=#firstName#,last_name=#lastName#, gender=#gender#,
-		organization_code=#businessUnit#, address=#employeeAddress#,
-		phone_number=#phoneNumber#,mobile_phone=#mobileNumber#, email=#email#,
-		employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE',
-		updated_by='DOMAIN201',
-		updated_date=SYSDATE WHERE
-		user_domain=#employeeDomain#
+		<isEmpty property="tempProfPic">
+			UPDATE employees
+			SET
+			employee_nik=#employeeNik#,
+			employee_code=#employeeCode#,
+			first_name=#firstName#,last_name=#lastName#, gender=#gender#,
+			organization_code=#businessUnit#, address=#employeeAddress#,
+			phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
+			email=#email#,
+			employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE',
+			updated_by='DOMAIN201',
+			updated_date=SYSDATE WHERE
+			user_domain=#employeeDomain#
+		</isEmpty>
+		<isNotNull property="tempProfPic">
+			<isNotEmpty property="tempProfPic">
+				UPDATE employees
+				SET
+				picture=#profilePicture#,
+				employee_nik=#employeeNik#,
+				employee_code=#employeeCode#,
+				first_name=#firstName#,last_name=#lastName#, gender=#gender#,
+				organization_code=#businessUnit#, address=#employeeAddress#,
+				phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
+				email=#email#,
+				employee_category=#golonganNumber# || #golonganLevel#,
+				flag='ACTIVE',
+				updated_by='DOMAIN201',
+				updated_date=SYSDATE WHERE
+				user_domain=#employeeDomain#
+			</isNotEmpty>
+		</isNotNull>
 	</update>
 	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
@@ -233,8 +253,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		employeeCode,
 		e.first_name AS firstName,
 		e.last_name AS lastName, e.gender AS
-		gender, o.organization_name AS
-		businessUnit, e.address AS employeeAddress,
+		gender, e.organization_code AS
+		businessUnit, o.organization_name AS
+		businessUnitName, e.address AS employeeAddress,
 		e.phone_number AS
 		phoneNumber,
 		e.mobile_phone AS mobileNumber, e.email AS

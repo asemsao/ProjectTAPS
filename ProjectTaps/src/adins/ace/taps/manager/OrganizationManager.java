@@ -36,14 +36,14 @@ public class OrganizationManager {
 		}
 		return orgList;
 	}
-	
+
 	public List<OrganizationBean> searchMemberOrganizations(Map params) {
 		List<OrganizationBean> orgList = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			orgList = ibatisSqlMap.queryForList(
 					"organization.searchMemberOrganizations", params);
-			System.out.println("size di manager : "+orgList.size());
+			System.out.println("size di manager : " + orgList.size());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -62,6 +62,43 @@ public class OrganizationManager {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
 					"organization.countOrganizations", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	public List<OrganizationBean> searchParentOrganizations(Map params) {
+		List<OrganizationBean> orgList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			orgList = ibatisSqlMap.queryForList(
+					"organization.searchParentOrganizations", params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return orgList;
+	}
+
+	public Integer countParentOrganizations(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countParentOrganizations", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,12 +218,12 @@ public class OrganizationManager {
 		return flag;
 	}
 
-	public int countMemberOrganization(Map params) {
+	public int checkMemberOrganization(Map params) {
 		Integer count = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.countMemberOrganization", params);
+					"organization.checkMemberOrganization", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

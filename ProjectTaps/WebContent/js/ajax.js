@@ -47,6 +47,18 @@ $(document).ready(function() {
 			title : 'Employees on Project'
 		});
 	});
+	$("#employeeOnOrganization").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpEmployeeOnOrganization").html(),
+			padding : 10,
+			title : 'Employees on Organization'
+		});
+	});
 	$("#organization").on('click', function() {
 		$.Dialog({
 			overlay : true,
@@ -301,7 +313,7 @@ function chooseEmployee() {
 // ===============================================================================
 // Fungsi ajax look up untuk employees on project
 // ===============================================================================
-function loadEmployee(searchCategory, searchKeyword) {
+function loadEmployeeOnProject(searchCategory, searchKeyword) {
 	setTimeout(
 			function() {
 				$.Dialog({
@@ -353,9 +365,9 @@ function setResponseEmployeeOnProject(data) {
 	for ( var i in json.listEmployeesOnProject) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
-		content += "<input type='radio' name='employee_choose'";
-		content += "value='" + json.listEmployeesOnProject[i].employeeDomain + "@"
-				+ json.listEmployeesOnProject[i].employeeName + "' />";
+		content += "<input type='radio' name='employee_choose_on_project'";
+		content += "value='" + json.listEmployeesOnProject[i].employeeDomain
+				+ "@" + json.listEmployeesOnProject[i].employeeName + "' />";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listEmployeesOnProject[i].employeeDomain;
@@ -407,6 +419,122 @@ function pagingEmployeeOnProject(direction) {
 
 function chooseEmployeeOnProject() {
 	var choosen = $("input[name='employee_choose_on_project']:checked").val();
+	$("#employee-domain").val(choosen.split('@')[0]);
+	$("#employee-name").val(choosen.split('@')[1]);
+	$.Dialog.close();
+}
+
+// ===============================================================================
+// Fungsi ajax look up untuk employees on Organization
+// ===============================================================================
+function loadEmployeeOnOrganization(searchCategory, searchKeyword) {
+	setTimeout(
+			function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpEmployeeOnOrganization").html(),
+					padding : 10,
+					title : 'Employee on Organization'
+				});
+				$(".search-category-employee-on-organization").get(1).value = searchCategory;
+				$(".search-keyword-employee-on-organization").get(1).value = searchKeyword;
+			}, 500);
+}
+
+function setParameterEmployeeOnOrganization() {
+	var task = $("#task-employee-on-organization").val();
+	var search = $(".search-category-employee-on-organization").get(1).value;
+	var value = $(".search-keyword-employee-on-organization").get(1).value;
+	var page = $("#page-employee-on-organization").val();
+	var maxpage = $("#maxpage-employee-on-organization").val();
+	var mode = $("#mode-employee-on-organization").val();
+	var organization = $("#organization-code").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&organizationCode=" + organization;
+	return data;
+}
+
+function setResponseEmployeeOnOrganization(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Choose</th>";
+	content += "<th class='text-center'>Domain</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Name</th>";
+	content += "<th class='text-center'>Address</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeesOnOrganization) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += "<input type='radio' name='employee_choose_on_organization'";
+		content += "value='"
+				+ json.listEmployeesOnOrganization[i].employeeDomain + "@"
+				+ json.listEmployeesOnOrganization[i].employeeName + "' />";
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeesOnOrganization[i].employeeDomain;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeesOnOrganization[i].employeeCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeesOnOrganization[i].employeeName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeesOnOrganization[i].employeeAddress;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-employee-on-organization").html(content);
+	$("#page-employee-on-organization").val(json.page);
+	$("#current-page-employee-on-organization").html(json.page);
+	$("#maxpage-employee-on-organization").val(json.maxpage);
+	$("#max-page-employee-on-organization").html(json.maxpage);
+	$("#total-record-employee-on-organization").html(json.countRecord);
+	$(".search-category-employee-on-organization").val(json.searchCategory);
+	$(".search-keyword-employee-on-organization").val(json.searchKeyword);
+}
+
+function pagingEmployeeOnOrganization(direction) {
+	var searchCategory = $(".search-category-employee-on-organization").get(1).value;
+	var searchKeyword = $(".search-keyword-employee-on-organization").get(1).value;
+	$.Dialog.close();
+	$("#task-employee-on-organization").val(direction);
+	var data = setParameterEmployeeOnOrganization();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseEmployeeOnOrganization(data);
+		}
+	});
+
+	loadEmployeeOnOrganization(searchCategory, searchKeyword);
+}
+
+function chooseEmployeeOnOrganization() {
+	var choosen = $("input[name='employee_choose_on_organization']:checked")
+			.val();
 	$("#employee-domain").val(choosen.split('@')[0]);
 	$("#employee-name").val(choosen.split('@')[1]);
 	$.Dialog.close();
@@ -550,8 +678,10 @@ function setParameterOrganization() {
 	var page = $("#page-organization").val();
 	var maxpage = $("#maxpage-organization").val();
 	var mode = $("#mode-organization").val();
+	var level = $("#level-organization").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&level=" + level;
 	return data;
 }
 
@@ -860,7 +990,9 @@ function pagingProject(direction) {
 
 function chooseProject() {
 	var choosen = $("input[name='project_choose']:checked").val();
-	$("#project-code").val(choosen.split('@')[0]).trigger('change');;
-	$("#project-name").val(choosen.split('@')[1]).trigger('change');;
+	$("#project-code").val(choosen.split('@')[0]).trigger('change');
+	;
+	$("#project-name").val(choosen.split('@')[1]).trigger('change');
+	;
 	$.Dialog.close();
 }

@@ -19,6 +19,8 @@
 			name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-organization"
 			name="ajaxForm" />
+		<html:text property="level" styleId="level-organization"
+			name="ajaxForm" />
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
@@ -98,9 +100,10 @@
 									onclick="javascript:pagingOrganization('prev');"><i
 										class="icon-previous"></i></a></li>
 								<li class="disabled"><a>Page <span
-										id="current-page-organization"><bean:write name="ajaxForm"
-												property="page" /></span> of <span id="max-page-organization"><bean:write
-												name="ajaxForm" property="maxpage" /></span></a></li>
+										id="current-page-organization"><bean:write
+												name="ajaxForm" property="page" /></span> of <span
+										id="max-page-organization"><bean:write name="ajaxForm"
+												property="maxpage" /></span></a></li>
 								<li class="next"><a
 									onclick="javascript:pagingOrganization('next');"><i
 										class="icon-next"></i></a></li>
@@ -108,8 +111,8 @@
 									onclick="javascript:pagingOrganization('last');"><i
 										class="icon-last-2"></i></a></li>
 								<li class="disabled"><a>Total Record <span
-										id="total-record-organization"><bean:write name="ajaxForm"
-												property="countRecord" /></span></a></li>
+										id="total-record-organization"><bean:write
+												name="ajaxForm" property="countRecord" /></span></a></li>
 							</ul>
 						</div>
 					</th>

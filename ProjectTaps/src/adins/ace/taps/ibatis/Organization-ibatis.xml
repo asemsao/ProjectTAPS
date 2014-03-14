@@ -96,15 +96,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
-		START
-		WITH
-		o.organization_code = 'MAN'
-		CONNECT
-		BY
-		PRIOR
-		o.organization_code
-		=
-		o.parent_organization_code
 	</select>
 
 	<select id="countChildOrganizations" resultClass="int">
@@ -186,15 +177,140 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 
+	<select id="searchParentOrganizations" resultClass="organizationBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
+		SELECT
+		o.organization_code
+		AS organizationCode,
+		o.organization_name AS
+		organizationName,
+		e.first_name || ' ' || e.last_name AS headName,
+		r.organization_name as
+		parentName
+		FROM organizations o
+		LEFT
+		JOIN
+		employees
+		e
+		ON o.head_user_domain
+		=
+		e.user_domain
+		LEFT JOIN
+		organizations r
+		ON
+		o.parent_organization_code =
+		r.organization_code
+		WHERE
+		LOWER(o.flag) =
+		'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="organizationCode">(LOWER(o.organization_code)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="organizationName">(LOWER(o.organization_name)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="headName">(LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%')
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="level">
+				<isNotEmpty property="level">
+					o.organization_level = #level#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		)
+		a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
+	<select id="countParentOrganizations" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		FROM
+		organizations o
+		LEFT
+		JOIN
+		employees e
+		ON
+		o.head_user_domain
+		=
+		e.user_domain
+		LEFT JOIN
+		organizations r
+		ON
+		o.parent_organization_code =
+		r.organization_code
+		WHERE
+		LOWER(o.flag) =
+		'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="organizationCode">(LOWER(o.organization_code)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="organizationName">(LOWER(o.organization_name)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="headName">(LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="all">LOWER(o.organization_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(o.organization_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.last_name) LIKE LOWER
+						('%$keyword$%')
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="level">
+				<isNotEmpty property="level">
+					o.organization_level = #level#
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+
 	<select id="searchMemberOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
-		SELECT user_domain AS memberDomain,
-		employee_code AS memberCode, first_name || ' ' || last_name AS memberName
+		SELECT user_domain AS
+		memberDomain,
+		employee_code AS memberCode, first_name || ' ' ||
+		last_name AS memberName
 		FROM employees
-		WHERE organization_code = #organization_code# AND user_domain != #head_domain#
+		WHERE organization_code =
+		#organization_code# AND user_domain != #head_domain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -204,7 +320,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE UPPER ('%$keyword$%')</isEqual>
 					<isEqual property="category" compareValue="memberName">
 						(UPPER(first_name) LIKE UPPER (
-						'%$keyword$%') OR UPPER(last_name) LIKE UPPER ('%$keyword$%'))
+						'%$keyword$%') OR UPPER(last_name)
+						LIKE UPPER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -223,7 +340,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE organization_code =
 		#organization_code#
 	</delete>
-
 	<select id="checkChildOrganization" parameterClass="java.lang.String"
 		resultClass="int">
 		SELECT
@@ -234,11 +350,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#organization_code#
 	</select>
 
-	<select id="countMemberOrganization" parameterClass="java.util.Map"
+	<select id="checkMemberOrganization" parameterClass="java.util.Map"
 		resultClass="int">
 		SELECT count(1)
 		FROM employees
-		WHERE organization_code = #organization_code#
+		WHERE organization_code =
+		#organization_code# AND user_domain != #head_domain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -248,10 +365,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE UPPER ('%$keyword$%')</isEqual>
 					<isEqual property="category" compareValue="memberName">
 						(UPPER(first_name) LIKE UPPER (
-						'%$keyword$%') OR UPPER(last_name) LIKE UPPER ('%$keyword$%'))
+						'%$keyword$%') OR UPPER(last_name)
+						LIKE UPPER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
-		</dynamic>		
+		</dynamic>
 	</select>
 </sqlMap>
