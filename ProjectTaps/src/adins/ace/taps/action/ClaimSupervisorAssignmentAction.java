@@ -23,8 +23,11 @@ public class ClaimSupervisorAssignmentAction extends Action{
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm)form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		
 		String taskCode = (String) session.getAttribute("taskCode");
+		aForm.getClaimBean().setTaskCode(taskCode);
+		aForm.getClaimBean().setCommentTo("domain10");
+		aForm.getClaimBean().setCreatedBy("DOMAIN205");
+		
 		if ("approved".equals(aForm.getTask())){
 			aForm.getClaimBean().setStatus("APPROVED");
 			aMan.addHistoryComment(aForm.getClaimBean());
@@ -52,7 +55,7 @@ public class ClaimSupervisorAssignmentAction extends Action{
 			return mapping.findForward("Cancel");
 		}
 		else if ("reject".equals(aForm.getTask())){
-			aForm.getClaimBean().setStatus("REJECT");
+			aForm.getClaimBean().setStatus("REJECTED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", aForm.getClaimBean().getStatus());
@@ -68,12 +71,10 @@ public class ClaimSupervisorAssignmentAction extends Action{
 		
 		if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))){
 			aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-			aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
 			aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 			return mapping.findForward("Approval");
 		} else {
 			aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-			aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
 			aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 			return mapping.findForward("Claim");
 		}

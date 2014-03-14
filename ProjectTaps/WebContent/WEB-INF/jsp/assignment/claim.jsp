@@ -16,18 +16,28 @@
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+	$(document).ready(
+			function() {
+				var task_code = $("#task-code").val();
+				$("#historyComment").load(
+						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
+								+ task_code);
+			});
 </script>
 
 <title>Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/claimAssignment" method="POST">
-		<html:hidden property="claimBean.status" name="claimAssignmentForm"
-			styleId="status" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/claimAssignment" method="POST">
+					<html:hidden property="claimBean.status" name="claimAssignmentForm"
+						styleId="status" />
+					<html:hidden property="claimBean.taskCode"
+						name="claimAssignmentForm" styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -285,8 +295,7 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> 
-										<html:button property="claim-btn"
+									%> <html:button property="claim-btn"
 										onclick="javascript:flyToPage('correction');"
 										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
@@ -295,9 +304,8 @@
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button> <%
-									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> 
-									 	<html:button property="claim-btn"
+ 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+ %> <html:button property="claim-btn"
 										onclick="javascript:flyToPage('claim');"
 										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
@@ -306,63 +314,31 @@
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button> <%
-									 	} 
-									 %>
+ 	}
+ %>
 								</td>
 								<%
 									} else if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {
-								%>	<td colspan=4 class="text-right">
-										<html:button property="cancel-btn"
-											onclick="javascript:flyToPage('cancel');"
-											styleClass="button info">Close</html:button>
-									</td>
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button></td>
 								<%
 									}
 								%>
 							</tr>
 						</tbody>
 					</table>
-
-					<logic:notEmpty property="historyComment"
-						name="claimAssignmentForm">
-						<table class="table striped bordered hovered">
-							<thead>
-								<tr>
-									<th colspan=5 class="text-center text-bold">History
-										Comment</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center text-bold">Date</td>
-									<td class="text-center text-bold">Comment</td>
-									<td class="text-center text-bold">From</td>
-									<td class="text-center text-bold">To</td>
-									<td class="text-center text-bold">Status</td>
-								</tr>
-								<logic:iterate id="assignment" property="historyComment"
-									name="claimAssignmentForm">
-									<tr>
-										<td class="text-center"><bean:write
-												property="commentDate" name="assignment" /></td>
-										<td><bean:write property="assignmentComment"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="commentFrom" name="assignment" /></td>
-										<td class="text-center"><bean:write property="commentTo"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="status"
-												name="assignment" /></td>
-								</logic:iterate>
-							</tbody>
-						</table>
-					</logic:notEmpty>
-				</div>
+					<html:hidden property="task" name="claimAssignmentForm" />
+				</html:form>
+				<div id="historyComment"></div>
 			</div>
 		</div>
-		<html:hidden property="task" name="claimAssignmentForm" />
-	</html:form>
+	</div>
+
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
