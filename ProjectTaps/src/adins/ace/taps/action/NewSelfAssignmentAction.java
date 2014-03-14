@@ -48,12 +48,11 @@ public class NewSelfAssignmentAction extends Action {
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
-				} else if ("Project".equals(aForm.getAssignmentType())) {
+				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
-				aForm.getSelfAssignBean().setReportTo("domain100");
 				aForm.getSelfAssignBean().setCreatedBy("domain3");
 				aForm.getSelfAssignBean().setAssignTo("domain3");
 	
