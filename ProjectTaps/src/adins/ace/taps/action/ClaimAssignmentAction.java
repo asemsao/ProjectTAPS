@@ -39,7 +39,7 @@ public class ClaimAssignmentAction extends Action {
 			PrintWriter out = response.getWriter();
 			ClaimAssignmentBean bean = new ClaimAssignmentBean();
 			bean.setUpdatedBy("DOMAIN205");
-			bean.setManHours(request.getParameter("manHour").toString());
+			bean.setManHours(Double.parseDouble(request.getParameter("manHour")));
 			bean.setDetailId(Integer.parseInt(request.getParameter("detailId")));
 			aMan.editDetailClaimAssignment(bean);
 			out.print("Success");

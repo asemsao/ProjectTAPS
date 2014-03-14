@@ -36,7 +36,7 @@
 							console.log("problem was here!");
 						},
 						success : function(data) {
-							console.log(data);
+							console.log("success");
 						}
 					});
 
