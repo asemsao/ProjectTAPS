@@ -39,6 +39,8 @@
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add Organization</title>
 </head>
+<html:javascript formName="organizationForm" dynamicJavascript="true"
+	staticJavascript="true" method="validateForm" page="0" />
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post">
