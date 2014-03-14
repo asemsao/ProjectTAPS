@@ -1,5 +1,6 @@
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 
@@ -28,6 +33,19 @@ public class ClaimAssignmentAction extends Action {
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo("domain10");
 		aForm.getClaimBean().setCreatedBy("DOMAIN205");
+		
+		
+		if("updateDetailClaim".equals(aForm.getTask())){
+			PrintWriter out = response.getWriter();
+			ClaimAssignmentBean bean = new ClaimAssignmentBean();
+			bean.setUpdatedBy("DOMAIN205");
+			bean.setManHours(Double.parseDouble(request.getParameter("manHour")));
+			bean.setDetailId(Integer.parseInt(request.getParameter("detailId")));
+			aMan.editDetailClaimAssignment(bean);
+			out.print("Success");
+			return null;
+		}
+		
 		if ("claim".equals(aForm.getTask())) {
 			// aForm.getClaimBean().setStatus("CLAIM");
 			// if (!("".equals(aForm.getClaimBean().getComment()))) {
