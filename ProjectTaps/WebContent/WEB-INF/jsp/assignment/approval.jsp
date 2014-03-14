@@ -275,6 +275,42 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
+								<td class="size3">Appraisal Star</td>
+								<td>:</td>
+								<td colspan=2>
+									<div class="star-hider">
+									<div class="rating-kiri" style="float: left;">
+										<select id="rating-kiri" name="rating">
+											<option value="-5">-5</option>
+											<option value="-4">-4</option>
+											<option value="-3">-3</option>
+											<option value="-2">-2</option>
+											<option value="-1">-1</option>
+										</select>
+									</div>
+
+									<div class="rating-tengah" style="float: left;">
+										<select id="rating-tengah" name="rating">
+											<option value="0">0</option>
+										</select>
+									</div>
+
+									<div class="rating-kanan" style="float: left;">
+										<select id="rating-kanan" name="rating">
+											<option value="1">+1</option>
+											<option value="2">+2</option>
+											<option value="3">+3</option>
+											<option value="4">+4</option>
+											<option value="5">+5</option>
+										</select>
+									</div>
+									<p>&nbsp;Your current value : 0 &nbsp;</p>
+									<html:hidden property="claimBean.appraisalStar" styleId="star"/>
+									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
+								</div>
+								</td>
+							</tr>
+							<tr>
 								<%
 									if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {

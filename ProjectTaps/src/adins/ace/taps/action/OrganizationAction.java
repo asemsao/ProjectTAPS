@@ -96,7 +96,12 @@ public class OrganizationAction extends Action {
 		if ("back".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
-
+		
+		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
+		params.put("end", (orgForm.getPage() * 10));
+		params.put("category", orgForm.getSearchCategory());
+		params.put("keyword", orgForm.getSearchKeyword());
+		
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			int temp = 0;
@@ -146,10 +151,7 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Structure");
 		}
 		
-		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
-		params.put("end", (orgForm.getPage() * 10));
-		params.put("category", orgForm.getSearchCategory());
-		params.put("keyword", orgForm.getSearchKeyword());
+	
 
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
