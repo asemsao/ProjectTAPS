@@ -16,7 +16,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String reffTaskCode;
 	private String taskCode;
 	private String description;
-	private String detailId;
+	private Integer detailId;
 	private String claimDate;
 	private String detailDescription;
 	private String manHours;
@@ -126,11 +126,11 @@ public class ClaimAssignmentBean implements Serializable {
 		this.description = description;
 	}
 
-	public String getDetailId() {
+	public Integer getDetailId() {
 		return detailId;
 	}
 
-	public void setDetailId(String detailId) {
+	public void setDetailId(Integer detailId) {
 		this.detailId = detailId;
 	}
 

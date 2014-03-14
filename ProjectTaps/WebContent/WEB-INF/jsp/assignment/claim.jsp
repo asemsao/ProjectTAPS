@@ -16,12 +16,31 @@
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+
 	$(document).ready(
 			function() {
 				var task_code = $("#task-code").val();
 				$("#historyComment").load(
 						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
 								+ task_code);
+				$(".manHourUpdate").change(function() {
+					var detailId = $(this).prev().val();
+					var manHour = $(this).val();
+					var data = "task=updateDetailClaim&detailId=" + detailId + "&manHour=" + manHour;
+					$.ajax({
+						url : "/ProjectTaps/claimAssignment.do",
+						type : "POST",
+						data : data,
+						context : this,
+						error : function() {
+							console.log("problem was here!");
+						},
+						success : function(data) {
+							console.log(data);
+						}
+					});
+
+				});
 			});
 </script>
 
@@ -128,9 +147,8 @@
 													<logic:iterate id="assignment" property="listDetailClaim"
 														name="claimAssignmentForm">
 														<tr>
-															<td class="text-center"><html:text
-																	property="claimDate" name="assignment"
-																	readonly="readonly" /></td>
+															<td class="text-center"><bean:write
+																	property="claimDate" name="assignment" /></td>
 															<%
 																if ("CLAIM".equals(session.getAttribute("status"))
 																					|| "CORRECTION".equals(session
@@ -157,7 +175,9 @@
 																							|| "CORRECTION".equals(session
 																									.getAttribute("status"))) {
 																	%>
-																	<html:select property="manHours" name="assignment">
+																	<html:hidden property="detailId" name="assignment" />
+																	<html:select property="manHours" name="assignment"
+																		styleClass="manHourUpdate">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
@@ -310,10 +330,9 @@
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> 
-									<%
-									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> <html:button property="claim-btn"
+										styleClass="button info">Cancel</html:button> <%
+ 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+ %> <html:button property="claim-btn"
 										onclick="javascript:flyToPage('claim');"
 										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
@@ -321,10 +340,9 @@
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> 
-									<%
-									 	} else {
-									 %> <html:button property="cancel-btn"
+										styleClass="button info">Cancel</html:button> <%
+ 	} else {
+ %> <html:button property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Close</html:button>
 								</td>
