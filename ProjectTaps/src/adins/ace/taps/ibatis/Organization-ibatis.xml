@@ -96,6 +96,16 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
+		START
+		WITH
+		o.organization_level = 0
+		CONNECT
+		BY
+		PRIOR
+		o.organization_code
+		=
+		o.parent_organization_code
+
 	</select>
 
 	<select id="countChildOrganizations" resultClass="int">

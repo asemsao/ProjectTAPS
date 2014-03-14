@@ -308,6 +308,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		AND assignee_user_domain = #assigneeUserDomain#
 	</update>
 
-	<update id="deleteProject">
+	<update id="deleteProject" parameterClass = "java.lang.String">
+		UPDATE projects
+		SET 
+			flag = 'INACTIVE'
+		WHERE
+			project_code = #projectCode#
 	</update>
 </sqlMap>

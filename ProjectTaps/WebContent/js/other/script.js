@@ -131,7 +131,7 @@ $(document).ready(
 				}
 			});
 			$("input[name='activity_type']").change(function() {
-				if ($(this).val() == "AdHoc") {
+				if ($(this).val() == "ADHOC") {
 					$(".adhoc").show();
 				} else {
 					$(".adhoc").hide();
