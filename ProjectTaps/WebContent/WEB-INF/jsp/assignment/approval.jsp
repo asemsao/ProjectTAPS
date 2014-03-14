@@ -22,7 +22,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/claimAssignment" method="POST">
+	<html:form action="/claimSupervisorAssignment" method="POST">
 		<html:hidden property="claimBean.status" name="claimAssignmentForm"
 			styleId="status" />
 		<div class="container container-taps">
@@ -139,7 +139,8 @@
 																		if ("employeeReport".equals(session
 																							.getAttribute("link"))) {
 																	%>
-																	<html:select property="manHours" name="assignment" disabled="true">
+																	<html:select property="manHours" name="assignment"
+																		disabled="true">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
@@ -194,8 +195,7 @@
 																		} else if ("employeeReportSupervisor".equals(session
 																							.getAttribute("link"))) {
 																	%>
-																	<html:select property="manHours" name="assignment"
-																		>
+																	<html:select property="manHours" name="assignment">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
@@ -267,7 +267,8 @@
 							</tr>
 							<tr>
 								<%
-									if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
+									if ("employeeReportSupervisor".equals(session
+												.getAttribute("link"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -282,28 +283,27 @@
 								<%
 									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-								<td colspan=4 class="text-right">
-									 	<html:button property="cancel-btn"
+								<td colspan=4 class="text-right"><html:button
+										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button> 
-								</td>
+										styleClass="button info">Close</html:button></td>
 								<%
 									} else if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {
-								%>	<td colspan=4 class="text-right">
-										<html:button property="approve-btn"
-											onclick="javascript:flyToPage('approve');"
-											styleClass="button success">Approve</html:button>
-										<html:button property="correction-btn"
-											onclick="javascript:flyToPage('correction');"
-											styleClass="button warning">Correction</html:button>
-										<html:button property="reject-btn"
-											onclick="javascript:flyToPage('reject');"
-											styleClass="button danger">Reject</html:button>
-										<html:button property="cancel-btn"
-											onclick="javascript:flyToPage('cancel');"
-											styleClass="button info">Cancel</html:button>
-									</td>
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="approve-btn"
+										onclick="javascript:flyToPage('approve');"
+										styleClass="button success">Approve</html:button> <html:button
+										property="correction-btn"
+										onclick="javascript:flyToPage('correction');"
+										styleClass="button warning">Correction</html:button> <html:button
+										property="reject-btn"
+										onclick="javascript:flyToPage('reject');"
+										styleClass="button danger">Reject</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
 								<%
 									}
 								%>
