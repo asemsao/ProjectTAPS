@@ -342,7 +342,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(historyComment);
 		return historyComment;
 	}
 
