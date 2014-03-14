@@ -6,6 +6,9 @@ body {
 	background-attachment: fixed;
 }
 
+#popup_delete{
+	width: 100px !important;
+}
 .clear {
 	clear: both;
 }
