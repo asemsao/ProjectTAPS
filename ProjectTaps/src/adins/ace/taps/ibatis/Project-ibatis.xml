@@ -22,8 +22,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			projects p, 
 			phases ph
 		WHERE
-			p.phase_id =
-			ph.phase_id AND LOWER(flag) = 'active'
+			p.phase_id = ph.phase_id 
+			AND LOWER(flag) = 'active'
 		ORDER BY 
 			p.start_date DESC
 		<dynamic prepend="AND">
@@ -169,7 +169,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			AND e.user_domain = ps.assignee_user_domain
 			AND emp.user_domain = ps.directreport_user_domain
 			AND ps.project_code = #projectCode#
-			AND p.flag='ACTIVE'
+			AND ps.flag='ACTIVE'
 	</select>
 
 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean">
@@ -272,7 +272,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			AND assignee_user_domain = #assigneeUserDomain#
 	</update>
 	
-	<update id="deleteMember">
+	<update id="deleteMember" parameterClass = "adins.ace.taps.bean.project.AddStructureProjectBean">
+		UPDATE project_structures
+		SET
+			flag = 'INACTIVE'
+		WHERE
+			project_code = #projectCode#
+			AND assignee_user_domain = #assigneeUserDomain#
 	</update>
 
 	<update id="deleteProject">
