@@ -88,6 +88,8 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
 		}
 		if ("employeesOnOrganization".equals(ajaxForm.getMode())) {
+			// nanti dari session
+			ajaxForm.setOrganizationCode("CDD");
 			params.put("organization", ajaxForm.getOrganizationCode());
 			ajaxForm.setListEmployeesOnOrganization(empMan
 					.searchEmployees(params));
