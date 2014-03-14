@@ -20,6 +20,7 @@ public class AjaxForm extends ActionForm {
 	private Integer countRecord;
 	private List<EmployeeBean> listEmployees;
 	private List<EmployeeBean> listEmployees2;
+	private List<EmployeeBean> listEmployeesOnOrganization;
 	private List<EmployeeBean> listEmployeesOnProject;
 	private List<OrganizationBean> listOrganizations;
 	private List<EmployeeReportBean> listEmployeeReport;
@@ -161,6 +162,15 @@ public class AjaxForm extends ActionForm {
 
 	public void setOrganizationCode(String organizationCode) {
 		this.organizationCode = organizationCode;
+	}
+
+	public List<EmployeeBean> getListEmployeesOnOrganization() {
+		return listEmployeesOnOrganization;
+	}
+
+	public void setListEmployeesOnOrganization(
+			List<EmployeeBean> listEmployeesOnOrganization) {
+		this.listEmployeesOnOrganization = listEmployeesOnOrganization;
 	}
 
 }
