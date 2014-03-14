@@ -521,4 +521,23 @@ public class AssignmentManager {
 		}
 		return success;
 	}
+	
+	public Integer searchLastStar(String taskCode) {
+		Integer lastStar = 0;
+		
+		try {
+			ibatisSQLMap.startTransaction();
+			lastStar = (Integer) ibatisSQLMap.queryForObject("assignment.searchLastStar", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return lastStar;
+	}
 }

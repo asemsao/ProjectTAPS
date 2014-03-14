@@ -65,9 +65,9 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(aForm.getTask())) {
-			System.out.println(aForm.getClaimBean().getAppraisalStar());
-			// update ke tabel star ama ke report???
-
+			// update tabel star 
+			aForm.getClaimBean().setStarBefore(aMan.searchLastStar(taskCode));
+			aMan.addAssignmentStar(aForm.getClaimBean());
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
 			return mapping.findForward("Cancel");

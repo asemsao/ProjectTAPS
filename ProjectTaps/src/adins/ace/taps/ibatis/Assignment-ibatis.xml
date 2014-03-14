@@ -516,4 +516,11 @@
 		INSERT INTO stars (star_id, task_code, user_domain, star_before, star_after, created_by, created_date) VALUES
 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #assignTo#, #starBefore#, #appraisalStar#,#createdBy#,SYSDATE)
 	</insert>
+	
+	<select id="searchLastStar" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT st.star_after FROM stars st
+		WHERE st.task_code = #taskCode#
+		AND st.created_date = 
+		(SELECT MAX(s.created_date) FROM stars s WHERE s.task_code = st.task_code)
+	</select>
 </sqlMap>
