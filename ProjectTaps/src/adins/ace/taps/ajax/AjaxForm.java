@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.module.ActiveDirectoryBean;
@@ -27,10 +28,12 @@ public class AjaxForm extends ActionForm {
 	private List<EmployeeReportBean> listEmployeeReport;
 	private List<ProjectBean> listProject;
 	private List<ActiveDirectoryBean> listAD;
+	private List<ClaimAssignmentBean> historyComment;
 	private String mode;
 	private String projectCode;
 	private String organizationCode;
 	private Integer level;
+	private String taskCode;
 
 	public String getTask() {
 		return task;
@@ -179,7 +182,8 @@ public class AjaxForm extends ActionForm {
 		return listParentOrganizations;
 	}
 
-	public void setListParentOrganizations(List<OrganizationBean> listParentOrganizations) {
+	public void setListParentOrganizations(
+			List<OrganizationBean> listParentOrganizations) {
 		this.listParentOrganizations = listParentOrganizations;
 	}
 
@@ -189,6 +193,22 @@ public class AjaxForm extends ActionForm {
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public List<ClaimAssignmentBean> getHistoryComment() {
+		return historyComment;
+	}
+
+	public void setHistoryComment(List<ClaimAssignmentBean> historyComment) {
+		this.historyComment = historyComment;
+	}
+
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
 	}
 
 }

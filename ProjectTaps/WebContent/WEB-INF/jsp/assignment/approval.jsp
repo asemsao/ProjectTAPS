@@ -16,18 +16,27 @@
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+	$(document).ready(
+			function() {
+				var task_code = $("#task-code").val();
+				$("#historyComment").load(
+						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
+								+ task_code);
+			});
 </script>
-
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/claimAssignment" method="POST">
-		<html:hidden property="claimBean.status" name="claimAssignmentForm"
-			styleId="status" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/claimSupervisorAssignment" method="POST">
+					<html:hidden property="claimBean.status" name="claimAssignmentForm"
+						styleId="status" />
+					<html:hidden property="claimBean.taskCode"
+						name="claimAssignmentForm" styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -139,7 +148,8 @@
 																		if ("employeeReport".equals(session
 																							.getAttribute("link"))) {
 																	%>
-																	<html:select property="manHours" name="assignment" disabled="true">
+																	<html:select property="manHours" name="assignment"
+																		disabled="true">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
@@ -194,8 +204,7 @@
 																		} else if ("employeeReportSupervisor".equals(session
 																							.getAttribute("link"))) {
 																	%>
-																	<html:select property="manHours" name="assignment"
-																		>
+																	<html:select property="manHours" name="assignment">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1">01:00</html:option>
@@ -267,7 +276,8 @@
 							</tr>
 							<tr>
 								<%
-									if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
+									if ("employeeReportSupervisor".equals(session
+												.getAttribute("link"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -282,74 +292,42 @@
 								<%
 									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-								<td colspan=4 class="text-right">
-									 	<html:button property="cancel-btn"
+								<td colspan=4 class="text-right"><html:button
+										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button> 
-								</td>
+										styleClass="button info">Close</html:button></td>
 								<%
 									} else if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {
-								%>	<td colspan=4 class="text-right">
-										<html:button property="approve-btn"
-											onclick="javascript:flyToPage('approve');"
-											styleClass="button success">Approve</html:button>
-										<html:button property="correction-btn"
-											onclick="javascript:flyToPage('correction');"
-											styleClass="button warning">Correction</html:button>
-										<html:button property="reject-btn"
-											onclick="javascript:flyToPage('reject');"
-											styleClass="button danger">Reject</html:button>
-										<html:button property="cancel-btn"
-											onclick="javascript:flyToPage('cancel');"
-											styleClass="button info">Cancel</html:button>
-									</td>
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="approve-btn"
+										onclick="javascript:flyToPage('approve');"
+										styleClass="button success">Approve</html:button> <html:button
+										property="correction-btn"
+										onclick="javascript:flyToPage('correction');"
+										styleClass="button warning">Correction</html:button> <html:button
+										property="reject-btn"
+										onclick="javascript:flyToPage('reject');"
+										styleClass="button danger">Reject</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
 								<%
 									}
 								%>
 							</tr>
 						</tbody>
 					</table>
-
-					<logic:notEmpty property="historyComment"
-						name="claimAssignmentForm">
-						<table class="table striped bordered hovered">
-							<thead>
-								<tr>
-									<th colspan=5 class="text-center text-bold">History
-										Comment</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center text-bold">Date</td>
-									<td class="text-center text-bold">Comment</td>
-									<td class="text-center text-bold">From</td>
-									<td class="text-center text-bold">To</td>
-									<td class="text-center text-bold">Status</td>
-								</tr>
-								<logic:iterate id="assignment" property="historyComment"
-									name="claimAssignmentForm">
-									<tr>
-										<td class="text-center"><bean:write
-												property="commentDate" name="assignment" /></td>
-										<td><bean:write property="assignmentComment"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="commentFrom" name="assignment" /></td>
-										<td class="text-center"><bean:write property="commentTo"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="status"
-												name="assignment" /></td>
-								</logic:iterate>
-							</tbody>
-						</table>
-					</logic:notEmpty>
-				</div>
+					<html:hidden property="task" name="claimAssignmentForm" />
+				</html:form>
+				<div id="historyComment"></div>
 			</div>
 		</div>
-		<html:hidden property="task" name="claimAssignmentForm" />
-	</html:form>
+	</div>
+
+
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
