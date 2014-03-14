@@ -36,6 +36,7 @@ $(function() {
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
 			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
 			$('div.rating-kanan').hide();
@@ -50,6 +51,7 @@ $(function() {
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
 			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
 			$('div.rating-kanan').hide();
@@ -64,6 +66,7 @@ $(function() {
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
 			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
 			$('div.rating-kanan').hide();

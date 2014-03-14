@@ -26,9 +26,16 @@ public class ClaimSupervisorAssignmentAction extends Action{
 			return mapping.findForward("Cancel");
 		}
 		
-		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
-		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
-		return mapping.findForward("Claim");
+		if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))){
+			aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
+			aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
+			aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+			return mapping.findForward("Approval");
+		} else {
+			aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
+			aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
+			aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+			return mapping.findForward("Claim");
+		}
 	}
 }

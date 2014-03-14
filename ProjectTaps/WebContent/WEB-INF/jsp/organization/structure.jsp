@@ -35,6 +35,12 @@
 		});
 		$("#search").click(function() {
 			$("#task").val("structure");
+			$("#mode").val("structure");
+			$("#CRUDForm").submit();
+		});
+		$("#back").click(function() {
+			$("#task").val("back");
+			$("#mode").val("");
 			$("#CRUDForm").submit();
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
@@ -48,7 +54,7 @@
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post" styleId="CRUDForm">
 		<html:hidden property="task" name="organizationForm" styleId="task"/>
-		<html:hidden property="mode" name="organizationForm" />
+		<html:hidden property="mode" name="organizationForm" styleId="mode"/>
 		<html:hidden property="organizationCode" name="organizationForm" />
 		<html:hidden property="orgBean.headDomain" name="organizationForm" />
 		<html:hidden property="page" name="organizationForm" />
@@ -140,7 +146,7 @@
 								</td>
 								<td class="text-center">
 								<td colspan=3 class="text-right"><html:button
-										property="cancel" onclick="javascript:flyToPage('Cancel');"
+										property="cancel" styleId="back"
 										styleClass="button info">Back</html:button></td>
 							</tr>
 						</tbody>

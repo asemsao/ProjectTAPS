@@ -234,11 +234,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#organization_code#
 	</select>
 
-	<select id="countMemberOrganization" parameterClass="java.util.Map"
+	<select id="checkMemberOrganization" parameterClass="java.util.Map"
 		resultClass="int">
 		SELECT count(1)
 		FROM employees
-		WHERE organization_code = #organization_code#
+		WHERE organization_code = #organization_code# AND user_domain != #head_domain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
