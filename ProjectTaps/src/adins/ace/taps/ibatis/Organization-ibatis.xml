@@ -98,7 +98,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		</dynamic>
 		START
 		WITH
-		o.organization_code = 'MAN'
+		o.organization_level = 0
 		CONNECT
 		BY
 		PRIOR
