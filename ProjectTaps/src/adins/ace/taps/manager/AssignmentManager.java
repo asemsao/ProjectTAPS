@@ -24,7 +24,8 @@ public class AssignmentManager {
 		Integer count = null;
 		try {
 			ibatisSQLMap.startTransaction();
-			count = (Integer) ibatisSQLMap.queryForObject("assignment.countEmployeeReportSupervisor", params);
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countEmployeeReportSupervisor", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -42,7 +43,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportSupervisor", params);
+			list = ibatisSQLMap.queryForList(
+					"assignment.employeeReportSupervisor", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,7 +84,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.employeeReportEmployee", params);
+			list = ibatisSQLMap.queryForList(
+					"assignment.employeeReportEmployee", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,7 +106,8 @@ public class AssignmentManager {
 		Integer count = null;
 		try {
 			ibatisSQLMap.startTransaction();
-			count = (Integer) ibatisSQLMap.queryForObject("assignment.countAssignmentSupervisor", params);
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countAssignmentSupervisor", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,7 +125,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.assignmentSupervisor",params);
+			list = ibatisSQLMap.queryForList("assignment.assignmentSupervisor",
+					params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +187,8 @@ public class AssignmentManager {
 		String organizationCode = "";
 		try {
 			ibatisSQLMap.startTransaction();
-			organizationCode = (String) ibatisSQLMap.queryForObject("assignment.searchOrganizationCode", userDomain);
+			organizationCode = (String) ibatisSQLMap.queryForObject(
+					"assignment.searchOrganizationCode", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed search organization");
@@ -201,7 +207,8 @@ public class AssignmentManager {
 		NewAssignmentBean organization = new NewAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
-			organization = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchHeadOrganizationCode", userDomain);
+			organization = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchHeadOrganizationCode", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed search organization");
@@ -221,7 +228,8 @@ public class AssignmentManager {
 		String generateTaskCode = "";
 		try {
 			ibatisSQLMap.startTransaction();
-			generateTaskCode = (String) ibatisSQLMap.queryForObject("assignment.getMaxTaskCode", paramTaskCode);
+			generateTaskCode = (String) ibatisSQLMap.queryForObject(
+					"assignment.getMaxTaskCode", paramTaskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -244,7 +252,8 @@ public class AssignmentManager {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
-			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordAssignment", taskCode);
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchRecordAssignment", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,12 +267,13 @@ public class AssignmentManager {
 		System.out.println(assignmentBean.getTaskCode());
 		return assignmentBean;
 	}
-	
+
 	public NewAssignmentBean searchRecordSelfAssignment(String taskCode) {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
-			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordSelfAssignment", taskCode);
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchRecordSelfAssignment", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -282,7 +292,8 @@ public class AssignmentManager {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
-			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchRecordClaimAssignment", taskCode);
+			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchRecordClaimAssignment", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -300,7 +311,8 @@ public class AssignmentManager {
 		List<ClaimAssignmentBean> listDetailClaim = new ArrayList<ClaimAssignmentBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			listDetailClaim = ibatisSQLMap.queryForList("assignment.searchDetailClaim", taskCode);
+			listDetailClaim = ibatisSQLMap.queryForList(
+					"assignment.searchDetailClaim", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,11 +327,11 @@ public class AssignmentManager {
 	}
 
 	public List<ClaimAssignmentBean> searchHistoryComment(Map params) {
-		List<ClaimAssignmentBean> listHistoryComment = new ArrayList<ClaimAssignmentBean>();
-
+		List<ClaimAssignmentBean> historyComment = new ArrayList<ClaimAssignmentBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			listHistoryComment = ibatisSQLMap.queryForList("assignment.searchHistoryComment", params);
+			historyComment = ibatisSQLMap.queryForList(
+					"assignment.searchHistoryComment", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -330,9 +342,29 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		return listHistoryComment;
+		System.out.println(historyComment);
+		return historyComment;
 	}
-	
+
+	public Integer countHistoryComment(Map params) {
+		Integer count = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countHistoryComment", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
 	public boolean editAssignment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -412,7 +444,7 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addHistoryComment(ClaimAssignmentBean bean) {
 		boolean success = false;
 		try {
@@ -436,7 +468,8 @@ public class AssignmentManager {
 		boolean success = false;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.insert("assignment.updateStatusAssignment", paramStatus);
+			ibatisSQLMap.insert("assignment.updateStatusAssignment",
+					paramStatus);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
