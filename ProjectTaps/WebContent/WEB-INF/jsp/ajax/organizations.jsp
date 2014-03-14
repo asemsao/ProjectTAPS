@@ -19,7 +19,7 @@
 			name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-organization"
 			name="ajaxForm" />
-		<html:text property="level" styleId="level-organization"
+		<html:hidden property="level" styleId="level-organization"
 			name="ajaxForm" />
 		<table class="table striped bordered hovered">
 			<thead>
