@@ -314,12 +314,12 @@ public class AssignmentManager {
 		return listDetailClaim;
 	}
 
-	public List<ClaimAssignmentBean> searchHistoryComment(String taskCode) {
+	public List<ClaimAssignmentBean> searchHistoryComment(Map params) {
 		List<ClaimAssignmentBean> listHistoryComment = new ArrayList<ClaimAssignmentBean>();
 
 		try {
 			ibatisSQLMap.startTransaction();
-			listHistoryComment = ibatisSQLMap.queryForList("assignment.searchHistoryComment", taskCode);
+			listHistoryComment = ibatisSQLMap.queryForList("assignment.searchHistoryComment", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
