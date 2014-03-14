@@ -115,7 +115,7 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
 		if ("comments".equals(ajaxForm.getMode())) {
-			params.put("taskCode", "TAPS140200001");
+			params.put("taskCode", ajaxForm.getTaskCode());
 			ajaxForm.setHistoryComment(asgMan
 					.searchHistoryComment((params)));
 			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));

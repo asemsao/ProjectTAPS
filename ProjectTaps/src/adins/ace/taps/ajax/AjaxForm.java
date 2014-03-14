@@ -33,6 +33,7 @@ public class AjaxForm extends ActionForm {
 	private String projectCode;
 	private String organizationCode;
 	private Integer level;
+	private String taskCode;
 
 	public String getTask() {
 		return task;
@@ -200,6 +201,14 @@ public class AjaxForm extends ActionForm {
 
 	public void setHistoryComment(List<ClaimAssignmentBean> historyComment) {
 		this.historyComment = historyComment;
+	}
+
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
 	}
 
 }

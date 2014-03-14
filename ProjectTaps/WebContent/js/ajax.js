@@ -996,3 +996,84 @@ function chooseProject() {
 	;
 	$.Dialog.close();
 }
+
+// ===============================================================================
+// Fungsi ajax untuk paging comment
+// ===============================================================================
+
+function setParameterComment() {
+	var task = $("#task-comment").val();
+	var page = $("#page-comment").val();
+	var maxpage = $("#maxpage-comment").val();
+	var mode = $("#mode-comment").val();
+	var taskCode = $("#task-code").val();
+	var data = "task=" + task + "&page=" + page + "&maxpage=" + maxpage
+			+ "&mode=" + mode + "&taskCode=" + taskCode;
+	return data;
+}
+
+function setResponseComment(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center' colspan=5>History Comment</th>";
+	content += "</tr>";
+	content += "<tr>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Comment</th>";
+	content += "<th class='text-center'>From</th>";
+	content += "<th class='text-center'>To</th>";
+	content += "<th class='text-center'>Status</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.historyComment) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.historyComment[i].commentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.historyComment[i].assignmentComment;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.historyComment[i].commentFrom;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.historyComment[i].commentTo;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.historyComment[i].status;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-comment").html(content);
+	$("#page-comment").val(json.page);
+	$("#current-page-comment").html(json.page);
+	$("#maxpage-comment").val(json.maxpage);
+	$("#max-page-comment").html(json.maxpage);
+	$("#total-record-comment").html(json.countRecord);
+}
+
+function pagingComment(direction) {
+	$("#task-comment").val(direction);
+	var data = setParameterComment();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseComment(data);
+		}
+	});
+}

@@ -17,38 +17,40 @@
 			<html:hidden property="page" styleId="page-comment" name="ajaxForm" />
 			<html:hidden property="maxpage" styleId="maxpage-comment"
 				name="ajaxForm" />
-			<table class="table striped bordered hovered">
-				<thead>
-					<tr>
-						<th colspan=5 class="text-center text-bold">History Comment</th>
-					</tr>
-					<tr>
-						<th class="text-center text-bold">Date</th>
-						<th class="text-center text-bold">Comment</th>
-						<th class="text-center text-bold">From</th>
-						<th class="text-center text-bold">To</th>
-						<th class="text-center text-bold">Status</th>
-					</tr>
-				</thead>
-				<tbody>
-
-					<logic:iterate id="comment" name="ajaxForm"
-						property="historyComment">
+			<div id="table-ajax-comment">
+				<table class="table striped bordered hovered">
+					<thead>
 						<tr>
-							<td class="text-center"><bean:write property="commentDate"
-									name="comment" /></td>
-							<td class="text-center"><bean:write
-									property="assignmentComment" name="comment" /></td>
-							<td class="text-center"><bean:write property="commentFrom"
-									name="comment" /></td>
-							<td class="text-center"><bean:write property="commentTo"
-									name="comment" /></td>
-							<td class="text-center"><bean:write property="status"
-									name="comment" /></td>
+							<th colspan=5 class="text-center text-bold">History Comment</th>
 						</tr>
-					</logic:iterate>
-				</tbody>
-			</table>
+						<tr>
+							<th class="text-center">Date</th>
+							<th class="text-center">Comment</th>
+							<th class="text-center">From</th>
+							<th class="text-center">To</th>
+							<th class="text-center">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<logic:iterate id="comment" name="ajaxForm"
+							property="historyComment">
+							<tr>
+								<td class="text-center"><bean:write property="commentDate"
+										name="comment" /></td>
+								<td class="text-center"><bean:write
+										property="assignmentComment" name="comment" /></td>
+								<td class="text-center"><bean:write property="commentFrom"
+										name="comment" /></td>
+								<td class="text-center"><bean:write property="commentTo"
+										name="comment" /></td>
+								<td class="text-center"><bean:write property="status"
+										name="comment" /></td>
+							</tr>
+						</logic:iterate>
+					</tbody>
+				</table>
+			</div>
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
@@ -82,8 +84,5 @@
 			</table>
 		</html:form>
 	</logic:notEmpty>
-	<logic:empty name="ajaxForm" property="historyComment">
-		kosong bro
-	</logic:empty>
 </body>
 </html>

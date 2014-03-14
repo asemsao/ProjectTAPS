@@ -16,18 +16,27 @@
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+	$(document).ready(
+			function() {
+				var task_code = $("#task-code").val();
+				$("#historyComment").load(
+						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
+								+ task_code);
+			});
 </script>
-
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/claimSupervisorAssignment" method="POST">
-		<html:hidden property="claimBean.status" name="claimAssignmentForm"
-			styleId="status" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/claimSupervisorAssignment" method="POST">
+					<html:hidden property="claimBean.status" name="claimAssignmentForm"
+						styleId="status" />
+					<html:hidden property="claimBean.taskCode"
+						name="claimAssignmentForm" styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -310,11 +319,15 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+					<html:hidden property="task" name="claimAssignmentForm" />
+				</html:form>
+				<div id="historyComment"></div>
 			</div>
 		</div>
-		<html:hidden property="task" name="claimAssignmentForm" />
-	</html:form>
+	</div>
+
+
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
