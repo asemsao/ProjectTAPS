@@ -400,18 +400,21 @@
             a.assign_to AS assignTo,
             e.first_name || ' ' || e.last_name AS assignToFullName,
             a.report_to AS reportTo, 
+            e2.first_name || ' ' || e2.last_name AS reportToFullName,
             o.organization_code AS organizationCode, 
             o.organization_name AS organizationName,
+            o.head_user_domain AS headUserDomain,
             mgr.first_name || ' ' || mgr.last_name AS headUserName,
             a.project_code AS projectCode, 
             p.project_name AS projectName, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
-            a.adhoc_user_domain AS adhocUserDomain, 
+            a.adhoc_user_domain AS adhocUserDomain,
+            adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName, 
             a.description AS description,
             d.manhour AS manHours
-        FROM assignments a, organizations o, employees e, employees mgr, detail_claim_assignments d, projects p  
-        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        FROM assignments a, organizations o, employees e, employees e2, employees adhoc, employees mgr, detail_claim_assignments d, projects p  
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain AND a.adhoc_user_domain = adhoc.user_domain(+) 
         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
         AND a.task_code = d.task_code AND a.project_code = p.project_code(+)
 	</select>
@@ -487,4 +490,9 @@
 			flag = #flag#
 		WHERE task_code = #taskCode#
 	</update>
+	
+<!-- 	<insert id="addAssignmentStar" parameterClass=""> -->
+<!-- 		INSERT INTO stars (star_id, task_code, user_domain, description, star_before, star_after, created_by, created_date) VALUES -->
+<!-- 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #userDomain#, #description#, #star_before#, #star_after#,#session.user_domain#,SYSDATE) -->
+<!-- 	</insert> -->
 </sqlMap>

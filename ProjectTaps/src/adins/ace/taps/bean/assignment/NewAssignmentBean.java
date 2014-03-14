@@ -11,6 +11,7 @@ public class NewAssignmentBean implements Serializable {
 	private String assignmentCategory = "";
 	private String organizationCode = "";
 	private String organizationName = "";
+	private String headUserDomain = "";
 	private String headUserName = "";
 	private String projectCode = "";
 	private String projectName = "";
@@ -28,8 +29,16 @@ public class NewAssignmentBean implements Serializable {
 	private String updatedBy = "";
 	private String updatedDate = "";
 	private String assignToFullName = "";
+	private String reportToFullName = "";
+	private String adhocFullName = "";
 	private String detailId = "";
 	
+	public String getHeadUserDomain() {
+		return headUserDomain;
+	}
+	public void setHeadUserDomain(String headUserDomain) {
+		this.headUserDomain = headUserDomain;
+	}
 	public String getProjectName() {
 		return projectName;
 	}
@@ -179,6 +188,18 @@ public class NewAssignmentBean implements Serializable {
 	}
 	public void setAssignToFullName(String assignToFullName) {
 		this.assignToFullName = assignToFullName;
+	}
+	public String getReportToFullName() {
+		return reportToFullName;
+	}
+	public void setReportToFullName(String reportToFullName) {
+		this.reportToFullName = reportToFullName;
+	}
+	public String getAdhocFullName() {
+		return adhocFullName;
+	}
+	public void setAdhocFullName(String adhocFullName) {
+		this.adhocFullName = adhocFullName;
 	}
 
 }

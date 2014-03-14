@@ -35,13 +35,6 @@ public class ClaimAssignmentAction extends Action{
 			}
 			return mapping.findForward("Cancel");
 		}
-		else if ("correction".equals(aForm.getTask())){
-			aForm.getClaimBean().setStatus("CORRECTION");
-			if(!("".equals(aForm.getClaimBean().getComment()))){
-				aMan.addHistoryComment(aForm.getClaimBean());
-			}
-			return mapping.findForward("Cancel");
-		}
 		else if ("RFA".equals(aForm.getTask())){
 			aForm.getClaimBean().setStatus("RFA");
 			aMan.addHistoryComment(aForm.getClaimBean());
