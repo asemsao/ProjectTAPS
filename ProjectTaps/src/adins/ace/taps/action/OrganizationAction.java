@@ -116,8 +116,6 @@ public class OrganizationAction extends Action {
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
 
-			System.out.println(orgMan.checkMemberOrganization(params)
-					+ "  askfbasjkfb");
 			if (orgMan.checkMemberOrganization(params) % 10 == 0) {
 				temp = orgMan.checkMemberOrganization(params) / 10;
 				System.out.println(temp);
