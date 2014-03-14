@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
-import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;

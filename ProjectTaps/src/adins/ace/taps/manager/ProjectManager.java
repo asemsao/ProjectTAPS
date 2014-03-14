@@ -197,4 +197,28 @@ public class ProjectManager {
 			}
 		}
 	}
+	
+	public void deleteMember(AddStructureProjectBean bean)
+	{
+		try
+		{
+			System.out.println(bean.getAssigneeUserDomain());
+			System.out.println(bean.getProjectCode());
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.deleteMember", bean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

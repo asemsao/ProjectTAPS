@@ -64,7 +64,7 @@
 								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')"
 									data-hint="Edit Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-								<td class="text-center"><a href="#"
+								<td class="text-center"><a href="javascript:flyToPage('deleteMember','<bean:write name="project" property="assigneeUserDomain" />')"
 									data-hint="Delete Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 							</tr>
