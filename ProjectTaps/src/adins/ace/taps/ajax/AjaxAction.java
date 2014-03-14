@@ -115,9 +115,10 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
 		if ("comments".equals(ajaxForm.getMode())) {
+			params.put("taskCode", "TAPS140200001");
 			ajaxForm.setHistoryComment(asgMan
 					.searchHistoryComment((params)));
-			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
+			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
 			ajaxForm.setListProject(prjMan.searchProject(params));

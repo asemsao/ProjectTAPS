@@ -468,6 +468,13 @@
 		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 	
+	<select id="countHistoryComment" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+	       FROM assignment_comments c, employees e1, employees e2
+	       WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
+	       AND e2.user_domain = c.comment_to
+	</select>
+	
 	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		INSERT INTO detail_claim_assignments (detail_id,task_code,manhour,description,created_by,created_date) 
 		VALUES (SEQUENCE_CLAIMS.NEXTVAL,#taskCode#,#manHours#,#description#,#createdBy#,SYSDATE)
