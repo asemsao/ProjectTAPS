@@ -159,6 +159,13 @@ legend {
 }
 
 #steps li.current {
-	color: slateblue;
+	color: white;
 	border: 1px solid slateblue;
+	background-color: slateblue;
+}
+
+#steps li.passed {
+	color: white;
+	border: 1px solid green;
+	background-color: green;
 }

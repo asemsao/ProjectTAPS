@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.bean.project.ProjectBean;
+import adins.ace.taps.bean.project.StructureProjectBean;
 
 public class TransferProjectForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +18,7 @@ public class TransferProjectForm extends ActionForm {
 	private String projectCode;
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
+	private List<StructureProjectBean> listMember;
 	private List listPhase;
 	private ProjectBean pBean = new ProjectBean();
 	private Integer pageProject;
@@ -72,6 +74,12 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setListOrganization(List<OrganizationBean> listOrganization) {
 		this.listOrganization = listOrganization;
+	}
+	public List<StructureProjectBean> getListMember() {
+		return listMember;
+	}
+	public void setListMember(List<StructureProjectBean> listMember) {
+		this.listMember = listMember;
 	}
 	public List getListPhase() {
 		return listPhase;

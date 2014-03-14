@@ -22,7 +22,7 @@
 		document.projectForm.submit();
 	}
 	$(document).ready(function() {
-		$("#myForm").formToWizard({ submitButton: 'SaveAccount' })
+		$("#myForm").formToWizard({ submitButton: 'submit-btn' })
 		$("#munculkan").hide();
 	});
 </script>
@@ -86,8 +86,14 @@
 								<logic:iterate id="transferProject" name="transferProjectForm"
 									property="listProject">
 									<tr>
-										<td><input type='radio'
-												name='project_choose' value='1@CDD1'></td>
+										<td>
+											<div class="input-control radio default-style">
+											<label>
+											<input type="radio" name="project_choose" />
+											<span class="check"></span>
+											</label>
+											</div>
+										</td>
 										<td class="text-center"><bean:write name="transferProject"
 												property="projectCode" /></td>
 										<td><bean:write name="transferProject" property="projectName" /></td>
@@ -151,8 +157,14 @@
 								<logic:iterate id="organization" name="transferProjectForm"
 									property="listOrganization">
 									<tr>
-										<td><input type='radio'
-												name='project_choose' value='1@CDD1'></td>
+										<td>
+											<div class="input-control radio default-style">
+											<label>
+											<input type="radio" name="project_choose" />
+											<span class="check"></span>
+											</label>
+											</div>
+										</td>
 										<td><bean:write name="organization"
 												property="organizationCode" /></td>
 										<td><bean:write name="organization"
@@ -164,15 +176,78 @@
 						</tbody>
 					</table>
 					</fieldset>
-					
-					<input id="SaveAccount" type="button" value="Submit form" />
+					<fieldset>
+					<legend>CHOOSE MEMBER</legend>
+<!-- 					<table class="table striped bordered hovered"> -->
+<!-- 						<tr> -->
+<!-- 							<td colspan=1>Project Name</th> -->
+<%-- 							<td colspan=4><strong><bean:write property="projectName" /></strong></td> --%>
+<!-- 						</tr> -->
+<!-- 						</table> -->
+<!-- 						<table> -->
+<!-- 						<thead> -->
+<!-- 						<tr> -->
+<!-- 							<th></th> -->
+<!-- 							<th class="text-center">Role</th> -->
+<!-- 							<th class="text-center">Assignee</th> -->
+<!-- 							<th class="text-center">Direct Report</th> -->
+<!-- 						</tr> -->
+<!-- 					</thead> -->
+<!-- 					<tbody> -->
+<%-- 						<logic:notEmpty name="projectForm" property="listProject"> --%>
+<%-- 						<logic:iterate id="project" name="projectForm" property="listProject"> --%>
+<!-- 							<tr> -->
+<%-- 								<td><bean:write name="project" property="projectRole" /></td> --%>
+<%-- 								<td><bean:write name="project" property="assignee" /></td> --%>
+<%-- 								<td><bean:write name="project" property="directReport" /></td> --%>
+<%-- 								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')" --%>
+<!-- 									data-hint="Edit Member" data-hint-position="bottom"><img -->
+<%-- 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td> --%>
+<%-- 								<td class="text-center"><a href="javascript:flyToPage('deleteMember','<bean:write name="project" property="assigneeUserDomain" />')" --%>
+<!-- 									data-hint="Delete Member" data-hint-position="bottom"><img -->
+<%-- 										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td> --%>
+<!-- 							</tr> -->
+<%-- 						</logic:iterate> --%>
+<%-- 						</logic:notEmpty> --%>
+<%-- 						<logic:empty name="projectForm" property="listProject"> --%>
+<!-- 							<tr> -->
+<!-- 								<td class="text-center" colspan="7">No Member</td> -->
+<!-- 							</tr> -->
+<%-- 						</logic:empty> --%>
+<!-- 						<tr> -->
+<!-- 							<td colspan=5 class="text-center"> -->
+<!-- 								<div class="pagination"> -->
+<!-- 									<ul> -->
+<!-- 										<li class="first"><a><i class="icon-first-2"></i></a></li> -->
+<!-- 										<li class="prev"><a><i class="icon-previous"></i></a></li> -->
+<!-- 										<li><a>1</a></li> -->
+<!-- 										<li><a>2</a></li> -->
+<!-- 										<li class="active"><a>3</a></li> -->
+<!-- 										<li class="spaces"><a>...</a></li> -->
+<!-- 										<li class="disabled"><a>4</a></li> -->
+<!-- 										<li><a>500</a></li> -->
+<!-- 										<li class="next"><a><i class="icon-next"></i></a></li> -->
+<!-- 										<li class="last"><a><i class="icon-last-2"></i></a></li> -->
+<!-- 									</ul> -->
+<!-- 								</div> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<td colspan=5 class="text-right"> -->
+<!-- 								<button id="add-btn" onclick="javascript:button('addMember')" class="success">Add</button> -->
+<!-- 								<button id="back-btn" onclick="javascript:button('cancel')">Back</button> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</tbody> -->
+<!-- 				</table> -->
+					</fieldset>
+					<input id="submit-btn" type="button" value="Submit Form" />
 				</html:form>
 			</div>
 		</div>
 	</div>
 
 	<jsp:include page="/frame/footer.jsp" />
-	<button id="munculkan" type="button" onclick="createWizard()">KLIK</button>
 </body>
 
 </html>
