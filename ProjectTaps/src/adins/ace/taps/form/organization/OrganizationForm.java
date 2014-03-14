@@ -19,7 +19,9 @@ public class OrganizationForm extends ActionForm {
 	private Integer countRecord;
 	private OrganizationBean orgBean = new OrganizationBean();
 	private List<OrganizationBean> listOrganizations;
+	private List<OrganizationBean> listMemberOrganizations;
 	private String message;
+	private String mode;
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;
@@ -69,6 +71,15 @@ public class OrganizationForm extends ActionForm {
 		this.listOrganizations = listOrganizations;
 	}
 
+	public List<OrganizationBean> getListMemberOrganizations() {
+		return listMemberOrganizations;
+	}
+
+	public void setListMemberOrganizations(
+			List<OrganizationBean> listMemberOrganizations) {
+		this.listMemberOrganizations = listMemberOrganizations;
+	}
+
 	public Integer getCountRecord() {
 		return countRecord;
 	}
@@ -107,5 +118,13 @@ public class OrganizationForm extends ActionForm {
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

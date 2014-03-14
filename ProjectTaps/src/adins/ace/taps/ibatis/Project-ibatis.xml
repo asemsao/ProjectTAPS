@@ -254,8 +254,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 			e.user_domain = ps.assignee_user_domain
 			AND emp.user_domain = ps.directreport_user_domain
-			AND ps.assignee_user_domain = #param2#
-			AND ps.project_code = #param#
+			AND ps.assignee_user_domain = #paramAssigneeUserDomain#
+			AND ps.project_code = #paramProjectCode#
 	</select>
 
 	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">

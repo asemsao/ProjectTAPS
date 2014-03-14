@@ -53,7 +53,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 
@@ -94,7 +93,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 
@@ -134,7 +132,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(params);
 		return list;
 	}
 
@@ -404,6 +401,44 @@ public class AssignmentManager {
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to add detail claim assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	public boolean addHistoryComment(ClaimAssignmentBean bean) {
+		boolean success = false;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addHistoryComment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
+	public boolean updateStatus(Map paramStatus) {
+		boolean success = false;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.updateStatusAssignment", paramStatus);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
 		} finally {
