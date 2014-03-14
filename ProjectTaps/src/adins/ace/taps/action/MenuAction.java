@@ -64,6 +64,10 @@ public class MenuAction extends Action {
 			return mapping.findForward("Appraisal");
 		}
 		
+		if ("transferProject".equals(mForm.getTask())) {
+			return mapping.findForward("TransferProject");
+		}
+		
 		if ("logout".equals(mForm.getTask())) {
 			session.invalidate();
 			return mapping.findForward("Welcome");

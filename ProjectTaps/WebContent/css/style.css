@@ -99,3 +99,12 @@ textarea {
 	margin-left: 0px !important;
 	margin-right: 10px;
 }
+
+fieldset {
+	width: 100% !important;
+}
+
+.next, .prev {
+	color: white !important;
+	background-color: slateblue !important;
+}
