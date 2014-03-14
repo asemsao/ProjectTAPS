@@ -5,6 +5,9 @@ package adins.ace.taps.action;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import java.util.Map;
 
 import javax.servlet.http.*;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -89,13 +93,26 @@ public class EmployeeAction extends Action {
 		if ("saveNewEmployee".equals(mForm.getTask())) {
 			boolean flag = false;
 			// Resize Photo
-			System.out.println("ss" + mForm.getProfilePicture());
-			PhotoResizeModule resizePhoto = new PhotoResizeModule();
-			FormFile filepic = mForm.getProfilePicture();
 			String filePathUpload = getServlet().getServletContext()
-					.getRealPath("/") + "upload";
-			byte[] result = resizePhoto.setResizePhoto(filepic, filePathUpload);
-			mForm.getNewEmployee().setProfilePicture(result);
+					.getRealPath("/");
+			PhotoResizeModule resizePhoto = new PhotoResizeModule();
+			if (!mForm.getProfilePicture().getFileName().equals("")) {
+				System.out.println("a");
+				filePathUpload = filePathUpload + "upload";
+				FormFile filepic = mForm.getProfilePicture();
+				byte[] result = resizePhoto.setResizePhoto(filepic,
+						filePathUpload);
+				mForm.getNewEmployee().setProfilePicture(result);
+			}
+			else {
+				System.out.println("b");
+				filePathUpload = filePathUpload + "/images/user.png";
+				File a = new File(filePathUpload);
+				FileInputStream fis = new FileInputStream(a);
+				mForm.getNewEmployee().setProfilePicture(
+						IOUtils.toByteArray(fis));
+			}
+
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}

@@ -61,7 +61,7 @@
 								<td>Employee Domain</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<div class="input-control text ">
+										<div class="input-control text">
 											<html:text property="newEmployee.employeeDomain"
 												name="employeeForm" styleId="activeDirectory-domain" styleClass="employeeDomain" readonly="true"></html:text>
 											<button type="button" class="btn-search" id="activeDirectory"></button>
@@ -70,7 +70,7 @@
 								<td rowspan="6" class="text-center"><img
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"><br>
-									<div class="input-control file ">
+									<div class="input-control file">
 										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
