@@ -16,18 +16,27 @@
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+	$(document).ready(
+			function() {
+				var task_code = $("#task-code").val();
+				$("#historyComment").load(
+						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
+								+ task_code);
+			});
 </script>
-
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/claimSupervisorAssignment" method="POST">
-		<html:hidden property="claimBean.status" name="claimAssignmentForm"
-			styleId="status" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/claimSupervisorAssignment" method="POST">
+					<html:hidden property="claimBean.status" name="claimAssignmentForm"
+						styleId="status" />
+					<html:hidden property="claimBean.taskCode"
+						name="claimAssignmentForm" styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -266,6 +275,42 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
+								<td class="size3">Appraisal Star</td>
+								<td>:</td>
+								<td colspan=2>
+									<div class="star-hider">
+									<div class="rating-kiri" style="float: left;">
+										<select id="rating-kiri" name="rating">
+											<option value="-5">-5</option>
+											<option value="-4">-4</option>
+											<option value="-3">-3</option>
+											<option value="-2">-2</option>
+											<option value="-1">-1</option>
+										</select>
+									</div>
+
+									<div class="rating-tengah" style="float: left;">
+										<select id="rating-tengah" name="rating">
+											<option value="0">0</option>
+										</select>
+									</div>
+
+									<div class="rating-kanan" style="float: left;">
+										<select id="rating-kanan" name="rating">
+											<option value="1">+1</option>
+											<option value="2">+2</option>
+											<option value="3">+3</option>
+											<option value="4">+4</option>
+											<option value="5">+5</option>
+										</select>
+									</div>
+									<p>&nbsp;Your current value : 0 &nbsp;</p>
+									<html:hidden property="claimBean.appraisalStar" styleId="star"/>
+									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
+								</div>
+								</td>
+							</tr>
+							<tr>
 								<%
 									if ("employeeReportSupervisor".equals(session
 												.getAttribute("link"))) {
@@ -310,11 +355,15 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+					<html:hidden property="task" name="claimAssignmentForm" />
+				</html:form>
+				<div id="historyComment"></div>
 			</div>
 		</div>
-		<html:hidden property="task" name="claimAssignmentForm" />
-	</html:form>
+	</div>
+
+
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

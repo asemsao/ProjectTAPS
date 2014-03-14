@@ -27,6 +27,8 @@
 				$('#level').bind(
 						"change",
 						function() {
+							$("#parent-organization-code").val('');
+							$("#parent-organization-name").val('');
 							$("#lookUpOrganization").html('');
 							$("#lookUpOrganization").load(
 									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="

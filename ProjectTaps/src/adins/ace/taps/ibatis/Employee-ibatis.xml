@@ -9,7 +9,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
 		FROM employees e
-		WHERE 1 = 1
+		WHERE 1 = 1 AND lower(flag)='active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -59,7 +59,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ADDRESS AS
 		employeeAddress
 		FROM EMPLOYEES
-		WHERE 1 = 1
+		WHERE 1 = 1 AND lower(flag)='active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -120,7 +120,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ON
 		e.user_domain = ps.assignee_user_domain
 		WHERE 1
-		= 1
+		= 1 AND lower(flag)='active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -171,7 +171,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ON
 		e.user_domain =
 		ps.assignee_user_domain
-		WHERE 1 = 1
+		WHERE 1 = 1 AND lower(flag)='active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
