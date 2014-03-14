@@ -480,9 +480,9 @@ function setResponseEmployeeOnOrganization(data) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
 		content += "<input type='radio' name='employee_choose_on_organization'";
-		content += "value='" + json.listEmployeesOnOrganization[i].employeeDomain
-				+ "@" + json.listEmployeesOnOrganization[i].employeeName
-				+ "' />";
+		content += "value='"
+				+ json.listEmployeesOnOrganization[i].employeeDomain + "@"
+				+ json.listEmployeesOnOrganization[i].employeeName + "' />";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listEmployeesOnOrganization[i].employeeDomain;
@@ -678,8 +678,10 @@ function setParameterOrganization() {
 	var page = $("#page-organization").val();
 	var maxpage = $("#maxpage-organization").val();
 	var mode = $("#mode-organization").val();
+	var level = $("#level-organization").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&level=" + level;
 	return data;
 }
 
