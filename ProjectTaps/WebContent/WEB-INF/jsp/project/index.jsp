@@ -21,6 +21,12 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	function deleteConfirm(task,paramProjectCode){
+		var con = confirm ("This project record will be deleted, are you sure?");
+		if(con){
+			flyToPage(task,paramProjectCode);	
+		}			
+	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Project");
 	});
@@ -112,7 +118,7 @@
 											href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');"
 											data-hint="Edit Project" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="javascript:confDel()"
+										<td class="text-center"><a href="javascript:deleteConfirm('deleteProject','<bean:write name="project" property="projectCode" />')"
 											data-hint="Delete Project" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>

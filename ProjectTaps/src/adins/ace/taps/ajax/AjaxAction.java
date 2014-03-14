@@ -115,6 +115,12 @@ public class AjaxAction extends Action {
 					.searchEmployeeReportEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
+		if ("comments".equals(ajaxForm.getMode())) {
+			params.put("taskCode", "TAPS140200001");
+			ajaxForm.setHistoryComment(asgMan
+					.searchHistoryComment((params)));
+			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));
+		}
 		if ("projects".equals(ajaxForm.getMode())) {
 			ajaxForm.setListProject(prjMan.searchProject(params));
 			ajaxForm.setCountRecord(prjMan.countProject(params));
@@ -195,6 +201,9 @@ public class AjaxAction extends Action {
 		}
 		if ("ad".equals(ajaxForm.getTask())) {
 			return mapping.findForward("ad");
+		}
+		if ("comments".equals(ajaxForm.getTask())) {
+			return mapping.findForward("comments");
 		}
 		return null;
 	}
