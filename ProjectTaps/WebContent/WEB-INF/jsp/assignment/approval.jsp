@@ -22,6 +22,26 @@
 				$("#historyComment").load(
 						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
 								+ task_code);
+				$(".manHourUpdate").change(
+						function() {
+							var detailId = $(this).prev().val();
+							var manHour = $(this).val();
+							var data = "task=updateDetailClaim&detailId="
+									+ detailId + "&manHour=" + manHour;
+							$.ajax({
+								url : "/ProjectTaps/claimAssignment.do",
+								type : "POST",
+								data : data,
+								context : this,
+								error : function() {
+									console.log("problem was here!");
+								},
+								success : function(data) {
+									console.log("success");
+								}
+							});
+
+						});
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -47,7 +67,7 @@
 										%>
 										Request For Approval
 										<%
-											} else if ("APPROVED".equals(session.getAttribute("status"))){
+											} else if ("APPROVED".equals(session.getAttribute("status"))) {
 										%>
 										Approved Assignment
 										<%
@@ -130,13 +150,17 @@
 															<td class="text-center"><bean:write
 																	property="claimDate" name="assignment" /></td>
 															<%
-																if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
+																if ("CLAIM".equals(session.getAttribute("status"))
+																					|| "CORRECTION".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
-																} else if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {
+																} else if ("RFA".equals(session.getAttribute("status"))
+																					|| "APPROVED".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -147,8 +171,11 @@
 															<td class="text-center">
 																<div class="input-control select">
 																	<%
-																		if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))
-																				|| "APPROVED".equals(session.getAttribute("status"))) {
+																		if ("CLAIM".equals(session.getAttribute("status"))
+																							|| "CORRECTION".equals(session
+																									.getAttribute("status"))
+																							|| "APPROVED".equals(session
+																									.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">
@@ -205,7 +232,9 @@
 																	<%
 																		} else if ("RFA".equals(session.getAttribute("status"))) {
 																	%>
-																	<html:select property="manHours" name="assignment">
+																	<html:hidden property="detailId" name="assignment" />
+																	<html:select property="manHours" name="assignment"
+																		styleClass="manHourUpdate">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1.0">01:00</html:option>
@@ -277,41 +306,43 @@
 							</tr>
 							<tr>
 								<%
-									if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {
+									if ("RFA".equals(session.getAttribute("status"))
+												|| "APPROVED".equals(session.getAttribute("status"))) {
 								%>
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
 								<td colspan=2>
 									<div class="star-hider">
-									<div class="rating-kiri" style="float: left;">
-										<select id="rating-kiri" name="rating">
-											<option value="-5">-5</option>
-											<option value="-4">-4</option>
-											<option value="-3">-3</option>
-											<option value="-2">-2</option>
-											<option value="-1">-1</option>
-										</select>
-									</div>
+										<div class="rating-kiri" style="float: left;">
+											<select id="rating-kiri" name="rating">
+												<option value="-5">-5</option>
+												<option value="-4">-4</option>
+												<option value="-3">-3</option>
+												<option value="-2">-2</option>
+												<option value="-1">-1</option>
+											</select>
+										</div>
 
-									<div class="rating-tengah" style="float: left;">
-										<select id="rating-tengah" name="rating">
-											<option value="0">0</option>
-										</select>
-									</div>
+										<div class="rating-tengah" style="float: left;">
+											<select id="rating-tengah" name="rating">
+												<option value="0">0</option>
+											</select>
+										</div>
 
-									<div class="rating-kanan" style="float: left;">
-										<select id="rating-kanan" name="rating">
-											<option value="1">+1</option>
-											<option value="2">+2</option>
-											<option value="3">+3</option>
-											<option value="4">+4</option>
-											<option value="5">+5</option>
-										</select>
+										<div class="rating-kanan" style="float: left;">
+											<select id="rating-kanan" name="rating">
+												<option value="1">+1</option>
+												<option value="2">+2</option>
+												<option value="3">+3</option>
+												<option value="4">+4</option>
+												<option value="5">+5</option>
+											</select>
+										</div>
+										<p>&nbsp;Your current value : 0 &nbsp;</p>
+										<html:hidden property="claimBean.appraisalStar" styleId="star" />
+										<button id="edit-star-btn" class="default"
+											style="display: none;">Edit</button>
 									</div>
-									<p>&nbsp;Your current value : 0 &nbsp;</p>
-									<html:hidden property="claimBean.appraisalStar" styleId="star"/>
-									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
-								</div>
 								</td>
 								<%
 									}
@@ -331,11 +362,11 @@
 								%>
 							</tr>
 							<tr>
-								
+
 								<%
-										if ("RFA".equals(session.getAttribute("status"))) {
+									if ("RFA".equals(session.getAttribute("status"))) {
 								%>
-										<td colspan=4 class="text-right"><html:button
+								<td colspan=4 class="text-right"><html:button
 										property="approve-btn"
 										onclick="javascript:flyToPage('approved');"
 										styleClass="button success">Approve</html:button> <html:button
@@ -349,9 +380,9 @@
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 								<%
-										} else if ("APPROVED".equals(session.getAttribute("status"))){
+									} else if ("APPROVED".equals(session.getAttribute("status"))) {
 								%>
-										<td colspan=4 class="text-right"><html:button
+								<td colspan=4 class="text-right"><html:button
 										property="update-star-btn"
 										onclick="javascript:flyToPage('updateStar');"
 										styleClass="button success">Update Star</html:button> <html:button
@@ -359,9 +390,9 @@
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 								<%
-										} else {
+									} else {
 								%>
-										<td colspan=4 class="text-right"><html:button
+								<td colspan=4 class="text-right"><html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Close</html:button></td>
@@ -372,7 +403,8 @@
 						</tbody>
 					</table>
 					<html:hidden property="task" name="claimAssignmentForm" />
-					<html:hidden property="claimBean.assignTo" name="claimAssignmentForm" />
+					<html:hidden property="claimBean.assignTo"
+						name="claimAssignmentForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>
