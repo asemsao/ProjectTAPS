@@ -9,4 +9,79 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		select task_code as reportId, organization_code as firstName, project_code as lastName
 		from reports
 	</select>
+	
+	<select id="getReportLevel1" 
+		resultClass="adins.ace.taps.bean.report.ReportBean"
+		parameterClass="java.util.Map">
+		SELECT   LPAD (
+                                    o.organization_code,
+                                      LENGTH (o.organization_code)
+                                    + (LEVEL * 2)
+                                    - 2,
+                                    ' '
+                                 )
+                                    AS organizationCode,
+                                 o.organization_name AS organizationName,
+                                 o.organization_level AS organizationLevel,
+                                 o.parent_organization_code AS organizationParent,
+                                    NVL((SELECT   SUM (R.MANHOUR)
+                                       FROM   REPORTS R
+                                      WHERE   (R.PROJECT_CODE IN
+                                                    (SELECT   P.PROJECT_CODE
+                                                       FROM   PROJECTS P
+                                                      WHERE   P.ORGANIZATION_CODE =
+                                                                 O.ORGANIZATION_CODE)
+                                              OR R.ORGANIZATION_CODE =
+                                                   O.ORGANIZATION_CODE) AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY') LIKE '%$reportYear$%')
+                                                   <dynamic prepend="AND">
+														<isNotNull property="reportPeriode">
+															<isNotEmpty property="reportPeriode">
+																<isEqual property="reportPeriode" compareValue="first">
+																	(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('01','02','03','04','05','06'))
+																</isEqual>
+																<isEqual property="reportPeriode" compareValue="last">
+																	(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('07','08','09','10','11','12'))
+																</isEqual>																
+															</isNotEmpty>
+														</isNotNull>
+														<isNotNull property="reportMonth">
+															<isNotEmpty property="reportMonth">																
+																	(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
+															</isNotEmpty>
+														</isNotNull>
+													</dynamic>
+                                    ),0) AS manhour
+                          FROM         organizations o
+                                    LEFT JOIN
+                                       employees e
+                                    ON o.head_user_domain = e.user_domain
+                                 LEFT JOIN
+                                    organizations r
+                                 ON o.parent_organization_code =
+                                       r.organization_code
+                         WHERE   LOWER (o.flag) = 'active'
+                                 AND O.ORGANIZATION_LEVEL != #orgLevel#
+                    START WITH   o.organization_code = #orgCode#
+                    CONNECT BY   PRIOR o.organization_code =
+                                    o.parent_organization_code
+	</select>
+	
+	<select id="getReportLevel2" 
+		resultClass="adins.ace.taps.bean.report.ReportBean"
+		parameterClass="java.util.Map">
+		select e.first_name||' '||e.last_name as employeeName,
+		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='routine' and r.assign_to=e.user_domain),0) as totalRoutine,
+		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='initiative' and r.assign_to=e.user_domain),0) as totalInitiative,
+		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='adhoc' and r.assign_to=e.user_domain),0) as totalAdhoc
+		from employees e
+		where e.organization_code=#orgCode# 
+	</select>
+	
+	<select id="getHeadOrganization" 
+		resultClass="adins.ace.taps.bean.report.ReportBean"
+		parameterClass="java.util.Map">
+		select o.parent_organization_code as organizationParent, org.organization_name as organizationParentName
+		from organizations o, organizations org
+		where o.organization_code=#orgCode# and org.organization_code=o.parent_organization_code
+	</select>
 </sqlMap>

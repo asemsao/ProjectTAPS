@@ -25,6 +25,13 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
+	function button(task,param,param2,param3) {
+		document.reportForm.task.value = task;
+		document.reportForm.param.value = param;
+		document.reportForm.param2.value = param2;
+		document.reportForm.param3.value = param3;
+		document.reportForm.submit();
+	}
 	$(function() {
 		var specialElementHandlers = {
 			'#editor' : function(element, renderer) {
@@ -38,7 +45,7 @@
 				'height' : 640,
 				'elementHandlers' : specialElementHandlers
 			});
-			doc.save('coba.pdf');
+			doc.save('Report.pdf');
 		});
 		$('#graph')
 				.highcharts(
@@ -47,15 +54,39 @@
 								table : document.getElementById('datatable')
 							},
 							chart : {
-								type : 'column'
-							},
+					            type: 'column',
+					            marginTop: 50,
+					            marginBottom:100,
+					            spacingLeft: 30,
+					            spacingRIght: 30
+							},        
+					        lang: {
+					            noData: "NO DATA FOUND"
+					        },
+					        noData: {
+					            style: {    
+					                fontWeight: 'bold',     
+					                fontSize: '15px',
+					                color: '#303030'        
+					            }
+					        },
 							title : {
-								text : 'Statistic Of Employee'
+								floating: false,
+								text : 'Statistic Of Business Unit',								
+								margin: 30
 							},
 							yAxis : {
 								allowDecimals : false,
 								title : {
-									text : 'Range'
+									text : 'Manhours',
+									margin: 30
+								}
+							},
+							xAxis : {
+								allowDecimals : false,
+								title : {
+									text : 'Business Unit',
+									margin: 30
 								}
 							},
 							tooltip : {
@@ -66,6 +97,13 @@
 								shared : true,
 								useHTML : true
 							},
+							legend: {
+					            layout: 'vertical',
+					            backgroundColor: '#FFFFFF',
+					            align: 'right',
+					            verticalAlign: 'middle',
+					            floating: false
+					        },
 							// tooltip : {
 							// formatter : function() {
 							// return '<b>' + this.series.name + '</b><br/>'
@@ -97,139 +135,28 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Assignment</th>
 									<th>Manhour</th>
-									<th>Star</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th>Kamashwanee</th>
-									<td class="text-center">20</td>
-									<td class="text-center">88</td>
-									<td class="text-center">80</td>
-								</tr>
-								<tr>
-									<th>Kowawa</th>
-									<td class="text-center">18</td>
-									<td class="text-center">80</td>
-									<td class="text-center">74</td>
-								</tr>
-								<tr>
-									<th>MeyTan</th>
-									<td class="text-center">22</td>
-									<td class="text-center">84</td>
-									<td class="text-center">82</td>
-								</tr>
-								<tr>
-									<th>Leon</th>
-									<td class="text-center">16</td>
-									<td class="text-center">72</td>
-									<td class="text-center">68</td>
-								</tr>
-								<tr>
-									<th>Venace</th>
-									<td class="text-center">14</td>
-									<td class="text-center">70</td>
-									<td class="text-center">64</td>
-								</tr>
-								<tr>
-									<th>Raisa</th>
-									<td class="text-center">14</td>
-									<td class="text-center">66</td>
-									<td class="text-center">65</td>
-								</tr>
-								<tr>
-									<th>Yousuck</th>
-									<td class="text-center">12</td>
-									<td class="text-center">64</td>
-									<td class="text-center">60</td>
-								</tr>
-								<tr>
-									<th>Asemsao</th>
-									<td class="text-center">19</td>
-									<td class="text-center">80</td>
-									<td class="text-center">77</td>
-								</tr>
+								<logic:notEmpty name="reportForm" property="listReports">
+								<logic:iterate id="report" name="reportForm"
+									property="listReports">
+									<tr>
+										<th><bean:write name="report" property="organizationCode" /></th>
+										<td><bean:write name="report" property="manhour" /></td>
+									</tr>									
+								</logic:iterate>
+							</logic:notEmpty>
 							</tbody>
 						</table>
 					</div>
 					<button type="button" id="cmd">generate PDF</button>
-					<div id="print">
-						<table id="datatableshow" class="table striped bordered hovered">
-							<thead>
-								<tr>
-									<th></th>
-									<th>Assignment</th>
-									<th>Manhour</th>
-									<th>Star</th>
-									<th>Organization</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th>Kamashwanee</th>
-									<td class="text-center">20</td>
-									<td class="text-center">88</td>
-									<td class="text-center">80</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Kowawa</th>
-									<td class="text-center">18</td>
-									<td class="text-center">80</td>
-									<td class="text-center">74</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>MeyTan</th>
-									<td class="text-center">22</td>
-									<td class="text-center">84</td>
-									<td class="text-center">82</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Leon</th>
-									<td class="text-center">16</td>
-									<td class="text-center">72</td>
-									<td class="text-center">68</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Venace</th>
-									<td class="text-center">14</td>
-									<td class="text-center">70</td>
-									<td class="text-center">64</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Raisa</th>
-									<td class="text-center">14</td>
-									<td class="text-center">66</td>
-									<td class="text-center">65</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Yousuck</th>
-									<td class="text-center">12</td>
-									<td class="text-center">64</td>
-									<td class="text-center">60</td>
-									<td class="text-center">ACE</td>
-								</tr>
-								<tr>
-									<th>Asemsao</th>
-									<td class="text-center">19</td>
-									<td class="text-center">80</td>
-									<td class="text-center">77</td>
-									<td class="text-center">ACE</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<table class="table striped bordered hovered">
+					<div id="print">					
+					<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=7 class="text-center"><h3>View Report List</h3></th>
+								<th colspan=7 class="text-center"><h3><bean:write property="param3"/> </h3></th>
 							</tr>
 							<tr>
 								<th class="text-center">
@@ -247,56 +174,78 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">Report ID</th>
-								<th class="text-center">First Name</th>
-								<th class="text-center">Last Name</th>
-								<th class="text-center">Edit</th>
-								<th class="text-center">Delete</th>
+								<th class="text-center">ORGANIZATION CODE</th>
+								<th class="text-center">ORGANIZATION NAME</th>
+								<th class="text-center">TOTAL MANHOUR</th>
+								<th class="text-center">ACTION</th>
 							</tr>
 						</thead>
 						<tbody>
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
+									<logic:equal name="report" property="organizationLevel" value="1">
+										<tr>
+											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>
+											<td class="text-center"><a
+												href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
+												data-hint-position="bottom"><img alt=""
+													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>											
+										</tr>
+									</logic:equal>
+									
+									<logic:notEqual name="report" property="organizationLevel" value="1">
 									<tr>
-										<td><bean:write name="report" property="reportId" /></td>
-										<td><bean:write name="report" property="firstName" /></td>
-										<td><bean:write name="report" property="lastName" /></td>
+										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
+										<td><bean:write name="report" property="organizationName" /></td>
+										<td><bean:write name="report" property="manhour" /></td>
 										<td class="text-center"><a
-											href="javascript:button('edit');" data-hint="Edit Report"
+											href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
 											data-hint-position="bottom"><img alt=""
 												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="javascript:confDel()"
-											data-hint="Delete Report" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>
+									</logic:notEqual>
+									
 								</logic:iterate>
 							</logic:notEmpty>
-							<tr>
-								<td colspan=6 class="text-center">
-									<div class="pagination">
-										<ul>
-											<li class="first"><a><i class="icon-first-2"></i></a></li>
-											<li class="prev"><a><i class="icon-previous"></i></a></li>
-											<li><a>1</a></li>
-											<li><a>2</a></li>
-											<li class="active"><a>3</a></li>
-											<li class="spaces"><a>...</a></li>
-											<li class="disabled"><a>4</a></li>
-											<li><a>500</a></li>
-											<li class="next"><a><i class="icon-next"></i></a></li>
-											<li class="last"><a><i class="icon-last-2"></i></a></li>
-										</ul>
-									</div>
-								</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<td colspan=6 class="text-center"> -->
+<!-- 									<div class="pagination"> -->
+<!-- 										<ul> -->
+<!-- 											<li class="first"><a><i class="icon-first-2"></i></a></li> -->
+<!-- 											<li class="prev"><a><i class="icon-previous"></i></a></li> -->
+<!-- 											<li><a>1</a></li> -->
+<!-- 											<li><a>2</a></li> -->
+<!-- 											<li class="active"><a>3</a></li> -->
+<!-- 											<li class="spaces"><a>...</a></li> -->
+<!-- 											<li class="disabled"><a>4</a></li> -->
+<!-- 											<li><a>500</a></li> -->
+<!-- 											<li class="next"><a><i class="icon-next"></i></a></li> -->
+<!-- 											<li class="last"><a><i class="icon-last-2"></i></a></li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+						<tr>
+							<td colspan="4" class="text-right">
+								<button id="back-btn" onclick="javascript:button('back')">Home</button>
+							<logic:equal name="reportForm" property="param2" value="1">
+								<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
+							</logic:equal>						
+							</td>
+						</tr>
 						</tbody>
 
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>
 		<html:hidden property="task" name="reportForm" />
+		<html:hidden property="param" name="reportForm" />
+		<html:hidden property="param2" name="reportForm" />
+		<html:hidden property="param3" name="reportForm" />
+		<html:hidden property="param4" name="reportForm" />
 	</html:form>
 	<jsp:include page="../../../frame/footer.jsp" />
 

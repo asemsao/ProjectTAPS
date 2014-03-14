@@ -4,11 +4,22 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class ReportBean implements Serializable {
-	private String reportId;
+
 	private String organizationCode;
+	private String organizationName;
+	private String organizationLevel;
+	private String organizationParent;
+	private String organizationParentName;
 	private String firstName;
 	private String lastName;
 	private String employeeName;
+	private Double manhour;
+	private Integer totalRoutine; //total manhour activity routine
+	private Integer totalInitiative; //total manhour activity initiative
+	private Integer totalAdhoc; //total manhour activity adhoc
+	
+	//bawah belum kepake
+	private String reportId;
 	private String projectCode;
 	private String assignmentDate;
 	private String assignmentDueDate;
@@ -26,12 +37,69 @@ public class ReportBean implements Serializable {
 	private Integer star;
 	private String assignmentType;
 	private String assignmentCategory;
-	private Integer manhour;
+	
 	private String periodeReport;
 	private String createdBy;
 	private String createdDate;
 	private String updateBy;
 	private String updateDate;
+	
+	
+	public String getOrganizationParentName() {
+		return organizationParentName;
+	}
+
+	public void setOrganizationParentName(String organizationParentName) {
+		this.organizationParentName = organizationParentName;
+	}
+
+	public String getOrganizationParent() {
+		return organizationParent;
+	}
+
+	public void setOrganizationParent(String organizationParent) {
+		this.organizationParent = organizationParent;
+	}
+
+	public Integer getTotalRoutine() {
+		return totalRoutine;
+	}
+
+	public void setTotalRoutine(Integer totalRoutine) {
+		this.totalRoutine = totalRoutine;
+	}
+
+	public Integer getTotalInitiative() {
+		return totalInitiative;
+	}
+
+	public void setTotalInitiative(Integer totalInitiative) {
+		this.totalInitiative = totalInitiative;
+	}
+
+	public Integer getTotalAdhoc() {
+		return totalAdhoc;
+	}
+
+	public void setTotalAdhoc(Integer totalAdhoc) {
+		this.totalAdhoc = totalAdhoc;
+	}
+
+	public String getOrganizationLevel() {
+		return organizationLevel;
+	}
+
+	public void setOrganizationLevel(String organizationLevel) {
+		this.organizationLevel = organizationLevel;
+	}
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
 
 	public String getReportId() {
 		return reportId;
@@ -209,11 +277,11 @@ public class ReportBean implements Serializable {
 		this.assignmentCategory = assignmentCategory;
 	}
 
-	public Integer getManhour() {
+	public Double getManhour() {
 		return manhour;
 	}
 
-	public void setManhour(Integer manhour) {
+	public void setManhour(Double manhour) {
 		this.manhour = manhour;
 	}
 

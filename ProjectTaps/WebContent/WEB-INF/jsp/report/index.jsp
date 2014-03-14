@@ -8,7 +8,6 @@
 <head>
 <script type="text/javascript">
 function report(task) {
-	alert(task);
 	document.reportForm.task.value = task;
 	document.reportForm.submit();
 }
@@ -32,18 +31,25 @@ function report(task) {
 						</thead>
 						<tbody>
 							<tr>
+								<td>Year</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<html:text name="reportForm" property="reportYear"></html:text>
+									</div></td>
+							</tr>
+							<tr>
 								<td>Period</td>
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="period_type"
-											value="6 Months"  checked="checked" /> <span class="check"></span> 6 Months
+										<label> 
+										<html:radio name="reportForm" styleId="defaultCheck" styleClass="reportFormCheck" property="periode" value="6 Months"></html:radio>
+										<span class="check"></span> Semester
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-
-										<label> <input type="radio" name="period_type"
-											value="1 Month" /> <span class="check"></span> 1 Month
+										<label> <html:radio name="reportForm" styleClass="reportFormCheck" property="periode" value="1 Months"></html:radio>
+										 <span class="check"></span> Monthly
 										</label>
 									</div>
 								</td>
@@ -51,35 +57,37 @@ function report(task) {
 							<tr>
 								<td>Choose</td>
 								<td>:</td>
-								<td>
-									<div id="6month" class="auto-complete">
-										<div class="control-group">
-											<select id="select-semester" required
-												class="demo-default size2">
-												<option value="">Semester</option>
-												<option value="first semester">First Semester</option>
-												<option value="last semester">Last Semester</option>
-											</select>
+								<td colspan="1">
+									
+									<div id="6month">
+										<div class="input-control select">
+											<html:select property="reportPeriode"
+												name="reportForm">
+												<html:option value="">Semester</html:option>
+												<html:option value="first">First</html:option>
+												<html:option value="last">Second</html:option>
+											</html:select>
 										</div>
 									</div>
 
-									<div id="1month" class="auto-complete">	
-										<div class="control-group">
-											<select id="select-month" required class="demo-default size2">
-												<option value="">Month</option>
-												<option value="january">January</option>
-												<option value="february">February</option>
-												<option value="march">March</option>
-												<option value="april">April</option>
-												<option value="may">May</option>
-												<option value="june">June</option>
-												<option value="july">July</option>
-												<option value="august">August</option>
-												<option value="september">September</option>
-												<option value="october">October</option>
-												<option value="november">November</option>
-												<option value="december">December</option>
-											</select>
+									<div id="1month">
+										<div class="input-control select">
+												<html:select property="reportMonth"
+													name="reportForm">
+													<html:option value="">Month</html:option>
+													<html:option value="01">January</html:option>
+													<html:option value="02">February</html:option>
+													<html:option value="03">March</html:option>
+													<html:option value="04">April</html:option>
+													<html:option value="05">May</html:option>
+													<html:option value="06">June</html:option>
+													<html:option value="07">July</html:option>
+													<html:option value="08">August</html:option>
+													<html:option value="09">September</html:option>
+													<html:option value="10">October</html:option>
+													<html:option value="11">November</html:option>
+													<html:option value="12">December</html:option>
+												</html:select>
 										</div>
 									</div>
 								</td>

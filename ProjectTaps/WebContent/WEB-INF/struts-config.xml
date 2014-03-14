@@ -49,7 +49,9 @@
 		<action name="reportForm" path="/report" scope="request"
 			type="adins.ace.taps.action.ReportAction">
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
+			<forward name="Back" path="/WEB-INF/jsp/report/index.jsp" />
 			<forward name="View" path="/WEB-INF/jsp/report/view.jsp" />
+			<forward name="ViewLevel2" path="/WEB-INF/jsp/report/viewLevel2.jsp" />
 		</action>
 		<action name="organizationForm" path="/organization" scope="request"
 			type="adins.ace.taps.action.OrganizationAction">
