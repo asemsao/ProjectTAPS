@@ -489,6 +489,14 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
+	<update id="editDetailClaimAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
+		UPDATE detail_claim_assignments SET
+			manhour = #manHours#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE
+		WHERE detail_id = #detailId#
+	</update>
+	
 	<insert id="addHistoryComment">
 		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
 		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#status#,#commentTo#,#createdBy#,SYSDATE)
@@ -503,7 +511,7 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
-<!-- 	<insert id="addAssignmentStar" parameterClass=""> -->
+<!-- 	<insert id="addAssignmentStar" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"> -->
 <!-- 		INSERT INTO stars (star_id, task_code, user_domain, description, star_before, star_after, created_by, created_date) VALUES -->
 <!-- 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #userDomain#, #description#, #starBefore#, #starAfter#,#createdBy#,SYSDATE) -->
 <!-- 	</insert> -->

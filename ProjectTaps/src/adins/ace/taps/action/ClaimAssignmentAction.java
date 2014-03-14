@@ -54,15 +54,8 @@ public class ClaimAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 
-		// if ("RFA".equals(session.getAttribute("status"))
-		// || "APPROVED".equals(session.getAttribute("status"))) {
-		// aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		// aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
-		// return mapping.findForward("Approval");
-		// } else {
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 		return mapping.findForward("Claim");
-		// }
 	}
 }
