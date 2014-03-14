@@ -502,4 +502,23 @@ public class AssignmentManager {
 		}
 		return success;
 	}
+	
+	public boolean addAssignmentStar(ClaimAssignmentBean bean) {
+		boolean success = false;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addAssignmentStar",bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
 }

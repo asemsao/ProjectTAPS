@@ -9,6 +9,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String assignmentType;
 	private String organizationName;
 	private String projectName;
+	private String assignTo;
 	private String fullName;
 	private String createdByName;
 	private String createdBy;
@@ -29,7 +30,16 @@ public class ClaimAssignmentBean implements Serializable {
 	private String commentTo;
 	private String status;
 	private Integer appraisalStar;
+	private Integer starBefore;
 	
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+
 	public String getAssignmentDate() {
 		return assignmentDate;
 	}
@@ -228,6 +238,14 @@ public class ClaimAssignmentBean implements Serializable {
 
 	public void setAppraisalStar(Integer appraisalStar) {
 		this.appraisalStar = appraisalStar;
+	}
+
+	public Integer getStarBefore() {
+		return starBefore;
+	}
+
+	public void setStarBefore(Integer starBefore) {
+		this.starBefore = starBefore;
 	}
 
 }

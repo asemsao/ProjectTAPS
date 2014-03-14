@@ -372,6 +372,7 @@
 						</tbody>
 					</table>
 					<html:hidden property="task" name="claimAssignmentForm" />
+					<html:hidden property="claimBean.assignTo" name="claimAssignmentForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

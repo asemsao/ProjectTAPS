@@ -30,16 +30,17 @@ public class ClaimSupervisorAssignmentAction extends Action {
 
 		if ("approved".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("APPROVED");
-			// aMan.addHistoryComment(aForm.getClaimBean());
-			// Map paramStatus = new HashMap();
-			// paramStatus.put("status", aForm.getClaimBean().getStatus());
-			// paramStatus.put("updatedBy","domain3");
-			// paramStatus.put("taskCode",taskCode);
-			// paramStatus.put("flag","ACTIVE");
-			// boolean success = aMan.updateStatus(paramStatus);
-			// System.out.println(success);
-			// update ke tabel star ama ke report???
-
+			aMan.addHistoryComment(aForm.getClaimBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", aForm.getClaimBean().getStatus());
+			paramStatus.put("updatedBy","domain3");
+			paramStatus.put("taskCode",taskCode);
+			paramStatus.put("flag","ACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			System.out.println(success);
+			//update table star
+			aForm.getClaimBean().setStarBefore(0);
+			aMan.addAssignmentStar(aForm.getClaimBean());
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("CORRECTION");
