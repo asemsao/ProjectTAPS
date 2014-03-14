@@ -480,9 +480,9 @@ function setResponseEmployeeOnOrganization(data) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
 		content += "<input type='radio' name='employee_choose_on_organization'";
-		content += "value='" + json.listEmployeesOnOrganization[i].employeeDomain
-				+ "@" + json.listEmployeesOnOrganization[i].employeeName
-				+ "' />";
+		content += "value='"
+				+ json.listEmployeesOnOrganization[i].employeeDomain + "@"
+				+ json.listEmployeesOnOrganization[i].employeeName + "' />";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listEmployeesOnOrganization[i].employeeDomain;
