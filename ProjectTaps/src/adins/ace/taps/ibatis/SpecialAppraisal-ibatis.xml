@@ -72,7 +72,7 @@
 		#userDomain#,
 		#description#,
 		0,
-		3,
+		#appraisalStar#,
 		'domain4',
 		#createdDate#)
 	</insert>

@@ -56,6 +56,8 @@
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
 								<td>
+								<bean:write name="specialAppraisalForm"
+										property="appraisalBean.appraisalStar" />
 									<div class="rating" id="rating">
 										<ul>
 											<li class="rated"></li>

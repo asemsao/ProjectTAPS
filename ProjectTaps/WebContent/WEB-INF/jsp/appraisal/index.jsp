@@ -19,6 +19,9 @@
 		document.specialAppraisalForm.param.value = param;
 		document.specialAppraisalForm.submit();
 	}
+	$(document).ready(function() {
+		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+	});
 </script>
 <jsp:include page="/js/import.jsp" />
 
