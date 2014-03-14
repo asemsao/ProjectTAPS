@@ -71,10 +71,6 @@ public class OrganizationAction extends Action {
 			} else
 				orgForm.setMessage("Delete Organization Failed! has member");
 		}
-		if ("Save".equals(orgForm.getTask())) {
-			System.out.println("insert");
-			orgMan.submitInsert(orgForm.getOrgBean());
-		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
@@ -106,13 +102,10 @@ public class OrganizationAction extends Action {
 		params.put("category", orgForm.getSearchCategory());
 		params.put("keyword", orgForm.getSearchKeyword());
 
-
-
-		
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			int temp = 0;
-			
+
 			orgForm.setMode("structure");
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll("-", "")));
@@ -122,23 +115,21 @@ public class OrganizationAction extends Action {
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
-			
-			System.out.println(orgMan.checkMemberOrganization(params)+"  askfbasjkfb");
-			if (orgMan.checkMemberOrganization(params)%10==0)
-			{
-				temp = orgMan.checkMemberOrganization(params)/10;
+
+			System.out.println(orgMan.checkMemberOrganization(params)
+					+ "  askfbasjkfb");
+			if (orgMan.checkMemberOrganization(params) % 10 == 0) {
+				temp = orgMan.checkMemberOrganization(params) / 10;
 				System.out.println(temp);
-			}
-			else {
-				temp = orgMan.checkMemberOrganization(params)/10+1;
+			} else {
+				temp = orgMan.checkMemberOrganization(params) / 10 + 1;
 				System.out.println(temp);
-				
+
 			}
 			orgForm.setMaxpage(temp);
-			
+
 			return mapping.findForward("Structure");
 		}
-		
 
 		if ("structure".equals(orgForm.getMode())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
@@ -152,14 +143,16 @@ public class OrganizationAction extends Action {
 			System.out.println(orgForm.getOrganizationCode());
 			System.out.println(orgForm.getOrgBean().getHeadDomain());
 
-			orgForm.setListMemberOrganizations(orgMan.searchMemberOrganizations(params));
-			
+			orgForm.setListMemberOrganizations(orgMan
+					.searchMemberOrganizations(params));
+
 			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
-			
-			System.out.println("total record : "+ orgMan.checkMemberOrganization(params));
+
+			System.out.println("total record : "
+					+ orgMan.checkMemberOrganization(params));
 			return mapping.findForward("Structure");
 		}
-		
+
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
 
