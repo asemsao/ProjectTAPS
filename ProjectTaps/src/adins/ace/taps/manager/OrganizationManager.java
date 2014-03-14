@@ -181,12 +181,12 @@ public class OrganizationManager {
 		return flag;
 	}
 
-	public int countMemberOrganization(Map params) {
+	public int checkMemberOrganization(Map params) {
 		Integer count = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.countMemberOrganization", params);
+					"organization.checkMemberOrganization", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
