@@ -136,6 +136,10 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
 		}
+		if("deleteProject".equals(pForm.getTask()))
+		{
+			pMan.deleteProject(pForm.getParamProjectCode());
+		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);
 		params.put("end", (pForm.getPage() * 10));
