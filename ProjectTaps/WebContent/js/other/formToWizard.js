@@ -2,9 +2,9 @@
 
 (function($) {
     $.fn.formToWizard = function(options) {
-        options = $.extend({  
+        options = $.extend({
             submitButton: "" 
-        }, options); 
+        }, options);
         
         var element = this;
 
@@ -41,7 +41,7 @@
 
         function createPrevButton(i) {
             var stepName = "step" + i;
-            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev'>< Back</a>");
+            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Prev' class='prev-wizard'><i class='icon-arrow-left-5'></i> Back</a>");
 
             $("#" + stepName + "Prev").bind("click", function(e) {
                 $("#" + stepName).hide();
@@ -53,7 +53,7 @@
 
         function createNextButton(i) {
             var stepName = "step" + i;
-            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next'>Next ></a>");
+            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next-wizard'>Next <i class='icon-arrow-right-5'></i></a>");
 
             $("#" + stepName + "Next").bind("click", function(e) {
                 $("#" + stepName).hide();

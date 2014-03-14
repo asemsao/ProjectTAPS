@@ -11,32 +11,20 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<style>
-fieldset { border:none; width:320px;}
-        legend { font-size:18px; margin:0px; padding:10px 0px; color:#b0232a; font-weight:bold;}
-        .prev, .next { background-color:#b0232a; padding:5px 10px; color:#fff; text-decoration:none;}
-        .prev:hover, .next:hover { background-color:#000; text-decoration:none;}
-        .prev { float:left;}
-        .next { float:right;}
-        #steps { list-style:none; width:100%; overflow:hidden; margin:0px; padding:0px;}
-        #steps li {font-size:24px; float:left; padding:10px; color:#b0b1b3;}
-        #steps li span {font-size:11px; display:block;}
-        #steps li.current { color:#000;}
-</style>
 <script>
 	function flyToPage(task, paramProjectCode) {
-		document.projectForm.task.value = task;
-		document.projectForm.paramProjectCode.value = paramProjectCode;
-		document.projectForm.submit();
+		document.transferProjectForm.task.value = task;
+		document.transferProjectForm.paramProjectCode.value = paramProjectCode;
+		document.transferProjectForm.submit();
 	}
 	function button(task) {
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
-	function createWizard() {
+	$(document).ready(function() {
 		$("#myForm").formToWizard({ submitButton: 'SaveAccount' })
 		$("#munculkan").hide();
-	}
+	});
 </script>
 
 <title>Project</title>
@@ -50,20 +38,15 @@ fieldset { border:none; width:320px;}
 			<div class="row row-taps shadow-taps">
 				<html:form action="/transferProject" method="post" styleClass="transferProjectForm" styleId="myForm">
 					<html:hidden property="task" name="transferProjectForm" />
-					<html:hidden property="page" name="transferProjectForm" />
-					<html:hidden property="maxpage" name="transferProjectForm" />
+					<html:hidden property="pageProject" name="transferProjectForm" />
+					<html:hidden property="maxPageProject" name="transferProjectForm" />
 					<html:hidden property="paramProjectCode" name="transferProjectForm" />
 					
 					<fieldset>
-					<legend>LEGENDA NAGA</legend>
+					<legend>CHOOSE PROJECT</legend>
 
 					<table class="table striped bordered hovered">
 						<thead>
-							<tr>
-								<th colspan=11 class="text-center">
-									<h3>List Project</h3>
-								</th>
-							</tr>
 							<tr>
 								<th class="text-center" colspan=2>
 									<div class="input-control select">
@@ -103,8 +86,8 @@ fieldset { border:none; width:320px;}
 								<logic:iterate id="transferProject" name="transferProjectForm"
 									property="listProject">
 									<tr>
-									<td><input type='radio'
-											name='project_choose' value='1@CDD1'></td>
+										<td><input type='radio'
+												name='project_choose' value='1@CDD1'></td>
 										<td class="text-center"><bean:write name="transferProject"
 												property="projectCode" /></td>
 										<td><bean:write name="transferProject" property="projectName" /></td>
@@ -131,12 +114,58 @@ fieldset { border:none; width:320px;}
 						</tbody>
 					</table>
 					</fieldset>
+					
 					<fieldset>
-					<input type="text">
+					<legend>CHOOSE BUSINESS UNIT</legend>
+					<table class="table striped bordered hovered">
+						<thead>
+							<tr>
+								<th class="text-center" colspan=1>
+									<div class="input-control select">
+										<html:select property="searchCategory" name="transferProjectForm">
+											<html:option value="all">All</html:option>
+											<html:option value="organizationCode">Organization Code</html:option>
+											<html:option value="organizationName">Organization Name</html:option>
+											<html:option value="headName">Head Name</html:option>
+										</html:select>
+									</div>
+								</th>
+								<th class="text-center" colspan=5>
+									<div class="input-control text">
+										<html:text property="searchKeyword" name="transferProjectForm"
+											styleId="searchKeyword"></html:text>
+										<button id="search" class="btn-search"></button>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th></th>
+								<th class="text-center">Organization Code</th>
+								<th class="text-center">Organization Name</th>
+								<th class="text-center">Head Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty name="transferProjectForm"
+								property="listOrganization">
+								<logic:iterate id="organization" name="transferProjectForm"
+									property="listOrganization">
+									<tr>
+										<td><input type='radio'
+												name='project_choose' value='1@CDD1'></td>
+										<td><bean:write name="organization"
+												property="organizationCode" /></td>
+										<td><bean:write name="organization"
+												property="organizationName" /></td>
+										<td><bean:write name="organization" property="headName" /></td>
+									</tr>
+								</logic:iterate>
+							</logic:notEmpty>
+						</tbody>
+					</table>
 					</fieldset>
-					<p>
-            <input id="SaveAccount" type="button" value="Submit form" />
-        </p>
+					
+					<input id="SaveAccount" type="button" value="Submit form" />
 				</html:form>
 			</div>
 		</div>
