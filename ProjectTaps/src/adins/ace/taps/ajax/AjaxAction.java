@@ -71,6 +71,9 @@ public class AjaxAction extends Action {
 		params.put("keyword", ajaxForm.getSearchKeyword());
 
 		if ("employees".equals(ajaxForm.getMode())) {
+			if (!("".equals(ajaxForm.getOrganizationCode()))) {
+				params.put("organization", ajaxForm.getOrganizationCode());
+			}
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
@@ -79,7 +82,9 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("employeesOnProject".equals(ajaxForm.getMode())) {
-			params.put("paramProjectCode", "TAPS");
+			if (!("".equals(ajaxForm.getProjectCode()))) {
+				params.put("project", ajaxForm.getProjectCode());
+			}
 			ajaxForm.setListEmployeesOnProject(empMan
 					.searchEmployeesOnProject(params));
 			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));

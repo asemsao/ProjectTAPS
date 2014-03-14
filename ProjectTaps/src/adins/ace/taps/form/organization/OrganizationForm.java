@@ -21,6 +21,7 @@ public class OrganizationForm extends ActionForm {
 	private List<OrganizationBean> listOrganizations;
 	private List<OrganizationBean> listMemberOrganizations;
 	private String message;
+	private String mode;
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;
@@ -117,5 +118,13 @@ public class OrganizationForm extends ActionForm {
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

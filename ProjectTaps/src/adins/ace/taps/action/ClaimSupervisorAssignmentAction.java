@@ -22,13 +22,12 @@ public class ClaimSupervisorAssignmentAction extends Action{
 		HttpSession session = request.getSession(true);
 		
 		String taskCode = (String) session.getAttribute("taskCode");
-		
 		if ("cancel".equals(aForm.getTask())){
 			return mapping.findForward("Cancel");
 		}
 		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setHistoryComment(null);
+		aForm.setHistoryComment(aMan.searchHistoryComment(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
 		return mapping.findForward("Claim");
 	}

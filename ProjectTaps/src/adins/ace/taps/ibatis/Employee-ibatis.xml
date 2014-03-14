@@ -9,7 +9,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
 		FROM employees e
-		<dynamic prepend="WHERE">
+		WHERE 1 = 1
+		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
 					<isEqual property="category" compareValue="employeeDomain">(LOWER(USER_DOMAIN)
@@ -36,6 +37,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="organization">
+				<isNotEmpty property="organization">
+					(LOWER(ORGANIZATION_CODE) LIKE
+					LOWER(#organization#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 	</select>
 
 	<select id="searchEmployees" resultClass="employeeBean"
@@ -50,7 +59,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ADDRESS AS
 		employeeAddress
 		FROM EMPLOYEES
-		<dynamic prepend="WHERE">
+		WHERE 1 = 1
+		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
 					<isEqual property="category" compareValue="employeeDomain">(LOWER(USER_DOMAIN)
@@ -74,6 +84,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE
 						LOWER ('%$keyword$%'))
 					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="organization">
+				<isNotEmpty property="organization">
+					(LOWER(ORGANIZATION_CODE) LIKE
+					LOWER(#organization#))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -95,16 +113,16 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		e.EMPLOYEE_NIK AS
 		employeeNik,
 		e.FIRST_NAME||' '||e.LAST_NAME AS employeeName,
-		e.ADDRESS
-		AS
-		employeeAddress,
 		ps.project_role AS projectRole
 		FROM EMPLOYEES e
 		JOIN
-		PROJECT_STRUCTURES ps
+		PROJECT_STRUCTURES
+		ps
 		ON
 		e.user_domain = ps.assignee_user_domain
-		<dynamic prepend="WHERE">
+		WHERE 1
+		= 1
+		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
 					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
@@ -116,9 +134,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LOWER(e.LAST_NAME) LIKE LOWER
 						('%$keyword$%'))
 					</isEqual>
-					<isEqual property="category" compareValue="employeeAddress">(LOWER(e.ADDRESS)
-						LIKE LOWER ('%$keyword$%'))
-					</isEqual>
+					<isEqual property="category" compareValue="projectRole">(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
 					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
 						LIKE LOWER ('%$keyword$%') OR LOWER(e.EMPLOYEE_CODE)
 						LIKE LOWER
@@ -126,10 +143,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE LOWER ('%$keyword$%')
 						OR
 						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.ADDRESS)
-						LIKE
-						LOWER ('%$keyword$%'))
+						(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))
 					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="project">
+				<isNotEmpty property="project">
+					(LOWER(ps.project_code) LIKE
+					LOWER(#project#))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -148,7 +172,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ON
 		e.user_domain =
 		ps.assignee_user_domain
-		<dynamic prepend="WHERE">
+		WHERE 1 = 1
+		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
 					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
@@ -160,9 +185,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LOWER(e.LAST_NAME) LIKE LOWER
 						('%$keyword$%'))
 					</isEqual>
-					<isEqual property="category" compareValue="employeeAddress">(LOWER(e.ADDRESS)
-						LIKE LOWER ('%$keyword$%'))
-					</isEqual>
+					<isEqual property="category" compareValue="projectRole">(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
 					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
 						LIKE LOWER ('%$keyword$%') OR LOWER(e.EMPLOYEE_CODE)
 						LIKE LOWER
@@ -170,10 +194,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LIKE LOWER ('%$keyword$%')
 						OR
 						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%') OR
-						LOWER(e.ADDRESS)
-						LIKE
-						LOWER ('%$keyword$%'))
+						(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))
 					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="project">
+				<isNotEmpty property="project">
+					(LOWER(ps.project_code) LIKE
+					LOWER(#project#))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
