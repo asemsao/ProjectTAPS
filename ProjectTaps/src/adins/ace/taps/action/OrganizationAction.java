@@ -44,14 +44,6 @@ public class OrganizationAction extends Action {
 				orgForm.setMessage("Insert Organization Failed!");
 			}
 		}
-		if ("Save".equals(orgForm.getTask())) {
-			try {
-				orgMan.submitInsert(orgForm.getOrgBean());
-				orgForm.setMessage("Insert Organization Successfull!");
-			} catch (Exception e) {
-				orgForm.setMessage("Insert Organization Failed!");
-			}
-		}
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll("-", "")));

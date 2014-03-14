@@ -26,16 +26,6 @@
 								.load(
 										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 					});
-	function changeopt() {
-		select = document.getElementById("selectLevel");
-		level = select.options[select.selectedIndex].value;
-		
-		if (level = "0") {
-			document.organizationForm.organization.style.visibility = "hidden";
-		} else {
-			document.organizationForm.organization.style.visibility = "visible";
-		}
-	}
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add Organization</title>
@@ -67,18 +57,17 @@
 								<td>
 									<div class="input-control text">
 										<html:text property="orgBean.organizationName"
-											name="organizationForm" styleId="orgName"></html:text>
+											name="organizationForm"></html:text>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>Organization Level</td>
+							<td>Organization Level</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" onchange="javascript:changeopt();"
-											styleId="selectLevel">
+											name="organizationForm">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
@@ -94,7 +83,7 @@
 										<html:hidden property="orgBean.headDomain"
 											name="organizationForm" styleId="employee-domain" />
 										<input type="text" placeholder="Head of Organization"
-											id="employee-name" readonly="readonly"/>
+											id="employee-name" readonly="readonly" />
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
@@ -108,7 +97,7 @@
 											name="organizationForm" styleId="parent-organization-code" />
 										<input type="text" placeholder="Parent Organization"
 											readonly="readonly" id="parent-organization-name" />
-										<button class="btn-search" type="button" id="organization" style="visibility: visible"></button>
+										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
 							</tr>
