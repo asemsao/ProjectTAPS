@@ -28,7 +28,8 @@ public class ClaimAssignmentBean implements Serializable {
 	private String commentFrom;
 	private String commentTo;
 	private String status;
-
+	private Integer appraisalStar;
+	
 	public String getAssignmentDate() {
 		return assignmentDate;
 	}
@@ -219,6 +220,14 @@ public class ClaimAssignmentBean implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Integer getAppraisalStar() {
+		return appraisalStar;
+	}
+
+	public void setAppraisalStar(Integer appraisalStar) {
+		this.appraisalStar = appraisalStar;
 	}
 
 }
