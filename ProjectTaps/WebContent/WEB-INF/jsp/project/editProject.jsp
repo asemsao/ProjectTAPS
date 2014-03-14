@@ -79,7 +79,6 @@
 								<div class="input-control text">
 									<html:hidden property="pBean.organizationCode" name="projectForm" styleId="organization-code" ></html:hidden>
 									<html:text property="pBean.organizationName" name="projectForm" styleId="businessUnit" readonly="true"></html:text>
-									<button type="button" class="btn-search" id="organization"></button>
 								</div>
 
 							</td>
