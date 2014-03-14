@@ -1,6 +1,7 @@
 package adins.ace.taps.ajax;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +83,14 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("employeesOnProject".equals(ajaxForm.getMode())) {
-			params.put("project", ajaxForm.getProjectCode());
-			ajaxForm.setListEmployeesOnProject(empMan
-					.searchEmployeesOnProject(params));
-			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
+			if ("".equals(ajaxForm.getProjectCode())) {
+				ajaxForm.setCountRecord(0);
+			} else {
+				params.put("project", ajaxForm.getProjectCode());
+				ajaxForm.setListEmployeesOnProject(empMan
+						.searchEmployeesOnProject(params));
+				ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
+			}
 		}
 		if ("employeesOnOrganization".equals(ajaxForm.getMode())) {
 			// nanti dari session
@@ -99,26 +104,57 @@ public class AjaxAction extends Action {
 			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
 			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
 		}
+		if ("parentOrganizations".equals(ajaxForm.getMode())) {
+			params.put("level", ajaxForm.getLevel() - 1);
+			ajaxForm.setListOrganizations(orgMan
+					.searchParentOrganizations(params));
+			ajaxForm.setCountRecord(orgMan.countParentOrganizations(params));
+		}
 		if ("assignments".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployeeReport(asgMan
 					.searchEmployeeReportEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
+		}
+		if ("comments".equals(ajaxForm.getMode())) {
+			params.put("taskCode", ajaxForm.getTaskCode());
+			ajaxForm.setHistoryComment(asgMan
+					.searchHistoryComment((params)));
+			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
 			ajaxForm.setListProject(prjMan.searchProject(params));
 			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
 		if ("ad".equals(ajaxForm.getMode())) {
-			if (Integer.parseInt(params.get("end").toString()) > queAD
-					.queryAD().size()) {
-				params.put("end", queAD.queryAD().size());
+			List<ActiveDirectoryBean> listAD = queAD.queryAD();
+			List<ActiveDirectoryBean> listAD1 = new ArrayList<ActiveDirectoryBean>();
+			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
+			if("employeeDomain".equals(ajaxForm.getSearchCategory())){
+				for (int i = 0; i < listAD.size(); i++) {
+					if(listAD.get(i).getUserDomain().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())){
+						listAD1.add(listAD.get(i));
+					}
+				}
 			}
-
-			List<ActiveDirectoryBean> listAD = queAD.queryAD().subList(
+			else if("employeeName".equals(ajaxForm.getSearchCategory())){
+				for (int i = 0; i < listAD.size(); i++) {
+					if(listAD.get(i).getFullName().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())){
+						listAD1.add(listAD.get(i));
+					}
+				}
+			}
+			else{
+				listAD1 = listAD;
+			}
+			if (Integer.parseInt(params.get("end").toString()) > listAD1.size()) {
+				params.put("end", listAD1.size());
+			}
+			listADShow = listAD1.subList(
 					Integer.parseInt(params.get("start").toString()) - 1,
 					Integer.parseInt(params.get("end").toString()) - 1);
-			ajaxForm.setListAD(listAD);
-			ajaxForm.setCountRecord(queAD.queryAD().size());
+			ajaxForm.setListAD(listADShow);
+			
+			ajaxForm.setCountRecord(listAD1.size());
 		}
 
 		if (ajaxForm.getCountRecord() % 10 == 0) {
@@ -154,6 +190,9 @@ public class AjaxAction extends Action {
 		if ("organizations".equals(ajaxForm.getTask())) {
 			return mapping.findForward("organizations");
 		}
+		if ("parentOrganizations".equals(ajaxForm.getTask())) {
+			return mapping.findForward("organizations");
+		}
 		if ("assignments".equals(ajaxForm.getTask())) {
 			return mapping.findForward("assignments");
 		}
@@ -162,6 +201,9 @@ public class AjaxAction extends Action {
 		}
 		if ("ad".equals(ajaxForm.getTask())) {
 			return mapping.findForward("ad");
+		}
+		if ("comments".equals(ajaxForm.getTask())) {
+			return mapping.findForward("comments");
 		}
 		return null;
 	}

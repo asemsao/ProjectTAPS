@@ -45,13 +45,11 @@ public class NewAssignmentAction extends Action {
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					paramCode = aForm.getAssignmentBean().getOrganizationCode() + dateFormat.format(date);
-				} else if ("Project".equals(aForm.getAssignmentType())) {
+				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
-				System.out.println(paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);
-				aForm.getAssignmentBean().setReportTo("domain100");
 				aForm.getAssignmentBean().setCreatedBy("domain100");
 	
 				if ("save".equals(aForm.getNewTask())) {

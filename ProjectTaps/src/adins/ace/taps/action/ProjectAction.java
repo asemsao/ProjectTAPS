@@ -58,7 +58,7 @@ public class ProjectAction extends Action {
 			pMan.addProject(pForm.getAddProject());
 		}
 		if ("cancel".equals(pForm.getTask())) {
-
+			//back to index.jsp
 		}
 
 		if ("edit".equals(pForm.getTask())) {
@@ -122,6 +122,23 @@ public class ProjectAction extends Action {
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("ViewMember");
+		}
+		if("deleteMember".equals(pForm.getTask()))
+		{
+			pForm.getAddSProject().setAssigneeUserDomain(pForm.getParamAssigneeUserDomain());
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			pMan.deleteMember(pForm.getAddSProject());
+			
+			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
+			ProjectBean pBean = new ProjectBean();
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			return mapping.findForward("ViewMember");
+		}
+		if("deleteProject".equals(pForm.getTask()))
+		{
+			pMan.deleteProject(pForm.getParamProjectCode());
 		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);

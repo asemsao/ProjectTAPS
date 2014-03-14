@@ -64,7 +64,7 @@
 									<br>
 									<html:hidden property="newEmployee.profilePicture" name="employeeForm" />
 									<div class="input-control file ">
-										<html:file property="profilePicture" accept="image/jpg"></html:file>
+										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 							</tr>
@@ -126,7 +126,7 @@
 									<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
 										<input type="text" readonly="readonly" id="organization-name" class="businessUnit"
-										value="<bean:write name="employeeForm" property="newEmployee.businessUnit" />"/>
+										value="<bean:write name="employeeForm" property="newEmployee.businessUnitName" />"/>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>

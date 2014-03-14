@@ -16,16 +16,25 @@
 		document.organizationForm.submit();
 	}
 
-	$(document)
-			.ready(
-					function() {
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
-						$("#lookUpOrganization")
-								.load(
-										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-					});
+	$(document).ready(
+			function() {
+				var level = $("#level").val();
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+				$("#lookUpOrganization").load(
+						"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+								+ level);
+				$('#level').bind(
+						"change",
+						function() {
+							$("#parent-organization-code").val('');
+							$("#parent-organization-name").val('');
+							$("#lookUpOrganization").html('');
+							$("#lookUpOrganization").load(
+									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+											+ $(this).val());
+						});
+			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add Organization</title>
@@ -62,12 +71,12 @@
 								</td>
 							</tr>
 							<tr>
-							<td>Organization Level</td>
+								<td>Organization Level</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm">
+											name="organizationForm" styleId="level">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>

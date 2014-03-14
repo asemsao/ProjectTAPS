@@ -30,15 +30,40 @@
 	$(document)
 			.ready(
 					function() {
+						var project_code = $("#project-code").val();
+						var organization_code = $("#organization-code-view")
+								.val();
+						$("#employee-name").val($("#employee-fullName").val());
+						$("#adhoc-name").val($("#adhoc-fullName").val());
+						$("#lookUpEmployeeOnProject")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+												+ project_code);
+						$("#lookUpProject")
+								.load(
+										"/ProjectTaps/ajax.do?mode=projects&task=projects");
 						$("#lookUpEmployee")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employees&task=employees");
-						$("#lookUpEmployee2")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 						$("#lookUpAssignment")
-						.load(
-								"/ProjectTaps/ajax.do?mode=assignments&task=assignments");
+								.load(
+										"/ProjectTaps/ajax.do?mode=assignments&task=assignments");
+						$('#project-name')
+								.bind(
+										"change",
+										function() {
+											var project_code = $(
+													"#project-code").val();
+											$("#lookUpEmployeeOnProject").html(
+													'');
+											$("#lookUpEmployeeOnProject")
+													.load(
+															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+																	+ project_code);
+											$("#employee-name").val("");
+											$("#employee-fullName").val("");
+											$("#employee-domain").val("");
+										});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -95,8 +120,12 @@
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<html:text property="selfAssignBean.projectCode"
-												name="newSelfAssignmentForm"></html:text>
+											<html:hidden property="selfAssignBean.projectCode"
+												name="newSelfAssignmentForm" styleId="project-code"></html:hidden>
+											<html:hidden property="selfAssignBean.projectName"
+												name="newSelfAssignmentForm" styleId="project-fullName"></html:hidden>
+											<input type="text" placeholder="Project" id="project-name"
+												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -107,10 +136,15 @@
 								<td><div class="pr">
 										<div class="input-control text">
 											<html:hidden property="selfAssignBean.reportTo"
-												name="newSelfAssignmentForm" styleId="employee-domain"></html:hidden>
+												name="newSelfAssignmentForm" styleId="employee-domain" />
+											<html:hidden property="selfAssignBean.reportToFullName"
+												name="newSelfAssignmentForm" styleId="employee-fullName" />
 											<input type="text" placeholder="Employee" id="employee-name"
 												readonly="readonly" />
-											<button type="button" class="btn-search" id="employee"></button>
+											<div class="pr" class="in-bl">
+												<button type="button" class="btn-search"
+													id="employeeOnProject"></button>
+											</div>
 										</div>
 									</div></td>
 							</tr>
@@ -131,7 +165,7 @@
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="activity_type"
-											value="AdHoc" /> <span class="check"></span> AdHoc
+											value="ADHOC" /> <span class="check"></span> AdHoc
 										</label>
 									</div>
 								</td>
@@ -142,10 +176,12 @@
 								<td><div class="adhoc">
 										<div class="input-control text">
 											<html:hidden property="selfAssignBean.adhocUserDomain"
-												name="newSelfAssignmentForm" styleId="employee-domain-2"></html:hidden>
+												name="newSelfAssignmentForm" styleId="adhoc-user-domain" />
+											<html:hidden property="selfAssignBean.adhocFullName"
+												name="newSelfAssignmentForm" styleId="adhoc-fullName" />
 											<input type="text" placeholder="Employee"
-												id="employee-name-2" readonly="readonly" />
-											<button type="button" class="btn-search" id="employee2"></button>
+												id="adhoc-name" readonly="readonly" />
+											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div></td>
 							</tr>
@@ -242,12 +278,16 @@
 		<html:hidden property="newTask" name="newSelfAssignmentForm" />
 		<html:hidden property="assignmentType" name="newSelfAssignmentForm" />
 		<html:hidden property="activityType" name="newSelfAssignmentForm" />
-		<html:hidden property="selfAssignBean.detailId" name="newSelfAssignmentForm"/>
+		<html:hidden property="selfAssignBean.detailId"
+			name="newSelfAssignmentForm" />
+		<!-- ini nanti ambil session -->
+		<input type="hidden" id="organization-code-view" value="CDD" />
 	</html:form>
 	
+	<div id="lookUpProject" class="hide"></div>
+	<div id="lookUpEmployeeOnProject" class="hide"></div>
 	<div id="lookUpEmployee" class="hide"></div>
-	<div id="lookUpEmployee2" class="hide"></div>
-	<div id="lookUpAssignment"></div>
+	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

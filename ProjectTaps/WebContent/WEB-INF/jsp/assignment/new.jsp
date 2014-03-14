@@ -64,6 +64,9 @@
 													.load(
 															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
 																	+ project_code);
+											$("#employee-name").val("");
+											$("#employee-fullName").val("");
+											$("#employee-domain").val("");
 										});
 					});
 </script>
@@ -192,7 +195,7 @@
 
 
 	<div id="lookUpProject" class="hide"></div>
-	<div id="lookUpEmployeeOnOrganization"></div>
+	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>

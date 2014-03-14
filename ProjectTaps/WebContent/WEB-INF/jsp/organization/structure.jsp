@@ -53,8 +53,8 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post" styleId="CRUDForm">
-		<html:hidden property="task" name="organizationForm" styleId="task"/>
-		<html:hidden property="mode" name="organizationForm" styleId="mode"/>
+		<html:hidden property="task" name="organizationForm" styleId="task" />
+		<html:hidden property="mode" name="organizationForm" styleId="mode" />
 		<html:hidden property="organizationCode" name="organizationForm" />
 		<html:hidden property="orgBean.headDomain" name="organizationForm" />
 		<html:hidden property="page" name="organizationForm" />
@@ -82,20 +82,17 @@
 							</tr>
 							<tr>
 								<td class="text-center">
-									<div class="auto-complete">
-										<div class="control-group">
-											<html:select property="searchCategory"
-												name="organizationForm">
-												<html:option value="">All</html:option>
-												<html:option value="memberDomain">Employee Domain</html:option>
-												<html:option value="memberCode">Employee Code</html:option>
-												<html:option value="memberName">Employee Name</html:option>
-											</html:select>
-										</div>
+									<div class="input-control select">
+										<html:select property="searchCategory" name="organizationForm">
+											<html:option value="">All</html:option>
+											<html:option value="memberDomain">Employee Domain</html:option>
+											<html:option value="memberCode">Employee Code</html:option>
+											<html:option value="memberName">Employee Name</html:option>
+										</html:select>
 									</div>
 								</td>
-								<td class="text-center">
-									<div class="input-control text size11">
+								<td class="text-center" colspan=2>
+									<div class="input-control text">
 										<html:text property="searchKeyword" name="organizationForm"
 											styleId="searchKeyword"></html:text>
 										<button id="search" class="btn-search"></button>
@@ -127,7 +124,7 @@
 								</logic:iterate>
 							</logic:notEmpty>
 							<tr>
-								<td colspan=5 class="text-center">
+								<td colspan=2 class="text-center">
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"><i
@@ -144,10 +141,8 @@
 										</ul>
 									</div>
 								</td>
-								<td class="text-center">
-								<td colspan=3 class="text-right"><html:button
-										property="cancel" styleId="back"
-										styleClass="button info">Back</html:button></td>
+								<td class="text-right"><html:button property="cancel"
+										styleId="back" styleClass="button info">Back</html:button></td>
 							</tr>
 						</tbody>
 					</table>

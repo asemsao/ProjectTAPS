@@ -23,6 +23,12 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	function deleteConfirm(task,assigneeUserDomain){
+		var con = confirm ("This record will be deleted, are you sure?");
+		if(con){
+			flyToPage(task,assigneeUserDomain);	
+		}			
+	}
 </script>
 <title>Project Member</title>
 </head>
@@ -64,7 +70,7 @@
 								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')"
 									data-hint="Edit Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-								<td class="text-center"><a href="#"
+								<td class="text-center"><a href="javascript:deleteConfirm('deleteMember','<bean:write name="project" property="assigneeUserDomain" />')"
 									data-hint="Delete Member" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 							</tr>

@@ -5,6 +5,7 @@
 
 	<form-beans>
 		<form-bean name="projectForm" type="adins.ace.taps.form.project.ProjectForm" />
+		<form-bean name="transferProjectForm" type="adins.ace.taps.form.project.TransferProjectForm" />
 		<form-bean name="reportForm" type="adins.ace.taps.form.report.ReportForm" />
 		<form-bean name="organizationForm"
 			type="adins.ace.taps.form.organization.OrganizationForm" />
@@ -35,6 +36,7 @@
 			<forward name="ad" path="/WEB-INF/jsp/ajax/ad.jsp" />
 			<forward name="employeesOnProject" path="/WEB-INF/jsp/ajax/employeesOnProject.jsp" />
 			<forward name="employeesOnOrganization" path="/WEB-INF/jsp/ajax/employeesOnOrganization.jsp" />
+			<forward name="comments" path="/WEB-INF/jsp/ajax/comments.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
@@ -45,6 +47,10 @@
 			<forward name="ViewMember" path="/WEB-INF/jsp/project/structure.jsp" />
 			<forward name="AddMember" path="/WEB-INF/jsp/project/add.jsp" />
 			<forward name="EditMember" path="/WEB-INF/jsp/project/editMember.jsp" />
+		</action>
+		<action name="transferProjectForm" path="/transferProject" scope="request"
+			type="adins.ace.taps.action.TransferProjectAction">
+			<forward name="ListTransferProject" path="/WEB-INF/jsp/project/transferProject.jsp" />
 		</action>
 		<action name="reportForm" path="/report" scope="request"
 			type="adins.ace.taps.action.ReportAction">
@@ -87,6 +93,7 @@
 			<forward name="EmployeeReportSupervisor" path="/employeeReport.do" />
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
+			<forward name="TransferProject" path="/transferProject.do" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">

@@ -400,18 +400,21 @@
             a.assign_to AS assignTo,
             e.first_name || ' ' || e.last_name AS assignToFullName,
             a.report_to AS reportTo, 
+            e2.first_name || ' ' || e2.last_name AS reportToFullName,
             o.organization_code AS organizationCode, 
             o.organization_name AS organizationName,
+            o.head_user_domain AS headUserDomain,
             mgr.first_name || ' ' || mgr.last_name AS headUserName,
             a.project_code AS projectCode, 
             p.project_name AS projectName, 
             a.reff_task_code AS reffTaskCode,
             a.activity_type AS activityType,
-            a.adhoc_user_domain AS adhocUserDomain, 
+            a.adhoc_user_domain AS adhocUserDomain,
+            adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName, 
             a.description AS description,
             d.manhour AS manHours
-        FROM assignments a, organizations o, employees e, employees mgr, detail_claim_assignments d, projects p  
-        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        FROM assignments a, organizations o, employees e, employees e2, employees adhoc, employees mgr, detail_claim_assignments d, projects p  
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain AND a.adhoc_user_domain = adhoc.user_domain(+) 
         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
         AND a.task_code = d.task_code AND a.project_code = p.project_code(+)
 	</select>
@@ -421,6 +424,7 @@
 			TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
             TO_CHAR(a.assignment_date,'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
             a.assignment_type AS assignmentType,
+            a.assign_to AS assignTo,
             e.first_name || ' ' || e.last_name AS fullName,
             a.report_to AS reportTo,
             a.created_by AS createdBy, 
@@ -447,17 +451,29 @@
 		ORDER BY detail_id
 	</select>
 
-	<select id="searchHistoryComment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
-		SELECT history_id AS historyId,
-            TO_CHAR(c.created_date,'DD-MM-YYYY') AS commentDate,
-            c.comments AS assignmentComment,
-            c.status AS status,
-            e1.first_name || ' ' || e1.last_name AS commentFrom,
-            e2.first_name || ' ' || e2.last_name AS commentTo
-        FROM assignment_comments c, employees e1, employees e2
-        WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
-        AND e2.user_domain = c.comment_to
-        ORDER BY c.created_date
+	<select id="searchHistoryComment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
+		SELECT * FROM (
+			SELECT ROWNUM seqnumb, a.* FROM (
+				SELECT history_id AS historyId,
+		            TO_CHAR(c.created_date,'DD-MM-YYYY') AS commentDate,
+		            c.comments AS assignmentComment,
+		            c.status AS status,
+		            e1.first_name || ' ' || e1.last_name AS commentFrom,
+		            e2.first_name || ' ' || e2.last_name AS commentTo
+		        FROM assignment_comments c, employees e1, employees e2
+		        WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
+		        AND e2.user_domain = c.comment_to
+		        ORDER BY c.created_date
+			) a WHERE <![CDATA[ROWNUM <= #end#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+	
+	<select id="countHistoryComment" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+	       FROM assignment_comments c, employees e1, employees e2
+	       WHERE task_code = #taskCode# AND e1.user_domain = c.created_by 
+	       AND e2.user_domain = c.comment_to
 	</select>
 	
 	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
@@ -474,6 +490,14 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
+	<update id="editDetailClaimAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
+		UPDATE detail_claim_assignments SET
+			manhour = #manHours#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE
+		WHERE detail_id = #detailId#
+	</update>
+	
 	<insert id="addHistoryComment">
 		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
 		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#status#,#commentTo#,#createdBy#,SYSDATE)
@@ -487,4 +511,16 @@
 			flag = #flag#
 		WHERE task_code = #taskCode#
 	</update>
+	
+	<insert id="addAssignmentStar" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
+		INSERT INTO stars (star_id, task_code, user_domain, star_before, star_after, created_by, created_date) VALUES
+		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #assignTo#, #starBefore#, #appraisalStar#,#createdBy#,SYSDATE)
+	</insert>
+	
+	<select id="searchLastStar" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT st.star_after FROM stars st
+		WHERE st.task_code = #taskCode#
+		AND st.created_date = 
+		(SELECT MAX(s.created_date) FROM stars s WHERE s.task_code = st.task_code)
+	</select>
 </sqlMap>
