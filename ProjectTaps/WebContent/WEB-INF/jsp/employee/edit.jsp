@@ -64,7 +64,7 @@
 									<br>
 									<html:hidden property="newEmployee.profilePicture" name="employeeForm" />
 									<div class="input-control file ">
-										<html:file property="profilePicture" accept="image/jpg"></html:file>
+										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 							</tr>
