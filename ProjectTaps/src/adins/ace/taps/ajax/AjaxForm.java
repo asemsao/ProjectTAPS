@@ -23,12 +23,14 @@ public class AjaxForm extends ActionForm {
 	private List<EmployeeBean> listEmployeesOnOrganization;
 	private List<EmployeeBean> listEmployeesOnProject;
 	private List<OrganizationBean> listOrganizations;
+	private List<OrganizationBean> listParentOrganizations;
 	private List<EmployeeReportBean> listEmployeeReport;
 	private List<ProjectBean> listProject;
 	private List<ActiveDirectoryBean> listAD;
 	private String mode;
 	private String projectCode;
 	private String organizationCode;
+	private Integer level;
 
 	public String getTask() {
 		return task;
@@ -171,6 +173,22 @@ public class AjaxForm extends ActionForm {
 	public void setListEmployeesOnOrganization(
 			List<EmployeeBean> listEmployeesOnOrganization) {
 		this.listEmployeesOnOrganization = listEmployeesOnOrganization;
+	}
+
+	public List<OrganizationBean> getListParentOrganizations() {
+		return listParentOrganizations;
+	}
+
+	public void setListParentOrganizations(List<OrganizationBean> listParentOrganizations) {
+		this.listParentOrganizations = listParentOrganizations;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 }

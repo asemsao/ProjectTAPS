@@ -103,6 +103,12 @@ public class AjaxAction extends Action {
 			ajaxForm.setListOrganizations(orgMan.searchOrganizations(params));
 			ajaxForm.setCountRecord(orgMan.countOrganizations(params));
 		}
+		if ("parentOrganizations".equals(ajaxForm.getMode())) {
+			params.put("level", ajaxForm.getLevel() - 1);
+			ajaxForm.setListOrganizations(orgMan
+					.searchParentOrganizations(params));
+			ajaxForm.setCountRecord(orgMan.countParentOrganizations(params));
+		}
 		if ("assignments".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployeeReport(asgMan
 					.searchEmployeeReportEmployee(params));
@@ -156,6 +162,9 @@ public class AjaxAction extends Action {
 			return mapping.findForward("employeesOnProject");
 		}
 		if ("organizations".equals(ajaxForm.getTask())) {
+			return mapping.findForward("organizations");
+		}
+		if ("parentOrganizations".equals(ajaxForm.getTask())) {
 			return mapping.findForward("organizations");
 		}
 		if ("assignments".equals(ajaxForm.getTask())) {

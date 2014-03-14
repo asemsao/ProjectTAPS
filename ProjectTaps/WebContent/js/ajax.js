@@ -678,8 +678,10 @@ function setParameterOrganization() {
 	var page = $("#page-organization").val();
 	var maxpage = $("#maxpage-organization").val();
 	var mode = $("#mode-organization").val();
+	var level = $("#level-organization").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&level=" + level;
 	return data;
 }
 
