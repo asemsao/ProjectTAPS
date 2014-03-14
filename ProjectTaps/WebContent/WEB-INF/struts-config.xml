@@ -129,13 +129,15 @@
 		</action>
 		<action name="claimAssignmentForm" path="/correctionSupervisorAssignment"
 			scope="request" type="adins.ace.taps.action.CorrectionSupervisorAssignmentAction">
-			<forward name="Claim" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="Correction" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="SelfCorrection" path="/WEB-INF/jsp/assignment/self_correction.jsp" />
 			<forward name="Cancel" path="/employeeReport.do" />
 		</action>
 		<action name="claimAssignmentForm" path="/correctionAssignment"
 			scope="request" type="adins.ace.taps.action.CorrectionAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/claim.jsp" />
+			<forward name="SelfCorrection" path="/WEB-INF/jsp/assignment/self_correction.jsp" />
 		</action>
 	</action-mappings>
 

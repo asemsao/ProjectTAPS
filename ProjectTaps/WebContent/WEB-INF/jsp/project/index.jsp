@@ -21,6 +21,9 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
+	$(document).ready(function() {
+		$("#searchKeyword").attr("placeholder", "Keyword of Project");
+	});
 </script>
 
 <title>Project</title>
@@ -60,7 +63,7 @@
 								</th>
 								<th class="text-center" colspan=9>
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="projectForm"
+										<html:text property="searchKeyword" name="projectForm" styleId="searchKeyword"
 											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
 										<button class="btn-search" type="button"
 											onclick="javascript:button('search');"></button>

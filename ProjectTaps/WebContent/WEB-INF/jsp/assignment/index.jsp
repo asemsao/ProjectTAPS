@@ -27,6 +27,9 @@
 		document.employeeReportForm.currentStatus.value = currentStatus;
 		document.employeeReportForm.submit();
 	}
+	$(document).ready(function() {
+		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
+	});
 </script>
 
 </head>
@@ -75,7 +78,7 @@
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="keyword" name="employeeReportForm"></html:text>
+										<html:text property="keyword" name="employeeReportForm" styleId="searchKeyword"></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
 									</div>
