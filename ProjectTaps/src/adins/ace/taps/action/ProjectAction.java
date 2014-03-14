@@ -58,7 +58,7 @@ public class ProjectAction extends Action {
 			pMan.addProject(pForm.getAddProject());
 		}
 		if ("cancel".equals(pForm.getTask())) {
-
+			//back to index.jsp
 		}
 
 		if ("edit".equals(pForm.getTask())) {

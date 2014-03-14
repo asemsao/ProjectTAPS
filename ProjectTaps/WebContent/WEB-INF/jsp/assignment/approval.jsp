@@ -310,41 +310,6 @@
 							</tr>
 						</tbody>
 					</table>
-
-					<logic:notEmpty property="historyComment"
-						name="claimAssignmentForm">
-						<table class="table striped bordered hovered">
-							<thead>
-								<tr>
-									<th colspan=5 class="text-center text-bold">History
-										Comment</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center text-bold">Date</td>
-									<td class="text-center text-bold">Comment</td>
-									<td class="text-center text-bold">From</td>
-									<td class="text-center text-bold">To</td>
-									<td class="text-center text-bold">Status</td>
-								</tr>
-								<logic:iterate id="assignment" property="historyComment"
-									name="claimAssignmentForm">
-									<tr>
-										<td class="text-center"><bean:write
-												property="commentDate" name="assignment" /></td>
-										<td><bean:write property="assignmentComment"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="commentFrom" name="assignment" /></td>
-										<td class="text-center"><bean:write property="commentTo"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="status"
-												name="assignment" /></td>
-								</logic:iterate>
-							</tbody>
-						</table>
-					</logic:notEmpty>
 				</div>
 			</div>
 		</div>
