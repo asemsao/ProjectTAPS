@@ -82,12 +82,18 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("employeesOnProject".equals(ajaxForm.getMode())) {
-			params.put("project", ajaxForm.getProjectCode());
-			ajaxForm.setListEmployeesOnProject(empMan
-					.searchEmployeesOnProject(params));
-			ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
+			if ("".equals(ajaxForm.getProjectCode())) {
+				ajaxForm.setCountRecord(0);
+			} else {
+				params.put("project", ajaxForm.getProjectCode());
+				ajaxForm.setListEmployeesOnProject(empMan
+						.searchEmployeesOnProject(params));
+				ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
+			}
 		}
 		if ("employeesOnOrganization".equals(ajaxForm.getMode())) {
+			// nanti dari session
+			ajaxForm.setOrganizationCode("CDD");
 			params.put("organization", ajaxForm.getOrganizationCode());
 			ajaxForm.setListEmployeesOnOrganization(empMan
 					.searchEmployees(params));

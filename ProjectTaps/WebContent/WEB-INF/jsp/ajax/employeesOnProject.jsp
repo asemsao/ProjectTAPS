@@ -13,9 +13,12 @@
 
 <body class="metro">
 	<html:form action="/ajax" method="post">
-		<html:hidden property="task" styleId="task-employee-on-project" name="ajaxForm" />
-		<html:hidden property="mode" styleId="mode-employee-on-project" name="ajaxForm" />
-		<html:hidden property="page" styleId="page-employee-on-project" name="ajaxForm" />
+		<html:hidden property="task" styleId="task-employee-on-project"
+			name="ajaxForm" />
+		<html:hidden property="mode" styleId="mode-employee-on-project"
+			name="ajaxForm" />
+		<html:hidden property="page" styleId="page-employee-on-project"
+			name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-employee-on-project"
 			name="ajaxForm" />
 		<table class="table striped bordered hovered">
@@ -100,8 +103,9 @@
 									onclick="javascript:pagingEmployeeOnProject('prev');"><i
 										class="icon-previous"></i></a></li>
 								<li class="disabled"><a>Page <span
-										id="current-page-employee-on-project"><bean:write name="ajaxForm"
-												property="page" /></span> of <span id="max-page-employee-on-project"><bean:write
+										id="current-page-employee-on-project"><bean:write
+												name="ajaxForm" property="page" /></span> of <span
+										id="max-page-employee-on-project"><bean:write
 												name="ajaxForm" property="maxpage" /></span></a></li>
 								<li class="next"><a
 									onclick="javascript:pagingEmployeeOnProject('next');"><i
@@ -110,13 +114,14 @@
 									onclick="javascript:pagingEmployeeOnProject('last');"><i
 										class="icon-last-2"></i></a></li>
 								<li class="disabled"><a>Total Record <span
-										id="total-record-employee-on-project"><bean:write name="ajaxForm"
-												property="countRecord" /></span></a></li>
+										id="total-record-employee-on-project"><bean:write
+												name="ajaxForm" property="countRecord" /></span></a></li>
 							</ul>
 						</div>
 					</th>
 					<th class="text-center"><button type="button"
-							class='button success' onclick="javascript:chooseEmployeeOnProject()">Add</button></th>
+							class='button success'
+							onclick="javascript:chooseEmployeeOnProject()">Add</button></th>
 				</tr>
 			</thead>
 		</table>

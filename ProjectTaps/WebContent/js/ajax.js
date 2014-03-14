@@ -472,7 +472,7 @@ function setResponseEmployeeOnOrganization(data) {
 	content += "<th class='text-center'>Domain</th>";
 	content += "<th class='text-center'>Code</th>";
 	content += "<th class='text-center'>Name</th>";
-	content += "<th class='text-center'>Role</th>";
+	content += "<th class='text-center'>Address</th>";
 	content += "</tr>";
 	content += "</thead>";
 	content += "<tbody>";
@@ -480,9 +480,9 @@ function setResponseEmployeeOnOrganization(data) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
 		content += "<input type='radio' name='employee_choose_on_organization'";
-		content += "value='" + json.listEmployeesOnProject[i].employeeDomain
-				+ "@" + json.listEmployeesOnOrganization[i].employeeName
-				+ "' />";
+		content += "value='"
+				+ json.listEmployeesOnOrganization[i].employeeDomain + "@"
+				+ json.listEmployeesOnOrganization[i].employeeName + "' />";
 		content += "</td>";
 		content += "<td class='text-center'>";
 		content += json.listEmployeesOnOrganization[i].employeeDomain;
@@ -510,11 +510,11 @@ function setResponseEmployeeOnOrganization(data) {
 	$(".search-keyword-employee-on-organization").val(json.searchKeyword);
 }
 
-function pagingEmployeeOnProject(direction) {
+function pagingEmployeeOnOrganization(direction) {
 	var searchCategory = $(".search-category-employee-on-organization").get(1).value;
 	var searchKeyword = $(".search-keyword-employee-on-organization").get(1).value;
 	$.Dialog.close();
-	$("#task-employee-on-project").val(direction);
+	$("#task-employee-on-organization").val(direction);
 	var data = setParameterEmployeeOnOrganization();
 	$.ajax({
 		url : "/ProjectTaps/ajax.do",

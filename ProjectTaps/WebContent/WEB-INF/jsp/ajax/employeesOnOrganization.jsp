@@ -19,6 +19,8 @@
 			name="ajaxForm" />
 		<html:hidden property="page" styleId="page-employee-on-organization"
 			name="ajaxForm" />
+		<html:hidden property="organizationCode"
+			styleId="organization-code" name="ajaxForm" />
 		<html:hidden property="maxpage"
 			styleId="maxpage-employee-on-organization" name="ajaxForm" />
 		<table class="table striped bordered hovered">
