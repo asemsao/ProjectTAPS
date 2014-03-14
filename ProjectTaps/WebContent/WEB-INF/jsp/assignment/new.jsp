@@ -192,7 +192,7 @@
 
 
 	<div id="lookUpProject" class="hide"></div>
-	<div id="lookUpEmployeeOnOrganization"></div>
+	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
