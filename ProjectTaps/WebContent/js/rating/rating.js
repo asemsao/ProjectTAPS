@@ -1,33 +1,4 @@
 $(function() {
-	$('#example-a').barrating();
-
-	$('#example-b').barrating('show', {
-		readonly : true
-	});
-
-	$('#example-c, #example-d').barrating('show', {
-		showValues : true,
-		showSelectedRating : false
-	});
-
-	$('#example-e').barrating('show', {
-		initialRating : 'A',
-		showValues : true,
-		showSelectedRating : false,
-		onSelect : function(value, text) {
-			alert('Selected rating: ' + value);
-		}
-	});
-
-	$('#example-f').barrating({
-		showSelectedRating : false
-	});
-
-	$('#example-g').barrating('show', {
-		showSelectedRating : true,
-		reverse : true
-	});
-	
 	$('#rating-kiri').barrating({
 		showSelectedRating : true,
 		showValues: false,
@@ -35,7 +6,10 @@ $(function() {
 		reverse : true,
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
-			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('div.star-hider p').append("&nbsp;Your current value : ");
+			for ( var int = 0; int < Math.abs(value); int++) {
+				$('div.star-hider p').append("<img src='images/star/star_meyah_kecil_catu.png'/>");
+			}
 			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
@@ -50,7 +24,8 @@ $(function() {
 		initialRating : '0',
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
-			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('div.star-hider p').append("&nbsp;Your current value : ");
+			$('div.star-hider p').append("<img src='images/star/star_tengah_kecil_catu.png'/>");
 			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
@@ -65,7 +40,10 @@ $(function() {
 		initialRating : '0',
 		onSelect : function(value, text) {
 			$('div.star-hider p').empty();
-			$('div.star-hider p').append("<p>&nbsp;Your current value : " + value + "</p>");
+			$('div.star-hider p').append("&nbsp;Your current value : ");
+			for ( var int = 0; int < Math.abs(value); int++) {
+				$('div.star-hider p').append("<img src='images/star/star_ijo_kecil_catu.png'/>");
+			}
 			$('#star').val(value);
 			$('div.rating-kiri').hide();
 			$('div.rating-tengah').hide();
@@ -75,6 +53,7 @@ $(function() {
 	});
 	
 	$('#edit-star-btn').click(function() {
+		$('div.star-hider p').empty();
 		$('div.rating-kiri').show();
 		$('div.rating-tengah').show();
 		$('div.rating-kanan').show();

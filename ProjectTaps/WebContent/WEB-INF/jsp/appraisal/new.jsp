@@ -95,9 +95,9 @@
 											<option value="5">+5</option>
 										</select>
 									</div>
-									<p>&nbsp;Your current value : 0</p>
+									<p></p>
 									<html:hidden property="appraisalBean.appraisalStar" styleId="star"/>
-									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
+									<button type="button" id="edit-star-btn" class="default" style="display: none;">Edit</button>
 								</div>
 								</td>
 							</tr>

@@ -44,6 +44,8 @@
 									class="icon-briefcase-2"></span> Organization</a></li>
 							<li><a href="javascript:menu('project');"><span
 									class="icon-puzzle"></span> Project</a></li>
+							<li><a href="javascript:menu('transferProject');"><span
+									class="icon-tab"></span> Transfer Project</a></li>
 						</ul></li>
 				</ul>
 

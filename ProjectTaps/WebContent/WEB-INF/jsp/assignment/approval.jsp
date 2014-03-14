@@ -47,9 +47,13 @@
 										%>
 										Request For Approval
 										<%
-											} else {
+											} else if ("APPROVED".equals(session.getAttribute("status"))){
 										%>
 										Approved Assignment
+										<%
+											} else {
+										%>
+										View Assignment
 										<%
 											}
 										%>
@@ -126,15 +130,13 @@
 															<td class="text-center"><bean:write
 																	property="claimDate" name="assignment" /></td>
 															<%
-																if ("employeeReport".equals(session
-																					.getAttribute("link"))) {
+																if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
-																} else if ("employeeReportSupervisor".equals(session
-																					.getAttribute("link"))) {
+																} else if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -145,8 +147,8 @@
 															<td class="text-center">
 																<div class="input-control select">
 																	<%
-																		if ("employeeReport".equals(session
-																							.getAttribute("link"))) {
+																		if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))
+																				|| "APPROVED".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">
@@ -201,8 +203,7 @@
 																		<html:option value="24">24:00</html:option>
 																	</html:select>
 																	<%
-																		} else if ("employeeReportSupervisor".equals(session
-																							.getAttribute("link"))) {
+																		} else if ("RFA".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment">
 																		<html:option value="">00:00</html:option>
@@ -275,6 +276,9 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
+								<%
+									if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {
+								%>
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
 								<td colspan=2>
@@ -309,11 +313,13 @@
 									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
 								</div>
 								</td>
+								<%
+									}
+								%>
 							</tr>
 							<tr>
 								<%
-									if ("employeeReportSupervisor".equals(session
-												.getAttribute("link"))) {
+									if ("RFA".equals(session.getAttribute("status"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -325,20 +331,13 @@
 								%>
 							</tr>
 							<tr>
+								
 								<%
-									if ("employeeReport".equals(session.getAttribute("link"))) {
+										if ("RFA".equals(session.getAttribute("status"))) {
 								%>
-								<td colspan=4 class="text-right"><html:button
-										property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button></td>
-								<%
-									} else if ("employeeReportSupervisor".equals(session
-												.getAttribute("link"))) {
-								%>
-								<td colspan=4 class="text-right"><html:button
+										<td colspan=4 class="text-right"><html:button
 										property="approve-btn"
-										onclick="javascript:flyToPage('approve');"
+										onclick="javascript:flyToPage('approved');"
 										styleClass="button success">Approve</html:button> <html:button
 										property="correction-btn"
 										onclick="javascript:flyToPage('correction');"
@@ -349,6 +348,23 @@
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
+								<%
+										} else if ("APPROVED".equals(session.getAttribute("status"))){
+								%>
+										<td colspan=4 class="text-right"><html:button
+										property="update-star-btn"
+										onclick="javascript:flyToPage('updateStar');"
+										styleClass="button success">Update Star</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
+								<%
+										} else {
+								%>
+										<td colspan=4 class="text-right"><html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button></td>
 								<%
 									}
 								%>
@@ -361,9 +377,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

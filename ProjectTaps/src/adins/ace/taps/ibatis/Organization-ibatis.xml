@@ -12,7 +12,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		organizations (organization_code, organization_name, head_user_domain,
 		organization_level, parent_organization_code, flag, created_by,
 		created_date)
-		VALUES(#organizationCode#, #organizationName#,
+		VALUES(UPPER(#organizationCode#), #organizationName#,
 		#headDomain#, #organizationLevel#,
 		#parentCode#,
 		'ACTIVE',
@@ -43,7 +43,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ON o.parent_organization_code
 		= r.organization_code
 		where
-		o.organization_code=UPPER(#organizationCode#)
+		UPPER(o.organization_code)=UPPER(#organizationCode#)
 	</select>
 
 	<update id="editOrganization" parameterClass="organizationBean">
@@ -57,7 +57,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		updated_by = 'domain100',
 		updated_date = SYSDATE
 		WHERE
-		organization_code=UPPER(#organizationCode#)
+		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
 
 	<select id="countOrganizations" resultClass="int"
@@ -111,15 +111,15 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="countChildOrganizations" resultClass="int">
 		SELECT COUNT(1)
 		AS totalChild FROM organizations
-		WHERE parent_organization_code =
-		#organization_code#
+		WHERE UPPER(parent_organization_code) =UPPER
+		(#organization_code#)
 	</select>
 
 	<select id="countMemberOrganizations" resultClass="int">
 		SELECT
 		COUNT(1) AS totalMember FROM employees
-		WHERE organization_code =
-		#organization_code#
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#)
 	</select>
 
 	<select id="searchOrganizations" resultClass="organizationBean"
@@ -144,8 +144,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		e.user_domain
 		LEFT JOIN
 		organizations r
-		ON o.parent_organization_code =
-		r.organization_code
+		ON UPPER(o.parent_organization_code) =
+		UPPER(r.organization_code)
 		WHERE
 		LOWER(o.flag) =
 		'active'
@@ -178,8 +178,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		CONNECT
 		BY
 		PRIOR
-		o.organization_code =
-		o.parent_organization_code
+		UPPER(o.organization_code) =
+		UPPER(o.parent_organization_code)
 		)
 		a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
@@ -211,8 +211,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		LEFT JOIN
 		organizations r
 		ON
-		o.parent_organization_code =
-		r.organization_code
+		UPPER(o.parent_organization_code) =
+		UPPER(r.organization_code)
 		WHERE
 		LOWER(o.flag) =
 		'active'
@@ -319,8 +319,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		employee_code AS memberCode, first_name || ' ' ||
 		last_name AS memberName
 		FROM employees
-		WHERE organization_code =
-		#organization_code# AND user_domain != #head_domain#
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#) AND user_domain != #head_domain# AND LOWER(flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -347,8 +347,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPDATE
 		organizations SET
 		flag = 'INACTIVE'
-		WHERE organization_code =
-		#organization_code#
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#)
 	</delete>
 	<select id="checkChildOrganization" parameterClass="java.lang.String"
 		resultClass="int">
@@ -356,8 +356,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		COUNT(1)
 		FROM organizations
 		WHERE
-		parent_organization_code =
-		#organization_code#
+		UPPER(parent_organization_code) =
+		UPPER(#organization_code#)
 	</select>
 
 	<select id="checkMemberOrganization" parameterClass="java.util.Map"
@@ -365,7 +365,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT count(1)
 		FROM employees
 		WHERE organization_code =
-		#organization_code# AND user_domain != #head_domain#
+		#organization_code# AND user_domain != #head_domain# AND LOWER(flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">

@@ -505,6 +505,6 @@
 	
 <!-- 	<insert id="addAssignmentStar" parameterClass=""> -->
 <!-- 		INSERT INTO stars (star_id, task_code, user_domain, description, star_before, star_after, created_by, created_date) VALUES -->
-<!-- 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #userDomain#, #description#, #star_before#, #star_after#,#session.user_domain#,SYSDATE) -->
+<!-- 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #userDomain#, #description#, #starBefore#, #starAfter#,#createdBy#,SYSDATE) -->
 <!-- 	</insert> -->
 </sqlMap>

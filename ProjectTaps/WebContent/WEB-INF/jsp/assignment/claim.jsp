@@ -48,6 +48,10 @@
 										%>
 										Correction Assignment
 										<%
+											} else if ("APPROVED".equals(session.getAttribute("status"))) {
+										%>
+										Approved Assignment
+										<%
 											} else {
 										%>
 										View Assignment
@@ -124,18 +128,21 @@
 													<logic:iterate id="assignment" property="listDetailClaim"
 														name="claimAssignmentForm">
 														<tr>
-															<td class="text-center"><bean:write
-																	property="claimDate" name="assignment" /></td>
+															<td class="text-center"><html:text
+																	property="claimDate" name="assignment"
+																	readonly="readonly" /></td>
 															<%
-																if ("employeeReport".equals(session
-																					.getAttribute("link"))) {
+																if ("CLAIM".equals(session.getAttribute("status"))
+																					|| "CORRECTION".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<%
-																} else if ("employeeReportSupervisor".equals(session
-																					.getAttribute("link"))) {
+																} else if ("APPROVED".equals(session
+																					.getAttribute("status"))
+																					|| "RFA".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -146,8 +153,9 @@
 															<td class="text-center">
 																<div class="input-control select">
 																	<%
-																		if ("employeeReport".equals(session
-																							.getAttribute("link"))) {
+																		if ("CLAIM".equals(session.getAttribute("status"))
+																							|| "CORRECTION".equals(session
+																									.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment">
 																		<html:option value="">00:00</html:option>
@@ -201,8 +209,9 @@
 																		<html:option value="24">24:00</html:option>
 																	</html:select>
 																	<%
-																		} else if ("employeeReportSupervisor".equals(session
-																							.getAttribute("link"))) {
+																		} else if ("APPROVED".equals(session
+																							.getAttribute("status"))
+																							|| "RFA".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">
@@ -277,7 +286,8 @@
 							</tr>
 							<tr>
 								<%
-									if ("employeeReport".equals(session.getAttribute("link"))) {
+									if ("CLAIM".equals(session.getAttribute("status"))
+												|| "CORRECTION".equals(session.getAttribute("status"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -289,9 +299,6 @@
 								%>
 							</tr>
 							<tr>
-								<%
-									if ("employeeReport".equals(session.getAttribute("link"))) {
-								%>
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
@@ -303,9 +310,10 @@
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> <%
- 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
- %> <html:button property="claim-btn"
+										styleClass="button info">Cancel</html:button> 
+									<%
+									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+									 %> <html:button property="claim-btn"
 										onclick="javascript:flyToPage('claim');"
 										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
@@ -313,18 +321,13 @@
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> <%
- 	}
- %>
-								</td>
-								<%
-									} else if ("employeeReportSupervisor".equals(session
-												.getAttribute("link"))) {
-								%>
-								<td colspan=4 class="text-right"><html:button
-										property="cancel-btn"
+										styleClass="button info">Cancel</html:button> 
+									<%
+									 	} else {
+									 %> <html:button property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button></td>
+										styleClass="button info">Close</html:button>
+								</td>
 								<%
 									}
 								%>

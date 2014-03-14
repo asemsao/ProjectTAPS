@@ -116,14 +116,10 @@ public class OrganizationAction extends Action {
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
 
-			System.out.println(orgMan.checkMemberOrganization(params)
-					+ "  askfbasjkfb");
 			if (orgMan.checkMemberOrganization(params) % 10 == 0) {
 				temp = orgMan.checkMemberOrganization(params) / 10;
-				System.out.println(temp);
 			} else {
 				temp = orgMan.checkMemberOrganization(params) / 10 + 1;
-				System.out.println(temp);
 
 			}
 			orgForm.setMaxpage(temp);
@@ -138,18 +134,11 @@ public class OrganizationAction extends Action {
 					.replaceAll("-", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 
-			System.out.println(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll("-", "")));
-			System.out.println(orgForm.getOrganizationCode());
-			System.out.println(orgForm.getOrgBean().getHeadDomain());
-
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 
 			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
 
-			System.out.println("total record : "
-					+ orgMan.checkMemberOrganization(params));
 			return mapping.findForward("Structure");
 		}
 		
