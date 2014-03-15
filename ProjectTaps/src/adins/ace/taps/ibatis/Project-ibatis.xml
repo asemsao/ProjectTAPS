@@ -157,7 +157,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 
 	<select id="getAllProjectMember" resultClass="adins.ace.taps.bean.project.StructureProjectBean"
-		parameterClass="java.lang.String">
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
 		SELECT
 		o.organization_name AS organizationName,
 		p.project_code AS projectCode,
@@ -165,8 +168,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ps.project_role AS projectRole,
 		e.first_name || ' ' || e.last_name AS
 		assignee,
-		emp.first_name || ' ' || emp.last_name AS directReport,
-		ps.assignee_user_domain AS assigneeUserDomain
+		emp.first_name || ' ' ||
+		emp.last_name AS directReport,
+		ps.assignee_user_domain AS
+		assigneeUserDomain
 		FROM
 		organizations o,
 		projects p,
@@ -174,15 +179,48 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		employees emp,
 		project_structures ps
 		WHERE
-		p.project_code = ps.project_code
+		p.project_code =
+		ps.project_code
 		AND o.organization_code =
 		p.organization_code
-		AND e.user_domain = ps.assignee_user_domain
 		AND
-		emp.user_domain = ps.directreport_user_domain
+		e.user_domain = ps.assignee_user_domain
+		AND
+		emp.user_domain =
+		ps.directreport_user_domain
 		AND ps.project_code =
 		#projectCode#
-		AND ps.flag='ACTIVE'
+		AND
+		ps.flag='ACTIVE'
+		)
+		a WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		) WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
+	<select id="countAllProjectMember" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT
+		COUNT (1)
+		FROM
+		organizations o,
+		projects p,
+		employees e,
+		employees emp,
+		project_structures ps
+		WHERE
+		p.project_code =
+		ps.project_code
+		AND o.organization_code =
+		p.organization_code
+		AND
+		e.user_domain = ps.assignee_user_domain
+		AND
+		emp.user_domain =
+		ps.directreport_user_domain
+		AND ps.project_code =
+		#projectCode#
+		AND
+		ps.flag='ACTIVE'
 	</select>
 
 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean">
@@ -308,11 +346,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		AND assignee_user_domain = #assigneeUserDomain#
 	</update>
 
-	<update id="deleteProject" parameterClass = "java.lang.String">
+	<update id="deleteProject" parameterClass="java.lang.String">
 		UPDATE projects
-		SET 
-			flag = 'INACTIVE'
+		SET
+		flag = 'INACTIVE'
 		WHERE
-			project_code = #projectCode#
+		project_code = #projectCode#
 	</update>
 </sqlMap>

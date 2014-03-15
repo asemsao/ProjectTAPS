@@ -130,12 +130,12 @@ public class OrganizationManager {
 		return countChild;
 	}
 
-	public Integer countMemberOrganizations(String organization_code) {
+	public Integer countMemberOrganizations(Map params) {
 		Integer countMember = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			countMember = (Integer) ibatisSqlMap.queryForObject(
-					"organization.countMemberOrganizations", organization_code);
+					"organization.countMemberOrganizations", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

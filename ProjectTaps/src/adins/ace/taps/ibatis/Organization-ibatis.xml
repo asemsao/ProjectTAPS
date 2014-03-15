@@ -108,19 +108,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	</select>
 
-	<select id="countChildOrganizations" resultClass="int">
+	<select id="countChildOrganizations" resultClass="int" parameterClass="java.lang.String">
 		SELECT COUNT(1)
 		AS totalChild FROM organizations
 		WHERE UPPER(parent_organization_code)
 		=UPPER
 		(#organization_code#)
-	</select>
-
-	<select id="countMemberOrganizations" resultClass="int">
-		SELECT
-		COUNT(1) AS totalMember FROM employees
-		WHERE UPPER(organization_code) =
-		UPPER(#organization_code#)
 	</select>
 
 	<select id="searchOrganizations" resultClass="organizationBean"
@@ -309,8 +302,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 	</select>
-
-
+	
 	<select id="searchMemberOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
@@ -363,6 +355,50 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+	
+	<select id="countMemberOrganizations" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM employees
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#) AND user_domain != #head_domain# AND
+		LOWER(flag) = 'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="memberDomain">UPPER(user_domain)
+						LIKE UPPER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="memberCode">UPPER(employee_code)
+						LIKE UPPER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="memberName">
+						(UPPER(first_name) LIKE UPPER (
+						'%$keyword$%') OR UPPER(last_name)
+						LIKE UPPER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isEqual property="category" compareValue="All">
+					(
+					(UPPER(user_domain)
+					LIKE UPPER ('%$keyword$%')
+					)
+					OR
+					(UPPER(employee_code)
+					LIKE UPPER ('%$keyword$%'))
+					OR
+					((UPPER(first_name) LIKE UPPER (
+					'%$keyword$%') OR UPPER(last_name)
+					LIKE
+					UPPER ('%$keyword$%')))
+					)
+				</isEqual>
+			</isNotNull>
+		</dynamic>
 	</select>
 
 	<delete id="deleteOrganization" parameterClass="java.lang.String">

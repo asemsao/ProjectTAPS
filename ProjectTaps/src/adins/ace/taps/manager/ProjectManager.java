@@ -7,6 +7,7 @@ import java.util.Map;
 import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
+import adins.ace.taps.bean.project.StructureProjectBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -72,12 +73,12 @@ public class ProjectManager {
 		return pBean;
 	}
 
-	public List getAllMember(String prjtCode) {
-		List projectMemberList = null;
+	public List<StructureProjectBean> getAllMember(Map params) {
+		List<StructureProjectBean> projectMemberList = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			projectMemberList = ibatisSqlMap.queryForList(
-					"project.getAllProjectMember", prjtCode);
+					"project.getAllProjectMember", params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -88,6 +89,25 @@ public class ProjectManager {
 			}
 		}
 		return projectMemberList;
+	}
+	
+	public Integer countAllMember(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"project.countAllProjectMember", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 
 	public void addProject(AddProjectBean apBean) {

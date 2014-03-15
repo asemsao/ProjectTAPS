@@ -3,6 +3,8 @@ package adins.ace.taps.bean.project;
 import java.io.Serializable;
 
 public class ProjectBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String projectCode;
 	private String projectName;
 	private String client;

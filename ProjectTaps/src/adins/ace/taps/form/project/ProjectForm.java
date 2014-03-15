@@ -7,6 +7,7 @@ import org.apache.struts.action.ActionForm;
 import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
+import adins.ace.taps.bean.project.StructureProjectBean;
 
 public class ProjectForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
@@ -19,12 +20,14 @@ public class ProjectForm extends ActionForm {
 	private String projectName;
 	private String projectCode;
 	private List<ProjectBean> listProject;
+	private List<StructureProjectBean> listStructureProject;
 	private List listPhase;
 	private ProjectBean pBean = new ProjectBean();
 	private AddProjectBean addProject = new AddProjectBean();
 	private AddStructureProjectBean addSProject = new AddStructureProjectBean();
 	private Integer page;
 	private Integer maxpage;
+	private String mode;
 	
 	public Integer getPage() {
 		return page;
@@ -154,6 +157,22 @@ public class ProjectForm extends ActionForm {
 
 	public void setSearchCategory(String searchCategory) {
 		this.searchCategory = searchCategory;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public List<StructureProjectBean> getListStructureProject() {
+		return listStructureProject;
+	}
+
+	public void setListStructureProject(List<StructureProjectBean> listStructureProject) {
+		this.listStructureProject = listStructureProject;
 	}
 
 }

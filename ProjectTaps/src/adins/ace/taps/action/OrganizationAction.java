@@ -59,8 +59,9 @@ public class OrganizationAction extends Action {
 		}
 		if ("delete".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
-			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode()
-					.replaceAll("-", "")) == 0) {
+			params.put("organization_code", orgForm.getOrganizationCode()
+					.replaceAll("-", ""));
+			if (orgMan.countMemberOrganizations(params) == 0) {
 				if (orgMan.countChildOrganizations(orgForm
 						.getOrganizationCode().replaceAll("-", "")) == 0) {
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
@@ -114,15 +115,13 @@ public class OrganizationAction extends Action {
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
-			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
+			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
 
-			if (orgMan.checkMemberOrganization(params) % 10 == 0) {
-				temp = orgMan.checkMemberOrganization(params) / 10;
+			if (orgForm.getCountRecord() % 10 == 0) {
+				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
-				temp = orgMan.checkMemberOrganization(params) / 10 + 1;
-
+				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
 			}
-			orgForm.setMaxpage(temp);
 
 			return mapping.findForward("Structure");
 		}
@@ -133,12 +132,15 @@ public class OrganizationAction extends Action {
 			params.put("organization_code", orgForm.getOrganizationCode()
 					.replaceAll("-", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
-
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
-
-			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
-
+			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
+			
+			if (orgForm.getCountRecord() % 10 == 0) {
+				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
+			} else {
+				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
+			}
 			return mapping.findForward("Structure");
 		}
 		
