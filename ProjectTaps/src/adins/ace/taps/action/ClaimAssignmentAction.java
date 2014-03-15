@@ -25,7 +25,6 @@ public class ClaimAssignmentAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println(form);
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
@@ -33,7 +32,6 @@ public class ClaimAssignmentAction extends Action {
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo("domain10");
 		aForm.getClaimBean().setCreatedBy("DOMAIN205");
-		
 		
 		if("updateDetailClaim".equals(aForm.getTask())){
 			PrintWriter out = response.getWriter();
@@ -47,15 +45,11 @@ public class ClaimAssignmentAction extends Action {
 		}
 		
 		if ("claim".equals(aForm.getTask())) {
-			// aForm.getClaimBean().setStatus("CLAIM");
-			// if (!("".equals(aForm.getClaimBean().getComment()))) {
-			// aMan.addHistoryComment(aForm.getClaimBean());
-			// }
-			// System.out.println(request.get);
-			System.out.println(aForm.getListDetailClaim());
-			// for (int i = 0; i < aForm.getListDetailClaim().size(); i++) {
-			// System.out.println(aForm.getListDetailClaim().get(i));
-			// }
+			aForm.getClaimBean().setStatus("CLAIM");
+			if (!("".equals(aForm.getClaimBean().getComment()))) {
+				aMan.addHistoryComment(aForm.getClaimBean());
+			}
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("RFA".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("RFA");
@@ -66,9 +60,11 @@ public class ClaimAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
+			session.removeAttribute("taskCode");
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}
 
