@@ -26,7 +26,7 @@ public class NewSelfAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
-
+		
 		if (aForm.getNewTask() == null) {
 			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
 			System.out.println(session.getAttribute("taskCode"));
@@ -47,6 +47,7 @@ public class NewSelfAssignmentAction extends Action {
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
+					aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
@@ -68,6 +69,7 @@ public class NewSelfAssignmentAction extends Action {
 				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
+					aForm.getSelfAssignBean().setUpdatedBy("domain3");
 					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
 					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 				}

@@ -28,7 +28,7 @@ public class ReportAction extends Action {
 		ReportManager rMan = new ReportManager();
 		
 		String orgCode = "MAN";
-		String orgName = "MANAGEMENT";
+		String orgName = "MANAJEMEN";
 		String orgLevel = "0";
 		
 		if ("view".equals(rForm.getTask())) {
@@ -49,7 +49,7 @@ public class ReportAction extends Action {
 					if (rForm.getParam2().equals("1")) {
 						ReportBean rBean = new ReportBean();
 						rBean = rMan.getHeadOrganization(h);
-						System.out.println(rBean.getOrganizationParent());
+						//System.out.println(rBean.getOrganizationParent());
 						rForm.setParam4(rBean.getOrganizationParent());
 						rForm.setParam5(rBean.getOrganizationParentName());
 					}					

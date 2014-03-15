@@ -4,43 +4,315 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="project">
-	<select id="getAllProject" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.project.ProjectBean">
-		SELECT
-			p.project_code AS projectCode,
-			p.project_name AS ProjectName,
-			p.client AS client,
-			p.organization_code AS organizationCode,
-			ph.phase AS phase,
-			p.start_date AS startDate,
-			p.end_date AS endDate,
-			(TRUNC(SYSDATE) - p.start_date) AS runningDay
-		FROM projects p, phase ph
-		WHERE p.phase_id = ph.phase_id AND LOWER(flag) = 'active';
+	<select id="searchProject" resultClass="adins.ace.taps.bean.project.ProjectBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM ( SELECT
+		p.project_code AS
+		projectCode,
+		p.project_name AS projectName,
+		SUBSTR(p.project_name,0,14)
+		|| '...' AS projectShortName,
+		p.client AS client,
+		p.organization_code AS
+		organizationCode,
+		ph.phase_name AS phase,
+		to_char(p.start_date,'DD-MM-YYYY') AS startDate,
+		to_char(p.end_date,'DD-MM-YYYY') AS endDate,
+		(TRUNC(SYSDATE) -
+		p.start_date) AS runningDay
+		FROM
+		projects p,
+		phases ph
+		WHERE
+		p.phase_id =
+		ph.phase_id
+		AND LOWER(flag) = 'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="projectCode">
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectName">
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="client">
+						(LOWER(p.client)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="phase">
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="organization">
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+					</isEqual>
+					<isEqual property="category" compareValue="all">
+						(
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.client) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+						)
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		ORDER BY
+		p.start_date DESC
+		)
+		a WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		) WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
-<!-- 	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean" > -->
-<!-- 		INSERT INTO projects  -->
-<!-- 			(project_code, -->
-<!-- 			project_name, -->
-<!-- 			client, -->
-<!-- 			phase_id, -->
-<!-- 			organization_code, -->
-<!-- 			start_date, -->
-<!-- 			end_date, -->
-<!-- 			flag, -->
-<!-- 			created_by, -->
-<!-- 			created_date) -->
-<!-- 		VALUES  -->
-<!-- 			(#projectCode#, -->
-<!-- 			#projectName#, -->
-<!-- 			#client#, -->
-<!-- 			#phase#, -->
-<!-- 			#organizationCode#, -->
-<!-- 			#startDate#, -->
-<!-- 			#endDate#, -->
-<!-- 			'ACTIVE', -->
-<!-- 			#session.userDomain#, -->
-<!-- 			sysdate); -->
-<!-- 	</insert> -->
-	
+
+	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM
+		projects p, phases ph
+		WHERE
+		p.phase_id = ph.phase_id
+		AND LOWER(flag) = 'active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="projectCode">
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectName">
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="client">
+						(LOWER(p.client)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="phase">
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="organization">
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+					</isEqual>
+					<isEqual property="category" compareValue="all">
+						(
+						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.client) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
+						OR
+						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
+						FROM
+						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
+						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
+						('%$keyword$%'))))
+						)
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="getProjectById" resultClass="adins.ace.taps.bean.project.ProjectBean"
+		parameterClass="java.lang.String">
+		SELECT
+		p.project_code AS projectCode,
+		p.project_name AS
+		projectName,
+		p.client AS client,
+		p.organization_code AS
+		organizationCode,
+		o.organization_name AS organizationName,
+		p.phase_id AS
+		phase,
+		to_char(p.start_date,'DD-MM-YYYY') AS startDate,
+		to_char(p.end_date,'DD-MM-YYYY') AS endDate,
+		o.organization_name AS
+		organizationName
+		FROM
+		projects p,
+		organizations o
+		WHERE
+		p.organization_code = o.organization_code
+		AND p.project_code =
+		#projectCode#
+	</select>
+
+	<select id="getAllProjectMember" resultClass="adins.ace.taps.bean.project.StructureProjectBean"
+		parameterClass="java.lang.String">
+		SELECT
+		o.organization_name AS organizationName,
+		p.project_code AS projectCode,
+		p.project_name AS projectName,
+		ps.project_role AS projectRole,
+		e.first_name || ' ' || e.last_name AS
+		assignee,
+		emp.first_name || ' ' || emp.last_name AS directReport,
+		ps.assignee_user_domain AS assigneeUserDomain
+		FROM
+		organizations o,
+		projects p,
+		employees e,
+		employees emp,
+		project_structures ps
+		WHERE
+		p.project_code = ps.project_code
+		AND o.organization_code =
+		p.organization_code
+		AND e.user_domain = ps.assignee_user_domain
+		AND
+		emp.user_domain = ps.directreport_user_domain
+		AND ps.project_code =
+		#projectCode#
+		AND ps.flag='ACTIVE'
+	</select>
+
+	<insert id="addProject" parameterClass="adins.ace.taps.bean.project.AddProjectBean">
+		INSERT INTO projects
+		(project_code,
+		project_name,
+		client,
+		phase_id,
+		organization_code,
+		start_date,
+		end_date,
+		flag,
+		created_by,
+		created_date)
+		VALUES
+		(#projectCode#,
+		#projectName#,
+		#client#,
+		#phaseId#,
+		#organizationCode#,
+		#startDate#,
+		#endDate#,
+		'ACTIVE',
+		'domain100',
+		sysdate)
+	</insert>
+
+	<select id="getPhase" resultClass="adins.ace.taps.bean.project.ProjectBean">
+		SELECT
+		phase_id AS phase,
+		phase_name AS phaseName
+		FROM
+		phases
+	</select>
+
+	<update id="updateProject" parameterClass="adins.ace.taps.bean.project.ProjectBean">
+		UPDATE projects
+		SET
+		project_code = #projectCode#,
+		project_name = #projectName#,
+		client =
+		#client#,
+		phase_id = #phase#,
+		organization_code = #organizationCode#,
+		start_date = #startDate#,
+		end_date = #endDate#,
+		updated_by =
+		'domain100',
+		updated_date = sysdate
+		WHERE
+		project_code = #projectCode#
+	</update>
+
+	<insert id="addProjectMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		INSERT INTO
+		project_structures
+		(project_code,
+		project_role,
+		assignee_user_domain,
+		directreport_user_domain,
+		flag,
+		created_by,
+		created_date)
+		VALUES
+		(#projectCode#,
+		#projectRole#,
+		#assigneeUserDomain#,
+		#directreportUserDomain#,
+		'ACTIVE',
+		'domain100',
+		sysdate)
+	</insert>
+
+	<select id="getProjectMemberById" resultClass="adins.ace.taps.bean.project.AddStructureProjectBean"
+		parameterClass="java.util.Map">
+		SELECT
+		ps.project_role AS projectRole,
+		ps.assignee_user_domain AS assigneeUserDomain,
+		e.first_name ||'
+		'||e.last_name AS assigneeName,
+		ps.directreport_user_domain AS
+		directreportUserDomain,
+		emp.first_name ||' '|| emp.last_name AS
+		directreportName
+		FROM
+		project_structures ps,
+		employees e,
+		employees emp
+		WHERE
+		e.user_domain = ps.assignee_user_domain
+		AND emp.user_domain =
+		ps.directreport_user_domain
+		AND ps.assignee_user_domain =
+		#paramAssigneeUserDomain#
+		AND ps.project_code = #paramProjectCode#
+	</select>
+
+	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		UPDATE
+		project_structures
+		SET
+		project_code = #projectCode#,
+		assignee_user_domain = #assigneeUserDomain#,
+		directreport_user_domain =
+		#directreportUserDomain#,
+		project_role = #projectRole#,
+		updated_by =
+		'domain100',
+		updated_date = sysdate
+		WHERE
+		project_code = #projectCode#
+		AND assignee_user_domain = #assigneeUserDomain#
+	</update>
+
+	<update id="deleteMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		UPDATE
+		project_structures
+		SET
+		flag = 'INACTIVE'
+		WHERE
+		project_code =
+		#projectCode#
+		AND assignee_user_domain = #assigneeUserDomain#
+	</update>
+
+	<update id="deleteProject" parameterClass = "java.lang.String">
+		UPDATE projects
+		SET 
+			flag = 'INACTIVE'
+		WHERE
+			project_code = #projectCode#
+	</update>
 </sqlMap>

@@ -4,6 +4,7 @@
 <struts-config>
 
 	<form-beans>
+		<form-bean name="employeeRoleForm" type="adins.ace.taps.form.employeeRole.EmployeeRoleForm" />
 		<form-bean name="projectForm" type="adins.ace.taps.form.project.ProjectForm" />
 		<form-bean name="transferProjectForm" type="adins.ace.taps.form.project.TransferProjectForm" />
 		<form-bean name="reportForm" type="adins.ace.taps.form.report.ReportForm" />
@@ -75,7 +76,14 @@
 			<forward name="New" path="/WEB-INF/jsp/employee/new.jsp" />
 			<forward name="ListEmployee" path="/WEB-INF/jsp/employee/index.jsp" />
 		</action>
-
+		
+		<action name="employeeRoleForm" path="/employeeRole" scope="request"
+			type="adins.ace.taps.action.EmployeeRoleAction">
+			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
+			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/employeeRole/index.jsp" />
+			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/employeeRole/detail.jsp" />
+		</action>
+		
 		<action name="specialAppraisalForm" path="/specialAppraisal"
 			scope="request" type="adins.ace.taps.action.SpecialAppraisalAction">
 			<forward name="View" path="/WEB-INF/jsp/appraisal/view.jsp" />
@@ -126,7 +134,7 @@
 			<forward name="ApprovedSelfAssignment" path="/selfAssignment.do" />
 			<forward name="ApprovedSupervisorSelfAssignment" path="/selfSupervisorAssignment.do" />
 		</action>
-		<action name="newAssignmentForm" path="/newAssignment" scope="request"
+		<action name="claimAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />

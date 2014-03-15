@@ -2,30 +2,30 @@
 	<table class='table'>
 		<thead>
 			<tr>
-				<th colspan=3 class='text-center'>Look Organization</th>
+				<th colspan=3 class='text-center'>Look Business Unit</th>
 			</tr>
 			<tr>
 				<td colspan=1 class="text-center">
 					<div class="input-control select size2">
 						<select>
 							<option value=''>All</option>
-							<option value='organizationCode'>Organization Code</option>
-							<option value='organizationName'>Organization Name</option>
+							<option value='organizationCode'>Business Unit Code</option>
+							<option value='organizationName'>Business Unit Name</option>
 							<option value='headName'>Head Name</option>
 						</select>
 					</div>
 				</td>
 				<td colspan=2 class="text-center">
 					<div class="input-control text size6">
-						<input type='text' placeholder='Keyword of Organization' />
+						<input type='text' placeholder='Keyword of Business Unit' />
 						<button class='btn-search'></button>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th></th>
-				<th>Organization Code</th>
-				<th>Organization Name</th>
+				<th>Business Unit Code</th>
+				<th>Business Unit Name</th>
 			</tr>
 		</thead>
 		<tbody>

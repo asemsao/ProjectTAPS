@@ -64,8 +64,8 @@ function report(task) {
 											<html:select property="reportPeriode"
 												name="reportForm">
 												<html:option value="">Semester</html:option>
-												<html:option value="first">First</html:option>
-												<html:option value="last">Second</html:option>
+												<html:option value="I">First</html:option>
+												<html:option value="II">Second</html:option>
 											</html:select>
 										</div>
 									</div>

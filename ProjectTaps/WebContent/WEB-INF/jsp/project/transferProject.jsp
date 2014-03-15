@@ -56,7 +56,7 @@
 											<html:option value="projectName">Project Name</html:option>
 											<html:option value="client">Client</html:option>
 											<html:option value="phase">Phase</html:option>
-											<html:option value="organization">Organization</html:option>
+											<html:option value="organization">Business Unit</html:option>
 										</html:select>
 									</div>
 								</th>
@@ -74,7 +74,7 @@
 								<th class="text-center">Project Code</th>
 								<th class="text-center">Project Name</th>
 								<th class="text-center">Client</th>
-								<th class="text-center">Organization</th>
+								<th class="text-center">Business Unit</th>
 								<th class="text-center">Phase</th>
 								<th class="text-center">Start Date</th>
 								<th class="text-center">Finish Date</th>
@@ -130,8 +130,8 @@
 									<div class="input-control select">
 										<html:select property="searchCategory" name="transferProjectForm">
 											<html:option value="all">All</html:option>
-											<html:option value="organizationCode">Organization Code</html:option>
-											<html:option value="organizationName">Organization Name</html:option>
+											<html:option value="organizationCode">Business Unit Code</html:option>
+											<html:option value="organizationName">Business Unit Name</html:option>
 											<html:option value="headName">Head Name</html:option>
 										</html:select>
 									</div>
@@ -146,8 +146,8 @@
 							</tr>
 							<tr>
 								<th></th>
-								<th class="text-center">Organization Code</th>
-								<th class="text-center">Organization Name</th>
+								<th class="text-center">Business Unit Code</th>
+								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 							</tr>
 						</thead>

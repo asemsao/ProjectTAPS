@@ -13,9 +13,9 @@
 <title>New Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.newAssignmentForm.newTask.value = task;
-		document.newAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-		document.newAssignmentForm.submit();
+		document.claimAssignmentForm.newTask.value = task;
+		document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+		document.claimAssignmentForm.submit();
 	}
 
 	function getRadioValue(theRadioGroup) {
@@ -90,7 +90,7 @@
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="assignmentBean.assignmentDate"
-											name="newAssignmentForm"></html:text>
+											name="claimAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -99,7 +99,7 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker-end">
 										<html:text property="assignmentBean.assignmentDueDate"
-											name="newAssignmentForm"></html:text>
+											name="claimAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -132,9 +132,9 @@
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
-												name="newAssignmentForm" styleId="project-code"></html:hidden>
+												name="claimAssignmentForm" styleId="project-code"></html:hidden>
 											<html:hidden property="assignmentBean.projectName"
-												name="newAssignmentForm" styleId="project-fullName"></html:hidden>
+												name="claimAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
@@ -142,9 +142,9 @@
 									</div> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo"
-											name="newAssignmentForm" styleId="employee-domain" />
+											name="claimAssignmentForm" styleId="employee-domain" />
 										<html:hidden property="assignmentBean.assignToFullName"
-											name="newAssignmentForm" styleId="employee-fullName" />
+											name="claimAssignmentForm" styleId="employee-fullName" />
 										<input type="text" placeholder="Employee" id="employee-name"
 											readonly="readonly" />
 										<div class="pr" class="in-bl">
@@ -162,7 +162,7 @@
 								<td>:</td>
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode"
-											name="newAssignmentForm" readonly="readonly"></html:text>
+											name="claimAssignmentForm" readonly="readonly"></html:text>
 										<button type="button" class="btn-search" id="task"></button>
 									</div></td>
 							</tr>
@@ -170,7 +170,7 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="assignmentBean.description"
-										name="newAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
+										name="claimAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right"><html:button
@@ -188,8 +188,8 @@
 		</div>
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<html:hidden property="newTask" name="newAssignmentForm" />
-		<html:hidden property="assignmentType" name="newAssignmentForm"
+		<html:hidden property="newTask" name="claimAssignmentForm" />
+		<html:hidden property="assignmentType" name="claimAssignmentForm"
 			styleId="assignment-type" />
 	</html:form>
 

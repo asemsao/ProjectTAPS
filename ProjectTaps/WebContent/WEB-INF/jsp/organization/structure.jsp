@@ -43,7 +43,7 @@
 			$("#mode").val("");
 			$("#CRUDForm").submit();
 		});
-		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
+		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -66,7 +66,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="2">Business Unit Member</th>
+								<th colspan="2"><h3>Business Unit Member</h3></th>
 							</tr>
 						</thead>
 						<tbody>

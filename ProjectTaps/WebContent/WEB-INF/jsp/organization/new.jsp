@@ -37,8 +37,10 @@
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
-<title>Add Organization</title>
+<title>Add New Business Unit</title>
 </head>
+<html:javascript formName="organizationForm" dynamicJavascript="true"
+	staticJavascript="true" method="validateForm" page="0" />
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post">
@@ -48,12 +50,12 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="3">Add Organization</th>
+								<th colspan="3"><h3>Add New Business Unit</h3></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Organization Code</td>
+								<td>Business Unit Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
 										<html:text property="orgBean.organizationCode"
@@ -61,7 +63,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Organization Name</td>
+								<td>Business Unit Name</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
@@ -71,7 +73,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Organization Level</td>
+								<td>Business Unit Level</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">
@@ -91,20 +93,20 @@
 									<div class="input-control text">
 										<html:hidden property="orgBean.headDomain"
 											name="organizationForm" styleId="employee-domain" />
-										<input type="text" placeholder="Head of Organization"
+										<input type="text" placeholder="Head of Business Unit"
 											id="employee-name" readonly="readonly" />
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td>Parent Organization</td>
+								<td>Parent Business Unit</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
 											name="organizationForm" styleId="parent-organization-code" />
-										<input type="text" placeholder="Parent Organization"
+										<input type="text" placeholder="Parent Business Unit"
 											readonly="readonly" id="parent-organization-name" />
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>

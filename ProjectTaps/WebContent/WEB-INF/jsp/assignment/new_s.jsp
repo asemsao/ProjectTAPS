@@ -280,6 +280,7 @@
 		<html:hidden property="activityType" name="newSelfAssignmentForm" />
 		<html:hidden property="selfAssignBean.detailId"
 			name="newSelfAssignmentForm" />
+		<html:hidden property="selfAssignBean.headUserDomain"	name="newSelfAssignmentForm" />
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
 	</html:form>

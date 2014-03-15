@@ -159,6 +159,18 @@
 								<th colspan=7 class="text-center"><h3><bean:write property="param3"/> </h3></th>
 							</tr>
 							<tr>
+								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
+								<th colspan=3 class="text-left"><h5>
+								<logic:notEmpty name="reportForm" property="reportPeriode">
+									Semester : <bean:write property="reportPeriode"/> </h5>
+								</logic:notEmpty>
+								<logic:notEmpty name="reportForm" property="reportMonth">
+									Month :<bean:write property="reportMonth"/> </h5>
+								</logic:notEmpty>
+									
+								</th>
+							</tr>
+							<tr>
 								<th class="text-center">
 									<div class="input-control select">
 										<select>
@@ -185,7 +197,7 @@
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
 									<logic:equal name="report" property="organizationLevel" value="1">
-										<tr>
+										<tr class="text-left">
 											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>
 											<td class="text-center"><a
 												href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
@@ -198,7 +210,7 @@
 									<tr>
 										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
 										<td><bean:write name="report" property="organizationName" /></td>
-										<td><bean:write name="report" property="manhour" /></td>
+										<td class="text-center"><bean:write name="report" property="manhour" /></td>
 										<td class="text-center"><a
 											href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
 											data-hint-position="bottom"><img alt=""
@@ -246,6 +258,9 @@
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
 		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="reportYear" name="reportForm" />
+		<html:hidden property="reportPeriode" name="reportForm" />
+		<html:hidden property="reportMonth" name="reportForm" />
 	</html:form>
 	<jsp:include page="../../../frame/footer.jsp" />
 

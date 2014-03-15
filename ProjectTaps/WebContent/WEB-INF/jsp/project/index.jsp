@@ -63,7 +63,7 @@
 											<html:option value="projectName">Project Name</html:option>
 											<html:option value="client">Client</html:option>
 											<html:option value="phase">Phase</html:option>
-											<html:option value="organization">Organization</html:option>
+											<html:option value="organization">Business Unit</html:option>
 										</html:select>
 									</div>
 								</th>
@@ -80,7 +80,7 @@
 								<th class="text-center">Project Code</th>
 								<th class="text-center">Project Name</th>
 								<th class="text-center">Client</th>
-								<th class="text-center">Organization</th>
+								<th class="text-center">Business Unit</th>
 								<th class="text-center">Phase</th>
 								<th class="text-center">Start Date</th>
 								<th class="text-center">Finish Date</th>

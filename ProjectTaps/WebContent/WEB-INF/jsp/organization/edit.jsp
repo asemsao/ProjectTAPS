@@ -37,7 +37,7 @@
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
-<title>Edit Organization</title>
+<title>Edit Business Unit</title>
 </head>
 
 <body class="metro">
@@ -49,12 +49,12 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="3">Edit Organization</th>
+								<th colspan="3"><h3>Edit Business Unit</h3></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>Organization Code</td>
+								<td>Business Unit Code</td>
 								<td>:</td>
 								<td><div class="input-control text size3">
 										<html:text property="orgBean.organizationCode"
@@ -62,7 +62,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Organization Name</td>
+								<td>Business Unit Name</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text size3">
@@ -72,7 +72,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Organization Level</td>
+								<td>Business Unit Level</td>
 								<td>:</td>
 								<td>
 									<div class="input-control select">
@@ -101,7 +101,7 @@
 							</tr>
 
 							<tr>
-								<td>Parent Organization</td>
+								<td>Parent Business Unit</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
