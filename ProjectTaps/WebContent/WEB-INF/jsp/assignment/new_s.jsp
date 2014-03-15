@@ -34,7 +34,7 @@
 						var organization_code = $("#organization-code-view")
 								.val();
 						$("#employee-name").val($("#employee-fullName").val());
-						$("#adhoc-name").val($("#adhoc-fullName").val());
+						$("#employee-name-2").val($("#employee-fullName-2").val());
 						$("#lookUpEmployeeOnProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
@@ -42,9 +42,9 @@
 						$("#lookUpProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=projects&task=projects");
-						$("#lookUpEmployee")
+						$("#lookUpEmployee2")
 								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
+										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 						$("#lookUpAssignment")
 								.load(
 										"/ProjectTaps/ajax.do?mode=assignments&task=assignments");
@@ -176,12 +176,12 @@
 								<td><div class="adhoc">
 										<div class="input-control text">
 											<html:hidden property="selfAssignBean.adhocUserDomain"
-												name="newSelfAssignmentForm" styleId="adhoc-user-domain" />
+												name="newSelfAssignmentForm" styleId="employee-domain-2" />
 											<html:hidden property="selfAssignBean.adhocFullName"
-												name="newSelfAssignmentForm" styleId="adhoc-fullName" />
-											<input type="text" placeholder="Employee"
-												id="adhoc-name" readonly="readonly" />
-											<button type="button" class="btn-search" id="employee"></button>
+												name="newSelfAssignmentForm" styleId="employee-fullName-2" />
+											<input type="text" placeholder="Employee" id="employee-name-2"
+												readonly="readonly" />
+											<button type="button" class="btn-search" id="employee2"></button>
 										</div>
 									</div></td>
 							</tr>
@@ -203,53 +203,53 @@
 											name="newSelfAssignmentForm">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
-											<html:option value="1">01:00</html:option>
+											<html:option value="1.0">01:00</html:option>
 											<html:option value="1.5">01:30</html:option>
-											<html:option value="2">02:00</html:option>
+											<html:option value="2.0">02:00</html:option>
 											<html:option value="2.5">02:30</html:option>
-											<html:option value="3">03:00</html:option>
+											<html:option value="3.0">03:00</html:option>
 											<html:option value="3.5">03:30</html:option>
-											<html:option value="4">04:00</html:option>
+											<html:option value="4.0">04:00</html:option>
 											<html:option value="4.5">04:30</html:option>
-											<html:option value="5">05:00</html:option>
+											<html:option value="5.0">05:00</html:option>
 											<html:option value="5.5">05:30</html:option>
-											<html:option value="6">06:00</html:option>
+											<html:option value="6.0">06:00</html:option>
 											<html:option value="6.5">06:30</html:option>
-											<html:option value="7">07:00</html:option>
+											<html:option value="7.0">07:00</html:option>
 											<html:option value="7.5">07:30</html:option>
-											<html:option value="8">08:00</html:option>
-											<html:option value="8.3">08:30</html:option>
-											<html:option value="9">09:00</html:option>
+											<html:option value="8.0">08:00</html:option>
+											<html:option value="8.5">08:30</html:option>
+											<html:option value="9.0">09:00</html:option>
 											<html:option value="9.5">09:30</html:option>
-											<html:option value="10">10:00</html:option>
+											<html:option value="10.0">10:00</html:option>
 											<html:option value="10.5">10:30</html:option>
-											<html:option value="11">11:00</html:option>
+											<html:option value="11.0">11:00</html:option>
 											<html:option value="11.5">11:30</html:option>
-											<html:option value="12">12:00</html:option>
-											<html:option value="12:30">12:30</html:option>
-											<html:option value="13">13:00</html:option>
+											<html:option value="12.0">12:00</html:option>
+											<html:option value="12.5">12:30</html:option>
+											<html:option value="13.0">13:00</html:option>
 											<html:option value="13.5">13:30</html:option>
-											<html:option value="14">14:00</html:option>
+											<html:option value="14.0">14:00</html:option>
 											<html:option value="14.5">14:30</html:option>
-											<html:option value="15">15:00</html:option>
+											<html:option value="15.0">15:00</html:option>
 											<html:option value="15.5">15:30</html:option>
-											<html:option value="16">16:00</html:option>
+											<html:option value="16.0">16:00</html:option>
 											<html:option value="16.5">16:30</html:option>
-											<html:option value="17">17:00</html:option>
+											<html:option value="17.0">17:00</html:option>
 											<html:option value="17.5">17:30</html:option>
-											<html:option value="18">18:00</html:option>
+											<html:option value="18.0">18:00</html:option>
 											<html:option value="18.5">18:30</html:option>
-											<html:option value="19">19:00</html:option>
+											<html:option value="19.0">19:00</html:option>
 											<html:option value="19.5">19:30</html:option>
-											<html:option value="20">20:00</html:option>
+											<html:option value="20.0">20:00</html:option>
 											<html:option value="20.5">20:30</html:option>
-											<html:option value="21">21:00</html:option>
+											<html:option value="21.0">21:00</html:option>
 											<html:option value="21.5">21:30</html:option>
-											<html:option value="22">22:00</html:option>
+											<html:option value="22.0">22:00</html:option>
 											<html:option value="22.5">22:30</html:option>
-											<html:option value="23">23:00</html:option>
+											<html:option value="23.0">23:00</html:option>
 											<html:option value="23.5">23:30</html:option>
-											<html:option value="24">24:00</html:option>
+											<html:option value="24.0">24:00</html:option>
 										</html:select>
 									</div>
 								</td>
@@ -283,10 +283,10 @@
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
 	</html:form>
-	
+
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>
-	<div id="lookUpEmployee" class="hide"></div>
+	<div id="lookUpEmployee2" class="hide"></div>
 	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

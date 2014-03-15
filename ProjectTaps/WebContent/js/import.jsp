@@ -25,3 +25,4 @@
 <script src="js/rating/jquery.barrating.js"></script>
 <script src="js/rating/rating.js"></script>
 <script src="js/other/timeselector.js"></script>
+<script src="js/other/formToWizard.js"></script>

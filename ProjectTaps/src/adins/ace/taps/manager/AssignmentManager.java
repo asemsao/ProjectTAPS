@@ -342,7 +342,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(historyComment);
 		return historyComment;
 	}
 
@@ -425,6 +424,26 @@ public class AssignmentManager {
 		return success;
 	}
 
+	public boolean editDetailClaimAssignment(ClaimAssignmentBean bean) {
+		boolean success = false;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.editDetailClaimAssignment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed to edit detail claim assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
 	public boolean addDetailClaim(NewAssignmentBean bean) {
 		boolean success = false;
 		try {
@@ -482,5 +501,43 @@ public class AssignmentManager {
 			}
 		}
 		return success;
+	}
+	
+	public boolean addAssignmentStar(ClaimAssignmentBean bean) {
+		boolean success = false;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addAssignmentStar",bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	public Integer searchLastStar(String taskCode) {
+		Integer lastStar = 0;
+		
+		try {
+			ibatisSQLMap.startTransaction();
+			lastStar = (Integer) ibatisSQLMap.queryForObject("assignment.searchLastStar", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return lastStar;
 	}
 }

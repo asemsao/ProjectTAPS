@@ -22,6 +22,26 @@
 				$("#historyComment").load(
 						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
 								+ task_code);
+				$(".manHourUpdate").change(
+						function() {
+							var detailId = $(this).prev().val();
+							var manHour = $(this).val();
+							var data = "task=updateDetailClaim&detailId="
+									+ detailId + "&manHour=" + manHour;
+							$.ajax({
+								url : "/ProjectTaps/claimAssignment.do",
+								type : "POST",
+								data : data,
+								context : this,
+								error : function() {
+									console.log("problem was here!");
+								},
+								success : function(data) {
+									console.log("success");
+								}
+							});
+
+						});
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -47,9 +67,13 @@
 										%>
 										Request For Approval
 										<%
-											} else {
+											} else if ("APPROVED".equals(session.getAttribute("status"))) {
 										%>
 										Approved Assignment
+										<%
+											} else {
+										%>
+										View Assignment
 										<%
 											}
 										%>
@@ -126,15 +150,17 @@
 															<td class="text-center"><bean:write
 																	property="claimDate" name="assignment" /></td>
 															<%
-																if ("employeeReport".equals(session
-																					.getAttribute("link"))) {
+																if ("CLAIM".equals(session.getAttribute("status"))
+																					|| "CORRECTION".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
-																} else if ("employeeReportSupervisor".equals(session
-																					.getAttribute("link"))) {
+																} else if ("RFA".equals(session.getAttribute("status"))
+																					|| "APPROVED".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -145,115 +171,119 @@
 															<td class="text-center">
 																<div class="input-control select">
 																	<%
-																		if ("employeeReport".equals(session
-																							.getAttribute("link"))) {
+																		if ("CLAIM".equals(session.getAttribute("status"))
+																							|| "CORRECTION".equals(session
+																									.getAttribute("status"))
+																							|| "APPROVED".equals(session
+																									.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
-																		<html:option value="1">01:00</html:option>
+																		<html:option value="1.0">01:00</html:option>
 																		<html:option value="1.5">01:30</html:option>
-																		<html:option value="2">02:00</html:option>
+																		<html:option value="2.0">02:00</html:option>
 																		<html:option value="2.5">02:30</html:option>
-																		<html:option value="3">03:00</html:option>
+																		<html:option value="3.0">03:00</html:option>
 																		<html:option value="3.5">03:30</html:option>
-																		<html:option value="4">04:00</html:option>
+																		<html:option value="4.0">04:00</html:option>
 																		<html:option value="4.5">04:30</html:option>
-																		<html:option value="5">05:00</html:option>
+																		<html:option value="5.0">05:00</html:option>
 																		<html:option value="5.5">05:30</html:option>
-																		<html:option value="6">06:00</html:option>
+																		<html:option value="6.0">06:00</html:option>
 																		<html:option value="6.5">06:30</html:option>
-																		<html:option value="7">07:00</html:option>
+																		<html:option value="7.0">07:00</html:option>
 																		<html:option value="7.5">07:30</html:option>
-																		<html:option value="8">08:00</html:option>
-																		<html:option value="8.3">08:30</html:option>
-																		<html:option value="9">09:00</html:option>
+																		<html:option value="8.0">08:00</html:option>
+																		<html:option value="8.5">08:30</html:option>
+																		<html:option value="9.0">09:00</html:option>
 																		<html:option value="9.5">09:30</html:option>
-																		<html:option value="10">10:00</html:option>
+																		<html:option value="10.0">10:00</html:option>
 																		<html:option value="10.5">10:30</html:option>
-																		<html:option value="11">11:00</html:option>
+																		<html:option value="11.0">11:00</html:option>
 																		<html:option value="11.5">11:30</html:option>
-																		<html:option value="12">12:00</html:option>
-																		<html:option value="12:30">12:30</html:option>
-																		<html:option value="13">13:00</html:option>
+																		<html:option value="12.0">12:00</html:option>
+																		<html:option value="12.5">12:30</html:option>
+																		<html:option value="13.0">13:00</html:option>
 																		<html:option value="13.5">13:30</html:option>
-																		<html:option value="14">14:00</html:option>
+																		<html:option value="14.0">14:00</html:option>
 																		<html:option value="14.5">14:30</html:option>
-																		<html:option value="15">15:00</html:option>
+																		<html:option value="15.0">15:00</html:option>
 																		<html:option value="15.5">15:30</html:option>
-																		<html:option value="16">16:00</html:option>
+																		<html:option value="16.0">16:00</html:option>
 																		<html:option value="16.5">16:30</html:option>
-																		<html:option value="17">17:00</html:option>
+																		<html:option value="17.0">17:00</html:option>
 																		<html:option value="17.5">17:30</html:option>
-																		<html:option value="18">18:00</html:option>
+																		<html:option value="18.0">18:00</html:option>
 																		<html:option value="18.5">18:30</html:option>
-																		<html:option value="19">19:00</html:option>
+																		<html:option value="19.0">19:00</html:option>
 																		<html:option value="19.5">19:30</html:option>
-																		<html:option value="20">20:00</html:option>
+																		<html:option value="20.0">20:00</html:option>
 																		<html:option value="20.5">20:30</html:option>
-																		<html:option value="21">21:00</html:option>
+																		<html:option value="21.0">21:00</html:option>
 																		<html:option value="21.5">21:30</html:option>
-																		<html:option value="22">22:00</html:option>
+																		<html:option value="22.0">22:00</html:option>
 																		<html:option value="22.5">22:30</html:option>
-																		<html:option value="23">23:00</html:option>
+																		<html:option value="23.0">23:00</html:option>
 																		<html:option value="23.5">23:30</html:option>
-																		<html:option value="24">24:00</html:option>
+																		<html:option value="24.0">24:00</html:option>
 																	</html:select>
 																	<%
-																		} else if ("employeeReportSupervisor".equals(session
-																							.getAttribute("link"))) {
+																		} else if ("RFA".equals(session.getAttribute("status"))) {
 																	%>
-																	<html:select property="manHours" name="assignment">
+																	<html:hidden property="detailId" name="assignment" />
+																	<html:select property="manHours" name="assignment"
+																		styleClass="manHourUpdate">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
-																		<html:option value="1">01:00</html:option>
+																		<html:option value="1.0">01:00</html:option>
 																		<html:option value="1.5">01:30</html:option>
-																		<html:option value="2">02:00</html:option>
+																		<html:option value="2.0">02:00</html:option>
 																		<html:option value="2.5">02:30</html:option>
-																		<html:option value="3">03:00</html:option>
+																		<html:option value="3.0">03:00</html:option>
 																		<html:option value="3.5">03:30</html:option>
-																		<html:option value="4">04:00</html:option>
+																		<html:option value="4.0">04:00</html:option>
 																		<html:option value="4.5">04:30</html:option>
-																		<html:option value="5">05:00</html:option>
+																		<html:option value="5.0">05:00</html:option>
 																		<html:option value="5.5">05:30</html:option>
-																		<html:option value="6">06:00</html:option>
+																		<html:option value="6.0">06:00</html:option>
 																		<html:option value="6.5">06:30</html:option>
-																		<html:option value="7">07:00</html:option>
+																		<html:option value="7.0">07:00</html:option>
 																		<html:option value="7.5">07:30</html:option>
-																		<html:option value="8">08:00</html:option>
-																		<html:option value="8.3">08:30</html:option>
-																		<html:option value="9">09:00</html:option>
+																		<html:option value="8.0">08:00</html:option>
+																		<html:option value="8.5">08:30</html:option>
+																		<html:option value="9.0">09:00</html:option>
 																		<html:option value="9.5">09:30</html:option>
-																		<html:option value="10">10:00</html:option>
+																		<html:option value="10.0">10:00</html:option>
 																		<html:option value="10.5">10:30</html:option>
-																		<html:option value="11">11:00</html:option>
+																		<html:option value="11.0">11:00</html:option>
 																		<html:option value="11.5">11:30</html:option>
-																		<html:option value="12">12:00</html:option>
-																		<html:option value="12:30">12:30</html:option>
-																		<html:option value="13">13:00</html:option>
+																		<html:option value="12.0">12:00</html:option>
+																		<html:option value="12.5">12:30</html:option>
+																		<html:option value="13.0">13:00</html:option>
 																		<html:option value="13.5">13:30</html:option>
-																		<html:option value="14">14:00</html:option>
+																		<html:option value="14.0">14:00</html:option>
 																		<html:option value="14.5">14:30</html:option>
-																		<html:option value="15">15:00</html:option>
+																		<html:option value="15.0">15:00</html:option>
 																		<html:option value="15.5">15:30</html:option>
-																		<html:option value="16">16:00</html:option>
+																		<html:option value="16.0">16:00</html:option>
 																		<html:option value="16.5">16:30</html:option>
-																		<html:option value="17">17:00</html:option>
+																		<html:option value="17.0">17:00</html:option>
 																		<html:option value="17.5">17:30</html:option>
-																		<html:option value="18">18:00</html:option>
+																		<html:option value="18.0">18:00</html:option>
 																		<html:option value="18.5">18:30</html:option>
-																		<html:option value="19">19:00</html:option>
+																		<html:option value="19.0">19:00</html:option>
 																		<html:option value="19.5">19:30</html:option>
-																		<html:option value="20">20:00</html:option>
+																		<html:option value="20.0">20:00</html:option>
 																		<html:option value="20.5">20:30</html:option>
-																		<html:option value="21">21:00</html:option>
+																		<html:option value="21.0">21:00</html:option>
 																		<html:option value="21.5">21:30</html:option>
-																		<html:option value="22">22:00</html:option>
+																		<html:option value="22.0">22:00</html:option>
 																		<html:option value="22.5">22:30</html:option>
-																		<html:option value="23">23:00</html:option>
+																		<html:option value="23.0">23:00</html:option>
 																		<html:option value="23.5">23:30</html:option>
-																		<html:option value="24">24:00</html:option>
+																		<html:option value="24.0">24:00</html:option>
 																	</html:select>
 																	<%
 																		}
@@ -275,45 +305,52 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
+								<%
+									if ("RFA".equals(session.getAttribute("status"))
+												|| "APPROVED".equals(session.getAttribute("status"))) {
+								%>
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
 								<td colspan=2>
 									<div class="star-hider">
-									<div class="rating-kiri" style="float: left;">
-										<select id="rating-kiri" name="rating">
-											<option value="-5">-5</option>
-											<option value="-4">-4</option>
-											<option value="-3">-3</option>
-											<option value="-2">-2</option>
-											<option value="-1">-1</option>
-										</select>
-									</div>
+										<div class="rating-kiri" style="float: left;">
+											<select id="rating-kiri" name="rating">
+												<option value="-5">-5</option>
+												<option value="-4">-4</option>
+												<option value="-3">-3</option>
+												<option value="-2">-2</option>
+												<option value="-1">-1</option>
+											</select>
+										</div>
 
-									<div class="rating-tengah" style="float: left;">
-										<select id="rating-tengah" name="rating">
-											<option value="0">0</option>
-										</select>
-									</div>
+										<div class="rating-tengah" style="float: left;">
+											<select id="rating-tengah" name="rating">
+												<option value="0">0</option>
+											</select>
+										</div>
 
-									<div class="rating-kanan" style="float: left;">
-										<select id="rating-kanan" name="rating">
-											<option value="1">+1</option>
-											<option value="2">+2</option>
-											<option value="3">+3</option>
-											<option value="4">+4</option>
-											<option value="5">+5</option>
-										</select>
+										<div class="rating-kanan" style="float: left;">
+											<select id="rating-kanan" name="rating">
+												<option value="1">+1</option>
+												<option value="2">+2</option>
+												<option value="3">+3</option>
+												<option value="4">+4</option>
+												<option value="5">+5</option>
+											</select>
+										</div>
+										<p>&nbsp;Your current value : 0 &nbsp;</p>
+										<html:hidden property="claimBean.appraisalStar" styleId="star" />
+										<button id="edit-star-btn" class="default"
+											style="display: none;">Edit</button>
 									</div>
-									<p>&nbsp;Your current value : 0 &nbsp;</p>
-									<html:hidden property="claimBean.appraisalStar" styleId="star"/>
-									<button id="edit-star-btn" class="default" style="display: none;">Edit</button>
-								</div>
 								</td>
+								<%
+									}
+								%>
 							</tr>
 							<tr>
 								<%
-									if ("employeeReportSupervisor".equals(session
-												.getAttribute("link"))) {
+									if ("RFA".equals(session.getAttribute("status"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
@@ -325,20 +362,13 @@
 								%>
 							</tr>
 							<tr>
+
 								<%
-									if ("employeeReport".equals(session.getAttribute("link"))) {
-								%>
-								<td colspan=4 class="text-right"><html:button
-										property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button></td>
-								<%
-									} else if ("employeeReportSupervisor".equals(session
-												.getAttribute("link"))) {
+									if ("RFA".equals(session.getAttribute("status"))) {
 								%>
 								<td colspan=4 class="text-right"><html:button
 										property="approve-btn"
-										onclick="javascript:flyToPage('approve');"
+										onclick="javascript:flyToPage('approved');"
 										styleClass="button success">Approve</html:button> <html:button
 										property="correction-btn"
 										onclick="javascript:flyToPage('correction');"
@@ -350,20 +380,36 @@
 										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 								<%
+									} else if ("APPROVED".equals(session.getAttribute("status"))) {
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="update-star-btn"
+										onclick="javascript:flyToPage('updateStar');"
+										styleClass="button success">Update Star</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
+								<%
+									} else {
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button></td>
+								<%
 									}
 								%>
 							</tr>
 						</tbody>
 					</table>
 					<html:hidden property="task" name="claimAssignmentForm" />
+					<html:hidden property="claimBean.assignTo"
+						name="claimAssignmentForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>
 		</div>
 	</div>
-
-
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

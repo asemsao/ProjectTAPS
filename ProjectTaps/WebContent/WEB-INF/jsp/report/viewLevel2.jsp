@@ -25,11 +25,10 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function button(task,param,param2,param3) {
+	function button(task,param,param2) {
 		document.reportForm.task.value = task;
 		document.reportForm.param.value = param;
 		document.reportForm.param2.value = param2;
-		document.reportForm.param3.value = param3;
 		document.reportForm.submit();
 	}
 	$(function() {
@@ -72,8 +71,8 @@
 					        },
 							title : {
 								floating: false,
-								text : 'Statistic Of Business Unit',								
-								margin: 30
+								text : 'Statistic Of Business Unit',
+								margin : 30
 							},
 							yAxis : {
 								allowDecimals : false,
@@ -85,7 +84,7 @@
 							xAxis : {
 								allowDecimals : false,
 								title : {
-									text : 'Business Unit',
+									text : 'Employee Name',
 									margin: 30
 								}
 							},
@@ -135,7 +134,9 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Manhour</th>
+									<th>Routine</th>
+									<th>Initiative</th>
+									<th>Adhoc</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -143,8 +144,10 @@
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
 									<tr>
-										<th><bean:write name="report" property="organizationCode" /></th>
-										<td><bean:write name="report" property="manhour" /></td>
+										<th><bean:write name="report" property="employeeName" /></th>
+										<td><bean:write name="report" property="totalRoutine" /></td>
+										<td><bean:write name="report" property="totalInitiative" /></td>
+										<td><bean:write name="report" property="totalAdhoc" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -152,11 +155,11 @@
 						</table>
 					</div>
 					<button type="button" id="cmd">generate PDF</button>
-					<div id="print">					
-					<table id="datatableshow" class="table striped bordered hovered">
+					<div id="print">
+						<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=7 class="text-center"><h3><bean:write property="param3"/> </h3></th>
+								<th colspan=7 class="text-center"><h3><bean:write property="param3"/></h3></th>
 							</tr>
 							<tr>
 								<th class="text-center">
@@ -174,38 +177,22 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">ORGANIZATION CODE</th>
-								<th class="text-center">ORGANIZATION NAME</th>
-								<th class="text-center">TOTAL MANHOUR</th>
-								<th class="text-center">ACTION</th>
+								<th class="text-center">EMPLOYEE NAME</th>
+								<th class="text-center">ROUTINE MANHOUR</th>
+								<th class="text-center">INITIATIVE MANHOUR</th>
+								<th class="text-center">ADHOC MANHOUR</th>
 							</tr>
 						</thead>
 						<tbody>
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
-									<logic:equal name="report" property="organizationLevel" value="1">
-										<tr>
-											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>
-											<td class="text-center"><a
-												href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
-												data-hint-position="bottom"><img alt=""
-													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>											
-										</tr>
-									</logic:equal>
-									
-									<logic:notEqual name="report" property="organizationLevel" value="1">
 									<tr>
-										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
-										<td><bean:write name="report" property="organizationName" /></td>
-										<td><bean:write name="report" property="manhour" /></td>
-										<td class="text-center"><a
-											href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
-											data-hint-position="bottom"><img alt=""
-												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-									</tr>
-									</logic:notEqual>
-									
+										<td><bean:write name="report" property="employeeName" /></td>
+										<td><bean:write name="report" property="totalRoutine" /></td>
+										<td><bean:write name="report" property="totalInitiative" /></td>
+										<td><bean:write name="report" property="totalAdhoc" /></td>
+									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
 <!-- 							<tr> -->
@@ -226,18 +213,19 @@
 <!-- 									</div> -->
 <!-- 								</td> -->
 <!-- 							</tr> -->
-						<tr>
-							<td colspan="4" class="text-right">
-								<button id="back-btn" onclick="javascript:button('back')">Home</button>
-							<logic:equal name="reportForm" property="param2" value="1">
-								<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
-							</logic:equal>						
-							</td>
-						</tr>
+								<tr>
+									<td colspan="4" class="text-right">
+										<button id="back-btn" onclick="javascript:button('back')">Home</button>
+									<logic:equal name="reportForm" property="param2" value="2">
+										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>
+									</logic:equal>						
+									</td>
+								</tr>
 						</tbody>
 
 					</table>
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -245,7 +233,6 @@
 		<html:hidden property="param" name="reportForm" />
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
-		<html:hidden property="param4" name="reportForm" />
 	</html:form>
 	<jsp:include page="../../../frame/footer.jsp" />
 

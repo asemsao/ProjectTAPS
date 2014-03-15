@@ -6,6 +6,9 @@ body {
 	background-attachment: fixed;
 }
 
+#popup_delete{
+	width: 100px !important;
+}
 .clear {
 	clear: both;
 }
@@ -86,8 +89,8 @@ textarea {
 
 .shadow-taps {
 	-webkit-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
-	-moz-box-shadow:    2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
-	box-shadow:         2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
+	-moz-box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
+	box-shadow: 2px 2px 3px 0px rgba(50, 50, 50, 0.5) !important;
 }
 
 .container-taps {
@@ -98,4 +101,74 @@ textarea {
 	width: 540px;
 	margin-left: 0px !important;
 	margin-right: 10px;
+}
+
+/*===== WIZARD ===== */
+
+fieldset {
+	border: none;
+	width: 100%;
+	padding: 20px !important;
+}
+
+legend {
+	font-size: 18px;
+	margin: 0px;
+	padding: 10px 0px;
+	color: #b0232a;
+	font-weight: bold;
+}
+
+.prev-wizard, .next-wizard {
+	border: 1px solid slateblue;
+	padding: 5px 10px;
+	background-color: slateblue;
+	color: #fff !important;
+	text-decoration: none;
+}
+
+.prev-wizard:hover, .next-wizard:hover {
+	color: slateblue !important;
+	background-color: #fff;
+}
+
+.prev-wizard {
+	float: left;
+}
+
+.next-wizard {
+	float: right;
+}
+
+#steps {
+	list-style: none;
+	width: 100%;
+	overflow: hidden;
+}
+
+#steps li {
+	font-size: 24px;
+	float: left;
+	padding: 10px;
+	color: #b0b1b3;
+	border: 1px solid #b0b1b3;
+	margin-right: 10px;
+	width: 200px;
+}
+
+#steps li span {
+	font-size: 13px;
+	display: block;
+}
+
+#steps li.current {
+	color: white;
+	border: 1px solid slateblue;
+	background-color: slateblue;
+}
+
+#steps li.passed {
+	color: white;
+	border: 1px solid green;
+	background-color: green;
 }

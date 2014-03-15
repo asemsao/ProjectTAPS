@@ -24,7 +24,8 @@ $(document).ready(
 			// =================================================================================
 			$("#1month").hide();
 			$("#6month").show();
-			$("input[name='period_type']").change(function() {
+			$("input[id='defaultCheck']").attr('checked','checked');
+			$("input[class='reportFormCheck']").change(function() {
 				if ($(this).val() == "6 Months") {
 					$("#6month").show();
 					$("#1month").hide();

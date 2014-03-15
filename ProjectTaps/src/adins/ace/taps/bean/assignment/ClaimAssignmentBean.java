@@ -9,6 +9,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String assignmentType;
 	private String organizationName;
 	private String projectName;
+	private String assignTo;
 	private String fullName;
 	private String createdByName;
 	private String createdBy;
@@ -16,10 +17,10 @@ public class ClaimAssignmentBean implements Serializable {
 	private String reffTaskCode;
 	private String taskCode;
 	private String description;
-	private String detailId;
+	private Integer detailId;
 	private String claimDate;
 	private String detailDescription;
-	private String manHours;
+	private Double manHours;
 	private String updatedBy;
 	private String updatedDate;
 	private String comment;
@@ -29,7 +30,16 @@ public class ClaimAssignmentBean implements Serializable {
 	private String commentTo;
 	private String status;
 	private Integer appraisalStar;
+	private Integer starBefore;
 	
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+
 	public String getAssignmentDate() {
 		return assignmentDate;
 	}
@@ -126,11 +136,11 @@ public class ClaimAssignmentBean implements Serializable {
 		this.description = description;
 	}
 
-	public String getDetailId() {
+	public Integer getDetailId() {
 		return detailId;
 	}
 
-	public void setDetailId(String detailId) {
+	public void setDetailId(Integer detailId) {
 		this.detailId = detailId;
 	}
 
@@ -150,11 +160,11 @@ public class ClaimAssignmentBean implements Serializable {
 		this.detailDescription = detailDescription;
 	}
 
-	public String getManHours() {
+	public Double getManHours() {
 		return manHours;
 	}
 
-	public void setManHours(String manHours) {
+	public void setManHours(Double manHours) {
 		this.manHours = manHours;
 	}
 
@@ -228,6 +238,14 @@ public class ClaimAssignmentBean implements Serializable {
 
 	public void setAppraisalStar(Integer appraisalStar) {
 		this.appraisalStar = appraisalStar;
+	}
+
+	public Integer getStarBefore() {
+		return starBefore;
+	}
+
+	public void setStarBefore(Integer starBefore) {
+		this.starBefore = starBefore;
 	}
 
 }
