@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AJAX EMPLOYEES ON ORGANIZATION</title>
+<title>AJAX EMPLOYEES ON BUSINESS UNIT</title>
 </head>
 
 <body class="metro">
@@ -26,7 +26,7 @@
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
-					<th colspan=5 class="text-center">Employee in Organization</th>
+					<th colspan=5 class="text-center">Employee in Business Unit</th>
 				</tr>
 				<tr>
 					<th class="text-center" colspan=2>

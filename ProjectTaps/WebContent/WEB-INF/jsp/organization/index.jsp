@@ -65,10 +65,10 @@
 			$("#organizationCode").val($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
 		});
-		$("#searchKeyword").attr("placeholder", "Keyword of Organization");
+		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
 	});
 </script>
-<title>Organization</title>
+<title>Business Unit</title>
 </head>
 
 <body class="metro">
@@ -90,15 +90,15 @@
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=6 class="text-center">Organization</th>
+								<th colspan=6 class="text-center"><h3>Business Unit</h3></th>
 							</tr>
 							<tr>
 								<th class="text-center" colspan=1>
 									<div class="input-control select">
 										<html:select property="searchCategory" name="organizationForm">
 											<html:option value="all">All</html:option>
-											<html:option value="organizationCode">Organization Code</html:option>
-											<html:option value="organizationName">Organization Name</html:option>
+											<html:option value="organizationCode">Business Unit Code</html:option>
+											<html:option value="organizationName">Business Unit Name</html:option>
 											<html:option value="headName">Head Name</html:option>
 										</html:select>
 									</div>
@@ -112,8 +112,8 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">Organization Code</th>
-								<th class="text-center">Organization Name</th>
+								<th class="text-center">Business Unit Code</th>
+								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
 								<th class="text-center">Edit</th>
