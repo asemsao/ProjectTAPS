@@ -102,9 +102,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		CONNECT
 		BY
 		PRIOR
-		o.organization_code
+		UPPER(o.organization_code)
 		=
-		o.parent_organization_code
+		UPPER(o.parent_organization_code)
 
 	</select>
 
