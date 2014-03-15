@@ -14,8 +14,8 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.claimAssignmentForm.task.value = task;
-		document.claimAssignmentForm.submit();
+		document.selfAssignmentForm.task.value = task;
+		document.selfAssignmentForm.submit();
 	}
 	
 	$(document).ready(
@@ -35,10 +35,12 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
+			<html:form action="/selfSupervisorAssignment" method="POST">
 			<html:hidden property="selfAssignBean.currentStatus" name="selfAssignmentForm"
 						styleId="status" />
 			<html:hidden property="selfAssignBean.taskCode"
 						name="selfAssignmentForm" styleId="task-code" />
+			<html:hidden property="task" name="selfAssignmentForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -331,7 +333,7 @@
 								<html:button property="reject-btn"
 									onclick="" styleClass="button danger">Reject</html:button> 
 								<html:button property="cancel-btn"
-									onclick="" styleClass="button info">Cancel</html:button></td>
+									onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button></td>
 							<%} else if("APPROVED".equals(session.getAttribute("status"))){ %>							
 								<td colspan=4 class="text-right">
 									<html:button property="assign" onclick=""
@@ -350,7 +352,7 @@
 							</tr>
 						</tbody>
 					</table>
-					
+					</html:form>
 					<div id="historyComment"></div>
 					</div>
 			</div>

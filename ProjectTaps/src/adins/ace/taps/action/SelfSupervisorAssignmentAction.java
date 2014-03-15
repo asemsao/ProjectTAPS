@@ -34,12 +34,10 @@ public class SelfSupervisorAssignmentAction extends Action {
 		sForm.getSelfAssignBean().setCommentTo("domain10");
 		sForm.getSelfAssignBean().setCreatedBy("DOMAIN205");
 		
-//		aForm.getClaimBean().setTaskCode(taskCode);
-//		aForm.getClaimBean().setCommentTo("domain10");
-//		aForm.getClaimBean().setCreatedBy("DOMAIN205");
-		
-//		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-//		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+		if ("cancel".equals(sForm.getTask())) {
+			session.removeAttribute("taskCode");
+			return mapping.findForward("Cancel");
+		}
 		
 		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
 		

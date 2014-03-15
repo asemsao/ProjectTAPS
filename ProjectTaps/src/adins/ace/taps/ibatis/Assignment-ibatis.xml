@@ -510,6 +510,11 @@
 		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#status#,#commentTo#,#createdBy#,SYSDATE)
 	</insert>
 	
+	<insert id="addHistorySelfComment">
+		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
+		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#currentStatus#,#commentTo#,#createdBy#,SYSDATE)
+	</insert>
+	
 	<update id="updateStatusAssignment" parameterClass="java.util.Map">
 		UPDATE assignments SET
 			current_status = #status#,

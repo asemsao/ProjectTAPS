@@ -33,13 +33,23 @@ public class SelfAssignmentAction extends Action {
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo("domain10");
 		sForm.getSelfAssignBean().setCreatedBy("DOMAIN205");
-		
-//		aForm.getClaimBean().setTaskCode(taskCode);
-//		aForm.getClaimBean().setCommentTo("domain10");
-//		aForm.getClaimBean().setCreatedBy("DOMAIN205");
-		
-//		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-//		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+
+		if ("cancel".equals(sForm.getTask())) {
+			session.removeAttribute("taskCode");
+			return mapping.findForward("Cancel");
+		}else if ("RFA".equals(sForm.getTask())) {
+			sForm.getSelfAssignBean().setCurrentStatus("RFA");
+			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "RFA");
+			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "INACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			session.removeAttribute("taskCode");
+			System.out.println(success);
+			return mapping.findForward("Cancel");
+		}
 		
 		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
 		

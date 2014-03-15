@@ -8,6 +8,7 @@ import java.util.Map;
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.bean.employee.NewSelfAssignmentBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -488,6 +489,25 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addHistoryComment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	public boolean addHistorySelfComment(NewAssignmentBean bean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addHistorySelfComment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;

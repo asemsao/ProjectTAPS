@@ -159,10 +159,12 @@
 		<action name="selfAssignmentForm" path="/selfAssignment"
 			scope="request" type="adins.ace.taps.action.SelfAssignmentAction">
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_correction.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
 		</action>
 		<action name="selfAssignmentForm" path="/selfSupervisorAssignment"
 			scope="request" type="adins.ace.taps.action.SelfSupervisorAssignmentAction">
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_approval.jsp" />
+			<forward name="Cancel" path="/employeeReport.do" />
 		</action>
 	</action-mappings>
 
