@@ -4,10 +4,280 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="employee">
-	<select id="getAllEmployees" 
-		resultClass="adins.ace.taps.bean.employee.EmployeeBean">
-		SELECT EMPLOYEE_CODE AS employeeCode, USER_DOMAIN AS userDomain, 
-		EMPLOYEE_NIK AS nik, FIRST_NAME||' '||LAST_NAME AS employeeName, 
-		ADDRESS AS employeeAddress FROM EMPLOYEES
+	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
+
+	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		FROM employees e
+		WHERE 1 = 1 AND lower(flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeCode">(LOWER(EMPLOYEE_CODE)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="employeeAddress">(LOWER(ADDRESS)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(EMPLOYEE_CODE)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%') OR LOWER(ADDRESS)
+						LIKE
+						LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="organization">
+				<isNotEmpty property="organization">
+					(LOWER(ORGANIZATION_CODE) LIKE
+					LOWER(#organization#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 	</select>
+
+	<select id="searchEmployees" resultClass="employeeBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT EMPLOYEE_CODE AS
+		employeeCode, USER_DOMAIN AS employeeDomain,
+		EMPLOYEE_NIK AS
+		employeeNik,
+		FIRST_NAME||' '||LAST_NAME AS employeeName,
+		ADDRESS AS
+		employeeAddress
+		FROM EMPLOYEES
+		WHERE 1 = 1 AND lower(flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeCode">(LOWER(EMPLOYEE_CODE)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="employeeAddress">(LOWER(ADDRESS)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(EMPLOYEE_CODE)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(LAST_NAME) LIKE LOWER ('%$keyword$%') OR LOWER(ADDRESS)
+						LIKE
+						LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="organization">
+				<isNotEmpty property="organization">
+					(LOWER(ORGANIZATION_CODE) LIKE
+					LOWER(#organization#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
+		parameterClass="java.lang.String">
+		SELECT picture AS profilePicture from employees WHERE
+		user_domain=#employeeDomain#
+	</select>
+	<select id="searchEmployeesOnProject" resultClass="employeeBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT e.EMPLOYEE_CODE AS
+		employeeCode, e.USER_DOMAIN AS employeeDomain,
+		e.EMPLOYEE_NIK AS
+		employeeNik,
+		e.FIRST_NAME||' '||e.LAST_NAME AS employeeName,
+		ps.project_role AS projectRole
+		FROM EMPLOYEES e
+		JOIN
+		PROJECT_STRUCTURES
+		ps
+		ON
+		e.user_domain = ps.assignee_user_domain
+		WHERE 1
+		= 1 AND lower(flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeCode">(LOWER(e.EMPLOYEE_CODE)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectRole">(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.EMPLOYEE_CODE)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%') OR
+						(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="project">
+				<isNotEmpty property="project">
+					(LOWER(ps.project_code) LIKE
+					LOWER(#project#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
+	<select id="countEmployeesOnProject" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (SELECT COUNT(1)
+		FROM
+		EMPLOYEES e
+		JOIN PROJECT_STRUCTURES ps
+		ON
+		e.user_domain =
+		ps.assignee_user_domain
+		WHERE 1 = 1 AND lower(flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeCode">(LOWER(e.EMPLOYEE_CODE)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="projectRole">(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.EMPLOYEE_CODE)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%')
+						OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%') OR
+						(LOWER(ps.project_role)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="project">
+				<isNotEmpty property="project">
+					(LOWER(ps.project_code) LIKE
+					LOWER(#project#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
+	<update id="saveEditEmployees" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+		<isEmpty property="tempProfPic">
+			UPDATE employees
+			SET
+			employee_nik=#employeeNik#,
+			employee_code=#employeeCode#,
+			first_name=#firstName#,last_name=#lastName#, gender=#gender#,
+			organization_code=#businessUnit#, address=#employeeAddress#,
+			phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
+			email=#email#,
+			employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE',
+			updated_by='DOMAIN201',
+			updated_date=SYSDATE WHERE
+			user_domain=#employeeDomain#
+		</isEmpty>
+		<isNotNull property="tempProfPic">
+			<isNotEmpty property="tempProfPic">
+				UPDATE employees
+				SET
+				picture=#profilePicture#,
+				employee_nik=#employeeNik#,
+				employee_code=#employeeCode#,
+				first_name=#firstName#,last_name=#lastName#, gender=#gender#,
+				organization_code=#businessUnit#, address=#employeeAddress#,
+				phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
+				email=#email#,
+				employee_category=#golonganNumber# || #golonganLevel#,
+				flag='ACTIVE',
+				updated_by='DOMAIN201',
+				updated_date=SYSDATE WHERE
+				user_domain=#employeeDomain#
+			</isNotEmpty>
+		</isNotNull>
+	</update>
+	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
+		parameterClass="java.util.Map">
+		SELECT e.picture AS profilePicture, e.user_domain AS
+		employeeDomain, TRIM(e.employee_nik) AS employeeNik,
+		TRIM(e.employee_code) AS
+		employeeCode,
+		e.first_name AS firstName,
+		e.last_name AS lastName, e.gender AS
+		gender, e.organization_code AS
+		businessUnit, o.organization_name AS
+		businessUnitName, e.address AS employeeAddress,
+		e.phone_number AS
+		phoneNumber,
+		e.mobile_phone AS mobileNumber, e.email AS
+		email,
+		SUBSTR(e.employee_category,1,1) AS golonganNumber,
+		SUBSTR(e.employee_category,2,2) AS golonganLevel, e.flag AS flag FROM
+		employees e JOIN organizations o ON
+		e.organization_code=o.organization_code
+		where UPPER(user_domain) =
+		UPPER(#employeeDomain#)
+	</select>
+	<insert id="insertEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+		INSERT INTO
+		employees(picture, user_domain, employee_nik, employee_code,
+		first_name,
+		last_name, gender, organization_code, address,
+		phone_number,
+		mobile_phone, email,
+		employee_category, flag, created_by,
+		created_date)
+		VALUES(#profilePicture#,#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
+		#gender#,#businessUnit#,#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
+		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE)
+	</insert>
 </sqlMap>

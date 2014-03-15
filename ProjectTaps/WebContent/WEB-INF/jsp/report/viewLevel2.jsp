@@ -162,6 +162,18 @@
 								<th colspan=7 class="text-center"><h3><bean:write property="param3"/></h3></th>
 							</tr>
 							<tr>
+								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
+								<th colspan=2 class="text-left"><h5>
+								<logic:notEmpty name="reportForm" property="reportPeriode">
+									Semester : <bean:write property="reportPeriode"/> </h5>
+								</logic:notEmpty>
+								<logic:notEmpty name="reportForm" property="reportMonth">
+									Month :<bean:write property="reportMonth"/> </h5>
+								</logic:notEmpty>
+									
+								</th>
+							</tr>
+							<tr>
 								<th class="text-center">
 									<div class="input-control select">
 										<select>
@@ -187,8 +199,8 @@
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
-									<tr>
-										<td><bean:write name="report" property="employeeName" /></td>
+									<tr class="text-center">
+										<td class="text-left"><bean:write name="report" property="employeeName" /></td>
 										<td><bean:write name="report" property="totalRoutine" /></td>
 										<td><bean:write name="report" property="totalInitiative" /></td>
 										<td><bean:write name="report" property="totalAdhoc" /></td>
@@ -233,6 +245,10 @@
 		<html:hidden property="param" name="reportForm" />
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
+		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="reportYear" name="reportForm" />
+		<html:hidden property="reportPeriode" name="reportForm" />
+		<html:hidden property="reportMonth" name="reportForm" />
 	</html:form>
 	<jsp:include page="../../../frame/footer.jsp" />
 
