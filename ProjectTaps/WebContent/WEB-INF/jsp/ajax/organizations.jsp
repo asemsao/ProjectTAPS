@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>AJAX ORGANIZATIONS</title>
+<title>AJAX Business Unit</title>
 </head>
 <body>
 	<html:form action="/ajax" method="post">
@@ -24,7 +24,7 @@
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
-					<th colspan=5 class="text-center">Organization List</th>
+					<th colspan=5 class="text-center">Business Unit List</th>
 				</tr>
 				<tr>
 					<th class="text-center" colspan=2>
@@ -32,8 +32,8 @@
 							<html:select property="searchCategory" name="ajaxForm"
 								styleClass="search-category-organization">
 								<html:option value="all">All</html:option>
-								<html:option value="organizationCode">Organization Code</html:option>
-								<html:option value="organizationName">Organization Name</html:option>
+								<html:option value="organizationCode">Business Unit Code</html:option>
+								<html:option value="organizationName">Business Unit Name</html:option>
 								<html:option value="headName">Head Name</html:option>
 							</html:select>
 						</div>
@@ -55,8 +55,8 @@
 				<thead>
 					<tr>
 						<th class="text-center">Choose</th>
-						<th class="text-center">Organization Code</th>
-						<th class="text-center">Organization Name</th>
+						<th class="text-center">Business Unit Code</th>
+						<th class="text-center">Business Unit Name</th>
 						<th class="text-center">Head Name</th>
 					</tr>
 				</thead>

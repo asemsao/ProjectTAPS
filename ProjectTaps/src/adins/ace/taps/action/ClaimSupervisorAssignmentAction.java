@@ -41,6 +41,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			//update table star
 			aForm.getClaimBean().setStarBefore(0);
 			aMan.addAssignmentStar(aForm.getClaimBean());
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("CORRECTION");
@@ -52,6 +53,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("REJECTED");
@@ -63,13 +65,16 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(aForm.getTask())) {
 			// update tabel star 
 			aForm.getClaimBean().setStarBefore(aMan.searchLastStar(taskCode));
 			aMan.addAssignmentStar(aForm.getClaimBean());
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
+			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}
 

@@ -39,9 +39,9 @@ public class OrganizationAction extends Action {
 		if ("Save".equals(orgForm.getTask())) {
 			try {
 				orgMan.submitInsert(orgForm.getOrgBean());
-				orgForm.setMessage("Insert Organization Successfull!");
+				orgForm.setMessage("Insert Business Unit Successfull!");
 			} catch (Exception e) {
-				orgForm.setMessage("Insert Organization Failed!");
+				orgForm.setMessage("Insert Business Unit Failed!");
 			}
 		}
 		if ("edit".equals(orgForm.getTask())) {
@@ -52,9 +52,9 @@ public class OrganizationAction extends Action {
 		if ("saveEdit".equals(orgForm.getTask())) {
 			try {
 				orgMan.submitEdit(orgForm.getOrgBean());
-				orgForm.setMessage("Edit Organization Successfull!");
+				orgForm.setMessage("Edit Business Unit Successfull!");
 			} catch (Exception e) {
-				orgForm.setMessage("Edit Organization Failed!");
+				orgForm.setMessage("Edit Business Unit Failed!");
 			}
 		}
 		if ("delete".equals(orgForm.getTask())) {
@@ -65,11 +65,11 @@ public class OrganizationAction extends Action {
 						.getOrganizationCode().replaceAll("-", "")) == 0) {
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
 							.replaceAll("-", ""));
-					orgForm.setMessage("Delete Organization Successfull!");
+					orgForm.setMessage("Delete Business Unit Successfull!");
 				} else
-					orgForm.setMessage("Delete Organization Failed! has child");
+					orgForm.setMessage("Delete Business Unit Failed! has child");
 			} else
-				orgForm.setMessage("Delete Organization Failed! has member");
+				orgForm.setMessage("Delete Business Unit Failed! has member");
 		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);

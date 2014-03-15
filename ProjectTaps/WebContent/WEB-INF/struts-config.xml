@@ -126,7 +126,7 @@
 			<forward name="Approved" path="/claimAssignment.do" />
 			<forward name="ApprovedSupervisor" path="/claimSupervisorAssignment.do" />
 		</action>
-		<action name="newAssignmentForm" path="/newAssignment" scope="request"
+		<action name="claimAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />

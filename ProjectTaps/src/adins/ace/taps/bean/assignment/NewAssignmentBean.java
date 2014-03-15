@@ -16,7 +16,7 @@ public class NewAssignmentBean implements Serializable {
 	private String projectCode = "";
 	private String projectName = "";
 	private String activityType = "";
-	private String manHours = "";
+	private Double manHours;
 	private String description = "";
 	private String reffTaskCode = "";
 	private String adhocUserDomain = "";
@@ -111,10 +111,10 @@ public class NewAssignmentBean implements Serializable {
 	public void setActivityType(String activityType) {
 		this.activityType = activityType;
 	}
-	public String getManHours() {
+	public Double getManHours() {
 		return manHours;
 	}
-	public void setManHours(String manHours) {
+	public void setManHours(Double manHours) {
 		this.manHours = manHours;
 	}
 	public String getDescription() {
