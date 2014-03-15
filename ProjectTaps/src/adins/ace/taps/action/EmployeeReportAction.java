@@ -24,6 +24,9 @@ public class EmployeeReportAction extends Action {
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
+		if (session.getAttribute("taskCode")!=null){
+			session.removeAttribute("taskCode");
+		}
 		Map params = new HashMap();
 
 		if (eForm.getPage() == null) {
@@ -47,13 +50,14 @@ public class EmployeeReportAction extends Action {
 				eForm.setPage(eForm.getPage() + 1);
 			}
 		}
-
+		
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())) {
+				System.out.println(eForm.getCurrentStatus());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {

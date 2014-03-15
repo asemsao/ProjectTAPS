@@ -143,7 +143,7 @@ public class AssignmentManager {
 	// **********************************************************************************************//
 
 	// **********************************************************************************************//
-	public boolean addAssignment(NewAssignmentBean bean) {
+	public boolean addAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
@@ -248,28 +248,28 @@ public class AssignmentManager {
 
 	// **********************************************************************************************//
 
-	public NewAssignmentBean searchRecordAssignment(String taskCode) {
-		NewAssignmentBean assignmentBean = new NewAssignmentBean();
-		try {
-			ibatisSQLMap.startTransaction();
-			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
-					"assignment.searchRecordAssignment", taskCode);
-			ibatisSQLMap.commitTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		System.out.println(assignmentBean.getTaskCode());
-		return assignmentBean;
-	}
+//	public NewAssignmentBean searchRecordAssignment(String taskCode) {
+//		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+//		try {
+//			ibatisSQLMap.startTransaction();
+//			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+//					"assignment.searchRecordAssignment", taskCode);
+//			ibatisSQLMap.commitTransaction();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				ibatisSQLMap.endTransaction();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//		return assignmentBean;
+//	}
 
 	public NewAssignmentBean searchRecordSelfAssignment(String taskCode) {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+		System.out.println(assignmentBean.getTaskCode());
 		try {
 			ibatisSQLMap.startTransaction();
 			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
@@ -284,7 +284,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(assignmentBean.getTaskCode());
 		return assignmentBean;
 	}
 
@@ -364,7 +363,7 @@ public class AssignmentManager {
 		return count;
 	}
 
-	public boolean editAssignment(NewAssignmentBean bean) {
+	public boolean editAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
@@ -405,7 +404,7 @@ public class AssignmentManager {
 	}
 
 	public boolean editDetailClaim(NewAssignmentBean bean) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.update("assignment.editClaimSelfAssignment", bean);
@@ -425,7 +424,7 @@ public class AssignmentManager {
 	}
 
 	public boolean editDetailClaimAssignment(ClaimAssignmentBean bean) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.update("assignment.editDetailClaimAssignment", bean);
@@ -445,7 +444,7 @@ public class AssignmentManager {
 	}
 	
 	public boolean addDetailClaim(NewAssignmentBean bean) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addDetailClaim", bean);
@@ -465,7 +464,7 @@ public class AssignmentManager {
 	}
 
 	public boolean addHistoryComment(ClaimAssignmentBean bean) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addHistoryComment", bean);
@@ -484,7 +483,7 @@ public class AssignmentManager {
 	}
 
 	public boolean updateStatus(Map paramStatus) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.updateStatusAssignment",
@@ -504,7 +503,7 @@ public class AssignmentManager {
 	}
 	
 	public boolean addAssignmentStar(ClaimAssignmentBean bean) {
-		boolean success = false;
+		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addAssignmentStar",bean);

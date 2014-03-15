@@ -13,6 +13,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.NewAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 
@@ -21,7 +23,7 @@ public class NewAssignmentAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		NewAssignmentForm aForm = (NewAssignmentForm) form;
+		ClaimAssignmentForm aForm = (ClaimAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
@@ -29,7 +31,7 @@ public class NewAssignmentAction extends Action {
 
 		if (aForm.getNewTask() == null) {
 			if (session.getAttribute("taskCode") != null) {
-				aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+				aForm.setAssignmentBean(aMan.searchRecordClaimAssignment((String) session.getAttribute("taskCode")));
 			}
 			return mapping.findForward("NewAssignment");
 		}
@@ -40,7 +42,7 @@ public class NewAssignmentAction extends Action {
 			} else {
 				aForm.getAssignmentBean().setAssignmentType(
 						aForm.getAssignmentType());
-				
+				aForm.getAssignmentBean().setReportTo("domain100");
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
@@ -63,6 +65,7 @@ public class NewAssignmentAction extends Action {
 				boolean success = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getAssignmentBean().setTaskCode((String) session.getAttribute("taskCode"));
+					aForm.getAssignmentBean().setUpdatedBy("domain100");
 					success = aMan.editAssignment(aForm.getAssignmentBean());
 				}
 				else {
