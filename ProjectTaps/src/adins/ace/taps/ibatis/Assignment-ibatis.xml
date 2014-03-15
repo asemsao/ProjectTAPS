@@ -318,6 +318,12 @@
 		WHERE user_domain = #userDomain#
 	</select>
 	
+	<select id="searchHeadUserDomain" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT head_user_domain AS headUserDomain
+		FROM organizations
+		WHERE organization_code = #organizationCode#
+	</select>
+	
 	<select id="searchHeadOrganizationCode" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
 		SELECT o.organization_name AS organizationName,
 			o.head_user_domain AS headUserDomain,
@@ -369,29 +375,29 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
-<!-- 	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String"> -->
-<!-- 		SELECT a.task_code AS taskCode, -->
-<!--             TO_CHAR(a.assignment_date,'DD/MM/YYYY') AS assignmentDate,  -->
-<!--             TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate,  -->
-<!--             a.assignment_type AS assignmentType,  -->
-<!--             a.assign_to AS assignTo, -->
-<!--             e.first_name || ' ' || e.last_name AS assignToFullName, -->
-<!--             a.report_to AS reportTo,  -->
-<!--             o.organization_code AS organizationCode,  -->
-<!--             o.organization_name AS organizationName, -->
-<!--             mgr.first_name || ' ' || mgr.last_name AS headUserName, -->
-<!--             a.project_code AS projectCode, -->
-<!--             p.project_name AS projectName,  -->
-<!--             a.reff_task_code AS reffTaskCode, -->
-<!--             a.activity_type AS activityType, -->
-<!--             a.adhoc_user_domain AS adhocUserDomain,  -->
-<!--             a.current_status AS status, -->
-<!--             a.description AS description -->
-<!--         FROM assignments a, organizations o, employees e, employees mgr, projects p -->
-<!--         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain  -->
-<!--         AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain  -->
-<!--         AND a.project_code = p.project_code(+)  -->
-<!-- 	</select> -->
+	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
+		SELECT a.task_code AS taskCode,
+            TO_CHAR(a.assignment_date,'DD/MM/YYYY') AS assignmentDate, 
+            TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
+            a.assignment_type AS assignmentType, 
+            a.assign_to AS assignTo,
+            e.first_name || ' ' || e.last_name AS assignToFullName,
+            a.report_to AS reportTo, 
+            o.organization_code AS organizationCode, 
+            o.organization_name AS organizationName,
+            mgr.first_name || ' ' || mgr.last_name AS headUserName,
+            a.project_code AS projectCode,
+            p.project_name AS projectName, 
+            a.reff_task_code AS reffTaskCode,
+            a.activity_type AS activityType,
+            a.adhoc_user_domain AS adhocUserDomain, 
+            a.current_status AS status,
+            a.description AS description
+        FROM assignments a, organizations o, employees e, employees mgr, projects p
+        WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain 
+        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
+        AND a.project_code = p.project_code(+) 
+	</select>
 	
 	<select id="searchRecordSelfAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
 		SELECT a.task_code AS taskCode,
@@ -416,7 +422,7 @@
             d.manhour AS manHours
         FROM assignments a, organizations o, employees e, employees e2, employees adhoc, employees mgr, detail_claim_assignments d, projects p  
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain AND a.adhoc_user_domain = adhoc.user_domain(+) 
-        AND a.organization_code = o.organization_code(+) AND o.head_user_domain = mgr.user_domain 
+        AND a.organization_code = o.organization_code(+) AND o.head_user_domain = mgr.user_domain(+) 
         AND a.task_code = d.task_code(+) AND a.project_code = p.project_code(+)
 	</select>
 	

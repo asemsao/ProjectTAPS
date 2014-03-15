@@ -31,7 +31,7 @@ public class NewAssignmentAction extends Action {
 
 		if (aForm.getNewTask() == null) {
 			if (session.getAttribute("taskCode") != null) {
-				aForm.setAssignmentBean(aMan.searchRecordClaimAssignment((String) session.getAttribute("taskCode")));
+				aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
 			}
 			return mapping.findForward("NewAssignment");
 		}
@@ -46,6 +46,7 @@ public class NewAssignmentAction extends Action {
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
+					aForm.getAssignmentBean().setProjectCode(null);
 					paramCode = aForm.getAssignmentBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);

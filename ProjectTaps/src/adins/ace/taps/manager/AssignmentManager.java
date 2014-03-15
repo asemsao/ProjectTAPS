@@ -202,7 +202,27 @@ public class AssignmentManager {
 		}
 		return organizationCode;
 	}
-
+	
+	public String searchHeadUserDomain(String userDomain) {
+		String headUserDomain = "";
+		try {
+			ibatisSQLMap.startTransaction();
+			headUserDomain = (String) ibatisSQLMap.queryForObject(
+					"assignment.searchHeadUserDomain", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed search organization");
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return headUserDomain;
+	}
+	
 	public NewAssignmentBean searchHeadOrganizationCode(String userDomain) {
 		NewAssignmentBean organization = new NewAssignmentBean();
 		try {
@@ -248,24 +268,24 @@ public class AssignmentManager {
 
 	// **********************************************************************************************//
 
-//	public NewAssignmentBean searchRecordAssignment(String taskCode) {
-//		NewAssignmentBean assignmentBean = new NewAssignmentBean();
-//		try {
-//			ibatisSQLMap.startTransaction();
-//			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
-//					"assignment.searchRecordAssignment", taskCode);
-//			ibatisSQLMap.commitTransaction();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				ibatisSQLMap.endTransaction();
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
-//			}
-//		}
-//		return assignmentBean;
-//	}
+	public ClaimAssignmentBean searchRecordAssignment(String taskCode) {
+		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchRecordAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return assignmentBean;
+	}
 
 	public NewAssignmentBean searchRecordSelfAssignment(String taskCode) {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();

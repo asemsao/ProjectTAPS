@@ -92,7 +92,7 @@
 								<%
 									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-								<th class="text-center">Assign By</th>
+								<th class="text-center">Report To</th>
 								<%
 									} else {
 								%>

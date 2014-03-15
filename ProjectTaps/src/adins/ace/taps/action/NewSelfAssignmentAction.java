@@ -28,10 +28,11 @@ public class NewSelfAssignmentAction extends Action {
 		Date date = new Date();
 		
 		if (aForm.getNewTask() == null) {
-			aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
 			System.out.println(session.getAttribute("taskCode"));
 			if (session.getAttribute("taskCode") != null) {
 				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment((String) session.getAttribute("taskCode")));
+			} else {
+				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
 			}
 			return mapping.findForward("NewSelfAssignment");
 		}
@@ -48,6 +49,7 @@ public class NewSelfAssignmentAction extends Action {
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
 					aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
+					aForm.getSelfAssignBean().setProjectCode(null);
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);

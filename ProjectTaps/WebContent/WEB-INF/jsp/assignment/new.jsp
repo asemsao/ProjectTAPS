@@ -132,9 +132,9 @@
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
-												name="claimAssignmentForm" styleId="project-code"></html:hidden>
+												name="claimAssignmentForm" styleId="project-code"/>
 											<html:hidden property="assignmentBean.projectName"
-												name="claimAssignmentForm" styleId="project-fullName"></html:hidden>
+												name="claimAssignmentForm" styleId="project-fullName"/>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
