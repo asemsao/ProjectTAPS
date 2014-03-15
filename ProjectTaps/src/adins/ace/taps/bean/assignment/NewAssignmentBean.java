@@ -32,6 +32,11 @@ public class NewAssignmentBean implements Serializable {
 	private String reportToFullName = "";
 	private String adhocFullName = "";
 	private String detailId = "";
+	private String comment;
+	private String assignmentComment;
+	private String commentDate;
+	private String commentFrom;
+	private String commentTo;
 	
 	public String getHeadUserDomain() {
 		return headUserDomain;
@@ -201,5 +206,35 @@ public class NewAssignmentBean implements Serializable {
 	public void setAdhocFullName(String adhocFullName) {
 		this.adhocFullName = adhocFullName;
 	}
-
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getAssignmentComment() {
+		return assignmentComment;
+	}
+	public void setAssignmentComment(String assignmentComment) {
+		this.assignmentComment = assignmentComment;
+	}
+	public String getCommentDate() {
+		return commentDate;
+	}
+	public void setCommentDate(String commentDate) {
+		this.commentDate = commentDate;
+	}
+	public String getCommentFrom() {
+		return commentFrom;
+	}
+	public void setCommentFrom(String commentFrom) {
+		this.commentFrom = commentFrom;
+	}
+	public String getCommentTo() {
+		return commentTo;
+	}
+	public void setCommentTo(String commentTo) {
+		this.commentTo = commentTo;
+	}
+	
 }
