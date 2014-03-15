@@ -120,6 +120,11 @@
 			<forward name="Approved" path="/claimAssignment.do" />
 			<forward name="ApprovedSupervisor" path="/claimSupervisorAssignment.do" />
 			<forward name="SelfAssignmentCorrection" path="/selfAssignment.do" />
+			<forward name="SelfAssignmentCorrectionSupervisor" path="/selfSupervisorAssignment.do" />
+			<forward name="RFASelfAssignment" path="/selfAssignment.do" />
+			<forward name="RFASelfSupervisorAssignment" path="/selfSupervisorAssignment.do" />
+			<forward name="ApprovedSelfAssignment" path="/selfAssignment.do" />
+			<forward name="ApprovedSupervisorSelfAssignment" path="/selfSupervisorAssignment.do" />
 		</action>
 		<action name="newAssignmentForm" path="/newAssignment" scope="request"
 			type="adins.ace.taps.action.NewAssignmentAction">
@@ -146,6 +151,10 @@
 		<action name="selfAssignmentForm" path="/selfAssignment"
 			scope="request" type="adins.ace.taps.action.SelfAssignmentAction">
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_correction.jsp" />
+		</action>
+		<action name="selfAssignmentForm" path="/selfSupervisorAssignment"
+			scope="request" type="adins.ace.taps.action.SelfSupervisorAssignmentAction">
+			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_approval.jsp" />
 		</action>
 	</action-mappings>
 

@@ -37,7 +37,21 @@ public class NewAssignmentBean implements Serializable {
 	private String commentDate;
 	private String commentFrom;
 	private String commentTo;
+	private Integer appraisalStar;
+	private Integer starBefore;
 	
+	public Integer getAppraisalStar() {
+		return appraisalStar;
+	}
+	public void setAppraisalStar(Integer appraisalStar) {
+		this.appraisalStar = appraisalStar;
+	}
+	public Integer getStarBefore() {
+		return starBefore;
+	}
+	public void setStarBefore(Integer starBefore) {
+		this.starBefore = starBefore;
+	}
 	public String getHeadUserDomain() {
 		return headUserDomain;
 	}

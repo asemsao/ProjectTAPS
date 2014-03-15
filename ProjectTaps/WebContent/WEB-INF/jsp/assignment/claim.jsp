@@ -71,6 +71,14 @@
 										%>
 										Approved Assignment
 										<%
+											} else if ("REJECTED".equals(session.getAttribute("status"))) {
+										%>
+										Rejected Assignment
+										<%
+											} else if ("RFA".equals(session.getAttribute("status"))) {
+										%>
+										Request For Approval Assignment
+										<%
 											} else {
 										%>
 										View Assignment
@@ -160,7 +168,8 @@
 															<%
 																} else if ("APPROVED".equals(session
 																					.getAttribute("status"))
-																					|| "RFA".equals(session.getAttribute("status"))) {
+																					|| "RFA".equals(session.getAttribute("status"))
+																					|| "REJECTED".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -231,7 +240,8 @@
 																	<%
 																		} else if ("APPROVED".equals(session
 																							.getAttribute("status"))
-																							|| "RFA".equals(session.getAttribute("status"))) {
+																							|| "RFA".equals(session.getAttribute("status"))
+																							|| "REJECTED".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">

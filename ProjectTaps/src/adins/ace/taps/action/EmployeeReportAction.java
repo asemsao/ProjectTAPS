@@ -78,6 +78,12 @@ public class EmployeeReportAction extends Action {
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("ApprovedSelfAssignment");
 					}
+				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("Approved");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("ApprovedSelfAssignment");
+					}
 				}
 				return mapping.findForward("View");
 			}
@@ -124,6 +130,12 @@ public class EmployeeReportAction extends Action {
 						return mapping.findForward("ApprovedSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("ApprovedSupervisorSelfAssignment");
+					}
+				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("CorrectionSupervisor");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
 					}
 				}
 			}
