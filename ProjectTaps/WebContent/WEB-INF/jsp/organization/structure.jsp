@@ -84,7 +84,7 @@
 								<td class="text-center">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="organizationForm">
-											<html:option value="">All</html:option>
+											<html:option value="All">All</html:option>
 											<html:option value="memberDomain">Employee Domain</html:option>
 											<html:option value="memberCode">Employee Code</html:option>
 											<html:option value="memberName">Employee Name</html:option>
@@ -106,8 +106,8 @@
 						<thead>
 							<tr>
 								<th class="text-center">User Domain</th>
-								<th class="text-center">Employee Code</th>
 								<th class="text-center">Employee Name</th>
+								<th class="text-center">Employee Code</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -116,10 +116,12 @@
 								<logic:iterate id="organization" name="organizationForm"
 									property="listMemberOrganizations">
 									<tr>
-										<td><bean:write name="organization"
+										<td class="text-center"><bean:write name="organization"
 												property="memberDomain" /></td>
-										<td><bean:write name="organization" property="memberCode" /></td>
-										<td><bean:write name="organization" property="memberName" /></td>
+										<td><bean:write name="organization"
+												property="memberName" /></td>
+										<td class="text-center"><bean:write name="organization"
+												property="memberCode" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
