@@ -17,7 +17,6 @@
 			return;
 		} else if (task == "saveEditEmployee") {
 			document.employeeForm.task.value = task;
-			document.employeeForm.submit();
 		}
 	}
 	$(document).ready(function() {
@@ -40,7 +39,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form enctype="multipart/form-data" action="/employee" method="POST" styleClass="employeeForm">
+	<html:form enctype="multipart/form-data" action="/employee" method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
 		<html:hidden property="task" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -200,9 +199,9 @@
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<button id="save-btn-emp" onclick="button('saveEditEmployee')"
+									<button onclick="button('saveEditEmployee')"
 										class="button success">Save</button>
-									<button id="cancel-btn" onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

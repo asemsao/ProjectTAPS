@@ -264,7 +264,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SUBSTR(e.employee_category,2,2) AS golonganLevel, e.flag AS flag FROM
 		employees e JOIN organizations o ON
 		e.organization_code=o.organization_code
-		where UPPER(user_domain) =
+		WHERE UPPER(user_domain) =
 		UPPER(#employeeDomain#)
 	</select>
 	<insert id="insertEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
@@ -280,4 +280,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#gender#,#businessUnit#,#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
 		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE)
 	</insert>
+	<update id="deleteEmployee" parameterClass="java.lang.String">
+		UPDATE employees
+			SET flag='INACTIVE' WHERE user_domain=#employeeDomain#
+	</update>
 </sqlMap>
