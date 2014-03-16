@@ -38,6 +38,17 @@ public class SelfAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("RFA".equals(sForm.getTask())) {
+			String tmpDesctiption="";
+			String tmpManHours="";
+			tmpDesctiption = request.getParameter("tmpDescription");
+			tmpManHours = request.getParameter("tmpManHours");
+			if (!tmpDesctiption.equals(sForm.getSelfAssignBean().getDescription())) {
+				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
+			}
+			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
+				aMan.editManHourSelf(sForm.getSelfAssignBean());
+			}
+			
 			sForm.getSelfAssignBean().setCurrentStatus("RFA");
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();

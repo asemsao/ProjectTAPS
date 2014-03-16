@@ -443,6 +443,46 @@ public class AssignmentManager {
 		}
 		return success;
 	}
+	
+	public boolean editManHourSelf(NewAssignmentBean bean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.editManHourSelfAssignment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed to edit man hours self assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	public boolean editDescriptionSelfAssignment(NewAssignmentBean bean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.updateDescriptionSelfAssignment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed to edit description assignment on self assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
 
 	public boolean editDetailClaimAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
@@ -547,6 +587,25 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addAssignmentStar",bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
+	public boolean addSelfAssignmentStar(NewAssignmentBean bean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addSelfAssignmentStar",bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;

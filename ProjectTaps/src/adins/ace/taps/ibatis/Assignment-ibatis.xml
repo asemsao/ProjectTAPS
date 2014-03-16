@@ -497,6 +497,23 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
+	<!-- tambahan dari kartiko editmanhor, digunain untuk edit manhours di self assignment -->
+	<update id="editManHourSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE detail_claim_assignments SET
+			manhour = #manHours#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
+	<!-- tambahan dari kartiko editdeskripsi assignment, digunain untuk edit manhours di self assignment -->
+	<update id="updateDescriptionSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE assignments SET
+			description = #description#,
+			updated_by = #updatedBy#,
+			updated_date = SYSDATE
+		WHERE task_code = #taskCode#
+	</update>
+	
 	<update id="editDetailClaimAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		UPDATE detail_claim_assignments SET
 			manhour = #manHours#,
@@ -525,6 +542,11 @@
 	</update>
 	
 	<insert id="addAssignmentStar" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
+		INSERT INTO stars (star_id, task_code, user_domain, star_before, star_after, created_by, created_date) VALUES
+		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #assignTo#, #starBefore#, #appraisalStar#,#createdBy#,SYSDATE)
+	</insert>
+	
+	<insert id="addSelfAssignmentStar" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		INSERT INTO stars (star_id, task_code, user_domain, star_before, star_after, created_by, created_date) VALUES
 		(SEQUENCE_STARS.NEXTVAL, #taskCode#, #assignTo#, #starBefore#, #appraisalStar#,#createdBy#,SYSDATE)
 	</insert>

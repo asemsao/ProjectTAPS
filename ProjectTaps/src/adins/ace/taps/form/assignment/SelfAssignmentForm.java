@@ -11,17 +11,7 @@ import adins.ace.taps.bean.assignment.NewAssignmentBean;
 public class SelfAssignmentForm extends ActionForm {
 	private String task;
 	private NewAssignmentBean selfAssignBean = new NewAssignmentBean();
-	private List listDetailClaim;
 	private List historyComment;
-	private String totalManhours;
-
-	public String getTotalManhours() {
-		return totalManhours;
-	}
-
-	public void setTotalManhours(String totalManhours) {
-		this.totalManhours = totalManhours;
-	}
 
 	public String getTask() {
 		return task;
@@ -31,14 +21,6 @@ public class SelfAssignmentForm extends ActionForm {
 		this.task = task;
 	}
 	
-	public List getListDetailClaim() {
-		return listDetailClaim;
-	}
-
-	public void setListDetailClaim(List listDetailClaim) {
-		this.listDetailClaim = listDetailClaim;
-	}
-
 	public List getHistoryComment() {
 		return historyComment;
 	}
@@ -54,5 +36,4 @@ public class SelfAssignmentForm extends ActionForm {
 	public void setSelfAssignBean(NewAssignmentBean selfAssignBean) {
 		this.selfAssignBean = selfAssignBean;
 	}
-
 }

@@ -37,8 +37,80 @@ public class SelfSupervisorAssignmentAction extends Action {
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
-		}
-		
+		}else if ("approved".equals(sForm.getTask())) {
+			String tmpDesctiption="";
+			String tmpManHours="";
+			tmpDesctiption = request.getParameter("tmpDescription");
+			tmpManHours = request.getParameter("tmpManHours");
+			if (!tmpDesctiption.equals(sForm.getSelfAssignBean().getDescription())) {
+				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
+			}
+			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
+				aMan.editManHourSelf(sForm.getSelfAssignBean());
+			}
+			sForm.getSelfAssignBean().setCurrentStatus("APPROVED");
+			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "APPROVED");
+			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "ACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			session.removeAttribute("taskCode");
+			System.out.println(success);
+			//update table star
+			sForm.getSelfAssignBean().setStarBefore(0);
+			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			session.removeAttribute("taskCode");
+			return mapping.findForward("Cancel");
+		} else if ("correction".equals(sForm.getTask())) {
+			String tmpDesctiption="";
+			String tmpManHours="";
+			tmpDesctiption = request.getParameter("tmpDescription");
+			tmpManHours = request.getParameter("tmpManHours");
+			if (!tmpDesctiption.equals(sForm.getSelfAssignBean().getDescription())) {
+				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
+			}
+			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
+				aMan.editManHourSelf(sForm.getSelfAssignBean());
+			}
+			sForm.getSelfAssignBean().setCurrentStatus("CORRECTION");
+			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "CORRECTION");
+			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "INACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			session.removeAttribute("taskCode");
+			System.out.println(success);
+			return mapping.findForward("Cancel");
+		} else if ("reject".equals(sForm.getTask())) {
+			sForm.getSelfAssignBean().setCurrentStatus("REJECTED");
+			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", sForm.getSelfAssignBean().getCurrentStatus());
+			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "ACTIVE");
+			boolean success = aMan.updateStatus(paramStatus);
+			System.out.println(success);
+			session.removeAttribute("taskCode");
+			
+			return mapping.findForward("Cancel");
+		} else if ("updateStar".equals(sForm.getTask())) {
+			// update tabel star 
+			System.out.println(aMan.searchLastStar(taskCode));
+			if(aMan.searchLastStar(taskCode) == null){
+				sForm.getSelfAssignBean().setStarBefore(0);
+			}else{
+				sForm.getSelfAssignBean().setStarBefore(aMan.searchLastStar(taskCode));
+			}
+			
+			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			session.removeAttribute("taskCode");
+			return mapping.findForward("Cancel");
+		} 
 		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
 		
 		/*this session to check assignment type in self_correction.jsp*/
