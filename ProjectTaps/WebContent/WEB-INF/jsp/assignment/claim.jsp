@@ -23,24 +23,26 @@
 				$("#historyComment").load(
 						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
 								+ task_code);
-				$(".manHourUpdate").change(function() {
-					var detailId = $(this).prev().val();
-					var manHour = $(this).val();
-					var data = "task=updateDetailClaim&detailId=" + detailId + "&manHour=" + manHour;
-					$.ajax({
-						url : "/ProjectTaps/claimAssignment.do",
-						type : "POST",
-						data : data,
-						context : this,
-						error : function() {
-							console.log("problem was here!");
-						},
-						success : function(data) {
-							console.log("success");
-						}
-					});
+				$(".manHourUpdate").change(
+						function() {
+							var detailId = $(this).prev().val();
+							var manHour = $(this).val();
+							var data = "task=updateDetailClaim&detailId="
+									+ detailId + "&manHour=" + manHour;
+							$.ajax({
+								url : "/ProjectTaps/claimAssignment.do",
+								type : "POST",
+								data : data,
+								context : this,
+								error : function() {
+									console.log("problem was here!");
+								},
+								success : function(data) {
+									console.log("success");
+								}
+							});
 
-				});
+						});
 			});
 </script>
 
@@ -169,7 +171,8 @@
 																} else if ("APPROVED".equals(session
 																					.getAttribute("status"))
 																					|| "RFA".equals(session.getAttribute("status"))
-																					|| "REJECTED".equals(session.getAttribute("status"))) {
+																					|| "REJECTED".equals(session
+																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
 																	name="assignment" rows="2"
@@ -241,7 +244,8 @@
 																		} else if ("APPROVED".equals(session
 																							.getAttribute("status"))
 																							|| "RFA".equals(session.getAttribute("status"))
-																							|| "REJECTED".equals(session.getAttribute("status"))) {
+																							|| "REJECTED".equals(session
+																									.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"
 																		disabled="true">
@@ -306,9 +310,8 @@
 													</logic:iterate>
 												<tr>
 													<td colspan=2 class="text-right">Total</td>
-													<td class="text-center">
-														<%-- 													<bean:write property="totalManhours" name="assignment" /> --%>
-													</td>
+													<td class="text-center"><bean:write
+															property="totalManhours" name="claimAssignmentForm" /></td>
 												</tr>
 											</tbody>
 										</table>
@@ -368,7 +371,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<jsp:include page="/frame/footer.jsp" />
 </body>

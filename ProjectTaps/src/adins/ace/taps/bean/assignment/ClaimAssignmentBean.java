@@ -5,6 +5,7 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class ClaimAssignmentBean implements Serializable {
 	private String assignmentDate;
+	private String assignmentTime;
 	private String assignmentDueDate;
 	private String assignmentType;
 	private String organizationName;
@@ -49,6 +50,12 @@ public class ClaimAssignmentBean implements Serializable {
 	}
 	public void setAssignmentDate(String assignmentDate) {
 		this.assignmentDate = assignmentDate;
+	}
+	public String getAssignmentTime() {
+		return assignmentTime;
+	}
+	public void setAssignmentTime(String assignmentTime) {
+		this.assignmentTime = assignmentTime;
 	}
 	public String getAssignmentDueDate() {
 		return assignmentDueDate;

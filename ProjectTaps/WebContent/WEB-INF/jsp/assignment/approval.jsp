@@ -308,9 +308,8 @@
 													</logic:iterate>
 												<tr>
 													<td colspan=2 class="text-right">Total</td>
-													<td class="text-center">
-														<%-- 													<bean:write property="totalManhours" name="assignment" /> --%>
-													</td>
+													<td class="text-center"><bean:write
+															property="totalManhours" name="claimAssignmentForm" /></td>
 												</tr>
 											</tbody>
 										</table>

@@ -13,7 +13,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import adins.ace.taps.form.assignment.NewSelfAssignmentForm;
+import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 
 public class NewSelfAssignmentAction extends Action {
@@ -21,7 +21,7 @@ public class NewSelfAssignmentAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		NewSelfAssignmentForm aForm = (NewSelfAssignmentForm) form;
+		SelfAssignmentForm aForm = (SelfAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");

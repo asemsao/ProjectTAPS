@@ -80,6 +80,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Approval");
 	}
 }

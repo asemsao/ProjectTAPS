@@ -12,6 +12,33 @@ public class SelfAssignmentForm extends ActionForm {
 	private String task;
 	private NewAssignmentBean selfAssignBean = new NewAssignmentBean();
 	private List historyComment;
+	private String newTask;
+	private String assignmentType;
+	private String activityType;
+	
+	public String getNewTask() {
+		return newTask;
+	}
+
+	public void setNewTask(String newTask) {
+		this.newTask = newTask;
+	}
+
+	public String getAssignmentType() {
+		return assignmentType;
+	}
+
+	public void setAssignmentType(String assignmentType) {
+		this.assignmentType = assignmentType;
+	}
+
+	public String getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(String activityType) {
+		this.activityType = activityType;
+	}
 
 	public String getTask() {
 		return task;

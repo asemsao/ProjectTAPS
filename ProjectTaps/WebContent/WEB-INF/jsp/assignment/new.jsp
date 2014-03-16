@@ -51,7 +51,7 @@
 						$("#employee-name").val($("#employee-fullName").val());
 
 						$("#timepicker").timeselector();
-
+						
 						$('#project-name')
 								.bind(
 										"change",
@@ -107,8 +107,8 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<input type="text" id="timepicker" value="00:00"
-											readonly="readonly" />
+										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker"
+											readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>

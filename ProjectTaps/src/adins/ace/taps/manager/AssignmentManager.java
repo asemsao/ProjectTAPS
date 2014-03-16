@@ -638,4 +638,36 @@ public class AssignmentManager {
 		}
 		return lastStar;
 	}
+	
+	public String getTotalManHours(String taskCode) {
+		Double totalManHours = 0.0;
+		String manHours = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			totalManHours = (Double) ibatisSQLMap.queryForObject("assignment.totalManHours", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		String[] parts = (String.valueOf(totalManHours)).split("\\.");
+		if (parts[0].length() == 1) {
+			manHours = "0" + parts[0];
+		} else {
+			manHours = parts[0];
+		}
+		
+		if (parts[1].equals("5")) {
+			manHours = manHours + ":30";
+		} else {
+			manHours = manHours + ":00";
+		}
+		return manHours;
+	}
 }

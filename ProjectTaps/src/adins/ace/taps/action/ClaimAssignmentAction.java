@@ -40,6 +40,7 @@ public class ClaimAssignmentAction extends Action {
 			bean.setManHours(Double.parseDouble(request.getParameter("manHour")));
 			bean.setDetailId(Integer.parseInt(request.getParameter("detailId")));
 			aMan.editDetailClaimAssignment(bean);
+			aMan.getTotalManHours(taskCode);
 			out.print("Success");
 			return null;
 		}
@@ -70,6 +71,7 @@ public class ClaimAssignmentAction extends Action {
 
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Claim");
 	}
 }
