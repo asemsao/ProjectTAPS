@@ -13,12 +13,15 @@
 					<li><a href="javascript:menu('dashboard');" class="heading">
 							<span class="icon-home"></span> Dashboard
 					</a></li>
+					<% if(session.getAttribute("emp").equals("true")){ %>
 					<li><a class="dropdown-toggle element" href="#"><i
 							class="icon-user-3"></i> Employee</a>
 						<ul class="dropdown-menu" data-role="dropdown">
 							<li><a href="javascript:menu('employeeReport');"><span
 									class="icon-clipboard-2"></span> Employee Report</a></li>
 						</ul></li>
+					<%} 
+					if(session.getAttribute("spv").equals("true")){%>
 					<li><a class="dropdown-toggle element" href="#"><i
 							class="icon-user-3"></i> Supervisor</a>
 						<ul class="dropdown-menu" data-role="dropdown">
@@ -27,6 +30,8 @@
 							<li><a href="javascript:menu('assignment');"><span
 									class="icon-list"></span> Assignment</a></li>
 						</ul></li>
+					<%} 
+					if(session.getAttribute("hbu").equals("true")){%>
 					<li><a class="dropdown-toggle element" href="#"><i
 							class="icon-user-3"></i> Head BU</a>
 						<ul class="dropdown-menu" data-role="dropdown">
@@ -35,6 +40,8 @@
 							<li><a href="javascript:menu('appraisal');"><span
 									class="icon-trophy"></span> Special Appraisal</a></li>
 						</ul></li>
+					<%} 
+					if(session.getAttribute("adm").equals("true")){%>
 					<li><a class="dropdown-toggle element" href="#"><i
 							class="icon-user-3"></i> Administrator</a>
 						<ul class="dropdown-menu" data-role="dropdown">
@@ -49,6 +56,7 @@
 							<li><a href="javascript:menu('employeeRole');"><span
 									class="icon-cog"></span> Employee Role</a></li>
 						</ul></li>
+					<%} %>
 				</ul>
 
 				<ul class="element-menu place-right">
