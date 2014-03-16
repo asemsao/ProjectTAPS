@@ -23,6 +23,7 @@ public class ProjectAction extends Action {
 			throws Exception {
 		ProjectForm pForm = (ProjectForm) form;
 		ProjectManager pMan = new ProjectManager();
+		ProjectBean pBean = new ProjectBean();
 		Map params = new HashMap();
 
 		if (pForm.getPage() == null) {
@@ -58,7 +59,7 @@ public class ProjectAction extends Action {
 			pMan.addProject(pForm.getAddProject());
 		}
 		if ("cancel".equals(pForm.getTask())) {
-			//back to index.jsp
+			// back to index.jsp
 		}
 
 		if ("edit".equals(pForm.getTask())) {
@@ -70,39 +71,20 @@ public class ProjectAction extends Action {
 			pMan.updateProject(pForm.getpBean());
 			pForm.setListProject(pMan.searchProject(params));
 		}
-		if ("member".equals(pForm.getTask())) {
-			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
-			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParamProjectCode());
-			pForm.setOrganizationName(pBean.getOrganizationName());
-			pForm.setProjectName(pBean.getProjectName());
-			return mapping.findForward("ViewMember");
+		
+		if ("deleteProject".equals(pForm.getTask())) {
+			pMan.deleteProject(pForm.getParamProjectCode());
 		}
+
+		params.put("start", (pForm.getPage() - 1) * 10 + 1);
+		params.put("end", (pForm.getPage() * 10));
+		params.put("category", pForm.getSearchCategory());
+		params.put("keyword", pForm.getSearchKeyword());
+		
 		if ("addMember".equals(pForm.getTask())) {
-			ProjectBean pBean = new ProjectBean();
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("AddMember");
-		}
-		if ("saveMember".equals(pForm.getTask())) {
-
-			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			pMan.addProjectMember(pForm.getAddSProject());
-
-			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
-			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParamProjectCode());
-			pForm.setOrganizationName(pBean.getOrganizationName());
-			pForm.setProjectName(pBean.getProjectName());
-			return mapping.findForward("ViewMember");
-		}
-		if ("back".equals(pForm.getTask())) {
-			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
-			ProjectBean pBean = new ProjectBean();
-			pBean = pMan.getProjectById(pForm.getParamProjectCode());
-			pForm.setOrganizationName(pBean.getOrganizationName());
-			pForm.setProjectName(pBean.getProjectName());
-			return mapping.findForward("ViewMember");
 		}
 		if ("editMember".equals(pForm.getTask())) {
 			params = new HashMap();
@@ -112,40 +94,114 @@ public class ProjectAction extends Action {
 			pForm.setAddSProject(pMan.getProjectMemberById(params));
 			return mapping.findForward("EditMember");
 		}
-		if ("updateMember".equals(pForm.getTask())) {
-			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			pMan.updateMember(pForm.getAddSProject());
-
-			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
-			ProjectBean pBean = new ProjectBean();
+		
+		if ("member".equals(pForm.getTask())) {
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
 			return mapping.findForward("ViewMember");
 		}
-		if("deleteMember".equals(pForm.getTask()))
-		{
-			pForm.getAddSProject().setAssigneeUserDomain(pForm.getParamAssigneeUserDomain());
+		if ("saveMember".equals(pForm.getTask())) {
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			pMan.addProjectMember(pForm.getAddSProject());
+			
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			return mapping.findForward("ViewMember");
+		}
+		if ("back".equals(pForm.getTask())) {
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			return mapping.findForward("ViewMember");
+		}
+		if ("updateMember".equals(pForm.getTask())) {
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			pMan.updateMember(pForm.getAddSProject());
+			
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			return mapping.findForward("ViewMember");
+		}
+		if ("deleteMember".equals(pForm.getTask())) {
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
+			pForm.getAddSProject().setAssigneeUserDomain(
+					pForm.getParamAssigneeUserDomain());
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.deleteMember(pForm.getAddSProject());
 			
-			pForm.setListProject(pMan.getAllMember(pForm.getParamProjectCode()));
-			ProjectBean pBean = new ProjectBean();
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else {
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
 			return mapping.findForward("ViewMember");
 		}
-		if("deleteProject".equals(pForm.getTask()))
-		{
-			pMan.deleteProject(pForm.getParamProjectCode());
-		}
-
-		params.put("start", (pForm.getPage() - 1) * 10 + 1);
-		params.put("end", (pForm.getPage() * 10));
-		params.put("category", pForm.getSearchCategory());
-		params.put("keyword", pForm.getSearchKeyword());
-
 		pForm.setListProject(pMan.searchProject(params));
 		pForm.setCountRecord(pMan.countProject(params));
 

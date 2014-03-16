@@ -10,7 +10,13 @@
 
 <jsp:include page="/js/import.jsp" />
 <title>Taps</title>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		setInterval(function() {
+			$("#ar").val($("#ar").val() + "=");
+		}, 1000);
+	});
+</script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
@@ -19,6 +25,9 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<h2 class="fg-steel">Things To Do</h2>
+				<div class="input-control text">
+					<input name="id" value="" id="ar">
+				</div>
 				<div class="span9 center-taps">
 					<a href="#" data-hint="Approval Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
@@ -26,10 +35,10 @@
 							src="images/APPROVAL_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-gray">0</span>
 					</span>
-					</a> <a href="#" id="_edit_this"
-						data-hint="Claim Assignment" data-hint-position="left"
-						class="tile bg-cyan"> <span class="tile-content icon">
-							<img alt="" src="images/CLAIM_ASSIGNMENT.png">
+					</a> <a href="#" id="_edit_this" data-hint="Claim Assignment"
+						data-hint-position="left" class="tile bg-cyan"> <span
+						class="tile-content icon"> <img alt=""
+							src="images/CLAIM_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-red">5</span>
 					</span>
 					</a> <a href="#" data-hint="Claim Self Assignment"

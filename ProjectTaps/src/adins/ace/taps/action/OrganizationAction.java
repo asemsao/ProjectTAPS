@@ -39,9 +39,9 @@ public class OrganizationAction extends Action {
 		if ("Save".equals(orgForm.getTask())) {
 			try {
 				orgMan.submitInsert(orgForm.getOrgBean());
-				orgForm.setMessage("Insert Organization Successfull!");
+				orgForm.setMessage("Insert Business Unit Successfull!");
 			} catch (Exception e) {
-				orgForm.setMessage("Insert Organization Failed!");
+				orgForm.setMessage("Insert Business Unit Failed!");
 			}
 		}
 		if ("edit".equals(orgForm.getTask())) {
@@ -52,24 +52,25 @@ public class OrganizationAction extends Action {
 		if ("saveEdit".equals(orgForm.getTask())) {
 			try {
 				orgMan.submitEdit(orgForm.getOrgBean());
-				orgForm.setMessage("Edit Organization Successfull!");
+				orgForm.setMessage("Edit Business Unit Successfull!");
 			} catch (Exception e) {
-				orgForm.setMessage("Edit Organization Failed!");
+				orgForm.setMessage("Edit Business Unit Failed!");
 			}
 		}
 		if ("delete".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
-			if (orgMan.countMemberOrganizations(orgForm.getOrganizationCode()
-					.replaceAll("-", "")) == 0) {
+			params.put("organization_code", orgForm.getOrganizationCode()
+					.replaceAll("-", ""));
+			if (orgMan.countMemberOrganizations(params) == 0) {
 				if (orgMan.countChildOrganizations(orgForm
 						.getOrganizationCode().replaceAll("-", "")) == 0) {
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
 							.replaceAll("-", ""));
-					orgForm.setMessage("Delete Organization Successfull!");
+					orgForm.setMessage("Delete Business Unit Successfull!");
 				} else
-					orgForm.setMessage("Delete Organization Failed! has child");
+					orgForm.setMessage("Delete Business Unit Failed! has child");
 			} else
-				orgForm.setMessage("Delete Organization Failed! has member");
+				orgForm.setMessage("Delete Business Unit Failed! has member");
 		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
@@ -114,15 +115,13 @@ public class OrganizationAction extends Action {
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
-			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
+			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
 
-			if (orgMan.checkMemberOrganization(params) % 10 == 0) {
-				temp = orgMan.checkMemberOrganization(params) / 10;
+			if (orgForm.getCountRecord() % 10 == 0) {
+				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
-				temp = orgMan.checkMemberOrganization(params) / 10 + 1;
-
+				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
 			}
-			orgForm.setMaxpage(temp);
 
 			return mapping.findForward("Structure");
 		}
@@ -133,12 +132,15 @@ public class OrganizationAction extends Action {
 			params.put("organization_code", orgForm.getOrganizationCode()
 					.replaceAll("-", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
-
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
-
-			orgForm.setCountRecord(orgMan.checkMemberOrganization(params));
-
+			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
+			
+			if (orgForm.getCountRecord() % 10 == 0) {
+				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
+			} else {
+				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
+			}
 			return mapping.findForward("Structure");
 		}
 		

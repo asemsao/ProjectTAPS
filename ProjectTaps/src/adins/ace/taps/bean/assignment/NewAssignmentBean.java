@@ -16,7 +16,7 @@ public class NewAssignmentBean implements Serializable {
 	private String projectCode = "";
 	private String projectName = "";
 	private String activityType = "";
-	private String manHours = "";
+	private Double manHours;
 	private String description = "";
 	private String reffTaskCode = "";
 	private String adhocUserDomain = "";
@@ -32,7 +32,26 @@ public class NewAssignmentBean implements Serializable {
 	private String reportToFullName = "";
 	private String adhocFullName = "";
 	private String detailId = "";
+	private String comment;
+	private String assignmentComment;
+	private String commentDate;
+	private String commentFrom;
+	private String commentTo;
+	private Integer appraisalStar;
+	private Integer starBefore;
 	
+	public Integer getAppraisalStar() {
+		return appraisalStar;
+	}
+	public void setAppraisalStar(Integer appraisalStar) {
+		this.appraisalStar = appraisalStar;
+	}
+	public Integer getStarBefore() {
+		return starBefore;
+	}
+	public void setStarBefore(Integer starBefore) {
+		this.starBefore = starBefore;
+	}
 	public String getHeadUserDomain() {
 		return headUserDomain;
 	}
@@ -111,10 +130,10 @@ public class NewAssignmentBean implements Serializable {
 	public void setActivityType(String activityType) {
 		this.activityType = activityType;
 	}
-	public String getManHours() {
+	public Double getManHours() {
 		return manHours;
 	}
-	public void setManHours(String manHours) {
+	public void setManHours(Double manHours) {
 		this.manHours = manHours;
 	}
 	public String getDescription() {
@@ -201,5 +220,35 @@ public class NewAssignmentBean implements Serializable {
 	public void setAdhocFullName(String adhocFullName) {
 		this.adhocFullName = adhocFullName;
 	}
-
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public String getAssignmentComment() {
+		return assignmentComment;
+	}
+	public void setAssignmentComment(String assignmentComment) {
+		this.assignmentComment = assignmentComment;
+	}
+	public String getCommentDate() {
+		return commentDate;
+	}
+	public void setCommentDate(String commentDate) {
+		this.commentDate = commentDate;
+	}
+	public String getCommentFrom() {
+		return commentFrom;
+	}
+	public void setCommentFrom(String commentFrom) {
+		this.commentFrom = commentFrom;
+	}
+	public String getCommentTo() {
+		return commentTo;
+	}
+	public void setCommentTo(String commentTo) {
+		this.commentTo = commentTo;
+	}
+	
 }

@@ -65,11 +65,19 @@
 										<%
 											if ("RFA".equals(session.getAttribute("status"))) {
 										%>
-										Request For Approval
+										Request For Approval Assignment
 										<%
 											} else if ("APPROVED".equals(session.getAttribute("status"))) {
 										%>
 										Approved Assignment
+										<%
+											} else if ("REJECTED".equals(session.getAttribute("status"))) {
+										%>
+										Rejected Assignment
+										<%
+											} else if ("CORRECTION".equals(session.getAttribute("status"))) {
+										%>
+										Correction Assignment
 										<%
 											} else {
 										%>
@@ -152,6 +160,8 @@
 															<%
 																if ("CLAIM".equals(session.getAttribute("status"))
 																					|| "CORRECTION".equals(session
+																							.getAttribute("status"))
+																					|| "REJECTED".equals(session
 																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
@@ -175,6 +185,8 @@
 																							|| "CORRECTION".equals(session
 																									.getAttribute("status"))
 																							|| "APPROVED".equals(session
+																									.getAttribute("status"))
+																							|| "REJECTED".equals(session
 																									.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment"

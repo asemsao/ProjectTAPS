@@ -292,7 +292,7 @@
 	</select>
 	
 <!-- insert current_status bergantung pada pilihan save(draft) dan assign(claim) -->
-	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		INSERT INTO assignments 
 		(task_code, assignment_date, assignment_due_date, assignment_type, assignment_category, organization_code, project_code, description, 
 		reff_task_code, activity_type, adhoc_user_domain, assign_to, report_to, flag, current_status, created_by, created_date) 
@@ -318,8 +318,15 @@
 		WHERE user_domain = #userDomain#
 	</select>
 	
+	<select id="searchHeadUserDomain" resultClass="java.lang.String" parameterClass="java.lang.String">
+		SELECT head_user_domain AS headUserDomain
+		FROM organizations
+		WHERE organization_code = #organizationCode#
+	</select>
+	
 	<select id="searchHeadOrganizationCode" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
 		SELECT o.organization_name AS organizationName,
+			o.head_user_domain AS headUserDomain,
             mgr.first_name || ' ' || mgr.last_name AS headUserName
         FROM organizations o, employees mgr, employees e
         WHERE mgr.user_domain = o.head_user_domain
@@ -332,7 +339,7 @@
 	</select>
 	
 <!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->	
-	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		UPDATE assignments SET 
 			assignment_date = #assignmentDate#, 
 			assignment_due_date = #assignmentDueDate#, 
@@ -368,7 +375,7 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
-	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.lang.String">
+	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
 		SELECT a.task_code AS taskCode,
             TO_CHAR(a.assignment_date,'DD/MM/YYYY') AS assignmentDate, 
             TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate, 
@@ -415,8 +422,8 @@
             d.manhour AS manHours
         FROM assignments a, organizations o, employees e, employees e2, employees adhoc, employees mgr, detail_claim_assignments d, projects p  
         WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain AND a.adhoc_user_domain = adhoc.user_domain(+) 
-        AND e.organization_code = o.organization_code AND o.head_user_domain = mgr.user_domain 
-        AND a.task_code = d.task_code AND a.project_code = p.project_code(+)
+        AND a.organization_code = o.organization_code(+) AND o.head_user_domain = mgr.user_domain(+) 
+        AND a.task_code = d.task_code(+) AND a.project_code = p.project_code(+)
 	</select>
 	
 	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.lang.String">
@@ -501,6 +508,11 @@
 	<insert id="addHistoryComment">
 		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
 		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#status#,#commentTo#,#createdBy#,SYSDATE)
+	</insert>
+	
+	<insert id="addHistorySelfComment">
+		INSERT INTO assignment_comments (history_id,task_code,comments,status,comment_to,created_by,created_date) 
+		VALUES (SEQUENCE_COMMENTS.NEXTVAL,#taskCode#,#comment#,#currentStatus#,#commentTo#,#createdBy#,SYSDATE)
 	</insert>
 	
 	<update id="updateStatusAssignment" parameterClass="java.util.Map">
