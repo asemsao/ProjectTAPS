@@ -19,7 +19,6 @@
 			return;
 		} else if (task == "saveNewEmployee") {
 			document.employeeForm.task.value = task;
-			document.employeeForm.submit();
 		}
 	}
 	$(document).ready(function() {
@@ -44,7 +43,7 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form enctype="multipart/form-data" action="/employee"
-		method="post" styleClass="employeeForm">
+		method="post" styleClass="employeeForm" styleId="employeeAddEdit">
 		<html:hidden property="task" name="employeeForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -175,8 +174,8 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="newEmployee.golonganNumber"
-												name="employeeForm">
+											<html:select property="newEmployee.golonganNumber" style="width:70px;"
+												name="employeeForm" styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
@@ -185,13 +184,8 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-										</div>
-									</div>
-
-									<div class="auto-complete">
-										<div class="input-control select">
-											<html:select property="newEmployee.golonganLevel"
-												name="employeeForm">
+											<html:select property="newEmployee.golonganLevel" style="width:70px;"
+												name="employeeForm" styleId="golonganLevel">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>
@@ -206,9 +200,9 @@
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<button id="save-btn-emp" onclick="button('saveNewEmployee')"
+									<button onclick="button('saveNewEmployee')"
 										class="button success">Save</button>
-									<button id="cancel-btn" onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

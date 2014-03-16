@@ -43,6 +43,7 @@
 		});
 		$(".delete-link").click(function() {
 			$("#deleteId").html($(this).attr('alt').trim());
+			$("#employeeDomain").val($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
@@ -114,8 +115,10 @@
 											alt="<bean:write name="employee" property="employeeDomain" />"
 											data-hint="Edit Employee" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="javascript:confDel()"
-											data-hint="Delete Employee" data-hint-position="bottom"><img
+										<td class="text-center">
+										<a href="javascript:confDel()" class="delete-link"
+											data-hint="Delete Employee" data-hint-position="bottom" alt="<bean:write name="employee"
+												property="employeeDomain" />"><img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>
 								</logic:iterate>
@@ -154,6 +157,14 @@
 				</div>
 			</div>
 		</div>
+		<div id="popup_delete" class="hide">
+						<div class='span3'>
+							Are you sure want to delete <span id="deleteId"></span>? <br />
+							<br /> <br /> <br /> <br />
+							<button id="delete" class="danger float-right"
+								onclick="javascript:deleteBtn();">Delete</button>
+						</div>
+					</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 

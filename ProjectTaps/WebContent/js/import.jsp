@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/responsive-table.css">
 <link rel="stylesheet" href="css/rating.css">
 <link rel="stylesheet" href="css/timeselector.css">
+<link rel="stylesheet" href="css/validation-style.css">
 
 <script src="js/jquery/jquery-1.8.3.js"></script>
 <script src="js/jquery/jquery.min.js"></script>
@@ -26,3 +27,7 @@
 <script src="js/rating/rating.js"></script>
 <script src="js/other/timeselector.js"></script>
 <script src="js/other/formToWizard.js"></script>
+
+<script src="js/validation/jquery.validate.js"></script>
+<script src="js/validation/validation-script.js"></script>
+<script src="js/validation/employee-validation.js"></script>

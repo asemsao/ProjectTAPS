@@ -39,6 +39,13 @@ public class EmployeeAction extends Action {
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
+		
+		if("delete".equals(mForm.getTask())){
+			boolean flag = false;
+			flag = mMan.deleteEmployee(mForm.getEmployeeDomain());
+			System.out.println(flag);
+			mForm.setEmployeeDomain(null);
+		}
 
 		if ("getPhoto".equals(mForm.getTask())) {
 			NewEmployeeBean bean = new NewEmployeeBean();
@@ -133,7 +140,6 @@ public class EmployeeAction extends Action {
 		}
 
 		if ("first".equals(mForm.getTask())) {
-			System.out.println("cek");
 			mForm.setPage(1);
 		}
 
