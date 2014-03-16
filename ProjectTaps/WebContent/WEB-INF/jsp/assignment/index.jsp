@@ -29,6 +29,21 @@
 	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+					// 					height : "120px",
+					// 					width : "360px",
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 	});
 </script>
 
@@ -39,6 +54,8 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
+					<html:hidden property="message" styleId="messageCRUD"
+						name="employeeReportForm" />
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -65,8 +82,7 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="category"
-											name="employeeReportForm">
+										<html:select property="category" name="employeeReportForm">
 											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
 											<html:option value="taskType">Assignment Category</html:option>
@@ -78,7 +94,8 @@
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="keyword" name="employeeReportForm" styleId="searchKeyword"></html:text>
+										<html:text property="keyword" name="employeeReportForm"
+											styleId="searchKeyword"></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
 									</div>
@@ -112,16 +129,17 @@
 								<logic:iterate id="assignment" name="employeeReportForm"
 									property="listAssignment">
 									<tr>
-										<td class="text-center"><bean:write property="assignmentDate"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="assignmentCode"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="assignmentCategory"
-												name="assignment" /></td>
+										<td class="text-center"><bean:write
+												property="assignmentDate" name="assignment" /></td>
+										<td class="text-center"><bean:write
+												property="assignmentCode" name="assignment" /></td>
+										<td class="text-center"><bean:write
+												property="assignmentCategory" name="assignment" /></td>
 										<td><bean:write property="fullName" name="assignment" /></td>
-										<td class="text-center"><bean:write property="assignmentDueDate"
-												name="assignment" /></td>
-										<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
+										<td class="text-center"><bean:write
+												property="assignmentDueDate" name="assignment" /></td>
+										<td class="text-center"><bean:write
+												property="createdDate" name="assignment" /></td>
 										<td class="text-center"><a
 											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
@@ -140,15 +158,18 @@
 								<td colspan=5 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a href="javascript:flyToPage('first');"><i
+											<li class="first"><a
+												href="javascript:flyToPage('first');"><i
 													class="icon-first-2"></i></a></li>
 											<li class="prev"><a href="javascript:flyToPage('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="employeeReportForm" property="page" /> of <bean:write
 														name="employeeReportForm" property="maxpage" /></a></li>
-											<li class="next"><a href="javascript:flyToPage('next');"><i class="icon-next"></i></a></li>
-											<li class="last"><a href="javascript:flyToPage('last');"><i id="last" class="icon-last-2"></i></a></li>
+											<li class="next"><a href="javascript:flyToPage('next');"><i
+													class="icon-next"></i></a></li>
+											<li class="last"><a href="javascript:flyToPage('last');"><i
+													id="last" class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="employeeReportForm" property="countRecord" /></a></li>
 										</ul>

@@ -22,6 +22,8 @@
 			type="adins.ace.taps.form.specialAppraisal.SpecialAppraisalForm" />
 		<form-bean name="selfAssignmentForm"
 			type="adins.ace.taps.form.assignment.SelfAssignmentForm" />
+		<form-bean name="dashboardForm"
+			type="adins.ace.taps.form.dashboard.DashboardForm" />
 	</form-beans>
 
 	<action-mappings>
@@ -101,6 +103,11 @@
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
 			<forward name="EmployeeRole" path="/employeeRole.do" />
+		</action>
+		<action name="dashboardForm" path="/dashboard" scope="request"
+			type="adins.ace.taps.action.DashboardAction">
+			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard.jsp" />
+			<forward name="ListAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">

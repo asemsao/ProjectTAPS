@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
+<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
+
 <!doctype html>
 <html>
 <head>
@@ -16,6 +20,11 @@
 			$("#ar").val($("#ar").val() + "=");
 		}, 1000);
 	});
+	
+	function flyToPage(task) {
+		document.dashboardForm.task.value = task;
+		document.dashboardForm.submit();
+	}
 </script>
 </head>
 <body class="metro">
@@ -24,36 +33,38 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
+				<html:form action="/dashboard" method="post">
+				<html:hidden property="task" name="dashboardForm"/>
 				<h2 class="fg-steel">Things To Do</h2>
 				<div class="input-control text">
 					<input name="id" value="" id="ar">
 				</div>
 				<div class="span9 center-taps">
-					<a href="#" data-hint="Approval Assignment"
+					<a href="#" onclick="javascript:flyToPage('approval');" data-hint="Approval Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
 						class="tile-content icon"> <img alt=""
 							src="images/APPROVAL_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-gray">0</span>
 					</span>
-					</a> <a href="#" id="_edit_this" data-hint="Claim Assignment"
+					</a> <a href="#" onclick="javascript:flyToPage('claim');" id="_edit_this" data-hint="Claim Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
 						class="tile-content icon"> <img alt=""
 							src="images/CLAIM_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-red">5</span>
 					</span>
-					</a> <a href="#" data-hint="Claim Self Assignment"
+					</a> <a href="#" onclick="javascript:flyToPage('claimSelf');" data-hint="Claim Self Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
 						class="tile-content icon"> <img alt=""
 							src="images/CLAIM_NEW_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-gray">0</span>
 					</span>
-					</a> <a href="#" data-hint="Correction Assignment"
+					</a> <a href="#" onclick="javascript:flyToPage('correction');" data-hint="Correction Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
 						class="tile-content icon"> <img alt=""
 							src="images/CORRECTION_ASSIGNMENT.png">
 					</span> <span class="brand"> <span class="badge bg-gray">0</span>
 					</span>
-					</a> <a href="#" data-hint="Correction Self Assignment"
+					</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');" data-hint="Correction Self Assignment"
 						data-hint-position="left" class="tile bg-cyan"> <span
 						class="tile-content icon"> <img alt=""
 							src="images/CORRECTION_NEW_ASSIGNMENT.png">
@@ -61,6 +72,7 @@
 					</span>
 					</a>
 				</div>
+				</html:form>
 			</div>
 
 			<div class="row row-taps shadow-taps">
