@@ -46,6 +46,8 @@
 									class="icon-puzzle"></span> Project</a></li>
 							<li><a href="javascript:menu('transferProject');"><span
 									class="icon-tab"></span> Transfer Project</a></li>
+							<li><a href="javascript:menu('employeeRole');"><span
+									class="icon-cog"></span> Employee Role</a></li>
 						</ul></li>
 				</ul>
 

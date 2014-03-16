@@ -104,6 +104,7 @@
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
+			<forward name="EmployeeRole" path="/employeeRole.do" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">
