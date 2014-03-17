@@ -33,7 +33,7 @@
 									if(!listMenu.get(j).getTask().equals("dashboard")){
 							%>
 							<li><a href="javascript:menu('<%=listMenu.get(j).getTask() %>');">
-								<%if(listMenu.get(j).getTask().equals("employeeReport") || listMenu.get(j).getTask().equals("employeeReportSupervisor")) {%>
+								<%if(listMenu.get(j).getTask().equals("employeeReport") || listMenu.get(j).getTask().equals("employeeReportSupervisor") || listMenu.get(j).getTask().equals("report")) {%>
 								<span class="icon-clipboard-2"></span> 
 								<%}else if(listMenu.get(j).getTask().equals("assignment")) {%>
 								<span class="icon-list"></span>
