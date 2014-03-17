@@ -102,7 +102,7 @@
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
-			<forward name="EmployeeRole" path="/employeeRole.do" />
+			<forward name="ManageRole" path="/employeeRole.do" />
 		</action>
 		<action name="dashboardForm" path="/dashboard" scope="request"
 			type="adins.ace.taps.action.DashboardAction">

@@ -47,7 +47,7 @@
 								<span class="icon-puzzle"></span> 
 								<%}else if(listMenu.get(j).getTask().equals("transferProject")) {%>
 								<span class="icon-tab"></span> 
-								<%}else if(listMenu.get(j).getTask().equals("employeeRole")) {%>
+								<%}else if(listMenu.get(j).getTask().equals("manageRole")) {%>
 								<span class="icon-cog"></span>
 								<%} %>
 							<%=listMenu.get(j).getMenuName()%></a></li>
