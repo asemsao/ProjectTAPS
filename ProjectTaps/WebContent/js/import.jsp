@@ -16,6 +16,8 @@
 <script src="js/metro/metro-calendar.js"></script>
 <script src="js/metro/metro-datepicker.js"></script>
 <script src="js/other/script.js"></script>
+<script src="js/other/assignment.js"></script>
+<script src="js/other/report.js"></script>
 <script src="js/other/no-document-ready-here.js"></script>
 <script src="js/other/responsive-table.js"></script>
 <script src="js/rating/jquery.barrating.js"></script>
