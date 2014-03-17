@@ -551,7 +551,7 @@
 		adhoc, employees mgr, detail_claim_assignments d, projects p
 		WHERE
 		a.task_code = #taskCode# AND a.assign_to = e.user_domain AND
-		a.report_to = e2.user_domain AND a.adhoc_user_domain =
+		a.report_to = e2.user_domain(+) AND a.adhoc_user_domain =
 		adhoc.user_domain(+)
 		AND a.organization_code = o.organization_code(+)
 		AND o.head_user_domain =

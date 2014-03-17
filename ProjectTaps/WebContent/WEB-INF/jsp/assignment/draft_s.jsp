@@ -32,9 +32,9 @@
 					function() {
 						if ($("#assignmentType").val() == 'PROJECT'){
 							$("#bu").hide();
-							$("#pr").show();
+							$(".pr").show();
 						}else{
-							$("#pr").hide();
+							$(".pr").hide();
 							$("#bu").show();
 						}
 						
@@ -44,6 +44,7 @@
 						$("#employee-name").val($("#employee-fullName").val());
 						$("#employee-name-2").val(
 								$("#employee-fullName-2").val());
+						$("#project-name").val($("#project-fullName").val());
 						$("#lookUpEmployeeOnProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
