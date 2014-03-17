@@ -30,6 +30,14 @@
 	$(document)
 			.ready(
 					function() {
+						if ($("#assignmentType").val() == 'PROJECT'){
+							$("#bu").hide();
+							$("#pr").show();
+						}else{
+							$("#pr").hide();
+							$("#bu").show();
+						}
+						
 						var project_code = $("#project-code").val();
 						var organization_code = $("#organization-code-view")
 								.val();
@@ -129,7 +137,7 @@
 												name="selfAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
-											<button type="button" class="btn-search" id="project"></button>
+											<button type="button" class="btn-search" id=""></button>
 										</div>
 									</div></td>
 							</tr>
@@ -277,6 +285,8 @@
 				</div>
 			</div>
 		</div>
+		<html:hidden property="selfAssignBean.assignmentType"
+			name="selfAssignmentForm" styleId="assignmentType"/>
 		<html:hidden property="newTask" name="selfAssignmentForm" />
 		<html:hidden property="assignmentType" name="selfAssignmentForm" />
 		<html:hidden property="activityType" name="selfAssignmentForm" />
