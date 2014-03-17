@@ -90,7 +90,7 @@
 							<td>:</td>
 							<td>
 								<div class="input-control text">
-									<html:hidden property="addProject.organizationCode"
+									<html:text property="addProject.organizationCode"
 											name="projectForm" styleId="organization-code" />
 										<input type="text" placeholder="Business Unit"
 											readonly="readonly" id="parent-organization-name" />

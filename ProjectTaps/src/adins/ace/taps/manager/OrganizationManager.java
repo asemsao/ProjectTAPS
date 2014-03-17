@@ -151,7 +151,6 @@ public class OrganizationManager {
 	
 	public Integer countMember(Map params) {
 		Integer countMember = null;
-		System.out.println(params.get("organization_code"));
 		try {
 			ibatisSqlMap.startTransaction();
 			countMember = (Integer) ibatisSqlMap.queryForObject(
@@ -168,6 +167,45 @@ public class OrganizationManager {
 			}
 		}
 		return countMember;
+	}
+	
+	public Integer countProject(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countProject", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public Integer countRole(String headDomain) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countRole", headDomain);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 
 	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
@@ -315,6 +353,29 @@ public class OrganizationManager {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.editOrganization", orgBean);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				flag = false;
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
+	public boolean updateAssignment(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("organization.updateAssignment", orgBean);
+			ibatisSqlMap.commitTransaction();
+			System.out.println("update assigment");
 			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
