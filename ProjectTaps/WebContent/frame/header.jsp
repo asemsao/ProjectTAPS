@@ -57,6 +57,7 @@
 						</ul>
 					</li>
 					<%} %>
+					</ul>
 					<ul class="element-menu place-right">
 						<li><button class="element image-button image-left">
 								<img src="<%=request.getContextPath()%>/images/ava.jpg" />
