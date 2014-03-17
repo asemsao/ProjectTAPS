@@ -27,3 +27,19 @@ function resetFormEmployee() {
 	$("#employee-fullName").val('');
 	$("#employee-name").val('');
 }
+
+function calculateTotalMh(data) {
+	var parts = data.split('.');
+	var manHours = "";
+	if (parts[0].length == 1) {
+		manHours = "0" + parts[0];
+	} else {
+		manHours = parts[0];
+	}
+	if (parts[1] == "5") {
+		manHours = manHours + ":30";
+	} else {
+		manHours = manHours + ":00";
+	}
+	return manHours;
+}

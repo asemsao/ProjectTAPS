@@ -60,14 +60,14 @@ public class DashboardAction extends Action {
 			}
 		}
 
-		if ("approval".equals(dForm.getTask())) {
+		if ("approvalDashboard".equals(dForm.getTask())) {
 			params.put("start", (dForm.getPage() - 1) * 10 + 1);
 			params.put("end", (dForm.getPage() * 10));
 			params.put("category", dForm.getCategory());
 			params.put("keyword", dForm.getKeyword());
 			params.put("startDate", dForm.getStartDate());
 			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", "DOMAIN205");
+			params.put("userDomain", userDomain);
 			dForm.setCountRecord(dMan.countListApproval(params));
 			if (dForm.getCountRecord() % 10 == 0) {
 				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
@@ -76,7 +76,7 @@ public class DashboardAction extends Action {
 			}
 			dForm.setListAssignment(dMan.searchListApproval(params));
 			return mapping.findForward("ListAssignment");
-		} else if ("claim".equals(dForm.getTask())) {
+		} else if ("claimDashboard".equals(dForm.getTask())) {
 			params.put("start", (dForm.getPage() - 1) * 10 + 1);
 			params.put("end", (dForm.getPage() * 10));
 			params.put("category", dForm.getCategory());
@@ -92,14 +92,14 @@ public class DashboardAction extends Action {
 			}
 			dForm.setListAssignment(dMan.searchListClaim(params));
 			return mapping.findForward("ListAssignment");
-		} else if ("approvalSelf".equals(dForm.getTask())) {
+		} else if ("approvalSelfDashboard".equals(dForm.getTask())) {
 			params.put("start", (dForm.getPage() - 1) * 10 + 1);
 			params.put("end", (dForm.getPage() * 10));
 			params.put("category", dForm.getCategory());
 			params.put("keyword", dForm.getKeyword());
 			params.put("startDate", dForm.getStartDate());
 			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", "DOMAIN205");
+			params.put("userDomain", userDomain);
 			dForm.setCountRecord(dMan.countListApprovalSelf(params));
 			if (dForm.getCountRecord() % 10 == 0) {
 				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
@@ -108,7 +108,7 @@ public class DashboardAction extends Action {
 			}
 			dForm.setListAssignment(dMan.searchListApprovalSelf(params));
 			return mapping.findForward("ListAssignment");
-		} else if ("correction".equals(dForm.getTask())) {
+		} else if ("correctionDashboard".equals(dForm.getTask())) {
 			params.put("start", (dForm.getPage() - 1) * 10 + 1);
 			params.put("end", (dForm.getPage() * 10));
 			params.put("category", dForm.getCategory());
@@ -124,7 +124,7 @@ public class DashboardAction extends Action {
 			}
 			dForm.setListAssignment(dMan.searchListCorrection(params));
 			return mapping.findForward("ListAssignment");
-		} else if ("correctionSelf".equals(dForm.getTask())) {
+		} else if ("correctionSelfDashboard".equals(dForm.getTask())) {
 			params.put("start", (dForm.getPage() - 1) * 10 + 1);
 			params.put("end", (dForm.getPage() * 10));
 			params.put("category", dForm.getCategory());

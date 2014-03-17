@@ -25,6 +25,13 @@
 								+ task_code);
 				$(".manHourUpdate").change(
 						function() {
+							var totalMh = 0.0;
+							$(".manHourUpdate").each(function() {
+								totalMh += parseFloat($(this).val());
+							});
+							
+							$("#total-mh").html(calculateTotalMh(totalMh + ""));
+
 							var detailId = $(this).prev().val();
 							var manHour = $(this).val();
 							var data = "task=updateDetailClaim&detailId="
@@ -310,8 +317,8 @@
 													</logic:iterate>
 												<tr>
 													<td colspan=2 class="text-right">Total</td>
-													<td class="text-center"><bean:write
-															property="totalManhours" name="claimAssignmentForm" /></td>
+													<td class="text-center"><span id="total-mh"><bean:write
+																property="totalManhours" name="claimAssignmentForm" /></span></td>
 												</tr>
 											</tbody>
 										</table>
