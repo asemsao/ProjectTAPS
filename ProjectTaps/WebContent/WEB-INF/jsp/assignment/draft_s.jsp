@@ -30,12 +30,21 @@
 	$(document)
 			.ready(
 					function() {
+						if ($("#assignmentType").val() == 'PROJECT'){
+							$("#bu").hide();
+							$(".pr").show();
+						}else{
+							$(".pr").hide();
+							$("#bu").show();
+						}
+						
 						var project_code = $("#project-code").val();
 						var organization_code = $("#organization-code-view")
 								.val();
 						$("#employee-name").val($("#employee-fullName").val());
 						$("#employee-name-2").val(
 								$("#employee-fullName-2").val());
+						$("#project-name").val($("#project-fullName").val());
 						$("#lookUpEmployeeOnProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
@@ -108,19 +117,8 @@
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span class="check"></span>
-											Business Unit
-										</label>
-									</div>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											value="PROJECT" /> <span class="check"></span> Project
-										</label>
-									</div>
-								</td>
+								<td><bean:write property="selfAssignBean.assignmentType"
+										name="selfAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Assign By</td>
@@ -140,7 +138,7 @@
 												name="selfAssignmentForm" styleId="project-fullName"></html:hidden>
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
-											<button type="button" class="btn-search" id="project"></button>
+											<button type="button" class="btn-search" id=""></button>
 										</div>
 									</div></td>
 							</tr>
@@ -288,6 +286,8 @@
 				</div>
 			</div>
 		</div>
+		<html:hidden property="selfAssignBean.assignmentType"
+			name="selfAssignmentForm" styleId="assignmentType"/>
 		<html:hidden property="newTask" name="selfAssignmentForm" />
 		<html:hidden property="assignmentType" name="selfAssignmentForm" />
 		<html:hidden property="activityType" name="selfAssignmentForm" />

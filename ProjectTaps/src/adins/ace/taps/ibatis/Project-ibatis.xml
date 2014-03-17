@@ -350,4 +350,22 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		project_code = #projectCode#
 	</update>
+	
+	<select id="isExist" resultClass = "int" parameterClass="java.lang.String">
+		SELECT
+			count(1)
+		FROM 
+			employee_role
+		WHERE 
+			user_domain = #name#
+			AND role_id = 'SPV'
+	</select>
+	
+	<insert id="insertRole" parameterClass = "java.lang.String">
+		INSERT INTO employee_role
+		VALUES 
+			('SPV',
+			#name#) 
+	</insert>
+	
 </sqlMap>

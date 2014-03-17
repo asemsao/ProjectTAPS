@@ -32,6 +32,7 @@ public class NewAssignmentAction extends Action {
 		if (aForm.getNewTask() == null) {
 			if (session.getAttribute("taskCode") != null) {
 				aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+				return mapping.findForward("EditAssignment");
 			}
 			return mapping.findForward("NewAssignment");
 		}

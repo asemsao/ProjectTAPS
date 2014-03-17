@@ -22,6 +22,15 @@ public class OrganizationForm extends ActionForm {
 	private List<OrganizationBean> listMemberOrganizations;
 	private String message;
 	private String mode;
+	private String headDomain;
+
+	public String getHeadDomain() {
+		return headDomain;
+	}
+
+	public void setHeadDomain(String headDomain) {
+		this.headDomain = headDomain;
+	}
 
 	public OrganizationBean getOrgBean() {
 		return orgBean;

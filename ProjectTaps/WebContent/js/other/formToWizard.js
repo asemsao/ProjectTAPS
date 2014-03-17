@@ -53,7 +53,8 @@
 
         function createNextButton(i) {
             var stepName = "step" + i;
-            $("#" + stepName + "commands").append("<a href='#' id='" + stepName + "Next' class='next-wizard'>Next <i class='icon-arrow-right-5'></i></a>");
+           
+            $("#" + stepName + "commands").append("<a href='javascript:nextWizard();' id='" + stepName + "Next' class='next-wizard'>Next <i class='icon-arrow-right-5'></i></a>");
 
             $("#" + stepName + "Next").bind("click", function(e) {
                 $("#" + stepName).hide();
@@ -71,3 +72,10 @@
 
     }
 })(jQuery); 
+
+
+function nextWizard(){
+	var choosen = $("input[name='project_choose']:checked").val();
+	$("#choosenBU").html(choosen);
+	
+}

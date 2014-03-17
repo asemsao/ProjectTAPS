@@ -670,4 +670,42 @@ public class AssignmentManager {
 		}
 		return manHours;
 	}
+	
+	public Integer countLookUpEmployee(Map params) {
+		Integer count = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countLookUpEmployee", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	public List<EmployeeReportBean> lookUpEmployee(Map params) {
+		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList(
+					"assignment.lookUpEmployee", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
 }

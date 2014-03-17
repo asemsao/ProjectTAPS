@@ -17,15 +17,15 @@
 
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.employeeReportForm.task.value = task;
-		document.employeeReportForm.submit();
+		document.dashboardForm.task.value = task;
+		document.dashboardForm.submit();
 	}
 	function flyToPage(task, taskCode, taskType, currentStatus) {
-		document.employeeReportForm.task.value = task;
-		document.employeeReportForm.taskCode.value = taskCode;
-		document.employeeReportForm.taskType.value = taskType;
-		document.employeeReportForm.currentStatus.value = currentStatus;
-		document.employeeReportForm.submit();
+		document.dashboardForm.task.value = task;
+		document.dashboardForm.taskCode.value = taskCode;
+		document.dashboardForm.taskType.value = taskType;
+		document.dashboardForm.currentStatus.value = currentStatus;
+		document.dashboardForm.submit();
 	}
 	
 </script>
@@ -37,8 +37,6 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<html:hidden property="message" styleId="messageCRUD"
-						name="employeeReportForm" />
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -48,7 +46,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="startDate" name="employeeReportForm"></html:text>
+										<html:text property="startDate" name="dashboardForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -57,7 +55,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-end">
-										<html:text property="endDate" name="employeeReportForm"></html:text>
+										<html:text property="endDate" name="dashboardForm"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -65,19 +63,18 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="category" name="employeeReportForm">
+										<html:select property="category" name="dashboardForm">
 											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
 											<html:option value="taskType">Assignment Category</html:option>
 											<html:option value="employee">Employee Name</html:option>
-											<html:option value="status">Status</html:option>
 										</html:select>
 									</div>
 								</th>
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="keyword" name="employeeReportForm"
+										<html:text property="keyword" name="dashboardForm"
 											styleId="searchKeyword"></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
@@ -88,19 +85,7 @@
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
 								<th class="text-center">Assignment Category</th>
-
-								<%
-									if ("employeeReport".equals(session.getAttribute("link"))) {
-								%>
-								<th class="text-center">Report To</th>
-								<%
-									} else {
-								%>
 								<th class="text-center">Employee Name</th>
-								<%
-									}
-								%>
-
 								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>
 								<th class="text-center">Status</th>
@@ -108,14 +93,14 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty property="listAssignment"
-								name="employeeReportForm">
-								<logic:iterate id="assignment" name="employeeReportForm"
+								name="dashboardForm">
+								<logic:iterate id="assignment" name="dashboardForm"
 									property="listAssignment">
 									<tr>
 										<td class="text-center"><bean:write
 												property="assignmentDate" name="assignment" /></td>
 										<td class="text-center"><bean:write
-												property="assignmentCode" name="assignment" /></td>
+												property="taskCode" name="assignment" /></td>
 										<td class="text-center"><bean:write
 												property="assignmentCategory" name="assignment" /></td>
 										<td><bean:write property="fullName" name="assignment" /></td>
@@ -124,7 +109,7 @@
 										<td class="text-center"><bean:write
 												property="createdDate" name="assignment" /></td>
 										<td class="text-center"><a
-											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+											href="javascript:flyToPage('view', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />','<bean:write
 													property="currentStatus" name="assignment" />' );"><bean:write
@@ -132,7 +117,7 @@
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<logic:empty property="listAssignment" name="employeeReportForm">
+							<logic:empty property="listAssignment" name="dashboardForm">
 								<tr>
 									<td colspan="7">Data Not Found</td>
 								</tr>
@@ -147,14 +132,14 @@
 											<li class="prev"><a href="javascript:flyToPage('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
-														name="employeeReportForm" property="page" /> of <bean:write
-														name="employeeReportForm" property="maxpage" /></a></li>
+														name="dashboardForm" property="page" /> of <bean:write
+														name="dashboardForm" property="maxPage" /></a></li>
 											<li class="next"><a href="javascript:flyToPage('next');"><i
 													class="icon-next"></i></a></li>
 											<li class="last"><a href="javascript:flyToPage('last');"><i
 													id="last" class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
-														name="employeeReportForm" property="countRecord" /></a></li>
+														name="dashboardForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
@@ -183,12 +168,12 @@
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="employeeReportForm" />
-		<html:hidden property="taskCode" name="employeeReportForm" />
-		<html:hidden property="taskType" name="employeeReportForm" />
-		<html:hidden property="currentStatus" name="employeeReportForm" />
-		<html:hidden property="page" name="employeeReportForm" />
-		<html:hidden property="maxpage" name="employeeReportForm" />
+		<html:hidden property="task" name="dashboardForm" />
+		<html:hidden property="taskCode" name="dashboardForm" />
+		<html:hidden property="taskType" name="dashboardForm" />
+		<html:hidden property="currentStatus" name="dashboardForm" />
+		<html:hidden property="page" name="dashboardForm" />
+		<html:hidden property="maxPage" name="dashboardForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

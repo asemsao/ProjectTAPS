@@ -92,9 +92,12 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
@@ -109,6 +112,9 @@ public class ProjectAction extends Action {
 			
 		if ("saveMember".equals(pForm.getTask())) {
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
+				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
+			}
 			pMan.addProjectMember(pForm.getAddSProject());
 			
 			pForm.setPage(1);
@@ -121,9 +127,12 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
@@ -151,9 +160,12 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
@@ -170,9 +182,12 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
@@ -193,9 +208,12 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
@@ -211,21 +229,26 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
 		}
-		
-		
+			
 		pForm.setListProject(pMan.searchProject(params));
 		pForm.setCountRecord(pMan.countProject(params));
 
-		if (pForm.getCountRecord() % 10 == 0) {
+		if(pForm.getCountRecord() == 0){
+			pForm.setMaxpage(1);
+		}
+		else if (pForm.getCountRecord() % 10 == 0) {
 			pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-		} else {
+		} else if (pForm.getCountRecord() % 10 > 0){
 			pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 		}
 

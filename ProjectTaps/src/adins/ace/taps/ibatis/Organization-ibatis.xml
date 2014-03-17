@@ -19,7 +19,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		'domain100',
 		SYSDATE)
 	</insert>
-
+	
+	<insert id="insertRole" parameterClass="organizationBean">
+		INSERT INTO
+		employee_role (role_id, user_domain)
+		VALUES ('HBU', #headDomain#)
+	</insert>
+	
+	<delete id="deleteRole" parameterClass="java.lang.String">
+		delete from employee_role
+		where
+		user_domain =#headDomain# AND role_id='HBU'
+	</delete>
+	
 	<select id="getOrganizationCode" resultClass="organizationBean">
 		SELECT
 		o.organization_code AS organizationCode,
@@ -124,11 +136,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT LPAD
 		(o.organization_code,LENGTH
 		(o.organization_code) + (LEVEL * 2) -
-		2,'-')
+		2,' ')
 		AS organizationCode,
 		o.organization_name AS organizationName,
 		e.first_name || ' ' || e.last_name AS headName, r.organization_name as
-		parentName
+		parentName, o.organization_level as organizationLevel
 		FROM organizations o
 		LEFT
 		JOIN
@@ -399,6 +411,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isEqual>
 			</isNotNull>
 		</dynamic>
+	</select>
+	
+	
+	<select id="countMember" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM employees
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#) AND
+		LOWER(flag) = 'active'
 	</select>
 
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
