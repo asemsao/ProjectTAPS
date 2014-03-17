@@ -202,7 +202,7 @@
 								<td colspan="4" class="text-right">
 									<button onclick="button('saveNewEmployee')"
 										class="button success">Save</button>
-									<button onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

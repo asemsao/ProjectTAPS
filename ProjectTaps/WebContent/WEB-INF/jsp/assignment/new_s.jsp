@@ -13,10 +13,15 @@
 <title>New Self Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.selfAssignmentForm.newTask.value = task;
-		document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-		document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
-		document.selfAssignmentForm.submit();
+		if (task == "cancel") {
+			document.selfAssignmentForm.task.value = "";
+			document.selfAssignmentForm.submit();
+			return;
+		} else if (task == "save") {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
+		}
 	}
 
 	function getRadioValue(theRadioGroup) {
@@ -84,7 +89,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST">
+	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -101,7 +106,7 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm"></html:text>
+											name="selfAssignmentForm" styleId="assignmentDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -144,23 +149,23 @@
 										</div>
 									</div></td>
 							</tr>
-							<tr>
-								<td><div class="pr">Report To</div></td>
-								<td><div class="pr">:</div></td>
-								<td><div class="pr">
-										<div class="input-control text">
-											<html:hidden property="selfAssignBean.reportTo"
-												name="selfAssignmentForm" styleId="employee-domain" />
-											<html:hidden property="selfAssignBean.reportToFullName"
-												name="selfAssignmentForm" styleId="employee-fullName" />
-											<input type="text" placeholder="Employee" id="employee-name"
-												readonly="readonly" />
-											<div class="pr" class="in-bl">
-												<button type="button" class="btn-search"
-													id="employeeOnProject"></button>
-											</div>
+							<tr class="pr">
+								<td>Report To</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="selfAssignBean.reportTo"
+											name="selfAssignmentForm" styleId="employee-domain" />
+										<html:hidden property="selfAssignBean.reportToFullName"
+											name="selfAssignmentForm" styleId="employee-fullName" />
+										<input type="text" placeholder="Employee" id="employee-name"
+											readonly="readonly" />
+										<div class="pr" class="in-bl">
+											<button type="button" class="btn-search"
+												id="employeeOnProject"></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>Activity Type</td>
@@ -184,10 +189,10 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td><div class="adhoc">Ad Hoc To</div></td>
-								<td><div class="adhoc">:</div></td>
-								<td><div class="adhoc">
+							<tr class="adhoc">
+								<td>Ad Hoc To</td>
+								<td>:</td>
+								<td>
 										<div class="input-control text">
 											<html:hidden property="selfAssignBean.adhocUserDomain"
 												name="selfAssignmentForm" styleId="employee-domain-2" />
@@ -197,7 +202,7 @@
 												id="employee-name-2" readonly="readonly" />
 											<button type="button" class="btn-search" id="employee2"></button>
 										</div>
-									</div></td>
+									</td>
 							</tr>
 							<tr>
 								<td>Reff Task Code</td>
@@ -275,13 +280,13 @@
 										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=3 class="text-right"><html:button
-										property="save" onclick="javascript:flyToPage('save');"
-										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('RFA');"
-										styleClass="button success">RFA</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan=3 class="text-right">
+								<button onclick="flyToPage('save')"
+										class="button success">Save</button>
+								<button onclick="flyToPage('RFA')"
+										class="button success">Assign</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>

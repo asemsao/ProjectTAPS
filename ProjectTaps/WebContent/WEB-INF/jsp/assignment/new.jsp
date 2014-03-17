@@ -11,12 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
 <title>New Assignment</title>
-<script type="text/javascript">/* 
-	function flyToPage(task) {
-		document.claimAssignmentForm.newTask.value = task;
-		document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-	} */
-
+<script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
 			document.claimAssignmentForm.task.value = "";
@@ -201,15 +196,12 @@
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
-								<button onclick="button('save')"
+								<button onclick="flyToPage('save')"
 										class="button success">Save</button>
-								<html:button
-										property="save" onclick="javascript:flyToPage('save');"
-										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('assign');"
-										styleClass="button success">Assign</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<button onclick="flyToPage('assign')"
+										class="button success">Assign</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
