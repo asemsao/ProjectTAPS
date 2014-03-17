@@ -1,9 +1,7 @@
 package adins.ace.taps.manager;
 
 import java.util.List;
-import java.util.Map;
 
-import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.module.MenuBean;
 import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.ibatis.IbatisHelper;
