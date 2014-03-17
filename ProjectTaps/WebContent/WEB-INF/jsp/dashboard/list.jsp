@@ -143,25 +143,6 @@
 										</ul>
 									</div>
 								</td>
-								<%
-									if ("assignment".equals(session.getAttribute("link"))) {
-								%>
-								<td colspan=2 class="text-right"><a
-									href="javascript:flyToPage('add');" data-hint="New Assignment"
-									data-hint-position="bottom"><img alt=""
-										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
-								<%
-									} else if ("employeeReport"
-												.equals(session.getAttribute("link"))) {
-								%>
-								<td colspan=2 class="text-right"><a
-									href="javascript:flyToPage('add');"
-									data-hint="New Self Assignment" data-hint-position="bottom"><img
-										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
-								<%
-									}
-								%>
 							</tr>
 						</tbody>
 					</table>
