@@ -11,13 +11,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
 <title>New Assignment</title>
-<script type="text/javascript">
+<script type="text/javascript">/* 
 	function flyToPage(task) {
 		document.claimAssignmentForm.newTask.value = task;
 		document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-		document.claimAssignmentForm.submit();
-	}
+	} */
 
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.claimAssignmentForm.task.value = "";
+			document.claimAssignmentForm.submit();
+			return;
+		} else if (task == "save") {
+			document.claimAssignmentForm.task.value = task;
+			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+		}
+	}
 	function getRadioValue(theRadioGroup) {
 		var elements = document.getElementsByName(theRadioGroup);
 		for ( var i = 0, l = elements.length; i < l; i++) {
@@ -90,7 +99,7 @@
 </head>
 <body class="metro" onload="javascript:checkRadioButtonValue();">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST">
+	<html:form action="/newAssignment" method="POST" styleId="newAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -106,7 +115,7 @@
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="assignmentBean.assignmentDate"
-											name="claimAssignmentForm"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -115,7 +124,7 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker-end">
 										<html:text property="assignmentBean.assignmentDueDate"
-											name="claimAssignmentForm"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDueDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -191,7 +200,10 @@
 										name="claimAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=3 class="text-right"><html:button
+								<td colspan=3 class="text-right">
+								<button onclick="button('save')"
+										class="button success">Save</button>
+								<html:button
 										property="save" onclick="javascript:flyToPage('save');"
 										styleClass="button success">Save</html:button> <html:button
 										property="assign" onclick="javascript:flyToPage('assign');"

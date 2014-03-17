@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	
 	// =================================================================================
 	// EMPLOYEE
 	// =================================================================================
@@ -55,7 +56,7 @@ $(document).ready(function () {
     $('#golonganNumber').tooltipster({
         trigger: 'custom',
         onlyOne: false,
-        position: 'bottom'
+        position: 'left'
     });
     $('#golonganLevel').tooltipster({
         trigger: 'custom',

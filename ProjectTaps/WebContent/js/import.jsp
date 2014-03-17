@@ -28,3 +28,4 @@
 <script src="js/validation/jquery.validate.js"></script>
 <script src="js/validation/validation-script.js"></script>
 <script src="js/validation/employee-validation.js"></script>
+<script src="js/validation/assignment-validation.js"></script>
