@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+<link rel="icon" type="image/png" href="images/LOGO_TITLE.png">
 <link href="css/metro-bootstrap.css" rel="stylesheet">
 <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
 <link href="css/style-login.css" rel="stylesheet">
