@@ -25,7 +25,7 @@ public class OrganizationAction extends Action {
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
-
+		boolean flag = false;
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 
@@ -37,42 +37,41 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("Save".equals(orgForm.getTask())) {
-			try {
-				orgMan.submitInsert(orgForm.getOrgBean());
-				orgMan.insertRole(orgForm.getOrgBean());
-				orgForm.setMessage("Insert Business Unit Successfull!");
-			} catch (Exception e) {
-				orgForm.setMessage("Insert Business Unit Failed!");
-			}
+		
+				if(orgMan.submitInsert(orgForm.getOrgBean())){
+					orgMan.insertRole(orgForm.getOrgBean());
+					orgForm.setMessage("Insert Business Unit Successfull!");
+				}else{
+					orgForm.setMessage("Insert Business Unit Failed!");
+				}
 		}
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll("-", "")));
+					.replaceAll(" ", "")));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			try {
-				orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
-				orgMan.submitEdit(orgForm.getOrgBean());
+			if(orgMan.submitEdit(orgForm.getOrgBean())){
 				orgMan.insertRole(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Business Unit Successfull!");
-			} catch (Exception e) {
+			}else{
 				orgForm.setMessage("Edit Business Unit Failed!");
 			}
 		}
 		if ("delete".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll("-", ""));
-			if (orgMan.countMemberOrganizations(params) == 0) {
+					.replaceAll(" ", ""));
+			System.out.println(orgMan.countMember(params));
+			if (orgMan.countMember(params) == 0) {
 				if (orgMan.countChildOrganizations(orgForm
-						.getOrganizationCode().replaceAll("-", "")) == 0) {
+						.getOrganizationCode().replaceAll(" ", "")) == 0) {
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
-							.replaceAll("-", ""));
+							.replaceAll(" ", ""));
 					orgForm.setOrgBean(orgMan.getOrgCode(orgForm
-							.getOrganizationCode().replaceAll("-", "")));
+							.getOrganizationCode().replaceAll(" ", "")));
 					orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 					orgMan.deleteRole(orgForm.getHeadDomain());
 					orgForm.setMessage("Delete Business Unit Successfull!");
@@ -118,9 +117,9 @@ public class OrganizationAction extends Action {
 
 			orgForm.setMode("structure");
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll("-", "")));
+					.replaceAll(" ", "")));
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll("-", ""));
+					.replaceAll(" ", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
@@ -137,9 +136,9 @@ public class OrganizationAction extends Action {
 
 		if ("structure".equals(orgForm.getMode())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll("-", "")));
+					.replaceAll(" ", "")));
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll("-", ""));
+					.replaceAll(" ", ""));
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
