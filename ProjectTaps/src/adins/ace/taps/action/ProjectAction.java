@@ -239,8 +239,7 @@ public class ProjectAction extends Action {
 			}
 			return mapping.findForward("ViewMember");
 		}
-		
-		
+			
 		pForm.setListProject(pMan.searchProject(params));
 		pForm.setCountRecord(pMan.countProject(params));
 
