@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	ajaxnotification();
 	setInterval(function() {
 		$(".notification").effect("bounce", {
 			direction : 'up',
@@ -8,22 +9,25 @@ $(document).ready(function() {
 	}, 1000);
 
 	setInterval(function() {
-		var data = "task=autoRefresh";
-		$.ajax({
-			url : "/ProjectTaps/dashboard.do",
-			type : "POST",
-			data : data,
-			context : this,
-			error : function() {
-				console.log("problem was here!");
-			},
-			success : function(data) {
-				notification(data);
-			}
-		});
-
+		ajaxnotification();
 	}, 10000);
 });
+
+function ajaxnotification() {
+	var data = "task=autoRefresh";
+	$.ajax({
+		url : "/ProjectTaps/dashboard.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			notification(data);
+		}
+	});
+}
 
 function notification(data) {
 	var json = $.parseJSON(data);
