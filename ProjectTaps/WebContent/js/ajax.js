@@ -755,10 +755,10 @@ function pagingOrganization(direction) {
 function chooseOrganization() {
 	var choosen = $("input[name='organization_choose']:checked").val().replace(
 			/\-/g, '');
-	$("#parent-organization-code").val(choosen.split('@')[0]);
-	$("#parent-organization-name").val(choosen.split('@')[1]);
-	$("#organization-code").val(choosen.split('@')[0]);
-	$("#organization-name").val(choosen.split('@')[1]);
+	$("#parent-organization-code").val(choosen.split('@')[0].trim());
+	$("#parent-organization-name").val(choosen.split('@')[1].trim());
+	$("#organization-code").val(choosen.split('@')[0].trim());
+	$("#organization-name").val(choosen.split('@')[1].trim());
 	$.Dialog.close();
 }
 

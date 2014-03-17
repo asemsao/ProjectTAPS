@@ -91,7 +91,7 @@
 							<td>
 								<div class="input-control text">
 									<html:hidden property="addProject.organizationCode"
-											name="projectForm" styleId="organization-code" ></html:hidden>
+											name="projectForm" styleId="organization-code" />
 										<input type="text" placeholder="Business Unit"
 											readonly="readonly" id="parent-organization-name" />
 										<button type="button" class="btn-search" id="organization"></button>
