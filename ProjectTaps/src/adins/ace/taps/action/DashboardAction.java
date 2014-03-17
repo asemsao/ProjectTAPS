@@ -35,10 +35,12 @@ public class DashboardAction extends Action {
 			throws Exception {
 		DashboardForm dForm = (DashboardForm) form;
 		DashboardManager dMan = new DashboardManager();
+		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
 		PrintWriter out = response.getWriter();
 		String userDomain = "domain3";
+		
 
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
@@ -110,7 +112,7 @@ public class DashboardAction extends Action {
 		}
 
 		if ("getPhoto".equals(dForm.getTask())) {
-			DashboardBean bean = new DashboardBean();
+			
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
 			BufferedInputStream input = null;
 			BufferedOutputStream output = null;
