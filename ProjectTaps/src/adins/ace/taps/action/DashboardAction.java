@@ -32,12 +32,13 @@ public class DashboardAction extends Action {
 		DashboardForm dForm = (DashboardForm) form;
 		DashboardManager dMan = new DashboardManager();
 		HttpSession session = request.getSession(true);
+		Map params = new HashMap();
+		String userDomain = "domain3";
+
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
-		Map params = new HashMap();
-		String userDomain = "domain3";
-		
+
 		if (dForm.getPage() == null) {
 			dForm.setPage(1);
 		}
@@ -60,95 +61,56 @@ public class DashboardAction extends Action {
 			}
 		}
 
+		params.put("start", (dForm.getPage() - 1) * 10 + 1);
+		params.put("end", (dForm.getPage() * 10));
+		params.put("category", dForm.getCategory());
+		params.put("keyword", dForm.getKeyword());
+		params.put("startDate", dForm.getStartDate());
+		params.put("endDate", dForm.getEndDate());
+		params.put("userDomain", userDomain);
+
 		if ("approvalDashboard".equals(dForm.getTask())) {
-			params.put("start", (dForm.getPage() - 1) * 10 + 1);
-			params.put("end", (dForm.getPage() * 10));
-			params.put("category", dForm.getCategory());
-			params.put("keyword", dForm.getKeyword());
-			params.put("startDate", dForm.getStartDate());
-			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", userDomain);
-			dForm.setCountRecord(dMan.countListApproval(params));
-			if (dForm.getCountRecord() % 10 == 0) {
-				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-			} else {
-				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-			}
 			dForm.setListAssignment(dMan.searchListApproval(params));
-			return mapping.findForward("ListAssignment");
-		} else if ("claimDashboard".equals(dForm.getTask())) {
-			params.put("start", (dForm.getPage() - 1) * 10 + 1);
-			params.put("end", (dForm.getPage() * 10));
-			params.put("category", dForm.getCategory());
-			params.put("keyword", dForm.getKeyword());
-			params.put("startDate", dForm.getStartDate());
-			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", userDomain);
-			dForm.setCountRecord(dMan.countListClaim(params));
-			if (dForm.getCountRecord() % 10 == 0) {
-				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-			} else {
-				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-			}
+			dForm.setCountRecord(dMan.countListApproval(params));
+		}
+		if ("claimDashboard".equals(dForm.getTask())) {
 			dForm.setListAssignment(dMan.searchListClaim(params));
-			return mapping.findForward("ListAssignment");
-		} else if ("approvalSelfDashboard".equals(dForm.getTask())) {
-			params.put("start", (dForm.getPage() - 1) * 10 + 1);
-			params.put("end", (dForm.getPage() * 10));
-			params.put("category", dForm.getCategory());
-			params.put("keyword", dForm.getKeyword());
-			params.put("startDate", dForm.getStartDate());
-			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", userDomain);
-			dForm.setCountRecord(dMan.countListApprovalSelf(params));
-			if (dForm.getCountRecord() % 10 == 0) {
-				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-			} else {
-				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-			}
+			dForm.setCountRecord(dMan.countListClaim(params));
+		}
+		if ("approvalSelfDashboard".equals(dForm.getTask())) {
 			dForm.setListAssignment(dMan.searchListApprovalSelf(params));
+			dForm.setCountRecord(dMan.countListApprovalSelf(params));
 			return mapping.findForward("ListAssignment");
-		} else if ("correctionDashboard".equals(dForm.getTask())) {
-			params.put("start", (dForm.getPage() - 1) * 10 + 1);
-			params.put("end", (dForm.getPage() * 10));
-			params.put("category", dForm.getCategory());
-			params.put("keyword", dForm.getKeyword());
-			params.put("startDate", dForm.getStartDate());
-			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", userDomain);
-			dForm.setCountRecord(dMan.countListCorrection(params));
-			if (dForm.getCountRecord() % 10 == 0) {
-				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-			} else {
-				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-			}
+		}
+		if ("correctionDashboard".equals(dForm.getTask())) {
 			dForm.setListAssignment(dMan.searchListCorrection(params));
-			return mapping.findForward("ListAssignment");
-		} else if ("correctionSelfDashboard".equals(dForm.getTask())) {
-			params.put("start", (dForm.getPage() - 1) * 10 + 1);
-			params.put("end", (dForm.getPage() * 10));
-			params.put("category", dForm.getCategory());
-			params.put("keyword", dForm.getKeyword());
-			params.put("startDate", dForm.getStartDate());
-			params.put("endDate", dForm.getEndDate());
-			params.put("userDomain", userDomain);
-			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
-			if (dForm.getCountRecord() % 10 == 0) {
-				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-			} else {
-				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-			}
+			dForm.setCountRecord(dMan.countListCorrection(params));
+		}
+		if ("correctionSelfDashboard".equals(dForm.getTask())) {
 			dForm.setListAssignment(dMan.searchListCorrectionSelf(params));
+			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
+		}
+
+		if (dForm.getCountRecord() % 10 == 0) {
+			dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
+		} else {
+			dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
+		}
+
+		if ("approvalDashboard".equals(dForm.getTask())
+				|| "claimDashboard".equals(dForm.getTask())
+				|| "approvalSelfDashboard".equals(dForm.getTask())
+				|| "correctionDashboard".equals(dForm.getTask())
+				|| "correctionSelfDashboard".equals(dForm.getTask())) {
 			return mapping.findForward("ListAssignment");
-		} 
-		
+		}
+
 		if ("getPhoto".equals(dForm.getTask())) {
 			DashboardBean bean = new DashboardBean();
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
 			BufferedInputStream input = null;
 			BufferedOutputStream output = null;
 			OutputStream outStream = response.getOutputStream();
-
 			try {
 				response.setContentType("image/*");
 				try {
@@ -184,7 +146,6 @@ public class DashboardAction extends Action {
 			}
 		}
 
-
 		dForm.setTotalClaim(dMan.searchTotalClaim(userDomain));
 		dForm.setTotalRFA(dMan.searchTotalRFA(userDomain));
 		dForm.setTotalRFAself(dMan.searchTotalRFASelf(userDomain));
@@ -194,16 +155,17 @@ public class DashboardAction extends Action {
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
 		return mapping.findForward("Dashboard");
 	}
-	
-	/*extract image in project resources to byte[]*/
-	public byte[] extractBytes (String ImageName) throws IOException {
+
+	/* extract image in project resources to byte[] */
+	public byte[] extractBytes(String ImageName) throws IOException {
 		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")+"images/user.png");
-		
+		fnew = new File(getServlet().getServletContext().getRealPath("/")
+				+ "images/user.png");
+
 		BufferedImage bufferedImage = ImageIO.read(fnew);
-	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    ImageIO.write(bufferedImage, "png", baos);
-	    byte[] res=baos.toByteArray();
-	    return res;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(bufferedImage, "png", baos);
+		byte[] res = baos.toByteArray();
+		return res;
 	}
 }
