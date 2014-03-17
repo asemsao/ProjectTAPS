@@ -44,32 +44,37 @@
 							data-hint="Approval Assignment" data-hint-position="left"
 							class="tile bg-cyan"> <span class="tile-content icon">
 								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+						</span> <span class="brand"> <span class="badge bg-gray"><bean:write
+										property="totalRFA" name="dashboardForm" /></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('approvalSelf');"
+							data-hint="Approval Self Assignment" data-hint-position="left"
+							class="tile bg-cyan"> <span class="tile-content icon">
+								<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-gray"><bean:write
+										property="totalRFAself" name="dashboardForm" /></span>
 						</span>
 						</a> <a href="#" onclick="javascript:flyToPage('claim');"
 							id="_edit_this" data-hint="Claim Assignment"
 							data-hint-position="left" class="tile bg-cyan"> <span
 							class="tile-content icon"> <img alt=""
 								src="images/CLAIM_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-red">5</span>
-						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('claimSelf');"
-							data-hint="Claim Self Assignment" data-hint-position="left"
-							class="tile bg-cyan"> <span class="tile-content icon">
-								<img alt="" src="images/CLAIM_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+						</span> <span class="brand"> <span class="badge bg-red"><bean:write
+										property="totalClaim" name="dashboardForm" /></span>
 						</span>
 						</a> <a href="#" onclick="javascript:flyToPage('correction');"
 							data-hint="Correction Assignment" data-hint-position="left"
 							class="tile bg-cyan"> <span class="tile-content icon">
 								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+						</span> <span class="brand"> <span class="badge bg-gray"><bean:write
+										property="totalCorrection" name="dashboardForm" /></span>
 						</span>
 						</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');"
 							data-hint="Correction Self Assignment" data-hint-position="left"
 							class="tile bg-cyan"> <span class="tile-content icon">
 								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+						</span> <span class="brand"> <span class="badge bg-gray"><bean:write
+										property="totalCorrectionSelf" name="dashboardForm" /></span>
 						</span>
 						</a>
 					</div>
@@ -95,8 +100,8 @@
 										<td class="text-center"><img src="images/test-ava.jpg"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write
-												property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -120,21 +125,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listTopTen"
-								name="dashboardForm">
+							<logic:notEmpty property="listTopTen" name="dashboardForm">
 								<logic:iterate id="employee" property="listTopTen"
 									name="dashboardForm">
 									<tr>
 										<td class="text-center"><img src="images/test-ava.jpg"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write
-												property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<logic:empty property="listTopTen"
-								name="dashboardForm">
+							<logic:empty property="listTopTen" name="dashboardForm">
 								<tr>
 									<td colspan="2">Data Not Found</td>
 								</tr>

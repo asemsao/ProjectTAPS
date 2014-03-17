@@ -4,15 +4,66 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
+import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
+import adins.ace.taps.bean.assignment.NewAssignmentBean;
 import adins.ace.taps.bean.dashboard.DashboardBean;
 
 @SuppressWarnings("serial")
-public class DashboardForm extends ActionForm{
+public class DashboardForm extends ActionForm {
 	DashboardBean dBean = new DashboardBean();
 	private String task;
 	private List<DashboardBean> listTopTen;
 	private List<DashboardBean> listTopTenOrganization;
+	private Integer page;
+	private Integer maxPage;
+	private List<ClaimAssignmentBean> listAssignment;
+	private List<NewAssignmentBean> listSelfAssignment;
+	private Integer totalClaim;
+	private Integer totalCorrection;
+	private Integer totalCorrectionSelf;
+	private Integer totalRFA;
+	private Integer totalRFAself;
+	private String startDate;
+	private String endDate;
+	private String category;
+	private String keyword;
+	private Integer countRecord;
+	private String taskCode;
+	private String taskType;
+	private String currentStatus;
 	
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
+	}
+
+	public String getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(String taskType) {
+		this.taskType = taskType;
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
+	}
+
+	public Integer getCountRecord() {
+		return countRecord;
+	}
+
+	public void setCountRecord(Integer countRecord) {
+		this.countRecord = countRecord;
+	}
+
 	public DashboardBean getdBean() {
 		return dBean;
 	}
@@ -41,8 +92,113 @@ public class DashboardForm extends ActionForm{
 		return listTopTenOrganization;
 	}
 
-	public void setListTopTenOrganization(List<DashboardBean> listTopTenOrganization) {
+	public void setListTopTenOrganization(
+			List<DashboardBean> listTopTenOrganization) {
 		this.listTopTenOrganization = listTopTenOrganization;
 	}
 
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getMaxPage() {
+		return maxPage;
+	}
+
+	public void setMaxPage(Integer maxPage) {
+		this.maxPage = maxPage;
+	}
+
+	public List<ClaimAssignmentBean> getListAssignment() {
+		return listAssignment;
+	}
+
+	public void setListAssignment(List<ClaimAssignmentBean> listAssignment) {
+		this.listAssignment = listAssignment;
+	}
+
+	public List<NewAssignmentBean> getListSelfAssignment() {
+		return listSelfAssignment;
+	}
+
+	public void setListSelfAssignment(List<NewAssignmentBean> listSelfAssignment) {
+		this.listSelfAssignment = listSelfAssignment;
+	}
+
+	public Integer getTotalClaim() {
+		return totalClaim;
+	}
+
+	public void setTotalClaim(Integer totalClaim) {
+		this.totalClaim = totalClaim;
+	}
+
+	public Integer getTotalCorrection() {
+		return totalCorrection;
+	}
+
+	public void setTotalCorrection(Integer totalCorrection) {
+		this.totalCorrection = totalCorrection;
+	}
+
+	public Integer getTotalCorrectionSelf() {
+		return totalCorrectionSelf;
+	}
+
+	public void setTotalCorrectionSelf(Integer totalCorrectionSelf) {
+		this.totalCorrectionSelf = totalCorrectionSelf;
+	}
+
+	public Integer getTotalRFA() {
+		return totalRFA;
+	}
+
+	public void setTotalRFA(Integer totalRFA) {
+		this.totalRFA = totalRFA;
+	}
+
+	public Integer getTotalRFAself() {
+		return totalRFAself;
+	}
+
+	public void setTotalRFAself(Integer totalRFAself) {
+		this.totalRFAself = totalRFAself;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
 }
