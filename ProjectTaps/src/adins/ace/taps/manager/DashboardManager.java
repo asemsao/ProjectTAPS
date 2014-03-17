@@ -215,4 +215,112 @@ public class DashboardManager {
 		}
 		return total;
 	}
+	
+	public List<ClaimAssignmentBean> searchListApprovalSelf(Map param){
+		List<ClaimAssignmentBean> list = new ArrayList<ClaimAssignmentBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList("dashboard.listApprovalSelf", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public Integer countListApprovalSelf(Map param){
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.countListApprovalSelf", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return total;
+	}
+	
+	public List<ClaimAssignmentBean> searchListCorrection(Map param){
+		List<ClaimAssignmentBean> list = new ArrayList<ClaimAssignmentBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList("dashboard.listCorrection", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public Integer countListCorrection(Map param){
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.countListCorrection", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return total;
+	}
+	
+	public List<ClaimAssignmentBean> searchListCorrectionSelf(Map param){
+		List<ClaimAssignmentBean> list = new ArrayList<ClaimAssignmentBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList("dashboard.listCorrectionSelf", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public Integer countListCorrectionSelf(Map param){
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.countListCorrectionSelf", param);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return total;
+	}
 }

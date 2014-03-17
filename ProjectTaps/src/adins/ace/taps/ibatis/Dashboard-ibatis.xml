@@ -159,7 +159,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						a.task_code AS assignmentCode,
+						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
@@ -168,7 +168,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'CORRECTION'
+				WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -204,13 +204,52 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+	
+	<select id="countListCorrection" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT 	COUNT(1)
+		FROM 	assignments a 
+		LEFT JOIN employees e
+		ON 		a.assign_to = e.user_domain 
+		WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'ASSIGNMENT' 
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name) 
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
 	</select>
 	
 	<select id="listCorrectionSelf" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						a.task_code AS assignmentCode,
+						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
@@ -219,7 +258,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'CORRECTION'
+				WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'SELF ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -255,13 +294,52 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+	
+	<select id="countListCorrectionSelf" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT 	COUNT(1)
+		FROM 	assignments a 
+		LEFT JOIN employees e
+		ON 		a.assign_to = e.user_domain 
+		WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'SELF ASSIGNMENT' 
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name) 
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
 	</select>
 	
 	<select id="listApproval" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						a.task_code AS assignmentCode,
+						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
@@ -270,7 +348,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA'
+				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -308,12 +386,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 	
-	<select id="countListApproval" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
+	<select id="countListApproval" resultClass="java.lang.Integer" parameterClass="java.util.Map">
 		SELECT 	COUNT(1)
 		FROM 	assignments a 
 		LEFT JOIN employees e
 		ON 		a.assign_to = e.user_domain 
-		WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA'
+		WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'ASSIGNMENT' 
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -351,7 +429,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						a.task_code AS assignmentCode,
+						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
@@ -360,7 +438,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA'
+				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'SELF ASSIGNMENT'
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -396,5 +474,44 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+	
+	<select id="countListApprovalSelf" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT 	COUNT(1)
+		FROM 	assignments a 
+		LEFT JOIN employees e
+		ON 		a.assign_to = e.user_domain 
+		WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'SELF ASSIGNMENT' 
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name) 
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name) 
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN TO_DATE(#startDate#,'DD/MM/YYYY') AND TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
 	</select>
 </sqlMap>
