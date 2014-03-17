@@ -166,6 +166,40 @@ public class OrganizationManager {
 		}
 	}
 
+	public void insertRole(OrganizationBean eBean) throws SQLException,
+			IOException {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("organization.insertRole", eBean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteRole(String headDomain) {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("organization.deleteRole", headDomain);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public boolean deleteOrganization(String organization_code) {
 		boolean flag = false;
 		try {

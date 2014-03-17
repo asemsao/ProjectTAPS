@@ -39,6 +39,7 @@ public class OrganizationAction extends Action {
 		if ("Save".equals(orgForm.getTask())) {
 			try {
 				orgMan.submitInsert(orgForm.getOrgBean());
+				orgMan.insertRole(orgForm.getOrgBean());
 				orgForm.setMessage("Insert Business Unit Successfull!");
 			} catch (Exception e) {
 				orgForm.setMessage("Insert Business Unit Failed!");
@@ -47,11 +48,15 @@ public class OrganizationAction extends Action {
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll("-", "")));
+			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
+			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
 			try {
+				orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 				orgMan.submitEdit(orgForm.getOrgBean());
+				orgMan.insertRole(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Business Unit Successfull!");
 			} catch (Exception e) {
 				orgForm.setMessage("Edit Business Unit Failed!");
@@ -66,6 +71,10 @@ public class OrganizationAction extends Action {
 						.getOrganizationCode().replaceAll("-", "")) == 0) {
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
 							.replaceAll("-", ""));
+					orgForm.setOrgBean(orgMan.getOrgCode(orgForm
+							.getOrganizationCode().replaceAll("-", "")));
+					orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
+					orgMan.deleteRole(orgForm.getHeadDomain());
 					orgForm.setMessage("Delete Business Unit Successfull!");
 				} else
 					orgForm.setMessage("Delete Business Unit Failed! has child");
@@ -97,12 +106,12 @@ public class OrganizationAction extends Action {
 		if ("back".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
-		
+
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
 		params.put("category", orgForm.getSearchCategory());
 		params.put("keyword", orgForm.getSearchKeyword());
-		
+
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			int temp = 0;
@@ -135,7 +144,7 @@ public class OrganizationAction extends Action {
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
-			
+
 			if (orgForm.getCountRecord() % 10 == 0) {
 				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
@@ -143,8 +152,6 @@ public class OrganizationAction extends Action {
 			}
 			return mapping.findForward("Structure");
 		}
-		
-	
 
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
