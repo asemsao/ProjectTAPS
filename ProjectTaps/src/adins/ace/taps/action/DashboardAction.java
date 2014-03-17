@@ -56,12 +56,10 @@ public class DashboardAction extends Action{
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
-					System.out.println("sampai sini 1");
 					byte[] buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = extractBytes("/images/user.png");
 					}
-					System.out.println("sampai sini 2");
 					response.reset();
 					response.setContentLength(buffer.length);
 					outStream.write(buffer);
@@ -86,11 +84,8 @@ public class DashboardAction extends Action{
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("catch 2");
 			}
 		}
-		System.out.println(dForm.getTask()+"asadasdasda");
-		System.out.println(dForm.getEmployeeDomain()+"dpamasadad");
 		dForm.setListTopTen(dMan.searchTopTen());
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
 		return mapping.findForward("Dashboard");
