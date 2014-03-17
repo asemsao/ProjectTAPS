@@ -3,6 +3,7 @@
 
 package adins.ace.taps.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.form.login.LoginForm;
 import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.LoginModule;
@@ -56,20 +58,11 @@ public class LoginAction extends Action {
 					 * session.setAttribute("username", username);
 					 */
 					///TESTING HAPUS NANTI
-					username = "domain205";
+					username = "domain100";
 					/////
 					params.put("userDomain", username);
-					session.setAttribute("spv", "false");
-					session.setAttribute("emp", "false");
-					session.setAttribute("hbu", "false");
-					session.setAttribute("hde", "false");
-					session.setAttribute("adm", "false");
-					session.setAttribute("bom", "false");
-					
-					List<String> roleList = lMan.roleList(params);
-					for (int i = 0; i < roleList.size(); i++) {
-						session.setAttribute(roleList.get(i), "true");
-					}
+					List<RoleBean> roleList = lMan.roleList(params);
+					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					return mapping.findForward("Dashboard");
 				} else {
