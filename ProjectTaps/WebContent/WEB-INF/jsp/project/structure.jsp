@@ -96,15 +96,12 @@
 								<td colspan=5 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"
-												href="javascript:button('first');"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"
-												href="javascript:button('prev');"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write
-														name="projectForm" property="page" /> of <bean:write
-														name="projectForm" property="maxpage" /></a></li>
+											<li class="first"><a id="first" href="javascript:button('first');">
+												<i class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev" href="javascript:button('prev');">
+												<i class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <bean:write name="projectForm" property="page" /> of 
+												<bean:write name="projectForm" property="maxpage" /></a></li>
 											<li class="next"><a id="next"
 												href="javascript:button('next');"><i class="icon-next"></i></a></li>
 											<li class="last"><a id="last"
