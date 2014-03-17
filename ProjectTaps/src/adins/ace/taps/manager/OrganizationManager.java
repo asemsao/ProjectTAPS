@@ -148,13 +148,36 @@ public class OrganizationManager {
 		}
 		return countMember;
 	}
+	
+	public Integer countMember(Map params) {
+		Integer countMember = null;
+		System.out.println(params.get("organization_code"));
+		try {
+			ibatisSqlMap.startTransaction();
+			countMember = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countMember", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return countMember;
+	}
 
-	public void submitInsert(OrganizationBean eBean) throws SQLException,
+	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("organization.insertOrganization", eBean);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -164,6 +187,7 @@ public class OrganizationManager {
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 
 	public void insertRole(OrganizationBean eBean) throws SQLException,
@@ -285,21 +309,26 @@ public class OrganizationManager {
 		return orgBean;
 	}
 
-	public void submitEdit(OrganizationBean orgBean) {
+	public boolean submitEdit(OrganizationBean orgBean) {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.editOrganization", orgBean);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			flag = false;
 			e.printStackTrace();
 		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e) {
+				flag = false;
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 
 }

@@ -89,7 +89,8 @@
 										<td>
 											<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" />
+											<input type="radio" name="project_choose" value="<bean:write name="transferProject"
+												property="projectCode" />" />
 											<span class="check"></span>
 											</label>
 											</div>
@@ -123,6 +124,7 @@
 					
 					<fieldset>
 					<legend>CHOOSE BUSINESS UNIT</legend>
+					<div id="choosenBU"></div>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>

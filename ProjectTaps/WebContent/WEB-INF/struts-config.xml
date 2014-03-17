@@ -107,7 +107,7 @@
 		<action name="dashboardForm" path="/dashboard" scope="request"
 			type="adins.ace.taps.action.DashboardAction">
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard/dashboard.jsp" />
-			<forward name="ListAssignment" path="/WEB-INF/jsp/assignment/index.jsp" />
+			<forward name="ListAssignment" path="/WEB-INF/jsp/dashboard/list.jsp" />
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">
@@ -142,11 +142,13 @@
 			type="adins.ace.taps.action.NewAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewAssignment" path="/WEB-INF/jsp/assignment/new.jsp" />
+			<forward name="EditAssignment" path="/WEB-INF/jsp/assignment/draft.jsp" />
 		</action>
 		<action name="selfAssignmentForm" path="/newSelfAssignment"
 			scope="request" type="adins.ace.taps.action.NewSelfAssignmentAction">
 			<forward name="Cancel" path="/employeeReport.do" />
 			<forward name="NewSelfAssignment" path="/WEB-INF/jsp/assignment/new_s.jsp" />
+			<forward name="EditSelfAssignment" path="/WEB-INF/jsp/assignment/draft_s.jsp" />
 		</action>
 		<action name="claimAssignmentForm" path="/claimAssignment"
 			scope="request" type="adins.ace.taps.action.ClaimAssignmentAction">
@@ -173,5 +175,4 @@
 	</action-mappings>
 
 	<message-resources parameter="Application" />
-
 </struts-config>
