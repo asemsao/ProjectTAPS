@@ -15,17 +15,12 @@
 <jsp:include page="/js/import.jsp" />
 <title>Taps</title>
 <script type="text/javascript">
-	$(document).ready(function() {
-		setInterval(function() {
-			$("#ar").val($("#ar").val() + "=");
-		}, 1000);
-	});
-
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
 </script>
+<script src="<%=request.getContextPath()%>/js/other/dashboard.js"></script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
@@ -36,9 +31,6 @@
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
-					<div class="input-control text">
-						<input name="id" value="" id="ar">
-					</div>
 					<div class="span9 center-taps">
 						<div id="auto-refresh">
 							<a href="#" onclick="javascript:flyToPage('approval');"

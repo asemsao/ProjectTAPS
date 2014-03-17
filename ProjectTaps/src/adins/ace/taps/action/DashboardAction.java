@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import java.util.HashMap;
@@ -19,6 +20,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.form.dashboard.DashboardForm;
@@ -33,6 +37,7 @@ public class DashboardAction extends Action {
 		DashboardManager dMan = new DashboardManager();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
+		PrintWriter out = response.getWriter();
 		String userDomain = "domain3";
 
 		if (session.getAttribute("taskCode") != null) {
@@ -91,17 +96,16 @@ public class DashboardAction extends Action {
 			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
 		}
 
-		if (dForm.getCountRecord() % 10 == 0) {
-			dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
-		} else {
-			dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
-		}
-
 		if ("approvalDashboard".equals(dForm.getTask())
 				|| "claimDashboard".equals(dForm.getTask())
 				|| "approvalSelfDashboard".equals(dForm.getTask())
 				|| "correctionDashboard".equals(dForm.getTask())
 				|| "correctionSelfDashboard".equals(dForm.getTask())) {
+			if (dForm.getCountRecord() % 10 == 0) {
+				dForm.setMaxPage((int) Math.ceil(dForm.getCountRecord() / 10));
+			} else {
+				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
+			}
 			return mapping.findForward("ListAssignment");
 		}
 
@@ -151,6 +155,14 @@ public class DashboardAction extends Action {
 		dForm.setTotalRFAself(dMan.searchTotalRFASelf(userDomain));
 		dForm.setTotalCorrection(dMan.searchTotalCorrection(userDomain));
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
+
+		if ("autoRefresh".equals(dForm.getTask())) {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(dForm);
+			out.print(json);
+			return null;
+		}
+
 		dForm.setListTopTen(dMan.searchTopTen());
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
 		return mapping.findForward("Dashboard");
