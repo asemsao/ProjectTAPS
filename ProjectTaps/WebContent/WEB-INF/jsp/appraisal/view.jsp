@@ -56,23 +56,21 @@
 								<td class="size3">Appraisal Star</td>
 								<td>:</td>
 								<td>
-								<bean:write name="specialAppraisalForm"
-										property="appraisalBean.appraisalStar" />
-									<div class="rating" id="rating">
-										<ul>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-											<li class="rated"></li>
-										</ul>
-										<span class="score-hint"></span>
-									</div>
+									<bean:define id="temp" name="specialAppraisalForm" property="appraisalBean.appraisalStar" type="Integer" />
+									<%
+									Integer sc = temp;
+									if (sc > 0) {
+										for (int i = 0; i < sc; i++) {
+											%> <img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" /> <%
+										}
+									} else if (sc < 0) {
+										for (int i = 0; i < Math.abs(sc); i++) {
+											%> <img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" /> <%
+										}
+									} else {
+									%> <img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" /> <%
+									}
+									%>
 								</td>
 							</tr>
 							<tr>

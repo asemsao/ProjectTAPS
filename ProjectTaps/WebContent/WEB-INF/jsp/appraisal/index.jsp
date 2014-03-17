@@ -90,8 +90,23 @@
 												name="specialAppraisal" property="createdDate" /></td>
 										<td class="text-center"><bean:write
 												name="specialAppraisal" property="employeeName" /></td>
-										<td class="text-center"><bean:write
-												name="specialAppraisal" property="appraisalStar" /></td>
+										<td class="text-center">
+										<bean:define id="temp" name="specialAppraisal" property="appraisalStar" type="Integer" />
+										<%
+										Integer sc = temp;
+										if (sc > 0) {
+											for (int i = 0; i < sc; i++) {
+												%> <img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" /> <%
+											}
+										} else if (sc < 0) {
+											for (int i = 0; i < Math.abs(sc); i++) {
+												%> <img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" /> <%
+											}
+										} else {
+										%> <img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" /> <%
+										}
+										%> 
+										</td>
 										<td class="text-center"><a
 											href="javascript:flyToPage2('View','<bean:write name="specialAppraisal" property="starId" />');"
 											data-hint="View Special Appraisal"
