@@ -297,25 +297,22 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="getProjectMemberById" resultClass="adins.ace.taps.bean.project.AddStructureProjectBean"
 		parameterClass="java.util.Map">
 		SELECT
-		ps.project_role AS projectRole,
-		ps.assignee_user_domain AS assigneeUserDomain,
-		e.first_name ||'
-		'||e.last_name AS assigneeName,
-		ps.directreport_user_domain AS
-		directreportUserDomain,
-		emp.first_name ||' '|| emp.last_name AS
-		directreportName
+			ps.project_role AS projectRole,
+			ps.assignee_user_domain AS assigneeUserDomain,
+			e.first_name ||' '||e.last_name AS assigneeName,
+			ps.directreport_user_domain AS directreportUserDomain,
+			emp.first_name ||' '|| emp.last_name AS directreportName
 		FROM
-		project_structures ps,
-		employees e,
-		employees emp
+			project_structures ps,
+			employees e,
+			employees emp
 		WHERE
-		e.user_domain = ps.assignee_user_domain
-		AND emp.user_domain =
-		ps.directreport_user_domain
-		AND ps.assignee_user_domain =
-		#paramAssigneeUserDomain#
-		AND ps.project_code = #paramProjectCode#
+			e.user_domain = ps.assignee_user_domain
+			AND emp.user_domain = ps.directreport_user_domain
+			AND ps.assignee_user_domain = #paramAssigneeUserDomain#
+			AND ps.project_code = #paramProjectCode#
+		ORDER BY 
+			ps.created_date
 	</select>
 
 	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
