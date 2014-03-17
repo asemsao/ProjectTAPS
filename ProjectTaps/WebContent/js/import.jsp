@@ -12,7 +12,6 @@
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/jquery/jquery.widget.min.js"></script>
 <script src="js/metro/metro.min.js"></script>
-<script src="js/rumble/jquery.jrumble.1.3.min.js"></script>
 <script src="js/metro/metro-calendar.js"></script>
 <script src="js/metro/metro-datepicker.js"></script>
 <script src="js/other/script.js"></script>
