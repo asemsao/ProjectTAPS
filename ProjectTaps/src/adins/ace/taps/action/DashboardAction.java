@@ -30,6 +30,9 @@ public class DashboardAction extends Action{
 		} else if("correctionSelf".equals(dForm.getTask())){
 			return mapping.findForward("ListAssignment");
 		} 
-		return mapping.findForward(null);
+		
+		dForm.setListTopTen(dMan.searchTopTen());
+		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
+		return mapping.findForward("Dashboard");
 	}
 }
