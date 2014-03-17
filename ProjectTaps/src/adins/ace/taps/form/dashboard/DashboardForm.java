@@ -10,6 +10,7 @@ import adins.ace.taps.bean.dashboard.DashboardBean;
 public class DashboardForm extends ActionForm{
 	DashboardBean dBean = new DashboardBean();
 	private String task;
+	private String employeeDomain;
 	private List<DashboardBean> listTopTen;
 	private List<DashboardBean> listTopTenOrganization;
 	
@@ -43,6 +44,14 @@ public class DashboardForm extends ActionForm{
 
 	public void setListTopTenOrganization(List<DashboardBean> listTopTenOrganization) {
 		this.listTopTenOrganization = listTopTenOrganization;
+	}
+
+	public String getEmployeeDomain() {
+		return employeeDomain;
+	}
+
+	public void setEmployeeDomain(String employeeDomain) {
+		this.employeeDomain = employeeDomain;
 	}
 
 }

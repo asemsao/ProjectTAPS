@@ -38,8 +38,8 @@ public class LoginAction extends Action {
 				/*String username = tForm.getUsername();
 				String password = tForm.getPassword();*/
 				//Testing ntar dihapus
-				String username = "budi.ss";
-				String password = "Terev9977";
+				String username = "kartiko.ew";
+				String password = "K@rtik02014";
 				////
 				String domainName = "nu-ace.ad-ins.com";
 

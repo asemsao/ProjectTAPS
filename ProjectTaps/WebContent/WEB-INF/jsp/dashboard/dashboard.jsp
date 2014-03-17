@@ -92,7 +92,7 @@
 								<logic:iterate id="employee" property="listTopTenOrganization"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="images/test-ava.jpg"
+										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write
@@ -125,7 +125,7 @@
 								<logic:iterate id="employee" property="listTopTen"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="images/test-ava.jpg"
+										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write

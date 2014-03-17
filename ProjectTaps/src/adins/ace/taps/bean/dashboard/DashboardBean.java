@@ -9,7 +9,9 @@ public class DashboardBean {
 	private Integer claimSupervisor;
 	private Integer correctionSupervisor;
 	private Integer rfaSupervisor;
-
+	private byte[] profilePicture;
+	private String userDomain;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -72,6 +74,22 @@ public class DashboardBean {
 
 	public void setRfaSupervisor(Integer rfaSupervisor) {
 		this.rfaSupervisor = rfaSupervisor;
+	}
+
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getUserDomain() {
+		return userDomain;
+	}
+
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
 	}
 
 }
