@@ -3,10 +3,7 @@
 
 package adins.ace.taps.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.*;
 
@@ -30,7 +27,6 @@ public class LoginAction extends Action {
 		LoginManager lMan = new LoginManager();
 		LoginModule loginAuth = new LoginModule();
 		HttpSession session = request.getSession(true);
-		Map params = new HashMap();
 		
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
@@ -60,10 +56,11 @@ public class LoginAction extends Action {
 					///TESTING HAPUS NANTI
 					username = "domain100";
 					/////
-					params.put("userDomain", username);
-					List<RoleBean> roleList = lMan.roleList(params);
+					List<RoleBean> roleList = lMan.roleList(username);
+					String fullname = lMan.getFullName(username);
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
+					session.setAttribute("fullname", fullname);
 					return mapping.findForward("Dashboard");
 				} else {
 					return mapping.findForward("Welcome");
