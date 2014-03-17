@@ -788,9 +788,13 @@ function setParameterAssignment() {
 	var value = $(".search-keyword-assignment").get(1).value;
 	var page = $("#page-assignment").val();
 	var maxpage = $("#maxpage-assignment").val();
+	var assignmentCategory = $("#assignmentCategory-assignment").val();
+	var assignmentType = $("#assignmentType-assignment").val();
 	var mode = $("#mode-assignment").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
+			+ assignmentType;
 	return data;
 }
 

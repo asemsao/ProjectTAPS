@@ -115,10 +115,25 @@ public class AjaxAction extends Action {
 					.searchEmployeeReportEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
+		if ("newAssignments".equals(ajaxForm.getMode())) {
+			params.put("assignmemtCategory", ajaxForm.getAssignmentCategory());
+			params.put("assignmentType", ajaxForm.getAssignmentType());
+			ajaxForm.setListEmployeeReport(asgMan
+					.lookUpEmployee(params));
+			ajaxForm.setCountRecord(asgMan.countLookUpEmployee(params));
+		}
+		if ("newSelfAssignments".equals(ajaxForm.getMode())) {
+			// nanti dari user domain dari session
+			params.put("userDomain", "domain3");
+			params.put("assignmemtCategory", ajaxForm.getAssignmentCategory());
+			params.put("assignmentType", ajaxForm.getAssignmentType());
+			ajaxForm.setListEmployeeReport(asgMan
+					.lookUpEmployee(params));
+			ajaxForm.setCountRecord(asgMan.countLookUpEmployee(params));
+		}
 		if ("comments".equals(ajaxForm.getMode())) {
 			params.put("taskCode", ajaxForm.getTaskCode());
-			ajaxForm.setHistoryComment(asgMan
-					.searchHistoryComment((params)));
+			ajaxForm.setHistoryComment(asgMan.searchHistoryComment((params)));
 			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
@@ -129,21 +144,27 @@ public class AjaxAction extends Action {
 			List<ActiveDirectoryBean> listAD = queAD.queryAD();
 			List<ActiveDirectoryBean> listAD1 = new ArrayList<ActiveDirectoryBean>();
 			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
-			if("employeeDomain".equals(ajaxForm.getSearchCategory())){
+			if ("employeeDomain".equals(ajaxForm.getSearchCategory())) {
 				for (int i = 0; i < listAD.size(); i++) {
-					if(listAD.get(i).getUserDomain().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())){
+					if (listAD
+							.get(i)
+							.getUserDomain()
+							.toLowerCase()
+							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
 						listAD1.add(listAD.get(i));
 					}
 				}
-			}
-			else if("employeeName".equals(ajaxForm.getSearchCategory())){
+			} else if ("employeeName".equals(ajaxForm.getSearchCategory())) {
 				for (int i = 0; i < listAD.size(); i++) {
-					if(listAD.get(i).getFullName().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())){
+					if (listAD
+							.get(i)
+							.getFullName()
+							.toLowerCase()
+							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
 						listAD1.add(listAD.get(i));
 					}
 				}
-			}
-			else{
+			} else {
 				listAD1 = listAD;
 			}
 			if (Integer.parseInt(params.get("end").toString()) > listAD1.size()) {
@@ -153,7 +174,7 @@ public class AjaxAction extends Action {
 					Integer.parseInt(params.get("start").toString()) - 1,
 					Integer.parseInt(params.get("end").toString()) - 1);
 			ajaxForm.setListAD(listADShow);
-			
+
 			ajaxForm.setCountRecord(listAD1.size());
 		}
 

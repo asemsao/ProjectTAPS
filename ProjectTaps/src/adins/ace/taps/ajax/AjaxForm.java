@@ -34,7 +34,35 @@ public class AjaxForm extends ActionForm {
 	private String organizationCode;
 	private Integer level;
 	private String taskCode;
+	private String userDomain;
+	private String assignmentCategory;
+	private String assignmentType;
 
+	
+	public String getUserDomain() {
+		return userDomain;
+	}
+
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
+	}
+
+	public String getAssignmentCategory() {
+		return assignmentCategory;
+	}
+
+	public void setAssignmentCategory(String assignmentCategory) {
+		this.assignmentCategory = assignmentCategory;
+	}
+
+	public String getAssignmentType() {
+		return assignmentType;
+	}
+
+	public void setAssignmentType(String assignmentType) {
+		this.assignmentType = assignmentType;
+	}
+	
 	public String getTask() {
 		return task;
 	}

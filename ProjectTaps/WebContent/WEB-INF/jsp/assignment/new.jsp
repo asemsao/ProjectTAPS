@@ -51,7 +51,7 @@
 						$("#employee-name").val($("#employee-fullName").val());
 
 						$("#timepicker").timeselector();
-						
+
 						$('#project-name')
 								.bind(
 										"change",
@@ -67,6 +67,22 @@
 											$("#employee-name").val("");
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
+										});
+						$("#lookUpAssignment")
+								.load(
+										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						$("input[name='assignment_type']")
+								.change(
+										function() {
+											if ($(this).val() == "PROJECT") {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+											} else {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+											}
 										});
 					});
 </script>
@@ -107,7 +123,8 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker"
+										<html:text property="assignmentBean.assignmentTime"
+											name="claimAssignmentForm" styleId="timepicker"
 											readonly="readonly"></html:text>
 									</div></td>
 							</tr>
@@ -132,9 +149,9 @@
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
-												name="claimAssignmentForm" styleId="project-code"/>
+												name="claimAssignmentForm" styleId="project-code" />
 											<html:hidden property="assignmentBean.projectName"
-												name="claimAssignmentForm" styleId="project-fullName"/>
+												name="claimAssignmentForm" styleId="project-fullName" />
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
@@ -160,10 +177,11 @@
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
+									
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode"
-											name="claimAssignmentForm" readonly="readonly"></html:text>
-										<button type="button" class="btn-search" id="task"></button>
+											name="claimAssignmentForm" styleId="assignment-code" readonly="readonly"></html:text>
+										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -197,6 +215,7 @@
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>
+	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>

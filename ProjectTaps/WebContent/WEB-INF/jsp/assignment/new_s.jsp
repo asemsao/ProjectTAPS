@@ -34,7 +34,8 @@
 						var organization_code = $("#organization-code-view")
 								.val();
 						$("#employee-name").val($("#employee-fullName").val());
-						$("#employee-name-2").val($("#employee-fullName-2").val());
+						$("#employee-name-2").val(
+								$("#employee-fullName-2").val());
 						$("#lookUpEmployeeOnProject")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
@@ -47,7 +48,7 @@
 										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 						$("#lookUpAssignment")
 								.load(
-										"/ProjectTaps/ajax.do?mode=assignments&task=assignments");
+										"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
 						$('#project-name')
 								.bind(
 										"change",
@@ -63,6 +64,19 @@
 											$("#employee-name").val("");
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
+										});
+						$("input[name='assignment_type']")
+								.change(
+										function() {
+											if ($(this).val() == "PROJECT") {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
+											} else {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+											}
 										});
 					});
 </script>
@@ -179,8 +193,8 @@
 												name="selfAssignmentForm" styleId="employee-domain-2" />
 											<html:hidden property="selfAssignBean.adhocFullName"
 												name="selfAssignmentForm" styleId="employee-fullName-2" />
-											<input type="text" placeholder="Employee" id="employee-name-2"
-												readonly="readonly" />
+											<input type="text" placeholder="Employee"
+												id="employee-name-2" readonly="readonly" />
 											<button type="button" class="btn-search" id="employee2"></button>
 										</div>
 									</div></td>
@@ -258,8 +272,7 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm"
-										styleClass="input-control textarea"></html:textarea></td>
+										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right"><html:button
@@ -280,7 +293,8 @@
 		<html:hidden property="activityType" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.detailId"
 			name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.headUserDomain"	name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.headUserDomain"
+			name="selfAssignmentForm" />
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
 	</html:form>
