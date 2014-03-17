@@ -32,45 +32,49 @@
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
 					<div class="span9 center-taps">
-						<div id="auto-refresh">
-							<a href="#" onclick="javascript:flyToPage('approval');"
-								data-hint="Approval Assignment" data-hint-position="left"
-								class="tile bg-cyan"> <span class="tile-content icon">
-									<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
-							</span> <span class="brand"> <span class="badge bg-gray"><bean:write
-											property="totalRFA" name="dashboardForm" /></span>
-							</span>
-							</a> <a href="#" onclick="javascript:flyToPage('approvalSelf');"
-								data-hint="Approval Self Assignment" data-hint-position="left"
-								class="tile bg-cyan"> <span class="tile-content icon">
-									<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
-							</span> <span class="brand"> <span class="badge bg-gray"><bean:write
-											property="totalRFAself" name="dashboardForm" /></span>
-							</span>
-							</a> <a href="#" onclick="javascript:flyToPage('claim');"
-								id="_edit_this" data-hint="Claim Assignment"
-								data-hint-position="left" class="tile bg-cyan"> <span
-								class="tile-content icon"> <img alt=""
-									src="images/CLAIM_ASSIGNMENT.png">
-							</span> <span class="brand"> <span class="badge bg-red"><bean:write
-											property="totalClaim" name="dashboardForm" /></span>
-							</span>
-							</a> <a href="#" onclick="javascript:flyToPage('correction');"
-								data-hint="Correction Assignment" data-hint-position="left"
-								class="tile bg-cyan"> <span class="tile-content icon">
-									<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
-							</span> <span class="brand"> <span class="badge bg-gray"><bean:write
-											property="totalCorrection" name="dashboardForm" /></span>
-							</span>
-							</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');"
-								data-hint="Correction Self Assignment" data-hint-position="left"
-								class="tile bg-cyan"> <span class="tile-content icon">
-									<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png">
-							</span> <span class="brand"> <span class="badge bg-gray"><bean:write
-											property="totalCorrectionSelf" name="dashboardForm" /></span>
-							</span>
-							</a>
-						</div>
+
+						<a href="#" onclick="javascript:flyToPage('approval');"
+							data-hint="Approval Assignment" data-hint-position="left"
+							class="tile bg-cyan"> <span class="tile-content icon">
+								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-gray"><span
+									id="rfa"><bean:write property="totalRFA"
+											name="dashboardForm" /></span></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('approvalSelf');"
+							data-hint="Approval Self Assignment" data-hint-position="left"
+							class="tile bg-cyan"> <span class="tile-content icon">
+								<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-gray"><span
+									id="rfa-s"> <bean:write property="totalRFAself"
+											name="dashboardForm" /></span></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('claim');"
+							id="_edit_this" data-hint="Claim Assignment"
+							data-hint-position="left" class="tile bg-cyan"> <span
+							class="tile-content icon"> <img alt=""
+								src="images/CLAIM_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-red"><span
+									id="claim"><bean:write property="totalClaim"
+											name="dashboardForm" /></span></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('correction');"
+							data-hint="Correction Assignment" data-hint-position="left"
+							class="tile bg-cyan"> <span class="tile-content icon">
+								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-gray"><span
+									id="correction"> <bean:write property="totalCorrection"
+											name="dashboardForm" /></span></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');"
+							data-hint="Correction Self Assignment" data-hint-position="left"
+							class="tile bg-cyan"> <span class="tile-content icon">
+								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png">
+						</span> <span class="brand"> <span class="badge bg-gray"><span
+									id="correction-s"> <bean:write
+											property="totalCorrectionSelf" name="dashboardForm" /></span></span>
+						</span>
+						</a>
 					</div>
 				</html:form>
 			</div>
@@ -91,7 +95,8 @@
 								<logic:iterate id="employee" property="listTopTenOrganization"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
@@ -123,7 +128,8 @@
 								<logic:iterate id="employee" property="listTopTen"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 45px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"

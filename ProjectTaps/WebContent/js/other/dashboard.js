@@ -10,14 +10,22 @@ $(document).ready(function() {
 				console.log("problem was here!");
 			},
 			success : function(data) {
-				var json = $.parseJSON(data); 
+				var json = $.parseJSON(data);
 				console.log(json);
-				// $("#auto-refresh").html($("#ar").val() + "=");
+				$("#rfa").html(json.totalRFA);
+				$("#rfa-s").html(json.totalRFAself);
+				$("#claim").html(json.totalClaim);
+				$("#correction").html(json.totalCorrection);
+				$("#coorection-s").html(json.totalCorrectionSelf);
 			}
 		});
 
-		
-	}, 5000);
+	}, 10000);
 });
 
 // 60000
+// totalClaim: 0
+// totalCorrection: 0
+// totalCorrectionSelf: 0
+// totalRFA: 0
+// totalRFAself: 0
