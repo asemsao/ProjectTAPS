@@ -1,11 +1,38 @@
 package adins.ace.taps.bean.dashboard;
 
 public class DashboardBean {
+	private String userName;
+	private String employeeName;
+	private String totalStar;
 	private Integer claimEmployee;
 	private Integer correctionEmployee;
 	private Integer claimSupervisor;
 	private Integer correctionSupervisor;
 	private Integer rfaSupervisor;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getTotalStar() {
+		return totalStar;
+	}
+
+	public void setTotalStar(String totalStar) {
+		this.totalStar = totalStar;
+	}
 
 	public Integer getClaimEmployee() {
 		return claimEmployee;

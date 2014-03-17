@@ -1,5 +1,7 @@
 package adins.ace.taps.form.dashboard;
 
+import java.util.List;
+
 import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
@@ -8,6 +10,8 @@ import adins.ace.taps.bean.dashboard.DashboardBean;
 public class DashboardForm extends ActionForm{
 	DashboardBean dBean = new DashboardBean();
 	private String task;
+	private List<DashboardBean> listTopTen;
+	private List<DashboardBean> listTopTenOrganization;
 	
 	public DashboardBean getdBean() {
 		return dBean;
@@ -23,6 +27,22 @@ public class DashboardForm extends ActionForm{
 
 	public void setTask(String task) {
 		this.task = task;
+	}
+
+	public List<DashboardBean> getListTopTen() {
+		return listTopTen;
+	}
+
+	public void setListTopTen(List<DashboardBean> listTopTen) {
+		this.listTopTen = listTopTen;
+	}
+
+	public List<DashboardBean> getListTopTenOrganization() {
+		return listTopTenOrganization;
+	}
+
+	public void setListTopTenOrganization(List<DashboardBean> listTopTenOrganization) {
+		this.listTopTenOrganization = listTopTenOrganization;
 	}
 
 }
