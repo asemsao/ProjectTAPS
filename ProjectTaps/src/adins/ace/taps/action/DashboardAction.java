@@ -38,7 +38,6 @@ public class DashboardAction extends Action {
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
-		PrintWriter out = response.getWriter();
 		String userDomain = "domain3";
 		
 		/*code for claim assignment from supervisor*/
@@ -164,6 +163,7 @@ public class DashboardAction extends Action {
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
 
 		if ("autoRefresh".equals(dForm.getTask())) {
+			PrintWriter out = response.getWriter();			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(dForm);
 			out.print(json);
