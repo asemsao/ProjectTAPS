@@ -104,7 +104,7 @@
 									<tr>
 										<td class="text-center"><img
 											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 30px;"></td>
+											class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>
@@ -136,7 +136,7 @@
 									<tr>
 										<td class="text-center"><img
 											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 30px;"></td>
+											class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>
@@ -169,7 +169,7 @@
 									<tr>
 										<td class="text-center"><img
 											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 30px;"></td>
+											class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>
@@ -199,7 +199,7 @@
 									<tr>
 										<td class="text-center"><img
 											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 30px;"></td>
+											class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>
