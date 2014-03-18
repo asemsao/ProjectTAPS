@@ -48,15 +48,21 @@ public class DashboardAction extends Action {
 			return mapping.findForward("Claim");
 		}
 		if ("CORRECTION".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("CorrectionSelf");
 		}
 		if ("CORRECTION".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Correction");
 		}
 		if ("RFA".equals(dForm.getTask())  && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
 			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("ApprovalSelf");
 		}
 		if ("RFA".equals(dForm.getTask())  && "ASSIGNMENT".equals(dForm.getTaskType())){
@@ -110,6 +116,7 @@ public class DashboardAction extends Action {
 			dForm.setCountRecord(dMan.countListClaim(params));
 		}
 		if ("approvalSelfDashboard".equals(dForm.getTask())) {
+			params.put("userDomain", "DOMAIN205");
 			dForm.setListAssignment(dMan.searchListApprovalSelf(params));
 			dForm.setCountRecord(dMan.countListApprovalSelf(params));
 			return mapping.findForward("ListAssignment");
