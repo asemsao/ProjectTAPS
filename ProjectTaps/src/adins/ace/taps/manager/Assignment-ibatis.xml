@@ -919,7 +919,8 @@
 		SET
 		current_status = 'DELETED'
 		WHERE UPPER(task_code) =
-		UPPER(#task_code#)
+		UPPER(#task_code#) AND
+		current_status = 'DRAFT'
 	</delete>
 
 	<delete id="deleteClaim" parameterClass="java.lang.String">
