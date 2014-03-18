@@ -83,9 +83,12 @@
 											}
 										});
 
+						$("#assignmentDate").attr("placeholder", "Assignment Date");
 						$("#project-name").attr("placeholder", "Project");
 						$("#employee-name").attr("placeholder", "Employee");
 						$("#employee-name-2").attr("placeholder", "Employee");
+						$("#assignment-code").attr("placeholder", "Reff Task Code");
+						$("#description").attr("placeholder", "Description");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -276,7 +279,7 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
+										name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
