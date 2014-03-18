@@ -70,7 +70,7 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
 				aForm.getSelfAssignBean().setCreatedBy((String) session.getAttribute("username"));
 				aForm.getSelfAssignBean().setAssignTo((String) session.getAttribute("username"));
-	
+				aForm.getSelfAssignBean().setClaimDate(aForm.getSelfAssignBean().getAssignmentDate());
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
 					aForm.getSelfAssignBean().setFlag("ACTIVE");

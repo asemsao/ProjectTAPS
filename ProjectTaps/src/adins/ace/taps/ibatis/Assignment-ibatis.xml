@@ -629,16 +629,20 @@
 	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		INSERT INTO detail_claim_assignments (detail_id,
 		                                      task_code,
+		                                      claim_date,
 		                                      manhour,
 		                                      description,
 		                                      created_by,
-		                                      created_date)
+		                                      created_date,
+		                                      flag)
 		  VALUES   (SEQUENCE_CLAIMS.NEXTVAL,
 		            #taskCode#,
+		            #claimDate#,
 		            #manHours#,
 		            #description#,
 		            #createdBy#,
-		            SYSDATE)
+		            SYSDATE,
+		            'ACTIVE')
 	</insert>
 
 	<update id="editClaimSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">

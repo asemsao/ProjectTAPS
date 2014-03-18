@@ -30,7 +30,7 @@ public class NewAssignmentAction extends Action {
 		Date date = new Date();
 		boolean success = false;
 		//coba pake domain3
-		session.setAttribute("username", "domain3");
+		session.setAttribute("username", "DOMAIN205");
 		//nanti dihapus
 		
 		if (aForm.getNewTask() == null) {
@@ -65,7 +65,6 @@ public class NewAssignmentAction extends Action {
 				
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy((String) session.getAttribute("username"));
-System.out.println(aForm.getNewTask());
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
