@@ -5,69 +5,70 @@
 	<select id="employeeReportSupervisor" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean"
 		parameterClass="java.util.Map">
 		SELECT * FROM (
-			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
-				         a.task_code AS assignmentCode,
-				         a.assignment_category AS assignmentCategory,
-				         e.first_name || ' ' || e.last_name AS fullName,
-				         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-				         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
-				         a.current_status AS currentStatus,
-				         a.flag AS flag
-				  FROM      assignments a
-				         LEFT JOIN
-				            employees e
-				         ON a.assign_to = e.user_domain
-				 WHERE   a.report_to = #sessionUserDomain# AND a.current_status != 'DELETED'
-				<dynamic prepend="AND">
-					<isNotNull property="keyword">
-						<isNotEmpty property="keyword">
-							<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="employee">
-								(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
-								LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
-							</isEqual>
-							<isEqual property="category" compareValue="status">LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="All">(LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
-								LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
-								LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name)
-								LIKE LOWER ('%$keyword$%') OR LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%'))
-							</isEqual>
+		SELECT ROWNUM seqnumb, a.* FROM (
+		SELECT TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		a.task_code AS assignmentCode,
+		a.assignment_category AS assignmentCategory,
+		e.first_name || ' ' || e.last_name AS fullName,
+		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		a.current_status AS currentStatus,
+		a.flag AS flag
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.assign_to = e.user_domain
+		WHERE a.report_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN
+							TO_DATE(#startDate#,'DD/MM/YYYY') AND
+							TO_DATE(#endDate#,'DD/MM/YYYY')
 						</isNotEmpty>
-					</isNotNull>
-				</dynamic>
-				<dynamic prepend="AND">
-					<isNotNull property="startDate">
-						<isNotNull property="endDate">
-							<isNotEmpty property="startDate">
-								<isNotEmpty property="endDate">
-									assignment_due_date BETWEEN
-									TO_DATE(#startDate#,'DD/MM/YYYY') AND
-									TO_DATE(#endDate#,'DD/MM/YYYY')
-								</isNotEmpty>
-							</isNotEmpty>
-						</isNotNull>
-					</isNotNull>
-				</dynamic>
-				ORDER BY a.created_date DESC
-				) a WHERE <![CDATA[ROWNUM <= #end#]]>
-			)
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+		ORDER BY a.created_date DESC
+		) a WHERE <![CDATA[ROWNUM <= #end#]]>
+		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
 	</select>
 
-	<select id="countEmployeeReportSupervisor" resultClass="int" parameterClass="java.util.Map">
-		SELECT   COUNT (1)
-		  FROM      assignments a
-		         LEFT JOIN
-		            employees e
-		         ON a.assign_to = e.user_domain AND a.current_status != 'DELETED'
-		 WHERE   a.report_to = #sessionUserDomain#
+	<select id="countEmployeeReportSupervisor" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.assign_to = e.user_domain AND a.current_status != 'DELETED'
+		WHERE a.report_to = #sessionUserDomain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -84,9 +85,128 @@
 					</isEqual>
 					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(a.current_status)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN
+							TO_DATE(#startDate#,'DD/MM/YYYY') AND
+							TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="employeeAssignmentList" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean"
+		parameterClass="java.util.Map">
+		SELECT * FROM (
+		SELECT ROWNUM seqnumb, a.* FROM (
+		SELECT TO_CHAR (a.assignment_date,
+		'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		a.task_code AS assignmentCode,
+		a.assignment_category AS assignmentCategory,
+		e.first_name || ' ' || e.last_name AS fullName,
+		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		a.current_status AS currentStatus,
+		a.flag AS flag
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.report_to = e.user_domain
+		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND
+		LOWER(assign_to) = 'domain1'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%')
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN
+							TO_DATE(#startDate#,'DD/MM/YYYY') AND
+							TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+		ORDER BY a.created_date DESC
+		) a WHERE <![CDATA[ROWNUM <= #end#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+	
+	<select id="countEmployeeAssignmentList" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.report_to = e.user_domain
+		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND
+		LOWER(assign_to) = 'domain1'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%')
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
 						LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
@@ -110,74 +230,20 @@
 	<select id="employeeReportEmployee" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean"
 		parameterClass="java.util.Map">
 		SELECT * FROM (
-			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
-				         a.task_code AS assignmentCode,
-				         a.assignment_category AS assignmentCategory,
-				         e.first_name || ' ' || e.last_name AS fullName,
-				         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-				         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
-				         a.current_status AS currentStatus,
-				         a.flag AS flag
-				  FROM      assignments a
-				         LEFT JOIN
-				            employees e
-				         ON a.report_to = e.user_domain
-				 WHERE   a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
-				<dynamic prepend="AND">
-					<isNotNull property="keyword">
-						<isNotEmpty property="keyword">
-							<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="employee">
-								(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
-								LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
-							</isEqual>
-							<isEqual property="category" compareValue="status">LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%')
-							</isEqual>
-							<isEqual property="category" compareValue="All">(LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
-								LIKE
-								LOWER ('%$keyword$%') OR LOWER(e.first_name)
-								LIKE LOWER
-								('%$keyword$%') OR LOWER(e.last_name)
-								LIKE LOWER ('%$keyword$%') OR
-								LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%'))
-							</isEqual>
-						</isNotEmpty>
-					</isNotNull>
-				</dynamic>
-				<dynamic prepend="AND">
-					<isNotNull property="startDate">
-						<isNotNull property="endDate">
-							<isNotEmpty property="startDate">
-								<isNotEmpty property="endDate">
-									assignment_due_date BETWEEN
-									TO_DATE(#startDate#,'DD/MM/YYYY') AND
-									TO_DATE(#endDate#,'DD/MM/YYYY')
-								</isNotEmpty>
-							</isNotEmpty>
-						</isNotNull>
-					</isNotNull>
-				</dynamic>
-				ORDER BY a.created_date DESC
-				) a WHERE <![CDATA[ROWNUM <= #end#]]>
-			)
-		WHERE <![CDATA[seqnumb >= #start#]]>
-	</select>
-
-	<select id="countEmployeeReportEmployee" resultClass="int"
-		parameterClass="java.util.Map">
-		SELECT   COUNT (1)
-		  FROM      assignments a
-		         LEFT JOIN
-		            employees e
-		         ON a.report_to = e.user_domain
-		 WHERE   a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+		SELECT ROWNUM seqnumb, a.* FROM (
+		SELECT TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		a.task_code AS assignmentCode,
+		a.assignment_category AS assignmentCategory,
+		e.first_name || ' ' || e.last_name AS fullName,
+		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		a.current_status AS currentStatus,
+		a.flag AS flag
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.report_to = e.user_domain
+		WHERE a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -194,9 +260,66 @@
 					</isEqual>
 					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name)
-						LIKE LOWER ('%$keyword$%') OR LOWER(a.current_status)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN
+							TO_DATE(#startDate#,'DD/MM/YYYY') AND
+							TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
+		ORDER BY a.created_date DESC
+		) a WHERE <![CDATA[ROWNUM <= #end#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+
+	<select id="countEmployeeReportEmployee" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.report_to = e.user_domain
+		WHERE a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%')
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
 						LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
@@ -220,74 +343,22 @@
 	<select id="assignmentSupervisor" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean"
 		parameterClass="java.util.Map">
 		SELECT * FROM (
-			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
-				         a.task_code AS assignmentCode,
-				         a.assignment_category AS assignmentCategory,
-				         e.first_name || ' ' || e.last_name AS fullName,
-				         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-				         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
-				         a.current_status AS currentStatus,
-				         a.flag AS flag
-				  FROM      assignments a
-				         LEFT JOIN
-				            employees e
-				         ON a.assign_to = e.user_domain
-				 WHERE       a.report_to = #sessionUserDomain#
-				         AND a.assignment_Category = 'ASSIGNMENT'
-				         AND a.current_status != 'DELETED'
-				<dynamic prepend="AND">
-					<isNotNull property="keyword">
-						<isNotEmpty property="keyword">
-							<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="employee">
-								(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
-								LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
-							</isEqual>
-							<isEqual property="category" compareValue="status">LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%')</isEqual>
-							<isEqual property="category" compareValue="All">(LOWER(a.task_code)
-								LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
-								LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
-								LIKE LOWER ('%$keyword$%') OR LOWER(e.last_name)
-								LIKE LOWER ('%$keyword$%') OR LOWER(a.current_status)
-								LIKE LOWER ('%$keyword$%'))
-							</isEqual>
-						</isNotEmpty>
-					</isNotNull>
-				</dynamic>
-				<dynamic prepend="AND">
-					<isNotNull property="startDate">
-						<isNotNull property="endDate">
-							<isNotEmpty property="startDate">
-								<isNotEmpty property="endDate">
-									assignment_due_date BETWEEN
-									TO_DATE(#startDate#,'DD/MM/YYYY') AND
-									TO_DATE(#endDate#,'DD/MM/YYYY')
-								</isNotEmpty>
-							</isNotEmpty>
-						</isNotNull>
-					</isNotNull>
-				</dynamic>
-				ORDER BY a.created_date DESC
-				) a WHERE <![CDATA[ROWNUM <= #end#]]>
-			)
-		WHERE <![CDATA[seqnumb >= #start#]]>
-	</select>
-
-	<select id="countAssignmentSupervisor" resultClass="int"
-		parameterClass="java.util.Map">
-		SELECT   COUNT (1)
-		  FROM      assignments a
-		         LEFT JOIN
-		            employees e
-		         ON a.assign_to = e.user_domain
-		 WHERE       a.report_to = #sessionUserDomain#
-		         AND a.assignment_Category = 'ASSIGNMENT'
-		         AND a.current_status != 'DELETED'
+		SELECT ROWNUM seqnumb, a.* FROM (
+		SELECT TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		a.task_code AS assignmentCode,
+		a.assignment_category AS assignmentCategory,
+		e.first_name || ' ' || e.last_name AS fullName,
+		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		a.current_status AS currentStatus,
+		a.flag AS flag
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.assign_to = e.user_domain
+		WHERE a.report_to = #sessionUserDomain#
+		AND a.assignment_Category = 'ASSIGNMENT'
+		AND a.current_status != 'DELETED'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -300,8 +371,7 @@
 						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="status">LOWER(a.current_status)
-						LIKE LOWER ('%$keyword$%')
-					</isEqual>
+						LIKE LOWER ('%$keyword$%')</isEqual>
 					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
 						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
 						LIKE LOWER ('%$keyword$%') OR LOWER(e.first_name)
@@ -325,125 +395,181 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
+		ORDER BY a.created_date DESC
+		) a WHERE <![CDATA[ROWNUM <= #end#]]>
+		)
+		WHERE <![CDATA[seqnumb >= #start#]]>
+	</select>
+
+	<select id="countAssignmentSupervisor" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM assignments a
+		LEFT JOIN
+		employees e
+		ON a.assign_to = e.user_domain
+		WHERE a.report_to = #sessionUserDomain#
+		AND a.assignment_Category = 'ASSIGNMENT'
+		AND a.current_status != 'DELETED'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="taskCode">LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="taskType">LOWER(a.assignment_category)
+						LIKE LOWER ('%$keyword$%')</isEqual>
+					<isEqual property="category" compareValue="employee">
+						(LOWER(e.first_name) LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.last_name) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="status">LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%')
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(a.task_code)
+						LIKE LOWER ('%$keyword$%') OR LOWER(a.assignment_category)
+						LIKE
+						LOWER ('%$keyword$%') OR LOWER(e.first_name)
+						LIKE LOWER
+						('%$keyword$%') OR LOWER(e.last_name)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(a.current_status)
+						LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="startDate">
+				<isNotNull property="endDate">
+					<isNotEmpty property="startDate">
+						<isNotEmpty property="endDate">
+							assignment_due_date BETWEEN
+							TO_DATE(#startDate#,'DD/MM/YYYY') AND
+							TO_DATE(#endDate#,'DD/MM/YYYY')
+						</isNotEmpty>
+					</isNotEmpty>
+				</isNotNull>
+			</isNotNull>
+		</dynamic>
 	</select>
 
 	<!-- insert current_status bergantung pada pilihan save(draft) dan assign(claim) -->
 	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
-	INSERT INTO assignments (
-	                            task_code,
-	                            assignment_date,
-	                            assignment_due_date,
-	                            assignment_type,
-	                            assignment_category,
-	                            organization_code,
-	                            project_code,
-	                            description,
-	                            reff_task_code,
-	                            activity_type,
-	                            adhoc_user_domain,
-	                            assign_to,
-	                            report_to,
-	                            flag,
-	                            current_status,
-	                            created_by,
-	                            created_date,
-	                            updated_by,
-	                            updated_date
-	           )
-	  VALUES   (
-	               #taskCode#,
-	               TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
-	               #assignmentDueDate#,
-	               #assignmentType#,
-	               'ASSIGNMENT',
-	               #organizationCode#,
-	               #projectCode#,
-	               #description#,
-	               #reffTaskCode#,
-	               'ADHOC',
-	               #adhocUserDomain#,
-	               #assignTo#,
-	               #reportTo#,
-	               #flag#,
-	               #currentStatus#,
-	               #createdBy#,
-	               SYSDATE,
-	               #createdBy#,
-	               SYSDATE
-	           )
+		INSERT INTO assignments (
+		task_code,
+		assignment_date,
+		assignment_due_date,
+		assignment_type,
+		assignment_category,
+		organization_code,
+		project_code,
+		description,
+		reff_task_code,
+		activity_type,
+		adhoc_user_domain,
+		assign_to,
+		report_to,
+		flag,
+		current_status,
+		created_by,
+		created_date,
+		updated_by,
+		updated_date
+		)
+		VALUES (
+		#taskCode#,
+		TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
+		#assignmentDueDate#,
+		#assignmentType#,
+		'ASSIGNMENT',
+		#organizationCode#,
+		#projectCode#,
+		#description#,
+		#reffTaskCode#,
+		'ADHOC',
+		#adhocUserDomain#,
+		#assignTo#,
+		#reportTo#,
+		#flag#,
+		#currentStatus#,
+		#createdBy#,
+		SYSDATE,
+		#createdBy#,
+		SYSDATE
+		)
 	</insert>
 
 	<insert id="addSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
-	INSERT INTO assignments (task_code,
-	                         assignment_date,
-	                         assignment_due_date,
-	                         assignment_type,
-	                         assignment_category,
-	                         organization_code,
-	                         project_code,
-	                         description,
-	                         reff_task_code,
-	                         activity_type,
-	                         adhoc_user_domain,
-	                         assign_to,
-	                         report_to,
-	                         flag,
-	                         current_status,
-	                         created_by,
-	                         created_date,
-	                         updated_by,
-	                         updated_date)
-	  VALUES   (#taskCode#,
-	            #assignmentDate#,
-	            #assignmentDueDate#,
-	            #assignmentType#,
-	            'SELF ASSIGNMENT',
-	            #organizationCode#,
-	            #projectCode#,
-	            #description#,
-	            #reffTaskCode#,
-	            #activityType#,
-	            #adhocUserDomain#,
-	            #assignTo#,
-	            #reportTo#,
-	            #flag#,
-	            #currentStatus#,
-	            #createdBy#,
-	            SYSDATE,
-	            #createdBy#,
-	            SYSDATE)
+		INSERT INTO assignments (task_code,
+		assignment_date,
+		assignment_due_date,
+		assignment_type,
+		assignment_category,
+		organization_code,
+		project_code,
+		description,
+		reff_task_code,
+		activity_type,
+		adhoc_user_domain,
+		assign_to,
+		report_to,
+		flag,
+		current_status,
+		created_by,
+		created_date,
+		updated_by,
+		updated_date)
+		VALUES (#taskCode#,
+		#assignmentDate#,
+		#assignmentDueDate#,
+		#assignmentType#,
+		'SELF ASSIGNMENT',
+		#organizationCode#,
+		#projectCode#,
+		#description#,
+		#reffTaskCode#,
+		#activityType#,
+		#adhocUserDomain#,
+		#assignTo#,
+		#reportTo#,
+		#flag#,
+		#currentStatus#,
+		#createdBy#,
+		SYSDATE,
+		#createdBy#,
+		SYSDATE)
 	</insert>
 
 	<select id="searchOrganizationCode" resultClass="java.lang.String"
 		parameterClass="java.lang.String">
-		SELECT   organization_code AS organizationCode
-		  FROM   employees
-		 WHERE   user_domain = #userDomain#
+		SELECT organization_code AS organizationCode
+		FROM employees
+		WHERE user_domain = #userDomain#
 	</select>
 
 	<select id="searchHeadUserDomain" resultClass="java.lang.String"
 		parameterClass="java.lang.String">
-		SELECT   head_user_domain AS headUserDomain
-		  FROM   organizations
-		 WHERE   organization_code = #organizationCode#
+		SELECT head_user_domain AS headUserDomain
+		FROM organizations
+		WHERE organization_code = #organizationCode#
 	</select>
 
 	<select id="searchHeadOrganizationCode" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean"
 		parameterClass="java.lang.String">
-		SELECT   o.organization_name AS organizationName,
-		         o.head_user_domain AS headUserDomain,
-		         mgr.first_name || ' ' || mgr.last_name AS headUserName
-		  FROM   organizations o, employees mgr, employees e
-		 WHERE       mgr.user_domain = o.head_user_domain
-		         AND o.organization_code = e.organization_code
-		         AND e.user_domain = #userDomain#
+		SELECT o.organization_name AS organizationName,
+		o.head_user_domain AS headUserDomain,
+		mgr.first_name || ' ' || mgr.last_name AS headUserName
+		FROM organizations o, employees mgr, employees e
+		WHERE mgr.user_domain = o.head_user_domain
+		AND o.organization_code = e.organization_code
+		AND e.user_domain = #userDomain#
 	</select>
 
 	<select id="getMaxTaskCodeOrganization" resultClass="java.lang.String"
 		parameterClass="java.lang.String">
-		SELECT   LPAD (SUBSTR (MAX (task_code), 8, 11) + 1, 5, 0)
-		  FROM   assignments
-		 WHERE   task_code LIKE UPPER ('%$paramTaskCode$%')
+		SELECT LPAD (SUBSTR (MAX (task_code), 8, 11) + 1, 5, 0)
+		FROM assignments
+		WHERE task_code LIKE UPPER ('%$paramTaskCode$%')
 	</select>
 
 	<!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->

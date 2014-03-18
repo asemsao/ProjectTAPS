@@ -73,7 +73,13 @@ public class AjaxAction extends Action {
 		params.put("end", (ajaxForm.getPage() * 10));
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
-
+		
+		if ("deleteEmployee".equals(ajaxForm.getMode())) {
+			ajaxForm.setListEmployeeReport(asgMan
+					.employeeAssignmentList(params));
+			ajaxForm.setCountRecord(asgMan.countEmployeeAssignmentList(params));
+		}
+			
 		if ("employees".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
@@ -225,6 +231,9 @@ public class AjaxAction extends Action {
 		}
 		if ("comments".equals(ajaxForm.getTask())) {
 			return mapping.findForward("comments");
+		}
+		if ("deleteEmployee".equals(ajaxForm.getTask())) {
+			return mapping.findForward("deleteEmployee");
 		}
 		return null;
 	}

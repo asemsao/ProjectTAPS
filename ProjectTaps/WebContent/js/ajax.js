@@ -1,4 +1,16 @@
 $(document).ready(function() {
+	$(".deleteEmployee").on('click', function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpDeleteEmployee").html(),
+			padding : 10,
+			title : 'Employees AD'
+		});
+	});
 	$("#activeDirectory").on('click', function() {
 		$.Dialog({
 			overlay : true,
@@ -96,6 +108,118 @@ $(document).ready(function() {
 		});
 	});
 });
+
+//===============================================================================
+//Fungsi ajax look up untuk assignment
+//===============================================================================
+function loadAssignmentDelete(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpDeleteEmployee").html(),
+			padding : 10,
+			title : 'Assignment'
+		});
+		$(".search-category-assignment-delete").get(1).value = searchCategory;
+		$(".search-keyword-assignment-delete").get(1).value = searchKeyword;
+	}, 500);
+}
+
+function setParameterAssignmentDelete() {
+	var task = $("#task-assignment-delete").val();
+	var search = $(".search-category-assignment-delete").get(1).value;
+	var value = $(".search-keyword-assignment-delete").get(1).value;
+	var page = $("#page-assignment-delete").val();
+	var maxpage = $("#maxpage-assignment-delete").val();
+	var assignmentCategory = $("#assignmentCategory-assignment-delete").val();
+	var assignmentType = $("#assignmentType-assignment-delete").val();
+	var mode = $("#mode-assignment-delete").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
+			+ assignmentType;
+	return data;
+}
+
+function setResponseAssignmentDelete(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Type</th>";
+	content += "<th class='text-center'>Employee</th>";
+	content += "<th class='text-center'>Deadline</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeeReport) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].fullName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-assignment-delete").html(content);
+	$("#page-assignment-delete").val(json.page);
+	$("#current-page-assignment-delete").html(json.page);
+	$("#maxpage-assignment-delete").val(json.maxpage);
+	$("#max-page-assignment-delete").html(json.maxpage);
+	$("#total-record-assignment-delete").html(json.countRecord);
+	$(".search-category-assignment-delete").val(json.searchCategory);
+	$(".search-keyword-assignment-delete").val(json.searchKeyword);
+}
+
+function pagingAssignmentDelete(direction) {
+	var searchCategory = $(".search-category-assignment-delete").get(1).value;
+	var searchKeyword = $(".search-keyword-assignment-delete").get(1).value;
+	$.Dialog.close();
+	$("#task-assignment-delete").val(direction);
+	var data = setParameterAssignmentDelete();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseAssignmentDelete(data);
+		}
+	});
+
+	loadAssignmentDelete(searchCategory, searchKeyword);
+}
+
+function chooseAssignmentDelete() {
+	var choosen = $("input[name='assignment_choose']:checked").val();
+	$("#assignment-code").val(choosen);
+	$.Dialog.close();
+}
 
 // ===============================================================================
 // Fungsi ajax look up untuk Active Directory Employee
