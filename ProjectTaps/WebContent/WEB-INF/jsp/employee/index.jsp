@@ -47,8 +47,10 @@
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+		$("#lookUpDeleteEmployee").load("/ProjectTaps/ajax.do?mode=deleteEmployee&task=deleteEmployee");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
 <title>Employee</title>
 
@@ -116,10 +118,11 @@
 											data-hint="Edit Employee" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center">
-										<a href="javascript:confDel()" class="delete-link"
+										<a href="#" class="delete-link deleteEmployee"
 											data-hint="Delete Employee" data-hint-position="bottom" alt="<bean:write name="employee"
 												property="employeeDomain" />"><img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a>
+												</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -152,20 +155,12 @@
 										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
 							</tr>
 						</tbody>
-
 					</table>
 				</div>
 			</div>
 		</div>
-		<div id="popup_delete" class="hide">
-						<div class='span3'>
-							Are you sure want to delete <span id="deleteId"></span>? <br />
-							<br /> <br /> <br /> <br />
-							<button id="delete" class="danger float-right"
-								onclick="javascript:deleteBtn();">Delete</button>
-						</div>
-					</div>
 	</html:form>
+	<div id="lookUpDeleteEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 
 </body>

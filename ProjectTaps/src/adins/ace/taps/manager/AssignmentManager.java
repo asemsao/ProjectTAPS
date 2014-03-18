@@ -99,6 +99,47 @@ public class AssignmentManager {
 		}
 		return list;
 	}
+	// **********************************************************************************************//
+
+	// **********************************AssignmentSupervisor***************************************//
+	
+	public Integer countEmployeeAssignmentList(Map params) {
+		Integer count = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countEmployeeAssignmentList", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public List<EmployeeReportBean> employeeAssignmentList(Map params) {
+		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList(
+					"assignment.employeeAssignmentList", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 	// **********************************************************************************************//
 
@@ -203,7 +244,7 @@ public class AssignmentManager {
 		}
 		return organizationCode;
 	}
-	
+
 	public String searchHeadUserDomain(String userDomain) {
 		String headUserDomain = "";
 		try {
@@ -223,7 +264,7 @@ public class AssignmentManager {
 		}
 		return headUserDomain;
 	}
-	
+
 	public NewAssignmentBean searchHeadOrganizationCode(String userDomain) {
 		NewAssignmentBean organization = new NewAssignmentBean();
 		try {
@@ -245,12 +286,34 @@ public class AssignmentManager {
 		return organization;
 	}
 
-	public String getMaxTaskCode(String paramTaskCode) {
+	public String getMaxTaskCodeOrganization(String paramTaskCode) {
 		String generateTaskCode = "";
 		try {
 			ibatisSQLMap.startTransaction();
 			generateTaskCode = (String) ibatisSQLMap.queryForObject(
-					"assignment.getMaxTaskCode", paramTaskCode);
+					"assignment.getMaxTaskCodeOrganization", paramTaskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (generateTaskCode == null) {
+			generateTaskCode = "00001";
+		}
+		return generateTaskCode;
+	}
+	
+	public String getMaxTaskCodeProject(String paramTaskCode) {
+		String generateTaskCode = "";
+		try {
+			ibatisSQLMap.startTransaction();
+			generateTaskCode = (String) ibatisSQLMap.queryForObject(
+					"assignment.getMaxTaskCodeProject", paramTaskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -443,7 +506,7 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean editManHourSelf(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -463,15 +526,17 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean editDescriptionSelfAssignment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.update("assignment.updateDescriptionSelfAssignment", bean);
+			ibatisSQLMap.update("assignment.updateDescriptionSelfAssignment",
+					bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed to edit description assignment on self assignment");
+			System.out
+					.println("Failed to edit description assignment on self assignment");
 			success = false;
 			e.printStackTrace();
 		} finally {
@@ -503,7 +568,7 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addDetailClaim(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -542,7 +607,7 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addHistorySelfComment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -581,12 +646,12 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addAssignmentStar(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.insert("assignment.addAssignmentStar",bean);
+			ibatisSQLMap.insert("assignment.addAssignmentStar", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
@@ -600,12 +665,12 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addSelfAssignmentStar(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.insert("assignment.addSelfAssignmentStar",bean);
+			ibatisSQLMap.insert("assignment.addSelfAssignmentStar", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
@@ -619,13 +684,14 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public Integer searchLastStar(String taskCode) {
 		Integer lastStar = 0;
-		
+
 		try {
 			ibatisSQLMap.startTransaction();
-			lastStar = (Integer) ibatisSQLMap.queryForObject("assignment.searchLastStar", taskCode);
+			lastStar = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.searchLastStar", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -638,13 +704,14 @@ public class AssignmentManager {
 		}
 		return lastStar;
 	}
-	
+
 	public String getTotalManHours(String taskCode) {
 		Double totalManHours = 0.0;
 		String manHours = null;
 		try {
 			ibatisSQLMap.startTransaction();
-			totalManHours = (Double) ibatisSQLMap.queryForObject("assignment.totalManHours", taskCode);
+			totalManHours = (Double) ibatisSQLMap.queryForObject(
+					"assignment.totalManHours", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -655,14 +722,14 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		
+
 		String[] parts = (String.valueOf(totalManHours)).split("\\.");
 		if (parts[0].length() == 1) {
 			manHours = "0" + parts[0];
 		} else {
 			manHours = parts[0];
 		}
-		
+
 		if (parts[1].equals("5")) {
 			manHours = manHours + ":30";
 		} else {
@@ -670,7 +737,7 @@ public class AssignmentManager {
 		}
 		return manHours;
 	}
-	
+
 	public Integer countLookUpEmployee(Map params) {
 		Integer count = null;
 		try {
@@ -694,8 +761,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList(
-					"assignment.lookUpEmployee", params);
+			list = ibatisSQLMap.queryForList("assignment.lookUpEmployee",
+					params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -708,4 +775,64 @@ public class AssignmentManager {
 		}
 		return list;
 	}
+
+	// *********************************Delete
+	// Assignment*************************************//
+	public boolean deleteAssignment(String taskCode) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.deleteAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
+	public boolean deleteClaim(String taskCode) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.deleteClaim", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
+	public boolean updateFlag(String taskCode) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.updateFlag", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
 }

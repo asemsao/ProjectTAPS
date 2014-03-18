@@ -23,6 +23,16 @@ $(document).ready(function () {
         onlyOne: false,
         position: 'right'
     });
+    $('#newAssignment input[id="project-name"]').tooltipster({
+        trigger: 'custom',
+        onlyOne: false,
+        position: 'right'
+    });
+    $('#newAssignment input[id="employee-name"]').tooltipster({
+        trigger: 'custom',
+        onlyOne: false,
+        position: 'right'
+    });
 
     // initialize validate plugin on the form
     $('#newAssignment').validate({
@@ -38,17 +48,21 @@ $(document).ready(function () {
         },
         rules: {
         	'assignmentBean.assignmentDate': {
-        		required: true,
-                date: true
+        		required: true
         	},
         	'assignmentBean.assignmentDueDate': {
-                required: true,
-                date: true
+                required: true
             },
         	'assignmentBean.assignmentTime': {
                 required: true
             },
         	'#employee-name': {
+                required: true
+            },
+        	'assignmentBean.projectName': {
+                required: true
+            },
+        	'assignmentBean.assignToFullName': {
                 required: true
             }
         },

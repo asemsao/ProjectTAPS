@@ -97,7 +97,7 @@
 									</div>
 									<p></p>
 									<html:hidden property="appraisalBean.appraisalStar" styleId="star"/>
-									<button type="button" id="edit-star-btn" class="default" style="display: none;">Edit</button>
+									<button type="button" id="edit-star-btn" class="default">Edit</button>
 								</div>
 								</td>
 							</tr>

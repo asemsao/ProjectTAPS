@@ -14,6 +14,7 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 
 import adins.ace.taps.bean.module.ActiveDirectoryBean;
+import adins.ace.taps.configuration.App;
 
 public class QueryActiveDirectory {
 	public QueryActiveDirectory() {
@@ -21,9 +22,9 @@ public class QueryActiveDirectory {
 
 	public static List<ActiveDirectoryBean> queryAD() {
 		// TESTING
-		String username = "kartiko.ew";
-		String password = "K@rtik02014";
-		String domainName = "nu-ace.ad-ins.com";
+		String username = App.getConfiguration("ad_username");
+		String password = App.getConfiguration("ad_password");
+		String domainName = App.getConfiguration("domain_name");
 
 		List<ActiveDirectoryBean> AllADList = new ArrayList<ActiveDirectoryBean>();
 		GetUserDomainModule getConnToAD = new GetUserDomainModule();

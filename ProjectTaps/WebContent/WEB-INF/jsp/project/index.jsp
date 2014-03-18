@@ -29,6 +29,19 @@
 	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Project");
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 	});
 </script>
 
@@ -46,7 +59,7 @@
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
 					<html:hidden property="paramProjectCode" name="projectForm" />
-
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>

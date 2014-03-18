@@ -10,14 +10,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <jsp:include page="/js/import.jsp" />
-<title>New Self Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.selfAssignmentForm.task.value = "";
+			document.selfAssignmentForm.newTask.value = "";
 			document.selfAssignmentForm.submit();
 			return;
 		} else if (task == "save") {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
+		} else if (task == "RFA") {
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
@@ -83,13 +86,22 @@
 																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
 											}
 										});
+
+						$("#assignmentDate").attr("placeholder", "Assignment Date");
+						$("#project-name").attr("placeholder", "Project");
+						$("#employee-name").attr("placeholder", "Employee");
+						$("#employee-name-2").attr("placeholder", "Employee");
+						$("#assignment-code").attr("placeholder", "Reff Task Code");
+						$("#description").attr("placeholder", "Description");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
+<title>New Self Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
+	<html:form action="/newSelfAssignment" method="POST"
+		styleId="newSelfAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -141,10 +153,9 @@
 										<div class="input-control text">
 											<html:hidden property="selfAssignBean.projectCode"
 												name="selfAssignmentForm" styleId="project-code"></html:hidden>
-											<html:hidden property="selfAssignBean.projectName"
-												name="selfAssignmentForm" styleId="project-fullName"></html:hidden>
-											<input type="text" placeholder="Project" id="project-name"
-												readonly="readonly" />
+											<html:text property="selfAssignBean.projectName"
+												readonly="true" name="selfAssignmentForm"
+												styleId="project-name"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -156,14 +167,11 @@
 									<div class="input-control text">
 										<html:hidden property="selfAssignBean.reportTo"
 											name="selfAssignmentForm" styleId="employee-domain" />
-										<html:hidden property="selfAssignBean.reportToFullName"
-											name="selfAssignmentForm" styleId="employee-fullName" />
-										<input type="text" placeholder="Employee" id="employee-name"
-											readonly="readonly" />
-										<div class="pr" class="in-bl">
-											<button type="button" class="btn-search"
-												id="employeeOnProject"></button>
-										</div>
+										<html:text property="selfAssignBean.reportToFullName"
+											readonly="true" name="selfAssignmentForm"
+											styleId="employee-name" />
+										<button type="button" class="btn-search"
+											id="employeeOnProject"></button>
 									</div>
 								</td>
 							</tr>
@@ -193,22 +201,20 @@
 								<td>Ad Hoc To</td>
 								<td>:</td>
 								<td>
-										<div class="input-control text">
-											<html:hidden property="selfAssignBean.adhocUserDomain"
-												name="selfAssignmentForm" styleId="employee-domain-2" />
-											<html:hidden property="selfAssignBean.adhocFullName"
-												name="selfAssignmentForm" styleId="employee-fullName-2" />
-											<input type="text" placeholder="Employee"
-												id="employee-name-2" readonly="readonly" />
-											<button type="button" class="btn-search" id="employee2"></button>
-										</div>
-									</td>
+									<div class="input-control text">
+										<html:hidden property="selfAssignBean.adhocUserDomain"
+											name="selfAssignmentForm" styleId="employee-domain-2" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true"
+											name="selfAssignmentForm" styleId="employee-name-2" />
+										<button type="button" class="btn-search" id="employee2"></button>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.reffTaskCode"
+										<html:text property="selfAssignBean.reffTaskCode" readonly="true"
 											name="selfAssignmentForm" styleId="assignment-code"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
@@ -277,14 +283,12 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
+										name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
-								<button onclick="flyToPage('save')"
-										class="button success">Save</button>
-								<button onclick="flyToPage('RFA')"
-										class="button success">Assign</button>
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('RFA')" class="button success">RFA</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>

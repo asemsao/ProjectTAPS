@@ -6,13 +6,18 @@ body {
 	background-attachment: fixed;
 }
 
+<<<<<<< HEAD
 .align-left {
 	text-align: left;
 }
 
 #popup_delete{
+=======
+#popup_delete {
+>>>>>>> branch 'master' of https://github.com/asemsao/ProjectTAPS.git
 	width: 100px !important;
 }
+
 .clear {
 	clear: both;
 }
@@ -108,7 +113,6 @@ textarea {
 }
 
 /*===== WIZARD ===== */
-
 fieldset {
 	border: none;
 	width: 100%;
@@ -123,15 +127,22 @@ legend {
 	font-weight: bold;
 }
 
+<<<<<<< HEAD
 .prev-wizard, .next-wizard {
 	border: 1px solid slateblue !important;
 	padding: 10px 20px !important;
 	background-color: slateblue !important;
+=======
+.prev-wizard,.next-wizard {
+	border: 1px solid slateblue;
+	padding: 5px 10px;
+	background-color: slateblue;
+>>>>>>> branch 'master' of https://github.com/asemsao/ProjectTAPS.git
 	color: #fff !important;
 	text-decoration: none;
 }
 
-.prev-wizard:hover, .next-wizard:hover {
+.prev-wizard:hover,.next-wizard:hover {
 	color: slateblue !important;
 	background-color: #fff !important;
 }
@@ -178,7 +189,6 @@ legend {
 	background-color: green;
 }
 
-
 .submit-wizard {
 	border: 1px solid green !important;
 	padding: 10px 30px !important;
@@ -193,4 +203,14 @@ legend {
 .submit-wizard:hover {
 	color: green !important;
 	background-color: #fff !important;
+}
+
+#edit-star-btn {
+	float: right;
+	display: none;
+}
+
+.ava-rank {
+	width: 30px;
+	height: 30px;
 }

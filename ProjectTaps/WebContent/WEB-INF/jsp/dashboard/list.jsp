@@ -20,11 +20,10 @@
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
-	function flyToPage(task, taskCode, taskType, currentStatus) {
+	function flyToPage(task, taskCode, taskType) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.taskCode.value = taskCode;
 		document.dashboardForm.taskType.value = taskType;
-		document.dashboardForm.currentStatus.value = currentStatus;
 		document.dashboardForm.submit();
 	}
 </script>
@@ -98,20 +97,21 @@
 										<tr>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write property="taskCode"
-													name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="taskCode" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentCategory" name="assignment" /></td>
-											<td class="text-bold text-italic"><bean:write property="fullName" name="assignment" /></td>
+											<td class="text-bold text-italic"><bean:write
+													property="fullName" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentDueDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="createdDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><a
-												href="javascript:flyToPage('view', '<bean:write property="taskCode"
+												href="javascript:flyToPage('<bean:write
+													property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />','<bean:write
-													property="currentStatus" name="assignment" />' );"><bean:write
+												name="assignment" />' );"><bean:write
 														property="currentStatus" name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
@@ -129,10 +129,10 @@
 											<td class="text-center"><bean:write
 													property="createdDate" name="assignment" /></td>
 											<td class="text-center"><a
-												href="javascript:flyToPage('view', '<bean:write property="taskCode"
+												href="javascript:flyToPage('<bean:write
+													property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />','<bean:write
-													property="currentStatus" name="assignment" />' );"><bean:write
+												name="assignment" />');"><bean:write
 														property="currentStatus" name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
@@ -173,7 +173,6 @@
 		<html:hidden property="task" name="dashboardForm" />
 		<html:hidden property="taskCode" name="dashboardForm" />
 		<html:hidden property="taskType" name="dashboardForm" />
-		<html:hidden property="currentStatus" name="dashboardForm" />
 		<html:hidden property="page" name="dashboardForm" />
 		<html:hidden property="maxPage" name="dashboardForm" />
 	</html:form>

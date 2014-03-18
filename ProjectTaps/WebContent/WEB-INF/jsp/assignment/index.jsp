@@ -29,7 +29,7 @@
 	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
-		if ($("#messageCRUD").val() != "") {
+		if ($("#message").val() != "") {
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -40,7 +40,7 @@
 					// 					height : "120px",
 					// 					width : "360px",
 					position : 'top-right',
-					content : $("#messageCRUD").val()
+					content : $("#message").val()
 				});
 			}, 1000);
 		}
@@ -50,12 +50,14 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employeeReport" method="post">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-					<html:hidden property="message" styleId="messageCRUD"
-						name="employeeReportForm" />
+
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/employeeReport" method="post">
+					<input type="hidden" id="message"
+						value="<bean:write  property="message" 
+						name="employeeReportForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -128,25 +130,50 @@
 								name="employeeReportForm">
 								<logic:iterate id="assignment" name="employeeReportForm"
 									property="listAssignment">
-									<tr>
-										<td class="text-center"><bean:write
-												property="assignmentDate" name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="assignmentCode" name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="assignmentCategory" name="assignment" /></td>
-										<td><bean:write property="fullName" name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="assignmentDueDate" name="assignment" /></td>
-										<td class="text-center"><bean:write
-												property="createdDate" name="assignment" /></td>
-										<td class="text-center"><a
-											href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+									<logic:equal property="flag" name="assignment" value="INACTIVE">
+										<tr>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentCode" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentCategory" name="assignment" /></td>
+											<td class="text-bold text-italic"><bean:write
+													property="fullName" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="createdDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><a
+												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />','<bean:write
 													property="currentStatus" name="assignment" />' );"><bean:write
-													property="currentStatus" name="assignment" /></a></td>
-									</tr>
+														property="currentStatus" name="assignment" /></a></td>
+										</tr>
+									</logic:equal>
+									<logic:equal property="flag" name="assignment" value="ACTIVE">
+										<tr>
+											<td class="text-center"><bean:write
+													property="assignmentDate" name="assignment" /></td>
+											<td class="text-center"><bean:write
+													property="assignmentCode" name="assignment" /></td>
+											<td class="text-center"><bean:write
+													property="assignmentCategory" name="assignment" /></td>
+											<td><bean:write property="fullName" name="assignment" /></td>
+											<td class="text-center"><bean:write
+													property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center"><bean:write
+													property="createdDate" name="assignment" /></td>
+											<td class="text-center"><a
+												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+												name="assignment" />', '<bean:write property="assignmentCategory"
+												name="assignment" />','<bean:write
+													property="currentStatus" name="assignment" />' );"><bean:write
+														property="currentStatus" name="assignment" /></a></td>
+										</tr>
+									</logic:equal>
+
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listAssignment" name="employeeReportForm">
@@ -197,16 +224,17 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+					<html:hidden property="task" name="employeeReportForm" />
+					<html:hidden property="taskCode" name="employeeReportForm" />
+					<html:hidden property="taskType" name="employeeReportForm" />
+					<html:hidden property="currentStatus" name="employeeReportForm" />
+					<html:hidden property="page" name="employeeReportForm" />
+					<html:hidden property="maxpage" name="employeeReportForm" />
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="employeeReportForm" />
-		<html:hidden property="taskCode" name="employeeReportForm" />
-		<html:hidden property="taskType" name="employeeReportForm" />
-		<html:hidden property="currentStatus" name="employeeReportForm" />
-		<html:hidden property="page" name="employeeReportForm" />
-		<html:hidden property="maxpage" name="employeeReportForm" />
-	</html:form>
+	</div>
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

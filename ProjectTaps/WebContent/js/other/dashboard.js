@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 
 function ajaxnotification() {
-	var data = "task=autoRefresh";
+	var data = "mode=autoRefresh";
 	$.ajax({
 		url : "/ProjectTaps/dashboard.do",
 		type : "POST",

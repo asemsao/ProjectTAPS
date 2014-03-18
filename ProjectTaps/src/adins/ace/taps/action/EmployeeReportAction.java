@@ -24,10 +24,20 @@ public class EmployeeReportAction extends Action {
 		EmployeeReportForm eForm = (EmployeeReportForm) form;
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		if (session.getAttribute("taskCode")!=null){
+		Map params = new HashMap();
+		
+		//testing pake domain 205
+		session.setAttribute("username", "DOMAIN205");
+		//nanti dihapus
+		
+		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
-		Map params = new HashMap();
+
+		if (session.getAttribute("message") != null) {
+			eForm.setMessage(session.getAttribute("message").toString());
+			session.removeAttribute("message");
+		}
 
 		if (eForm.getPage() == null) {
 			eForm.setPage(1);
@@ -50,21 +60,23 @@ public class EmployeeReportAction extends Action {
 				eForm.setPage(eForm.getPage() + 1);
 			}
 		}
-		
+
 		if ("employeeReport".equals(session.getAttribute("link"))) {
+			session.setAttribute("username", "domain3");
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())) {
-				System.out.println(eForm.getCurrentStatus());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("Draft");
 				} else if ("CLAIM".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
 					return mapping.findForward("Claim");
 				} else if ("CORRECTION".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("Correction");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
@@ -98,6 +110,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countEmployeeReportEmployee(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -121,25 +134,30 @@ public class EmployeeReportAction extends Action {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("CorrectionSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
+						return mapping
+								.findForward("SelfAssignmentCorrectionSupervisor");
 					}
 				} else if ("RFA".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("RFASupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping.findForward("RFASelfSupervisorAssignment");
+						return mapping
+								.findForward("RFASelfSupervisorAssignment");
 					}
 				} else if ("APPROVED".equals(eForm.getCurrentStatus())) {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("ApprovedSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping.findForward("ApprovedSupervisorSelfAssignment");
+						return mapping
+								.findForward("ApprovedSupervisorSelfAssignment");
 					}
 				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("CorrectionSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
+						return mapping
+								.findForward("SelfAssignmentCorrectionSupervisor");
 					}
 				}
 			}
@@ -150,6 +168,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countEmployeeReportSupervisor(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -174,8 +193,9 @@ public class EmployeeReportAction extends Action {
 				} else if ("CORRECTION".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("CorrectionSupervisor");
 				} else if ("RFA".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
 					return mapping.findForward("RFASupervisor");
-				} else if("APPROVED".equals(eForm.getCurrentStatus())){
+				} else if ("APPROVED".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("ApprovedSupervisor");
 				}
 			}
@@ -186,6 +206,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
 
 			if (eForm.getCountRecord() % 10 == 0) {
