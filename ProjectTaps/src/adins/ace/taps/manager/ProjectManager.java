@@ -247,13 +247,15 @@ public class ProjectManager {
 		return flag;
 	}
 	
-	public void deleteProject(String projectCode)
+	public boolean deleteProject(String projectCode)
 	{
+		boolean flag = false;
 		try
 		{
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.deleteProject", projectCode);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
@@ -267,6 +269,7 @@ public class ProjectManager {
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 	
 	public boolean isExist(String name)
@@ -371,6 +374,28 @@ public class ProjectManager {
 		{
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateAssStatus",param);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void insertHistory(Map param)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("project.insertHistory",param);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -286,12 +286,34 @@ public class AssignmentManager {
 		return organization;
 	}
 
-	public String getMaxTaskCode(String paramTaskCode) {
+	public String getMaxTaskCodeOrganization(String paramTaskCode) {
 		String generateTaskCode = "";
 		try {
 			ibatisSQLMap.startTransaction();
 			generateTaskCode = (String) ibatisSQLMap.queryForObject(
-					"assignment.getMaxTaskCode", paramTaskCode);
+					"assignment.getMaxTaskCodeOrganization", paramTaskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (generateTaskCode == null) {
+			generateTaskCode = "00001";
+		}
+		return generateTaskCode;
+	}
+	
+	public String getMaxTaskCodeProject(String paramTaskCode) {
+		String generateTaskCode = "";
+		try {
+			ibatisSQLMap.startTransaction();
+			generateTaskCode = (String) ibatisSQLMap.queryForObject(
+					"assignment.getMaxTaskCodeProject", paramTaskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -780,6 +802,25 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.update("assignment.deleteClaim", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
+	public boolean updateFlag(String taskCode) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.updateFlag", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;

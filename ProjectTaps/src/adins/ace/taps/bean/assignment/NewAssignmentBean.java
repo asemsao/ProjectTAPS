@@ -17,6 +17,7 @@ public class NewAssignmentBean implements Serializable {
 	private String projectName = "";
 	private String activityType = "";
 	private Double manHours;
+	private String claimDate = "";
 	private String description = "";
 	private String reffTaskCode = "";
 	private String adhocUserDomain = "";
@@ -40,6 +41,12 @@ public class NewAssignmentBean implements Serializable {
 	private Integer appraisalStar;
 	private Integer starBefore;
 	
+	public String getClaimDate() {
+		return claimDate;
+	}
+	public void setClaimDate(String claimDate) {
+		this.claimDate = claimDate;
+	}
 	public Integer getAppraisalStar() {
 		return appraisalStar;
 	}
