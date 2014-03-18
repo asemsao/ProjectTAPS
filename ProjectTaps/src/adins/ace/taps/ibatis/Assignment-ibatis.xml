@@ -456,10 +456,8 @@
 	<!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->
 	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 	UPDATE   assignments
-	   SET   assignment_date =
-	            TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
+	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
 	         assignment_due_date = #assignmentDueDate#,
-	         assignment_type = #assignmentType#,
 	         organization_code = #organizationCode#,
 	         project_code = #projectCode#,
 	         description = #description#,
@@ -476,7 +474,6 @@
 	UPDATE   assignments
 	   SET   assignment_date = #assignmentDate#,
 	         assignment_due_date = #assignmentDueDate#,
-	         assignment_type = #assignmentType#,
 	         organization_code = #organizationCode#,
 	         report_to = #reportTo#,
 	         activity_type = #activityType#,
