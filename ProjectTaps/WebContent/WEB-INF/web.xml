@@ -4,6 +4,32 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>weblogic</display-name>
+
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.TapsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/ajax.do</url-pattern>
+		<url-pattern>/project.do</url-pattern>
+		<url-pattern>/report.do</url-pattern>
+		<url-pattern>/transferProject.do</url-pattern>
+		<url-pattern>/organization.do</url-pattern>
+		<url-pattern>/employee.do</url-pattern>
+		<url-pattern>/employeeRole.do</url-pattern>
+		<url-pattern>/specialAppraisal.do</url-pattern>
+		<url-pattern>/menu.do</url-pattern>
+		<url-pattern>/dashboard.do</url-pattern>
+		<url-pattern>/employeeReport.do</url-pattern>
+		<url-pattern>/newAssignment.do</url-pattern>
+		<url-pattern>/newSelfAssignment.do</url-pattern>
+		<url-pattern>/claimAssignment.do</url-pattern>
+		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
+		<url-pattern>/selfAssignment.do</url-pattern>
+		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
+	</filter-mapping>
+
 	<welcome-file-list>
 		<welcome-file>ACE.do</welcome-file>
 		<welcome-file>index.jsp</welcome-file>

@@ -26,6 +26,9 @@ public class NewSelfAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
+		//coba pake domain3
+		session.setAttribute("username", "domain3");
+		//nanti dihapus
 		
 		if (aForm.getNewTask() == null) {
 			System.out.println(session.getAttribute("taskCode"));
@@ -33,7 +36,7 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment((String) session.getAttribute("taskCode")));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
-				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode("domain3"));
+				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode((String) session.getAttribute("username")));
 			}
 			return mapping.findForward("NewSelfAssignment");
 		}
@@ -48,17 +51,19 @@ public class NewSelfAssignmentAction extends Action {
 	
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
-					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
+					aForm.getSelfAssignBean().setOrganizationCode(aMan.searchOrganizationCode((String) session.getAttribute("username")));
 					aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
 					aForm.getSelfAssignBean().setProjectCode(null);
 					paramCode = aForm.getSelfAssignBean().getOrganizationCode() + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
 				}
-				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
+				
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
-				aForm.getSelfAssignBean().setCreatedBy("domain3");
-				aForm.getSelfAssignBean().setAssignTo("domain3");
+				aForm.getSelfAssignBean().setCreatedBy((String) session.getAttribute("username"));
+				aForm.getSelfAssignBean().setAssignTo((String) session.getAttribute("username"));
 	
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
@@ -72,7 +77,7 @@ public class NewSelfAssignmentAction extends Action {
 				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
-					aForm.getSelfAssignBean().setUpdatedBy("domain3");
+					aForm.getSelfAssignBean().setUpdatedBy((String) session.getAttribute("username"));
 					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
 					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 				}
