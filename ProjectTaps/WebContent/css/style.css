@@ -177,3 +177,8 @@ legend {
 	float: right;
 	display: none;
 }
+
+.ava-rank {
+	width: 30px;
+	height: 30px;
+}
