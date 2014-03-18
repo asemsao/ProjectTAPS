@@ -45,50 +45,64 @@ public class DashboardAction extends Action {
 		Map rankingCurrent = new HashMap();
 
 		String userDomain = "domain3";
-		/* code for each record and their own status */
+		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
+			aMan.updateFlag(dForm.getTaskCode());
 			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
 		}
 		if ("CORRECTION".equals(dForm.getTask())
 				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm
-					.getTaskCode()));
-			session.setAttribute("type", dForm.getSelfAssignBean()
-					.getAssignmentType());
-			session.setAttribute("adhoc", dForm.getSelfAssignBean()
-					.getActivityType());
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("CorrectionSelf");
 		}
 		if ("CORRECTION".equals(dForm.getTask())
 				&& "ASSIGNMENT".equals(dForm.getTaskType())) {
-			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
-					.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
-					.getTaskCode()));
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Correction");
 		}
 		if ("RFA".equals(dForm.getTask())
 				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm
-					.getTaskCode()));
-			session.setAttribute("type", dForm.getSelfAssignBean()
-					.getAssignmentType());
-			session.setAttribute("adhoc", dForm.getSelfAssignBean()
-					.getActivityType());
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("ApprovalSelf");
 		}
-		if ("RFA".equals(dForm.getTask())
-				&& "ASSIGNMENT".equals(dForm.getTaskType())) {
-			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
-					.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
-					.getTaskCode()));
+		if ("RFA".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())) {
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Approval");
 		}
-
+		//-------------------------------------------------------------//
+		
+		//--------------Code for Action Button-------------------------//
+		if ("claim".equals(dForm.getTask())){
+			dForm.getClaimBean().setStatus("CLAIM");
+			
+		}
+		if ("rfa".equals(dForm.getTask())){
+			
+		}
+		if ("approved".equals(dForm.getTask())){
+			
+		}
+		if ("correction".equals(dForm.getTask())){
+			
+		}
+		if ("reject".equals(dForm.getTask())){
+			
+		}
+		//-------------------------------------------------------------//
+		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}

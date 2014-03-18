@@ -240,7 +240,7 @@
 										onclick="javascript:flyToPage('correction');"
 										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
-										onclick="javascript:flyToPage('RFA');"
+										onclick="javascript:flyToPage('rfa');"
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel-btn"
 										onclick="javascript:flyToPage('cancel');"
