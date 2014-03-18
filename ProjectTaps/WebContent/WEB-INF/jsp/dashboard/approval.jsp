@@ -71,7 +71,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/claimSupervisorAssignment" method="POST">
+				<html:form action="/dashboard" method="POST">
 					<html:hidden property="claimBean.status" name="dashboardForm"
 						styleId="status" />
 					<html:hidden property="claimBean.taskCode"
