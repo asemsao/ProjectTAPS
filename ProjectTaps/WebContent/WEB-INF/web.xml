@@ -11,8 +11,23 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/ajax.do</url-pattern>
+		<url-pattern>/project.do</url-pattern>
+		<url-pattern>/report.do</url-pattern>
+		<url-pattern>/transferProject.do</url-pattern>
+		<url-pattern>/organization.do</url-pattern>
+		<url-pattern>/employee.do</url-pattern>
+		<url-pattern>/employeeRole.do</url-pattern>
+		<url-pattern>/specialAppraisal.do</url-pattern>
 		<url-pattern>/menu.do</url-pattern>
 		<url-pattern>/dashboard.do</url-pattern>
+		<url-pattern>/employeeReport.do</url-pattern>
+		<url-pattern>/newAssignment.do</url-pattern>
+		<url-pattern>/newSelfAssignment.do</url-pattern>
+		<url-pattern>/claimAssignment.do</url-pattern>
+		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
+		<url-pattern>/selfAssignment.do</url-pattern>
+		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
 	</filter-mapping>
 
 	<welcome-file-list>
