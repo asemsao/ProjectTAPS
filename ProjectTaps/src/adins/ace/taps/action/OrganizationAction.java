@@ -25,7 +25,6 @@ public class OrganizationAction extends Action {
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
-		boolean flag = false;
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 
@@ -37,24 +36,25 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("Save".equals(orgForm.getTask())) {
-			System.out.println("headDomain : "+orgForm.getOrgBean().getHeadDomain());
-			System.out.println("jmlrole : "+orgMan.countRole(orgForm.getOrgBean().getHeadDomain()));
-			if(orgMan.countRole(orgForm.getOrgBean().getHeadDomain())==0){
+			System.out.println("headDomain : "
+					+ orgForm.getOrgBean().getHeadDomain());
+			System.out.println("jmlrole : "
+					+ orgMan.countRole(orgForm.getOrgBean().getHeadDomain()));
+			if (orgMan.countRole(orgForm.getOrgBean().getHeadDomain()) == 0) {
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
 					orgMan.insertRole(orgForm.getOrgBean());
 					orgForm.setMessage("Insert Business Unit Successfull!");
 				} else {
 					orgForm.setMessage("Insert Business Unit Failed!");
 				}
-			}else{
+			} else {
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
 					orgForm.setMessage("Insert Business Unit Successfull!");
 				} else {
 					orgForm.setMessage("Insert Business Unit Failed!");
 				}
 			}
-			
-			
+
 		}
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()

@@ -84,9 +84,9 @@
 					<html:hidden property="maxpage" name="organizationForm" />
 					<html:hidden property="organizationCode" styleId="organizationCode"
 						name="organizationForm" />
-					<html:hidden property="message" styleId="messageCRUD"
-						name="organizationForm" />
-
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" 
+						name="organizationForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -112,7 +112,8 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center" colspan="3" width="12%">Business Unit Code</th>
+								<th class="text-center" colspan="3" width="12%">Business
+									Unit Code</th>
 								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
@@ -126,25 +127,19 @@
 								<logic:iterate id="organization" name="organizationForm"
 									property="listOrganizations">
 									<tr>
-										<td width="4%">
-											<logic:equal value="0" name="organization" property="organizationLevel">
-												<bean:write name="organization"
-												property="organizationCode" />
-											</logic:equal>
-										</td>
-										<td width="4%">
-											<logic:equal value="1" name="organization" property="organizationLevel">
-												<bean:write name="organization"
-												property="organizationCode" />
-											</logic:equal>
-										</td>
-										<td width="4%">
-											<logic:equal value="2" name="organization" property="organizationLevel">
-												<bean:write name="organization"
-												property="organizationCode" />
-											</logic:equal>
-										</td>
-												
+										<td width="4%"><logic:equal value="0" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="1" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="2" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+
 										<td><bean:write name="organization"
 												property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
