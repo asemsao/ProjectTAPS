@@ -60,11 +60,16 @@ public class ProjectAction extends Action {
 			if(pMan.addProject(pForm.getAddProject()))
 			{
 				pForm.setMessage("Insert Successfully");
+			
+				//insert table history_projects
+				Map param = new HashMap();
+				param.put("projectCode", pForm.getAddProject().getProjectCode());
+				param.put("orgAfter",pForm.getAddProject().getOrganizationCode());
+				pMan.insertHistory(param);
 			}
 			else
-			{
 				pForm.setMessage("Insert Failed");
-			}
+			
 		}
 		if ("cancel".equals(pForm.getTask())) {
 			pForm.setMode("");
@@ -82,7 +87,12 @@ public class ProjectAction extends Action {
 		}
 		
 		if ("deleteProject".equals(pForm.getTask())) {
-			pMan.deleteProject(pForm.getParamProjectCode());
+			if(pMan.deleteProject(pForm.getParamProjectCode()))
+			{
+				pForm.setMessage("Deleted Successfully");
+			}
+			else
+				pForm.setMessage("Delete Failed");
 		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);

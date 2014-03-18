@@ -385,4 +385,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	    	AND project_code = #projectCode#
 	    	AND NOT current_status IN ('APPROVED','REJECTED')
 	</update>
+	
+	<insert id="insertHistory" parameterClass ="java.util.Map">
+		INSERT INTO 
+			history_projects
+        VALUES
+        	(SEQUENCE_HISTORY_PROJECTS.nextval,
+        	#projectCode#,
+        	null,
+        	#orgAfter#,
+        	sysdate,
+        	'domain100',
+        	sysdate)
+	</insert>
 </sqlMap>
