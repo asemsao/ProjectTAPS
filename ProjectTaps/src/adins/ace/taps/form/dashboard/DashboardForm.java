@@ -36,6 +36,7 @@ public class DashboardForm extends ActionForm {
 	private String taskCode;
 	private String taskType;
 	private String currentStatus;
+	private String mode;
 
 	public NewAssignmentBean getSelfAssignBean() {
 		return selfAssignBean;
@@ -244,5 +245,13 @@ public class DashboardForm extends ActionForm {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

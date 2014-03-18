@@ -190,7 +190,7 @@ public class DashboardAction extends Action {
 		dForm.setTotalCorrection(dMan.searchTotalCorrection(userDomain));
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
 
-		if ("autoRefresh".equals(dForm.getTask())) {
+		if ("autoRefresh".equals(dForm.getMode())) {
 			PrintWriter out = response.getWriter();			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(dForm);
