@@ -1,5 +1,6 @@
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,20 +12,34 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import adins.ace.taps.bean.project.ProjectBean;
 import adins.ace.taps.form.project.TransferProjectForm;
 import adins.ace.taps.manager.OrganizationManager;
-import adins.ace.taps.manager.ProjectManager;
+import adins.ace.taps.manager.TransferProjectManager;
 
 public class TransferProjectAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		
 		TransferProjectForm tpForm = (TransferProjectForm) form;
-		ProjectManager pMan = new ProjectManager();
+		TransferProjectManager tpMan = new TransferProjectManager();
 		OrganizationManager oMan = new OrganizationManager();
 		Map params = new HashMap();
+		PrintWriter out = response.getWriter();
+		
+		if ("retrieve".equals(tpForm.getTask())) {
+			tpForm.setpBean(tpMan.getProjectById(request.getParameter("projectCode").toString()));
+			tpForm.setListMember(tpMan.getAllMemberByProjectId(request.getParameter("projectCode").toString()));
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String json = gson.toJson(tpForm);
+			out.print(json);
+			return null;
+		}
 
 		if (tpForm.getPageProject() == null) {
 			tpForm.setPageProject(1);
@@ -62,11 +77,11 @@ public class TransferProjectAction extends Action {
 		params.put("category", tpForm.getSearchCategory());
 		params.put("keyword", tpForm.getSearchKeyword());
 
-		tpForm.setListProject(pMan.searchProject(params));
-		tpForm.setCountRecordProject(pMan.countProject(params));
+		tpForm.setListProject(tpMan.searchProject(params));
+		tpForm.setCountRecordProject(tpMan.countProject(params));
 		
-		tpForm.setListOrganization(oMan.searchOrganizations(params));
-		tpForm.setCountRecordOrganization(oMan.countOrganizations(params));
+		tpForm.setListOrganization(tpMan.searchOrganization(params));
+//		tpForm.setCountRecordOrganization(tpMan.countOrganization(params));
 		
 
 		if (tpForm.getCountRecordProject() % 10 == 0) {

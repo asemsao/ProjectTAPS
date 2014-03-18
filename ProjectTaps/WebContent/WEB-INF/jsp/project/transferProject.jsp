@@ -22,8 +22,14 @@
 		document.projectForm.submit();
 	}
 	$(document).ready(function() {
-		$("#myForm").formToWizard({ submitButton: 'submit-btn' })
+		$("#myForm").formToWizard({ submitButton: 'submit-btn' });
 		$("#munculkan").hide();
+		$("input:radio[name='project_choose']").prop("checked", false);
+		$("input:radio[name='project_choose']").click(function() {
+			$("button.next-wizard").prop("disabled", false);
+		});
+		$("input:radio[name='project_choose']").prop("checked").trigger("click");
+		$("input:radio[name='org_choose']").prop("checked", true);
 	});
 </script>
 
@@ -48,7 +54,7 @@
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th class="text-center" colspan=2>
+								<th class="text-center" colspan="2">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="transferProjectForm">
 											<html:option value="all">All</html:option>
@@ -89,7 +95,8 @@
 										<td>
 											<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" />
+											<input type="radio" name="project_choose" value="<bean:write name='transferProject'
+												property='projectCode' />" />
 											<span class="check"></span>
 											</label>
 											</div>
@@ -123,6 +130,48 @@
 					
 					<fieldset>
 					<legend>CHOOSE BUSINESS UNIT</legend>
+					<table id="table-ajax-project" class="table">
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Project Code</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblProjectCode">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Project Name</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblProjectName">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Client</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblClient">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Business Unit</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblBusinessUnit">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Phase</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblPhase">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Start Date</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblStartDate">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Finish Date</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblFinishDate">Undefined</label></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 					<td width="15%">Running (day)</td> -->
+<!-- 					<td width="5%">:</td> -->
+<!-- 					<td><label id="lblRunningDay">Undefined</label></td> -->
+<!-- 					</tr> -->
+					</table>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -160,7 +209,7 @@
 										<td>
 											<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" />
+											<input type="radio" name="org_choose" />
 											<span class="check"></span>
 											</label>
 											</div>
@@ -178,7 +227,8 @@
 					</fieldset>
 					<fieldset>
 					<legend>CHOOSE MEMBER</legend>
-<!-- 					<table class="table striped bordered hovered"> -->
+					<table id="table-ajax-project2" class="table"></table>
+					<table id="table-ajax-structure" class="table striped bordered hovered">
 <!-- 						<tr> -->
 <!-- 							<td colspan=1>Project Name</th> -->
 <%-- 							<td colspan=4><strong><bean:write property="projectName" /></strong></td> --%>
@@ -239,7 +289,7 @@
 <!-- 							</td> -->
 <!-- 						</tr> -->
 <!-- 					</tbody> -->
-<!-- 				</table> -->
+				</table>
 					</fieldset>
 					<input id="submit-btn" type="button" value="Submit Form" />
 				</html:form>

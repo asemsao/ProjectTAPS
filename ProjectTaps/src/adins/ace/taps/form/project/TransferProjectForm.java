@@ -19,7 +19,6 @@ public class TransferProjectForm extends ActionForm {
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
 	private List<StructureProjectBean> listMember;
-	private List listPhase;
 	private ProjectBean pBean = new ProjectBean();
 	private Integer pageProject;
 	private Integer maxPageProject;
@@ -27,6 +26,7 @@ public class TransferProjectForm extends ActionForm {
 	private Integer pageOrganization;
 	private Integer maxOrganization;
 	private Integer countRecordOrganization;
+	
 	public String getTask() {
 		return task;
 	}
@@ -81,12 +81,6 @@ public class TransferProjectForm extends ActionForm {
 	public void setListMember(List<StructureProjectBean> listMember) {
 		this.listMember = listMember;
 	}
-	public List getListPhase() {
-		return listPhase;
-	}
-	public void setListPhase(List listPhase) {
-		this.listPhase = listPhase;
-	}
 	public ProjectBean getpBean() {
 		return pBean;
 	}
@@ -128,6 +122,9 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setCountRecordOrganization(Integer countRecordOrganization) {
 		this.countRecordOrganization = countRecordOrganization;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

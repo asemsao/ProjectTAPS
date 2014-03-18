@@ -6,6 +6,10 @@ body {
 	background-attachment: fixed;
 }
 
+.align-left {
+	text-align: left;
+}
+
 #popup_delete{
 	width: 100px !important;
 }
@@ -113,23 +117,23 @@ fieldset {
 
 legend {
 	font-size: 18px;
-	margin: 0px;
+	margin: 15px 0 0 0 !important;
 	padding: 10px 0px;
 	color: #b0232a;
 	font-weight: bold;
 }
 
 .prev-wizard, .next-wizard {
-	border: 1px solid slateblue;
-	padding: 5px 10px;
-	background-color: slateblue;
+	border: 1px solid slateblue !important;
+	padding: 10px 20px !important;
+	background-color: slateblue !important;
 	color: #fff !important;
 	text-decoration: none;
 }
 
 .prev-wizard:hover, .next-wizard:hover {
 	color: slateblue !important;
-	background-color: #fff;
+	background-color: #fff !important;
 }
 
 .prev-wizard {
@@ -152,8 +156,9 @@ legend {
 	padding: 10px;
 	color: #b0b1b3;
 	border: 1px solid #b0b1b3;
-	margin-right: 10px;
-	width: 200px;
+	margin-right: 20px;
+	margin-top: 20px;
+	width: 20%;
 }
 
 #steps li span {
