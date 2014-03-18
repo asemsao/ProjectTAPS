@@ -97,11 +97,12 @@
 										<tr>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write property="taskCode"
-													name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="taskCode" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentCategory" name="assignment" /></td>
-											<td class="text-bold text-italic"><bean:write property="fullName" name="assignment" /></td>
+											<td class="text-bold text-italic"><bean:write
+													property="fullName" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentDueDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
@@ -128,7 +129,8 @@
 											<td class="text-center"><bean:write
 													property="createdDate" name="assignment" /></td>
 											<td class="text-center"><a
-												href="javascript:flyToPage('view', '<bean:write property="taskCode"
+												href="javascript:flyToPage('<bean:write
+													property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />');"><bean:write
 														property="currentStatus" name="assignment" /></a></td>

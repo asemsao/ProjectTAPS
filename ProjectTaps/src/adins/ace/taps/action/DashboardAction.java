@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.form.dashboard.DashboardForm;
+import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
 
 public class DashboardAction extends Action {
@@ -35,15 +36,34 @@ public class DashboardAction extends Action {
 			throws Exception {
 		DashboardForm dForm = (DashboardForm) form;
 		DashboardManager dMan = new DashboardManager();
+		AssignmentManager aMan = new AssignmentManager();
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
 		String userDomain = "domain3";
-		
-		/*code for claim assignment from supervisor*/
+		System.out.println(dForm.getTask() + dForm.getTaskType());
+		/*code for each record and their own status*/
 		if ("CLAIM".equals(dForm.getTask())){
 			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
+		}
+		if ("CORRECTION".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
+			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
+			return mapping.findForward("CorrectionSelf");
+		}
+		if ("CORRECTION".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())){
+			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
+			return mapping.findForward("Correction");
+		}
+		if ("RFA".equals(dForm.getTask())  && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			return mapping.findForward("ApprovalSelf");
+		}
+		if ("RFA".equals(dForm.getTask())  && "ASSIGNMENT".equals(dForm.getTaskType())){
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
+			return mapping.findForward("Approval");
 		}
 		
 		if (session.getAttribute("taskCode") != null) {
@@ -81,6 +101,7 @@ public class DashboardAction extends Action {
 		params.put("userDomain", userDomain);
 
 		if ("approvalDashboard".equals(dForm.getTask())) {
+			params.put("userDomain", "DOMAIN205");
 			dForm.setListAssignment(dMan.searchListApproval(params));
 			dForm.setCountRecord(dMan.countListApproval(params));
 		}
