@@ -78,8 +78,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		a WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		) WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
-	<select id="searchOrganization" resultClass="organizationBean"
+
+	<select id="searchOrganization" resultClass="adins.ace.taps.bean.organization.OrganizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
@@ -87,12 +87,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT LPAD
 		(o.organization_code,LENGTH
 		(o.organization_code) + (LEVEL * 2) -
-		2,'-')
+		2,' ')
 		AS organizationCode,
 		o.organization_name AS organizationName,
 		e.first_name || ' ' || e.last_name AS headName, r.organization_name as
-		parentName
-		FROM organizations o
+		parentName, o.organization_level as organizationLevel
+		FROM
+		organizations o
 		LEFT
 		JOIN
 		employees e
@@ -234,7 +235,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		emp.first_name || ' ' ||
 		emp.last_name AS directReport,
 		ps.assignee_user_domain AS
-		assigneeUserDomain
+		assigneeUserDomain, e.picture AS
+		assigneePhoto, emp.picture AS directReportPhoto
 		FROM
 		organizations o,
 		projects p,

@@ -16,6 +16,10 @@ public class TransferProjectForm extends ActionForm {
 	private String searchCategory;
 	private String projectName;
 	private String projectCode;
+	private String orgCode;
+	private String orgName;
+	private String assigneeUserDomain;
+	private String directReportUserDomain;
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
 	private List<StructureProjectBean> listMember;
@@ -62,6 +66,30 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
+	}
+	public String getOrgCode() {
+		return orgCode;
+	}
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+	public String getOrgName() {
+		return orgName;
+	}
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+	public String getAssigneeUserDomain() {
+		return assigneeUserDomain;
+	}
+	public void setAssigneeUserDomain(String assigneeUserDomain) {
+		this.assigneeUserDomain = assigneeUserDomain;
+	}
+	public String getDirectReportUserDomain() {
+		return directReportUserDomain;
+	}
+	public void setDirectReportUserDomain(String directReportUserDomain) {
+		this.directReportUserDomain = directReportUserDomain;
 	}
 	public List<ProjectBean> getListProject() {
 		return listProject;
@@ -126,5 +154,6 @@ public class TransferProjectForm extends ActionForm {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 	
 }

@@ -177,3 +177,20 @@ legend {
 	border: 1px solid green;
 	background-color: green;
 }
+
+
+.submit-wizard {
+	border: 1px solid green !important;
+	padding: 10px 30px !important;
+	background-color: green !important;
+	color: #fff !important;
+	text-decoration: none;
+	float: right;
+	margin-top: -58px;
+	margin-right: 20px;
+}
+
+.submit-wizard:hover {
+	color: green !important;
+	background-color: #fff !important;
+}
