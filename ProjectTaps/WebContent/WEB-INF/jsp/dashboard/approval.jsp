@@ -74,8 +74,8 @@
 				<html:form action="/claimSupervisorAssignment" method="POST">
 					<html:hidden property="claimBean.status" name="dashboardForm"
 						styleId="status" />
-					<html:hidden property="claimBean.taskCode"
-						name="dashboardForm" styleId="task-code" />
+					<html:hidden property="claimBean.taskCode" name="dashboardForm"
+						styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -95,8 +95,7 @@
 								<td>Assignment Due Date</td>
 								<td>:</td>
 								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate"
-										name="dashboardForm" /></td>
+										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
@@ -254,10 +253,9 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-										<p>&nbsp;Your current value : 0 &nbsp;</p>
+										<p></p>
 										<html:hidden property="claimBean.appraisalStar" styleId="star" />
-										<button id="edit-star-btn" class="default"
-											style="display: none;">Edit</button>
+										<button type="button" id="edit-star-btn" class="default">Edit</button>
 									</div>
 								</td>
 							</tr>
@@ -271,19 +269,18 @@
 							<tr>
 								<td colspan=4 class="text-right"><button
 										onclick="javascript:flyToPage('approved');"
-										class="button success">Approve</button> <button
-										onclick="javascript:flyToPage('correction');"
-										class="button warning">Correction</button> <button
-										onclick="javascript:flyToPage('reject');"
-										class="button danger">Reject</button> <button
-										onclick="javascript:flyToPage('cancel');"
+										class="button success">Approve</button>
+									<button onclick="javascript:flyToPage('correction');"
+										class="button warning">Correction</button>
+									<button onclick="javascript:flyToPage('reject');"
+										class="button danger">Reject</button>
+									<button onclick="javascript:flyToPage('cancel');"
 										class="button info">Cancel</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<html:hidden property="task" name="dashboardForm" />
-					<html:hidden property="claimBean.assignTo"
-						name="dashboardForm" />
+					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>
