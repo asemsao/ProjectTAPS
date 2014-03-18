@@ -21,8 +21,8 @@ public class QueryActiveDirectory {
 
 	public static List<ActiveDirectoryBean> queryAD() {
 		// TESTING
-		String username = "budi.ss";
-		String password = "Terev9977";
+		String username = "kartiko.ew";
+		String password = "K@rtik02014";
 		String domainName = "nu-ace.ad-ins.com";
 
 		List<ActiveDirectoryBean> AllADList = new ArrayList<ActiveDirectoryBean>();

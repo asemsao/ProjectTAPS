@@ -44,7 +44,7 @@
 	<jsp:include page="/frame/header.jsp" />
 	<html:form enctype="multipart/form-data" action="/employee"
 		method="post" styleClass="employeeForm" styleId="employeeAddEdit">
-		<html:hidden property="task" name="employeeForm" />
+		<html:hidden property="task" name="employeeForm" styleId="task"/>
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -202,7 +202,7 @@
 								<td colspan="4" class="text-right">
 									<button onclick="button('saveNewEmployee')"
 										class="button success">Save</button>
-									<button onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

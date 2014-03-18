@@ -7,6 +7,7 @@ import java.util.Map;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.dashboard.DashboardBean;
+import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -52,6 +53,23 @@ public class DashboardManager {
 			}
 		}
 		return list;
+	}
+	
+	public DashboardBean getPhotoEmployees(String employeeDomain) {
+		DashboardBean photo = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			photo = (DashboardBean) ibatisSQLMap.queryForObject("dashboard.getPhotoEmployees", employeeDomain);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return photo;
 	}
 	
 	public Integer searchTotalClaim(String userDomain){

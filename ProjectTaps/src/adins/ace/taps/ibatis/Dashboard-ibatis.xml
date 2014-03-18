@@ -21,7 +21,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<select id="searchTopTenOrganization" resultClass="dashboardBean">
 		SELECT   *
-		FROM   (  SELECT   	e.user_domain, 
+		FROM   (  SELECT   	e.user_domain AS userDomain, 
 							e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
 		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
 		            FROM   	employees e, stars s
@@ -30,6 +30,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		        ORDER BY   	totalStar DESC)
 		WHERE   <![CDATA[ROWNUM <= 10]]>
 	</select>
+
+	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.dashboard.DashboardBean"
+		parameterClass="java.lang.String">
+		SELECT picture AS profilePicture from employees WHERE
+		user_domain=#employeeDomain#
+	</select>
+	
+
 	
 	<select id="claimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalClaim

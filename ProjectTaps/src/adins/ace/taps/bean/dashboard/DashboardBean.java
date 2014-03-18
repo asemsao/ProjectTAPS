@@ -7,7 +7,14 @@ public class DashboardBean implements Serializable {
 	private String userName;
 	private String employeeName;
 	private String totalStar;
-
+	private Integer claimEmployee;
+	private Integer correctionEmployee;
+	private Integer claimSupervisor;
+	private Integer correctionSupervisor;
+	private Integer rfaSupervisor;
+	private byte[] profilePicture;
+	private String userDomain;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -30,6 +37,22 @@ public class DashboardBean implements Serializable {
 
 	public void setTotalStar(String totalStar) {
 		this.totalStar = totalStar;
+	}
+
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getUserDomain() {
+		return userDomain;
+	}
+
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
 	}
 
 }
