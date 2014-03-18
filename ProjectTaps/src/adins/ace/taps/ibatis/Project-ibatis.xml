@@ -162,22 +162,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
 		SELECT
-		o.organization_name AS organizationName,
-		p.project_code AS projectCode,
-		p.project_name AS projectName,
-		ps.project_role AS projectRole,
-		e.first_name || ' ' || e.last_name AS
-		assignee,
-		emp.first_name || ' ' ||
-		emp.last_name AS directReport,
-		ps.assignee_user_domain AS
-		assigneeUserDomain
+			o.organization_name AS organizationName,
+			p.project_code AS projectCode,
+			p.project_name AS projectName,
+			ps.project_role AS projectRole,
+			e.first_name || ' ' || e.last_name AS assignee,
+			emp.first_name || ' ' || emp.last_name AS directReport,
+			ps.assignee_user_domain AS assigneeUserDomain,
+			ps.directreport_user_domain AS directReportUserDomain
 		FROM
-		organizations o,
-		projects p,
-		employees e,
-		employees emp,
-		project_structures ps
+			organizations o,
+			projects p,
+			employees e,
+			employees emp,
+			project_structures ps
 		WHERE
 		p.project_code =
 		ps.project_code
@@ -317,31 +315,27 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<update id="updateMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
 		UPDATE
-		project_structures
+			project_structures
 		SET
-		project_code = #projectCode#,
-		assignee_user_domain = #assigneeUserDomain#,
-		directreport_user_domain =
-		#directreportUserDomain#,
-		project_role = #projectRole#,
-		updated_by =
-		'domain100',
-		updated_date = sysdate
+			project_code = #projectCode#,
+			assignee_user_domain = #assigneeUserDomain#,
+			directreport_user_domain = #directreportUserDomain#,
+			project_role = #projectRole#,
+			updated_by = 'domain100',
+			updated_date = sysdate
 		WHERE
-		project_code = #projectCode#
-		AND assignee_user_domain = #assigneeUserDomain#
+			project_code = #projectCode#
+			AND assignee_user_domain = #assigneeUserDomain#
 	</update>
 
-	<update id="deleteMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
-		UPDATE
+	<delete id="deleteMember" parameterClass="adins.ace.taps.bean.project.AddStructureProjectBean">
+		DELETE FROM
 		project_structures
-		SET
-		flag = 'INACTIVE'
 		WHERE
 		project_code =
 		#projectCode#
 		AND assignee_user_domain = #assigneeUserDomain#
-	</update>
+	</delete>
 
 	<update id="deleteProject" parameterClass="java.lang.String">
 		UPDATE projects
@@ -368,4 +362,32 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			#name#) 
 	</insert>
 	
+	<select id = "checkRole" parameterClass = "java.lang.String" resultClass = "int">
+		SELECT 
+			count(1)
+		FROM 
+			project_structures
+		WHERE 
+			directreport_user_domain = #name#
+			AND flag = 'ACTIVE'
+	</select>
+	
+	<delete id="deleteRole" parameterClass = "java.lang.String">
+		DELETE FROM 
+			employee_role
+		WHERE 
+			user_domain = #name#
+			AND role_id = 'SPV'
+	</delete>
+	
+	<update id="updateAssStatus" parameterClass="java.util.Map">
+		UPDATE assignments
+		SET 
+    		current_status = 'DELETED'
+		WHERE 
+    		assign_to = #assignee#
+	    	AND report_to = #directreport#
+	    	AND project_code = #projectCode#
+	    	AND NOT current_status IN ('APPROVED','REJECTED')
+	</update>
 </sqlMap>

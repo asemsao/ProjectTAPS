@@ -75,7 +75,7 @@
 							</tr>
 							<html:hidden property="task" name="projectForm" />
 							<html:hidden property="paramProjectCode" name="projectForm" />
-							
+							<html:hidden property="directReportBefore" name = "projectForm" />
 						</tbody>
 					</table>
 				</div>

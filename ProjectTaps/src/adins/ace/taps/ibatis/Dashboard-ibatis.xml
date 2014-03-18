@@ -7,25 +7,53 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<typeAlias alias="dashboardBean"
 		type="adins.ace.taps.bean.dashboard.DashboardBean" />
 
-	<select id="searchTopTen" resultClass="dashboardBean">
+	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
 		FROM (	SELECT 	e.user_domain AS userDomain, 
 						e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
 						SUM (s.star_after) - SUM (s.star_before) AS totalStar
 						FROM employees e, stars s
-				WHERE 	e.user_domain = s.user_domain 
+				WHERE 	e.user_domain = s.user_domain
+				<dynamic prepend="AND">
+					<isNotNull property="currentMonth">
+						<isNotEmpty property="currentMonth">
+							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+				<dynamic prepend="AND">
+					<isNotNull property="lastMonth">
+						<isNotEmpty property="lastMonth">
+							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
 				GROUP BY e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
 				ORDER BY totalStar DESC)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
-	<select id="searchTopTenOrganization" resultClass="dashboardBean">
+	<select id="searchTopTenOrganization" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT   *
 		FROM   (  SELECT   	e.user_domain AS userDomain, 
 							e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
 		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
 		            FROM   	employees e, stars s
-		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCOde#)
+		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#)
+		    		<dynamic prepend="AND">
+						<isNotNull property="currentMonth">
+							<isNotEmpty property="currentMonth">
+								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+							</isNotEmpty>
+						</isNotNull>
+					</dynamic>
+					<dynamic prepend="AND">
+						<isNotNull property="lastMonth">
+							<isNotEmpty property="lastMonth">
+								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+							</isNotEmpty>
+						</isNotNull>
+					</dynamic>
 		        GROUP BY   	e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
 		        ORDER BY   	totalStar DESC)
 		WHERE   <![CDATA[ROWNUM <= 10]]>

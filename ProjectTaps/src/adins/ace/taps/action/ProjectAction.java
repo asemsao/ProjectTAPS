@@ -53,16 +53,25 @@ public class ProjectAction extends Action {
 			pForm.setPage(1);
 		}
 		if ("addProject".equals(pForm.getTask())) {
+			//go to new.jsp
 			return mapping.findForward("AddProject");
 		}
 		if ("saveProject".equals(pForm.getTask())) {
-			pMan.addProject(pForm.getAddProject());
+			if(pMan.addProject(pForm.getAddProject()))
+			{
+				pForm.setMessage("Insert Successfully");
+			}
+			else
+			{
+				pForm.setMessage("Insert Failed");
+			}
 		}
 		if ("cancel".equals(pForm.getTask())) {
 			pForm.setMode("");
 		}
 
 		if ("edit".equals(pForm.getTask())) {
+			//go to editproject.jsp
 			pForm.setpBean(pMan.getProjectById(pForm.getParamProjectCode()));
 			pForm.setListPhase(pMan.getPhase());
 			return mapping.findForward("EditProject");
@@ -82,6 +91,7 @@ public class ProjectAction extends Action {
 		params.put("keyword", pForm.getSearchKeyword());
 		
 		if ("member".equals(pForm.getTask())) {
+			//go to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
@@ -105,6 +115,7 @@ public class ProjectAction extends Action {
 		
 	
 		if ("addMember".equals(pForm.getTask())) {
+			//go to add.jsp
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setProjectName(pBean.getProjectName());
 			return mapping.findForward("AddMember");
@@ -112,11 +123,18 @@ public class ProjectAction extends Action {
 			
 		if ("saveMember".equals(pForm.getTask())) {
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
-				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
+			if(pMan.addProjectMember(pForm.getAddSProject()))
+			{
+				if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false)
+				{
+					pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
+				}
+				pForm.setMessage("Added Successfully");
 			}
-			pMan.addProjectMember(pForm.getAddSProject());
+			else
+				pForm.setMessage("Add Failed");
 			
+			//Back to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
@@ -139,10 +157,12 @@ public class ProjectAction extends Action {
 		}
 		
 		if ("editMember".equals(pForm.getTask())) {
+			//go to editmember.jsp
 			params = new HashMap();
 			params.put("paramProjectCode", pForm.getParamProjectCode());
 			params.put("paramAssigneeUserDomain",pForm.getParamAssigneeUserDomain());
 			pForm.setAddSProject(pMan.getProjectMemberById(params));
+			pForm.setDirectReportBefore(pForm.getAddSProject().getDirectreportUserDomain());
 			return mapping.findForward("EditMember");
 		}
 		
@@ -150,6 +170,19 @@ public class ProjectAction extends Action {
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.updateMember(pForm.getAddSProject());
 			
+			//Edit direct report yang lama
+			if(pMan.checkRole(pForm.getDirectReportBefore()) == 0)
+			{
+				pMan.deleteRole(pForm.getDirectReportBefore());
+			}
+			
+			//Add Direct Report yang baru
+			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
+				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
+			}
+			
+			
+			//Back to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
@@ -172,6 +205,7 @@ public class ProjectAction extends Action {
 		}
 		
 		if ("back".equals(pForm.getTask())) {
+			//Back to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
@@ -196,8 +230,27 @@ public class ProjectAction extends Action {
 		if ("deleteMember".equals(pForm.getTask())) {
 			pForm.getAddSProject().setAssigneeUserDomain(pForm.getParamAssigneeUserDomain());
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			pMan.deleteMember(pForm.getAddSProject());
+			if(pMan.deleteMember(pForm.getAddSProject()))
+			{
+				//update table employee_role
+				if(pMan.checkRole(pForm.getDirectReportUserDomain()) == 0)
+				{
+					pMan.deleteRole(pForm.getDirectReportUserDomain());
+				}
+				
+				//update table assignments
+				Map param = new HashMap();
+				param.put("assignee", pForm.getParamAssigneeUserDomain());
+				param.put("projectCode", pForm.getParamProjectCode());
+				param.put("directreport", pForm.getDirectReportUserDomain());
+				pMan.updateAssStatus(param);
+				
+				pForm.setMessage("Record Has been Deleted");
+			}
+			else
+				pForm.setMessage("Record can't be deleted");
 			
+			//Back to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());

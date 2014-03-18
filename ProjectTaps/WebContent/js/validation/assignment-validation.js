@@ -48,12 +48,10 @@ $(document).ready(function () {
         },
         rules: {
         	'assignmentBean.assignmentDate': {
-        		required: true,
-                date: true
+        		required: true
         	},
         	'assignmentBean.assignmentDueDate': {
-                required: true,
-                date: true
+                required: true
             },
         	'assignmentBean.assignmentTime': {
                 required: true
