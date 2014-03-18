@@ -7,11 +7,6 @@ public class DashboardBean implements Serializable {
 	private String userName;
 	private String employeeName;
 	private String totalStar;
-	private Integer claimEmployee;
-	private Integer correctionEmployee;
-	private Integer claimSupervisor;
-	private Integer correctionSupervisor;
-	private Integer rfaSupervisor;
 	private byte[] profilePicture;
 	private String userDomain;
 	

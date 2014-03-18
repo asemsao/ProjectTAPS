@@ -96,23 +96,23 @@
 									property="listAssignment">
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
-											<td class="text-center" bgcolor="#BDFCC9"><b><bean:write
-														property="assignmentDate" name="assignment" /></b></td>
-											<td class="text-center" bgcolor="#EEEEE0"><b><bean:write
-														property="taskCode" name="assignment" /></b></td>
-											<td class="text-center" bgcolor="#6E7B4B"><b><bean:write
-														property="assignmentCategory" name="assignment" /></b></td>
-											<td bgcolor="#7FFFD4"><b><bean:write property="fullName" name="assignment" /></b></td>
-											<td class="text-center" bgcolor="#7FFFD4"><b><bean:write
-														property="assignmentDueDate" name="assignment" /></b></td>
-											<td class="text-center" bgcolor="#7FFFD4"><b><bean:write
-														property="createdDate" name="assignment" /></b></td>
-											<td class="text-center" bgcolor="#7FFFD4"><a
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write property="taskCode"
+													name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentCategory" name="assignment" /></td>
+											<td class="text-bold text-italic"><bean:write property="fullName" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
+													property="createdDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><a
 												href="javascript:flyToPage('view', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />','<bean:write
-													property="currentStatus" name="assignment" />' );"><b><bean:write
-															property="currentStatus" name="assignment" /></b></a></td>
+													property="currentStatus" name="assignment" />' );"><bean:write
+														property="currentStatus" name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
