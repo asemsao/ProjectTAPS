@@ -23,6 +23,16 @@ $(document).ready(function () {
         onlyOne: false,
         position: 'right'
     });
+    $('#newAssignment input[id="project-name"]').tooltipster({
+        trigger: 'custom',
+        onlyOne: false,
+        position: 'right'
+    });
+    $('#newAssignment input[id="employee-name"]').tooltipster({
+        trigger: 'custom',
+        onlyOne: false,
+        position: 'right'
+    });
 
     // initialize validate plugin on the form
     $('#newAssignment').validate({
@@ -49,6 +59,12 @@ $(document).ready(function () {
                 required: true
             },
         	'#employee-name': {
+                required: true
+            },
+        	'assignmentBean.projectName': {
+                required: true
+            },
+        	'assignmentBean.assignToFullName': {
                 required: true
             }
         },

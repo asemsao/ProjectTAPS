@@ -97,7 +97,7 @@ $(document).ready(function () {
                 required: true,
                 maxlength:25
             },
-            'newEmployee.businessUnit': {
+            'newEmployee.businessUnitName': {
                 required: true
             },
         	'newEmployee.employeeAddress': {
