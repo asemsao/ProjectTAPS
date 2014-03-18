@@ -10,9 +10,11 @@ import javax.imageio.ImageIO;
 
 import org.apache.struts.upload.FormFile;
 
+import adins.ace.taps.configuration.App;
+
 public class PhotoResizeModule {
-	private static final int IMG_WIDTH = 120;
-	private static final int IMG_HEIGHT = 120;
+	private static final int IMG_WIDTH = Integer.parseInt(App.getConfiguration("img_width"));
+	private static final int IMG_HEIGHT = Integer.parseInt(App.getConfiguration("img_height"));
 
 	public PhotoResizeModule() {
 	}

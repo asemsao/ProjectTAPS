@@ -122,10 +122,10 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-									<html:hidden property="newEmployee.businessUnit"
+										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<input type="text" readonly="readonly" id="organization-name" class="businessUnit"
-										value="<bean:write name="employeeForm" property="newEmployee.businessUnitName" />"/>
+										<html:text property="newEmployee.businessUnitName" readonly="true"
+											name="employeeForm" styleId="organization-name" styleClass="businessUnit"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -168,7 +168,7 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="newEmployee.golonganNumber"
+											<html:select property="newEmployee.golonganNumber" style="width:70px;"
 												name="employeeForm">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
@@ -178,12 +178,7 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-										</div>
-									</div>
-
-									<div class="auto-complete">
-										<div class="input-control select">
-											<html:select property="newEmployee.golonganLevel"
+											<html:select property="newEmployee.golonganLevel" style="width:70px;"
 												name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>

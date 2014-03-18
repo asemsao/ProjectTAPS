@@ -11,6 +11,8 @@ import adins.ace.taps.bean.dashboard.DashboardBean;
 @SuppressWarnings("serial")
 public class DashboardForm extends ActionForm {
 	DashboardBean dBean = new DashboardBean();
+	ClaimAssignmentBean claimBean = new ClaimAssignmentBean();
+	NewAssignmentBean selfAssignBean = new NewAssignmentBean();
 	private String task;
 	private String employeeDomain;
 	private List<DashboardBean> listTopTen;
@@ -19,6 +21,8 @@ public class DashboardForm extends ActionForm {
 	private Integer maxPage;
 	private List<ClaimAssignmentBean> listAssignment;
 	private List<NewAssignmentBean> listSelfAssignment;
+	private List<ClaimAssignmentBean> listDetailClaim;
+	private String totalManHours;
 	private Integer totalClaim;
 	private Integer totalCorrection;
 	private Integer totalCorrectionSelf;
@@ -32,7 +36,24 @@ public class DashboardForm extends ActionForm {
 	private String taskCode;
 	private String taskType;
 	private String currentStatus;
-	
+	private String mode;
+
+	public NewAssignmentBean getSelfAssignBean() {
+		return selfAssignBean;
+	}
+
+	public void setSelfAssignBean(NewAssignmentBean selfAssignBean) {
+		this.selfAssignBean = selfAssignBean;
+	}
+
+	public ClaimAssignmentBean getClaimBean() {
+		return claimBean;
+	}
+
+	public void setClaimBean(ClaimAssignmentBean claimBean) {
+		this.claimBean = claimBean;
+	}
+
 	public String getTaskCode() {
 		return taskCode;
 	}
@@ -91,6 +112,22 @@ public class DashboardForm extends ActionForm {
 
 	public List<DashboardBean> getListTopTenOrganization() {
 		return listTopTenOrganization;
+	}
+
+	public List<ClaimAssignmentBean> getListDetailClaim() {
+		return listDetailClaim;
+	}
+
+	public void setListDetailClaim(List<ClaimAssignmentBean> listDetailClaim) {
+		this.listDetailClaim = listDetailClaim;
+	}
+
+	public String getTotalManHours() {
+		return totalManHours;
+	}
+
+	public void setTotalManHours(String totalManHours) {
+		this.totalManHours = totalManHours;
 	}
 
 	public void setListTopTenOrganization(
@@ -208,5 +245,13 @@ public class DashboardForm extends ActionForm {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 }

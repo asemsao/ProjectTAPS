@@ -341,4 +341,22 @@ public class DashboardManager {
 		}
 		return total;
 	}
+	
+	public DashboardBean searchRecordAssignment(String taskCode) {
+		DashboardBean bean = new DashboardBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			bean = (DashboardBean) ibatisSQLMap.queryForObject("dashboard.searchRecordAssignment", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
 }

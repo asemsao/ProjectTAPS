@@ -29,7 +29,7 @@
 	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
-		if ($("#messageCRUD").val() != "") {
+		if ($("#message").val() != "") {
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -40,7 +40,7 @@
 					// 					height : "120px",
 					// 					width : "360px",
 					position : 'top-right',
-					content : $("#messageCRUD").val()
+					content : $("#message").val()
 				});
 			}, 1000);
 		}
@@ -50,12 +50,14 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/employeeReport" method="post">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-					<html:hidden property="message" styleId="messageCRUD"
-						name="employeeReportForm" />
+
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/employeeReport" method="post">
+					<input type="hidden" id="message"
+						value="<bean:write  property="message" 
+						name="employeeReportForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -197,16 +199,17 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+					<html:hidden property="task" name="employeeReportForm" />
+					<html:hidden property="taskCode" name="employeeReportForm" />
+					<html:hidden property="taskType" name="employeeReportForm" />
+					<html:hidden property="currentStatus" name="employeeReportForm" />
+					<html:hidden property="page" name="employeeReportForm" />
+					<html:hidden property="maxpage" name="employeeReportForm" />
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="employeeReportForm" />
-		<html:hidden property="taskCode" name="employeeReportForm" />
-		<html:hidden property="taskType" name="employeeReportForm" />
-		<html:hidden property="currentStatus" name="employeeReportForm" />
-		<html:hidden property="page" name="employeeReportForm" />
-		<html:hidden property="maxpage" name="employeeReportForm" />
-	</html:form>
+	</div>
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

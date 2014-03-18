@@ -7,14 +7,38 @@ public class DashboardBean implements Serializable {
 	private String userName;
 	private String employeeName;
 	private String totalStar;
-	private Integer claimEmployee;
-	private Integer correctionEmployee;
-	private Integer claimSupervisor;
-	private Integer correctionSupervisor;
-	private Integer rfaSupervisor;
 	private byte[] profilePicture;
 	private String userDomain;
-	
+	private String taskCode;
+	private String assignmentDate;
+	private String assignmentDueDate;
+	private String assignmentType;
+	private String assignTo;
+	private String assignToFullName;
+	private String reportTo;
+	private String reportToFullName;
+	private String reffTaskCode;
+	private String description;
+	private String claimDate;
+	private String manHours;
+	private String detailDescription;
+
+	public String getTaskCode() {
+		return taskCode;
+	}
+
+	public void setTaskCode(String taskCode) {
+		this.taskCode = taskCode;
+	}
+
+	public String getReportTo() {
+		return reportTo;
+	}
+
+	public void setReportTo(String reportTo) {
+		this.reportTo = reportTo;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -53,6 +77,94 @@ public class DashboardBean implements Serializable {
 
 	public void setUserDomain(String userDomain) {
 		this.userDomain = userDomain;
+	}
+
+	public String getAssignmentDate() {
+		return assignmentDate;
+	}
+
+	public void setAssignmentDate(String assignmentDate) {
+		this.assignmentDate = assignmentDate;
+	}
+
+	public String getAssignmentDueDate() {
+		return assignmentDueDate;
+	}
+
+	public void setAssignmentDueDate(String assignmentDueDate) {
+		this.assignmentDueDate = assignmentDueDate;
+	}
+
+	public String getAssignmentType() {
+		return assignmentType;
+	}
+
+	public void setAssignmentType(String assignmentType) {
+		this.assignmentType = assignmentType;
+	}
+
+	public String getAssignTo() {
+		return assignTo;
+	}
+
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
+
+	public String getAssignToFullName() {
+		return assignToFullName;
+	}
+
+	public void setAssignToFullName(String assignToFullName) {
+		this.assignToFullName = assignToFullName;
+	}
+
+	public String getReportToFullName() {
+		return reportToFullName;
+	}
+
+	public void setReportToFullName(String reportToFullName) {
+		this.reportToFullName = reportToFullName;
+	}
+
+	public String getReffTaskCode() {
+		return reffTaskCode;
+	}
+
+	public void setReffTaskCode(String reffTaskCode) {
+		this.reffTaskCode = reffTaskCode;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getClaimDate() {
+		return claimDate;
+	}
+
+	public void setClaimDate(String claimDate) {
+		this.claimDate = claimDate;
+	}
+
+	public String getManHours() {
+		return manHours;
+	}
+
+	public void setManHours(String manHours) {
+		this.manHours = manHours;
+	}
+
+	public String getDetailDescription() {
+		return detailDescription;
+	}
+
+	public void setDetailDescription(String detailDescription) {
+		this.detailDescription = detailDescription;
 	}
 
 }

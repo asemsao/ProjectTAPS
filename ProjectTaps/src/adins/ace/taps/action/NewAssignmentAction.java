@@ -28,15 +28,17 @@ public class NewAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
+		boolean success = false;
 
 		if (aForm.getNewTask() == null) {
 			if (session.getAttribute("taskCode") != null) {
-				aForm.setAssignmentBean(aMan.searchRecordAssignment((String) session.getAttribute("taskCode")));
+				aForm.setAssignmentBean(aMan
+						.searchRecordAssignment((String) session
+								.getAttribute("taskCode")));
 				return mapping.findForward("EditAssignment");
 			}
 			return mapping.findForward("NewAssignment");
-		}
-		else {
+		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
@@ -46,16 +48,19 @@ public class NewAssignmentAction extends Action {
 				aForm.getAssignmentBean().setReportTo("domain100");
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
-					aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode("domain3"));
+					aForm.getAssignmentBean().setOrganizationCode(
+							aMan.searchOrganizationCode("domain3"));
 					aForm.getAssignmentBean().setProjectCode(null);
-					paramCode = aForm.getAssignmentBean().getOrganizationCode() + dateFormat.format(date);
+					paramCode = aForm.getAssignmentBean().getOrganizationCode()
+							+ dateFormat.format(date);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
+					paramCode = aForm.getAssignmentBean().getProjectCode()
+							+ dateFormat.format(date);
 				}
 				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy("domain100");
-	
+
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
@@ -63,18 +68,23 @@ public class NewAssignmentAction extends Action {
 					aForm.getAssignmentBean().setCurrentStatus("CLAIM");
 					aForm.getAssignmentBean().setFlag("INACTIVE");
 				}
-	
-				boolean success = false;
+
 				if (session.getAttribute("taskCode") != null) {
-					aForm.getAssignmentBean().setTaskCode((String) session.getAttribute("taskCode"));
+					aForm.getAssignmentBean().setTaskCode(
+							(String) session.getAttribute("taskCode"));
 					aForm.getAssignmentBean().setUpdatedBy("domain100");
 					success = aMan.editAssignment(aForm.getAssignmentBean());
-				}
-				else {
+				} else {
 					success = aMan.addAssignment(aForm.getAssignmentBean());
 				}
-				
-				System.out.println(success);
+
+				if (success) {
+					session.setAttribute("message",
+							"Create Assignment Success!");
+				} else {
+					session.setAttribute("message", "Create Assignment Failed!");
+				}
+
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}
