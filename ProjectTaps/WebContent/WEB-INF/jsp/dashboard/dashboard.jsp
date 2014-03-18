@@ -127,7 +127,7 @@
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
-								<th>Employee</th>
+								<th colspan=2>Employee</th>
 								<th>Total Star</th>
 							</tr>
 						</thead>
