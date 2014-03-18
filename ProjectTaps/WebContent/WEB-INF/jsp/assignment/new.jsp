@@ -31,10 +31,6 @@
 		}
 	}
 
-	function checkRadioButtonValue() {
-
-	}
-
 	$(document)
 			.ready(
 					function() {

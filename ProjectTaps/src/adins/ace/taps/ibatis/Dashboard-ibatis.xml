@@ -37,8 +37,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		user_domain=#employeeDomain#
 	</select>
 	
-
-	
 	<select id="claimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalClaim
 	 	FROM   		assignments
@@ -48,29 +46,29 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="approvalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFA
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
-	 	AND assignment_type = 'ASSIGNMENT' AND flag='INACTIVE'
+	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="approvalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFAself
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
-	 	AND assignment_type = 'SELF ASSIGNMENT' AND flag='INACTIVE'
+	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
+	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="correctionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrection
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
-	 	AND assignment_type = 'ASSIGNMENT' AND flag='INACTIVE'
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="correctionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrectionself
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
-	 	AND assignment_type = 'SELF ASSIGNMENT' AND flag='INACTIVE'
+	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="listClaim" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
@@ -82,7 +80,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
 						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
-						a.current_status AS currentStatus
+						a.current_status AS currentStatus,
+						a.flag AS flag
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.report_to = e.user_domain 
@@ -172,7 +171,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
 						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
-						a.current_status AS currentStatus
+						a.current_status AS currentStatus,
+						a.flag AS flag
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
@@ -262,7 +262,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
 						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
-						a.current_status AS currentStatus
+						a.current_status AS currentStatus,
+						a.flag AS flag
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
@@ -352,7 +353,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
 						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
-						a.current_status AS currentStatus
+						a.current_status AS currentStatus,
+						a.flag AS flag
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
@@ -442,7 +444,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.first_name || ' ' || e.last_name AS fullName,
 						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
 						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
-						a.current_status AS currentStatus
+						a.current_status AS currentStatus,
+						a.flag AS flag
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
@@ -521,5 +524,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
+	</select>
+	
+	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.dashboard.DashboardBean" parameterClass="java.lang.String">
+		SELECT 	a.task_code AS taskCode,
+				TO_CHAR(a.assignment_date,'DD/MM/YYYY, HH24:MI') AS assignmentDate,
+				TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate,
+				a.assignment_type AS assignmentType,
+				a.assign_to AS assignTo,
+				e.first_name || ' ' || e.last_name AS assignToFullName,
+				a.report_to AS reportTo,
+				e2.first_name || ' ' || e2.last_name AS reportToFullName,
+				a.reff_task_code AS reffTaskCode,
+				a.description AS description
+		FROM assignments a, employees e, employees e2
+		WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain
 	</select>
 </sqlMap>

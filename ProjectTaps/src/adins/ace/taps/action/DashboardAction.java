@@ -38,10 +38,14 @@ public class DashboardAction extends Action {
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
-		PrintWriter out = response.getWriter();
 		String userDomain = "domain3";
 		
-
+		/*code for claim assignment from supervisor*/
+		if ("CLAIM".equals(dForm.getTask())){
+			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
+			return mapping.findForward("Claim");
+		}
+		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
@@ -97,7 +101,7 @@ public class DashboardAction extends Action {
 			dForm.setListAssignment(dMan.searchListCorrectionSelf(params));
 			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
 		}
-
+		
 		if ("approvalDashboard".equals(dForm.getTask())
 				|| "claimDashboard".equals(dForm.getTask())
 				|| "approvalSelfDashboard".equals(dForm.getTask())
@@ -110,7 +114,7 @@ public class DashboardAction extends Action {
 			}
 			return mapping.findForward("ListAssignment");
 		}
-
+		
 		if ("getPhoto".equals(dForm.getTask())) {
 			
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
@@ -123,7 +127,7 @@ public class DashboardAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
 					if (buffer == null) {
-						buffer = extractBytes("/images/user.png");
+						buffer = extractBytes("images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -159,6 +163,7 @@ public class DashboardAction extends Action {
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
 
 		if ("autoRefresh".equals(dForm.getTask())) {
+			PrintWriter out = response.getWriter();			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(dForm);
 			out.print(json);
@@ -173,9 +178,7 @@ public class DashboardAction extends Action {
 	/* extract image in project resources to byte[] */
 	public byte[] extractBytes(String ImageName) throws IOException {
 		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")
-				+ "images/user.png");
-
+		fnew = new File(getServlet().getServletContext().getRealPath("/")+ImageName);
 		BufferedImage bufferedImage = ImageIO.read(fnew);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(bufferedImage, "png", baos);
