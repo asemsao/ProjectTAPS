@@ -155,7 +155,7 @@ public class DashboardAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
 					if (buffer == null) {
-						buffer = extractBytes("/images/user.png");
+						buffer = extractBytes("images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -198,7 +198,7 @@ public class DashboardAction extends Action {
 	/*extract image in project resources to byte[]*/
 	public byte[] extractBytes (String ImageName) throws IOException {
 		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+		fnew = new File(getServlet().getServletContext().getRealPath("/")+ImageName);
 		
 		BufferedImage bufferedImage = ImageIO.read(fnew);
 	    ByteArrayOutputStream baos = new ByteArrayOutputStream();

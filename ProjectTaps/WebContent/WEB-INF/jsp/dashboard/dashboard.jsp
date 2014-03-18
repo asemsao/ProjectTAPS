@@ -100,7 +100,7 @@
 									name="dashboardForm">
 									<tr>
 										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 45px;"></td>
+											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>
@@ -132,7 +132,7 @@
 									name="dashboardForm">
 									<tr>
 										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											style="width: 30px; height: 45px;"></td>
+											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
 												name="employee" /></td>

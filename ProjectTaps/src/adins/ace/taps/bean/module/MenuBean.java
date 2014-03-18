@@ -4,6 +4,8 @@ public class MenuBean {
 	private String menuName;
 	private String roleId;
 	private String task;
+	private byte[] profilePicture;
+	
 	public String getMenuName() {
 		return menuName;
 	}
@@ -21,5 +23,11 @@ public class MenuBean {
 	}
 	public void setTask(String task) {
 		this.task = task;
+	}
+	public byte[] getProfilePicture() {
+		return profilePicture;
+	}
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 }
