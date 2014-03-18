@@ -25,7 +25,11 @@ public class EmployeeReportAction extends Action {
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
-
+		
+		//testing pake domain 205
+		session.setAttribute("username", "domain3");
+		//nanti dihapus
+		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
@@ -63,7 +67,6 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())) {
-				System.out.println(eForm.getCurrentStatus());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
@@ -104,6 +107,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countEmployeeReportEmployee(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -160,6 +164,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countEmployeeReportSupervisor(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -196,6 +201,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
+			params.put("sessionUserDomain", session.getAttribute("username"));
 			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
 
 			if (eForm.getCountRecord() % 10 == 0) {
