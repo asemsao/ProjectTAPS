@@ -39,39 +39,56 @@ public class DashboardAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
+
 		Map params = new HashMap();
+		Map rankingLast = new HashMap();
+		Map rankingCurrent = new HashMap();
+
 		String userDomain = "domain3";
-		System.out.println(dForm.getTask() + dForm.getTaskType());
-		/*code for each record and their own status*/
-		if ("CLAIM".equals(dForm.getTask())){
+		/* code for each record and their own status */
+		if ("CLAIM".equals(dForm.getTask())) {
 			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
 		}
-		if ("CORRECTION".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
-			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
-			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
+		if ("CORRECTION".equals(dForm.getTask())
+				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm
+					.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean()
+					.getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean()
+					.getActivityType());
 			return mapping.findForward("CorrectionSelf");
 		}
-		if ("CORRECTION".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+		if ("CORRECTION".equals(dForm.getTask())
+				&& "ASSIGNMENT".equals(dForm.getTaskType())) {
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
+					.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
+					.getTaskCode()));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Correction");
 		}
-		if ("RFA".equals(dForm.getTask())  && "SELF ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
-			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
-			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
+		if ("RFA".equals(dForm.getTask())
+				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm
+					.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean()
+					.getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean()
+					.getActivityType());
 			return mapping.findForward("ApprovalSelf");
 		}
-		if ("RFA".equals(dForm.getTask())  && "ASSIGNMENT".equals(dForm.getTaskType())){
-			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+		if ("RFA".equals(dForm.getTask())
+				&& "ASSIGNMENT".equals(dForm.getTaskType())) {
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
+					.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
+					.getTaskCode()));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Approval");
 		}
-		
+
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
@@ -129,7 +146,7 @@ public class DashboardAction extends Action {
 			dForm.setListAssignment(dMan.searchListCorrectionSelf(params));
 			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
 		}
-		
+
 		if ("approvalDashboard".equals(dForm.getTask())
 				|| "claimDashboard".equals(dForm.getTask())
 				|| "approvalSelfDashboard".equals(dForm.getTask())
@@ -142,9 +159,9 @@ public class DashboardAction extends Action {
 			}
 			return mapping.findForward("ListAssignment");
 		}
-		
+
 		if ("getPhoto".equals(dForm.getTask())) {
-			
+
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
 			BufferedInputStream input = null;
 			BufferedOutputStream output = null;
@@ -198,15 +215,28 @@ public class DashboardAction extends Action {
 			return null;
 		}
 
-		dForm.setListTopTen(dMan.searchTopTen());
-		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
+		rankingLast.put("lastMonth", "true");
+		rankingLast.put("organizationCode", "CDD");
+		
+		rankingCurrent.put("currentMonth", "true");
+		rankingCurrent.put("organizationCode", "CDD");
+
+		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
+		dForm.setListTopTenOrganization(dMan
+				.searchTopTenOrganization(rankingCurrent));
+
+		dForm.setListTopTenPrev(dMan.searchTopTen(rankingLast));
+		dForm.setListTopTenOrganizationPrev(dMan
+				.searchTopTenOrganization(rankingLast));
+
 		return mapping.findForward("Dashboard");
 	}
 
 	/* extract image in project resources to byte[] */
 	public byte[] extractBytes(String ImageName) throws IOException {
 		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")+ImageName);
+		fnew = new File(getServlet().getServletContext().getRealPath("/")
+				+ ImageName);
 		BufferedImage bufferedImage = ImageIO.read(fnew);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(bufferedImage, "png", baos);
