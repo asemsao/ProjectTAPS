@@ -43,7 +43,8 @@
 								class="badge bg-gray"><span id="rfa"><bean:write
 											property="totalRFA" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');"
+						</a> <a href="#"
+							onclick="javascript:flyToPage('approvalSelfDashboard');"
 							data-hint="Approval Self Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-s-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -61,7 +62,8 @@
 								class="badge bg-gray"><span id="claim"><bean:write
 											property="totalClaim" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');"
+						</a> <a href="#"
+							onclick="javascript:flyToPage('correctionDashboard');"
 							data-hint="Correction Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="correction-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -70,7 +72,8 @@
 								class="badge bg-gray"><span id="correction"> <bean:write
 											property="totalCorrection" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');"
+						</a> <a href="#"
+							onclick="javascript:flyToPage('correctionSelfDashboard');"
 							data-hint="Correction Self Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="correction-s-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -100,7 +103,8 @@
 								<logic:iterate id="employee" property="listTopTenOrganization"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
@@ -132,7 +136,8 @@
 								<logic:iterate id="employee" property="listTopTen"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
 										<td class="text-center"><bean:write property="totalStar"
