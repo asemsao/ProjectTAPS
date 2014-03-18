@@ -20,6 +20,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SYSDATE)
 	</insert>
 
+	<insert id="insertRole" parameterClass="organizationBean">
+		INSERT INTO
+		employee_role
+		(role_id, user_domain)
+		VALUES ('HBU', #headDomain#)
+	</insert>
+
+	<delete id="deleteRole" parameterClass="java.lang.String">
+		delete from employee_role
+		where
+		user_domain =#headDomain# AND role_id='HBU'
+	</delete>
+
 	<select id="getOrganizationCode" resultClass="organizationBean">
 		SELECT
 		o.organization_code AS organizationCode,
@@ -108,10 +121,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	</select>
 
-	<select id="countChildOrganizations" resultClass="int" parameterClass="java.lang.String">
+	<select id="countChildOrganizations" resultClass="int"
+		parameterClass="java.lang.String">
 		SELECT COUNT(1)
 		AS totalChild FROM organizations
-		WHERE UPPER(parent_organization_code)
+		WHERE
+		UPPER(parent_organization_code)
 		=UPPER
 		(#organization_code#)
 	</select>
@@ -124,12 +139,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT LPAD
 		(o.organization_code,LENGTH
 		(o.organization_code) + (LEVEL * 2) -
-		2,'-')
+		2,' ')
 		AS organizationCode,
 		o.organization_name AS organizationName,
 		e.first_name || ' ' || e.last_name AS headName, r.organization_name as
-		parentName
-		FROM organizations o
+		parentName, o.organization_level as organizationLevel
+		FROM
+		organizations o
 		LEFT
 		JOIN
 		employees e
@@ -302,19 +318,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 	</select>
-	
+
 	<select id="searchMemberOrganizations" resultClass="organizationBean"
 		parameterClass="java.util.Map">
-		SELECT *
-		FROM (SELECT ROWNUM seqnum, a.*
-		FROM (
-		SELECT user_domain AS
-		memberDomain,
-		employee_code AS memberCode, first_name || ' ' ||
-		last_name AS memberName
-		FROM employees
-		WHERE UPPER(organization_code) =
-		UPPER(#organization_code#) AND user_domain != #head_domain# AND
+		SELECT * FROM (SELECT ROWNUM seqnum, a.* FROM ( SELECT user_domain AS
+		memberDomain, employee_code AS memberCode, first_name || ' ' ||
+		last_name AS memberName FROM employees WHERE UPPER(organization_code)
+		= UPPER(#organization_code#) AND user_domain != #head_domain# AND
 		LOWER(flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
@@ -356,7 +366,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
+
 	<select id="countMemberOrganizations" resultClass="int"
 		parameterClass="java.util.Map">
 		SELECT
@@ -400,6 +410,53 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 	</select>
+
+
+	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM employees
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#) AND
+		LOWER(flag) = 'active'
+	</select>
+
+	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
+		SELECT
+		COUNT(1)
+		FROM projects
+		WHERE UPPER(organization_code) =
+		UPPER(#organization_code#) AND
+		LOWER(flag) = 'active'
+	</select>
+
+	<!-- <select id="countRole" resultClass="int" parameterClass="java.util.Map"> -->
+	<!-- SELECT -->
+	<!-- COUNT(1) -->
+	<!-- FROM employee_role -->
+	<!-- WHERE user_domain = -->
+	<!-- #headDomain# AND -->
+	<!-- role_id='HBU' -->
+	<!-- </select> -->
+
+	<select id="countRole" resultClass="int" parameterClass="java.lang.String">
+		SELECT
+		COUNT(1)
+		FROM employee_role
+		WHERE user_domain =
+		#headDomain# AND
+		role_id='HBU'
+	</select>
+
+	<update id="updateAssignment" parameterClass="organizationBean">
+		UPDATE assignments
+		SET current_status = 'DELETED'
+		WHERE assignment_type = 'BU'
+		AND UPPER
+		(organization_code) = UPPER (#organizationCode#)
+		AND (current_status !=
+		'APPROVED' OR current_status != 'REJECTED')
+	</update>
 
 	<delete id="deleteOrganization" parameterClass="java.lang.String">
 		UPDATE

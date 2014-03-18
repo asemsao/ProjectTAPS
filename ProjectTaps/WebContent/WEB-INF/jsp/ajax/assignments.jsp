@@ -18,6 +18,10 @@
 		<html:hidden property="page" styleId="page-assignment" name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-assignment"
 			name="ajaxForm" />
+		<html:hidden property="assignmentCategory"
+			styleId="assignmentCategory-assignment" name="ajaxForm" />
+		<html:hidden property="assignmentType"
+			styleId="assignmentType-assignment" name="ajaxForm" />
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
@@ -84,7 +88,7 @@
 					</logic:notEmpty>
 					<logic:empty name="ajaxForm" property="listEmployeeReport">
 						<tr>
-							<td class="text-center" colspan=5>Data not found</td>
+							<td class="text-center" colspan=6>Data not found</td>
 						</tr>
 					</logic:empty>
 				</tbody>
@@ -103,9 +107,10 @@
 									onclick="javascript:pagingAssignment('prev');"><i
 										class="icon-previous"></i></a></li>
 								<li class="disabled"><a>Page <span
-										id="current-page-assignment"><bean:write name="ajaxForm"
-												property="page" /></span> of <span id="max-page-assignment"><bean:write
-												name="ajaxForm" property="maxpage" /></span></a></li>
+										id="current-page-assignment"><bean:write
+												name="ajaxForm" property="page" /></span> of <span
+										id="max-page-assignment"><bean:write name="ajaxForm"
+												property="maxpage" /></span></a></li>
 								<li class="next"><a
 									onclick="javascript:pagingAssignment('next');"><i
 										class="icon-next"></i></a></li>
@@ -113,8 +118,8 @@
 									onclick="javascript:pagingAssignment('last');"><i
 										class="icon-last-2"></i></a></li>
 								<li class="disabled"><a>Total Record <span
-										id="total-record-assignment"><bean:write name="ajaxForm"
-												property="countRecord" /></span></a></li>
+										id="total-record-assignment"><bean:write
+												name="ajaxForm" property="countRecord" /></span></a></li>
 							</ul>
 						</div>
 					</th>

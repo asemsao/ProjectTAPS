@@ -13,11 +13,15 @@
 <title>New Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.claimAssignmentForm.newTask.value = task;
-		document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-		document.claimAssignmentForm.submit();
+		if (task == "cancel") {
+			document.claimAssignmentForm.task.value = "";
+			document.claimAssignmentForm.submit();
+			return;
+		} else if (task == "save") {
+			document.claimAssignmentForm.task.value = task;
+			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+		}
 	}
-
 	function getRadioValue(theRadioGroup) {
 		var elements = document.getElementsByName(theRadioGroup);
 		for ( var i = 0, l = elements.length; i < l; i++) {
@@ -51,7 +55,7 @@
 						$("#employee-name").val($("#employee-fullName").val());
 
 						$("#timepicker").timeselector();
-						
+
 						$('#project-name')
 								.bind(
 										"change",
@@ -68,13 +72,29 @@
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
+						$("#lookUpAssignment")
+								.load(
+										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						$("input[name='assignment_type']")
+								.change(
+										function() {
+											if ($(this).val() == "PROJECT") {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+											} else {
+												$("#lookUpAssignment")
+														.load(
+																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+											}
+										});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
 <body class="metro" onload="javascript:checkRadioButtonValue();">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST">
+	<html:form action="/newAssignment" method="POST" styleId="newAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -90,7 +110,7 @@
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="assignmentBean.assignmentDate"
-											name="claimAssignmentForm"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -99,7 +119,7 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker-end">
 										<html:text property="assignmentBean.assignmentDueDate"
-											name="claimAssignmentForm"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDueDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -107,7 +127,8 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker"
+										<html:text property="assignmentBean.assignmentTime"
+											name="claimAssignmentForm" styleId="timepicker"
 											readonly="readonly"></html:text>
 									</div></td>
 							</tr>
@@ -132,9 +153,9 @@
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
-												name="claimAssignmentForm" styleId="project-code"/>
+												name="claimAssignmentForm" styleId="project-code" />
 											<html:hidden property="assignmentBean.projectName"
-												name="claimAssignmentForm" styleId="project-fullName"/>
+												name="claimAssignmentForm" styleId="project-fullName" />
 											<input type="text" placeholder="Project" id="project-name"
 												readonly="readonly" />
 											<button type="button" class="btn-search" id="project"></button>
@@ -160,10 +181,11 @@
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
+									
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode"
-											name="claimAssignmentForm" readonly="readonly"></html:text>
-										<button type="button" class="btn-search" id="task"></button>
+											name="claimAssignmentForm" styleId="assignment-code" readonly="readonly"></html:text>
+										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -173,13 +195,13 @@
 										name="claimAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=3 class="text-right"><html:button
-										property="save" onclick="javascript:flyToPage('save');"
-										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('assign');"
-										styleClass="button success">Assign</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan=3 class="text-right">
+								<button onclick="flyToPage('save')"
+										class="button success">Save</button>
+								<button onclick="flyToPage('assign')"
+										class="button success">Assign</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -197,6 +219,7 @@
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>
+	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </body>
 </html>

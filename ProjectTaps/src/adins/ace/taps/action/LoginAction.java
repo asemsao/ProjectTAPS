@@ -3,9 +3,7 @@
 
 package adins.ace.taps.action;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.*;
 
@@ -14,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.form.login.LoginForm;
 import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.LoginModule;
@@ -28,7 +27,6 @@ public class LoginAction extends Action {
 		LoginManager lMan = new LoginManager();
 		LoginModule loginAuth = new LoginModule();
 		HttpSession session = request.getSession(true);
-		Map params = new HashMap();
 		
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
@@ -38,8 +36,8 @@ public class LoginAction extends Action {
 				/*String username = tForm.getUsername();
 				String password = tForm.getPassword();*/
 				//Testing ntar dihapus
-				String username = "budi.ss";
-				String password = "Terev9977";
+				String username = "kartiko.ew";
+				String password = "K@rtik02014";
 				////
 				String domainName = "nu-ace.ad-ins.com";
 
@@ -56,21 +54,13 @@ public class LoginAction extends Action {
 					 * session.setAttribute("username", username);
 					 */
 					///TESTING HAPUS NANTI
-					username = "domain205";
+					username = "domain100";
 					/////
-					params.put("userDomain", username);
-					session.setAttribute("spv", "false");
-					session.setAttribute("emp", "false");
-					session.setAttribute("hbu", "false");
-					session.setAttribute("hde", "false");
-					session.setAttribute("adm", "false");
-					session.setAttribute("bom", "false");
-					
-					List<String> roleList = lMan.roleList(params);
-					for (int i = 0; i < roleList.size(); i++) {
-						session.setAttribute(roleList.get(i), "true");
-					}
+					List<RoleBean> roleList = lMan.roleList(username);
+					String fullname = lMan.getFullName(username);
+					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
+					session.setAttribute("fullname", fullname);
 					return mapping.findForward("Dashboard");
 				} else {
 					return mapping.findForward("Welcome");

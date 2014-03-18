@@ -15,17 +15,13 @@
 <jsp:include page="/js/import.jsp" />
 <title>Taps</title>
 <script type="text/javascript">
-	$(document).ready(function() {
-		setInterval(function() {
-			$("#ar").val($("#ar").val() + "=");
-		}, 1000);
-	});
-
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
 </script>
+<script src="<%=request.getContextPath()%>/js/other/dashboard.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js"></script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
@@ -36,40 +32,52 @@
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
-					<div class="input-control text">
-						<input name="id" value="" id="ar">
-					</div>
 					<div class="span9 center-taps">
-						<a href="#" onclick="javascript:flyToPage('approval');"
+
+						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
 							data-hint="Approval Assignment" data-hint-position="left"
-							class="tile bg-cyan"> <span class="tile-content icon">
-								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+							class="tile bg-cyan" id="rfa-link"> <span
+							class="tile-content icon"> <img alt=""
+								src="images/APPROVAL_ASSIGNMENT.png">
+						</span> <span class="brand"> <span id="rfa-badge"
+								class="badge bg-gray"><span id="rfa"><bean:write
+											property="totalRFA" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('claim');"
-							id="_edit_this" data-hint="Claim Assignment"
-							data-hint-position="left" class="tile bg-cyan"> <span
+						</a> <a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');"
+							data-hint="Approval Self Assignment" data-hint-position="left"
+							class="tile bg-cyan" id="rfa-s-link"> <span
+							class="tile-content icon"> <img alt=""
+								src="images/APPROVAL_NEW_ASSIGNMENT.png">
+						</span> <span class="brand"> <span id="rfa-s-badge"
+								class="badge bg-gray"><span id="rfa-s"> <bean:write
+											property="totalRFAself" name="dashboardForm" /></span></span>
+						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');"
+							data-hint="Claim Assignment" data-hint-position="left"
+							class="tile bg-cyan" id="claim-link"> <span
 							class="tile-content icon"> <img alt=""
 								src="images/CLAIM_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-red">5</span>
+						</span> <span class="brand"> <span id="claim-badge"
+								class="badge bg-gray"><span id="claim"><bean:write
+											property="totalClaim" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('claimSelf');"
-							data-hint="Claim Self Assignment" data-hint-position="left"
-							class="tile bg-cyan"> <span class="tile-content icon">
-								<img alt="" src="images/CLAIM_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
-						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correction');"
+						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');"
 							data-hint="Correction Assignment" data-hint-position="left"
-							class="tile bg-cyan"> <span class="tile-content icon">
-								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+							class="tile bg-cyan" id="correction-link"> <span
+							class="tile-content icon"> <img alt=""
+								src="images/CORRECTION_ASSIGNMENT.png">
+						</span> <span class="brand"> <span id="correction-badge"
+								class="badge bg-gray"><span id="correction"> <bean:write
+											property="totalCorrection" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');"
+						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');"
 							data-hint="Correction Self Assignment" data-hint-position="left"
-							class="tile bg-cyan"> <span class="tile-content icon">
-								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span class="badge bg-gray">0</span>
+							class="tile bg-cyan" id="correction-s-link"> <span
+							class="tile-content icon"> <img alt=""
+								src="images/CORRECTION_NEW_ASSIGNMENT.png">
+						</span> <span class="brand"> <span id="correction-s-badge"
+								class="badge bg-gray"><span id="correction-s"> <bean:write
+											property="totalCorrectionSelf" name="dashboardForm" /></span></span>
 						</span>
 						</a>
 					</div>
@@ -92,11 +100,11 @@
 								<logic:iterate id="employee" property="listTopTenOrganization"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="images/test-ava.jpg"
-											style="width: 30px; height: 45px;"></td>
+										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write
-												property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -120,21 +128,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listTopTen"
-								name="dashboardForm">
+							<logic:notEmpty property="listTopTen" name="dashboardForm">
 								<logic:iterate id="employee" property="listTopTen"
 									name="dashboardForm">
 									<tr>
-										<td class="text-center"><img src="images/test-ava.jpg"
-											style="width: 30px; height: 45px;"></td>
+										<td class="text-center"><img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+											style="width: 30px; height: 30px;"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write
-												property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<logic:empty property="listTopTen"
-								name="dashboardForm">
+							<logic:empty property="listTopTen" name="dashboardForm">
 								<tr>
 									<td colspan="2">Data Not Found</td>
 								</tr>

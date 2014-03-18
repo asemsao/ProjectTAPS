@@ -178,3 +178,9 @@ function nextWizard() {
 		}
 	});
 }
+
+
+function nextWizard(){
+	var choosen = $("input[name='project_choose']:checked").val();
+	$("#choosenBU").html(choosen);
+}

@@ -1,6 +1,9 @@
 package adins.ace.taps.bean.dashboard;
 
-public class DashboardBean {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class DashboardBean implements Serializable {
 	private String userName;
 	private String employeeName;
 	private String totalStar;
@@ -9,7 +12,9 @@ public class DashboardBean {
 	private Integer claimSupervisor;
 	private Integer correctionSupervisor;
 	private Integer rfaSupervisor;
-
+	private byte[] profilePicture;
+	private String userDomain;
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -34,44 +39,20 @@ public class DashboardBean {
 		this.totalStar = totalStar;
 	}
 
-	public Integer getClaimEmployee() {
-		return claimEmployee;
+	public byte[] getProfilePicture() {
+		return profilePicture;
 	}
 
-	public void setClaimEmployee(Integer claimEmployee) {
-		this.claimEmployee = claimEmployee;
+	public void setProfilePicture(byte[] profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
-	public Integer getCorrectionEmployee() {
-		return correctionEmployee;
+	public String getUserDomain() {
+		return userDomain;
 	}
 
-	public void setCorrectionEmployee(Integer correctionEmployee) {
-		this.correctionEmployee = correctionEmployee;
-	}
-
-	public Integer getClaimSupervisor() {
-		return claimSupervisor;
-	}
-
-	public void setClaimSupervisor(Integer claimSupervisor) {
-		this.claimSupervisor = claimSupervisor;
-	}
-
-	public Integer getCorrectionSupervisor() {
-		return correctionSupervisor;
-	}
-
-	public void setCorrectionSupervisor(Integer correctionSupervisor) {
-		this.correctionSupervisor = correctionSupervisor;
-	}
-
-	public Integer getRfaSupervisor() {
-		return rfaSupervisor;
-	}
-
-	public void setRfaSupervisor(Integer rfaSupervisor) {
-		this.rfaSupervisor = rfaSupervisor;
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
 	}
 
 }

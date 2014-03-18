@@ -84,16 +84,16 @@
 					<html:hidden property="maxpage" name="organizationForm" />
 					<html:hidden property="organizationCode" styleId="organizationCode"
 						name="organizationForm" />
-					<html:hidden property="message" styleId="messageCRUD"
-						name="organizationForm" />
-
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" 
+						name="organizationForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=6 class="text-center"><h3>Business Unit</h3></th>
+								<th colspan="8" class="text-center"><h3>Business Unit</h3></th>
 							</tr>
 							<tr>
-								<th class="text-center" colspan=1>
+								<th class="text-center" colspan="3">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="organizationForm">
 											<html:option value="all">All</html:option>
@@ -103,7 +103,7 @@
 										</html:select>
 									</div>
 								</th>
-								<th class="text-center" colspan=5>
+								<th class="text-center" colspan="5">
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="organizationForm"
 											styleId="searchKeyword"></html:text>
@@ -112,7 +112,8 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">Business Unit Code</th>
+								<th class="text-center" colspan="3" width="12%">Business
+									Unit Code</th>
 								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
@@ -126,8 +127,19 @@
 								<logic:iterate id="organization" name="organizationForm"
 									property="listOrganizations">
 									<tr>
-										<td><bean:write name="organization"
-												property="organizationCode" /></td>
+										<td width="4%"><logic:equal value="0" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="1" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="2" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+
 										<td><bean:write name="organization"
 												property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
@@ -149,7 +161,7 @@
 								</logic:iterate>
 							</logic:notEmpty>
 							<tr>
-								<td colspan=5 class="text-center">
+								<td colspan=7 class="text-center">
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"><i

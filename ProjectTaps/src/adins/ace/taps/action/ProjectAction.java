@@ -59,7 +59,7 @@ public class ProjectAction extends Action {
 			pMan.addProject(pForm.getAddProject());
 		}
 		if ("cancel".equals(pForm.getTask())) {
-			// back to index.jsp
+			pForm.setMode("");
 		}
 
 		if ("edit".equals(pForm.getTask())) {
@@ -81,20 +81,6 @@ public class ProjectAction extends Action {
 		params.put("category", pForm.getSearchCategory());
 		params.put("keyword", pForm.getSearchKeyword());
 		
-		if ("addMember".equals(pForm.getTask())) {
-			pBean = pMan.getProjectById(pForm.getParamProjectCode());
-			pForm.setProjectName(pBean.getProjectName());
-			return mapping.findForward("AddMember");
-		}
-		if ("editMember".equals(pForm.getTask())) {
-			params = new HashMap();
-			params.put("paramProjectCode", pForm.getParamProjectCode());
-			params.put("paramAssigneeUserDomain",
-					pForm.getParamAssigneeUserDomain());
-			pForm.setAddSProject(pMan.getProjectMemberById(params));
-			return mapping.findForward("EditMember");
-		}
-		
 		if ("member".equals(pForm.getTask())) {
 			pForm.setPage(1);
 			pForm.setMode("structure");
@@ -106,34 +92,85 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
 		}
+		
+	
+		if ("addMember".equals(pForm.getTask())) {
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setProjectName(pBean.getProjectName());
+			return mapping.findForward("AddMember");
+		}
+			
 		if ("saveMember".equals(pForm.getTask())) {
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
+				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
+			}
+			pMan.addProjectMember(pForm.getAddSProject());
+			
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
 			pForm.setListStructureProject(pMan.getAllMember(params));
-			
-			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			pMan.addProjectMember(pForm.getAddSProject());
 			
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
 		}
+		
+		if ("editMember".equals(pForm.getTask())) {
+			params = new HashMap();
+			params.put("paramProjectCode", pForm.getParamProjectCode());
+			params.put("paramAssigneeUserDomain",pForm.getParamAssigneeUserDomain());
+			pForm.setAddSProject(pMan.getProjectMemberById(params));
+			return mapping.findForward("EditMember");
+		}
+		
+		if ("updateMember".equals(pForm.getTask())) {
+			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
+			pMan.updateMember(pForm.getAddSProject());
+			
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+	
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else if (pForm.getCountRecord() % 10 > 0){
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			return mapping.findForward("ViewMember");
+		}
+		
 		if ("back".equals(pForm.getTask())) {
 			pForm.setPage(1);
 			pForm.setMode("structure");
@@ -145,69 +182,73 @@ public class ProjectAction extends Action {
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
-				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
-				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
 			}
-			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
 		}
-		if ("updateMember".equals(pForm.getTask())) {
-			pForm.setPage(1);
-			pForm.setMode("structure");
-			params.put("projectCode", pForm.getParamProjectCode());
-			pForm.setListStructureProject(pMan.getAllMember(params));
-
-			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
-			pMan.updateMember(pForm.getAddSProject());
-			
-			pBean = pMan.getProjectById(pForm.getParamProjectCode());
-			pForm.setOrganizationName(pBean.getOrganizationName());
-			pForm.setProjectName(pBean.getProjectName());
-			
-			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
-				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
-				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
-			}
-			return mapping.findForward("ViewMember");
-		}
+	
 		if ("deleteMember".equals(pForm.getTask())) {
-			pForm.setPage(1);
-			pForm.setMode("structure");
-			params.put("projectCode", pForm.getParamProjectCode());
-			pForm.setListStructureProject(pMan.getAllMember(params));
-			
-			pForm.getAddSProject().setAssigneeUserDomain(
-					pForm.getParamAssigneeUserDomain());
+			pForm.getAddSProject().setAssigneeUserDomain(pForm.getParamAssigneeUserDomain());
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.deleteMember(pForm.getAddSProject());
 			
+			pForm.setPage(1);
+			pForm.setMode("structure");
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
 			pBean = pMan.getProjectById(pForm.getParamProjectCode());
 			pForm.setOrganizationName(pBean.getOrganizationName());
 			pForm.setProjectName(pBean.getProjectName());
 			
 			pForm.setCountRecord(pMan.countAllMember(params));
-			if (pForm.getCountRecord() % 10 == 0) {
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
 				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-			} else {
+			} else if (pForm.getCountRecord() % 10 > 0){
 				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 			}
 			return mapping.findForward("ViewMember");
 		}
+		
+		if("structure".equals(pForm.getMode()))
+		{
+			params.put("projectCode", pForm.getParamProjectCode());
+			pForm.setListStructureProject(pMan.getAllMember(params));
+			
+			pBean = pMan.getProjectById(pForm.getParamProjectCode());
+			pForm.setOrganizationName(pBean.getOrganizationName());
+			pForm.setProjectName(pBean.getProjectName());
+			
+			pForm.setCountRecord(pMan.countAllMember(params));
+			if(pForm.getCountRecord() == 0){
+				pForm.setMaxpage(1);
+			}
+			else if (pForm.getCountRecord() % 10 == 0) {
+				pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
+			} else if (pForm.getCountRecord() % 10 > 0){
+				pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
+			}
+			return mapping.findForward("ViewMember");
+		}
+			
 		pForm.setListProject(pMan.searchProject(params));
 		pForm.setCountRecord(pMan.countProject(params));
 
-		if (pForm.getCountRecord() % 10 == 0) {
+		if(pForm.getCountRecord() == 0){
+			pForm.setMaxpage(1);
+		}
+		else if (pForm.getCountRecord() % 10 == 0) {
 			pForm.setMaxpage((int) Math.ceil(pForm.getCountRecord() / 10));
-		} else {
+		} else if (pForm.getCountRecord() % 10 > 0){
 			pForm.setMaxpage(((int) Math.ceil(pForm.getCountRecord() / 10)) + 1);
 		}
 

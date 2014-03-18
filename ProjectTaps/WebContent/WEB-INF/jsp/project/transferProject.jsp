@@ -95,8 +95,8 @@
 										<td>
 											<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" value="<bean:write name='transferProject'
-												property='projectCode' />" />
+											<input type="radio" name="project_choose" value="<bean:write name="transferProject"
+												property="projectCode" />" />
 											<span class="check"></span>
 											</label>
 											</div>

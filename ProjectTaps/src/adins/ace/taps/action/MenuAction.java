@@ -11,7 +11,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.form.menu.MenuForm;
-import adins.ace.taps.manager.EmployeeManager;
 
 public class MenuAction extends Action {
 	@Override
@@ -68,14 +67,16 @@ public class MenuAction extends Action {
 			return mapping.findForward("TransferProject");
 		}
 		
-		if ("employeeRole".equals(mForm.getTask())) {
-			return mapping.findForward("EmployeeRole");
+		if ("manageRole".equals(mForm.getTask())) {
+			return mapping.findForward("ManageRole");
 		}
 		
 		if ("logout".equals(mForm.getTask())) {
 			session.invalidate();
 			return mapping.findForward("Welcome");
 		}
+		
 		return mapping.findForward("Dashboard");
 	}
+	
 }

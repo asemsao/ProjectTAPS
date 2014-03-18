@@ -261,4 +261,54 @@ public class ProjectManager {
 			}
 		}
 	}
+	
+	public boolean isExist(String name)
+	{
+		Integer count = null;
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			count = (Integer)ibatisSqlMap.queryForObject("project.isExist", name);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(count == 0)
+			return false;
+		else
+			return true;
+	}
+	
+	public void insertRole(String name)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("project.insertRole", name);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

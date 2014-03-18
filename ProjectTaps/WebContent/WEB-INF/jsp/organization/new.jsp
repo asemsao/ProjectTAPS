@@ -16,6 +16,22 @@
 		document.organizationForm.submit();
 	}
 
+	function changeopt() {
+		search = document.getElementById("level");
+		temp = search.options[search.selectedIndex].value;
+		if (temp != 0) {
+			document.getElementById("parent").style.visibility = "visible";
+			document.getElementById(":").style.visibility = "visible";
+			document.getElementById("parent-organization-name").style.visibility = "visible";
+			document.getElementById("organization").style.visibility = "visible";
+		} else {
+			document.getElementById("parent").style.visibility = "hidden";
+			document.getElementById(":").style.visibility = "hidden";
+			document.getElementById("parent-organization-name").style.visibility = "hidden";
+			document.getElementById("organization").style.visibility = "hidden";
+		}
+	};
+
 	$(document).ready(
 			function() {
 				var level = $("#level").val();
@@ -39,8 +55,7 @@
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add New Business Unit</title>
 </head>
-<html:javascript formName="organizationForm" dynamicJavascript="true"
-	staticJavascript="true" method="validateForm" page="0" />
+
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/organization" method="post">
@@ -78,7 +93,8 @@
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level">
+											name="organizationForm" styleId="level"
+											onchange="javascript:changeopt();">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
@@ -100,8 +116,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Parent Business Unit</td>
-								<td>:</td>
+								<td><label id="parent" style="visibility: visible">Parent
+										Business Unit </label></td>
+								<td><label id=":" style="visibility: visible">:</label></td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
