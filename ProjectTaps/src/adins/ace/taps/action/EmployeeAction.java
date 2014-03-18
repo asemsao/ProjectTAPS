@@ -34,6 +34,7 @@ public class EmployeeAction extends Action {
 		EmployeeForm mForm = (EmployeeForm) form;
 		EmployeeManager mMan = new EmployeeManager();
 		Map params = new HashMap();
+		HttpSession session = request.getSession(true);
 
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
@@ -118,7 +119,7 @@ public class EmployeeAction extends Action {
 				mForm.getNewEmployee().setProfilePicture(
 						IOUtils.toByteArray(fis));
 			}
-
+			mForm.getNewEmployee().setCreateBy(session.getAttribute("username").toString());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
@@ -134,6 +135,7 @@ public class EmployeeAction extends Action {
 						filePathUpload);
 				mForm.getNewEmployee().setProfilePicture(result);
 			}
+			mForm.getNewEmployee().setUpdateBy(session.getAttribute("username").toString());
 			flag = mMan.updateEmployee(mForm.getNewEmployee());
 			System.out.println(flag);
 		}
