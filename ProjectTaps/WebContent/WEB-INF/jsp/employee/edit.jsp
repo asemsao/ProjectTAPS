@@ -122,10 +122,10 @@
 								<td>:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-									<html:hidden property="newEmployee.businessUnit"
+										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<input type="text" readonly="readonly" id="organization-name" class="businessUnit"
-										value="<bean:write name="employeeForm" property="newEmployee.businessUnitName" />"/>
+										<html:text property="newEmployee.businessUnitName" readonly="true"
+											name="employeeForm" styleId="organization-name" styleClass="businessUnit"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>

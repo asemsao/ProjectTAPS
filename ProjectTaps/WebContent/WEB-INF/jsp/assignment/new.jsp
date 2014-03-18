@@ -14,11 +14,11 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.claimAssignmentForm.task.value = "";
+			document.claimAssignmentForm.newTask.value = "";
 			document.claimAssignmentForm.submit();
 			return;
 		} else if (task == "save") {
-			document.claimAssignmentForm.task.value = task;
+			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 		}
 	}
