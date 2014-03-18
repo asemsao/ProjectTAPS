@@ -1062,4 +1062,22 @@
 			flag = 'ACTIVE'
 		WHERE task_code = #taskCode#
 	</update>
+	
+	<delete id="deleteAssignment" parameterClass="java.lang.String">
+		UPDATE
+		assignments
+		SET
+		current_status = 'DELETED'
+		WHERE UPPER(task_code) =
+		UPPER(#task_code#) AND
+		current_status = 'DRAFT'
+	</delete>
+
+	<delete id="deleteClaim" parameterClass="java.lang.String">
+		UPDATE
+		detail_claim_assignment SET
+		flag = 'INACTIVE'
+		WHERE UPPER(task_code) =
+		UPPER(#task_code#)
+	</delete>
 </sqlMap>
