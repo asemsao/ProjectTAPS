@@ -34,7 +34,7 @@
 					<h2 class="fg-steel">Things To Do</h2>
 					<div class="span9 center-taps">
 
-						<a href="#" onclick="javascript:flyToPage('approval');"
+						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
 							data-hint="Approval Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -43,7 +43,7 @@
 								class="badge bg-gray"><span id="rfa"><bean:write
 											property="totalRFA" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('approvalSelf');"
+						</a> <a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');"
 							data-hint="Approval Self Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-s-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -52,7 +52,7 @@
 								class="badge bg-gray"><span id="rfa-s"> <bean:write
 											property="totalRFAself" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('claim');"
+						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');"
 							data-hint="Claim Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="claim-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -61,7 +61,7 @@
 								class="badge bg-gray"><span id="claim"><bean:write
 											property="totalClaim" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correction');"
+						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');"
 							data-hint="Correction Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="correction-link"> <span
 							class="tile-content icon"> <img alt=""
@@ -70,7 +70,7 @@
 								class="badge bg-gray"><span id="correction"> <bean:write
 											property="totalCorrection" name="dashboardForm" /></span></span>
 						</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionSelf');"
+						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');"
 							data-hint="Correction Self Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="correction-s-link"> <span
 							class="tile-content icon"> <img alt=""

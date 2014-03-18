@@ -41,7 +41,12 @@ public class DashboardAction extends Action {
 		PrintWriter out = response.getWriter();
 		String userDomain = "domain3";
 		
-
+		/*code for claim assignment from supervisor*/
+//		if ("CLAIM".equals(dForm.getTask())){
+//			
+//			return mapping.findForward("Claim");
+//		}
+		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
 		}
@@ -97,7 +102,7 @@ public class DashboardAction extends Action {
 			dForm.setListAssignment(dMan.searchListCorrectionSelf(params));
 			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
 		}
-
+		
 		if ("approvalDashboard".equals(dForm.getTask())
 				|| "claimDashboard".equals(dForm.getTask())
 				|| "approvalSelfDashboard".equals(dForm.getTask())
@@ -110,7 +115,7 @@ public class DashboardAction extends Action {
 			}
 			return mapping.findForward("ListAssignment");
 		}
-
+		
 		if ("getPhoto".equals(dForm.getTask())) {
 			
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
