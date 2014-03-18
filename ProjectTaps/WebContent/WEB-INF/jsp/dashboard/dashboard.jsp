@@ -89,7 +89,7 @@
 
 			<div class="row row-taps shadow-taps">
 				<div class="span-ranking-taps">
-					<h2 class="fg-steel">Top Ten Business Unit</h2>
+					<h2 class="fg-steel">Top Ten Business Unit Current Month</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
@@ -115,7 +115,39 @@
 							<logic:empty property="listTopTenOrganization"
 								name="dashboardForm">
 								<tr>
-									<td colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="2">Data Not Found</td>
+								</tr>
+							</logic:empty>
+						</tbody>
+					</table>
+
+					<h2 class="fg-steel">Top Ten Business Unit Last Month</h2>
+					<table class="table bordered shadow-taps">
+						<thead>
+							<tr>
+								<th colspan=2>Employee</th>
+								<th>Total Star</th>
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty property="listTopTenOrganizationPrev"
+								name="dashboardForm">
+								<logic:iterate id="employee"
+									property="listTopTenOrganizationPrev" name="dashboardForm">
+									<tr>
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+											style="width: 30px; height: 30px;"></td>
+										<td><bean:write property="employeeName" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
+									</tr>
+								</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty property="listTopTenOrganizationPrev"
+								name="dashboardForm">
+								<tr>
+									<td class="text-center" colspan="2">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -123,7 +155,7 @@
 				</div>
 
 				<div class="span-ranking-taps">
-					<h2 class="fg-steel">Top Ten All</h2>
+					<h2 class="fg-steel">Top Ten All Current Month</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
@@ -147,7 +179,37 @@
 							</logic:notEmpty>
 							<logic:empty property="listTopTen" name="dashboardForm">
 								<tr>
-									<td colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="2">Data Not Found</td>
+								</tr>
+							</logic:empty>
+						</tbody>
+					</table>
+					
+					<h2 class="fg-steel">Top Ten All Last Month</h2>
+					<table class="table bordered shadow-taps">
+						<thead>
+							<tr>
+								<th colspan=2>Employee</th>
+								<th>Total Star</th>
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty property="listTopTenPrev" name="dashboardForm">
+								<logic:iterate id="employee" property="listTopTenPrev"
+									name="dashboardForm">
+									<tr>
+										<td class="text-center"><img
+											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+											style="width: 30px; height: 30px;"></td>
+										<td><bean:write property="employeeName" name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar"
+												name="employee" /></td>
+									</tr>
+								</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty property="listTopTenPrev" name="dashboardForm">
+								<tr>
+									<td class="text-center" colspan="2">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>

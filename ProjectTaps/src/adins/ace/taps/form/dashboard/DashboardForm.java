@@ -17,6 +17,8 @@ public class DashboardForm extends ActionForm {
 	private String employeeDomain;
 	private List<DashboardBean> listTopTen;
 	private List<DashboardBean> listTopTenOrganization;
+	private List<DashboardBean> listTopTenPrev;
+	private List<DashboardBean> listTopTenOrganizationPrev;
 	private Integer page;
 	private Integer maxPage;
 	private List<ClaimAssignmentBean> listAssignment;
@@ -253,5 +255,22 @@ public class DashboardForm extends ActionForm {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public List<DashboardBean> getListTopTenPrev() {
+		return listTopTenPrev;
+	}
+
+	public void setListTopTenPrev(List<DashboardBean> listTopTenPrev) {
+		this.listTopTenPrev = listTopTenPrev;
+	}
+
+	public List<DashboardBean> getListTopTenOrganizationPrev() {
+		return listTopTenOrganizationPrev;
+	}
+
+	public void setListTopTenOrganizationPrev(
+			List<DashboardBean> listTopTenOrganizationPrev) {
+		this.listTopTenOrganizationPrev = listTopTenOrganizationPrev;
 	}
 }
