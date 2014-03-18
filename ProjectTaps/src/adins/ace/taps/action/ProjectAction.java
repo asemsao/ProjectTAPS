@@ -56,7 +56,14 @@ public class ProjectAction extends Action {
 			return mapping.findForward("AddProject");
 		}
 		if ("saveProject".equals(pForm.getTask())) {
-			pMan.addProject(pForm.getAddProject());
+			if(pMan.addProject(pForm.getAddProject()))
+			{
+				pForm.setMessage("Insert Successfully");
+			}
+			else
+			{
+				pForm.setMessage("Insert Failed");
+			}
 		}
 		if ("cancel".equals(pForm.getTask())) {
 			pForm.setMode("");

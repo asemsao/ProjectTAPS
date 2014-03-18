@@ -110,12 +110,13 @@ public class ProjectManager {
 		return count;
 	}
 
-	public void addProject(AddProjectBean apBean) {
+	public boolean addProject(AddProjectBean apBean) {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.addProject", apBean);
 			ibatisSqlMap.commitTransaction();
-
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -125,6 +126,7 @@ public class ProjectManager {
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 
 	public List getPhase() {

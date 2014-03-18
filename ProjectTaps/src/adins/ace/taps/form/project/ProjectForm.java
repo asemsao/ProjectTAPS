@@ -28,6 +28,7 @@ public class ProjectForm extends ActionForm {
 	private Integer page;
 	private Integer maxpage;
 	private String mode;
+	private String message;
 	
 	public Integer getPage() {
 		return page;
@@ -175,4 +176,12 @@ public class ProjectForm extends ActionForm {
 		this.listStructureProject = listStructureProject;
 	}
 
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }
