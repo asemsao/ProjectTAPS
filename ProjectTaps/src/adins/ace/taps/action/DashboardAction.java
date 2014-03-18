@@ -45,7 +45,6 @@ public class DashboardAction extends Action {
 		Map rankingCurrent = new HashMap();
 
 		String userDomain = "domain3";
-		System.out.println(dForm.getTask() + dForm.getTaskType());
 		/* code for each record and their own status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));

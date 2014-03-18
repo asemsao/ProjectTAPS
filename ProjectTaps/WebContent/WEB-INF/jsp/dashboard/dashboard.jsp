@@ -33,7 +33,6 @@
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
 					<div class="span9 center-taps">
-
 						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
 							data-hint="Approval Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-link"> <span
@@ -115,7 +114,7 @@
 							<logic:empty property="listTopTenOrganization"
 								name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -147,7 +146,7 @@
 							<logic:empty property="listTopTenOrganizationPrev"
 								name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -179,12 +178,12 @@
 							</logic:notEmpty>
 							<logic:empty property="listTopTen" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
 					</table>
-					
+
 					<h2 class="fg-steel">Top Ten All Last Month</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
@@ -209,7 +208,7 @@
 							</logic:notEmpty>
 							<logic:empty property="listTopTenPrev" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="2">Data Not Found</td>
+									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
