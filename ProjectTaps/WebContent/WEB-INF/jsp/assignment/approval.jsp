@@ -192,7 +192,7 @@
 																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription"
-																	name="assignment" rows="2"
+																	name="assignment" rows="2" readonly="readonly"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<%
 																}
@@ -368,10 +368,9 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-										<p>&nbsp;Your current value : 0 &nbsp;</p>
+										<p></p>
 										<html:hidden property="claimBean.appraisalStar" styleId="star" />
-										<button id="edit-star-btn" class="default"
-											style="display: none;">Edit</button>
+										<button type="button" id="edit-star-btn" class="default">Edit</button>
 									</div>
 								</td>
 								<%

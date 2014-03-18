@@ -152,7 +152,7 @@
 															<td class="text-center"><bean:write
 																	property="claimDate" name="assignment" /></td>
 															<td><html:textarea property="detailDescription"
-																	name="assignment" rows="2"
+																	name="assignment" rows="2" readonly="readonly"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<td class="text-center">
 																<div class="input-control select">
