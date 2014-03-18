@@ -458,8 +458,6 @@
 	UPDATE   assignments
 	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
 	         assignment_due_date = #assignmentDueDate#,
-	         organization_code = #organizationCode#,
-	         project_code = #projectCode#,
 	         description = #description#,
 	         reff_task_code = #reffTaskCode#,
 	         assign_to = #assignTo#,
@@ -474,11 +472,9 @@
 	UPDATE   assignments
 	   SET   assignment_date = #assignmentDate#,
 	         assignment_due_date = #assignmentDueDate#,
-	         organization_code = #organizationCode#,
 	         report_to = #reportTo#,
 	         activity_type = #activityType#,
 	         adhoc_user_domain = #adhocUserDomain#,
-	         project_code = #projectCode#,
 	         description = #description#,
 	         reff_task_code = #reffTaskCode#,
 	         flag = #flag#,
@@ -771,7 +767,7 @@
 
 	<select id="totalManHours" resultClass="java.lang.Double"
 		parameterClass="java.lang.String">
-		SELECT   SUM (manhour)
+		SELECT   NVL(SUM (manhour),0)
 		  FROM   detail_claim_assignments
 		 WHERE   task_code = #taskCode#
 	</select>
@@ -930,4 +926,10 @@
 		</dynamic>
 		ORDER BY a.created_date DESC
 	</select>
+	
+	<update id="updateFlag">
+		UPDATE assignments SET
+			flag = 'ACTIVE'
+		WHERE task_code = #taskCode#
+	</update>
 </sqlMap>

@@ -67,6 +67,7 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())) {
+				eMan.updateFlag(eForm.getTaskCode());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
@@ -121,6 +122,7 @@ public class EmployeeReportAction extends Action {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("view".equals(eForm.getTask())) {
+				eMan.updateFlag(eForm.getTaskCode());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
@@ -180,6 +182,7 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
 			} else if ("view".equals(eForm.getTask())) {
+				eMan.updateFlag(eForm.getTaskCode());
 				session.setAttribute("taskCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {

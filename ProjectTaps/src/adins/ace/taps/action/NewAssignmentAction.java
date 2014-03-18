@@ -65,7 +65,7 @@ public class NewAssignmentAction extends Action {
 				
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy((String) session.getAttribute("username"));
-
+System.out.println(aForm.getNewTask());
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
