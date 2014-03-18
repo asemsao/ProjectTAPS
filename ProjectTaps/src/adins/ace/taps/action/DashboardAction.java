@@ -42,10 +42,10 @@ public class DashboardAction extends Action {
 		String userDomain = "domain3";
 		
 		/*code for claim assignment from supervisor*/
-//		if ("CLAIM".equals(dForm.getTask())){
-//			
-//			return mapping.findForward("Claim");
-//		}
+		if ("CLAIM".equals(dForm.getTask())){
+			
+			return mapping.findForward("Claim");
+		}
 		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
