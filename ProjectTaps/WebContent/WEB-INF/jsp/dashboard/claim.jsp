@@ -12,11 +12,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 
+<script type="text/javascript">
+	function flyToPage(task) {
+		document.dashboardForm.task.value = task;
+		document.dashboardForm.submit();
+	}
+</script>
+
 <title>Claim Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="" method="">
+	<html:form action="/dashboard" method="post">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -31,35 +38,40 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="dBean.assignmentDate"
+										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="" name="dashboardForm" /></td>
+								<td colspan=2><bean:write
+										property="dBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="dBean.assignmentType"
+										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><bean:write property="" name="dashboardForm" /></td>
-								<td><b>Assignment From </b> : <bean:write property=""
+								<td><bean:write property="dBean.assignToFullName"
 										name="dashboardForm" /></td>
+								<td><b>Assignment From </b> : <bean:write
+										property="dBean.reportToFullName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Reff Assignment</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="dBean.reffTaskCode"
+										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="" name="dashboardForm" />
-								</td>
+								<td colspan=2><bean:write property="dBean.description"
+										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Date</td>
@@ -75,56 +87,56 @@
 								<td>:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm" property="">
+										<html:select name="dashboardForm" property="dBean.manHours">
 											<html:option value="">00:00</html:option>
-											<html:option value="00:30">00:30</html:option>
-											<html:option value="01:00">01:00</html:option>
-											<html:option value="01:30">01:30</html:option>
-											<html:option value="02:00">02:00</html:option>
-											<html:option value="02:30">02:30</html:option>
-											<html:option value="03:00">03:00</html:option>
-											<html:option value="03:30">03:30</html:option>
-											<html:option value="04:00">04:00</html:option>
-											<html:option value="04:30">04:30</html:option>
-											<html:option value="05:00">05:00</html:option>
-											<html:option value="05:30">05:30</html:option>
-											<html:option value="06:00">06:00</html:option>
-											<html:option value="06:30">06:30</html:option>
-											<html:option value="07:00">07:00</html:option>
-											<html:option value="07:30">07:30</html:option>
-											<html:option value="08:00">08:00</html:option>
-											<html:option value="08:30">08:30</html:option>
-											<html:option value="09:00">09:00</html:option>
-											<html:option value="09:30">09:30</html:option>
-											<html:option value="10:00">10:00</html:option>
-											<html:option value="10:30">10:30</html:option>
-											<html:option value="11:00">11:00</html:option>
-											<html:option value="11:30">11:30</html:option>
-											<html:option value="12:00">12:00</html:option>
-											<html:option value="12:30">12:30</html:option>
-											<html:option value="13:00">13:00</html:option>
-											<html:option value="13:30">13:30</html:option>
-											<html:option value="14:00">14:00</html:option>
-											<html:option value="14:30">14:30</html:option>
-											<html:option value="15:00">15:00</html:option>
-											<html:option value="15:30">15:30</html:option>
-											<html:option value="16:00">16:00</html:option>
-											<html:option value="16:30">16:30</html:option>
-											<html:option value="17:00">17:00</html:option>
-											<html:option value="17:30">17:30</html:option>
-											<html:option value="18:00">18:00</html:option>
-											<html:option value="18:30">18:30</html:option>
-											<html:option value="19:00">19:00</html:option>
-											<html:option value="19:30">19:30</html:option>
-											<html:option value="20:00">20:00</html:option>
-											<html:option value="20:30">20:30</html:option>
-											<html:option value="21:00">21:00</html:option>
-											<html:option value="21:30">21:30</html:option>
-											<html:option value="22:00">22:00</html:option>
-											<html:option value="22:30">22:30</html:option>
-											<html:option value="23:00">23:00</html:option>
-											<html:option value="23:30">23:30</html:option>
-											<html:option value="24:00">24:00</html:option>
+											<html:option value="0.5">00:30</html:option>
+											<html:option value="1.0">01:00</html:option>
+											<html:option value="1.5">01:30</html:option>
+											<html:option value="2.0">02:00</html:option>
+											<html:option value="2.5">02:30</html:option>
+											<html:option value="3.0">03:00</html:option>
+											<html:option value="3.5">03:30</html:option>
+											<html:option value="4.0">04:00</html:option>
+											<html:option value="4.5">04:30</html:option>
+											<html:option value="5.0">05:00</html:option>
+											<html:option value="5.5">05:30</html:option>
+											<html:option value="6.0">06:00</html:option>
+											<html:option value="6.5">06:30</html:option>
+											<html:option value="7.0">07:00</html:option>
+											<html:option value="7.5">07:30</html:option>
+											<html:option value="8.0">08:00</html:option>
+											<html:option value="8.5">08:30</html:option>
+											<html:option value="9.0">09:00</html:option>
+											<html:option value="9.5">09:30</html:option>
+											<html:option value="10.0">10:00</html:option>
+											<html:option value="10.5">10:30</html:option>
+											<html:option value="11.0">11:00</html:option>
+											<html:option value="11.5">11:30</html:option>
+											<html:option value="12.0">12:00</html:option>
+											<html:option value="12.5">12:30</html:option>
+											<html:option value="13.0">13:00</html:option>
+											<html:option value="13.5">13:30</html:option>
+											<html:option value="14.0">14:00</html:option>
+											<html:option value="14.5">14:30</html:option>
+											<html:option value="15.0">15:00</html:option>
+											<html:option value="15.5">15:30</html:option>
+											<html:option value="16.0">16:00</html:option>
+											<html:option value="16.5">16:30</html:option>
+											<html:option value="17.0">17:00</html:option>
+											<html:option value="17.5">17:30</html:option>
+											<html:option value="18.0">18:00</html:option>
+											<html:option value="18.5">18:30</html:option>
+											<html:option value="19.0">19:00</html:option>
+											<html:option value="19.5">19:30</html:option>
+											<html:option value="20.0">20:00</html:option>
+											<html:option value="20.5">20:30</html:option>
+											<html:option value="21.0">21:00</html:option>
+											<html:option value="21.5">21:30</html:option>
+											<html:option value="22.0">22:00</html:option>
+											<html:option value="22.5">22:30</html:option>
+											<html:option value="23.0">23:00</html:option>
+											<html:option value="23.5">23:30</html:option>
+											<html:option value="24.0">24:00</html:option>
 										</html:select>
 									</div>
 								</td>
@@ -132,25 +144,27 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property=""
-										name="dashboardForm" rows="3"
-										styleClass="input-control textarea">
-										<bean:write property="" name="dashboardForm" />
+								<td colspan=2><html:textarea
+										property="dBean.detailDescription" name="dashboardForm"
+										rows="3" styleClass="input-control textarea">
 									</html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right">
-									<button id="firstclaim-btn" class="button success">Claim</button>
-									<button id="firstclaimclose-btn" class="button success">RFA</button>
-									<button id="firstcancel-btn" class="button info">Cancel</button>
+									<button onclick="javascript:flyToPage('claim');"
+										class="button success">Claim</button>
+									<button onclick="javascript:flyToPage('approval');"
+										class="button success">RFA</button>
+									<button onclick="javascript:flyToPage('cancel');"
+										class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-
 				</div>
 			</div>
 		</div>
+		<html:hidden property="task" name="dashboardForm"/>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

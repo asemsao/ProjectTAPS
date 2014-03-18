@@ -42,7 +42,7 @@ public class DashboardAction extends Action {
 		
 		/*code for claim assignment from supervisor*/
 		if ("CLAIM".equals(dForm.getTask())){
-			
+			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
 		}
 		

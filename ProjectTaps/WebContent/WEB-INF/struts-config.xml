@@ -108,6 +108,7 @@
 			type="adins.ace.taps.action.DashboardAction">
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard/dashboard.jsp" />
 			<forward name="ListAssignment" path="/WEB-INF/jsp/dashboard/list.jsp" />
+			<forward name="Claim" path="/WEB-INF/jsp/dashboard/claim.jsp"></forward>
 		</action>
 		<action name="loginForm" path="/ACE" scope="request"
 			type="adins.ace.taps.action.LoginAction">
