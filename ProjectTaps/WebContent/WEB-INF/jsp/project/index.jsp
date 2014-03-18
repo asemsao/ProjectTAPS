@@ -59,8 +59,7 @@
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
 					<html:hidden property="paramProjectCode" name="projectForm" />
-					<html:hidden property="message" styleId="messageCRUD"
-						name="projectForm" />
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>

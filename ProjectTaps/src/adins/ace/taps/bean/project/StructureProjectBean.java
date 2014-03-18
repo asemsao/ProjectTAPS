@@ -10,6 +10,7 @@ public class StructureProjectBean implements Serializable
 	private String projectRole;
 	private String assignee;
 	private String directReport;
+	private String directReportUserDomain;
 	private String assigneeUserDomain;
 	
 	public String getOrganizationName() {
@@ -53,6 +54,12 @@ public class StructureProjectBean implements Serializable
 	}
 	public void setAssigneeUserDomain(String assigneeUserDomain) {
 		this.assigneeUserDomain = assigneeUserDomain;
+	}
+	public String getDirectReportUserDomain() {
+		return directReportUserDomain;
+	}
+	public void setDirectReportUserDomain(String directReportUserDomain) {
+		this.directReportUserDomain = directReportUserDomain;
 	}
 	
 	

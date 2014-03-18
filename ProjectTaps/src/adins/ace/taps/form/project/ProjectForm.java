@@ -29,6 +29,8 @@ public class ProjectForm extends ActionForm {
 	private Integer maxpage;
 	private String mode;
 	private String message;
+	private String directReportUserDomain;
+	private String directReportBefore;
 	
 	public Integer getPage() {
 		return page;
@@ -182,6 +184,22 @@ public class ProjectForm extends ActionForm {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getDirectReportUserDomain() {
+		return directReportUserDomain;
+	}
+
+	public void setDirectReportUserDomain(String directReportUserDomain) {
+		this.directReportUserDomain = directReportUserDomain;
+	}
+
+	public String getDirectReportBefore() {
+		return directReportBefore;
+	}
+
+	public void setDirectReportBefore(String directReportBefore) {
+		this.directReportBefore = directReportBefore;
 	}
 	
 }

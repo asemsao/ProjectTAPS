@@ -163,12 +163,13 @@ public class ProjectManager {
 		}
 	}
 
-	public void addProjectMember(AddStructureProjectBean bean) {
+	public boolean addProjectMember(AddStructureProjectBean bean) {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.addProjectMember", bean);
 			ibatisSqlMap.commitTransaction();
-
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -178,6 +179,7 @@ public class ProjectManager {
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 
 	public AddStructureProjectBean getProjectMemberById(Map params) {
@@ -220,13 +222,15 @@ public class ProjectManager {
 		}
 	}
 	
-	public void deleteMember(AddStructureProjectBean bean)
+	public boolean deleteMember(AddStructureProjectBean bean)
 	{
+		boolean flag = false;
 		try
 		{
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("project.deleteMember", bean);
+			ibatisSqlMap.delete("project.deleteMember", bean);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
@@ -240,6 +244,7 @@ public class ProjectManager {
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 	
 	public void deleteProject(String projectCode)
@@ -266,7 +271,7 @@ public class ProjectManager {
 	
 	public boolean isExist(String name)
 	{
-		Integer count = null;
+		int count = 0;
 		try
 		{
 			ibatisSqlMap.startTransaction();
@@ -298,6 +303,74 @@ public class ProjectManager {
 		{
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.insertRole", name);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public Integer checkRole(String name)
+	{
+		int count = 0;
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			count = (Integer)ibatisSqlMap.queryForObject("project.checkRole", name);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public void deleteRole(String name)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.delete("project.deleteRole", name);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void updateAssStatus(Map param)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.updateAssStatus",param);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

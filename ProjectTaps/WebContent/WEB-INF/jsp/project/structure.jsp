@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
+	
 	function flyToPage(task, paramAssigneeUserDomain) {
 		document.projectForm.task.value = task;
 		document.projectForm.paramAssigneeUserDomain.value = paramAssigneeUserDomain;
@@ -21,12 +22,28 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
-	function deleteConfirm(task, assigneeUserDomain) {
+	function deleteConfirm(task, assigneeUserDomain,directReportUserDomain) {
 		var con = confirm("This record will be deleted, are you sure?");
 		if (con) {
+			document.projectForm.directReportUserDomain.value = directReportUserDomain;
 			flyToPage(task, assigneeUserDomain);
 		}
 	}
+	$(document).ready(function() {
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
+	});
 </script>
 <title>Project Member</title>
 </head>
@@ -44,7 +61,8 @@
 					<html:hidden property="mode" name="projectForm" />
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
-					
+					<html:hidden property="directReportUserDomain" name="projectForm" />
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -81,7 +99,7 @@
 											data-hint="Edit Member" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 										<td class="text-center"><a
-											href="javascript:deleteConfirm('deleteMember','<bean:write name="project" property="assigneeUserDomain" />')"
+											href="javascript:deleteConfirm('deleteMember','<bean:write name="project" property="assigneeUserDomain" />','<bean:write name="project" property="directReportUserDomain" />')"
 											data-hint="Delete Member" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>
