@@ -4,9 +4,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="manageRole">
-	<typeAlias alias="manageRoleBean" type="adins.ace.taps.bean.manageRole.ManageRoleBean" />
+	<typeAlias alias="roleBean" type="adins.ace.taps.bean.manageRole.RoleBean" />
+	<typeAlias alias="menuBean" type="adins.ace.taps.bean.manageRole.MenuBean" />
 	
-	<select id="searchEmployees" resultClass="manageRoleBean"
+	<select id="searchEmployees" resultClass="roleBean"
 		parameterClass="java.util.Map">
 		select e.first_name||' '||e.last_name as employeeName, e.user_domain as userDomain,
 		    (select count(1) from employee_role where role_id='BOM' and user_domain=e.user_domain) as statusBOM,
@@ -18,7 +19,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		from employees e	
 	</select>
 	
-	<select id="detailEmployeeRole" resultClass="manageRoleBean"
+	<select id="detailEmployeeRole" resultClass="roleBean"
 		parameterClass="java.util.Map">
 		select e.first_name||' '||e.last_name as employeeName, e.user_domain as userDomain,
 		    (select count(1) from employee_role where role_id='BOM' and user_domain=e.user_domain) as statusBOM,
