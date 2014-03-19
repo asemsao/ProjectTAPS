@@ -29,34 +29,42 @@
 		<url-pattern>/selfAssignment.do</url-pattern>
 		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>SupervisorFilter</filter-name>
 		<filter-class>adins.ace.taps.filter.SupervisorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>SupervisorFilter</filter-name>
-		<url-pattern>/template.do</url-pattern>
+		<url-pattern>/newAssignment.do</url-pattern>
+		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
+		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
+		<url-pattern>/employeeReport.do</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>AdministratorFilter</filter-name>
 		<filter-class>adins.ace.taps.filter.AdministratorFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>AdministratorFilter</filter-name>
-		<url-pattern>/template.do</url-pattern>
+		<url-pattern>/project.do</url-pattern>
+		<url-pattern>/organization.do</url-pattern>
+		<url-pattern>/employee.do</url-pattern>
+		<url-pattern>/manageRole.do</url-pattern>
+		<url-pattern>/transferProject.do</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>HeadBUFilter</filter-name>
 		<filter-class>adins.ace.taps.filter.HeadBUFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>HeadBUFilter</filter-name>
-		<url-pattern>/template.do</url-pattern>
+		<url-pattern>/report.do</url-pattern>
+		<url-pattern>/specialAppraisal.do</url-pattern>
 	</filter-mapping>
-	
+
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
