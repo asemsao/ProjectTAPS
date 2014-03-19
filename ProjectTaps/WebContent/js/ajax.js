@@ -1,15 +1,18 @@
 $(document).ready(function() {
 	$(".deleteEmployee").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpDeleteEmployee").html(),
-			padding : 10,
-			title : 'Employees AD'
-		});
+		$("#lookUpDeleteEmployee").load("/ProjectTaps/ajax.do?mode=deleteEmployee&task=deleteEmployee&userDomain="+$(this).attr('alt').trim());
+		setTimeout(function() {
+			$.Dialog({
+				overlay : true,
+				shadow : true,
+				flat : true,
+				icon : '<img src="images/LOGO_Taps6.png">',
+				title : 'Flat window',
+				content : $("#lookUpDeleteEmployee").html(),
+				padding : 10,
+				title : 'Assignment'
+			});
+		}, 500);
 	});
 	$("#activeDirectory").on('click', function() {
 		$.Dialog({
@@ -126,7 +129,7 @@ function loadAssignmentDelete(searchCategory, searchKeyword) {
 		});
 		$(".search-category-assignment-delete").get(1).value = searchCategory;
 		$(".search-keyword-assignment-delete").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterAssignmentDelete() {
@@ -138,10 +141,11 @@ function setParameterAssignmentDelete() {
 	var assignmentCategory = $("#assignmentCategory-assignment-delete").val();
 	var assignmentType = $("#assignmentType-assignment-delete").val();
 	var mode = $("#mode-assignment-delete").val();
+	var userDomain = $("#userDomain-assignment-delete").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
 			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
 			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
-			+ assignmentType;
+			+ assignmentType + "&userDomain=" + userDomain;
 	return data;
 }
 
@@ -215,9 +219,13 @@ function pagingAssignmentDelete(direction) {
 	loadAssignmentDelete(searchCategory, searchKeyword);
 }
 
-function chooseAssignmentDelete() {
-	var choosen = $("input[name='assignment_choose']:checked").val();
-	$("#assignment-code").val(choosen);
+function chooseAssignmentDelete(task) {
+	if (task == "delete") {
+		var choosen = $("input[id='userDomain-assignment-delete']").val();
+		$("#employeeDomain").val(choosen);
+		$("#task").val("delete");
+		$("#CRUDForm").submit();
+	}
 	$.Dialog.close();
 }
 
@@ -238,7 +246,7 @@ function loadActiveDirectory(searchCategory, searchKeyword) {
 		});
 		$(".search-category-ActiveDirectory").get(1).value = searchCategory;
 		$(".search-keyword-ActiveDirectory").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterActiveDirectory() {
@@ -318,7 +326,7 @@ function pagingActiveDirectory(direction) {
 
 function chooseActiveDirectory() {
 	var choosen = $("input[name='ad_choose']:checked").val();
-	$("#activeDirectory-domain").val(choosen);
+	$("#activeDirectory-domain").val(choosen).trigger('change');
 
 	$.Dialog.close();
 }
@@ -340,7 +348,7 @@ function loadEmployee(searchCategory, searchKeyword) {
 		});
 		$(".search-category-employee").get(1).value = searchCategory;
 		$(".search-keyword-employee").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterEmployee() {
@@ -452,7 +460,7 @@ function loadEmployeeOnProject(searchCategory, searchKeyword) {
 				});
 				$(".search-category-employee-on-project").get(1).value = searchCategory;
 				$(".search-keyword-employee-on-project").get(1).value = searchKeyword;
-			}, 500);
+			}, 100);
 }
 
 function setParameterEmployeeOnProject() {
@@ -566,7 +574,7 @@ function loadEmployeeOnOrganization(searchCategory, searchKeyword) {
 				});
 				$(".search-category-employee-on-organization").get(1).value = searchCategory;
 				$(".search-keyword-employee-on-organization").get(1).value = searchKeyword;
-			}, 500);
+			}, 100);
 }
 
 function setParameterEmployeeOnOrganization() {
@@ -681,7 +689,7 @@ function loadEmployee2(searchCategory, searchKeyword) {
 		});
 		$(".search-category-employee-2").get(1).value = searchCategory;
 		$(".search-keyword-employee-2").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterEmployee2() {
@@ -792,7 +800,7 @@ function loadOrganization(searchCategory, searchKeyword) {
 		});
 		$(".search-category-organization").get(1).value = searchCategory;
 		$(".search-keyword-organization").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterOrganization() {
@@ -903,7 +911,7 @@ function loadAssignment(searchCategory, searchKeyword) {
 		});
 		$(".search-category-assignment").get(1).value = searchCategory;
 		$(".search-keyword-assignment").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterAssignment() {
@@ -1021,7 +1029,7 @@ function loadProject(searchCategory, searchKeyword) {
 		});
 		$(".search-category-project").get(1).value = searchCategory;
 		$(".search-keyword-project").get(1).value = searchKeyword;
-	}, 500);
+	}, 100);
 }
 
 function setParameterProject() {

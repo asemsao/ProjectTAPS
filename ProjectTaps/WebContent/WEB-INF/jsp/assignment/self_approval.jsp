@@ -300,9 +300,11 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-										<p></p>
+
+										<p class="star"></p>
 										<html:hidden property="claimBean.appraisalStar" styleId="star" />
 										<button type="button" id="edit-star-btn" class="default">Edit</button>
+
 									</div>
 								</td>
 							</tr>	

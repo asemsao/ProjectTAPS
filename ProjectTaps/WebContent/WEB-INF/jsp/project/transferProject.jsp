@@ -11,19 +11,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script>
-	function flyToPage(task, paramProjectCode) {
-		document.transferProjectForm.task.value = task;
-		document.transferProjectForm.paramProjectCode.value = paramProjectCode;
-		document.transferProjectForm.submit();
-	}
-	function button(task) {
-		document.projectForm.task.value = task;
-		document.projectForm.submit();
-	}
-	
-	
-</script>
 
 <title>Project</title>
 </head>
@@ -35,10 +22,13 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/transferProject" method="post" styleClass="transferProjectForm" styleId="myForm">
-					<html:hidden property="task" name="transferProjectForm" />
-					<html:hidden property="pageProject" name="transferProjectForm" />
-					<html:hidden property="maxPageProject" name="transferProjectForm" />
-					<html:hidden property="paramProjectCode" name="transferProjectForm" />
+					<html:hidden property="task" name="transferProjectForm" styleId="task" />
+					<html:hidden property="pagingDirection" name="transferProjectForm" styleId="pagingDirection" />
+					<html:hidden property="pageP" name="transferProjectForm" styleId="pageP" />
+					<html:hidden property="maxPageP" name="transferProjectForm" styleId="maxPageP" />
+					<html:hidden property="pageO" name="transferProjectForm" styleId="pageO" />
+					<html:hidden property="maxPageO" name="transferProjectForm" styleId="maxPageO" />
+					<html:hidden property="orgBefore" name="transferProjectForm" styleId="orgBefore" />
 					
 					<fieldset>
 					<legend>CHOOSE PROJECT</legend>
@@ -47,7 +37,7 @@
 							<tr>
 								<th width="25%">
 									<div class="input-control select">
-										<html:select property="searchCategory" name="transferProjectForm">
+										<html:select property="projectCategory" name="transferProjectForm" styleId="projectCategory">
 											<html:option value="all">All</html:option>
 											<html:option value="projectCode">Project Code</html:option>
 											<html:option value="projectName">Project Name</html:option>
@@ -59,15 +49,14 @@
 								</th>
 								<th>
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="transferProjectForm"
+										<html:text property="projectKeyword" name="transferProjectForm" styleId="projectKeyword"
 											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
-										<button class="btn-search" type="button"
-											onclick="javascript:button('search');"></button>
+										<button  id="search-btn-project" type="button" class="btn-search"></button>
 									</div>
 								</th>
 							</tr>
 							</table>
-							<table class="table striped bordered hovered">
+							<table id="table-list-project" class="table striped bordered hovered">
 						<thead>
 							<tr>
 								<th></th>
@@ -120,6 +109,32 @@
 						</logic:empty>
 						</tbody>
 					</table>
+						<table class="table">
+							<tr>
+								<td>
+									<div class="pagination">
+										<ul>
+											<li class="first"><a id="first"
+												href="javascript:button('firstP');"><i
+													class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev"
+												href="javascript:button('prevP');"><i
+													class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <span id="currentPageP"><bean:write
+														name="transferProjectForm" property="pageP" /></span> of <span id="lastPageP"><bean:write
+														name="transferProjectForm" property="maxPageP" /></span></a></li>
+											<li class="next"><a id="next"
+												href="javascript:button('nextP');"><i class="icon-next"></i></a></li>
+											<li class="last"><a id="last"
+												href="javascript:button('lastP');"><i
+													class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <span id="totalRecordP"><bean:write
+														name="transferProjectForm" property="countRecordP" /></span></a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</fieldset>
 					
 					<fieldset>
@@ -130,7 +145,7 @@
 							<tr>
 								<th width="25%">
 									<div class="input-control select">
-										<html:select property="searchCategory" name="transferProjectForm">
+										<html:select property="orgCategory" name="transferProjectForm" styleId="orgCategory">
 											<html:option value="all">All</html:option>
 											<html:option value="organizationCode">Business Unit Code</html:option>
 											<html:option value="organizationName">Business Unit Name</html:option>
@@ -140,14 +155,14 @@
 								</th>
 								<th>
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="transferProjectForm"
-											styleId="searchKeyword"></html:text>
-										<button id="search" class="btn-search"></button>
+										<html:text property="orgKeyword" name="transferProjectForm"
+											styleId="orgKeyword"></html:text>
+										<button id="search-btn-org" type="button" class="btn-search"></button>
 									</div>
 								</th>
 							</tr>
 							</table>
-							<table class="table striped bordered hovered">
+							<table id="table-list-org" class="table striped bordered hovered">
 						<thead>
 							<tr>
 								<th></th>
@@ -198,12 +213,56 @@
 						</logic:empty>
 							</tbody>
 					</table>
+					<table class="table">
+							<tr>
+								<td>
+									<div class="pagination">
+										<ul>
+											<li class="first"><a id="first"
+												href="javascript:button('firstO');"><i
+													class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev"
+												href="javascript:button('prevO');"><i
+													class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <span id="currentPageO"><bean:write
+														name="transferProjectForm" property="pageO" /></span> of <span id="lastPageO"><bean:write
+														name="transferProjectForm" property="maxPageO" /></span></a></li>
+											<li class="next"><a id="next"
+												href="javascript:button('nextO');"><i class="icon-next"></i></a></li>
+											<li class="last"><a id="last"
+												href="javascript:button('lastO');"><i
+													class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <span id="totalRecordO"><bean:write
+														name="transferProjectForm" property="countRecordO" /></span></a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</fieldset>
 					<fieldset>
 					<legend>CHOOSE MEMBER</legend>
 					<table id="table-ajax-project2" class="table"></table>
 					<table id="table-ajax-structure" class="table striped bordered hovered">
 				</table>
+					</fieldset>
+					<fieldset>
+					<legend>CHOOSE TRANSFER DATE</legend>
+					<table id="table-ajax-project3" class="table"></table>
+					<div class="date-wizard">
+					<div class="notice marker-on-bottom bg-amber">
+					<div class="fg-white">
+					<i class="icon-warning"></i>&nbsp;This date will affect Report for both Business Unit (before and after)
+					</div>
+					</div>
+					<br />
+					<div class="input-control text" id="datepicker-begin">
+										<html:text property="transferDate"
+											name="transferProjectForm" styleId="transferDate"></html:text>
+										<button type="button" class="btn-date"></button>
+										</div>
+					
+					</div>
 					</fieldset>
 					<fieldset>
 					<legend>SUMMARY</legend>

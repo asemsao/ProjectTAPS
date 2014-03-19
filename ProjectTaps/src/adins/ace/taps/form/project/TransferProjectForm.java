@@ -11,25 +11,30 @@ import adins.ace.taps.bean.project.StructureProjectBean;
 public class TransferProjectForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
 	private String task;
+	private String pagingDirection;
 	private String paramProjectCode;
-	private String searchKeyword;
-	private String searchCategory;
+	private String projectKeyword;
+	private String projectCategory;
+	private String orgKeyword;
+	private String orgCategory;
 	private String projectName;
 	private String projectCode;
+	private String orgBefore;
 	private String orgCode;
 	private String orgName;
+	private String transferDate;
 	private String assigneeUserDomain;
 	private String directReportUserDomain;
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
 	private List<StructureProjectBean> listMember;
 	private ProjectBean pBean = new ProjectBean();
-	private Integer pageProject;
-	private Integer maxPageProject;
-	private Integer countRecordProject;
-	private Integer pageOrganization;
-	private Integer maxOrganization;
-	private Integer countRecordOrganization;
+	private Integer pageP;
+	private Integer maxPageP;
+	private Integer countRecordP;
+	private Integer pageO;
+	private Integer maxPageO;
+	private Integer countRecordO;
 	
 	public String getTask() {
 		return task;
@@ -37,23 +42,41 @@ public class TransferProjectForm extends ActionForm {
 	public void setTask(String task) {
 		this.task = task;
 	}
+	public String getPagingDirection() {
+		return pagingDirection;
+	}
+	public void setPagingDirection(String pagingDirection) {
+		this.pagingDirection = pagingDirection;
+	}
 	public String getParamProjectCode() {
 		return paramProjectCode;
 	}
 	public void setParamProjectCode(String paramProjectCode) {
 		this.paramProjectCode = paramProjectCode;
 	}
-	public String getSearchKeyword() {
-		return searchKeyword;
+	public String getProjectKeyword() {
+		return projectKeyword;
 	}
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public void setProjectKeyword(String projectKeyword) {
+		this.projectKeyword = projectKeyword;
 	}
-	public String getSearchCategory() {
-		return searchCategory;
+	public String getProjectCategory() {
+		return projectCategory;
 	}
-	public void setSearchCategory(String searchCategory) {
-		this.searchCategory = searchCategory;
+	public void setProjectCategory(String projectCategory) {
+		this.projectCategory = projectCategory;
+	}
+	public String getOrgKeyword() {
+		return orgKeyword;
+	}
+	public void setOrgKeyword(String orgKeyword) {
+		this.orgKeyword = orgKeyword;
+	}
+	public String getOrgCategory() {
+		return orgCategory;
+	}
+	public void setOrgCategory(String orgCategory) {
+		this.orgCategory = orgCategory;
 	}
 	public String getProjectName() {
 		return projectName;
@@ -67,6 +90,12 @@ public class TransferProjectForm extends ActionForm {
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
 	}
+	public String getOrgBefore() {
+		return orgBefore;
+	}
+	public void setOrgBefore(String orgBefore) {
+		this.orgBefore = orgBefore;
+	}
 	public String getOrgCode() {
 		return orgCode;
 	}
@@ -78,6 +107,12 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
+	}
+	public String getTransferDate() {
+		return transferDate;
+	}
+	public void setTransferDate(String transferDate) {
+		this.transferDate = transferDate;
 	}
 	public String getAssigneeUserDomain() {
 		return assigneeUserDomain;
@@ -115,45 +150,44 @@ public class TransferProjectForm extends ActionForm {
 	public void setpBean(ProjectBean pBean) {
 		this.pBean = pBean;
 	}
-	public Integer getPageProject() {
-		return pageProject;
+	public Integer getPageP() {
+		return pageP;
 	}
-	public void setPageProject(Integer pageProject) {
-		this.pageProject = pageProject;
+	public void setPageP(Integer pageP) {
+		this.pageP = pageP;
 	}
-	public Integer getMaxPageProject() {
-		return maxPageProject;
+	public Integer getMaxPageP() {
+		return maxPageP;
 	}
-	public void setMaxPageProject(Integer maxPageProject) {
-		this.maxPageProject = maxPageProject;
+	public void setMaxPageP(Integer maxPageP) {
+		this.maxPageP = maxPageP;
 	}
-	public Integer getCountRecordProject() {
-		return countRecordProject;
+	public Integer getCountRecordP() {
+		return countRecordP;
 	}
-	public void setCountRecordProject(Integer countRecordProject) {
-		this.countRecordProject = countRecordProject;
+	public void setCountRecordP(Integer countRecordP) {
+		this.countRecordP = countRecordP;
 	}
-	public Integer getPageOrganization() {
-		return pageOrganization;
+	public Integer getPageO() {
+		return pageO;
 	}
-	public void setPageOrganization(Integer pageOrganization) {
-		this.pageOrganization = pageOrganization;
+	public void setPageO(Integer pageO) {
+		this.pageO = pageO;
 	}
-	public Integer getMaxOrganization() {
-		return maxOrganization;
+	public Integer getMaxPageO() {
+		return maxPageO;
 	}
-	public void setMaxOrganization(Integer maxOrganization) {
-		this.maxOrganization = maxOrganization;
+	public void setMaxPageO(Integer maxPageO) {
+		this.maxPageO = maxPageO;
 	}
-	public Integer getCountRecordOrganization() {
-		return countRecordOrganization;
+	public Integer getCountRecordO() {
+		return countRecordO;
 	}
-	public void setCountRecordOrganization(Integer countRecordOrganization) {
-		this.countRecordOrganization = countRecordOrganization;
+	public void setCountRecordO(Integer countRecordO) {
+		this.countRecordO = countRecordO;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 	
 }

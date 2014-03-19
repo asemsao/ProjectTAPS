@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
+import adins.ace.taps.bean.employee.EmployeeProjectStructureBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -129,7 +131,43 @@ public class EmployeeManager {
 		}
 		return empEdit;
 	}
+	
+	public List<EmployeeOrganizationBean> checkEmplooyeeOrganization(Map params) {
+		List<EmployeeOrganizationBean> listEmpOrg = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			listEmpOrg = ibatisSqlMap.queryForList("employee.checkEmplooyeeOrganization", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return listEmpOrg;
+	}
 
+	public List<EmployeeProjectStructureBean> checkProjectStructure(Map params) {
+		List<EmployeeProjectStructureBean> listEmpProject = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			listEmpProject = ibatisSqlMap.queryForList("employee.checkProjectStructure", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return listEmpProject;
+	}
+	
 	public Integer countEmployees(Map params) {
 		Integer count = null;
 		try {

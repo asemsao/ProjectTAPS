@@ -66,7 +66,14 @@ public class SelfSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "APPROVE", taskCode, sForm.getClaimBean().getSenderName(), sForm.getClaimBean().getNameReceiver());
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "APPROVE");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
@@ -92,7 +99,14 @@ public class SelfSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "CORRECT", taskCode, sForm.getClaimBean().getSenderName(), sForm.getClaimBean().getNameReceiver());
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "CORRECT");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
 			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);
@@ -110,7 +124,14 @@ public class SelfSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "REJECT", taskCode, sForm.getClaimBean().getSenderName(), sForm.getClaimBean().getNameReceiver());
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "REJECT");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
 			}
 			session.removeAttribute("taskCode");
 			
