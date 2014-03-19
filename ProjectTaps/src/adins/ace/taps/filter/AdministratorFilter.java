@@ -1,6 +1,7 @@
 package adins.ace.taps.filter;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import adins.ace.taps.bean.module.RoleBean;
 
 public class AdministratorFilter implements Filter {
 	private FilterConfig filterConfig;
@@ -28,11 +30,18 @@ public class AdministratorFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
-
-		if (session.getAttribute("") == null) {
-			resp.sendRedirect("/ProjectTaps/dashboard.do");
-		} else {
+		List<RoleBean> roleList = (List) session.getAttribute("role");
+		boolean is_admin = false;
+		for (int i = 0; i < roleList.size(); i++) {
+			if (roleList.get(i).getRoleId().equals("adm")) {
+				is_admin = true;
+				break;
+			}
+		}
+		if (is_admin) {
 			chain.doFilter(request, response);
+		} else {
+			resp.sendRedirect("/ProjectTaps/dashboard.do");
 		}
 	}
 
