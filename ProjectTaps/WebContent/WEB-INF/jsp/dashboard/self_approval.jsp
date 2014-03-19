@@ -214,7 +214,7 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-										<p>&nbsp;Your current value : 0 &nbsp;</p>
+										<p class="star"></p>
 										<html:hidden property="selfAssignBean.appraisalStar"
 											styleId="star" name="dashboardForm" />
 										<button id="edit-star-btn" class="default"

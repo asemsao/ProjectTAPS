@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/responsive-table.css">
 <link rel="stylesheet" href="css/rating.css">
 <link rel="stylesheet" href="css/timeselector.css">
+<link rel="stylesheet" href="css/wizard.css">
 <link rel="stylesheet" href="css/validation-style.css">
 
 <script src="js/jquery/jquery-1.8.3.js"></script>

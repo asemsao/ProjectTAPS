@@ -267,6 +267,6 @@
 	font-size: 0.85em;
 }
 
-p {
+p.star {
 	display: inline-block;
 }

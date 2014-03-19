@@ -6,6 +6,10 @@ body {
 	background-attachment: fixed;
 }
 
+a, button {
+	cursor: pointer;
+}
+
 .align-left {
 	text-align: left;
 }
@@ -106,91 +110,6 @@ textarea {
 	width: 540px;
 	margin-left: 0px !important;
 	margin-right: 10px;
-}
-
-/*===== WIZARD ===== */
-fieldset {
-	border: none;
-	width: 100%;
-	padding: 20px !important;
-}
-
-legend {
-	font-size: 18px;
-	margin: 15px 0 0 0 !important;
-	padding: 10px 0px;
-	color: #b0232a;
-	font-weight: bold;
-}
-
-.prev-wizard,.next-wizard {
-	border: 1px solid slateblue !important;
-	padding: 10px 20px !important;
-	background-color: slateblue !important;
-	text-decoration: none;
-}
-
-.prev-wizard:hover,.next-wizard:hover {
-	color: slateblue !important;
-	background-color: #fff !important;
-}
-
-.prev-wizard {
-	float: left;
-}
-
-.next-wizard {
-	float: right;
-}
-
-#steps {
-	list-style: none;
-	width: 100%;
-	overflow: hidden;
-}
-
-#steps li {
-	font-size: 24px;
-	float: left;
-	padding: 10px;
-	color: #b0b1b3;
-	border: 1px solid #b0b1b3;
-	margin-right: 20px;
-	margin-top: 20px;
-	width: 20%;
-}
-
-#steps li span {
-	font-size: 13px;
-	display: block;
-}
-
-#steps li.current {
-	color: white;
-	border: 1px solid slateblue;
-	background-color: slateblue;
-}
-
-#steps li.passed {
-	color: white;
-	border: 1px solid green;
-	background-color: green;
-}
-
-.submit-wizard {
-	border: 1px solid green !important;
-	padding: 10px 30px !important;
-	background-color: green !important;
-	color: #fff !important;
-	text-decoration: none;
-	float: right;
-	margin-top: -58px;
-	margin-right: 20px;
-}
-
-.submit-wizard:hover {
-	color: green !important;
-	background-color: #fff !important;
 }
 
 #edit-star-btn {

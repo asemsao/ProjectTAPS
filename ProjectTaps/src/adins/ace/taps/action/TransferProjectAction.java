@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -35,16 +36,63 @@ public class TransferProjectAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
+		HttpSession session = request.getSession(true);
 		TransferProjectForm tpForm = (TransferProjectForm) form;
 		TransferProjectManager tpMan = new TransferProjectManager();
 		OrganizationManager oMan = new OrganizationManager();
-		Map params = new HashMap();
+		Map<String, Object> params = new HashMap<String, Object>();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = "";
 		
+		if (tpForm.getPageP() == null) {
+			tpForm.setPageP(1);
+		}
+
+		if ("firstP".equals(tpForm.getPagingDirection())) {
+			tpForm.setPageP(1);
+		}
+
+		if ("lastP".equals(tpForm.getPagingDirection())) {
+			tpForm.setPageP(tpForm.getMaxPageP());
+		}
+
+		if ("prevP".equals(tpForm.getPagingDirection())) {
+			if (tpForm.getPageP() > 1) {
+				tpForm.setPageP(tpForm.getPageP() - 1);
+			}
+		}
+		if ("nextP".equals(tpForm.getPagingDirection())) {
+			if (tpForm.getPageP() < tpForm.getMaxPageP()) {
+				tpForm.setPageP(tpForm.getPageP() + 1);
+			}
+		}
+		
+		if (tpForm.getPageO() == null) {
+			tpForm.setPageO(1);
+		}
+
+		if ("firstO".equals(tpForm.getPagingDirection())) {
+			tpForm.setPageO(1);
+		}
+
+		if ("lastO".equals(tpForm.getPagingDirection())) {
+			tpForm.setPageO(tpForm.getMaxPageO());
+		}
+
+		if ("prevO".equals(tpForm.getPagingDirection())) {
+			if (tpForm.getPageO() > 1) {
+				tpForm.setPageO(tpForm.getPageO() - 1);
+			}
+		}
+		if ("nextO".equals(tpForm.getPagingDirection())) {
+			if (tpForm.getPageO() < tpForm.getMaxPageO()) {
+				tpForm.setPageO(tpForm.getPageO() + 1);
+			}
+		}
 		
 		if ("retrieveProject".equals(tpForm.getTask())) {
 			tpForm.setpBean(tpMan.getProjectById(request.getParameter("projectCode").toString()));
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String json = gson.toJson(tpForm);
+			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
 			return null;
@@ -55,8 +103,7 @@ public class TransferProjectAction extends Action {
 			tpForm.setListMember(tpMan.getAllMemberByProjectId(request.getParameter("projectCode").toString()));
 			tpForm.setOrgCode(request.getParameter("orgCode").toString());
 			tpForm.setOrgName(request.getParameter("orgName").toString());
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			String json = gson.toJson(tpForm);
+			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
 			return null;
@@ -142,62 +189,71 @@ public class TransferProjectAction extends Action {
 			}
 		}
 		
-		if ("update".equals(tpForm.getTask())) {
-			Gson gson = new Gson();
-			Object obj = gson.fromJson(request.getParameter("params"), Object.class);
-			params = (Map) obj;
-			System.out.println(params);
-		}
-
-		if (tpForm.getPageProject() == null) {
-			tpForm.setPageProject(1);
-		}
-
-		if ("first".equals(tpForm.getTask())) {
-			tpForm.setPageProject(1);
-		}
-
-		if ("last".equals(tpForm.getTask())) {
-			tpForm.setPageProject(tpForm.getMaxPageProject());
-		}
-
-		if ("prev".equals(tpForm.getTask())) {
-			if (tpForm.getPageProject() > 1) {
-				tpForm.setPageProject(tpForm.getPageProject() - 1);
+		if ("updateTransfer".equals(tpForm.getTask())) {
+			params = gson.fromJson(request.getParameter("params"), HashMap.class);
+			params.put("orgCode", params.get("orgCode").toString().trim());
+			params.put("orgBefore", params.get("orgBefore"));
+			params.put("transferDate", params.get("transferDate"));
+			params.put("createdBy", session.getAttribute("username"));
+			
+			String temp = "";
+			for (String item : (Iterable<String>) params.get("listMember")) {
+				temp += "'" + item + "', ";
 			}
-		}
-		if ("next".equals(tpForm.getTask())) {
-			if (tpForm.getPageProject() < tpForm.getMaxPageProject()) {
-				tpForm.setPageProject(tpForm.getPageProject() + 1);
-			}
-		}
-
-		if ("search".equals(tpForm.getTask())) {
-			tpForm.setPageProject(1);
-		}
-		
-		if ("cancel".equals(tpForm.getTask())) {
-
+			temp = temp.substring(0, temp.length() - 2);
+			params.put("listMember", temp);
+			boolean flag = tpMan.updateTransfer(params);
+			System.out.println("UPDATE : " + flag);
 		}
 
-		params.put("start", (tpForm.getPageProject() - 1) * 10 + 1);
-		params.put("end", (tpForm.getPageProject() * 10));
-		params.put("category", tpForm.getSearchCategory());
-		params.put("keyword", tpForm.getSearchKeyword());
-
+		params.put("startP", (tpForm.getPageP() - 1) * 10 + 1);
+		params.put("endP", (tpForm.getPageP() * 10));
 		tpForm.setListProject(tpMan.searchProject(params));
-		tpForm.setCountRecordProject(tpMan.countProject(params));
+		tpForm.setCountRecordP(tpMan.countProject(params));
 		
-		tpForm.setListOrganization(tpMan.searchOrganization(params));
-//		tpForm.setCountRecordOrganization(tpMan.countOrganization(params));
+		params.put("startO", (tpForm.getPageO() - 1) * 10 + 1);
+		params.put("endO", (tpForm.getPageO() * 10));
+		tpForm.setListOrganization(tpMan.searchOrganization(params));		
+		tpForm.setCountRecordO(tpMan.countOrganization(params));
 		
-
-		if (tpForm.getCountRecordProject() % 10 == 0) {
-			tpForm.setMaxPageProject((int) Math.ceil(tpForm.getCountRecordProject() / 10));
+		if (tpForm.getCountRecordP() % 10 == 0) {
+			tpForm.setMaxPageP((int) Math.ceil(tpForm.getCountRecordP() / 10));
 		} else {
-			tpForm.setMaxPageProject(((int) Math.ceil(tpForm.getCountRecordProject() / 10)) + 1);
+			tpForm.setMaxPageP(((int) Math.ceil(tpForm.getCountRecordP() / 10)) + 1);
 		}
-
+		
+		if (tpForm.getCountRecordO() % 10 == 0) {
+			tpForm.setMaxPageO((int) Math.ceil(tpForm.getCountRecordO() / 10));
+		} else {
+			tpForm.setMaxPageO(((int) Math.ceil(tpForm.getCountRecordO() / 10)) + 1);
+		}
+		
+		if ("searchProject".equals(tpForm.getTask())) {
+			tpForm.setPageP(1);
+			tpForm.setProjectCategory(request.getParameter("projectCategory"));
+			tpForm.setProjectKeyword(request.getParameter("projectKeyword"));
+			params.put("category", tpForm.getProjectCategory());
+			params.put("keyword", tpForm.getProjectKeyword());
+			tpForm.setListProject(tpMan.searchProject(params));
+			json = gson.toJson(tpForm);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			return null;
+		}
+		
+		if ("searchOrg".equals(tpForm.getTask())) {
+			tpForm.setPageO(1);
+			tpForm.setOrgCategory(request.getParameter("orgCategory"));
+			tpForm.setOrgKeyword(request.getParameter("orgKeyword"));
+			params.put("category", tpForm.getOrgCategory());
+			params.put("keyword", tpForm.getOrgKeyword());
+			tpForm.setListOrganization(tpMan.searchOrganization(params));
+			json = gson.toJson(tpForm);
+			PrintWriter out = response.getWriter();
+			out.write(json);
+			return null;
+		}
+		
 		return mapping.findForward("ListTransferProject");
 	}
 	

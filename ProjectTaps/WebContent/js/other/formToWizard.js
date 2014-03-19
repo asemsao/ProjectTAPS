@@ -59,7 +59,7 @@
 			var stepName = "step" + i;
 			$("#" + stepName + "commands")
 					.append(
-							"<button type='button' disabled id='"
+							"<button type='button' id='"
 									+ stepName
 									+ "Next' class='next-wizard'>Next <i class='icon-arrow-right-5'></i></button>");
 
@@ -89,14 +89,203 @@ function checkAll(elem) {
 	}
 }
 
+function viewListProject() {
+	var projectCategory = $("#projectCategory").val();
+	var projectKeyword = $("#projectKeyword").val();
+	var pagingDirection = $("#pagingDirection").val();
+	var pageP = $("#pageP").val();
+	var maxPageP = $("#maxPageP").val();
+	var data = "task=searchProject" + "&projectCategory=" + projectCategory + "&projectKeyword=" + projectKeyword + "&pagingDirection=" + pagingDirection + "&pageP=" + pageP + "&maxPageP=" + maxPageP;
+	$.ajax({
+		url : "/ProjectTaps/transferProject.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			var json = $.parseJSON(data);
+			var content="";
+			content += "<table class=\"table striped bordered hovered\">";
+			if (json.listProject.length > 0) {
+				content += "<thead>";
+				content += "<tr>";
+				content += "<th><\/th>";
+				content += "<th class=\"text-center\">Project Code<\/th>";
+				content += "<th class=\"text-center\">Project Name<\/th>";
+				content += "<th class=\"text-center\">Client<\/th>";
+				content += "<th class=\"text-center\">Business Unit<\/th>";
+				content += "<th class=\"text-center\">Phase<\/th>";
+				content += "<th class=\"text-center\">Start Date<\/th>";
+				content += "<th class=\"text-center\">Finish Date<\/th>";
+				content += "<th class=\"text-center\">Running (day)<\/th>";
+				content += "<\/tr>";
+				content += "<\/thead>";
+				content += "<tbody>";
+				for (var i in json.listProject) {
+					content += "<tr>";
+					content += "<td width=\"5%\">";
+					content += "<div class=\"input-control radio default-style\">";
+					content += "<label>";
+					content += "<input type=\"radio\" name=\"project_choose\" value=\"" + json.listProject[i].projectCode + "\" \/>";
+					content += "<span class=\"check\"><\/span>";
+					content += "<\/label>";
+					content += "<\/div>";
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].projectCode;
+					content += "<\/td>";
+					content += "<td>";
+					content += json.listProject[i].projectName;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].client;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].organizationCode;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].phase;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].startDate;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].endDate;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listProject[i].runningDay;
+					content += "<\/td>";
+					content += "<\/tr>";
+				}
+			} else {
+				content += "<tr>";
+				content += "<td class=\"text-center\">";
+				content += "Project not available";
+				content += "<\/td>";
+				content += "<\/tr>";
+			}
+			content += "<\/tbody>";
+			content += "<\/table>";
+			
+			$("#table-list-project").html(content);
+			if (json.listProject.length > 0) {
+				$("input:radio[name='project_choose']:first").prop("checked", true);
+				$("button#step0Next").prop("disabled", false);
+			} else {
+				$("button#step0Next").prop("disabled", true);
+			}
+		}
+	});
+	
+	$("span#currentPageP").html($("#pageP").val());
+	$("span#lastPageP").html($("#maxPageP").val());
+	$("span#totalRecordP").html($("#countRecordP").val());
+}
+
+function viewListOrg() {
+	var orgCategory = $("#orgCategory").val();
+	var orgKeyword = $("#orgKeyword").val();
+	var pagingDirection = $("#pagingDirection").val();
+	var pageO = $("#pageO").val();
+	var maxPageO = $("#maxPageO").val();
+	var data = "task=searchOrg" + "&orgCategory=" + orgCategory + "&orgKeyword=" + orgKeyword + "&pagingDirection=" + pagingDirection + "&pageO=" + pageO + "&maxPageO=" + maxPageO;
+	$.ajax({
+		url : "/ProjectTaps/transferProject.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			var json = $.parseJSON(data);
+			var content="";
+			content += "<table class=\"table striped bordered hovered\">";
+			if (json.listOrganization.length > 0) {
+				content += "<thead>";
+				content += "<tr>";
+				content += "<th><\/th>";
+				content += "<th colspan=3 class=\"text-center\">Business Unit Code<\/th>";
+				content += "<th class=\"text-center\">Business Unit Name<\/th>";
+				content += "<th class=\"text-center\">Head Name<\/th>";
+				content += "<\/tr>";
+				content += "<\/thead>";
+				content += "<tbody>";
+				for (var i in json.listOrganization) {
+					content += "<tr>";
+					content += "<td width=\"5%\">";
+					content += "<div class=\"input-control radio default-style\">";
+					content += "<label>";
+					content += "<input type=\"radio\" name=\"org_choose\" value=\"" + json.listOrganization[i].organizationCode + '@' + json.listOrganization[i].organizationName + "\" \/>";
+					content += "<span class=\"check\"><\/span>";
+					content += "<\/label>";
+					content += "<\/div>";
+					content += "<\/td>";
+					content += "<td width=\"4%\" class=\"text-center\">";
+					if (json.listOrganization[i].organizationLevel == 0) {
+						content += json.listOrganization[i].organizationCode;
+					}
+					content += "<td width=\"4%\" class=\"text-center\">";
+					if (json.listOrganization[i].organizationLevel == 1) {
+						content += json.listOrganization[i].organizationCode;
+					}
+					content += "<td width=\"4%\" class=\"text-center\">";
+					if (json.listOrganization[i].organizationLevel == 2) {
+						content += json.listOrganization[i].organizationCode;
+					}
+					content += "<\/td>";
+					content += "<td>";
+					content += json.listOrganization[i].organizationName;
+					content += "<\/td>";
+					content += "<td class=\"text-center\">";
+					content += json.listOrganization[i].headName;
+					content += "<\/td>";
+					content += "<\/tr>";
+				}
+			} else {
+				content += "<tr>";
+				content += "<td class=\"text-center\">";
+				content += "Project not available";
+				content += "<\/td>";
+				content += "<\/tr>";
+			}
+			content += "<\/tbody>";
+			content += "<\/table>";
+			
+			$("#table-list-org").html(content);
+			if (json.listOrganization.length > 0) {
+				$("input:radio[name='org_choose']:first").prop("checked", true);
+				$("button#step1Next").prop("disabled", false);
+			} else {
+				$("button#step1Next").prop("disabled", true);
+			}
+			
+			$("span#currentPageO").html(json.pageO);
+			$("span#lastPageO").html(json.maxPageO);
+			$("span#totalRecordO").html(json.countRecordO);
+		}
+	});
+}
+
+function button(pagingDirection) {
+	$("#pagingDirection").val(pagingDirection);
+	viewListProject();
+}
+
 $(document).ready(function() {
 	$("#myForm").formToWizard({ submitButton: 'submit-btn' });
-	$("input:radio[name='project_choose']").prop("checked", false);
-	$("input:radio[name='project_choose']").click(function() {
-		$("button.next-wizard").prop("disabled", false);
+	$("input:radio[name='project_choose']:first").prop("checked", true);
+
+	$("input:radio[name='org_choose']:first").prop("checked", true);
+	
+	$("button#search-btn-project").click(function() {
+		viewListProject();
 	});
-	$("input:radio[name='org_choose']").click(function() {
-		$("button.next-wizard").prop("disabled", false);
+	
+	$("button#search-btn-org").click(function() {
+		viewListOrg();
 	});
 	
 	$("button#step0Next").click(function() {
@@ -140,23 +329,9 @@ $(document).ready(function() {
 						+ '<td width="5%">:</td>'
 						+ '<td>' + json.pBean.phase + '</td>'
 						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Start Date</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.startDate + '</td>'
-						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Finish Date</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.endDate + '</td>'
-						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Running (day)</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.runningDay + ' day' + '</td>'
-						+ '</tr>';
+						+ '</table>';
 				
-				$("#table-ajax-project").html(projectContent + '</table>');
+				$("#table-ajax-project").html(projectContent);
 			}
 		});
 	});
@@ -203,26 +378,11 @@ $(document).ready(function() {
 						+ '<td width="15%">Phase</td>'
 						+ '<td width="5%">:</td>'
 						+ '<td>' + json.pBean.phase + '</td>'
-						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Start Date</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.startDate + '</td>'
-						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Finish Date</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.endDate + '</td>'
-						+ '</tr>'
-						+ '<tr>'
-						+ '<td width="15%">Running (day)</td>'
-						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.runningDay + ' day' + '</td>'
-						+ '</tr></table>';
+						+ '</tr>';
 				
 				projectContent += '<tr><td width="15%">Transfer<td width="5%">:</td><td>' + json.pBean.organizationName + ' ( <b>' + json.pBean.organizationCode + '</b> )';
 				projectContent += '&nbsp;&nbsp;<i class="icon-arrow-right-5"></i>&nbsp;&nbsp;' + json.orgName + ' ( <b>' + json.orgCode + '</b> )';
-				projectContent += '</td></tr>';
+				projectContent += '</td></tr></table>';
 				$("#table-ajax-project2").html(projectContent);
 				
 				var structureContent = "";
@@ -262,8 +422,60 @@ $(document).ready(function() {
 			}
 		});
 	});
-		
+	
 	$("button#step2Next").click(function() {
+		var projectCode = $("input:radio[name='project_choose']:checked").val();
+		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
+		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
+		var data = "task=retrieveStructure&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
+		$.ajax({
+			url : "/ProjectTaps/transferProject.do",
+			type : "POST",
+			data : data,
+			context : this,
+			error : function() {
+				console.log("problem was here!");
+			},
+			success : function(data) {
+				var json = $.parseJSON(data);
+				var projectContent = '<table class="table">' + '<tr>'
+						+ '<td width="15%">Project Code</td>'
+						+ '<td width="5%">:</td>' + '<td>'
+						+ json.pBean.projectCode
+						+ '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td width="15%">Project Name</td>'
+						+ '<td width="5%">:</td>'
+						+ '<td>'
+						+ json.pBean.projectName
+						+ '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td width="15%">Client</td>'
+						+ '<td width="5%">:</td>'
+						+ '<td>' + json.pBean.client + '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td width="15%">Business Unit</td>'
+						+ '<td width="5%">:</td>'
+						+ '<td>' + json.pBean.organizationName + ' ( <b>' + json.pBean.organizationCode + '</b> )' + '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td width="15%">Phase</td>'
+						+ '<td width="5%">:</td>'
+						+ '<td>' + json.pBean.phase + '</td>'
+						+ '</tr>';
+				
+				projectContent += '<tr><td width="15%">Transfer<td width="5%">:</td><td>' + json.pBean.organizationName + ' ( <b>' + json.pBean.organizationCode + '</b> )';
+				projectContent += '&nbsp;&nbsp;<i class="icon-arrow-right-5"></i>&nbsp;&nbsp;' + json.orgName + ' ( <b>' + json.orgCode + '</b> )';
+				projectContent += '</td></tr></table>';
+				$("#table-ajax-project3").html(projectContent);
+			}
+		});
+	});
+		
+	$("button#step3Next").click(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
 		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
 		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
@@ -354,6 +566,7 @@ $(document).ready(function() {
 				summaryContent += "</table>";
 				
 				$("#table-ajax-summary").html(summaryContent);
+				$("#orgBefore").val(json.pBean.organizationCode);
 			}
 		});
 	});
@@ -362,11 +575,13 @@ $(document).ready(function() {
 		var params = new Object();
 		params.projectCode = $("input:radio[name='project_choose']:checked").val();
 		params.orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
+		params.transferDate = $("#transferDate").val();
+		params.orgBefore = $("#orgBefore").val();
 		var selected = $("input:checkbox[name='member_choose']:checked").map(function(i,el) {
 							return $(el).val().split('@')[0];
 						}).get();
 		params.listMember = selected;
-		var data = "task=update&params=" + JSON.stringify(params);
+		var data = "task=updateTransfer&params=" + JSON.stringify(params);
 		$.ajax({
 			   type: "POST",
 			   url: "/ProjectTaps/transferProject.do",
