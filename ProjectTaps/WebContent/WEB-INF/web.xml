@@ -89,6 +89,6 @@
 	</servlet-mapping>
 	<context-param>
 		<param-name>crystal_image_uri</param-name>
-		<param-value>/Report/crystalreportviewers</param-value>
+		<param-value>/ProjectTaps/crystalreportviewers</param-value>
 	</context-param>
 </web-app>
