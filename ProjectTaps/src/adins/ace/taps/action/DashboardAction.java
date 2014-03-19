@@ -89,7 +89,7 @@ public class DashboardAction extends Action {
 		if("updateDetailClaim".equals(dForm.getTask())){
 			PrintWriter out = response.getWriter();
 			ClaimAssignmentBean claimBean = new ClaimAssignmentBean();
-			claimBean.setUpdatedBy("DOMAIN205");
+			claimBean.setUpdatedBy(userDomain);
 			claimBean.setManHours(Double.parseDouble(request.getParameter("manHour")));
 			claimBean.setDetailId(Integer.parseInt(request.getParameter("detailId")));
 			aMan.editDetailClaimAssignment(claimBean);
@@ -202,8 +202,8 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("approvedSelf".equals(dForm.getTask())){
-			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
-			dForm.getClaimBean().setCreatedBy(userDomain);
+			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getAssignTo());
+			dForm.getSelfAssignBean().setCreatedBy(userDomain);
 			String tmpDescription="";
 			String tmpManHours="";
 			tmpDescription = request.getParameter("tmpDescription");
@@ -231,8 +231,8 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("correctionSelf".equals(dForm.getTask())){
-			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
-			dForm.getClaimBean().setCreatedBy(userDomain);
+			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getAssignTo());
+			dForm.getSelfAssignBean().setCreatedBy(userDomain);
 			String tmpDesctiption="";
 			String tmpManHours="";
 			tmpDesctiption = request.getParameter("tmpDescription");
@@ -256,8 +256,8 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rejectSelf".equals(dForm.getTask())){
-			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
-			dForm.getClaimBean().setCreatedBy(userDomain);
+			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getAssignTo());
+			dForm.getSelfAssignBean().setCreatedBy(userDomain);
 			dForm.getSelfAssignBean().setCurrentStatus("REJECTED");
 			aMan.addHistorySelfComment(dForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
