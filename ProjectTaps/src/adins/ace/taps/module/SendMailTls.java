@@ -1,5 +1,7 @@
 package adins.ace.taps.module;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -10,16 +12,40 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import adins.ace.taps.configuration.App;
+
 public class SendMailTls {
-	public SendMailTls(String fromMail, String passwordFromEmail, String toMail, String subject, String contentMail){
-		final String username = fromMail; //isi alamat email
-		final String password = passwordFromEmail; //isi password email
- 
+	public static void SendMail(String toMail, String assignmentType, String phase, 
+			String taskCode, String fromEmployee){
+		final String username = App.getConfiguration("mail.name"); 
+		final String password = App.getConfiguration("mail.password"); 
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+		String date = sdf.format(new Date()); 
+		
+		String subject = assignmentType+" - "+taskCode;
+		String contentMail = "";
+		if (phase.equals("RFA")) {
+			contentMail = assignmentType+" "+taskCode+" has been REQUESTED FOR APPROVAL by "
+					+fromEmployee+" on "+date+"\n\n ";
+		}else{
+			contentMail = assignmentType+" "+taskCode+" has been "+phase+"ED by "
+					+fromEmployee+" on "+date+"\n\n ";
+		}
+		String step = "to complite this task \n"+
+				"1. Review this task on TAPS \n"+
+				"2. Perform the specific activities required for this task\n";
+		if (phase.equalsIgnoreCase("reject") || phase.equalsIgnoreCase("approve")) {
+				
+		}else{
+			contentMail = contentMail+step;
+		}
+		
 		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", App.getConfiguration("mail.smtp.auth"));
+		props.put("mail.smtp.starttls.enable", App.getConfiguration("mail.smtp.starttls.enable"));
+		props.put("mail.smtp.host", App.getConfiguration("mail.smtp.host"));
+		props.put("mail.smtp.port", App.getConfiguration("mail.smtp.port"));
  
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
@@ -42,7 +68,12 @@ public class SendMailTls {
 			System.out.println("Done");
  
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+//			try {
+//				throw new Exception("failed to send message");
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//			}
+			System.out.println("failed to send message");
 		}
 	}
 }

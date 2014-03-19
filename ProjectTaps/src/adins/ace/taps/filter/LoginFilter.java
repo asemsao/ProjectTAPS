@@ -30,7 +30,7 @@ public class LoginFilter implements Filter {
 		HttpSession session = req.getSession();
 
 		if (session.getAttribute("username") == null) {
-			resp.sendRedirect("/ProjectTaps/ACE.do");
+			resp.sendRedirect("/ProjectTaps/login.do");
 		} else {
 			chain.doFilter(request, response);
 		}

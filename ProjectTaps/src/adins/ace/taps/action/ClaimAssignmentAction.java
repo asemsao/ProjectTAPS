@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class ClaimAssignmentAction extends Action {
 	@Override
@@ -61,6 +62,11 @@ public class ClaimAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "RFA", taskCode, aForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);
 			return mapping.findForward("Cancel");
