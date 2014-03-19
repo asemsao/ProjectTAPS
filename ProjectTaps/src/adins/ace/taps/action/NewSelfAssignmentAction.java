@@ -34,44 +34,49 @@ public class NewSelfAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
+		String sessionUserDomain = (String) session.getAttribute("username");
+		String taskCode = (String) session.getAttribute("taskCode");
 		boolean rfa = false;
 		boolean insertToAssignment = false;
 		boolean insertToDetailClaim = false;
+		boolean success = false;
 		// coba pake domain3
 		session.setAttribute("username", "domain3");
 		// nanti dihapus
-		
-		System.out.println(aForm.getNewTask());
+
 		if ("retreiveReportTo".equals(aForm.getNewTask())) {
 			Map param = new HashMap();
 			param.put("userDomain", "domain3");
 			param.put("projectCode", request.getParameter("projectCode"));
-			System.out.println("Params");
-			System.out.println(param);
 			PrintWriter out = response.getWriter();
 			NewAssignmentBean bean = aMan.searchDirectReportProject(param);
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(bean);
 			out.print(json);
-			System.out.println(json);
 			return null;
 		}
 
 		if (aForm.getNewTask() == null) {
-			System.out.println(session.getAttribute("taskCode"));
-			if (session.getAttribute("taskCode") != null) {
+			if (taskCode != null) {
 				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignment((String) session
-								.getAttribute("taskCode")));
+						.searchRecordSelfAssignment(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
 				aForm.setSelfAssignBean(aMan
-						.searchHeadOrganizationCode((String) session
-								.getAttribute("username")));
+						.searchHeadOrganizationCode(sessionUserDomain));
 			}
 			return mapping.findForward("NewSelfAssignment");
 		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
+				session.removeAttribute("taskCode");
+				return mapping.findForward("Cancel");
+			} else if ("delete".equals(aForm.getNewTask())) {
+				success = aMan.deleteAssignment(taskCode);
+				if (success) {
+					session.setAttribute("message", "Success Delete Assignment");
+				} else {
+					session.setAttribute("message", "Failed Delete Assignment");
+				}
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			} else {
@@ -83,8 +88,7 @@ public class NewSelfAssignmentAction extends Action {
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getSelfAssignBean().setOrganizationCode(
-							aMan.searchOrganizationCode((String) session
-									.getAttribute("username")));
+							aMan.searchOrganizationCode(sessionUserDomain));
 					aForm.getSelfAssignBean().setReportTo(
 							aForm.getSelfAssignBean().getHeadUserDomain());
 					aForm.getSelfAssignBean().setProjectCode(null);
@@ -104,10 +108,8 @@ public class NewSelfAssignmentAction extends Action {
 				}
 
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
-				aForm.getSelfAssignBean().setCreatedBy(
-						(String) session.getAttribute("username"));
-				aForm.getSelfAssignBean().setAssignTo(
-						(String) session.getAttribute("username"));
+				aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
+				aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
 				aForm.getSelfAssignBean().setClaimDate(
 						aForm.getSelfAssignBean().getAssignmentDate());
 				if ("save".equals(aForm.getNewTask())) {
@@ -120,11 +122,9 @@ public class NewSelfAssignmentAction extends Action {
 					rfa = true;
 				}
 
-				if (session.getAttribute("taskCode") != null) {
-					aForm.getSelfAssignBean().setTaskCode(
-							(String) session.getAttribute("taskCode"));
-					aForm.getSelfAssignBean().setUpdatedBy(
-							(String) session.getAttribute("username"));
+				if (taskCode != null) {
+					aForm.getSelfAssignBean().setTaskCode(taskCode);
+					aForm.getSelfAssignBean().setUpdatedBy(sessionUserDomain);
 					insertToAssignment = aMan.editSelfAssignment(aForm
 							.getSelfAssignBean());
 					insertToDetailClaim = aMan.editDetailClaim(aForm
@@ -152,8 +152,6 @@ public class NewSelfAssignmentAction extends Action {
 					}
 				}
 
-				System.out.println(insertToAssignment + " "
-						+ insertToDetailClaim);
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}

@@ -804,10 +804,17 @@ public class AssignmentManager {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.deleteClaim", taskCode);
 			ibatisSQLMap.update("assignment.deleteAssignment", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (SQLException e1) {
+				System.out.println("failed to end transaction");
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			try {
@@ -819,25 +826,6 @@ public class AssignmentManager {
 		return success;
 	}
 
-	public boolean deleteClaim(String taskCode) {
-		boolean success = true;
-		try {
-			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.update("assignment.deleteClaim", taskCode);
-			ibatisSQLMap.commitTransaction();
-		} catch (SQLException e) {
-			success = false;
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return success;
-	}
-	
 	/******email employee assignment*******/
 	public ClaimAssignmentBean emailToSupervisorAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();

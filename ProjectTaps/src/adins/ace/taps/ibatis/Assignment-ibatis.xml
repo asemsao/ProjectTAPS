@@ -1105,17 +1105,17 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
-	<delete id="deleteAssignment" parameterClass="java.lang.String">
+	<update id="deleteAssignment" parameterClass="java.lang.String">
 		UPDATE   assignments
 		   SET   current_status = 'DELETED'
 		 WHERE   UPPER (task_code) = UPPER (#task_code#) AND current_status = 'DRAFT'
-	</delete>
+	</update>
 	
-	<delete id="deleteClaim" parameterClass="java.lang.String">
-		UPDATE   detail_claim_assignment
+	<update id="deleteClaim" parameterClass="java.lang.String">
+		UPDATE   detail_claim_assignments
 		   SET   flag = 'INACTIVE'
 		 WHERE   UPPER (task_code) = UPPER (#task_code#)
-	</delete>
+	</update>
 
 	<select id="emailToSupervisorAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
 		parameterClass="java.util.Map">
