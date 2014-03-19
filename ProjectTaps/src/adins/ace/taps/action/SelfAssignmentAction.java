@@ -20,6 +20,7 @@ import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class SelfAssignmentAction extends Action {
 	@Override
@@ -57,6 +58,11 @@ public class SelfAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "RFA", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);
 			return mapping.findForward("Cancel");

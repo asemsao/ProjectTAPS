@@ -1,5 +1,8 @@
 package adins.ace.taps.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class ClaimSupervisorAssignmentAction extends Action {
 	@Override
@@ -27,7 +31,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo("domain10");
 		aForm.getClaimBean().setCreatedBy("DOMAIN205");
-
+		
 		if ("approved".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("APPROVED");
 			aMan.addHistoryComment(aForm.getClaimBean());
@@ -41,6 +45,11 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			//update table star
 			aForm.getClaimBean().setStarBefore(0);
 			aMan.addAssignmentStar(aForm.getClaimBean());
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "APPROVE", taskCode, aForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(aForm.getTask())) {
@@ -53,6 +62,11 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "CORRECT", taskCode, aForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(aForm.getTask())) {
@@ -65,6 +79,11 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "REJECT", taskCode, aForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(aForm.getTask())) {

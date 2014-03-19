@@ -115,7 +115,7 @@
 			<forward name="Correction" path="/WEB-INF/jsp/dashboard/correction.jsp"></forward>
 			<forward name="CorrectionSelf" path="/WEB-INF/jsp/dashboard/self_correction.jsp"></forward>
 		</action>
-		<action name="loginForm" path="/ACE" scope="request"
+		<action name="loginForm" path="/login" scope="request"
 			type="adins.ace.taps.action.LoginAction">
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="Dashboard" path="/dashboard.do" />
