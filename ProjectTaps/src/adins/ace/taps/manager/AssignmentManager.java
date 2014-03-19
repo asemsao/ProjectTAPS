@@ -8,6 +8,7 @@ import java.util.Map;
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.bean.employee.NewSelfAssignmentBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -589,6 +590,26 @@ public class AssignmentManager {
 		return success;
 	}
 
+	public boolean addDetailClaimAssignment(ClaimAssignmentBean bean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.insert("assignment.addDetailClaimAssignment", bean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out.println("Failed to add detail claim assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
 	public boolean addHistoryComment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -628,6 +649,7 @@ public class AssignmentManager {
 	}
 
 	public boolean updateStatus(Map paramStatus) {
+		System.out.println(paramStatus);
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();

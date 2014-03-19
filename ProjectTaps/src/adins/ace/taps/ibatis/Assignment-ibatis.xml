@@ -620,6 +620,7 @@
 		         a.assign_to AS assignTo,
 		         e.first_name || ' ' || e.last_name AS assignToFullName,
 		         a.report_to AS reportTo,
+		         e2.first_name || ' ' || e2.last_name AS reportToFullName,
 		         o.organization_code AS organizationCode,
 		         o.organization_name AS organizationName,
 		         mgr.first_name || ' ' || mgr.last_name AS headUserName,
@@ -633,10 +634,12 @@
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
+		         employees e2,
 		         employees mgr,
 		         projects p
 		 WHERE       a.task_code = #taskCode#
 		         AND a.assign_to = e.user_domain
+		         AND a.report_to = e2.user_domain
 		         AND e.organization_code = o.organization_code
 		         AND o.head_user_domain = mgr.user_domain
 		         AND a.project_code = p.project_code(+)
@@ -770,7 +773,26 @@
 		            SYSDATE,
 		            'ACTIVE')
 	</insert>
-
+	
+	<insert id="addDetailClaimAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
+		INSERT INTO detail_claim_assignments (detail_id,
+		                                      task_code,
+		                                      claim_date,
+		                                      manhour,
+		                                      description,
+		                                      created_by,
+		                                      created_date,
+		                                      flag)
+		  VALUES   (SEQUENCE_CLAIMS.NEXTVAL,
+		            #taskCode#,
+		            #claimDate#,
+		            #manHours#,
+		            #detailDescription#,
+		            #createdBy#,
+		            SYSDATE,
+		            'ACTIVE')
+	</insert>
+	
 	<update id="editClaimSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		UPDATE   detail_claim_assignments
 		   SET   manhour = #manHours#,
