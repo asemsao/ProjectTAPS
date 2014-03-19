@@ -30,14 +30,15 @@ public class ClaimAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo("domain10");
-		aForm.getClaimBean().setCreatedBy("DOMAIN205");
+		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		
 		if("updateDetailClaim".equals(aForm.getTask())){
 			PrintWriter out = response.getWriter();
 			ClaimAssignmentBean bean = new ClaimAssignmentBean();
-			bean.setUpdatedBy("DOMAIN205");
+			bean.setUpdatedBy(sessionUserDomain);
 			bean.setManHours(Double.parseDouble(request.getParameter("manHour")));
 			bean.setDetailId(Integer.parseInt(request.getParameter("detailId")));
 			aMan.editDetailClaimAssignment(bean);
@@ -58,7 +59,7 @@ public class ClaimAssignmentAction extends Action {
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);

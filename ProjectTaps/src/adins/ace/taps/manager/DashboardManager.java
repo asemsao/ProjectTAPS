@@ -19,7 +19,6 @@ public class DashboardManager {
 	}
 
 	public List<DashboardBean> searchTopTen(Map params) {
-		System.out.println(params);
 		List<DashboardBean> list = new ArrayList<DashboardBean>();
 		try {
 			ibatisSQLMap.startTransaction();
@@ -34,12 +33,10 @@ public class DashboardManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(list);
 		return list;
 	}
 
 	public List<DashboardBean> searchTopTenOrganization(Map params) {
-		System.out.println(params);
 		List<DashboardBean> list = new ArrayList<DashboardBean>();
 		try {
 			ibatisSQLMap.startTransaction();
@@ -55,7 +52,6 @@ public class DashboardManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(list);
 		return list;
 	}
 

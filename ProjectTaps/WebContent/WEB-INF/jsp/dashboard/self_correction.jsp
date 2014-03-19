@@ -39,6 +39,8 @@
 					<html:hidden property="selfAssignBean.taskCode"
 						name="dashboardForm" styleId="task-code" />
 					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="selfAssignBean.assignTo"
+						name="dashboardForm" />
 					<html:hidden property="selfAssignBean.reportTo"
 						name="dashboardForm" />
 					<input type="hidden" name="tmpDescription"
@@ -96,7 +98,7 @@
 								}
 							%>
 							<tr>
-								<td>Activty Type</td>
+								<td>Activity Type</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.activityType"
 										name="dashboardForm" /></td>

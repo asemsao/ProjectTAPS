@@ -100,7 +100,7 @@
 								}
 							%>
 							<tr>
-								<td>Activty Type</td>
+								<td>Activity Type</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.activityType"
 										name="dashboardForm" /></td>
@@ -216,11 +216,9 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-										<p>&nbsp;Your current value : 0 &nbsp;</p>
-										<html:hidden property="selfAssignBean.appraisalStar"
-											styleId="star" name="dashboardForm" />
-										<button id="edit-star-btn" class="default"
-											style="display: none;">Edit</button>
+										<p></p>
+										<html:hidden property="claimBean.appraisalStar" styleId="star" />
+										<button type="button" id="edit-star-btn" class="default">Edit</button>
 									</div>
 								</td>
 							</tr>
@@ -233,11 +231,11 @@
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right">
-									<button onclick="javascript:flyToPage('approved');"
+									<button onclick="javascript:flyToPage('approvedSelf');"
 										class="button success">Approve</button>
-									<button onclick="javascript:flyToPage('correction');"
+									<button onclick="javascript:flyToPage('correctionSelf');"
 										class="button warning">Correction</button>
-									<button onclick="javascript:flyToPage('reject');"
+									<button onclick="javascript:flyToPage('rejectSelf');"
 										class="button danger">Reject</button>
 									<button onclick="javascript:flyToPage('cancel');"
 										class="button info">Cancel</button>

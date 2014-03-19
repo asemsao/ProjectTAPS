@@ -31,9 +31,10 @@ public class SelfAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo("domain10");
-		sForm.getSelfAssignBean().setCreatedBy("DOMAIN205");
+		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
@@ -54,7 +55,7 @@ public class SelfAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
