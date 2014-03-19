@@ -46,7 +46,7 @@ public class DashboardAction extends Action {
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
 
-		String userDomain = "domain3";
+		String userDomain = "DOMAIN205";
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			aMan.updateFlag(dForm.getTaskCode());
@@ -311,7 +311,7 @@ public class DashboardAction extends Action {
 		params.put("userDomain", userDomain);
 
 		if ("approvalDashboard".equals(dForm.getTask())) {
-			params.put("userDomain", "DOMAIN205");
+//			params.put("userDomain", "DOMAIN205");
 			session.setAttribute("listDashboard", "approvalDashboard");
 			dForm.setListAssignment(dMan.searchListApproval(params));
 			dForm.setCountRecord(dMan.countListApproval(params));
@@ -323,7 +323,7 @@ public class DashboardAction extends Action {
 		}
 		if ("approvalSelfDashboard".equals(dForm.getTask())) {
 			session.setAttribute("listDashboard", "approvalSelfDashboard");
-			params.put("userDomain", "DOMAIN205");
+//			params.put("userDomain", "DOMAIN205");
 			dForm.setListAssignment(dMan.searchListApprovalSelf(params));
 			dForm.setCountRecord(dMan.countListApprovalSelf(params));
 		}
