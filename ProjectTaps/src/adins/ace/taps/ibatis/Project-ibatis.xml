@@ -43,14 +43,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="organization">
-						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
-						FROM
-						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
-						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
-						('%$keyword$%'))))
+						LOWER(p.organization_code) LIKE LOWER ('%$keyword$%')
 					</isEqual>
 					<isEqual property="category" compareValue="all">
-						(
 						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
 						OR
 						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
@@ -59,12 +54,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						OR
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 						OR
-						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
-						FROM
-						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
-						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
-						('%$keyword$%'))))
-						)
+						(LOWER(p.organization_code) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -98,14 +88,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 					<isEqual property="category" compareValue="organization">
-						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
-						FROM
-						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
-						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
-						('%$keyword$%'))))
+						LOWER(p.organization_code) LIKE LOWER ('%$keyword$%')
 					</isEqual>
 					<isEqual property="category" compareValue="all">
-						(
 						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
 						OR
 						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
@@ -114,12 +99,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						OR
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 						OR
-						(LOWER(p.organization_code) IN LOWER((SELECT oo.organization_code
-						FROM
-						organizations oo WHERE LOWER(oo.organization_name) LIKE LOWER
-						('%$keyword$%') OR LOWER(oo.organization_code) LIKE LOWER
-						('%$keyword$%'))))
-						)
+						(LOWER(p.organization_code) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -398,4 +378,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         	'domain100',
         	sysdate)
 	</insert>
+	
+	<update id="updateAllAssStatus" parameterClass="java.lang.String">
+		UPDATE assignments
+		SET 
+    		current_status = 'DELETED'
+		WHERE 
+	    	project_code = #projectCode#
+	    	AND NOT current_status IN ('APPROVED','REJECTED')
+	</update>
+	
 </sqlMap>

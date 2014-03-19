@@ -32,7 +32,7 @@ public class SendMailTls {
 			contentMail = assignmentType+" "+taskCode+" has been "+phase+"ED by "
 					+fromEmployee+" on "+date+"\n\n ";
 		}
-		String step = "to complite this task \n"+
+		String step = "to complete this task \n"+
 				"1. Review this task on TAPS \n"+
 				"2. Perform the specific activities required for this task\n";
 		if (phase.equalsIgnoreCase("reject") || phase.equalsIgnoreCase("approve")) {

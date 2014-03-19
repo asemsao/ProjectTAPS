@@ -37,6 +37,31 @@
 			}
 		}
 	}
+
+	function setReportTo() {
+		var project_code = $("#project-code").val();
+		var data = "newTask=retreiveReportTo&projectCode=" + project_code;
+		$.ajax({
+			url : "/ProjectTaps/newSelfAssignment.do",
+			type : "POST",
+			data : data,
+			context : this,
+			error : function() {
+				console.log("problem was here!");
+			},
+			success : function(data) {
+				var json = $.parseJSON(data);
+				if(json == null){
+					$("#employee-domain").val("");
+					$("#employee-name").val("");
+				}else{
+					$("#employee-domain").val(json.reportTo);
+					$("#employee-name").val(json.reportToFullName);
+				}
+				
+			}
+		});
+	}
 	$(document)
 			.ready(
 					function() {
@@ -63,6 +88,7 @@
 								.bind(
 										"change",
 										function() {
+											setReportTo();
 											var project_code = $(
 													"#project-code").val();
 											$("#lookUpEmployeeOnProject").html(
@@ -71,9 +97,7 @@
 													.load(
 															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
 																	+ project_code);
-											$("#employee-name").val("");
-											$("#employee-fullName").val("");
-											$("#employee-domain").val("");
+
 										});
 						$("input[name='assignment_type']")
 								.change(
@@ -89,11 +113,13 @@
 											}
 										});
 
-						$("#assignmentDate").attr("placeholder", "Assignment Date");
+						$("#assignmentDate").attr("placeholder",
+								"Assignment Date");
 						$("#project-name").attr("placeholder", "Project");
 						$("#employee-name").attr("placeholder", "Employee");
 						$("#employee-name-2").attr("placeholder", "Employee");
-						$("#assignment-code").attr("placeholder", "Reff Task Code");
+						$("#assignment-code").attr("placeholder",
+								"Reff Task Code");
 						$("#description").attr("placeholder", "Description");
 					});
 </script>
@@ -206,8 +232,9 @@
 									<div class="input-control text">
 										<html:hidden property="selfAssignBean.adhocUserDomain"
 											name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:text property="selfAssignBean.adhocFullName" readonly="true"
-											name="selfAssignmentForm" styleId="employee-name-2" />
+										<html:text property="selfAssignBean.adhocFullName"
+											readonly="true" name="selfAssignmentForm"
+											styleId="employee-name-2" />
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
@@ -216,8 +243,9 @@
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.reffTaskCode" readonly="true"
-											name="selfAssignmentForm" styleId="assignment-code"></html:text>
+										<html:text property="selfAssignBean.reffTaskCode"
+											readonly="true" name="selfAssignmentForm"
+											styleId="assignment-code"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
@@ -285,7 +313,8 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
+										name="selfAssignmentForm" styleClass="input-control textarea"
+										styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">

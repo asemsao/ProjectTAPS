@@ -92,7 +92,7 @@
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
-<body class="metro" onload="javascript:checkRadioButtonValue();">
+<body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/newAssignment" method="POST"
 		styleId="newAssignment">
@@ -203,6 +203,7 @@
 								<td colspan=3 class="text-right">
 									<button onclick="flyToPage('save')" class="button success">Save</button>
 									<button onclick="flyToPage('assign')" class="button success">Assign</button>
+									<button onclick="flyToPage('delete')" class="button danger">Delete</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>

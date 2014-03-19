@@ -104,7 +104,6 @@ public class EmployeeAction extends Action {
 					.getRealPath("/");
 			PhotoResizeModule resizePhoto = new PhotoResizeModule();
 			if (!mForm.getProfilePicture().getFileName().equals("")) {
-				System.out.println("a");
 				filePathUpload = filePathUpload + "upload";
 				FormFile filepic = mForm.getProfilePicture();
 				byte[] result = resizePhoto.setResizePhoto(filepic,
@@ -112,7 +111,6 @@ public class EmployeeAction extends Action {
 				mForm.getNewEmployee().setProfilePicture(result);
 			}
 			else {
-				System.out.println("b");
 				filePathUpload = filePathUpload + "/images/user.png";
 				File a = new File(filePathUpload);
 				FileInputStream fis = new FileInputStream(a);
