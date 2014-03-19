@@ -300,10 +300,11 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
+
 										<p class="star"></p>
-										<html:hidden property="selfAssignBean.appraisalStar" styleId="star" name="selfAssignmentForm"/>
-										<button id="edit-star-btn" class="default"
-											style="display: none;">Edit</button>
+										<html:hidden property="claimBean.appraisalStar" styleId="star" />
+										<button type="button" id="edit-star-btn" class="default">Edit</button>
+
 									</div>
 								</td>
 							</tr>	

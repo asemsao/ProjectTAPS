@@ -60,6 +60,9 @@
 			<forward name="Back" path="/WEB-INF/jsp/report/index.jsp" />
 			<forward name="View" path="/WEB-INF/jsp/report/view.jsp" />
 			<forward name="ViewLevel2" path="/WEB-INF/jsp/report/viewLevel2.jsp" />
+			<forward name="PrintReportDept" path="/Dept.jsp" />
+			<forward name="PrintReportBU" path="/BU.jsp" />
+			<forward name="PrintReportBOM" path="/Management.jsp" />
 		</action>
 		<action name="organizationForm" path="/organization" scope="request"
 			type="adins.ace.taps.action.OrganizationAction">
@@ -79,8 +82,8 @@
 		<action name="manageRoleForm" path="/manageRole" scope="request"
 			type="adins.ace.taps.action.ManageRoleAction">
 			<forward name="Dashboard" path="/dashboard.do" />
-			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/employeeRole/index.jsp" />
-			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/employeeRole/detail.jsp" />
+			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/index.jsp" />
+			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
 		</action>
 		
 		<action name="specialAppraisalForm" path="/specialAppraisal"
@@ -103,7 +106,7 @@
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
-			<forward name="ManageRole" path="/employeeRole.do" />
+			<forward name="ManageRole" path="/manageRole.do" />
 		</action>
 		<action name="dashboardForm" path="/dashboard" scope="request"
 			type="adins.ace.taps.action.DashboardAction">
@@ -115,7 +118,7 @@
 			<forward name="Correction" path="/WEB-INF/jsp/dashboard/correction.jsp"></forward>
 			<forward name="CorrectionSelf" path="/WEB-INF/jsp/dashboard/self_correction.jsp"></forward>
 		</action>
-		<action name="loginForm" path="/ACE" scope="request"
+		<action name="loginForm" path="/login" scope="request"
 			type="adins.ace.taps.action.LoginAction">
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="Dashboard" path="/dashboard.do" />

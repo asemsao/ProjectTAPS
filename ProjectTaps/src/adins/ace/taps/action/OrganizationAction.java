@@ -134,6 +134,7 @@ public class OrganizationAction extends Action {
 			int temp = 0;
 
 			orgForm.setMode("structure");
+			orgForm.setSearchKeyword("");
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll(" ", "")));
 			params.put("organization_code", orgForm.getOrganizationCode()

@@ -99,6 +99,16 @@ public class ReportAction extends Action {
 			
 		}
 		
+		if ("printReportDept".equals(rForm.getTask())) {
+			return mapping.findForward("PrintReportDept");
+		}
+		if ("printReportBU".equals(rForm.getTask())) {
+			return mapping.findForward("PrintReportBU");
+		}
+		if ("printReportBOM".equals(rForm.getTask())) {
+			return mapping.findForward("PrintReportBOM");
+		}
+		
 		return mapping.findForward("Back");
 	}
 }

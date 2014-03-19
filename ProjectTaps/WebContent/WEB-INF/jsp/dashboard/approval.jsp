@@ -281,6 +281,7 @@
 					</table>
 					<html:hidden property="task" name="dashboardForm" />
 					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
+					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

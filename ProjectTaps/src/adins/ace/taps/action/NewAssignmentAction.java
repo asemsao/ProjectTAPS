@@ -3,6 +3,8 @@ package adins.ace.taps.action;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import adins.ace.taps.bean.assignment.NewAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.NewAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class NewAssignmentAction extends Action {
 	@Override
@@ -26,18 +29,20 @@ public class NewAssignmentAction extends Action {
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
+		String userDomain = (String) session.getAttribute("username");
+		String taskCode = (String) session.getAttribute("taskCode");
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		boolean success = false;
-		//coba pake domain3
-		session.setAttribute("username", "DOMAIN205");
-		//nanti dihapus
-		
+		boolean assign = false;
+
+		// coba pake domain
+		userDomain = "DOMAIN205";
+		// nanti dihapus
+
 		if (aForm.getNewTask() == null) {
-			if (session.getAttribute("taskCode") != null) {
-				aForm.setAssignmentBean(aMan
-						.searchRecordAssignment((String) session
-								.getAttribute("taskCode")));
+			if (taskCode != null) {
+				aForm.setAssignmentBean(aMan.searchRecordAssignment(taskCode));
 				return mapping.findForward("EditAssignment");
 			}
 			return mapping.findForward("NewAssignment");
@@ -45,46 +50,67 @@ public class NewAssignmentAction extends Action {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
+			} else if ("delete".equals(aForm.getNewTask())) {
+				success = aMan.deleteAssignment(taskCode);
+				if (success) {
+					session.setAttribute("message", "Success Delete Assignment");
+				} else {
+					session.setAttribute("message", "Failed Delete Assignment");
+				}
+				session.removeAttribute("taskCode");
+				return mapping.findForward("Cancel");
 			} else {
 				aForm.getAssignmentBean().setAssignmentType(
 						aForm.getAssignmentType());
-				aForm.getAssignmentBean().setReportTo((String) session.getAttribute("username"));
+				aForm.getAssignmentBean().setReportTo(userDomain);
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(
-							aMan.searchOrganizationCode((String) session.getAttribute("username")));
+							aMan.searchOrganizationCode(userDomain));
 					aForm.getAssignmentBean().setProjectCode(null);
 					paramCode = aForm.getAssignmentBean().getOrganizationCode()
 							+ dateFormat.format(date);
-					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
+					paramCode = paramCode
+							+ aMan.getMaxTaskCodeOrganization(paramCode);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode()
 							+ dateFormat.format(date);
-					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
+					paramCode = paramCode
+							+ aMan.getMaxTaskCodeProject(paramCode);
 				}
-				
+
 				aForm.getAssignmentBean().setTaskCode(paramCode);
-				aForm.getAssignmentBean().setCreatedBy((String) session.getAttribute("username"));
+				aForm.getAssignmentBean().setCreatedBy(userDomain);
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
 				} else if ("assign".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("CLAIM");
 					aForm.getAssignmentBean().setFlag("INACTIVE");
+
+					/* checking assign an assignment */
+					assign = true;
 				}
 
-				if (session.getAttribute("taskCode") != null) {
-					aForm.getAssignmentBean().setTaskCode(
-							(String) session.getAttribute("taskCode"));
-					aForm.getAssignmentBean().setUpdatedBy((String) session.getAttribute("username"));
+				if (taskCode != null) {
+					aForm.getAssignmentBean().setTaskCode(taskCode);
+					aForm.getAssignmentBean().setUpdatedBy(userDomain);
 					success = aMan.editAssignment(aForm.getAssignmentBean());
 				} else {
 					success = aMan.addAssignment(aForm.getAssignmentBean());
 				}
 
 				if (success) {
-					session.setAttribute("message",
-							"Create Assignment Success!");
+					session.setAttribute("message", "Create Assignment Success!");
+
+					/* sending notification on email */
+					if (assign) {
+						Map paramStatus = new HashMap();
+						paramStatus.put("updatedBy", aForm.getAssignmentBean().getReportTo());
+						paramStatus.put("taskCode", aForm.getAssignmentBean().getTaskCode());
+						aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
+						SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "ASSIGN",aForm.getAssignmentBean().getTaskCode(), aForm.getClaimBean().getSenderName());
+					}
 				} else {
 					session.setAttribute("message", "Create Assignment Failed!");
 				}

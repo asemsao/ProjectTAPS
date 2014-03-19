@@ -37,6 +37,11 @@
 							$(".pr").hide();
 							$("#bu").show();
 						}
+						if ($("#activityType").val() == 'ADHOC'){
+							$(".adhoc").show();
+						}else{
+							$(".adhoc").hide();
+						}
 						
 						var project_code = $("#project-code").val();
 						var organization_code = $("#organization-code-view")
@@ -273,13 +278,11 @@
 										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=3 class="text-right"><html:button
-										property="save" onclick="javascript:flyToPage('save');"
-										styleClass="button success">Save</html:button> <html:button
-										property="assign" onclick="javascript:flyToPage('RFA');"
-										styleClass="button success">RFA</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan=3 class="text-right">
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('RFA')" class="button success">RFA</button>
+									<button onclick="flyToPage('delete')" class="button danger">Delete</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 							</tr>
 						</tbody>
 					</table>

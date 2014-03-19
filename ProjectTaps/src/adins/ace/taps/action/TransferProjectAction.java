@@ -29,6 +29,7 @@ import adins.ace.taps.bean.project.StructureProjectBean;
 import adins.ace.taps.form.project.TransferProjectForm;
 import adins.ace.taps.manager.OrganizationManager;
 import adins.ace.taps.manager.TransferProjectManager;
+import adins.ace.taps.module.ExtractPhoto;
 
 public class TransferProjectAction extends Action {
 	@Override
@@ -120,7 +121,7 @@ public class TransferProjectAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getAssigneePhoto();
 					if (buffer == null) {
-						buffer = extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -160,7 +161,7 @@ public class TransferProjectAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getDirectReportPhoto();
 					if (buffer == null) {
-						buffer = extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -257,13 +258,5 @@ public class TransferProjectAction extends Action {
 		return mapping.findForward("ListTransferProject");
 	}
 	
-	public byte[] extractBytes(String ImageName) throws IOException {
-		File fnew = null;
-		fnew = new File(ImageName);
-		BufferedImage bufferedImage = ImageIO.read(fnew);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(bufferedImage, "png", baos);
-		byte[] res = baos.toByteArray();
-		return res;
-	}
+	
 }

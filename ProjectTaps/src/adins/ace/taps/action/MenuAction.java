@@ -3,6 +3,15 @@
 
 package adins.ace.taps.action;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.*;
 
 import org.apache.struts.action.Action;
@@ -10,7 +19,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.form.menu.MenuForm;
+import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.manager.DashboardManager;
+import adins.ace.taps.module.ExtractPhoto;
 
 public class MenuAction extends Action {
 	@Override
