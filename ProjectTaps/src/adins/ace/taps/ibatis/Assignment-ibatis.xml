@@ -1114,7 +1114,7 @@
 		where task_code=#taskCode#)
 	</select>
 	
-	<select id="searchDirectReportProject">
+	<select id="searchDirectReportProject" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" parameterClass="java.util.Map">
 		SELECT   ps.directreport_user_domain AS reportTo,
 		         e.first_name || ' ' || e.last_name AS reportToFullName
 		  FROM   project_structures ps, employees e
