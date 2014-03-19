@@ -59,7 +59,7 @@
 					<%} %>
 					</ul>
 					<ul class="element-menu place-right">
-						<li><button class="element image-button image-left">
+						<li><button class="element image-button image-left"><img src="<%=session.getAttribute("pathPhoto")%>" />
 								<%=session.getAttribute("fullname") %>
 							</button></li>
 						<li><a title="Logout" href="javascript:menu('logout');"

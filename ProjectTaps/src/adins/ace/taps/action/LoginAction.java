@@ -3,8 +3,12 @@
 
 package adins.ace.taps.action;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.*;
 
 import org.apache.struts.action.Action;
@@ -12,9 +16,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.form.login.LoginForm;
+import adins.ace.taps.manager.DashboardManager;
 import adins.ace.taps.manager.LoginManager;
+import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.LoginModule;
 
 public class LoginAction extends Action {
@@ -27,6 +34,8 @@ public class LoginAction extends Action {
 		LoginManager lMan = new LoginManager();
 		LoginModule loginAuth = new LoginModule();
 		HttpSession session = request.getSession(true);
+		DashboardManager dMan = new DashboardManager();
+		DashboardBean bean = new DashboardBean();
 		
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
@@ -61,6 +70,24 @@ public class LoginAction extends Action {
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
+					
+					/*set image for header*/
+					bean = dMan.getPhotoEmployees(username);
+					try {
+						response.setContentType("image/*");
+						byte[] buffer = bean.getProfilePicture();
+						if (buffer == null) {
+							buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+						}
+								
+						BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer));  
+						File newFile = new File(getServlet().getServletContext().getRealPath("/")+"images/"+username+"_image.png");
+						ImageIO.write(image, "png", newFile);  
+						session.setAttribute("pathPhoto", "images/"+username+"_image.png");
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 					return mapping.findForward("Dashboard");
 				} else {
 					return mapping.findForward("Welcome");
