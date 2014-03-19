@@ -89,6 +89,9 @@ public class ProjectAction extends Action {
 		if ("deleteProject".equals(pForm.getTask())) {
 			if(pMan.deleteProject(pForm.getParamProjectCode()))
 			{
+				//update table assignments
+				pMan.updateAllAssStatus(pForm.getParamProjectCode());
+				
 				pForm.setMessage("Deleted Successfully");
 			}
 			else

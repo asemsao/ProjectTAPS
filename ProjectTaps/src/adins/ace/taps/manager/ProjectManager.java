@@ -411,4 +411,26 @@ public class ProjectManager {
 			}
 		}
 	}
+	
+	public void updateAllAssStatus(String code)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.updateAllAssStatus",code);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
