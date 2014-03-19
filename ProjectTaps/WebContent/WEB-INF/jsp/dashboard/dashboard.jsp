@@ -1,3 +1,5 @@
+<%@page import="adins.ace.taps.bean.module.RoleBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -33,6 +35,10 @@
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
 					<div class="span9 center-taps">
+					<%List<RoleBean> roleList = (List) session.getAttribute("role");
+						for (int i = 0; i < roleList.size(); i++) {
+							if (roleList.get(i).getRoleId().equals("spv")) {
+					%>
 						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
 							data-hint="Approval Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-link"> <span
@@ -52,6 +58,10 @@
 								class="badge bg-gray"><span id="rfa-s"> <bean:write
 											property="totalRFAself" name="dashboardForm" /></span></span>
 						</span>
+					<%	
+						}
+					}%>
+						
 						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');"
 							data-hint="Claim Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="claim-link"> <span
