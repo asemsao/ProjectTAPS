@@ -23,8 +23,6 @@
 		
 		
 		viewReport(report, request, response, session);
-
-	        //viewReport(report, request, response, session);
 	      } finally {
 	        report.close();
 	        report.dispose();

@@ -39,6 +39,8 @@
 					<html:hidden property="selfAssignBean.taskCode"
 						name="dashboardForm" styleId="task-code" />
 					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="selfAssignBean.reportTo"
+						name="dashboardForm" />
 					<input type="hidden" name="tmpDescription"
 						value="<bean:write 
 				property="selfAssignBean.description" name="dashboardForm" />" />
@@ -188,7 +190,7 @@
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right"><html:button
-										property="assign" onclick="javascript:flyToPage('rfa')"
+										property="assign" onclick="javascript:flyToPage('rfaSelf')"
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel" onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
@@ -202,7 +204,5 @@
 	</div>
 
 	<jsp:include page="/frame/footer.jsp" />
-	<%-- 	<div id="popup_updatestar" class="hide"><jsp:include --%>
-	<%-- 			page="../lookup/_approve.jsp" /></div> --%>
 </body>
 </html>

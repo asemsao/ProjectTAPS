@@ -48,6 +48,8 @@
 				property="selfAssignBean.manHours" name="dashboardForm" />" />
 					<html:hidden property="selfAssignBean.assignTo"
 						name="dashboardForm" />
+					<html:hidden property="selfAssignBean.reportTo"
+						name="dashboardForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -250,7 +252,5 @@
 	</div>
 
 	<jsp:include page="/frame/footer.jsp" />
-	<%-- 	<div id="popup_updatestar" class="hide"><jsp:include --%>
-	<%-- 			page="../lookup/_approve.jsp" /></div> --%>
 </body>
 </html>
