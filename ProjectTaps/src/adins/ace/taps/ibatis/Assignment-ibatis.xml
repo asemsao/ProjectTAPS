@@ -122,7 +122,7 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			  SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			  SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY') AS assignmentDate,
 			           a.task_code AS assignmentCode,
 			           a.assignment_category AS assignmentCategory,
 			           e.first_name || ' ' || e.last_name AS fullName,
@@ -241,7 +241,7 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY') AS assignmentDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
@@ -364,7 +364,7 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY') AS assignmentDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
