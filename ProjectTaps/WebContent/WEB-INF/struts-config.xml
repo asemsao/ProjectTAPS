@@ -4,7 +4,7 @@
 <struts-config>
 
 	<form-beans>
-		<form-bean name="employeeRoleForm" type="adins.ace.taps.form.employeeRole.EmployeeRoleForm" />
+		<form-bean name="manageRoleForm" type="adins.ace.taps.form.manageRole.ManageRoleForm" />
 		<form-bean name="projectForm" type="adins.ace.taps.form.project.ProjectForm" />
 		<form-bean name="transferProjectForm" type="adins.ace.taps.form.project.TransferProjectForm" />
 		<form-bean name="reportForm" type="adins.ace.taps.form.report.ReportForm" />
@@ -38,6 +38,7 @@
 			<forward name="employeesOnProject" path="/WEB-INF/jsp/ajax/employeesOnProject.jsp" />
 			<forward name="employeesOnOrganization" path="/WEB-INF/jsp/ajax/employeesOnOrganization.jsp" />
 			<forward name="comments" path="/WEB-INF/jsp/ajax/comments.jsp" />
+			<forward name="deleteEmployee" path="/WEB-INF/jsp/ajax/deleteEmployee.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
@@ -75,11 +76,11 @@
 			<forward name="ListEmployee" path="/WEB-INF/jsp/employee/index.jsp" />
 		</action>
 		
-		<action name="employeeRoleForm" path="/employeeRole" scope="request"
-			type="adins.ace.taps.action.EmployeeRoleAction">
+		<action name="manageRoleForm" path="/manageRole" scope="request"
+			type="adins.ace.taps.action.ManageRoleAction">
 			<forward name="Dashboard" path="/dashboard.do" />
-			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/employeeRole/index.jsp" />
-			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/employeeRole/detail.jsp" />
+			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/index.jsp" />
+			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
 		</action>
 		
 		<action name="specialAppraisalForm" path="/specialAppraisal"
@@ -102,15 +103,19 @@
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
-			<forward name="ManageRole" path="/employeeRole.do" />
+			<forward name="ManageRole" path="/manageRole.do" />
 		</action>
 		<action name="dashboardForm" path="/dashboard" scope="request"
 			type="adins.ace.taps.action.DashboardAction">
 			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard/dashboard.jsp" />
 			<forward name="ListAssignment" path="/WEB-INF/jsp/dashboard/list.jsp" />
 			<forward name="Claim" path="/WEB-INF/jsp/dashboard/claim.jsp"></forward>
+			<forward name="Approval" path="/WEB-INF/jsp/dashboard/approval.jsp"></forward>
+			<forward name="ApprovalSelf" path="/WEB-INF/jsp/dashboard/self_approval.jsp"></forward>
+			<forward name="Correction" path="/WEB-INF/jsp/dashboard/correction.jsp"></forward>
+			<forward name="CorrectionSelf" path="/WEB-INF/jsp/dashboard/self_correction.jsp"></forward>
 		</action>
-		<action name="loginForm" path="/ACE" scope="request"
+		<action name="loginForm" path="/login" scope="request"
 			type="adins.ace.taps.action.LoginAction">
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="Dashboard" path="/dashboard.do" />

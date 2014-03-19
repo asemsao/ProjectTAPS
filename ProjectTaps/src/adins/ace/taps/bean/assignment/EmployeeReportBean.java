@@ -11,6 +11,14 @@ public class EmployeeReportBean implements Serializable{
 	private String assignmentDueDate;
 	private String createdDate;
 	private String currentStatus;
+	private String flag;
+	
+	public String getFlag() {
+		return flag;
+	}
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 	public String getAssignmentDate() {
 		return assignmentDate;
 	}

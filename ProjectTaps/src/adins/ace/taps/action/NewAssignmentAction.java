@@ -34,6 +34,10 @@ public class NewAssignmentAction extends Action {
 		boolean success = false;
 		boolean assign = false;
 
+		//coba pake domain3
+		session.setAttribute("username", "DOMAIN205");
+		//nanti dihapus
+		
 		if (aForm.getNewTask() == null) {
 			if (session.getAttribute("taskCode") != null) {
 				aForm.setAssignmentBean(aMan
@@ -49,22 +53,23 @@ public class NewAssignmentAction extends Action {
 			} else {
 				aForm.getAssignmentBean().setAssignmentType(
 						aForm.getAssignmentType());
-				aForm.getAssignmentBean().setReportTo("domain100");
+				aForm.getAssignmentBean().setReportTo((String) session.getAttribute("username"));
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setOrganizationCode(
-							aMan.searchOrganizationCode("domain3"));
+							aMan.searchOrganizationCode((String) session.getAttribute("username")));
 					aForm.getAssignmentBean().setProjectCode(null);
 					paramCode = aForm.getAssignmentBean().getOrganizationCode()
 							+ dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode()
 							+ dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
 				}
-				paramCode = paramCode + aMan.getMaxTaskCode(paramCode);
+				
 				aForm.getAssignmentBean().setTaskCode(paramCode);
-				aForm.getAssignmentBean().setCreatedBy("domain100");
-
+				aForm.getAssignmentBean().setCreatedBy((String) session.getAttribute("username"));
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
@@ -79,7 +84,7 @@ public class NewAssignmentAction extends Action {
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getAssignmentBean().setTaskCode(
 							(String) session.getAttribute("taskCode"));
-					aForm.getAssignmentBean().setUpdatedBy("domain100");
+					aForm.getAssignmentBean().setUpdatedBy((String) session.getAttribute("username"));
 					success = aMan.editAssignment(aForm.getAssignmentBean());
 				} else {
 					success = aMan.addAssignment(aForm.getAssignmentBean());

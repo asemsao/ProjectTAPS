@@ -137,6 +137,7 @@
 									<th>Routine</th>
 									<th>Initiative</th>
 									<th>Adhoc</th>
+									<th>Project</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -147,7 +148,8 @@
 										<th><bean:write name="report" property="employeeName" /></th>
 										<td><bean:write name="report" property="totalRoutine" /></td>
 										<td><bean:write name="report" property="totalInitiative" /></td>
-										<td><bean:write name="report" property="totalAdhoc" /></td>
+										<td><bean:write name="report" property="totalAdhocBU" /></td>
+										<td><bean:write name="report" property="totalAdhocProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -189,10 +191,14 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">EMPLOYEE NAME</th>
-								<th class="text-center">ROUTINE MANHOUR</th>
-								<th class="text-center">INITIATIVE MANHOUR</th>
-								<th class="text-center">ADHOC MANHOUR</th>
+								<th class="text-center" rowspan="2">EMPLOYEE NAME</th>
+								<th class="text-center" colspan="3">BUSINESS UNIT</th>
+								<th class="text-center" rowspan="2">PROJECT</th>
+							</tr>
+							<tr>
+								<th class="text-center">ROUTINE</th>
+								<th class="text-center">INITIATIVE</th>
+								<th class="text-center">ADHOC</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -203,7 +209,8 @@
 										<td class="text-left"><bean:write name="report" property="employeeName" /></td>
 										<td><bean:write name="report" property="totalRoutine" /></td>
 										<td><bean:write name="report" property="totalInitiative" /></td>
-										<td><bean:write name="report" property="totalAdhoc" /></td>
+										<td><bean:write name="report" property="totalAdhocBU" /></td>
+										<td><bean:write name="report" property="totalAdhocProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -226,7 +233,7 @@
 <!-- 								</td> -->
 <!-- 							</tr> -->
 								<tr>
-									<td colspan="4" class="text-right">
+									<td colspan="5" class="text-right">
 										<button id="back-btn" onclick="javascript:button('back')">Home</button>
 									<logic:equal name="reportForm" property="param2" value="2">
 										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>

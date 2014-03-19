@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.form.dashboard.DashboardForm;
+import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
 
 public class DashboardAction extends Action {
@@ -35,16 +36,72 @@ public class DashboardAction extends Action {
 			throws Exception {
 		DashboardForm dForm = (DashboardForm) form;
 		DashboardManager dMan = new DashboardManager();
+		AssignmentManager aMan = new AssignmentManager();
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
+
 		Map params = new HashMap();
+		Map rankingLast = new HashMap();
+		Map rankingCurrent = new HashMap();
+
 		String userDomain = "domain3";
-		
-		/*code for claim assignment from supervisor*/
-		if ("CLAIM".equals(dForm.getTask())){
+		/* code to display detail record each status */
+		if ("CLAIM".equals(dForm.getTask())) {
+			aMan.updateFlag(dForm.getTaskCode());
 			dForm.setdBean(dMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
 		}
+		if ("CORRECTION".equals(dForm.getTask())
+				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
+			return mapping.findForward("CorrectionSelf");
+		}
+		if ("CORRECTION".equals(dForm.getTask())
+				&& "ASSIGNMENT".equals(dForm.getTaskType())) {
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
+			return mapping.findForward("Correction");
+		}
+		if ("RFA".equals(dForm.getTask())
+				&& "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
+			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
+			return mapping.findForward("ApprovalSelf");
+		}
+		if ("RFA".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())) {
+			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm.getTaskCode()));
+			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
+			return mapping.findForward("Approval");
+		}
+		//-------------------------------------------------------------//
+		
+		//--------------Code for Action Button-------------------------//
+		if ("claim".equals(dForm.getTask())){
+			dForm.getClaimBean().setStatus("CLAIM");
+			
+		}
+		if ("rfa".equals(dForm.getTask())){
+			
+		}
+		if ("approved".equals(dForm.getTask())){
+			
+		}
+		if ("correction".equals(dForm.getTask())){
+			
+		}
+		if ("reject".equals(dForm.getTask())){
+			
+		}
+		//-------------------------------------------------------------//
 		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
@@ -81,6 +138,7 @@ public class DashboardAction extends Action {
 		params.put("userDomain", userDomain);
 
 		if ("approvalDashboard".equals(dForm.getTask())) {
+			params.put("userDomain", "DOMAIN205");
 			dForm.setListAssignment(dMan.searchListApproval(params));
 			dForm.setCountRecord(dMan.countListApproval(params));
 		}
@@ -89,6 +147,7 @@ public class DashboardAction extends Action {
 			dForm.setCountRecord(dMan.countListClaim(params));
 		}
 		if ("approvalSelfDashboard".equals(dForm.getTask())) {
+			params.put("userDomain", "DOMAIN205");
 			dForm.setListAssignment(dMan.searchListApprovalSelf(params));
 			dForm.setCountRecord(dMan.countListApprovalSelf(params));
 			return mapping.findForward("ListAssignment");
@@ -101,7 +160,7 @@ public class DashboardAction extends Action {
 			dForm.setListAssignment(dMan.searchListCorrectionSelf(params));
 			dForm.setCountRecord(dMan.countListCorrectionSelf(params));
 		}
-		
+
 		if ("approvalDashboard".equals(dForm.getTask())
 				|| "claimDashboard".equals(dForm.getTask())
 				|| "approvalSelfDashboard".equals(dForm.getTask())
@@ -114,9 +173,9 @@ public class DashboardAction extends Action {
 			}
 			return mapping.findForward("ListAssignment");
 		}
-		
+
 		if ("getPhoto".equals(dForm.getTask())) {
-			
+
 			bean = dMan.getPhotoEmployees(dForm.getEmployeeDomain());
 			BufferedInputStream input = null;
 			BufferedOutputStream output = null;
@@ -161,7 +220,7 @@ public class DashboardAction extends Action {
 		dForm.setTotalCorrection(dMan.searchTotalCorrection(userDomain));
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
 
-		if ("autoRefresh".equals(dForm.getTask())) {
+		if ("autoRefresh".equals(dForm.getMode())) {
 			PrintWriter out = response.getWriter();			
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String json = gson.toJson(dForm);
@@ -169,15 +228,28 @@ public class DashboardAction extends Action {
 			return null;
 		}
 
-		dForm.setListTopTen(dMan.searchTopTen());
-		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization("CDD"));
+		rankingLast.put("lastMonth", "true");
+		rankingLast.put("organizationCode", "CDD");
+		
+		rankingCurrent.put("currentMonth", "true");
+		rankingCurrent.put("organizationCode", "CDD");
+
+		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
+		dForm.setListTopTenOrganization(dMan
+				.searchTopTenOrganization(rankingCurrent));
+
+		dForm.setListTopTenPrev(dMan.searchTopTen(rankingLast));
+		dForm.setListTopTenOrganizationPrev(dMan
+				.searchTopTenOrganization(rankingLast));
+
 		return mapping.findForward("Dashboard");
 	}
 
 	/* extract image in project resources to byte[] */
 	public byte[] extractBytes(String ImageName) throws IOException {
 		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")+ImageName);
+		fnew = new File(getServlet().getServletContext().getRealPath("/")
+				+ ImageName);
 		BufferedImage bufferedImage = ImageIO.read(fnew);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		ImageIO.write(bufferedImage, "png", baos);

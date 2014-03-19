@@ -16,10 +16,13 @@ public class TransferProjectForm extends ActionForm {
 	private String searchCategory;
 	private String projectName;
 	private String projectCode;
+	private String orgCode;
+	private String orgName;
+	private String assigneeUserDomain;
+	private String directReportUserDomain;
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
 	private List<StructureProjectBean> listMember;
-	private List listPhase;
 	private ProjectBean pBean = new ProjectBean();
 	private Integer pageProject;
 	private Integer maxPageProject;
@@ -27,6 +30,7 @@ public class TransferProjectForm extends ActionForm {
 	private Integer pageOrganization;
 	private Integer maxOrganization;
 	private Integer countRecordOrganization;
+	
 	public String getTask() {
 		return task;
 	}
@@ -63,6 +67,30 @@ public class TransferProjectForm extends ActionForm {
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
 	}
+	public String getOrgCode() {
+		return orgCode;
+	}
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
+	}
+	public String getOrgName() {
+		return orgName;
+	}
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+	public String getAssigneeUserDomain() {
+		return assigneeUserDomain;
+	}
+	public void setAssigneeUserDomain(String assigneeUserDomain) {
+		this.assigneeUserDomain = assigneeUserDomain;
+	}
+	public String getDirectReportUserDomain() {
+		return directReportUserDomain;
+	}
+	public void setDirectReportUserDomain(String directReportUserDomain) {
+		this.directReportUserDomain = directReportUserDomain;
+	}
 	public List<ProjectBean> getListProject() {
 		return listProject;
 	}
@@ -80,12 +108,6 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setListMember(List<StructureProjectBean> listMember) {
 		this.listMember = listMember;
-	}
-	public List getListPhase() {
-		return listPhase;
-	}
-	public void setListPhase(List listPhase) {
-		this.listPhase = listPhase;
 	}
 	public ProjectBean getpBean() {
 		return pBean;
@@ -129,5 +151,9 @@ public class TransferProjectForm extends ActionForm {
 	public void setCountRecordOrganization(Integer countRecordOrganization) {
 		this.countRecordOrganization = countRecordOrganization;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 	
 }

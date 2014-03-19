@@ -4,8 +4,73 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>weblogic</display-name>
+
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/ajax.do</url-pattern>
+		<url-pattern>/project.do</url-pattern>
+		<url-pattern>/report.do</url-pattern>
+		<url-pattern>/transferProject.do</url-pattern>
+		<url-pattern>/organization.do</url-pattern>
+		<url-pattern>/employee.do</url-pattern>
+		<url-pattern>/employeeRole.do</url-pattern>
+		<url-pattern>/specialAppraisal.do</url-pattern>
+		<url-pattern>/menu.do</url-pattern>
+		<url-pattern>/dashboard.do</url-pattern>
+		<url-pattern>/employeeReport.do</url-pattern>
+		<url-pattern>/newAssignment.do</url-pattern>
+		<url-pattern>/newSelfAssignment.do</url-pattern>
+		<url-pattern>/claimAssignment.do</url-pattern>
+		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
+		<url-pattern>/selfAssignment.do</url-pattern>
+		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>SupervisorFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.SupervisorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SupervisorFilter</filter-name>
+		<url-pattern>/newAssignment.do</url-pattern>
+		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
+		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
+		<url-pattern>/employeeReport.do</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>AdministratorFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.AdministratorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/project.do</url-pattern>
+		<url-pattern>/organization.do</url-pattern>
+		<url-pattern>/employee.do</url-pattern>
+		<url-pattern>/manageRole.do</url-pattern>
+		<url-pattern>/transferProject.do</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>HeadBUFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.HeadBUFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HeadBUFilter</filter-name>
+		<url-pattern>/report.do</url-pattern>
+		<url-pattern>/specialAppraisal.do</url-pattern>
+	</filter-mapping>
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+
 	<welcome-file-list>
-		<welcome-file>ACE.do</welcome-file>
+		<welcome-file>login.do</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
@@ -22,4 +87,8 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>crystal_image_uri</param-name>
+		<param-value>/Report/crystalreportviewers</param-value>
+	</context-param>
 </web-app>

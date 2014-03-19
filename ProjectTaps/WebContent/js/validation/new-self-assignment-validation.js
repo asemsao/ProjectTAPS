@@ -38,8 +38,7 @@ $(document).ready(function() {
 		},
 		rules : {
 			'selfAssignBean.assignmentDate' : {
-				required : true,
-				date : true
+				required : true
 			},
 			'selfAssignBean.projectName' : {
 				required : true

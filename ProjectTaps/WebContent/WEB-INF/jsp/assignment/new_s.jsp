@@ -20,6 +20,10 @@
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
+		} else if (task == "RFA") {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
 		}
 	}
 
@@ -83,9 +87,12 @@
 											}
 										});
 
+						$("#assignmentDate").attr("placeholder", "Assignment Date");
 						$("#project-name").attr("placeholder", "Project");
 						$("#employee-name").attr("placeholder", "Employee");
 						$("#employee-name-2").attr("placeholder", "Employee");
+						$("#assignment-code").attr("placeholder", "Reff Task Code");
+						$("#description").attr("placeholder", "Description");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -276,12 +283,12 @@
 								<td>Description</td>
 								<td>:</td>
 								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
+										name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
 									<button onclick="flyToPage('save')" class="button success">Save</button>
-									<button onclick="flyToPage('RFA')" class="button success">Assign</button>
+									<button onclick="flyToPage('RFA')" class="button success">RFA</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>

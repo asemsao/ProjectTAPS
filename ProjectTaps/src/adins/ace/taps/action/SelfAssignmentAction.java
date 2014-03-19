@@ -39,11 +39,11 @@ public class SelfAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("RFA".equals(sForm.getTask())) {
-			String tmpDesctiption="";
+			String tmpDescription="";
 			String tmpManHours="";
-			tmpDesctiption = request.getParameter("tmpDescription");
+			tmpDescription = request.getParameter("tmpDescription");
 			tmpManHours = request.getParameter("tmpManHours");
-			if (!tmpDesctiption.equals(sForm.getSelfAssignBean().getDescription())) {
+			if (!tmpDescription.equals(sForm.getSelfAssignBean().getDescription())) {
 				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
 			}
 			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {

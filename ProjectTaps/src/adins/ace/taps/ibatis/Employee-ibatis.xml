@@ -222,7 +222,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
 			email=#email#,
 			employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE',
-			updated_by='DOMAIN201',
+			updated_by=#updateBy#,
 			updated_date=SYSDATE WHERE
 			user_domain=#employeeDomain#
 		</isEmpty>
@@ -239,7 +239,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				email=#email#,
 				employee_category=#golonganNumber# || #golonganLevel#,
 				flag='ACTIVE',
-				updated_by='DOMAIN201',
+				updated_by=#updateBy#,
 				updated_date=SYSDATE WHERE
 				user_domain=#employeeDomain#
 			</isNotEmpty>
@@ -278,7 +278,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		created_date)
 		VALUES(#profilePicture#,#employeeDomain#,#employeeNik#,#employeeCode#,#firstName#,#lastName#,
 		#gender#,#businessUnit#,#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
-		|| #golonganLevel#,'ACTIVE','DOMAIN201',SYSDATE)
+		|| #golonganLevel#,'ACTIVE',#createBy#,SYSDATE)
 	</insert>
 	<update id="deleteEmployee" parameterClass="java.lang.String">
 		UPDATE employees

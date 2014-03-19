@@ -135,7 +135,8 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Manhour</th>
+									<th>Manhour BU</th>
+									<th>Manhour Project</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -144,7 +145,8 @@
 									property="listReports">
 									<tr>
 										<th><bean:write name="report" property="organizationCode" /></th>
-										<td><bean:write name="report" property="manhour" /></td>
+										<td><bean:write name="report" property="manhourBU" /></td>
+										<td><bean:write name="report" property="manhourProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -186,10 +188,15 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">ORGANIZATION CODE</th>
-								<th class="text-center">ORGANIZATION NAME</th>
-								<th class="text-center">TOTAL MANHOUR</th>
-								<th class="text-center">ACTION</th>
+								<th class="text-center" rowspan="2">ORGANIZATION CODE</th>
+								<th class="text-center" rowspan="2">ORGANIZATION NAME</th>
+								<th class="text-center" colspan="2">MANHOURS</th>
+								<th class="text-center" rowspan="2">ACTION</th>
+							</tr>
+							<tr>
+								<th class="text-center">BUSINESS UNIT</th>
+								<th class="text-center">PROJECT</th>
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -198,7 +205,7 @@
 									property="listReports">
 									<logic:equal name="report" property="organizationLevel" value="1">
 										<tr class="text-left">
-											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>
+											<td colspan="4"><h5><bean:write name="report" property="organizationName" /></h5></td>
 											<td class="text-center"><a
 												href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
 												data-hint-position="bottom"><img alt=""
@@ -210,7 +217,8 @@
 									<tr>
 										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
 										<td><bean:write name="report" property="organizationName" /></td>
-										<td class="text-center"><bean:write name="report" property="manhour" /></td>
+										<td class="text-center"><bean:write name="report" property="manhourBU" /></td>
+										<td class="text-center"><bean:write name="report" property="manhourProject" /></td>
 										<td class="text-center"><a
 											href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
 											data-hint-position="bottom"><img alt=""
@@ -239,7 +247,7 @@
 <!-- 								</td> -->
 <!-- 							</tr> -->
 						<tr>
-							<td colspan="4" class="text-right">
+							<td colspan="5" class="text-right">
 								<button id="back-btn" onclick="javascript:button('back')">Home</button>
 							<logic:equal name="reportForm" property="param2" value="1">
 								<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
