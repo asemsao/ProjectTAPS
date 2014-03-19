@@ -129,7 +129,7 @@
 		employees e
 		ON a.report_to = e.user_domain
 		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND
-		LOWER(assign_to) = 'domain1'
+		LOWER(assign_to) = #userDomain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -184,7 +184,7 @@
 		employees e
 		ON a.report_to = e.user_domain
 		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND
-		LOWER(assign_to) = 'domain1'
+		LOWER(assign_to) = #userDomain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">

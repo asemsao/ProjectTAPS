@@ -6,6 +6,24 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 <sqlMap namespace="employee">
 	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
 
+
+	<select id="checkEmplooyeeOrganization"
+		resultClass="adins.ace.taps.bean.employee.EmployeeOrganizationBean"
+		parameterClass="java.util.Map">
+		SELECT organization_code AS organizationCode,
+		organization_name AS organizationName, head_user_domain AS
+		headUserDomain FROM organizations WHERE
+		LOWER(head_user_domain)=LOWER(#userDomain#)
+	</select>
+	<select id="checkProjectStructure"
+		resultClass="adins.ace.taps.bean.employee.EmployeeProjectStructureBean"
+		parameterClass="java.util.Map">
+		SELECT project_code AS projectCode, INITCAP(project_role) AS
+		projectRole, directreport_user_domain AS directReport FROM
+		project_structures WHERE LOWER(directreport_user_domain) =
+		LOWER(#userDomain#)
+	</select>
+
 	<select id="countEmployees" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
 		FROM employees e
@@ -120,7 +138,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		ON
 		e.user_domain = ps.assignee_user_domain
 		WHERE 1
-		= 1 AND lower(e.flag)='active'
+		= 1 AND
+		lower(e.flag)='active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -221,7 +240,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			organization_code=#businessUnit#, address=#employeeAddress#,
 			phone_number=#phoneNumber#,mobile_phone=#mobileNumber#,
 			email=#email#,
-			employee_category=#golonganNumber# || #golonganLevel#, flag='ACTIVE',
+			employee_category=#golonganNumber# || #golonganLevel#,
+			flag='ACTIVE',
 			updated_by=#updateBy#,
 			updated_date=SYSDATE WHERE
 			user_domain=#employeeDomain#
@@ -255,13 +275,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		e.last_name AS lastName, e.gender AS
 		gender, e.organization_code AS
 		businessUnit, o.organization_name AS
-		businessUnitName, e.address AS employeeAddress,
+		businessUnitName, e.address AS
+		employeeAddress,
 		e.phone_number AS
 		phoneNumber,
-		e.mobile_phone AS mobileNumber, e.email AS
+		e.mobile_phone AS
+		mobileNumber, e.email AS
 		email,
-		SUBSTR(e.employee_category,1,1) AS golonganNumber,
-		SUBSTR(e.employee_category,2,2) AS golonganLevel, e.flag AS flag FROM
+		SUBSTR(e.employee_category,1,1) AS
+		golonganNumber,
+		SUBSTR(e.employee_category,2,2) AS golonganLevel,
+		e.flag AS flag FROM
 		employees e JOIN organizations o ON
 		e.organization_code=o.organization_code
 		WHERE UPPER(user_domain) =
@@ -282,6 +306,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</insert>
 	<update id="deleteEmployee" parameterClass="java.lang.String">
 		UPDATE employees
-			SET flag='INACTIVE' WHERE user_domain=#employeeDomain#
+		SET
+		flag='INACTIVE' WHERE user_domain=#employeeDomain#
 	</update>
 </sqlMap>

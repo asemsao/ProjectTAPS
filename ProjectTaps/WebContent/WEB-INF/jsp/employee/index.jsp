@@ -42,12 +42,11 @@
 			$("#CRUDForm").submit();
 		});
 		$(".delete-link").click(function() {
-			$("#deleteId").html($(this).attr('alt').trim());
 			$("#employeeDomain").val($(this).attr('alt').trim());
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-		$("#lookUpDeleteEmployee").load("/ProjectTaps/ajax.do?mode=deleteEmployee&task=deleteEmployee");
+		
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
