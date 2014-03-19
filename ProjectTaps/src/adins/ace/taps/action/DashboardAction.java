@@ -28,6 +28,7 @@ import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.form.dashboard.DashboardForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
+import adins.ace.taps.module.ExtractPhoto;
 
 public class DashboardAction extends Action {
 	@Override
@@ -186,7 +187,7 @@ public class DashboardAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
 					if (buffer == null) {
-						buffer = extractBytes("images/user.png");
+						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -243,17 +244,5 @@ public class DashboardAction extends Action {
 				.searchTopTenOrganization(rankingLast));
 
 		return mapping.findForward("Dashboard");
-	}
-
-	/* extract image in project resources to byte[] */
-	public byte[] extractBytes(String ImageName) throws IOException {
-		File fnew = null;
-		fnew = new File(getServlet().getServletContext().getRealPath("/")
-				+ ImageName);
-		BufferedImage bufferedImage = ImageIO.read(fnew);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(bufferedImage, "png", baos);
-		byte[] res = baos.toByteArray();
-		return res;
 	}
 }
