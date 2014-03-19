@@ -188,7 +188,7 @@
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right"><html:button
-										property="assign" onclick="javascript:flyToPage('RFA')"
+										property="assign" onclick="javascript:flyToPage('rfa')"
 										styleClass="button success">RFA</html:button> <html:button
 										property="cancel" onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>

@@ -7,7 +7,7 @@
 
 	<filter>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>adins.ace.taps.filter.TapsFilter</filter-class>
+		<filter-class>adins.ace.taps.filter.LoginFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
@@ -29,6 +29,37 @@
 		<url-pattern>/selfAssignment.do</url-pattern>
 		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>SupervisorFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.SupervisorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SupervisorFilter</filter-name>
+		<url-pattern>/template.do</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>AdministratorFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.AdministratorFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/template.do</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>HeadBUFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.HeadBUFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HeadBUFilter</filter-name>
+		<url-pattern>/template.do</url-pattern>
+	</filter-mapping>
+	
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
 
 	<welcome-file-list>
 		<welcome-file>ACE.do</welcome-file>

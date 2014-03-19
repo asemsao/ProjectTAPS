@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class TapsFilter implements Filter {
+public class SupervisorFilter implements Filter {
 	private FilterConfig filterConfig;
 
-	public TapsFilter() {
+	public SupervisorFilter() {
 
 	}
 
@@ -29,8 +29,8 @@ public class TapsFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
-		if (session.getAttribute("username") == null) {
-			resp.sendRedirect("/ProjectTaps/ACE.do");
+		if (session.getAttribute("") == null) {
+			resp.sendRedirect("/ProjectTaps/dashboard.do");
 		} else {
 			chain.doFilter(request, response);
 		}

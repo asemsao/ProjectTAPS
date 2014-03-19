@@ -1,14 +1,16 @@
-package adins.ace.taps.form.employeeRole;
+package adins.ace.taps.form.manageRole;
 
 import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
 
-import adins.ace.taps.bean.employeeRole.EmployeeRoleBean;
+import adins.ace.taps.bean.manageRole.MenuBean;
+
+
 
 @SuppressWarnings("serial")
-public class EmployeeRoleForm extends ActionForm {
+public class ManageRoleForm extends ActionForm {
 	
 	private String task;
 	private String param;
@@ -17,26 +19,19 @@ public class EmployeeRoleForm extends ActionForm {
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
-	private List<EmployeeRoleBean> listEmployeeRole;
-	private EmployeeRoleBean erBean = new EmployeeRoleBean();
-	
-	public EmployeeRoleBean getErBean() {
-		return erBean;
+	private List<MenuBean> listMenu;
+	private MenuBean mrBean = new MenuBean();
+	public String getTask() {
+		return task;
 	}
-	public void setErBean(EmployeeRoleBean erBean) {
-		this.erBean = erBean;
+	public void setTask(String task) {
+		this.task = task;
 	}
 	public String getParam() {
 		return param;
 	}
 	public void setParam(String param) {
 		this.param = param;
-	}
-	public String getTask() {
-		return task;
-	}
-	public void setTask(String task) {
-		this.task = task;
 	}
 	public String getSearchKeyword() {
 		return searchKeyword;
@@ -68,11 +63,17 @@ public class EmployeeRoleForm extends ActionForm {
 	public void setCountRecord(Integer countRecord) {
 		this.countRecord = countRecord;
 	}
-	public List<EmployeeRoleBean> getListEmployeeRole() {
-		return listEmployeeRole;
+	public List<MenuBean> getListMenu() {
+		return listMenu;
 	}
-	public void setListEmployeeRole(List<EmployeeRoleBean> listEmployeeRole) {
-		this.listEmployeeRole = listEmployeeRole;
+	public void setListMenu(List<MenuBean> listMenu) {
+		this.listMenu = listMenu;
+	}
+	public MenuBean getMrBean() {
+		return mrBean;
+	}
+	public void setMrBean(MenuBean mrBean) {
+		this.mrBean = mrBean;
 	}
 	
 }

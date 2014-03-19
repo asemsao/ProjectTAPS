@@ -12,6 +12,8 @@ public class StructureProjectBean implements Serializable
 	private String directReport;
 	private String directReportUserDomain;
 	private String assigneeUserDomain;
+	private byte[] assigneePhoto;
+	private byte[] directReportPhoto;
 	
 	public String getOrganizationName() {
 		return organizationName;
@@ -55,12 +57,23 @@ public class StructureProjectBean implements Serializable
 	public void setAssigneeUserDomain(String assigneeUserDomain) {
 		this.assigneeUserDomain = assigneeUserDomain;
 	}
+	public byte[] getAssigneePhoto() {
+		return assigneePhoto;
+	}
+	public void setAssigneePhoto(byte[] assigneePhoto) {
+		this.assigneePhoto = assigneePhoto;
+	}
+	public byte[] getDirectReportPhoto() {
+		return directReportPhoto;
+	}
+	public void setDirectReportPhoto(byte[] directReportPhoto) {
+		this.directReportPhoto = directReportPhoto;
+	}
 	public String getDirectReportUserDomain() {
 		return directReportUserDomain;
 	}
 	public void setDirectReportUserDomain(String directReportUserDomain) {
 		this.directReportUserDomain = directReportUserDomain;
 	}
-	
 	
 }

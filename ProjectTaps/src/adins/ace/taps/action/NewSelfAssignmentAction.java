@@ -26,6 +26,8 @@ public class NewSelfAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
+		boolean insertToAssignment = false;
+		boolean insertToDetailClaim = false;
 		//coba pake domain3
 		session.setAttribute("username", "domain3");
 		//nanti dihapus
@@ -61,10 +63,14 @@ public class NewSelfAssignmentAction extends Action {
 					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
 				}
 				
+				if (!("ADHOC".equals(aForm.getActivityType()))){
+					aForm.getSelfAssignBean().setAdhocUserDomain(null);
+				}
+				
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
 				aForm.getSelfAssignBean().setCreatedBy((String) session.getAttribute("username"));
 				aForm.getSelfAssignBean().setAssignTo((String) session.getAttribute("username"));
-	
+				aForm.getSelfAssignBean().setClaimDate(aForm.getSelfAssignBean().getAssignmentDate());
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
 					aForm.getSelfAssignBean().setFlag("ACTIVE");
@@ -73,8 +79,6 @@ public class NewSelfAssignmentAction extends Action {
 					aForm.getSelfAssignBean().setFlag("INACTIVE");
 				}
 	
-				boolean insertToAssignment = false;
-				boolean insertToDetailClaim = false;
 				if (session.getAttribute("taskCode") != null) {
 					aForm.getSelfAssignBean().setTaskCode((String) session.getAttribute("taskCode"));
 					aForm.getSelfAssignBean().setUpdatedBy((String) session.getAttribute("username"));

@@ -153,7 +153,7 @@
 								<td colspan=4 class="text-right">
 									<button onclick="javascript:flyToPage('claim');"
 										class="button success">Claim</button>
-									<button onclick="javascript:flyToPage('approval');"
+									<button onclick="javascript:flyToPage('rfa');"
 										class="button success">RFA</button>
 									<button onclick="javascript:flyToPage('cancel');"
 										class="button info">Cancel</button>

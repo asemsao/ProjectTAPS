@@ -21,10 +21,8 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
-	$(document).ready(function() {
-		$("#myForm").formToWizard({ submitButton: 'submit-btn' })
-		$("#munculkan").hide();
-	});
+	
+	
 </script>
 
 <title>Project</title>
@@ -45,10 +43,9 @@
 					<fieldset>
 					<legend>CHOOSE PROJECT</legend>
 
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
-								<th class="text-center" colspan=2>
+								<th width="25%">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="transferProjectForm">
 											<html:option value="all">All</html:option>
@@ -60,7 +57,7 @@
 										</html:select>
 									</div>
 								</th>
-								<th class="text-center" colspan=9>
+								<th>
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="transferProjectForm"
 											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
@@ -69,6 +66,9 @@
 									</div>
 								</th>
 							</tr>
+							</table>
+							<table class="table striped bordered hovered">
+						<thead>
 							<tr>
 								<th></th>
 								<th class="text-center">Project Code</th>
@@ -115,7 +115,7 @@
 							</logic:notEmpty>
 							<logic:empty name="transferProjectForm" property="listProject">
 								<tr>
-									<td class="text-center" colspan="11">Project Not Available</td>
+									<td class="text-center" colspan="9">Project Not Available</td>
 								</tr>
 						</logic:empty>
 						</tbody>
@@ -124,11 +124,11 @@
 					
 					<fieldset>
 					<legend>CHOOSE BUSINESS UNIT</legend>
-					<div id="choosenBU"></div>
-					<table class="table striped bordered hovered">
-						<thead>
+					<table id="table-ajax-project" class="table">
+					</table>
+					<table class="table">
 							<tr>
-								<th class="text-center" colspan=1>
+								<th width="25%">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="transferProjectForm">
 											<html:option value="all">All</html:option>
@@ -138,7 +138,7 @@
 										</html:select>
 									</div>
 								</th>
-								<th class="text-center" colspan=5>
+								<th>
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="transferProjectForm"
 											styleId="searchKeyword"></html:text>
@@ -146,9 +146,12 @@
 									</div>
 								</th>
 							</tr>
+							</table>
+							<table class="table striped bordered hovered">
+						<thead>
 							<tr>
 								<th></th>
-								<th class="text-center">Business Unit Code</th>
+								<th class="text-center" colspan="3" width="12%">Business Unit Code</th>
 								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 							</tr>
@@ -159,96 +162,59 @@
 								<logic:iterate id="organization" name="transferProjectForm"
 									property="listOrganization">
 									<tr>
-										<td>
-											<div class="input-control radio default-style">
+										<td class="text-center" width="5%">
+										<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" />
+											<input type="radio" name="org_choose" value="<bean:write name='organization'
+												property='organizationCode' />@<bean:write name='organization'
+												property='organizationName' />" />
 											<span class="check"></span>
 											</label>
 											</div>
 										</td>
-										<td><bean:write name="organization"
-												property="organizationCode" /></td>
+										<td width="4%"><logic:equal value="0" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="1" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+										<td width="4%"><logic:equal value="2" name="organization"
+												property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal></td>
+
 										<td><bean:write name="organization"
 												property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-						</tbody>
+							<logic:empty name="transferProjectForm" property="listOrganization">
+								<tr>
+									<td class="text-center" colspan="6">Organization Not Available</td>
+								</tr>
+						</logic:empty>
+							</tbody>
 					</table>
 					</fieldset>
 					<fieldset>
 					<legend>CHOOSE MEMBER</legend>
-<!-- 					<table class="table striped bordered hovered"> -->
-<!-- 						<tr> -->
-<!-- 							<td colspan=1>Project Name</th> -->
-<%-- 							<td colspan=4><strong><bean:write property="projectName" /></strong></td> --%>
-<!-- 						</tr> -->
-<!-- 						</table> -->
-<!-- 						<table> -->
-<!-- 						<thead> -->
-<!-- 						<tr> -->
-<!-- 							<th></th> -->
-<!-- 							<th class="text-center">Role</th> -->
-<!-- 							<th class="text-center">Assignee</th> -->
-<!-- 							<th class="text-center">Direct Report</th> -->
-<!-- 						</tr> -->
-<!-- 					</thead> -->
-<!-- 					<tbody> -->
-<%-- 						<logic:notEmpty name="projectForm" property="listProject"> --%>
-<%-- 						<logic:iterate id="project" name="projectForm" property="listProject"> --%>
-<!-- 							<tr> -->
-<%-- 								<td><bean:write name="project" property="projectRole" /></td> --%>
-<%-- 								<td><bean:write name="project" property="assignee" /></td> --%>
-<%-- 								<td><bean:write name="project" property="directReport" /></td> --%>
-<%-- 								<td class="text-center"><a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')" --%>
-<!-- 									data-hint="Edit Member" data-hint-position="bottom"><img -->
-<%-- 										alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td> --%>
-<%-- 								<td class="text-center"><a href="javascript:flyToPage('deleteMember','<bean:write name="project" property="assigneeUserDomain" />')" --%>
-<!-- 									data-hint="Delete Member" data-hint-position="bottom"><img -->
-<%-- 										alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td> --%>
-<!-- 							</tr> -->
-<%-- 						</logic:iterate> --%>
-<%-- 						</logic:notEmpty> --%>
-<%-- 						<logic:empty name="projectForm" property="listProject"> --%>
-<!-- 							<tr> -->
-<!-- 								<td class="text-center" colspan="7">No Member</td> -->
-<!-- 							</tr> -->
-<%-- 						</logic:empty> --%>
-<!-- 						<tr> -->
-<!-- 							<td colspan=5 class="text-center"> -->
-<!-- 								<div class="pagination"> -->
-<!-- 									<ul> -->
-<!-- 										<li class="first"><a><i class="icon-first-2"></i></a></li> -->
-<!-- 										<li class="prev"><a><i class="icon-previous"></i></a></li> -->
-<!-- 										<li><a>1</a></li> -->
-<!-- 										<li><a>2</a></li> -->
-<!-- 										<li class="active"><a>3</a></li> -->
-<!-- 										<li class="spaces"><a>...</a></li> -->
-<!-- 										<li class="disabled"><a>4</a></li> -->
-<!-- 										<li><a>500</a></li> -->
-<!-- 										<li class="next"><a><i class="icon-next"></i></a></li> -->
-<!-- 										<li class="last"><a><i class="icon-last-2"></i></a></li> -->
-<!-- 									</ul> -->
-<!-- 								</div> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<td colspan=5 class="text-right"> -->
-<!-- 								<button id="add-btn" onclick="javascript:button('addMember')" class="success">Add</button> -->
-<!-- 								<button id="back-btn" onclick="javascript:button('cancel')">Back</button> -->
-<!-- 							</td> -->
-<!-- 						</tr> -->
-<!-- 					</tbody> -->
-<!-- 				</table> -->
+					<table id="table-ajax-project2" class="table"></table>
+					<table id="table-ajax-structure" class="table striped bordered hovered">
+				</table>
 					</fieldset>
-					<input id="submit-btn" type="button" value="Submit Form" />
+					<fieldset>
+					<legend>SUMMARY</legend>
+					<table id="table-ajax-summary" class="table"></table>
+					</fieldset>
+					<input id="submit-btn" type="button" class="submit-wizard" value="Finish" />
 				</html:form>
 			</div>
 		</div>
 	</div>
-
+	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 
