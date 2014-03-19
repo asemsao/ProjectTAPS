@@ -38,39 +38,39 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="dBean.assignmentDate"
+								<td colspan=2><bean:write property="claimBean.assignmentDate"
 										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
 								<td colspan=2><bean:write
-										property="dBean.assignmentDueDate" name="dashboardForm" /></td>
+										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="dBean.assignmentType"
+								<td colspan=2><bean:write property="claimBean.assignmentType"
 										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><bean:write property="dBean.assignToFullName"
+								<td><bean:write property="claimBean.assignToFullName"
 										name="dashboardForm" /></td>
 								<td><b>Assignment From </b> : <bean:write
-										property="dBean.reportToFullName" name="dashboardForm" /></td>
+										property="claimBean.reportToFullName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Reff Assignment</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="dBean.reffTaskCode"
+								<td colspan=2><bean:write property="claimBean.reffTaskCode"
 										name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="dBean.description"
+								<td colspan=2><bean:write property="claimBean.description"
 										name="dashboardForm" /></td>
 							</tr>
 							<tr>
@@ -78,8 +78,8 @@
 								<td>:</td>
 								<td colspan=2><div class="input-control text"
 										id="datepicker">
-										<input type="text">
-										<button class="btn-date"></button>
+										<html:text property="claimBean.claimDate" name="dashboardForm"/>
+										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
@@ -87,7 +87,7 @@
 								<td>:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm" property="dBean.manHours">
+										<html:select name="dashboardForm" property="claimBean.manHours">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -145,7 +145,7 @@
 								<td>Description</td>
 								<td>:</td>
 								<td colspan=2><html:textarea
-										property="dBean.detailDescription" name="dashboardForm"
+										property="claimBean.detailDescription" name="dashboardForm"
 										rows="3" styleClass="input-control textarea">
 									</html:textarea></td>
 							</tr>
@@ -165,6 +165,9 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="dashboardForm"/>
+		<html:hidden property="claimBean.taskCode" name="dashboardForm"/>
+		<html:hidden property="claimBean.assignTo" name="dashboardForm"/>
+		<html:hidden property="claimBean.reportTo" name="dashboardForm"/>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

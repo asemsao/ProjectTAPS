@@ -77,8 +77,8 @@
 				<html:form action="/dashboard" method="POST">
 					<html:hidden property="claimBean.status" name="dashboardForm"
 						styleId="status" />
-					<html:hidden property="claimBean.taskCode"
-						name="dashboardForm" styleId="task-code" />
+					<html:hidden property="claimBean.taskCode" name="dashboardForm"
+						styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -98,8 +98,7 @@
 								<td>Assignment Due Date</td>
 								<td>:</td>
 								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate"
-										name="dashboardForm" /></td>
+										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
@@ -236,9 +235,6 @@
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right"><html:button
-										property="claim-btn"
-										onclick="javascript:flyToPage('correction');"
-										styleClass="button success">Claim</html:button> <html:button
 										property="claimclose-btn"
 										onclick="javascript:flyToPage('rfa');"
 										styleClass="button success">RFA</html:button> <html:button
@@ -249,6 +245,7 @@
 						</tbody>
 					</table>
 					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

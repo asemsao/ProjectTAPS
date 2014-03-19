@@ -566,6 +566,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				a.reff_task_code AS reffTaskCode,
 				a.description AS description
 		FROM assignments a, employees e, employees e2
-		WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain
+		WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain(+) AND a.report_to = e2.user_domain(+)
 	</select>
+	
 </sqlMap>

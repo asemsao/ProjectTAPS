@@ -20,6 +20,7 @@ import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class SelfSupervisorAssignmentAction extends Action {
 	@Override
@@ -30,19 +31,20 @@ public class SelfSupervisorAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo("domain10");
-		sForm.getSelfAssignBean().setCreatedBy("DOMAIN205");
+		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 		
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("approved".equals(sForm.getTask())) {
-			String tmpDesctiption="";
+			String tmpDescription="";
 			String tmpManHours="";
-			tmpDesctiption = request.getParameter("tmpDescription");
+			tmpDescription = request.getParameter("tmpDescription");
 			tmpManHours = request.getParameter("tmpManHours");
-			if (!tmpDesctiption.equals(sForm.getSelfAssignBean().getDescription())) {
+			if (!tmpDescription.equals(sForm.getSelfAssignBean().getDescription())) {
 				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
 			}
 			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
@@ -52,7 +54,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
@@ -61,6 +63,11 @@ public class SelfSupervisorAssignmentAction extends Action {
 			//update table star
 			sForm.getSelfAssignBean().setStarBefore(0);
 			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "APPROVE", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(sForm.getTask())) {
@@ -78,10 +85,15 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "CORRECT", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);
 			return mapping.findForward("Cancel");
@@ -90,11 +102,16 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", sForm.getSelfAssignBean().getCurrentStatus());
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "REJECT", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			
 			return mapping.findForward("Cancel");

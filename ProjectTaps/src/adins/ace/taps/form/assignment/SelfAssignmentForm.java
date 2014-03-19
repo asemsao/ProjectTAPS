@@ -15,6 +15,7 @@ public class SelfAssignmentForm extends ActionForm {
 	private String newTask;
 	private String assignmentType;
 	private String activityType;
+	private ClaimAssignmentBean claimBean = new ClaimAssignmentBean();
 	
 	public String getNewTask() {
 		return newTask;
@@ -62,5 +63,13 @@ public class SelfAssignmentForm extends ActionForm {
 
 	public void setSelfAssignBean(NewAssignmentBean selfAssignBean) {
 		this.selfAssignBean = selfAssignBean;
+	}
+
+	public ClaimAssignmentBean getClaimBean() {
+		return claimBean;
+	}
+
+	public void setClaimBean(ClaimAssignmentBean claimBean) {
+		this.claimBean = claimBean;
 	}
 }
