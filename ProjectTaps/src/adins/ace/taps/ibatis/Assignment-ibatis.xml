@@ -913,4 +913,20 @@
 		ORDER BY a.created_date DESC
 	</select>
 
+	<select id="emailToSupervisorAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
+		parameterClass="java.util.Map">
+		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver
+		from employees sender, employees receiver 
+		where sender.user_domain=#updatedBy# and 
+		receiver.user_domain=(select report_to from assignments 
+		where task_code=#taskCode#)
+	</select>
+	<select id="emailToEmployeeAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
+		parameterClass="java.util.Map">
+		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver
+		from employees sender, employees receiver 
+		where sender.user_domain=#updatedBy# and 
+		receiver.user_domain=(select assign_to from assignments 
+		where task_code=#taskCode#)
+	</select>
 </sqlMap>

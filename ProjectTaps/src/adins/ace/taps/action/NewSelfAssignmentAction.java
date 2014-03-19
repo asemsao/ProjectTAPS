@@ -3,6 +3,8 @@ package adins.ace.taps.action;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,7 @@ import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class NewSelfAssignmentAction extends Action {
 	@Override
@@ -26,6 +29,7 @@ public class NewSelfAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
+		boolean rfa = false;
 		
 		if (aForm.getNewTask() == null) {
 			System.out.println(session.getAttribute("taskCode"));
@@ -66,6 +70,8 @@ public class NewSelfAssignmentAction extends Action {
 				} else if ("RFA".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("RFA");
 					aForm.getSelfAssignBean().setFlag("INACTIVE");
+					/*checking rfa an assignment*/
+					rfa = true;
 				}
 	
 				boolean insertToAssignment = false;
@@ -79,6 +85,16 @@ public class NewSelfAssignmentAction extends Action {
 				else {
 					insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
 					insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
+					if (insertToDetailClaim && insertToAssignment) {
+						 if (rfa) {
+							Map paramStatus = new HashMap();
+							paramStatus.put("updatedBy", aForm.getSelfAssignBean().getCreatedBy());
+							paramStatus.put("taskCode", aForm.getSelfAssignBean().getTaskCode());
+							aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
+							SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Self Assignment", "RFA", 
+									aForm.getSelfAssignBean().getTaskCode(), aForm.getClaimBean().getSenderName());
+						}
+					}
 				}
 				
 				System.out.println(insertToAssignment + " " + insertToDetailClaim);

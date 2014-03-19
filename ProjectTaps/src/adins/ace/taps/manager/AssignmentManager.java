@@ -752,5 +752,43 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-
+	
+	/******email employee assignment*******/
+	public ClaimAssignmentBean emailToSupervisorAssignment(Map params) {
+		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.emailToSupervisorAssignment", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return assignmentBean;
+	}
+	
+	public ClaimAssignmentBean emailToEmployeeAssignment(Map params) {
+		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.emailToEmployeeAssignment", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return assignmentBean;
+	}
 }

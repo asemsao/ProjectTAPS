@@ -134,7 +134,6 @@ public class DashboardAction extends Action {
 					outStream.write(buffer);
 					outStream.flush();
 				} catch (IOException e) {
-					System.out.println("catch 1");
 					e.printStackTrace();
 				} finally {
 					if (output != null)
