@@ -7,12 +7,17 @@ import org.apache.struts.action.ActionForm;
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.assignment.EmployeeReportBean;
 import adins.ace.taps.bean.employee.EmployeeBean;
+import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
+import adins.ace.taps.bean.employee.EmployeeProjectStructureBean;
 import adins.ace.taps.bean.module.ActiveDirectoryBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.bean.project.ProjectBean;
 
 public class AjaxForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
+	private int checkDeleteEmpoyee;
+	private List<EmployeeOrganizationBean> headOrgStatus;
+	private List<EmployeeProjectStructureBean> supervisorStatus;
 	private String task;
 	private String searchCategory;
 	private String searchKeyword;
@@ -238,5 +243,29 @@ public class AjaxForm extends ActionForm {
 	public void setTaskCode(String taskCode) {
 		this.taskCode = taskCode;
 	}
+	public List<EmployeeOrganizationBean> getHeadOrgStatus() {
+		return headOrgStatus;
+	}
+
+	public void setHeadOrgStatus(List<EmployeeOrganizationBean> headOrgStatus) {
+		this.headOrgStatus = headOrgStatus;
+	}
+
+	public List<EmployeeProjectStructureBean> getSupervisorStatus() {
+		return supervisorStatus;
+	}
+
+	public void setSupervisorStatus(List<EmployeeProjectStructureBean> supervisorStatus) {
+		this.supervisorStatus = supervisorStatus;
+	}
+
+	public int getCheckDeleteEmpoyee() {
+		return checkDeleteEmpoyee;
+	}
+
+	public void setCheckDeleteEmpoyee(int checkDeleteEmpoyee) {
+		this.checkDeleteEmpoyee = checkDeleteEmpoyee;
+	}
+
 
 }

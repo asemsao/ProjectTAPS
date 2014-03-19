@@ -1,25 +1,25 @@
-$(document).ready(function() {
+function newSelfAssignmentValidation() {
 
 	// =================================================================================
 	// New Self Assignment
 	// =================================================================================
 	$('#newSelfAssignment input[id="assignmentDate"]').tooltipster({
-		trigger : 'custom',
+		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 	$('#newSelfAssignment input[id="project-name"]').tooltipster({
-		trigger : 'custom',
+		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 	$('#newSelfAssignment input[id="employee-name"]').tooltipster({
-		trigger : 'custom',
+		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 	$('#newSelfAssignment input[id="employee-name-2"]').tooltipster({
-		trigger : 'custom',
+		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
@@ -28,13 +28,13 @@ $(document).ready(function() {
 	$('#newSelfAssignment').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
-			$(element).tooltipster('show');
+			$(element).tooltipster('hide');
 			$(element).addClass('highlight-default');
 		},
 		success : function(label, element) {
 			$(element).tooltipster('hide');
 			$(element).removeClass('highlight-default');
-			// $(element).tooltipster('update', 'accepted');
+			$(element).tooltipster('update', 'accepted');
 		},
 		rules : {
 			'selfAssignBean.assignmentDate' : {
@@ -56,4 +56,4 @@ $(document).ready(function() {
 		}
 	});
 
-});
+};

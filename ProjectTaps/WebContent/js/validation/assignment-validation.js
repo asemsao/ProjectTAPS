@@ -1,51 +1,51 @@
-$(document).ready(function () {
+function newAssignmentValidation() {
 	
 	// =================================================================================
 	// Assignment
 	// =================================================================================
     $('#newAssignment input[id="assignmentDate"]').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#newAssignment input[id="assignmentDueDate"]').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#newAssignment input[id="timepicker"]').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#employee-name').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#newAssignment input[id="project-name"]').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#newAssignment input[id="employee-name"]').tooltipster({
-        trigger: 'custom',
+        trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
 
     // initialize validate plugin on the form
     $('#newAssignment').validate({
-        errorPlacement: function (error, element) {
-            $(element).tooltipster('update', $(error).text());
-            $(element).tooltipster('show');
-            $(element).addClass('highlight-default');
-        },
-        success: function (label, element) {
-            $(element).tooltipster('hide');
-            $(element).removeClass('highlight-default');
-            //$(element).tooltipster('update', 'accepted');
-        },
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
         rules: {
         	'assignmentBean.assignmentDate': {
         		required: true
@@ -71,5 +71,4 @@ $(document).ready(function () {
             return false;
         }
     });
-
-});
+};
