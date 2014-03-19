@@ -342,9 +342,7 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <html:button property="claim-btn"
-										onclick="javascript:flyToPage('correction');"
-										styleClass="button success">Claim</html:button> <html:button
+									%> <html:button
 										property="claimclose-btn"
 										onclick="javascript:flyToPage('RFA');"
 										styleClass="button success">RFA</html:button> <html:button
