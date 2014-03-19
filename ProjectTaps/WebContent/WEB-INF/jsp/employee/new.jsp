@@ -19,6 +19,7 @@
 			return;
 		} else if (task == "saveNewEmployee") {
 			document.employeeForm.task.value = task;
+			employeeValidation();
 		}
 	}
 	$(document).ready(function() {
@@ -29,6 +30,7 @@
 						$("#lastName").attr("placeholder", "Last Name");
 						$(".businessUnit").attr("placeholder", "Business Unit");
 						$("#employeeAddress").attr("placeholder", "Address");
+						$("#employeeAddress").attr("maxlength", "500");
 						$("#phoneNumber").attr("placeholder", "Phone Number");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
 						$("#email").attr("placeholder", "Email");
@@ -78,7 +80,7 @@
 								<td>Employee Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="newEmployee.employeeCode"
+										<html:text property="newEmployee.employeeCode" maxlength="3"
 											name="employeeForm" styleId="employeeCode"></html:text>
 									</div></td>
 							</tr>
@@ -86,7 +88,7 @@
 								<td>Employee NIK</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="newEmployee.employeeNik"
+										<html:text property="newEmployee.employeeNik" maxlength="8"
 											name="employeeForm" styleId="employeeNik"></html:text>
 									</div></td>
 							</tr>
@@ -94,7 +96,7 @@
 								<td>Employee First Name</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="newEmployee.firstName"
+										<html:text property="newEmployee.firstName" maxlength="20"
 											name="employeeForm" styleId="firstName"></html:text>
 									</div></td>
 							</tr>
@@ -102,7 +104,7 @@
 								<td>Employee Last Name</td>
 								<td>:</td>
 								<td><div class="input-control text ">
-										<html:text property="newEmployee.lastName" name="employeeForm"
+										<html:text property="newEmployee.lastName" name="employeeForm" maxlength="25"
 											styleId="lastName"></html:text>
 									</div></td>
 							</tr>
@@ -141,7 +143,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress"
+										<html:textarea property="newEmployee.employeeAddress" 
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -149,7 +151,7 @@
 								<td>Phone No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.phoneNumber"
+										<html:text property="newEmployee.phoneNumber" maxlength="12"
 											name="employeeForm" styleId="phoneNumber"></html:text>
 									</div></td>
 							</tr>
@@ -157,7 +159,7 @@
 								<td>Mobile No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.mobileNumber"
+										<html:text property="newEmployee.mobileNumber" maxlength="15"
 											name="employeeForm" styleId="mobileNumber"></html:text>
 									</div></td>
 							</tr>
@@ -165,7 +167,7 @@
 								<td>Email</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.email" name="employeeForm"
+										<html:text property="newEmployee.email" name="employeeForm" maxlength="30"
 											styleId="email"></html:text>
 									</div></td>
 							</tr>

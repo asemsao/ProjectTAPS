@@ -326,7 +326,7 @@ function pagingActiveDirectory(direction) {
 
 function chooseActiveDirectory() {
 	var choosen = $("input[name='ad_choose']:checked").val();
-	$("#activeDirectory-domain").val(choosen);
+	$("#activeDirectory-domain").val(choosen).trigger('change');
 
 	$.Dialog.close();
 }

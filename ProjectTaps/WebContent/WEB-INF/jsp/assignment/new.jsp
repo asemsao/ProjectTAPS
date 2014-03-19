@@ -20,9 +20,11 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			newAssignmentValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			newAssignmentValidation();
 		}
 	}
 	function getRadioValue(theRadioGroup) {
