@@ -32,7 +32,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			aForm.getClaimBean().setStatus("APPROVED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
-			paramStatus.put("status", aForm.getClaimBean().getStatus());
+			paramStatus.put("status", "APPROVED");
 			paramStatus.put("updatedBy","domain3");
 			paramStatus.put("taskCode",taskCode);
 			paramStatus.put("flag","ACTIVE");
@@ -47,7 +47,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			aForm.getClaimBean().setStatus("CORRECTION");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
-			paramStatus.put("status", aForm.getClaimBean().getStatus());
+			paramStatus.put("status", "CORRECTION");
 			paramStatus.put("updatedBy", "domain3");
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
@@ -59,7 +59,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			aForm.getClaimBean().setStatus("REJECTED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
-			paramStatus.put("status", aForm.getClaimBean().getStatus());
+			paramStatus.put("status", "REJECTED");
 			paramStatus.put("updatedBy", "domain3");
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
