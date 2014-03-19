@@ -4,20 +4,20 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import adins.ace.taps.bean.employeeRole.EmployeeRoleBean;
+import adins.ace.taps.bean.manageRole.RoleBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
-public class EmployeeRoleManager {
+public class ManageRoleManager {
 	public SqlMapClient ibatisSqlMap = null;
 
-	public EmployeeRoleManager() {
+	public ManageRoleManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
-	public List<EmployeeRoleBean> searchEmployeeRole() {
-		List<EmployeeRoleBean> empRoleList = null;
+	public List<RoleBean> searchEmployeeRole() {
+		List<RoleBean> empRoleList = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			empRoleList = ibatisSqlMap.queryForList("employeeRole.searchEmployees",
@@ -34,11 +34,11 @@ public class EmployeeRoleManager {
 		return empRoleList;
 	}
 	
-	public EmployeeRoleBean detailEmployeeRole(Map params) {
-		EmployeeRoleBean erBean = null;
+	public RoleBean detailEmployeeRole(Map params) {
+		RoleBean erBean = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			erBean = (EmployeeRoleBean) ibatisSqlMap.queryForObject("employeeRole.detailEmployeeRole",
+			erBean = (RoleBean) ibatisSqlMap.queryForObject("employeeRole.detailEmployeeRole",
 					params);
 		} catch (Exception e) {
 			e.printStackTrace();
