@@ -66,7 +66,7 @@
 		<br /> <br /> <img src="images/LOGO_PANJANG3_LOGIN.png"
 			class="logo-taps" />
 		<h1 class="title-taps">Sign in to TAPS</h1>
-		<html:form action="/ACE" method="post">
+		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
 			<html:text property="username" name="loginForm" styleId="uname"
 				styleClass="textbox-taps" />

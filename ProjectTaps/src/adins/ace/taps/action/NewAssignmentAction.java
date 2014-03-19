@@ -3,6 +3,8 @@ package adins.ace.taps.action;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import adins.ace.taps.bean.assignment.NewAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.NewAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class NewAssignmentAction extends Action {
 	@Override
@@ -29,6 +32,8 @@ public class NewAssignmentAction extends Action {
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		boolean success = false;
+		boolean assign = false;
+
 		//coba pake domain3
 		session.setAttribute("username", "DOMAIN205");
 		//nanti dihapus
@@ -71,6 +76,9 @@ public class NewAssignmentAction extends Action {
 				} else if ("assign".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("CLAIM");
 					aForm.getAssignmentBean().setFlag("INACTIVE");
+
+					/*checking assign an assignment*/
+					assign = true;
 				}
 
 				if (session.getAttribute("taskCode") != null) {
@@ -85,6 +93,16 @@ public class NewAssignmentAction extends Action {
 				if (success) {
 					session.setAttribute("message",
 							"Create Assignment Success!");
+					
+					/*sending notification on email*/
+					if (assign) {
+						Map paramStatus = new HashMap();
+						paramStatus.put("updatedBy", aForm.getAssignmentBean().getReportTo());
+						paramStatus.put("taskCode", aForm.getAssignmentBean().getTaskCode());
+						aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
+						SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "ASSIGN", 
+								aForm.getAssignmentBean().getTaskCode(), aForm.getClaimBean().getSenderName());
+					}
 				} else {
 					session.setAttribute("message", "Create Assignment Failed!");
 				}

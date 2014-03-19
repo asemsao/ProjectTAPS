@@ -20,6 +20,7 @@ import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
+import adins.ace.taps.module.SendMailTls;
 
 public class SelfSupervisorAssignmentAction extends Action {
 	@Override
@@ -61,6 +62,11 @@ public class SelfSupervisorAssignmentAction extends Action {
 			//update table star
 			sForm.getSelfAssignBean().setStarBefore(0);
 			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "APPROVE", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(sForm.getTask())) {
@@ -82,6 +88,11 @@ public class SelfSupervisorAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "CORRECT", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);
 			return mapping.findForward("Cancel");
@@ -95,6 +106,11 @@ public class SelfSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			System.out.println(success);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (success) {
+				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "REJECT", taskCode, sForm.getClaimBean().getSenderName());
+			}
 			session.removeAttribute("taskCode");
 			
 			return mapping.findForward("Cancel");
