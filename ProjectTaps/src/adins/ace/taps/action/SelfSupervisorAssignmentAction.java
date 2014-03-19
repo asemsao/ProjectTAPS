@@ -31,9 +31,10 @@ public class SelfSupervisorAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo("domain10");
-		sForm.getSelfAssignBean().setCreatedBy("DOMAIN205");
+		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 		
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
@@ -53,7 +54,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
@@ -84,7 +85,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
@@ -101,7 +102,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", sForm.getSelfAssignBean().getCurrentStatus());
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);

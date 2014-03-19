@@ -28,16 +28,17 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo("domain10");
-		aForm.getClaimBean().setCreatedBy("DOMAIN205");
+		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		
 		if ("approved".equals(aForm.getTask())) {
 			aForm.getClaimBean().setStatus("APPROVED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
-			paramStatus.put("updatedBy","domain3");
+			paramStatus.put("updatedBy",sessionUserDomain);
 			paramStatus.put("taskCode",taskCode);
 			paramStatus.put("flag","ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
@@ -57,7 +58,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
@@ -74,7 +75,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "REJECTED");
-			paramStatus.put("updatedBy", "domain3");
+			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
