@@ -49,7 +49,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "APPROVE", taskCode, aForm.getClaimBean().getSenderName());
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "APPROVE", taskCode, aForm.getClaimBean().getSenderName(), aForm.getClaimBean().getNameReceiver());
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
@@ -66,7 +66,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "CORRECT", taskCode, aForm.getClaimBean().getSenderName());
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "CORRECT", taskCode, aForm.getClaimBean().getSenderName(), aForm.getClaimBean().getNameReceiver());
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
@@ -83,7 +83,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "REJECT", taskCode, aForm.getClaimBean().getSenderName());
+				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "REJECT", taskCode, aForm.getClaimBean().getSenderName(), aForm.getClaimBean().getNameReceiver());
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");

@@ -109,7 +109,7 @@ public class NewAssignmentAction extends Action {
 						paramStatus.put("updatedBy", aForm.getAssignmentBean().getReportTo());
 						paramStatus.put("taskCode", aForm.getAssignmentBean().getTaskCode());
 						aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-						SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "ASSIGN",aForm.getAssignmentBean().getTaskCode(), aForm.getClaimBean().getSenderName());
+						SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "ASSIGN",aForm.getAssignmentBean().getTaskCode(), aForm.getClaimBean().getSenderName(), aForm.getClaimBean().getNameReceiver());
 					}
 				} else {
 					session.setAttribute("message", "Create Assignment Failed!");

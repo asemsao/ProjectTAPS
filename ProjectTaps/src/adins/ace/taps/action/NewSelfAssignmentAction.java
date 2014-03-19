@@ -147,7 +147,7 @@ public class NewSelfAssignmentAction extends Action {
 									.getEmailReceiver(), "Self Assignment",
 									"RFA", aForm.getSelfAssignBean()
 											.getTaskCode(), aForm
-											.getClaimBean().getSenderName());
+											.getClaimBean().getSenderName(), aForm.getClaimBean().getNameReceiver());
 						}
 					}
 				}

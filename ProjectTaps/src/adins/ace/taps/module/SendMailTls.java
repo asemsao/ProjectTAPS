@@ -16,7 +16,7 @@ import adins.ace.taps.configuration.App;
 
 public class SendMailTls {
 	public static void SendMail(String toMail, String assignmentType, String phase, 
-			String taskCode, String fromEmployee){
+			String taskCode, String fromEmployee, String nameReceiver){
 		final String username = App.getConfiguration("mail.name"); 
 		final String password = App.getConfiguration("mail.password"); 
 		
@@ -26,10 +26,11 @@ public class SendMailTls {
 		String subject = assignmentType+" - "+taskCode;
 		String contentMail = "";
 		if (phase.equals("RFA")) {
-			contentMail = assignmentType+" "+taskCode+" has been REQUESTED FOR APPROVAL by "
+			contentMail = "Dear "+nameReceiver+",\n\n"+assignmentType+" "+
+					taskCode+" has been REQUESTED FOR APPROVAL by "
 					+fromEmployee+" on "+date+"\n\n ";
 		}else{
-			contentMail = assignmentType+" "+taskCode+" has been "+phase+"ED by "
+			contentMail = "Dear "+nameReceiver+",\n\n"+assignmentType+" "+taskCode+" has been "+phase+"ED by "
 					+fromEmployee+" on "+date+"\n\n ";
 		}
 		String step = "to complete this task \n"+
