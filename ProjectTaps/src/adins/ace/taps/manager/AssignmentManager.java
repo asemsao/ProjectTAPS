@@ -103,48 +103,6 @@ public class AssignmentManager {
 	// **********************************************************************************************//
 
 	// **********************************AssignmentSupervisor***************************************//
-	
-	public Integer countEmployeeAssignmentList(Map params) {
-		Integer count = null;
-		try {
-			ibatisSQLMap.startTransaction();
-			count = (Integer) ibatisSQLMap.queryForObject(
-					"assignment.countEmployeeAssignmentList", params);
-			ibatisSQLMap.commitTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return count;
-	}
-	
-	public List<EmployeeReportBean> employeeAssignmentList(Map params) {
-		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
-		try {
-			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList(
-					"assignment.employeeAssignmentList", params);
-			ibatisSQLMap.commitTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-		return list;
-	}
-
-	// **********************************************************************************************//
-
-	// **********************************AssignmentSupervisor***************************************//
 	public Integer countAssignmentSupervisor(Map params) {
 		Integer count = null;
 		try {
@@ -185,7 +143,6 @@ public class AssignmentManager {
 
 	// **********************************************************************************************//
 
-	// **********************************************************************************************//
 	public boolean addAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
