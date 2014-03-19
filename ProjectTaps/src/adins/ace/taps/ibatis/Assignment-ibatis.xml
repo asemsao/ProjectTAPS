@@ -1113,4 +1113,13 @@
 		receiver.user_domain=(select assign_to from assignments 
 		where task_code=#taskCode#)
 	</select>
+	
+	<select id="searchDirectReportProject">
+		SELECT   ps.directreport_user_domain AS reportTo,
+		         e.first_name || ' ' || e.last_name AS reportToFullName
+		  FROM   project_structures ps, employees e
+		 WHERE       ps.assignee_user_domain = #userDomain#
+		         AND ps.project_code = #projectCode#
+		         AND ps.directreport_user_domain = e.user_domain(+)
+	</select>
 </sqlMap>

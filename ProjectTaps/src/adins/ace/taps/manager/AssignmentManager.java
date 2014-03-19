@@ -895,4 +895,22 @@ public class AssignmentManager {
 		}
 		return success;
 	}
+	
+	public NewAssignmentBean searchDirectReportProject(Map params){
+		NewAssignmentBean bean = new NewAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			bean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchDirectReportProject", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
 }
