@@ -88,21 +88,14 @@ public class AjaxAction extends Action {
 			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
 			if ("employeeDomain".equals(ajaxForm.getSearchCategory())) {
 				for (int i = 0; i < listAD.size(); i++) {
-					if (listAD
-							.get(i)
-							.getUserDomain()
-							.toLowerCase()
-							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
+					System.out.println(ajaxForm.getSearchKeyword().toLowerCase());
+					if (listAD.get(i).getUserDomain().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())) {
 						listAD1.add(listAD.get(i));
 					}
 				}
 			} else if ("employeeName".equals(ajaxForm.getSearchCategory())) {
 				for (int i = 0; i < listAD.size(); i++) {
-					if (listAD
-							.get(i)
-							.getFullName()
-							.toLowerCase()
-							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
+					if (listAD.get(i).getFullName().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())) {
 						listAD1.add(listAD.get(i));
 					}
 				}

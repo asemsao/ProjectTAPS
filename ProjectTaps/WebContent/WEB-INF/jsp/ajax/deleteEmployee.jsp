@@ -32,7 +32,7 @@
 				<thead>
 					<tr>
 						<th><strong>Employee <bean:write name="ajaxForm"
-									property="userDomain" /> Can't be delete because he/she still
+									property="userDomain" /> Can't be deleted because he/she still
 								in
 						</strong></th>
 					</tr>
@@ -84,7 +84,7 @@
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
-						<th colspan=7 class="text-center">Assignment List</th>
+						<th colspan=7 class="text-center">Pending Assignment List</th>
 					</tr>
 					<tr>
 						<th class="text-center" colspan=2>
@@ -140,7 +140,7 @@
 						</logic:notEmpty>
 						<logic:empty name="ajaxForm" property="listEmployeeReport">
 							<tr>
-								<td class="text-center" colspan=6>No Assignment Found</td>
+								<td class="text-center" colspan=6>No Pending Assignment</td>
 							</tr>
 						</logic:empty>
 					</tbody>

@@ -10,6 +10,7 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 
 @SuppressWarnings("serial")
 public class EmployeeForm extends ActionForm {
+	private String message;
 	private String employeeDomain;
 	private String task;
 	private String searchKeyword;
@@ -117,6 +118,14 @@ public class EmployeeForm extends ActionForm {
 
 	public void setProfilePicture(FormFile profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

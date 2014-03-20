@@ -251,7 +251,7 @@ function loadActiveDirectory(searchCategory, searchKeyword) {
 		});
 		$(".search-category-ActiveDirectory").get(1).value = searchCategory;
 		$(".search-keyword-ActiveDirectory").get(1).value = searchKeyword;
-	}, 400);
+	}, 1400);
 }
 
 function setParameterActiveDirectory() {

@@ -20,20 +20,40 @@
 			employeeValidation();
 		}
 	}
-	$(document).ready(function() {
-		$("#employeeDomain").attr("placeholder", "Employee Domain");
-		$("#employeeCode").attr("placeholder", "Employee Code");
-		$("#employeeNik").attr("placeholder", "NIK");
-		$("#firstName").attr("placeholder", "First Name");
-		$("#lastName").attr("placeholder", "Last Name");
-		$(".businessUnit").attr("placeholder", "Business Unit");
-		$("#employeeAddress").attr("placeholder", "Address");
-		$("#employeeAddress").attr("maxlength", "500");
-		$("#phoneNumber").attr("placeholder", "Phone Number");
-		$("#mobileNumber").attr("placeholder", "Mobile Number");
-		$("#email").attr("placeholder", "Email");
-		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-	});
+	$(document)
+			.ready(
+					function() {
+						$("#employeeDomain").attr("placeholder",
+								"Employee Domain");
+						$("#employeeCode").attr("placeholder", "Employee Code");
+						$("#employeeNik").attr("placeholder", "NIK");
+						$("#firstName").attr("placeholder", "First Name");
+						$("#lastName").attr("placeholder", "Last Name");
+						$(".businessUnit").attr("placeholder", "Business Unit");
+						$("#employeeAddress").attr("placeholder", "Address");
+						$("#employeeAddress").attr("maxlength", "500");
+						$("#phoneNumber").attr("placeholder", "Phone Number");
+						$("#mobileNumber").attr("placeholder", "Mobile Number");
+						$("#email").attr("placeholder", "Email");
+						$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+						
+
+						if ($("#messageCRUD").val() != "") {
+							setTimeout(function() {
+								$.Notify({
+									style : {
+										background : 'green',
+										color : 'white'
+									},
+									shadow : true,
+									// 					height : "120px",
+									// 					width : "360px",
+									position : 'top-right',
+									content : $("#messageCRUD").val()
+								});
+							}, 1000);
+						}
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
@@ -41,8 +61,10 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form enctype="multipart/form-data" action="/employee" method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
+	<html:form enctype="multipart/form-data" action="/employee"
+		method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
 		<html:hidden property="task" name="employeeForm" />
+		<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -60,10 +82,11 @@
 										<html:text property="newEmployee.employeeDomain"
 											name="employeeForm" styleId="employeeDomain" readonly="true"></html:text>
 									</div></td>
-								<td rowspan="6" class="text-center">
-									<img class="cycle avatar" src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"/>
-									<br>
-									<html:hidden property="newEmployee.profilePicture" name="employeeForm" />
+								<td rowspan="6" class="text-center"><img
+									class="cycle avatar"
+									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" />
+									<br> <html:hidden property="newEmployee.profilePicture"
+										name="employeeForm" />
 									<div class="input-control file ">
 										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
@@ -97,8 +120,8 @@
 								<td>Employee Last Name</td>
 								<td>:</td>
 								<td><div class="input-control text ">
-										<html:text property="newEmployee.lastName" name="employeeForm" maxlength="25"
-											styleId="lastName"></html:text>
+										<html:text property="newEmployee.lastName" name="employeeForm"
+											maxlength="25" styleId="lastName"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -126,8 +149,9 @@
 									<div class="input-control text ">
 										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<html:text property="newEmployee.businessUnitName" readonly="true"
-											name="employeeForm" styleId="organization-name" styleClass="businessUnit"></html:text>
+										<html:text property="newEmployee.businessUnitName"
+											readonly="true" name="employeeForm"
+											styleId="organization-name" styleClass="businessUnit"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -160,8 +184,8 @@
 								<td>Email</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.email" name="employeeForm" maxlength="30"
-											styleId="email"></html:text>
+										<html:text property="newEmployee.email" name="employeeForm"
+											maxlength="30" styleId="email"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -170,8 +194,8 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="newEmployee.golonganNumber" style="width:70px;"
-												name="employeeForm">
+											<html:select property="newEmployee.golonganNumber"
+												style="width:70px;" name="employeeForm">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
@@ -180,8 +204,8 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel" style="width:70px;"
-												name="employeeForm">
+											<html:select property="newEmployee.golonganLevel"
+												style="width:70px;" name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>
