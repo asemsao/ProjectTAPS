@@ -134,10 +134,10 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Self Assignment</th>
-									<th>Assignment</th>
-									<th>BU</th>
-									<th>Project</th>
+									<th>Self Assignment BU</th>
+									<th>Assignment BU</th>
+									<th>Self Assignment Project</th>
+									<th>Assignment Project</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -146,10 +146,10 @@
 									property="listReports">
 									<tr>
 										<th><bean:write name="report" property="employeeName" /></th>
-										<td><bean:write name="report" property="totalSelfAssignment" /></td>
-										<td><bean:write name="report" property="totalAssignment" /></td>
-										<td><bean:write name="report" property="totalBU" /></td>
-										<td><bean:write name="report" property="totalProject" /></td>
+										<td><bean:write name="report" property="totalSelfAssignmentBU" /></td>
+										<td><bean:write name="report" property="totalAssignmentBU" /></td>
+										<td><bean:write name="report" property="totalSelfAssignmentProject" /></td>
+										<td><bean:write name="report" property="totalAssignmentProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -192,14 +192,14 @@
 							</tr>
 							<tr>
 								<th class="text-center" rowspan="2">EMPLOYEE NAME</th>
-								<th class="text-center" colspan="2">ASSIGNMENT CATEGORY</th>
-								<th class="text-center" colspan="2">ASSIGNMENT TYPE</th>
+								<th class="text-center" colspan="2">BUSINESS UNIT</th>
+								<th class="text-center" colspan="2">PROJECT</th>
 							</tr>
 							<tr>
 								<th class="text-center">SELF ASSIGNMENT</th>
 								<th class="text-center">ASSIGNMENT</th>
-								<th class="text-center">BU</th>
-								<th class="text-center">PROJECT</th>
+								<th class="text-center">SELF ASSIGNMENT</th>
+								<th class="text-center">ASSIGNMENT</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -208,10 +208,10 @@
 									property="listReports">
 									<tr class="text-center">
 										<td class="text-left"><bean:write name="report" property="employeeName" /></td>
-										<td><bean:write name="report" property="totalSelfAssignment" /></td>
-										<td><bean:write name="report" property="totalAssignment" /></td>
-										<td><bean:write name="report" property="totalBU" /></td>
-										<td><bean:write name="report" property="totalProject" /></td>
+										<td><bean:write name="report" property="totalSelfAssignmentBU" /></td>
+										<td><bean:write name="report" property="totalAssignmentBU" /></td>
+										<td><bean:write name="report" property="totalSelfAssignmentProject" /></td>
+										<td><bean:write name="report" property="totalAssignmentProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>

@@ -26,6 +26,7 @@
 
 	        //viewReport(report, request, response, session);
 	      } finally {
+	    	  report.flushRequests();
 	        report.close();
 	        report.dispose();
 	      }

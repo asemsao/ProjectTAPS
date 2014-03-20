@@ -32,25 +32,27 @@
 		}
 	};
 
-	$(document).ready(
-			function() {
-				var level = $("#level").val();
-				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees");
-				$("#lookUpOrganization").load(
-						"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-								+ level);
-				$('#level').bind(
-						"change",
-						function() {
-							$("#parent-organization-code").val('');
-							$("#parent-organization-name").val('');
-							$("#lookUpOrganization").html('');
-							$("#lookUpOrganization").load(
-									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-											+ $(this).val());
-						});
-			});
+	$(document)
+			.ready(
+					function() {
+						var level = $("#level").val();
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
+						$("#lookUpOrganization").load(
+								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+										+ level);
+						$('#level').bind(
+								"change",
+								function() {
+									$("#parent-organization-code").val('');
+									$("#parent-organization-name").val('');
+									$("#lookUpOrganization").html('');
+									$("#lookUpOrganization").load(
+											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+													+ $(this).val());
+								});
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add New Business Unit</title>
@@ -142,7 +144,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="organizationForm" />
-
+		<input type="hidden" id="headBu" value="headBu" />
 	</html:form>
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpOrganization" class="hide"></div>
