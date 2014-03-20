@@ -73,34 +73,21 @@
 						$("#employee-name").val($("#employee-fullName").val());
 						$("#employee-name-2").val(
 								$("#employee-fullName-2").val());
-						$("#lookUpEmployeeOnProject")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-												+ project_code);
 						$("#lookUpProject").load(
 								"/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="
 										+ userDomain);
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees");
 						$("#lookUpEmployee2")
 								.load(
 										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 						$("#lookUpAssignment")
 								.load(
 										"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-						$('#project-name')
-								.bind(
-										"change",
-										function() {
-											setReportTo();
-											var project_code = $(
-													"#project-code").val();
-											$("#lookUpEmployeeOnProject").html(
-													'');
-											$("#lookUpEmployeeOnProject")
-													.load(
-															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-																	+ project_code);
-
-										});
+						$('#project-name').bind("change", function() {
+							setReportTo();
+						});
 						$("input[name='assignment_type']")
 								.change(
 										function() {
@@ -201,7 +188,7 @@
 											readonly="true" name="selfAssignmentForm"
 											styleId="employee-name" />
 										<button type="button" class="btn-search"
-											id="employeeOnProject"></button>
+											id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -344,7 +331,7 @@
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>
-	<div id="lookUpEmployeeOnProject" class="hide"></div>
+	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
