@@ -72,6 +72,15 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
+	
+	
+	<update id="updateReportAssignment" parameterClass="organizationBean">
+		UPDATE 
+        assignments SET
+        report_to = #headDomain#
+        WHERE assignment_type = 'BU' AND 
+        UPPER(organization_code)=UPPER(#organizationCode#)
+	</update>
 
 	<select id="countOrganizations" resultClass="int"
 		parameterClass="java.util.Map">

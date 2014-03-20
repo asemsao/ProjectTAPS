@@ -20,7 +20,7 @@
 			function() {
 				var level = $("#level").val();
 				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+						"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
 				$("#lookUpOrganization").load(
 						"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 								+ level);
@@ -128,6 +128,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="organizationForm" />
+		<input type="hidden" id="headBu" value="headBu" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="lookUpEmployee" class="hide"></div>
