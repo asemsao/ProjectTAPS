@@ -33,7 +33,7 @@ public class SelfAssignmentAction extends Action {
 		String taskCode = (String) session.getAttribute("taskCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
-		sForm.getSelfAssignBean().setCommentTo("domain10");
+		sForm.getSelfAssignBean().setCommentTo(sForm.getSelfAssignBean().getReportTo());
 		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 
 		if ("cancel".equals(sForm.getTask())) {
