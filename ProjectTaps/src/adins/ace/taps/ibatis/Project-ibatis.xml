@@ -66,9 +66,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="userDomain">
 				<isNotEmpty property="userDomain">
-					p.project_code IN (SELECT ps.project_code
+					(p.project_code IN (SELECT ps.project_code
 					FROM project_structures ps
-					WHERE LOWER(ps.assignee_user_domain) = LOWER ('%$userDomain$%'))
+					WHERE LOWER(ps.assignee_user_domain) LIKE LOWER (#userDomain#)))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -127,9 +127,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="userDomain">
 				<isNotEmpty property="userDomain">
-					p.project_code IN (SELECT ps.project_code
+					(p.project_code IN (SELECT ps.project_code
 					FROM project_structures ps
-					WHERE LOWER(ps.assignee_user_domain) = LOWER ('%$userDomain$%'))
+					WHERE LOWER(ps.assignee_user_domain) LIKE LOWER (#userDomain#)))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
