@@ -88,7 +88,6 @@ public class AjaxAction extends Action {
 			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
 			if ("employeeDomain".equals(ajaxForm.getSearchCategory())) {
 				for (int i = 0; i < listAD.size(); i++) {
-					System.out.println(ajaxForm.getSearchKeyword().toLowerCase());
 					if (listAD.get(i).getUserDomain().toLowerCase().contains(ajaxForm.getSearchKeyword().toLowerCase())) {
 						listAD1.add(listAD.get(i));
 					}
@@ -107,7 +106,7 @@ public class AjaxAction extends Action {
 			}
 			listADShow = listAD1.subList(
 					Integer.parseInt(params.get("start").toString()) - 1,
-					Integer.parseInt(params.get("end").toString()) - 1);
+					Integer.parseInt(params.get("end").toString()));
 			ajaxForm.setListAD(listADShow);
 
 			ajaxForm.setCountRecord(listAD1.size());
