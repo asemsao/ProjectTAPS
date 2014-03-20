@@ -183,17 +183,28 @@ public class ProjectAction extends Action {
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.updateMember(pForm.getAddSProject());
 			
-			//Edit direct report yang lama
-			if(pMan.checkRole(pForm.getDirectReportBefore()) == 0)
+			//Check apakah dia(supervisor yg lama) head BU atau bukan(kalau bukan akan di delete supervisor role nya)
+			if(pMan.notHeadBU(pForm.getDirectReportBefore()))
 			{
-				pMan.deleteRole(pForm.getDirectReportBefore());
-			}
+				//Edit direct report yang lama
+				if(pMan.checkRole(pForm.getDirectReportBefore()) == 0)
+				{
+					pMan.deleteRole(pForm.getDirectReportBefore());
+				}
+			}	
 			
-			//Add Direct Report yang baru
+			//Add supervisor role ke Direct Report yang baru
 			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
 				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
 			}
 			
+			
+			//update table assignment --> ganti directreport ke orang yang baru 
+			Map param = new HashMap();
+			param.put("reportTo", pForm.getAddSProject().getDirectreportUserDomain());
+			param.put("assignTo", pForm.getAddSProject().getAssigneeUserDomain());
+			param.put("projectCode", pForm.getParamProjectCode());
+			pMan.changeNewSupervisor(param);
 			
 			//Back to structure.jsp
 			pForm.setPage(1);
@@ -244,11 +255,15 @@ public class ProjectAction extends Action {
 			pForm.getAddSProject().setAssigneeUserDomain(pForm.getParamAssigneeUserDomain());
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			if(pMan.deleteMember(pForm.getAddSProject()))
-			{
-				//update table employee_role
-				if(pMan.checkRole(pForm.getDirectReportUserDomain()) == 0)
+			{	
+				//Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
+				if(pMan.notHeadBU(pForm.getDirectReportUserDomain()))
 				{
-					pMan.deleteRole(pForm.getDirectReportUserDomain());
+					//update table employee_role
+					if(pMan.checkRole(pForm.getDirectReportUserDomain()) == 0)
+					{
+						pMan.deleteRole(pForm.getDirectReportUserDomain());
+					}
 				}
 				
 				//update table assignments
