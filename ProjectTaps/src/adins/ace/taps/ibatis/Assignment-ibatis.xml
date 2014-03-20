@@ -1119,7 +1119,8 @@
 
 	<select id="emailToSupervisorAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
 		parameterClass="java.util.Map">
-		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver
+		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver, 
+		receiver.first_name||' '||receiver.last_name as nameReceiver
 		from employees sender, employees receiver 
 		where sender.user_domain=#updatedBy# and 
 		receiver.user_domain=(select report_to from assignments 
@@ -1127,7 +1128,8 @@
 	</select>
 	<select id="emailToEmployeeAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
 		parameterClass="java.util.Map">
-		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver
+		select sender.first_name||' '||sender.last_name as senderName, receiver.email as emailReceiver, 
+		receiver.first_name||' '||receiver.last_name as nameReceiver
 		from employees sender, employees receiver 
 		where sender.user_domain=#updatedBy# and 
 		receiver.user_domain=(select assign_to from assignments 

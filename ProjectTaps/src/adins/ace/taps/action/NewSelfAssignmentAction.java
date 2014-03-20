@@ -143,11 +143,15 @@ public class NewSelfAssignmentAction extends Action {
 									.getSelfAssignBean().getTaskCode());
 							aForm.setClaimBean(aMan
 									.emailToSupervisorAssignment(paramStatus));
-							SendMailTls.SendMail(aForm.getClaimBean()
-									.getEmailReceiver(), "Self Assignment",
-									"RFA", aForm.getSelfAssignBean()
-											.getTaskCode(), aForm
-											.getClaimBean().getSenderName());
+							
+							Map params = new HashMap();
+							params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+							params.put("assignmentType", "Self Assignment");
+							params.put("phase", "RFA");
+							params.put("taskCode",  aForm.getSelfAssignBean().getTaskCode());
+							params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+							params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+							SendMailTls.SendMail(params);
 						}
 					}
 				}

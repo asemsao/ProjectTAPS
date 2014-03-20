@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.crystaldecisions.proxy.remoteagent.af;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -66,7 +67,14 @@ public class ClaimAssignmentAction extends Action {
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(aForm.getClaimBean().getEmailReceiver(), "Assignment", "RFA", taskCode, aForm.getClaimBean().getSenderName());
+				Map params = new HashMap();
+				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Assignment");
+				params.put("phase", "RFA");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
 			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);

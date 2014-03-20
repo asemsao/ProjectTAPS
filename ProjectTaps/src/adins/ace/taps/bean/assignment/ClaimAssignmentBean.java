@@ -47,6 +47,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String adhocFullName = "";
 	private String senderName="";
 	private String emailReceiver="";
+	private String nameReceiver="";
 	
 	public String getAssignmentDate() {
 		return assignmentDate;
@@ -305,5 +306,11 @@ public class ClaimAssignmentBean implements Serializable {
 	}
 	public void setEmailReceiver(String emailReceiver) {
 		this.emailReceiver = emailReceiver;
+	}
+	public String getNameReceiver() {
+		return nameReceiver;
+	}
+	public void setNameReceiver(String nameReceiver) {
+		this.nameReceiver = nameReceiver;
 	}	
 }
