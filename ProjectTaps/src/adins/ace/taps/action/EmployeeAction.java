@@ -126,7 +126,12 @@ public class EmployeeAction extends Action {
 			if ("true".equals(App.getConfiguration("recovery_mode"))) {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
-				data.put("password", mForm.getPassword());
+				
+				if(mForm.getPassword() != ""){
+					data.put("password", mForm.getPassword());
+				}else{
+					data.put("password", "employeetaps");
+				}
 				mMan.insertLoginEmployee(params);
 			}
 
@@ -176,7 +181,9 @@ public class EmployeeAction extends Action {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
 				data.put("password", mForm.getPassword());
-				mMan.updateLoginEmployee(params);
+				if(mForm.getPassword() != ""){
+					mMan.updateLoginEmployee(params);	
+				}
 			}
 		}
 

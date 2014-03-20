@@ -124,8 +124,8 @@
 								<td>:</td>
 								<td><div class="input-control text">
 										<div class="input-control text">
-											<html:text property="password" name="employeeForm"
-												styleId="password"></html:text>
+											<html:password property="password" name="employeeForm"
+												styleId="password" />
 										</div>
 									</div></td>
 							</tr>
