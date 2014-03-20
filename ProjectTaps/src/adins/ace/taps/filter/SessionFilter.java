@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class LoginFilter implements Filter {
+public class SessionFilter implements Filter {
 	private FilterConfig filterConfig;
 
-	public LoginFilter() {
+	public SessionFilter() {
 
 	}
 
@@ -25,13 +25,12 @@ public class LoginFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		System.out.println("d");
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
-		if (session.getAttribute("username") == null) {
-			resp.sendRedirect("/ProjectTaps/login.do");
+		if (session.getAttribute("username") != null) {
+			resp.sendRedirect("/ProjectTaps/dashboard.do");
 		} else {
 			chain.doFilter(request, response);
 		}

@@ -28,6 +28,9 @@
 		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
 		<url-pattern>/selfAssignment.do</url-pattern>
 		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
+		<url-pattern>/BU.jsp</url-pattern>
+		<url-pattern>/Dept.jsp</url-pattern>
+		<url-pattern>/Management.jsp</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -63,6 +66,16 @@
 		<filter-name>HeadBUFilter</filter-name>
 		<url-pattern>/report.do</url-pattern>
 		<url-pattern>/specialAppraisal.do</url-pattern>
+	</filter-mapping>
+	
+	
+	<filter>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>adins.ace.taps.filter.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>/login.do</url-pattern>
 	</filter-mapping>
 
 	<session-config>

@@ -63,6 +63,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="headBu">
+				<isNotEmpty property="headBu">
+					user_domain NOT IN (SELECT head_user_domain FROM organizations)
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 	</select>
 
 	<select id="searchEmployees" resultClass="employeeBean"
@@ -110,6 +117,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				<isNotEmpty property="organization">
 					(LOWER(ORGANIZATION_CODE) LIKE
 					LOWER(#organization#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="headBu">
+				<isNotEmpty property="headBu">
+					user_domain NOT IN (SELECT head_user_domain FROM organizations)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -308,5 +322,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPDATE employees
 		SET
 		flag='INACTIVE' WHERE user_domain=#employeeDomain#
+	</update>
+	<update id="deleteAssignment" parameterClass="java.lang.String">
+		UPDATE assignments SET current_status='DELETED'
+        WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
+        LOWER(assign_to) = #employeeDomain#
 	</update>
 </sqlMap>

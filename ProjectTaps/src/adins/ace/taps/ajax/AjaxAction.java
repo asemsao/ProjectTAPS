@@ -83,6 +83,9 @@ public class AjaxAction extends Action {
 		}
 
 		if ("employees".equals(ajaxForm.getMode())) {
+			if(request.getParameter("headBu") != null){
+				params.put("headBu", "headBu");
+			}
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
@@ -188,6 +191,10 @@ public class AjaxAction extends Action {
 			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / 10));
 		} else {
 			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / 10)) + 1);
+		}
+		
+		if(ajaxForm.getMaxpage() == 0){
+			ajaxForm.setMaxpage(1);
 		}
 
 		if ("search".equalsIgnoreCase(ajaxForm.getTask())
