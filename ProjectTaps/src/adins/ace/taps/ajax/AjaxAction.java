@@ -82,6 +82,44 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(asgMan.countEmployeeAssignmentList(params));
 		}
 
+		if ("ad".equals(ajaxForm.getMode())) {
+			List<ActiveDirectoryBean> listAD = queAD.queryAD();
+			List<ActiveDirectoryBean> listAD1 = new ArrayList<ActiveDirectoryBean>();
+			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
+			if ("employeeDomain".equals(ajaxForm.getSearchCategory())) {
+				for (int i = 0; i < listAD.size(); i++) {
+					if (listAD
+							.get(i)
+							.getUserDomain()
+							.toLowerCase()
+							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
+						listAD1.add(listAD.get(i));
+					}
+				}
+			} else if ("employeeName".equals(ajaxForm.getSearchCategory())) {
+				for (int i = 0; i < listAD.size(); i++) {
+					if (listAD
+							.get(i)
+							.getFullName()
+							.toLowerCase()
+							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
+						listAD1.add(listAD.get(i));
+					}
+				}
+			} else {
+				listAD1 = listAD;
+			}
+			if (Integer.parseInt(params.get("end").toString()) > listAD1.size()) {
+				params.put("end", listAD1.size());
+			}
+			listADShow = listAD1.subList(
+					Integer.parseInt(params.get("start").toString()) - 1,
+					Integer.parseInt(params.get("end").toString()) - 1);
+			ajaxForm.setListAD(listADShow);
+
+			ajaxForm.setCountRecord(listAD1.size());
+		}
+
 		if ("employees".equals(ajaxForm.getMode())) {
 			ajaxForm.setListEmployees(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
@@ -146,44 +184,6 @@ public class AjaxAction extends Action {
 			ajaxForm.setListProject(prjMan.searchProject(params));
 			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
-		if ("ad".equals(ajaxForm.getMode())) {
-			List<ActiveDirectoryBean> listAD = queAD.queryAD();
-			List<ActiveDirectoryBean> listAD1 = new ArrayList<ActiveDirectoryBean>();
-			List<ActiveDirectoryBean> listADShow = new ArrayList<ActiveDirectoryBean>();
-			if ("employeeDomain".equals(ajaxForm.getSearchCategory())) {
-				for (int i = 0; i < listAD.size(); i++) {
-					if (listAD
-							.get(i)
-							.getUserDomain()
-							.toLowerCase()
-							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
-						listAD1.add(listAD.get(i));
-					}
-				}
-			} else if ("employeeName".equals(ajaxForm.getSearchCategory())) {
-				for (int i = 0; i < listAD.size(); i++) {
-					if (listAD
-							.get(i)
-							.getFullName()
-							.toLowerCase()
-							.contains(ajaxForm.getSearchKeyword().toLowerCase())) {
-						listAD1.add(listAD.get(i));
-					}
-				}
-			} else {
-				listAD1 = listAD;
-			}
-			if (Integer.parseInt(params.get("end").toString()) > listAD1.size()) {
-				params.put("end", listAD1.size());
-			}
-			listADShow = listAD1.subList(
-					Integer.parseInt(params.get("start").toString()) - 1,
-					Integer.parseInt(params.get("end").toString()) - 1);
-			ajaxForm.setListAD(listADShow);
-
-			ajaxForm.setCountRecord(listAD1.size());
-		}
-
 		if (ajaxForm.getCountRecord() % 10 == 0) {
 			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / 10));
 		} else {
