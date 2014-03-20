@@ -18,13 +18,13 @@ public class EmployeeManager {
 	public EmployeeManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
-	
+
 	public boolean deleteEmployee(String employeeDomain) {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("employee.deleteEmployee",employeeDomain);
-			ibatisSqlMap.update("employee.deleteAssignment",employeeDomain);
+			ibatisSqlMap.update("employee.deleteEmployee", employeeDomain);
+			ibatisSqlMap.update("employee.deleteAssignment", employeeDomain);
 			flag = true;
 			ibatisSqlMap.commitTransaction();
 
@@ -102,7 +102,8 @@ public class EmployeeManager {
 		NewEmployeeBean photo = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			photo = (NewEmployeeBean) ibatisSqlMap.queryForObject("employee.getPhotoEmployees", employeeDomain);
+			photo = (NewEmployeeBean) ibatisSqlMap.queryForObject(
+					"employee.getPhotoEmployees", employeeDomain);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -132,12 +133,13 @@ public class EmployeeManager {
 		}
 		return empEdit;
 	}
-	
+
 	public List<EmployeeOrganizationBean> checkEmplooyeeOrganization(Map params) {
 		List<EmployeeOrganizationBean> listEmpOrg = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			listEmpOrg = ibatisSqlMap.queryForList("employee.checkEmplooyeeOrganization", params);
+			listEmpOrg = ibatisSqlMap.queryForList(
+					"employee.checkEmplooyeeOrganization", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -155,7 +157,8 @@ public class EmployeeManager {
 		List<EmployeeProjectStructureBean> listEmpProject = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			listEmpProject = ibatisSqlMap.queryForList("employee.checkProjectStructure", params);
+			listEmpProject = ibatisSqlMap.queryForList(
+					"employee.checkProjectStructure", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,7 +171,7 @@ public class EmployeeManager {
 		}
 		return listEmpProject;
 	}
-	
+
 	public Integer countEmployees(Map params) {
 		Integer count = null;
 		try {
@@ -224,8 +227,7 @@ public class EmployeeManager {
 		}
 		return count;
 	}
-	
-	
+
 	public boolean updateLoginEmployee(Map params) {
 		boolean flag = false;
 		try {

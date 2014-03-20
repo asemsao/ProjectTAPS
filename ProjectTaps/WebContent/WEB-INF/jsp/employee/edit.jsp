@@ -35,8 +35,9 @@
 						$("#phoneNumber").attr("placeholder", "Phone Number");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
 						$("#email").attr("placeholder", "Email");
-						$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-						
+						$("#lookUpOrganization")
+								.load(
+										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 
 						if ($("#messageCRUD").val() != "") {
 							setTimeout(function() {
@@ -64,7 +65,8 @@
 	<html:form enctype="multipart/form-data" action="/employee"
 		method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
 		<html:hidden property="task" name="employeeForm" />
-		<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
+		<input type="hidden" id="messageCRUD"
+			value="<bean:write  property="message" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -76,22 +78,70 @@
 						</thead>
 						<tbody>
 							<tr>
+
+								<%
+									if (session.getAttribute("recoveryMode") == null) {
+								%>
 								<td>Employee Domain</td>
 								<td>:</td>
-								<td><div class="input-control text">
-										<html:text property="newEmployee.employeeDomain"
-											name="employeeForm" styleId="employeeDomain" readonly="true"></html:text>
-									</div></td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain" readonly="true"></html:text>
+											<button type="button" class="btn-search" id="activeDirectory"></button>
+										</div>
+									</div>
+								</td>
 								<td rowspan="6" class="text-center"><img
-									class="cycle avatar"
-									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" />
-									<br> <html:hidden property="newEmployee.profilePicture"
-										name="employeeForm" />
-									<div class="input-control file ">
+									src="<%=request.getContextPath()%>/images/user.png"
+									class="cycle avatar"> <br>
+									<div class="input-control file">
 										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
+								<%
+									} else {
+								%>
+								<td>Employee Domain</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain"></html:text>
+										</div>
+									</div>
+								</td>
+								<td rowspan="7" class="text-center"><img
+									src="<%=request.getContextPath()%>/images/user.png"
+									class="cycle avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
+								<%
+									}
+								%>
 							</tr>
+							<%
+								if (session.getAttribute("recoveryMode") != null) {
+							%>
+							<tr>
+								<td>Password</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<div class="input-control text">
+											<html:password property="password" name="employeeForm"
+												styleId="password" />
+										</div>
+									</div></td>
+							</tr>
+							<%
+								}
+							%>
 							<tr>
 								<td>Employee Code</td>
 								<td>:</td>
