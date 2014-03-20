@@ -192,7 +192,6 @@ public class DashboardAction extends Action {
 			paramStatus.put("taskCode",taskCode);
 			paramStatus.put("flag","ACTIVE");
 			success = aMan.updateStatus(paramStatus);
-			
 			//update table star
 			dForm.getClaimBean().setStarBefore(0);
 			starSuccess = aMan.addAssignmentStar(dForm.getClaimBean());
@@ -206,7 +205,7 @@ public class DashboardAction extends Action {
 				emailParams.put("taskCode", taskCode);
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
-				SendMailTls.SendMail(params);
+				SendMailTls.SendMail(emailParams);
 			}
 			//return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
