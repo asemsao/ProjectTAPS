@@ -46,14 +46,41 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 														</isNotNull>
 													</dynamic>
                                     ),0) AS manhourBU,
-                                    NVL((SELECT   SUM (R.MANHOUR)
-                                       FROM   REPORTS R
-                                      WHERE   (R.PROJECT_CODE IN
-                                                    (SELECT   P.PROJECT_CODE
-                                                       FROM   PROJECTS P
-                                                      WHERE   P.ORGANIZATION_CODE =
-                                                                 O.ORGANIZATION_CODE)) AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY') LIKE '%$reportYear$%')
-                                                   <dynamic prepend="AND">
+                                    NVL (
+						                (SELECT   SUM (R.MANHOUR)
+						                   FROM   REPORTS R
+						                  WHERE   (R.PROJECT_CODE IN
+						                                 (SELECT   P.PROJECT_CODE
+						                                    FROM   PROJECTS P
+						                                   WHERE   P.ORGANIZATION_CODE =
+						                                              O.ORGANIZATION_CODE))
+						                          AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE, 'DD/MM/YYYY') BETWEEN TO_CHAR((SELECT   h.transfer_date
+                                                                                                          FROM   history_projects h
+                                                                                                         WHERE   h.project_code =
+                                                                                                                    R.PROJECT_CODE
+                                                                                                                 AND h.organization_after =
+                                                                                                                       O.ORGANIZATION_CODE),'DD/MM/YYYY')
+                                                                                                   AND  CASE
+                                                                                                           WHEN ( (SELECT   COUNT(1)
+                                                                                                                     FROM   history_projects h
+                                                                                                                    WHERE   h.project_code =
+                                                                                                                               R.PROJECT_CODE
+                                                                                                                            AND h.organization_before =
+                                                                                                                                  O.ORGANIZATION_CODE) =
+                                                                                                                    1)
+                                                                                                           THEN
+                                                                                                              TO_CHAR((SELECT h.transfer_date
+                                                                                                                 FROM   history_projects h
+                                                                                                                WHERE   h.project_code =
+                                                                                                                           R.PROJECT_CODE
+                                                                                                                        AND h.organization_before =
+                                                                                                                              O.ORGANIZATION_CODE),'DD/MM/YYYY')
+                                                                                                           ELSE
+                                                                                                              TO_CHAR(SYSDATE,'DD/MM/YYYY')
+                                                                                                        END)
+						                          AND (TO_CHAR (R.ASSIGNMENT_APPROVED_DATE, 'YYYY') LIKE
+						                                  '%$reportYear$%')						            			  
+						                          <dynamic prepend="AND">
 														<isNotNull property="reportPeriode">
 															<isNotEmpty property="reportPeriode">
 																<isEqual property="reportPeriode" compareValue="first">
@@ -70,7 +97,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 															</isNotEmpty>
 														</isNotNull>
 													</dynamic>
-                                    ),0) AS manhourProject
+													
+						                ),0)
+						                AS manhourProject
                           FROM         organizations o
                                     LEFT JOIN
                                        employees e
@@ -90,8 +119,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
 		select e.first_name||' '||e.last_name as employeeName,
-		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='routine' and r.assign_to=e.user_domain
-		    and r.assignment_type = 'BU'
+		    NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='self assignment' and r.assign_to=e.user_domain
 		    <dynamic prepend="AND">
 				<isNotNull property="reportPeriode">
 					<isNotEmpty property="reportPeriode">
@@ -108,9 +136,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
 					</isNotEmpty>
 				</isNotNull>
-		</dynamic>),0) as totalRoutine,
-		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='initiative' and r.assign_to=e.user_domain
-		    and r.assignment_type = 'BU'
+		</dynamic>),0) as totalSelfAssignment,
+		    NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='assignment' and r.assign_to=e.user_domain
 		    <dynamic prepend="AND">
 				<isNotNull property="reportPeriode">
 					<isNotEmpty property="reportPeriode">
@@ -127,9 +154,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
 					</isNotEmpty>
 				</isNotNull>
-		</dynamic>),0) as totalInitiative,
-		    NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='adhoc' and r.assign_to=e.user_domain
-		    and r.assignment_type = 'BU'
+		</dynamic>),0) as totalAssignment,
+		    NVL((select sum(r.manhour) from reports r where r.assign_to=e.user_domain
+		    and lower(r.assignment_type) = 'bu'
 		    <dynamic prepend="AND">
 				<isNotNull property="reportPeriode">
 					<isNotEmpty property="reportPeriode">
@@ -146,8 +173,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
 					</isNotEmpty>
 				</isNotNull>
-		</dynamic>),0) as totalAdhocBU,
-		NVL((select sum(r.manhour) from reports r where lower(r.activity_type)='adhoc' and r.assign_to=e.user_domain
+		</dynamic>),0) as totalBU,
+		NVL((select sum(r.manhour) from reports r where r.assign_to=e.user_domain
 		    and lower(r.assignment_type) = 'project'
 		    <dynamic prepend="AND">
 				<isNotNull property="reportPeriode">
@@ -165,7 +192,92 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
 					</isNotEmpty>
 				</isNotNull>
-		</dynamic>),0) as totalAdhocProject
+		</dynamic>),0) as totalProject
+		from employees e
+		where e.organization_code=#orgCode#
+		 
+	</select>
+	
+	<select id="getReportLevel2_v2" 
+		resultClass="adins.ace.taps.bean.report.ReportBean"
+		parameterClass="java.util.Map">
+		select e.first_name||' '||e.last_name as employeeName,
+		    NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='self assignment' and r.assign_to=e.user_domain
+		    and lower(r.assignment_type) = 'bu'
+		    <dynamic prepend="AND">
+				<isNotNull property="reportPeriode">
+					<isNotEmpty property="reportPeriode">
+						<isEqual property="reportPeriode" compareValue="I">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('01','02','03','04','05','06'))
+						</isEqual>
+						<isEqual property="reportPeriode" compareValue="II">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('07','08','09','10','11','12'))
+						</isEqual>																
+					</isNotEmpty>
+				</isNotNull>
+				<isNotNull property="reportMonth">
+					<isNotEmpty property="reportMonth">																
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
+					</isNotEmpty>
+				</isNotNull>
+		</dynamic>),0) as totalSelfAssignmentBU,
+		    NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='assignment' and r.assign_to=e.user_domain
+		    and lower(r.assignment_type) = 'bu'
+		    <dynamic prepend="AND">
+				<isNotNull property="reportPeriode">
+					<isNotEmpty property="reportPeriode">
+						<isEqual property="reportPeriode" compareValue="I">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('01','02','03','04','05','06'))
+						</isEqual>
+						<isEqual property="reportPeriode" compareValue="II">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('07','08','09','10','11','12'))
+						</isEqual>																
+					</isNotEmpty>
+				</isNotNull>
+				<isNotNull property="reportMonth">
+					<isNotEmpty property="reportMonth">																
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
+					</isNotEmpty>
+				</isNotNull>
+		</dynamic>),0) as totalAssignmentBU,
+		    NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='self assignment' and r.assign_to=e.user_domain
+		    and lower(r.assignment_type) = 'project'
+		    <dynamic prepend="AND">
+				<isNotNull property="reportPeriode">
+					<isNotEmpty property="reportPeriode">
+						<isEqual property="reportPeriode" compareValue="I">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('01','02','03','04','05','06'))
+						</isEqual>
+						<isEqual property="reportPeriode" compareValue="II">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('07','08','09','10','11','12'))
+						</isEqual>																
+					</isNotEmpty>
+				</isNotNull>
+				<isNotNull property="reportMonth">
+					<isNotEmpty property="reportMonth">																
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
+					</isNotEmpty>
+				</isNotNull>
+		</dynamic>),0) as totalSelfAssignmentProject,
+		NVL((select sum(r.manhour) from reports r where lower(r.assignment_category)='assignment' and r.assign_to=e.user_domain
+		    and lower(r.assignment_type) = 'project'
+		    <dynamic prepend="AND">
+				<isNotNull property="reportPeriode">
+					<isNotEmpty property="reportPeriode">
+						<isEqual property="reportPeriode" compareValue="I">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('01','02','03','04','05','06'))
+						</isEqual>
+						<isEqual property="reportPeriode" compareValue="II">
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN ('07','08','09','10','11','12'))
+						</isEqual>																
+					</isNotEmpty>
+				</isNotNull>
+				<isNotNull property="reportMonth">
+					<isNotEmpty property="reportMonth">																
+							(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')										
+					</isNotEmpty>
+				</isNotNull>
+		</dynamic>),0) as totalAssignmentProject
 		from employees e
 		where e.organization_code=#orgCode#
 		 
@@ -177,5 +289,29 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		select o.parent_organization_code as organizationParent, org.organization_name as organizationParentName
 		from organizations o, organizations org
 		where o.organization_code=#orgCode# and org.organization_code=o.parent_organization_code
+	</select>
+	
+	<select id="getStartDate"
+		resultClass="java.lang.String"
+		parameterClass="java.util.Map">
+		select transfer_date as startDate from history_projects
+		where project_code = #prjCode#
+		and organization_after = #orgCode#		
+	</select>
+		
+	<select id="getEndDate"
+		resultClass="java.lang.String"
+		parameterClass="java.util.Map">
+		select transfer_date as endDate from history_projects
+		where project_code = #prjCode#
+		and organization_before = #orgCode#
+	</select>
+	
+	<select id="countHistoryProjects"
+		resultClass="int"
+		parameterClass="java.util.Map">
+		select count(1) from history_projects
+		where project_code = #prjCode#
+		and organization_before = #orgCode#
 	</select>
 </sqlMap>

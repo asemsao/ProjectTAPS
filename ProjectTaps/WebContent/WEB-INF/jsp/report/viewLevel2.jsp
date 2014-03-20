@@ -134,9 +134,9 @@
 							<thead>
 								<tr>
 									<th></th>
-									<th>Routine</th>
-									<th>Initiative</th>
-									<th>Adhoc</th>
+									<th>Self Assignment</th>
+									<th>Assignment</th>
+									<th>BU</th>
 									<th>Project</th>
 								</tr>
 							</thead>
@@ -146,17 +146,17 @@
 									property="listReports">
 									<tr>
 										<th><bean:write name="report" property="employeeName" /></th>
-										<td><bean:write name="report" property="totalRoutine" /></td>
-										<td><bean:write name="report" property="totalInitiative" /></td>
-										<td><bean:write name="report" property="totalAdhocBU" /></td>
-										<td><bean:write name="report" property="totalAdhocProject" /></td>
+										<td><bean:write name="report" property="totalSelfAssignment" /></td>
+										<td><bean:write name="report" property="totalAssignment" /></td>
+										<td><bean:write name="report" property="totalBU" /></td>
+										<td><bean:write name="report" property="totalProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
 							</tbody>
 						</table>
 					</div>
-					<button type="button" id="cmd">generate PDF</button>
+					<button type="button" onclick="javascript:button('printReportDept')">generate Report</button>
 					<div id="print">
 						<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
@@ -192,13 +192,14 @@
 							</tr>
 							<tr>
 								<th class="text-center" rowspan="2">EMPLOYEE NAME</th>
-								<th class="text-center" colspan="3">BUSINESS UNIT</th>
-								<th class="text-center" rowspan="2">PROJECT</th>
+								<th class="text-center" colspan="2">ASSIGNMENT CATEGORY</th>
+								<th class="text-center" colspan="2">ASSIGNMENT TYPE</th>
 							</tr>
 							<tr>
-								<th class="text-center">ROUTINE</th>
-								<th class="text-center">INITIATIVE</th>
-								<th class="text-center">ADHOC</th>
+								<th class="text-center">SELF ASSIGNMENT</th>
+								<th class="text-center">ASSIGNMENT</th>
+								<th class="text-center">BU</th>
+								<th class="text-center">PROJECT</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -207,10 +208,10 @@
 									property="listReports">
 									<tr class="text-center">
 										<td class="text-left"><bean:write name="report" property="employeeName" /></td>
-										<td><bean:write name="report" property="totalRoutine" /></td>
-										<td><bean:write name="report" property="totalInitiative" /></td>
-										<td><bean:write name="report" property="totalAdhocBU" /></td>
-										<td><bean:write name="report" property="totalAdhocProject" /></td>
+										<td><bean:write name="report" property="totalSelfAssignment" /></td>
+										<td><bean:write name="report" property="totalAssignment" /></td>
+										<td><bean:write name="report" property="totalBU" /></td>
+										<td><bean:write name="report" property="totalProject" /></td>
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
@@ -234,7 +235,6 @@
 <!-- 							</tr> -->
 								<tr>
 									<td colspan="5" class="text-right">
-										<button id="back-btn" onclick="javascript:button('printReportDept')">Print</button>
 										<button id="back-btn" onclick="javascript:button('back')">Home</button>										
 									<logic:equal name="reportForm" property="param2" value="2">
 										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>

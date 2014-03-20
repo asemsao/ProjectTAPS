@@ -153,7 +153,12 @@
 							</tbody>
 						</table>
 					</div>
-					<button type="button" id="cmd">generate PDF</button>
+					<logic:equal name="reportForm" property="param2" value="0">
+						<button type="button" onclick="javascript:button('printReportBOM')">generate PDF</button>
+					</logic:equal>
+					<logic:equal name="reportForm" property="param2" value="1">
+						<button type="button" onclick="javascript:button('printReportBU')">generate PDF</button>
+					</logic:equal>
 					<div id="print">					
 					<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
