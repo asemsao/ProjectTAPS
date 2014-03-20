@@ -92,6 +92,8 @@
 																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
 											}
 										});
+						$("#timepicker").timeselector();
+						$("#timepicker").attr("placeholder", "Assignment Time");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -117,6 +119,15 @@
 										<html:text property="selfAssignBean.assignmentDate"
 											name="selfAssignmentForm"></html:text>
 										<button type="button" class="btn-date"></button>
+									</div></td>
+							</tr>
+							<tr>
+								<td>Assignment Time</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<html:text property="selfAssignBean.assignmentTime"
+											name="selfAssignmentForm" styleId="timepicker"
+											readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>
