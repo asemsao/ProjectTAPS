@@ -44,6 +44,16 @@
 										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 						$("#lookUpActiveDirectory").load(
 								"/ProjectTaps/ajax.do?mode=ad&task=ad");
+
+						$("#golonganNumber").change(function() {
+							if ($("#golonganNumber").val() == "6") {
+								$("#golonganLevel").hide();
+								$("#golonganLevel").val("");
+							} else {
+								$("#golonganLevel").show();
+							}
+						});
+						$('.myCheckbox').prop('checked', true);
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -67,54 +77,53 @@
 						</thead>
 						<tbody>
 							<tr>
-								
-											<%
-												if (session.getAttribute("recoveryMode") == null) {
-											%>
-											<td>Employee Domain</td>
-											<td>:</td>
-											<td>
-												<div class="input-control text">
-													<div class="input-control text">
-														<html:text property="newEmployee.employeeDomain"
-															name="employeeForm" styleId="activeDirectory-domain"
-															styleClass="employeeDomain" readonly="true"></html:text>
-														<button type="button" class="btn-search" id="activeDirectory"></button>
-														</div>
-												</div>
-											</td>
-											<td rowspan="6" class="text-center">
-												<img src="<%=request.getContextPath()%>/images/user.png" class="cycle avatar">
-												<br>
-												<div class="input-control file">
-													<html:file property="profilePicture" accept="image/*"></html:file>
-													<button class="btn-file"></button>
-												</div>
-											</td>
-											<%
-												} else {
-											%>
-											<td>Employee Domain</td>
-											<td>:</td>
-											<td>
-												<div class="input-control text">
-													<div class="input-control text">
-														<html:text property="newEmployee.employeeDomain" name="employeeForm" styleId="activeDirectory-domain"
-															styleClass="employeeDomain"></html:text>
-													</div>
-												</div>
-											</td>
-											<td rowspan="7" class="text-center">
-												<img src="<%=request.getContextPath()%>/images/user.png" class="cycle avatar">
-												<br>
-												<div class="input-control file">
-													<html:file property="profilePicture" accept="image/*"></html:file>
-													<button class="btn-file"></button>
-												</div>
-											</td>
-											<%
-												}
-											%>
+
+								<%
+									if (session.getAttribute("recoveryMode") == null) {
+								%>
+								<td>Employee Domain</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain" readonly="true"></html:text>
+											<button type="button" class="btn-search" id="activeDirectory"></button>
+										</div>
+									</div>
+								</td>
+								<td rowspan="6" class="text-center"><img
+									src="<%=request.getContextPath()%>/images/user.png"
+									class="cycle avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
+								<%
+									} else {
+								%>
+								<td>Employee Domain</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain"></html:text>
+										</div>
+									</div>
+								</td>
+								<td rowspan="7" class="text-center"><img
+									src="<%=request.getContextPath()%>/images/user.png"
+									class="cycle avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
+								<%
+									}
+								%>
 							</tr>
 							<%
 								if (session.getAttribute("recoveryMode") != null) {
@@ -169,7 +178,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <html:radio property="newEmployee.gender"
+										<label> <html:radio property="newEmployee.gender" styleId="defaultCheck" 
 												value="M" name="employeeForm"></html:radio> <span
 											class="check"></span> Male
 										</label>

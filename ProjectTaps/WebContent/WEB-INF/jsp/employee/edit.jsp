@@ -54,6 +54,15 @@
 								});
 							}, 1000);
 						}
+						
+						$("#golonganNumber").change(function() {
+							if ($("#golonganNumber").val() == "6") {
+								$("#golonganLevel").hide();
+								$("#golonganLevel").val("");
+							} else {
+								$("#golonganLevel").show();
+							}
+						});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -245,7 +254,7 @@
 									<div class="auto-complete">
 										<div class="input-control select">
 											<html:select property="newEmployee.golonganNumber"
-												style="width:70px;" name="employeeForm">
+												style="width:70px;" name="employeeForm" styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
@@ -254,7 +263,7 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel"
+											<html:select property="newEmployee.golonganLevel" styleId="golonganLevel"
 												style="width:70px;" name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
