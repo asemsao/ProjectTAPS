@@ -10,22 +10,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 
 			(SELECT ROWNUM seqnum, a.*
 		FROM 
-			(SELECT
+			(SELECT   
 				p.project_code AS projectCode,
-				p.project_name AS projectName,
-				SUBSTR(p.project_name,0,14)|| '...' AS projectShortName,
-				p.client AS client,
-				p.organization_code AS organizationCode,
-				ph.phase_name AS phase,
-				to_char(p.start_date,'DD-MM-YYYY') AS startDate,
-				to_char(p.end_date,'DD-MM-YYYY') AS endDate,
-				(TRUNC(SYSDATE) - p.start_date) AS runningDay
-			FROM
-				projects p,
-				phases ph
-			WHERE
-				p.phase_id = ph.phase_id
-				AND LOWER(flag) = 'active'
+		        p.project_name AS projectName,
+		        SUBSTR (p.project_name, 0, 14) || '...' AS projectShortName,
+		        p.client AS client,
+		        p.organization_code AS organizationCode,
+		        ph.phase_name AS phase,
+		        TO_CHAR (p.start_date, 'DD-MM-YYYY') AS startDate,
+		        TO_CHAR (p.end_date, 'DD-MM-YYYY') AS endDate,
+		        (TRUNC (SYSDATE) - p.start_date) AS runningDay
+  			FROM   projects p, phases ph, project_structures ps
+ 			WHERE   p.phase_id = ph.phase_id 
+ 			AND p.project_code = ps.project_code 
+ 			AND LOWER (p.flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -59,6 +57,21 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="phaseClosed">
+				<isNotEmpty property="phaseClosed">
+					(LOWER(p.phase_id) NOT LIKE LOWER ('CLD'))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="userDomain">
+				<isNotEmpty property="userDomain">
+					(LOWER(ps.assignee_user_domain)
+						LIKE LOWER ('%$userDomain$%'))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 		ORDER BY 
 		p.start_date DESC
 		)a WHERE  <![CDATA[ ROWNUM <= #end#]]>
@@ -68,11 +81,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT (1)
-		FROM
-		projects p, phases ph
-		WHERE
-		p.phase_id = ph.phase_id
-		AND LOWER(flag) = 'active'
+		FROM   projects p, phases ph, project_structures ps
+ 		WHERE   p.phase_id = ph.phase_id 
+ 		AND p.project_code = ps.project_code 
+ 		AND LOWER (p.flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -103,6 +115,21 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						OR
 						(LOWER(p.organization_code) LIKE LOWER ('%$keyword$%'))
 					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="phaseClosed">
+				<isNotEmpty property="phaseClosed">
+					(LOWER(p.phase_id) NOT LIKE LOWER ('CLD'))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="userDomain">
+				<isNotEmpty property="userDomain">
+					(LOWER(ps.assignee_user_domain)
+						LIKE LOWER ('%$userDomain$%'))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
