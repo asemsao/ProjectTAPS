@@ -127,6 +127,7 @@ public class EmployeeAction extends Action {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
 				data.put("password", mForm.getPassword());
+				mMan.insertLoginEmployee(params);
 			}
 
 		}
@@ -175,6 +176,7 @@ public class EmployeeAction extends Action {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
 				data.put("password", mForm.getPassword());
+				mMan.updateLoginEmployee(params);
 			}
 		}
 
