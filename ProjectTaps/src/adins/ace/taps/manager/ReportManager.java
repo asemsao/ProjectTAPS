@@ -57,7 +57,7 @@ public class ReportManager {
 		List reportList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			reportList = ibatisSqlMap.queryForList("report.getReportLevel2", h);			
+			reportList = ibatisSqlMap.queryForList("report.getReportLevel2_v2", h);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
@@ -102,5 +102,56 @@ public class ReportManager {
 			}
 		}
 		return rBean;		
+	}
+	
+	public String getStartDateProject(Map h){
+		String startDate = "";
+		try {
+			ibatisSqlMap.startTransaction();
+			startDate = (String) ibatisSqlMap.queryForObject("report.getStartDate", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return startDate;		
+	}
+	
+	public String getEndDateProject(Map h){
+		String endDate = "";
+		try {
+			ibatisSqlMap.startTransaction();
+			endDate = (String) ibatisSqlMap.queryForObject("report.getEndDate", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return endDate;		
+	}
+	
+	public int countHistoryProjects(Map h){
+		int count = 0;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject("report.countHistoryProjects", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;		
 	}
 }

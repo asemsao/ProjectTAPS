@@ -66,6 +66,7 @@ public class OrganizationAction extends Action {
 		if ("saveEdit".equals(orgForm.getTask())) {
 			if (orgMan.submitEdit(orgForm.getOrgBean())) {
 				orgMan.insertRole(orgForm.getOrgBean());
+				orgMan.updateReportAssignment(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Business Unit Successfull!");
 			} else {
 				orgForm.setMessage("Edit Business Unit Failed!");
