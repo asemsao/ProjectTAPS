@@ -30,7 +30,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		String taskCode = (String) session.getAttribute("taskCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
 		aForm.getClaimBean().setTaskCode(taskCode);
-		aForm.getClaimBean().setCommentTo("domain10");
+		aForm.getClaimBean().setCommentTo(aForm.getClaimBean().getAssignTo());
 		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		
 		if ("approved".equals(aForm.getTask())) {

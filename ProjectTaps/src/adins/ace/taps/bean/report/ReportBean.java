@@ -15,10 +15,20 @@ public class ReportBean implements Serializable {
 	private String employeeName;
 	private Double manhourBU;
 	private Double manhourProject;
-	private Integer totalRoutine; //total manhour activity routine
-	private Integer totalInitiative; //total manhour activity initiative
-	private Integer totalAdhocBU; //total manhour activity adhoc BU
-	private Integer totalAdhocProject; //total manhour activity adhoc Project
+	private Double totalRoutine; //total manhour activity routine
+	private Double totalInitiative; //total manhour activity initiative
+	private Double totalAdhocBU; //total manhour activity adhoc BU
+	private Double totalAdhocProject; //total manhour activity adhoc Project
+	//report v1
+	private Double totalSelfAssignment;
+	private Double totalAssignment;
+	private Double totalBU;
+	private Double totalProject;
+	//report v2
+	private Double totalSelfAssignmentBU;
+	private Double totalAssignmentBU;
+	private Double totalAssignmentProject;
+	private Double totalSelfAssignmentProject;
 	
 	public String getOrganizationCode() {
 		return organizationCode;
@@ -80,30 +90,77 @@ public class ReportBean implements Serializable {
 	public void setManhourProject(Double manhourProject) {
 		this.manhourProject = manhourProject;
 	}
-	public Integer getTotalRoutine() {
+	public Double getTotalRoutine() {
 		return totalRoutine;
 	}
-	public void setTotalRoutine(Integer totalRoutine) {
+	public void setTotalRoutine(Double totalRoutine) {
 		this.totalRoutine = totalRoutine;
 	}
-	public Integer getTotalInitiative() {
+	public Double getTotalInitiative() {
 		return totalInitiative;
 	}
-	public void setTotalInitiative(Integer totalInitiative) {
+	public void setTotalInitiative(Double totalInitiative) {
 		this.totalInitiative = totalInitiative;
 	}
-	public Integer getTotalAdhocBU() {
+	public Double getTotalAdhocBU() {
 		return totalAdhocBU;
 	}
-	public void setTotalAdhocBU(Integer totalAdhocBU) {
+	public void setTotalAdhocBU(Double totalAdhocBU) {
 		this.totalAdhocBU = totalAdhocBU;
 	}
-	public Integer getTotalAdhocProject() {
+	public Double getTotalAdhocProject() {
 		return totalAdhocProject;
 	}
-	public void setTotalAdhocProject(Integer totalAdhocProject) {
+	public void setTotalAdhocProject(Double totalAdhocProject) {
 		this.totalAdhocProject = totalAdhocProject;
 	}
-	
+	public Double getTotalSelfAssignment() {
+		return totalSelfAssignment;
+	}
+	public void setTotalSelfAssignment(Double totalSelfAssignment) {
+		this.totalSelfAssignment = totalSelfAssignment;
+	}
+	public Double getTotalAssignment() {
+		return totalAssignment;
+	}
+	public void setTotalAssignment(Double totalAssignment) {
+		this.totalAssignment = totalAssignment;
+	}
+	public Double getTotalBU() {
+		return totalBU;
+	}
+	public void setTotalBU(Double totalBU) {
+		this.totalBU = totalBU;
+	}
+	public Double getTotalProject() {
+		return totalProject;
+	}
+	public void setTotalProject(Double totalProject) {
+		this.totalProject = totalProject;
+	}
+	public Double getTotalSelfAssignmentBU() {
+		return totalSelfAssignmentBU;
+	}
+	public void setTotalSelfAssignmentBU(Double totalSelfAssignmentBU) {
+		this.totalSelfAssignmentBU = totalSelfAssignmentBU;
+	}
+	public Double getTotalAssignmentBU() {
+		return totalAssignmentBU;
+	}
+	public void setTotalAssignmentBU(Double totalAssignmentBU) {
+		this.totalAssignmentBU = totalAssignmentBU;
+	}
+	public Double getTotalAssignmentProject() {
+		return totalAssignmentProject;
+	}
+	public void setTotalAssignmentProject(Double totalAssignmentProject) {
+		this.totalAssignmentProject = totalAssignmentProject;
+	}
+	public Double getTotalSelfAssignmentProject() {
+		return totalSelfAssignmentProject;
+	}
+	public void setTotalSelfAssignmentProject(Double totalSelfAssignmentProject) {
+		this.totalSelfAssignmentProject = totalSelfAssignmentProject;
+	}
 	
 }

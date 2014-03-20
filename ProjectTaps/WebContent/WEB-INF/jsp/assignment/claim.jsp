@@ -66,6 +66,8 @@
 						styleId="status" />
 					<html:hidden property="claimBean.taskCode"
 						name="claimAssignmentForm" styleId="task-code" />
+					<html:hidden property="claimBean.reportTo"
+						name="claimAssignmentForm" styleId="task-code" />
 					<table class="table">
 						<thead>
 							<tr>
