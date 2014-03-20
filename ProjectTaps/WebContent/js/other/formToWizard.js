@@ -176,12 +176,14 @@ function viewListProject() {
 			} else {
 				$("button#step0Next").prop("disabled", true);
 			}
+			$("#pageP").val(json.pageP);
+			$("#maxPageP").val(json.maxPageP);
+			$("#currentRecordP").val(json.currentRecordP);
+			$("span#currentPageP").html(json.pageP);
+			$("span#lastPageP").html(json.maxPageP);
+			$("span#totalRecordP").html(json.countRecordP);
 		}
 	});
-	
-	$("span#currentPageP").html($("#pageP").val());
-	$("span#lastPageP").html($("#maxPageP").val());
-	$("span#totalRecordP").html($("#countRecordP").val());
 }
 
 function viewListOrg() {
@@ -261,7 +263,9 @@ function viewListOrg() {
 			} else {
 				$("button#step1Next").prop("disabled", true);
 			}
-			
+			$("#pageO").val(json.pageO);
+			$("#maxPageO").val(json.maxPageO);
+			$("#currentRecordO").val(json.currentRecordO);
 			$("span#currentPageO").html(json.pageO);
 			$("span#lastPageO").html(json.maxPageO);
 			$("span#totalRecordO").html(json.countRecordO);
@@ -271,16 +275,26 @@ function viewListOrg() {
 
 function button(pagingDirection) {
 	$("#pagingDirection").val(pagingDirection);
-	viewListProject();
+	if (pagingDirection == "nextP" || pagingDirection == "prevP" || pagingDirection == "firstP" || pagingDirection == "lastP") {
+		viewListProject();
+	} else {
+		viewListOrg();
+	}
 }
 
 $(document).ready(function() {
+	$("#projectKeyword").val("");
+	$("#orgKeyword").val("");
+	$("#pageP").val(1);
+	$("#pageO").val(1);
 	$("#myForm").formToWizard({ submitButton: 'submit-btn' });
 	$("input:radio[name='project_choose']:first").prop("checked", true);
 
 	$("input:radio[name='org_choose']:first").prop("checked", true);
 	
 	$("button#search-btn-project").click(function() {
+		$("#pagingDirection").val("");
+		$("#pageP").val(1);
 		viewListProject();
 	});
 	
