@@ -36,10 +36,6 @@ public class NewAssignmentAction extends Action {
 		boolean success = false;
 		boolean assign = false;
 
-		// coba pake domain
-		userDomain = "domain3";
-		// nanti dihapus
-
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
 				aForm.setAssignmentBean(aMan.searchRecordAssignment(taskCode));
@@ -78,7 +74,7 @@ public class NewAssignmentAction extends Action {
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeProject(paramCode);
 				}
-				System.out.println(paramCode);
+				
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
 				if ("save".equals(aForm.getNewTask())) {

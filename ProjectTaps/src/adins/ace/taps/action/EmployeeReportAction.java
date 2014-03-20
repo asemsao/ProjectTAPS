@@ -27,7 +27,7 @@ public class EmployeeReportAction extends Action {
 		Map params = new HashMap();
 		
 		//testing pake domain 205
-		session.setAttribute("username", "domain1");
+		session.setAttribute("username", "DOMAIN205");
 		//nanti dihapus
 		
 		if (session.getAttribute("taskCode") != null) {
@@ -62,7 +62,6 @@ public class EmployeeReportAction extends Action {
 		}
 
 		if ("employeeReport".equals(session.getAttribute("link"))) {
-			session.setAttribute("username", "domain3");
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {

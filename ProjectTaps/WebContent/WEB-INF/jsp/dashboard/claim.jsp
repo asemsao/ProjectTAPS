@@ -17,6 +17,13 @@
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
+
+	$(document).ready(function() {
+		$("#timepicker").timeselector();
+		$("#assignmentDate").attr("placeholder", "Assignment Date");
+		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
+		$("#timepicker").attr("placeholder", "Assignment Time");
+	});
 </script>
 
 <title>Claim Assignment</title>
@@ -38,8 +45,8 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.assignmentDate"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write
+										property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
@@ -50,8 +57,8 @@
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.assignmentType"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write
+										property="claimBean.assignmentType" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
@@ -78,8 +85,16 @@
 								<td>:</td>
 								<td colspan=2><div class="input-control text"
 										id="datepicker">
-										<html:text property="claimBean.claimDate" name="dashboardForm"/>
+										<html:text property="claimBean.claimDate" name="dashboardForm" />
 										<button type="button" class="btn-date"></button>
+									</div></td>
+							</tr>
+							<tr>
+								<td>Assignment Time</td>
+								<td>:</td>
+								<td colspan=2><div class="input-control text">
+										<html:text property="claimBean.assignmentTime"
+											name="dashboardForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -87,7 +102,8 @@
 								<td>:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm" property="claimBean.manHours">
+										<html:select name="dashboardForm"
+											property="claimBean.manHours">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -164,10 +180,10 @@
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="dashboardForm"/>
-		<html:hidden property="claimBean.taskCode" name="dashboardForm"/>
-		<html:hidden property="claimBean.assignTo" name="dashboardForm"/>
-		<html:hidden property="claimBean.reportTo" name="dashboardForm"/>
+		<html:hidden property="task" name="dashboardForm" />
+		<html:hidden property="claimBean.taskCode" name="dashboardForm" />
+		<html:hidden property="claimBean.assignTo" name="dashboardForm" />
+		<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
