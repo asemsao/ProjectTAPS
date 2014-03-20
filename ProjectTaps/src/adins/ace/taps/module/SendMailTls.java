@@ -2,6 +2,8 @@ package adins.ace.taps.module;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -15,10 +17,16 @@ import javax.mail.internet.MimeMessage;
 import adins.ace.taps.configuration.App;
 
 public class SendMailTls {
-	public static void SendMail(String toMail, String assignmentType,
-			String phase, String taskCode, String fromEmployee) {
+	public static void SendMail(Map params) {
 		final String username = App.getConfiguration("mail.name");
 		final String password = App.getConfiguration("mail.password");
+
+		String toMail = params.get("toMail").toString();
+		String assignmentType = params.get("assignmentType").toString();
+		String phase = params.get("phase").toString();
+		String taskCode = params.get("taskCode").toString();
+		String fromEmployee = params.get("fromEmployee").toString();
+		String nameReceiver = params.get("nameReceiver").toString();
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", App.getConfiguration("mail.smtp.auth"));
@@ -33,14 +41,15 @@ public class SendMailTls {
 						return new PasswordAuthentication(username, password);
 					}
 				});
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		String date = sdf.format(new Date());
 		String subject = "TAPS - " + assignmentType + " " + taskCode;
 
-		String user = "Meyliana Tanjung";
-		String linkemp = "http://localhost:8084/ProjectTaps/employeeReport.do";
-		String linkspv = "http://localhost:8084/ProjectTaps/employeeReportSupervisor.do";
+		String user = nameReceiver;
+		String linkemp = App.getConfiguration("linkemp");
+		String linkspv = App.getConfiguration("linkspv");
+		String linktaps = App.getConfiguration("linktaps");
 
 		String contentMail = "<html><body>";
 		contentMail += "<h3>Dear " + user + "</h3><br>";
@@ -81,7 +90,9 @@ public class SendMailTls {
 
 		contentMail += "<tr>";
 		contentMail += "<td>";
-		if (phase.equalsIgnoreCase("RFA")) {
+		if (phase.equalsIgnoreCase("RFA") && assignmentType.equalsIgnoreCase("self assignment")) {
+			contentMail += "Created by";
+		} else if (phase.equalsIgnoreCase("RFA") && assignmentType.equalsIgnoreCase("assignment")) {
 			contentMail += "Assign to";
 		} else {
 			contentMail += "Assign by";
@@ -89,11 +100,9 @@ public class SendMailTls {
 		contentMail += "</td>";
 		contentMail += "<td>:</td>";
 		contentMail += "<td>";
-		if (phase.equalsIgnoreCase("RFA")) {
-			contentMail += "Nama Supervisor";
-		} else {
-			contentMail += fromEmployee;
-		}
+
+		contentMail += fromEmployee;
+
 		contentMail += "</td>";
 		contentMail += "</tr>";
 
@@ -111,17 +120,22 @@ public class SendMailTls {
 
 		contentMail += "<p>For more detail, please click in this ";
 		if (phase.equalsIgnoreCase("RFA")) {
-			contentMail += "<a href='" + linkspv + "' target='_blank'>this</a>";
+			contentMail += "<a href='" + linkspv
+					+ "' target='_blank'>this link</a>";
 		} else {
-			contentMail += "<a href='" + linkemp + "' target='_blank'>this</a>";
+			contentMail += "<a href='" + linkemp
+					+ "' target='_blank'>this link</a>";
 		}
-		contentMail += ".</p>";
+
+		contentMail += "&nbsp;or login to <a href='" + linktaps
+				+ "' target='_blank'>TAPS</a> ";
+		contentMail += "for assignment detail.</p>";
 
 		contentMail += "<p>We hope this information is useful for you.<br>";
 		contentMail += "Thank you.</p>";
 		contentMail += "<p>Best regards,<br>";
 		contentMail += "<b>Timesheet and Performance Score (TAPS)</b><br>";
-		contentMail += "PT Adicipta Inovasi Teknology";
+		contentMail += "PT Adicipta Inovasi Teknologi";
 		contentMail += "</p>";
 		contentMail += "</body></html>";
 
@@ -136,15 +150,9 @@ public class SendMailTls {
 
 			Transport.send(message);
 
-			System.out.println("Done");
-
+			System.out.println("Done to send message");
 		} catch (MessagingException e) {
-			// try {
-			// throw new Exception("failed to send message");
-			// } catch (Exception e1) {
-			// e1.printStackTrace();
-			// }
-			System.out.println("failed to send message");
+			System.out.println("Failed to send message");
 		}
 	}
 }

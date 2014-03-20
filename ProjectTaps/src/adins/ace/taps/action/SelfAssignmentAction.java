@@ -33,7 +33,7 @@ public class SelfAssignmentAction extends Action {
 		String taskCode = (String) session.getAttribute("taskCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
-		sForm.getSelfAssignBean().setCommentTo("domain10");
+		sForm.getSelfAssignBean().setCommentTo(sForm.getSelfAssignBean().getReportTo());
 		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 
 		if ("cancel".equals(sForm.getTask())) {
@@ -62,7 +62,14 @@ public class SelfAssignmentAction extends Action {
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
 			if (success) {
-				SendMailTls.SendMail(sForm.getClaimBean().getEmailReceiver(), "Self Assignment", "RFA", taskCode, sForm.getClaimBean().getSenderName());
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "RFA");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
 			}
 			session.removeAttribute("taskCode");
 			System.out.println(success);

@@ -36,17 +36,12 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 			<html:form action="/selfSupervisorAssignment" method="POST">
-			<html:hidden property="selfAssignBean.currentStatus" name="selfAssignmentForm"
-						styleId="status" />
-			<html:hidden property="selfAssignBean.taskCode"
-						name="selfAssignmentForm" styleId="task-code" />
+			<html:hidden property="selfAssignBean.currentStatus" name="selfAssignmentForm" styleId="status" />
+			<html:hidden property="selfAssignBean.taskCode" name="selfAssignmentForm" styleId="task-code" />
 			<html:hidden property="task" name="selfAssignmentForm" />
-			<input type="hidden" name="tmpDescription" value="<bean:write 
-				property="selfAssignBean.description" name="selfAssignmentForm" />" />
-			<input type="hidden" name="tmpManHours" value="<bean:write 
-				property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
-			<html:hidden property="selfAssignBean.assignTo"
-						name="selfAssignmentForm" />
+			<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="selfAssignmentForm" />" />
+			<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
+			<html:hidden property="selfAssignBean.assignTo" name="selfAssignmentForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -364,7 +359,5 @@
 		</div>
 	
 	<jsp:include page="/frame/footer.jsp" />
-<%-- 	<div id="popup_updatestar" class="hide"><jsp:include --%>
-<%-- 			page="../lookup/_approve.jsp" /></div> --%>
 </body>
 </html>
