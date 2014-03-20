@@ -372,6 +372,26 @@ public class AssignmentManager {
 		return assignmentBean;
 	}
 
+	public NewAssignmentBean searchRecordSelfAssignmentDraft(String taskCode) {
+		NewAssignmentBean assignmentBean = new NewAssignmentBean();
+		System.out.println(assignmentBean.getTaskCode());
+		try {
+			ibatisSQLMap.startTransaction();
+			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchRecordSelfAssignmentDraft", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return assignmentBean;
+	}
+	
 	public ClaimAssignmentBean searchRecordClaimAssignment(String taskCode) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
