@@ -43,6 +43,7 @@ public class DashboardAction extends Action {
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
 		boolean success = false;
+		boolean starSuccess = false;
 		Map params = new HashMap();
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
@@ -194,10 +195,10 @@ public class DashboardAction extends Action {
 			
 			//update table star
 			dForm.getClaimBean().setStarBefore(0);
-			aMan.addAssignmentStar(dForm.getClaimBean());
+			starSuccess = aMan.addAssignmentStar(dForm.getClaimBean());
 			/*sending notification on email*/
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (success && starSuccess) {
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Assignment");
@@ -289,10 +290,10 @@ public class DashboardAction extends Action {
 			System.out.println(success);
 			//update table star
 			dForm.getSelfAssignBean().setStarBefore(0);
-			aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());
+			starSuccess = aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());
 			/*sending notification on email*/
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (success && starSuccess) {
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Self Assignment");
