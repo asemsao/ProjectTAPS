@@ -49,8 +49,7 @@
 								</th>
 								<th>
 									<div class="input-control text">
-										<html:text property="projectKeyword" name="transferProjectForm" styleId="projectKeyword"
-											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
+										<html:text property="projectKeyword" name="transferProjectForm" styleId="projectKeyword"></html:text>
 										<button  id="search-btn-project" type="button" class="btn-search"></button>
 									</div>
 								</th>
@@ -66,7 +65,7 @@
 								<th class="text-center">Business Unit</th>
 								<th class="text-center">Phase</th>
 								<th class="text-center">Start Date</th>
-								<th class="text-center">Finish Date</th>
+								<th class="text-center">Estimate Finish Date</th>
 								<th class="text-center">Running (day)</th>
 							</tr>
 						</thead>
