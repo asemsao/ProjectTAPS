@@ -286,7 +286,6 @@ public class DashboardAction extends Action {
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "ACTIVE");
 			success = aMan.updateStatus(paramStatus);
-			System.out.println(success);
 			//update table star
 			dForm.getSelfAssignBean().setStarBefore(0);
 			starSuccess = aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());

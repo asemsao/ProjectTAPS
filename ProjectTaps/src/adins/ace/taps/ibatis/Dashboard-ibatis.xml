@@ -179,7 +179,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -270,7 +270,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -361,7 +361,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -452,7 +452,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -543,7 +543,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
