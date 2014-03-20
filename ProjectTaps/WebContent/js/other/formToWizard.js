@@ -118,7 +118,7 @@ function viewListProject() {
 				content += "<th class=\"text-center\">Business Unit<\/th>";
 				content += "<th class=\"text-center\">Phase<\/th>";
 				content += "<th class=\"text-center\">Start Date<\/th>";
-				content += "<th class=\"text-center\">Finish Date<\/th>";
+				content += "<th class=\"text-center\">Estimate Finish Date<\/th>";
 				content += "<th class=\"text-center\">Running (day)<\/th>";
 				content += "<\/tr>";
 				content += "<\/thead>";
@@ -289,7 +289,6 @@ $(document).ready(function() {
 	$("#pageO").val(1);
 	$("#myForm").formToWizard({ submitButton: 'submit-btn' });
 	$("input:radio[name='project_choose']:first").prop("checked", true);
-
 	$("input:radio[name='org_choose']:first").prop("checked", true);
 	
 	$("button#search-btn-project").click(function() {
@@ -304,7 +303,7 @@ $(document).ready(function() {
 	
 	$("button#step0Next").click(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
-		var data = "task=retrieveProject&projectCode=" + projectCode;
+		var data = "task=retrieveFromStep1&projectCode=" + projectCode;
 		$.ajax({
 			url : "/ProjectTaps/transferProject.do",
 			type : "POST",
@@ -346,6 +345,42 @@ $(document).ready(function() {
 						+ '</table>';
 				
 				$("#table-ajax-project").html(projectContent);
+				
+				var structureContent = "";
+				if (json.listMember.length > 0) {
+					structureContent += "<table class=\"table striped bordered hovered\">";
+					structureContent += "<thead>";
+					structureContent += "<tr>";
+					structureContent += "<th class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" id=\"check-all\" onchange=\"checkAll(this)\" \/><span class=\"check\"><\/span><\/label><\/div><\/th>";
+					structureContent += "<th class=\"text-center\">Role<\/th>";
+					structureContent += "<th class=\"text-center\">Assignee<\/th>";
+					structureContent += "<th class=\"text-center\">Direct Report<\/th>";
+					structureContent += "<\/tr>";
+					structureContent += "<\/thead>";
+					structureContent += "<tbody>";			
+					for ( var i in json.listMember) {
+						structureContent += "<tr>";
+						structureContent += "<td class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" name=\"member_choose\" value=\"" + json.listMember[i].assigneeUserDomain + "@" + json.listMember[i].assignee + "\" \/><span class=\"check\"><\/span><\/label><\/div><\/td>";
+						structureContent += "<td>";
+						structureContent += json.listMember[i].projectRole;
+						structureContent += "</td><td>";
+						structureContent += "<img src=\"transferProject.do?task=getAssigneePhoto&assigneeUserDomain=" + json.listMember[i].assigneeUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
+						structureContent += json.listMember[i].assignee;
+						structureContent += "</td><td>";
+						structureContent += "<img src=\"transferProject.do?task=getDirectReportPhoto&directReportUserDomain=" + json.listMember[i].directReportUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
+						structureContent += json.listMember[i].directReport;
+						structureContent += "</td>";
+						structureContent += "<\/tr>";
+					}
+					structureContent += "<\/tbody>";
+					structureContent += "<\/table>";
+				} else {
+					structureContent += "<table class=\"table striped bordered hovered\">";
+					structureContent += "<tr><td colspan=4 class=\"text-center\">No Member<\/td><\/tr>";
+					structureContent += "<\/table>";
+				}
+				
+				$("#table-ajax-structure").html(structureContent);
 			}
 		});
 	});
@@ -354,7 +389,7 @@ $(document).ready(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
 		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
 		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
-		var data = "task=retrieveStructure&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
+		var data = "task=retrieveFromStep2&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
 		$.ajax({
 			url : "/ProjectTaps/transferProject.do",
 			type : "POST",
@@ -398,41 +433,6 @@ $(document).ready(function() {
 				projectContent += '&nbsp;&nbsp;<i class="icon-arrow-right-5"></i>&nbsp;&nbsp;' + json.orgName + ' ( <b>' + json.orgCode + '</b> )';
 				projectContent += '</td></tr></table>';
 				$("#table-ajax-project2").html(projectContent);
-				
-				var structureContent = "";
-				if (json.listMember.length > 0) {
-					structureContent += "<table class=\"table striped bordered hovered\">";
-					structureContent += "<thead>";
-					structureContent += "<tr>";
-					structureContent += "<th class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" id=\"check-all\" onchange=\"checkAll(this)\" \/><span class=\"check\"><\/span><\/label><\/div><\/th>";
-					structureContent += "<th class=\"text-center\">Role<\/th>";
-					structureContent += "<th class=\"text-center\">Assignee<\/th>";
-					structureContent += "<th class=\"text-center\">Direct Report<\/th>";
-					structureContent += "<\/tr>";
-					structureContent += "<\/thead>";
-					structureContent += "<tbody>";			
-					for ( var i in json.listMember) {
-						structureContent += "<tr>";
-						structureContent += "<td class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" name=\"member_choose\" value=\"" + json.listMember[i].assigneeUserDomain + "@" + json.listMember[i].assignee + "\" \/><span class=\"check\"><\/span><\/label><\/div><\/td>";
-						structureContent += "<td>";
-						structureContent += json.listMember[i].projectRole;
-						structureContent += "</td><td>";
-						structureContent += "<img src=\"transferProject.do?task=getAssigneePhoto&assigneeUserDomain=" + json.listMember[i].assigneeUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
-						structureContent += json.listMember[i].assignee;
-						structureContent += "</td><td>";
-						structureContent += "<img src=\"transferProject.do?task=getDirectReportPhoto&directReportUserDomain=" + json.listMember[i].directReportUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
-						structureContent += json.listMember[i].directReport;
-						structureContent += "</td>";
-						structureContent += "<\/tr>";
-					}
-					structureContent += "<\/tbody>";
-					structureContent += "<\/table>";
-				} else {
-					structureContent += "<table class=\"table striped bordered hovered\">";
-					structureContent += "<tr><td colspan=4 class=\"text-center\">No Member<\/td><\/tr>";
-					structureContent += "<\/table>";
-				}
-				$("#table-ajax-structure").html(structureContent);
 			}
 		});
 	});
@@ -441,7 +441,7 @@ $(document).ready(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
 		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
 		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
-		var data = "task=retrieveStructure&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
+		var data = "task=retrieveProject&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
 		$.ajax({
 			url : "/ProjectTaps/transferProject.do",
 			type : "POST",
@@ -493,7 +493,7 @@ $(document).ready(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
 		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
 		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
-		var data = "task=retrieveStructure&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
+		var data = "task=retrieveProject&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
 		$.ajax({
 			url : "/ProjectTaps/transferProject.do",
 			type : "POST",

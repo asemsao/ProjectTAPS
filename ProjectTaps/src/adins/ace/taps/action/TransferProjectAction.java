@@ -31,12 +31,12 @@ import adins.ace.taps.manager.OrganizationManager;
 import adins.ace.taps.manager.TransferProjectManager;
 import adins.ace.taps.module.ExtractPhoto;
 
+
 public class TransferProjectAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
 		HttpSession session = request.getSession(true);
 		TransferProjectForm tpForm = (TransferProjectForm) form;
 		TransferProjectManager tpMan = new TransferProjectManager();
@@ -91,19 +91,25 @@ public class TransferProjectAction extends Action {
 			}
 		}
 		
-		if ("retrieveProject".equals(tpForm.getTask())) {
-			tpForm.setpBean(tpMan.getProjectById(request.getParameter("projectCode").toString()));
+		if ("retrieveFromStep1".equals(tpForm.getTask())) {
+			tpForm.setpBean(tpMan.getProjectById(tpForm.getProjectCode()));
+			tpForm.setListMember(tpMan.getAllMemberByProjectId(tpForm.getProjectCode()));
 			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
 			return null;
 		}
 		
-		if ("retrieveStructure".equals(tpForm.getTask())) {
-			tpForm.setpBean(tpMan.getProjectById(request.getParameter("projectCode").toString()));
-			tpForm.setListMember(tpMan.getAllMemberByProjectId(request.getParameter("projectCode").toString()));
-			tpForm.setOrgCode(request.getParameter("orgCode").toString());
-			tpForm.setOrgName(request.getParameter("orgName").toString());
+		if ("retrieveFromStep2".equals(tpForm.getTask())) {
+			tpForm.setpBean(tpMan.getProjectById(tpForm.getProjectCode()));
+			json = gson.toJson(tpForm);
+			PrintWriter out = response.getWriter();
+			out.print(json);
+			return null;
+		}
+		
+		if ("retrieveProject".equals(tpForm.getTask())) {
+			tpForm.setpBean(tpMan.getProjectById(tpForm.getProjectCode()));
 			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.print(json);
@@ -204,7 +210,6 @@ public class TransferProjectAction extends Action {
 			temp = temp.substring(0, temp.length() - 2);
 			params.put("listMember", temp);
 			boolean flag = tpMan.updateTransfer(params);
-			System.out.println("UPDATE : " + flag);
 		}
 
 		params.put("startP", (tpForm.getPageP() - 1) * 10 + 1);
@@ -230,8 +235,6 @@ public class TransferProjectAction extends Action {
 		}
 		
 		if ("searchProject".equals(tpForm.getTask())) {
-			tpForm.setProjectCategory(request.getParameter("projectCategory"));
-			tpForm.setProjectKeyword(request.getParameter("projectKeyword"));
 			params.put("category", tpForm.getProjectCategory());
 			params.put("keyword", tpForm.getProjectKeyword());
 			tpForm.setListProject(tpMan.searchProject(params));
@@ -248,8 +251,6 @@ public class TransferProjectAction extends Action {
 		}
 		
 		if ("searchOrg".equals(tpForm.getTask())) {
-			tpForm.setOrgCategory(request.getParameter("orgCategory"));
-			tpForm.setOrgKeyword(request.getParameter("orgKeyword"));
 			params.put("category", tpForm.getOrgCategory());
 			params.put("keyword", tpForm.getOrgKeyword());
 			tpForm.setListOrganization(tpMan.searchOrganization(params));
