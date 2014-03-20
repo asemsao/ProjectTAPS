@@ -42,13 +42,12 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			paramStatus.put("taskCode",taskCode);
 			paramStatus.put("flag","ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
-			System.out.println(success);
 			//update table star
 			aForm.getClaimBean().setStarBefore(0);
-			aMan.addAssignmentStar(aForm.getClaimBean());
+			boolean starSuccess = aMan.addAssignmentStar(aForm.getClaimBean());
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (success && starSuccess) {
 				Map params = new HashMap();
 				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Assignment");
