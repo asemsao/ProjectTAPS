@@ -122,13 +122,14 @@ public class EmployeeAction extends Action {
 			mForm.getNewEmployee().setCreateBy(
 					session.getAttribute("username").toString());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
-			if(flag){
+			if (flag) {
 				if ("true".equals(App.getConfiguration("recovery_mode"))) {
 					Map data = new HashMap();
-					data.put("username", mForm.getNewEmployee().getEmployeeDomain());
-					if(mForm.getPassword() != ""){
+					data.put("username", mForm.getNewEmployee()
+							.getEmployeeDomain());
+					if (mForm.getPassword() != "") {
 						data.put("password", mForm.getPassword());
-					}else{
+					} else {
 						data.put("password", "employeetaps");
 					}
 					mMan.insertLoginEmployee(data);
@@ -175,13 +176,15 @@ public class EmployeeAction extends Action {
 					return mapping.findForward("Edit");
 				}
 			}
-			
-			if ("true".equals(App.getConfiguration("recovery_mode"))) {
-				Map data = new HashMap();
-				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
-				data.put("password", mForm.getPassword());
-				if(mForm.getPassword() != ""){
-					mMan.updateLoginEmployee(data);	
+			if (flag) {
+				if ("true".equals(App.getConfiguration("recovery_mode"))) {
+					Map data = new HashMap();
+					data.put("username", mForm.getNewEmployee()
+							.getEmployeeDomain());
+					data.put("password", mForm.getPassword());
+					if (mForm.getPassword() != "") {
+						mMan.updateLoginEmployee(data);
+					}
 				}
 			}
 		}
