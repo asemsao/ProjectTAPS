@@ -65,7 +65,9 @@ public class EmployeeAction extends Action {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
 					if (buffer == null) {
-						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+						buffer = ExtractPhoto.extractBytes(getServlet()
+								.getServletContext().getRealPath("/")
+								+ "images/user.png");
 					}
 					response.reset();
 					response.setContentLength(buffer.length);
@@ -127,17 +129,14 @@ public class EmployeeAction extends Action {
 					session.getAttribute("username").toString());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			if (flag) {
-				if ("true".equals(App.getConfiguration("recovery_mode"))) {
-					Map data = new HashMap();
-					data.put("username", mForm.getNewEmployee()
-							.getEmployeeDomain());
-					if (mForm.getPassword() != "") {
-						data.put("password", mForm.getPassword());
-					} else {
-						data.put("password", "employeetaps");
-					}
-					mMan.insertLoginEmployee(data);
+				Map data = new HashMap();
+				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
+				if (mForm.getPassword() != "") {
+					data.put("password", mForm.getPassword());
+				} else {
+					data.put("password", "employeetaps");
 				}
+				mMan.insertLoginEmployee(data);
 			}
 		}
 		if ("saveEditEmployee".equals(mForm.getTask())) {
