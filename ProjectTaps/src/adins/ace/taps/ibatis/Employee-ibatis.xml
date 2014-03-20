@@ -323,4 +323,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SET
 		flag='INACTIVE' WHERE user_domain=#employeeDomain#
 	</update>
+	<update id="deleteAssignment" parameterClass="java.lang.String">
+		UPDATE assignments SET current_status='DELETED'
+        WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
+        LOWER(assign_to) = #employeeDomain#
+	</update>
 </sqlMap>
