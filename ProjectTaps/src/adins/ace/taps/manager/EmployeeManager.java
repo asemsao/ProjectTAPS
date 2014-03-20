@@ -224,4 +224,43 @@ public class EmployeeManager {
 		}
 		return count;
 	}
+	
+	
+	public boolean updateLoginEmployee(Map params) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("employee.saveEditLoginEmployees", params);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
+
+	public boolean insertLoginEmployee(Map params) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("employee.insertLoginEmployee", params);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
 }

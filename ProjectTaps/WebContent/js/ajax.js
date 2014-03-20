@@ -251,7 +251,7 @@ function loadActiveDirectory(searchCategory, searchKeyword) {
 		});
 		$(".search-category-ActiveDirectory").get(1).value = searchCategory;
 		$(".search-keyword-ActiveDirectory").get(1).value = searchKeyword;
-	}, 400);
+	}, 600);
 }
 
 function setParameterActiveDirectory() {
@@ -1052,6 +1052,10 @@ function setParameterProject() {
 	var mode = $("#mode-project").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
 			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	if ($("#userDomain").length > 0) {
+		var headBu = $("#userDomain").val();
+		data += "&userDomain=" + headBu;
+	} 
 	return data;
 }
 

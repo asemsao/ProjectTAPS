@@ -218,7 +218,7 @@
 										</div>
 
 										<p class="star"></p>
-										<html:hidden property="claimBean.appraisalStar" styleId="star" />
+										<html:hidden property="selfAssignBean.appraisalStar" styleId="star" />
 										<button type="button" id="edit-star-btn" class="default">Edit</button>
 
 									</div>

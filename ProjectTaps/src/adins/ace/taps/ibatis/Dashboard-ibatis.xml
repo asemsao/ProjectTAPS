@@ -68,31 +68,65 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="claimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalClaim
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim') AND flag='INACTIVE'
+	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim')
 	</select>
 	
 	<select id="approvalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFA
 	 	FROM   		assignments
 	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
-	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
+	 	AND assignment_category = 'ASSIGNMENT'
 	</select>
 	
 	<select id="approvalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFAself
 	 	FROM   		assignments
 	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
-	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
+	 	AND assignment_category = 'SELF ASSIGNMENT' 
 	</select>
 	
 	<select id="correctionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrection
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
-	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
+	 	AND assignment_category = 'ASSIGNMENT' 
 	</select>
 	
 	<select id="correctionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT   	COUNT (task_code) AS totalCorrectionself
+	 	FROM   		assignments
+	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
+	 	AND assignment_category = 'SELF ASSIGNMENT' 
+	</select>
+	
+	<select id="unreadClaimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT   	COUNT (task_code) AS totalClaim
+	 	FROM   		assignments
+	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim') AND flag='INACTIVE'
+	</select>
+	
+	<select id="unreadApprovalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT   	COUNT (task_code) AS totalRFA
+	 	FROM   		assignments
+	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
+	</select>
+	
+	<select id="unreadApprovalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT   	COUNT (task_code) AS totalRFAself
+	 	FROM   		assignments
+	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
+	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
+	</select>
+	
+	<select id="unreadCorrectionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT   	COUNT (task_code) AS totalCorrection
+	 	FROM   		assignments
+	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
+	</select>
+	
+	<select id="unreadCorrectionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrectionself
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
@@ -145,7 +179,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -236,7 +270,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -327,7 +361,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -418,7 +452,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -509,7 +543,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY a.created_date DESC
+				ORDER BY flag DESC, assignmentDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>

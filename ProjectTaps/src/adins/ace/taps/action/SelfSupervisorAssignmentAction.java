@@ -59,13 +59,12 @@ public class SelfSupervisorAssignmentAction extends Action {
 			paramStatus.put("flag", "ACTIVE");
 			boolean success = aMan.updateStatus(paramStatus);
 			session.removeAttribute("taskCode");
-			System.out.println(success);
 			//update table star
 			sForm.getSelfAssignBean().setStarBefore(0);
-			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			boolean starSuccess = aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (success && starSuccess) {
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
