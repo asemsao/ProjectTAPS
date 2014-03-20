@@ -8,9 +8,15 @@
 <head>
 <script type="text/javascript">
 function report(task) {
-	document.reportForm.task.value = task;
-	document.reportForm.submit();
-}
+		if (task == "cancel") {
+			document.reportForm.task.value = "";
+			document.reportForm.submit();
+			return;
+		} else if (task == "view") {
+			document.reportForm.task.value = task;
+			reportValidation();
+		}
+	}
 </script>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,7 +40,7 @@ function report(task) {
 								<td>Year</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text name="reportForm" property="reportYear"></html:text>
+										<html:text name="reportForm" property="reportYear" styleId="reportYear"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -61,7 +67,7 @@ function report(task) {
 									
 									<div id="6month">
 										<div class="input-control select">
-											<html:select property="reportPeriode"
+											<html:select property="reportPeriode" styleId="reportPeriode"
 												name="reportForm">
 												<html:option value="">Semester</html:option>
 												<html:option value="I">First</html:option>
@@ -72,7 +78,7 @@ function report(task) {
 
 									<div id="1month">
 										<div class="input-control select">
-												<html:select property="reportMonth"
+												<html:select property="reportMonth" styleId="reportMonth"
 													name="reportForm">
 													<html:option value="">Month</html:option>
 													<html:option value="01">January</html:option>
