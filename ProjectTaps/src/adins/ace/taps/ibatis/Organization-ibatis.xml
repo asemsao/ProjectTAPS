@@ -430,15 +430,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		LOWER(flag) = 'active'
 	</select>
 
-	<!-- <select id="countRole" resultClass="int" parameterClass="java.util.Map"> -->
-	<!-- SELECT -->
-	<!-- COUNT(1) -->
-	<!-- FROM employee_role -->
-	<!-- WHERE user_domain = -->
-	<!-- #headDomain# AND -->
-	<!-- role_id='HBU' -->
-	<!-- </select> -->
-
 	<select id="countRole" resultClass="int" parameterClass="java.lang.String">
 		SELECT
 		COUNT(1)
