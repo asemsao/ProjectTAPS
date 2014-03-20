@@ -1,120 +1,125 @@
-$(document).ready(function() {
-	$(".deleteEmployee").on('click', function() {
-		$("#lookUpDeleteEmployee").load("/ProjectTaps/ajax.do?mode=deleteEmployee&task=deleteEmployee&userDomain="+$(this).attr('alt').trim());
-		setTimeout(function() {
-			$.Dialog({
-				overlay : true,
-				shadow : true,
-				flat : true,
-				icon : '<img src="images/LOGO_Taps6.png">',
-				title : 'Flat window',
-				content : $("#lookUpDeleteEmployee").html(),
-				padding : 10,
-				title : 'Assignment'
+$(document).ready(
+		function() {
+			$(".deleteEmployee").on(
+					'click',
+					function() {
+						$("#lookUpDeleteEmployee").load(
+								"/ProjectTaps/ajax.do?mode=deleteEmployee&task=deleteEmployee&userDomain="
+										+ $(this).attr('alt').trim());
+						setTimeout(function() {
+							$.Dialog({
+								overlay : true,
+								shadow : true,
+								flat : true,
+								icon : '<img src="images/LOGO_Taps6.png">',
+								title : 'Flat window',
+								content : $("#lookUpDeleteEmployee").html(),
+								padding : 10,
+								title : 'Assignment'
+							});
+						}, 500);
+					});
+			$("#activeDirectory").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpActiveDirectory").html(),
+					padding : 10,
+					title : 'Employees AD'
+				});
 			});
-		}, 500);
-	});
-	$("#activeDirectory").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpActiveDirectory").html(),
-			padding : 10,
-			title : 'Employees AD'
+			$("#employee").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpEmployee").html(),
+					padding : 10,
+					title : 'Employees'
+				});
+			});
+			$("#employee2").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpEmployee2").html(),
+					padding : 10,
+					title : 'Employees'
+				});
+			});
+			$("#employeeOnProject").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpEmployeeOnProject").html(),
+					padding : 10,
+					title : 'Employees on Project'
+				});
+			});
+			$("#employeeOnOrganization").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpEmployeeOnOrganization").html(),
+					padding : 10,
+					title : 'Employees on Organization'
+				});
+			});
+			$("#organization").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpOrganization").html(),
+					padding : 10,
+					title : 'Organizations'
+				});
+			});
+			$("#assigment").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpAssignment").html(),
+					padding : 10,
+					title : 'Assignment'
+				});
+			});
+			$("#project").on('click', function() {
+				$.Dialog({
+					overlay : true,
+					shadow : true,
+					flat : true,
+					icon : '<img src="images/LOGO_Taps6.png">',
+					title : 'Flat window',
+					content : $("#lookUpProject").html(),
+					padding : 10,
+					title : 'Project'
+				});
+			});
 		});
-	});
-	$("#employee").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpEmployee").html(),
-			padding : 10,
-			title : 'Employees'
-		});
-	});
-	$("#employee2").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpEmployee2").html(),
-			padding : 10,
-			title : 'Employees'
-		});
-	});
-	$("#employeeOnProject").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpEmployeeOnProject").html(),
-			padding : 10,
-			title : 'Employees on Project'
-		});
-	});
-	$("#employeeOnOrganization").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpEmployeeOnOrganization").html(),
-			padding : 10,
-			title : 'Employees on Organization'
-		});
-	});
-	$("#organization").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpOrganization").html(),
-			padding : 10,
-			title : 'Organizations'
-		});
-	});
-	$("#assigment").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpAssignment").html(),
-			padding : 10,
-			title : 'Assignment'
-		});
-	});
-	$("#project").on('click', function() {
-		$.Dialog({
-			overlay : true,
-			shadow : true,
-			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
-			title : 'Flat window',
-			content : $("#lookUpProject").html(),
-			padding : 10,
-			title : 'Project'
-		});
-	});
-});
 
-//===============================================================================
-//Fungsi ajax look up untuk assignment
-//===============================================================================
+// ===============================================================================
+// Fungsi ajax look up untuk assignment
+// ===============================================================================
 function loadAssignmentDelete(searchCategory, searchKeyword) {
 	setTimeout(function() {
 		$.Dialog({
@@ -129,7 +134,7 @@ function loadAssignmentDelete(searchCategory, searchKeyword) {
 		});
 		$(".search-category-assignment-delete").get(1).value = searchCategory;
 		$(".search-keyword-assignment-delete").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterAssignmentDelete() {
@@ -246,7 +251,7 @@ function loadActiveDirectory(searchCategory, searchKeyword) {
 		});
 		$(".search-category-ActiveDirectory").get(1).value = searchCategory;
 		$(".search-keyword-ActiveDirectory").get(1).value = searchKeyword;
-	}, 100);
+	}, 600);
 }
 
 function setParameterActiveDirectory() {
@@ -348,7 +353,7 @@ function loadEmployee(searchCategory, searchKeyword) {
 		});
 		$(".search-category-employee").get(1).value = searchCategory;
 		$(".search-keyword-employee").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterEmployee() {
@@ -360,6 +365,12 @@ function setParameterEmployee() {
 	var mode = $("#mode-employee").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
 			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	
+	if ($("#headBu").length > 0) {
+		var headBu = $("#headBu").val();
+		data += "&headBu=" + headBu;
+	} 
+
 	return data;
 }
 
@@ -460,7 +471,7 @@ function loadEmployeeOnProject(searchCategory, searchKeyword) {
 				});
 				$(".search-category-employee-on-project").get(1).value = searchCategory;
 				$(".search-keyword-employee-on-project").get(1).value = searchKeyword;
-			}, 100);
+			}, 400);
 }
 
 function setParameterEmployeeOnProject() {
@@ -574,7 +585,7 @@ function loadEmployeeOnOrganization(searchCategory, searchKeyword) {
 				});
 				$(".search-category-employee-on-organization").get(1).value = searchCategory;
 				$(".search-keyword-employee-on-organization").get(1).value = searchKeyword;
-			}, 100);
+			}, 400);
 }
 
 function setParameterEmployeeOnOrganization() {
@@ -689,7 +700,7 @@ function loadEmployee2(searchCategory, searchKeyword) {
 		});
 		$(".search-category-employee-2").get(1).value = searchCategory;
 		$(".search-keyword-employee-2").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterEmployee2() {
@@ -800,7 +811,7 @@ function loadOrganization(searchCategory, searchKeyword) {
 		});
 		$(".search-category-organization").get(1).value = searchCategory;
 		$(".search-keyword-organization").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterOrganization() {
@@ -911,7 +922,7 @@ function loadAssignment(searchCategory, searchKeyword) {
 		});
 		$(".search-category-assignment").get(1).value = searchCategory;
 		$(".search-keyword-assignment").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterAssignment() {
@@ -1029,7 +1040,7 @@ function loadProject(searchCategory, searchKeyword) {
 		});
 		$(".search-category-project").get(1).value = searchCategory;
 		$(".search-keyword-project").get(1).value = searchKeyword;
-	}, 100);
+	}, 400);
 }
 
 function setParameterProject() {
@@ -1041,6 +1052,10 @@ function setParameterProject() {
 	var mode = $("#mode-project").val();
 	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
 			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode;
+	if ($("#userDomain").length > 0) {
+		var headBu = $("#userDomain").val();
+		data += "&userDomain=" + headBu;
+	} 
 	return data;
 }
 

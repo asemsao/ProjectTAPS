@@ -21,10 +21,10 @@ legend {
 	text-decoration: none;
 }
 
-.prev-wizard:hover,.next-wizard:hover {
-	color: slateblue !important;
-	background-color: #fff !important;
-}
+/* .prev-wizard:hover,.next-wizard:hover { */
+/* 	color: slateblue !important; */
+/* 	background-color: #fff !important; */
+/* } */
 
 .prev-wizard {
 	float: left;

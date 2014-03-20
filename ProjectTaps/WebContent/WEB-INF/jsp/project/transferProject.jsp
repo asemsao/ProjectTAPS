@@ -49,8 +49,7 @@
 								</th>
 								<th>
 									<div class="input-control text">
-										<html:text property="projectKeyword" name="transferProjectForm" styleId="projectKeyword"
-											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
+										<html:text property="projectKeyword" name="transferProjectForm" styleId="projectKeyword"></html:text>
 										<button  id="search-btn-project" type="button" class="btn-search"></button>
 									</div>
 								</th>
@@ -66,7 +65,7 @@
 								<th class="text-center">Business Unit</th>
 								<th class="text-center">Phase</th>
 								<th class="text-center">Start Date</th>
-								<th class="text-center">Finish Date</th>
+								<th class="text-center">Estimate Finish Date</th>
 								<th class="text-center">Running (day)</th>
 							</tr>
 						</thead>
@@ -115,18 +114,18 @@
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"
-												href="javascript:button('firstP');"><i
+												onclick="button('firstP');"><i
 													class="icon-first-2"></i></a></li>
 											<li class="prev"><a id="prev"
-												href="javascript:button('prevP');"><i
+												onclick="button('prevP');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <span id="currentPageP"><bean:write
 														name="transferProjectForm" property="pageP" /></span> of <span id="lastPageP"><bean:write
 														name="transferProjectForm" property="maxPageP" /></span></a></li>
 											<li class="next"><a id="next"
-												href="javascript:button('nextP');"><i class="icon-next"></i></a></li>
+												onclick="button('nextP');"><i class="icon-next"></i></a></li>
 											<li class="last"><a id="last"
-												href="javascript:button('lastP');"><i
+												onclick="button('lastP');"><i
 													class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <span id="totalRecordP"><bean:write
 														name="transferProjectForm" property="countRecordP" /></span></a></li>

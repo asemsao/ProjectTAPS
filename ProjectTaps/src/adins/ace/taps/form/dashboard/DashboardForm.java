@@ -39,7 +39,12 @@ public class DashboardForm extends ActionForm {
 	private String taskType;
 	private String currentStatus;
 	private String mode;
-
+	private boolean unreadClaim;
+	private boolean unreadApproval;
+	private boolean unreadApprovalSelf;
+	private boolean unreadCorrection;
+	private boolean unreadCorrectionSelf;
+	
 	public NewAssignmentBean getSelfAssignBean() {
 		return selfAssignBean;
 	}
@@ -274,4 +279,45 @@ public class DashboardForm extends ActionForm {
 			List<DashboardBean> listTopTenOrganizationPrev) {
 		this.listTopTenOrganizationPrev = listTopTenOrganizationPrev;
 	}
+
+	public boolean isUnreadClaim() {
+		return unreadClaim;
+	}
+
+	public void setUnreadClaim(boolean unreadClaim) {
+		this.unreadClaim = unreadClaim;
+	}
+
+	public boolean isUnreadApproval() {
+		return unreadApproval;
+	}
+
+	public void setUnreadApproval(boolean unreadApproval) {
+		this.unreadApproval = unreadApproval;
+	}
+
+	public boolean isUnreadApprovalSelf() {
+		return unreadApprovalSelf;
+	}
+
+	public void setUnreadApprovalSelf(boolean unreadApprovalSelf) {
+		this.unreadApprovalSelf = unreadApprovalSelf;
+	}
+
+	public boolean isUnreadCorrection() {
+		return unreadCorrection;
+	}
+
+	public void setUnreadCorrection(boolean unreadCorrection) {
+		this.unreadCorrection = unreadCorrection;
+	}
+
+	public boolean isUnreadCorrectionSelf() {
+		return unreadCorrectionSelf;
+	}
+
+	public void setUnreadCorrectionSelf(boolean unreadCorrectionSelf) {
+		this.unreadCorrectionSelf = unreadCorrectionSelf;
+	}
+	
 }

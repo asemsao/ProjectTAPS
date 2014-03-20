@@ -100,6 +100,8 @@ public class ReportAction extends Action {
 		}
 		
 		if ("printReportDept".equals(rForm.getTask())) {
+			Map h = new HashMap();
+			h.put("prjCode", "");
 			return mapping.findForward("PrintReportDept");
 		}
 		if ("printReportBU".equals(rForm.getTask())) {

@@ -46,7 +46,21 @@
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-		
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+					// 					height : "120px",
+					// 					width : "360px",
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -63,6 +77,7 @@
 		<html:hidden property="page" name="employeeForm" />
 		<html:hidden property="maxpage" name="employeeForm" />
 		<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
+		<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">

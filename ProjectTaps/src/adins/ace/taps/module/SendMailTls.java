@@ -90,7 +90,9 @@ public class SendMailTls {
 
 		contentMail += "<tr>";
 		contentMail += "<td>";
-		if (phase.equalsIgnoreCase("RFA")) {
+		if (phase.equalsIgnoreCase("RFA") && assignmentType.equalsIgnoreCase("self assignment")) {
+			contentMail += "Created by";
+		} else if (phase.equalsIgnoreCase("RFA") && assignmentType.equalsIgnoreCase("assignment")) {
 			contentMail += "Assign to";
 		} else {
 			contentMail += "Assign by";
@@ -98,7 +100,9 @@ public class SendMailTls {
 		contentMail += "</td>";
 		contentMail += "<td>:</td>";
 		contentMail += "<td>";
+
 		contentMail += fromEmployee;
+
 		contentMail += "</td>";
 		contentMail += "</tr>";
 
@@ -123,7 +127,7 @@ public class SendMailTls {
 					+ "' target='_blank'>this link</a>";
 		}
 
-		contentMail += "or login to <a href='" + linktaps
+		contentMail += "&nbsp;or login to <a href='" + linktaps
 				+ "' target='_blank'>TAPS</a> ";
 		contentMail += "for assignment detail.</p>";
 
