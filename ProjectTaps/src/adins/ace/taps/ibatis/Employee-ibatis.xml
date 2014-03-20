@@ -18,9 +18,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="checkProjectStructure"
 		resultClass="adins.ace.taps.bean.employee.EmployeeProjectStructureBean"
 		parameterClass="java.util.Map">
-		SELECT project_code AS projectCode, INITCAP(project_role) AS
-		projectRole, directreport_user_domain AS directReport FROM
-		project_structures WHERE LOWER(directreport_user_domain) =
+		SELECT project_code AS projectCode,
+		INITCAP(project_role) AS
+		projectRole, directreport_user_domain AS
+		directReport FROM
+		project_structures WHERE
+		LOWER(directreport_user_domain) =
 		LOWER(#userDomain#)
 	</select>
 
@@ -66,7 +69,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
-					user_domain NOT IN (SELECT head_user_domain FROM organizations)
+					user_domain NOT IN (SELECT
+					head_user_domain FROM organizations)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -123,7 +127,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
-					user_domain NOT IN (SELECT head_user_domain FROM organizations)
+					user_domain NOT IN (SELECT
+					head_user_domain FROM organizations)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -324,8 +329,26 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		flag='INACTIVE' WHERE user_domain=#employeeDomain#
 	</update>
 	<update id="deleteAssignment" parameterClass="java.lang.String">
-		UPDATE assignments SET current_status='DELETED'
-        WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
-        LOWER(assign_to) = #employeeDomain#
+		UPDATE assignments
+		SET current_status='DELETED'
+		WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
+		LOWER(assign_to) = #employeeDomain#
 	</update>
+
+	<insert id="insertLoginEmployee" parameterClass="java.util.Map">
+		INSERT INTO login (username, password) VALUES (#username#,
+		DBMS_OBFUSCATION_TOOLKIT.md5 ( input => UTL_RAW.cast_to_raw
+		(#password#)
+		))
+	</insert>
+
+	<update id="saveEditLoginEmployees" parameterClass="java.util.Map">
+		UPDATE login
+		SET password =
+            DBMS_OBFUSCATION_TOOLKIT.md5 (
+               input   => UTL_RAW.cast_to_raw (#password#)
+            )
+		WHERE username LIKE #username#
+	</update>
+
 </sqlMap>

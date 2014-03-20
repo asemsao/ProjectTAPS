@@ -24,6 +24,7 @@ import org.apache.struts.upload.FormFile;
 
 import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.module.PhotoResizeModule;
@@ -121,7 +122,13 @@ public class EmployeeAction extends Action {
 			mForm.getNewEmployee().setCreateBy(
 					session.getAttribute("username").toString());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
-			System.out.println(flag);
+
+			if ("true".equals(App.getConfiguration("recovery_mode"))) {
+				Map data = new HashMap();
+				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
+				data.put("password", mForm.getPassword());
+			}
+
 		}
 		if ("saveEditEmployee".equals(mForm.getTask())) {
 			boolean flag = false;
@@ -162,6 +169,12 @@ public class EmployeeAction extends Action {
 							.getHeadUserDomain() + " Can't Move To Other BU!");
 					return mapping.findForward("Edit");
 				}
+			}
+			
+			if ("true".equals(App.getConfiguration("recovery_mode"))) {
+				Map data = new HashMap();
+				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
+				data.put("password", mForm.getPassword());
 			}
 		}
 
