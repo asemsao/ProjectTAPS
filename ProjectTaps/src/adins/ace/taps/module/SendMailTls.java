@@ -98,11 +98,7 @@ public class SendMailTls {
 		contentMail += "</td>";
 		contentMail += "<td>:</td>";
 		contentMail += "<td>";
-		if (phase.equalsIgnoreCase("RFA")) {
-			contentMail += "Nama Supervisor";
-		} else {
-			contentMail += fromEmployee;
-		}
+		contentMail += fromEmployee;
 		contentMail += "</td>";
 		contentMail += "</tr>";
 
