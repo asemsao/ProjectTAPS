@@ -27,6 +27,7 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.PhotoResizeModule;
 
 public class EmployeeAction extends Action {
@@ -63,6 +64,9 @@ public class EmployeeAction extends Action {
 				try {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
+					if (buffer == null) {
+						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+					}
 					response.reset();
 					response.setContentLength(buffer.length);
 					outStream.write(buffer);

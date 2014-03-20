@@ -95,7 +95,7 @@
 									</div>
 								</td>
 								<td rowspan="6" class="text-center"><img
-									src="<%=request.getContextPath()%>/images/user.png"
+									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
 										<html:file property="profilePicture" accept="image/*"></html:file>
