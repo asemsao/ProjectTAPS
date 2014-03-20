@@ -218,18 +218,18 @@
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"
-												href="javascript:button('firstO');"><i
+												onclick="button('firstO');"><i
 													class="icon-first-2"></i></a></li>
 											<li class="prev"><a id="prev"
-												href="javascript:button('prevO');"><i
+												onclick="button('prevO');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <span id="currentPageO"><bean:write
 														name="transferProjectForm" property="pageO" /></span> of <span id="lastPageO"><bean:write
 														name="transferProjectForm" property="maxPageO" /></span></a></li>
 											<li class="next"><a id="next"
-												href="javascript:button('nextO');"><i class="icon-next"></i></a></li>
+												onclick="button('nextO');"><i class="icon-next"></i></a></li>
 											<li class="last"><a id="last"
-												href="javascript:button('lastO');"><i
+												onclick="button('lastO');"><i
 													class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <span id="totalRecordO"><bean:write
 														name="transferProjectForm" property="countRecordO" /></span></a></li>
