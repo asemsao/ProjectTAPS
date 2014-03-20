@@ -391,5 +391,23 @@ public class OrganizationManager {
 		}
 		return flag;
 	}
+	
+	public void updateReportAssignment(OrganizationBean orgBean) {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("organization.updateReportAssignment", orgBean);
+			ibatisSqlMap.commitTransaction();
+			System.out.println("updateReportAssignment");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

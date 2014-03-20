@@ -39,6 +39,7 @@ h1.title-taps {
 	border-bottom: 1px solid #c3c3c3;
 	color: gray;
 	font-size: 1.3em;
+	outline: none;
 }
 
 .align-left {

@@ -286,8 +286,6 @@ public class DashboardAction extends Action {
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "ACTIVE");
 			success = aMan.updateStatus(paramStatus);
-			session.removeAttribute("taskCode");
-			System.out.println(success);
 			//update table star
 			dForm.getSelfAssignBean().setStarBefore(0);
 			starSuccess = aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());
@@ -493,6 +491,11 @@ public class DashboardAction extends Action {
 		dForm.setTotalRFAself(dMan.searchTotalRFASelf(userDomain));
 		dForm.setTotalCorrection(dMan.searchTotalCorrection(userDomain));
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
+		dForm.setUnreadClaim(dMan.unreadClaim(userDomain));
+		dForm.setUnreadApproval(dMan.unreadApproval(userDomain));
+		dForm.setUnreadApprovalSelf(dMan.unreadApprovalSelf(userDomain));
+		dForm.setUnreadCorrection(dMan.unreadCorrection(userDomain));
+		dForm.setUnreadCorrectionSelf(dMan.unreadCorrectionSelf(userDomain));
 
 		if ("autoRefresh".equals(dForm.getMode())) {
 			PrintWriter out = response.getWriter();			
@@ -509,12 +512,10 @@ public class DashboardAction extends Action {
 		rankingCurrent.put("organizationCode", "CDD");
 
 		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
-		dForm.setListTopTenOrganization(dMan
-				.searchTopTenOrganization(rankingCurrent));
+		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization(rankingCurrent));
 
 		dForm.setListTopTenPrev(dMan.searchTopTen(rankingLast));
-		dForm.setListTopTenOrganizationPrev(dMan
-				.searchTopTenOrganization(rankingLast));
+		dForm.setListTopTenOrganizationPrev(dMan.searchTopTenOrganization(rankingLast));
 
 		return mapping.findForward("Dashboard");
 	}

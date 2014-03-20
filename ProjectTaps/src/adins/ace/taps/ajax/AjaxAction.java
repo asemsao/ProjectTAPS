@@ -177,6 +177,10 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(asgMan.countHistoryComment(params));
 		}
 		if ("projects".equals(ajaxForm.getMode())) {
+			params.put("phaseClosed", "phaseClosed");
+			if(request.getParameter("userDomain") != null){
+				params.put("userDomain", request.getParameter("userDomain").toString());
+			}
 			ajaxForm.setListProject(prjMan.searchProject(params));
 			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}

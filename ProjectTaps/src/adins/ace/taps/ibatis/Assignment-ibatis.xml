@@ -176,7 +176,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY a.created_date DESC
+		ORDER BY flag DESC, assignmentDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -299,7 +299,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY a.created_date DESC
+		ORDER BY flag DESC, assignmentDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -415,7 +415,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY a.created_date DESC
+		ORDER BY flag DESC, assignmentDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>

@@ -374,4 +374,113 @@ public class DashboardManager {
 		return bean;
 	}
 	
+	public boolean unreadClaim (String userDomain){
+		boolean read = false;
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.unreadClaimDashboard", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (total > 0){
+			read = true;
+		}
+		return read;
+	}
+	
+	public boolean unreadApproval (String userDomain){
+		boolean read = false;
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.unreadApprovalDashboard", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (total > 0){
+			read = true;
+		}
+		return read;
+	}
+	
+	public boolean unreadApprovalSelf (String userDomain){
+		boolean read = false;
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.unreadApprovalSelfDashboard", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (total > 0){
+			read = true;
+		}
+		return read;
+	}
+	
+	public boolean unreadCorrection (String userDomain){
+		boolean read = false;
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.unreadCorrectionDashboard", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (total > 0){
+			read = true;
+		}
+		return read;
+	}
+	
+	public boolean unreadCorrectionSelf (String userDomain){
+		boolean read = false;
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject("dashboard.unreadCorrectionSelfDashboard", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if (total > 0){
+			read = true;
+		}
+		return read;
+	}
 }

@@ -230,12 +230,17 @@ public class TransferProjectAction extends Action {
 		}
 		
 		if ("searchProject".equals(tpForm.getTask())) {
-			tpForm.setPageP(1);
 			tpForm.setProjectCategory(request.getParameter("projectCategory"));
 			tpForm.setProjectKeyword(request.getParameter("projectKeyword"));
 			params.put("category", tpForm.getProjectCategory());
 			params.put("keyword", tpForm.getProjectKeyword());
 			tpForm.setListProject(tpMan.searchProject(params));
+			tpForm.setCountRecordP(tpMan.countProject(params));
+			if (tpForm.getCountRecordP() % 10 == 0) {
+				tpForm.setMaxPageP((int) Math.ceil(tpForm.getCountRecordP() / 10));
+			} else {
+				tpForm.setMaxPageP(((int) Math.ceil(tpForm.getCountRecordP() / 10)) + 1);
+			}
 			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.write(json);
@@ -243,12 +248,17 @@ public class TransferProjectAction extends Action {
 		}
 		
 		if ("searchOrg".equals(tpForm.getTask())) {
-			tpForm.setPageO(1);
 			tpForm.setOrgCategory(request.getParameter("orgCategory"));
 			tpForm.setOrgKeyword(request.getParameter("orgKeyword"));
 			params.put("category", tpForm.getOrgCategory());
 			params.put("keyword", tpForm.getOrgKeyword());
 			tpForm.setListOrganization(tpMan.searchOrganization(params));
+			tpForm.setCountRecordO(tpMan.countOrganization(params));
+			if (tpForm.getCountRecordO() % 10 == 0) {
+				tpForm.setMaxPageO((int) Math.ceil(tpForm.getCountRecordO() / 10));
+			} else {
+				tpForm.setMaxPageO(((int) Math.ceil(tpForm.getCountRecordO() / 10)) + 1);
+			}
 			json = gson.toJson(tpForm);
 			PrintWriter out = response.getWriter();
 			out.write(json);
