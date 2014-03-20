@@ -48,7 +48,7 @@ public class DashboardAction extends Action {
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
 
-		String userDomain = "DOMAIN205";
+		String userDomain = "domain1";
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			aMan.updateFlag(dForm.getTaskCode());
@@ -380,20 +380,26 @@ public class DashboardAction extends Action {
 
 		if ("first".equals(dForm.getTask())) {
 			dForm.setPage(1);
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		else if ("last".equals(dForm.getTask())) {
 			dForm.setPage(dForm.getMaxPage());
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		else if ("prev".equals(dForm.getTask())) {
 			if (dForm.getPage() > 1) {
 				dForm.setPage(dForm.getPage() - 1);
 			}
-		} else if ("next".equals(dForm.getTask())) {
+			dForm.setTask((String) session.getAttribute("listDashboard"));
+		} 
+		
+		else if ("next".equals(dForm.getTask())) {
 			if (dForm.getPage() < dForm.getMaxPage()) {
 				dForm.setPage(dForm.getPage() + 1);
 			}
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		params.put("start", (dForm.getPage() - 1) * 10 + 1);

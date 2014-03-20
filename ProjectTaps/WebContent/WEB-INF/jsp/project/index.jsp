@@ -147,18 +147,18 @@
 									<div class="pagination">
 										<ul>
 											<li class="first"><a id="first"
-												href="javascript:button('first');"><i
+												onclick="button('first');"><i
 													class="icon-first-2"></i></a></li>
 											<li class="prev"><a id="prev"
-												href="javascript:button('prev');"><i
+												onclick="button('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="projectForm" property="page" /> of <bean:write
 														name="projectForm" property="maxpage" /></a></li>
 											<li class="next"><a id="next"
-												href="javascript:button('next');"><i class="icon-next"></i></a></li>
+												onclick="button('next');"><i class="icon-next"></i></a></li>
 											<li class="last"><a id="last"
-												href="javascript:button('last');"><i class="icon-last-2"></i></a></li>
+												onclick="button('last');"><i class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="projectForm" property="countRecord" /></a></li>
 										</ul>

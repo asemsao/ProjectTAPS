@@ -56,9 +56,11 @@ public class NewSelfAssignmentAction extends Action {
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
 				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignment(taskCode));
+						.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
+				aForm.setSelfAssignBean(aMan
+						.searchRecordSelfAssignment(taskCode));
 				aForm.setSelfAssignBean(aMan
 						.searchHeadOrganizationCode(sessionUserDomain));
 			}
