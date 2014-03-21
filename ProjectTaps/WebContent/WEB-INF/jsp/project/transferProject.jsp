@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 
-<title>Project</title>
+<title>Transfer Project</title>
 </head>
 
 <body class="metro">
