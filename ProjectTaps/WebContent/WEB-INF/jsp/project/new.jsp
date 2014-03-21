@@ -135,7 +135,7 @@
 								<td colspan="3" class="text-right">
 									<button id="save-btn" onclick="button('saveProject')"
 										class="success">Save</button>
-									<button id="cancel-btn" onclick="button('back')">Cancel</button>
+									<button id="cancel-btn" onclick="button('back')" class="button info">Cancel</button>
 								</td>
 							</tr>
 

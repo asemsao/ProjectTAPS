@@ -91,7 +91,7 @@
 							<tr>
 								<td colspan="3" class="text-right">
 									<button id="save-btn" onclick="button('updateMember')" class="button success">Save</button>
-									<button id="cancel-btn-2" onclick="button('back')">Cancel</button>
+									<button id="cancel-btn-2" onclick="button('back')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.claimAssignmentForm.newTask.value = "";
+			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.submit();
 			return;
 		} else if (task == "save") {

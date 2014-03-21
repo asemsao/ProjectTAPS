@@ -5,6 +5,11 @@ body {
 	background-image: url('../images/bg.jpg');
 	background-attachment: fixed;
 }
+.address-field{
+	max-width: 600px;
+	min-height: 150px;
+	max-height: 150px;
+}
 #description{
 	max-width: 500px;
 	min-height: 50px;
