@@ -10,6 +10,7 @@ public class LoginForm extends ActionForm{
 	private String username;
 	private String password;
 	private boolean keepMeSign;
+	
 	public String getTask() {
 		return task;
 	}
