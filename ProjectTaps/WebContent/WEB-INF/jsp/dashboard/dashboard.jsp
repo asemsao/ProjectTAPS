@@ -17,6 +17,21 @@
 <jsp:include page="/js/import.jsp" />
 <title>Taps</title>
 <script type="text/javascript">
+	$(document).ready(function() {
+		if ($("#messagecp").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : 'green',
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messagecp").val()
+				});
+			}, 1000);
+		}
+	});
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
@@ -31,14 +46,23 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
+				<%
+					String msg = "";
+					if (session.getAttribute("messagecp") != null) {
+						msg = session.getAttribute("messagecp").toString();
+						session.removeAttribute("messagecp");
+					}
+				%>
+				<input type="hidden" id="messagecp" value="<%=msg%>" />
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
 					<div class="span9 center-taps">
-					<%List<RoleBean> roleList = (List) session.getAttribute("role");
-						for (int i = 0; i < roleList.size(); i++) {
-							if (roleList.get(i).getRoleId().equals("spv")) {
-					%>
+						<%
+							List<RoleBean> roleList = (List) session.getAttribute("role");
+								for (int i = 0; i < roleList.size(); i++) {
+									if (roleList.get(i).getRoleId().equals("spv")) {
+						%>
 						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
 							data-hint="Approval Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="rfa-link"> <span
@@ -57,11 +81,11 @@
 						</span> <span class="brand"> <span id="rfa-s-badge"
 								class="badge bg-gray"><span id="rfa-s"> <bean:write
 											property="totalRFAself" name="dashboardForm" /></span></span>
-						</span>
-					<%	
-						}
-					}%>
-						
+						</span> <%
+ 	}
+ 		}
+ %>
+
 						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');"
 							data-hint="Claim Assignment" data-hint-position="left"
 							class="tile bg-cyan" id="claim-link"> <span
