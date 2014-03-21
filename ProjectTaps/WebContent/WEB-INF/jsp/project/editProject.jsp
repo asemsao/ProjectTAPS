@@ -14,7 +14,7 @@
 <script>
 	function button(task) {
 		if (task == "cancel") {
-			document.projectForm.task.value = "";
+			document.projectForm.task.value = task;
 			document.projectForm.submit();
 			return;
 		} else if (task == "updateProject") {
@@ -126,7 +126,7 @@
 								<td colspan="3" class="text-right">
 									<button id="save-btn"
 										onclick="button('updateProject')" class="success">Save</button>
-									<button id="cancel-btn" onclick="button('cancel')">Cancel</button>
+									<button id="cancel-btn" onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

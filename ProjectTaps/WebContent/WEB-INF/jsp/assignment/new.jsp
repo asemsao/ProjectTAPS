@@ -16,7 +16,7 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.claimAssignmentForm.newTask.value = "";
+			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.submit();
 			return;
 		} else if (task == "save") {
@@ -70,8 +70,16 @@
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
-						$("#lookUpAssignment").load(
-										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						
+						if ($("input[name='assignment_type']").val() == "PROJECT"){
+							$("#lookUpAssignment")
+							.load(
+									"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+						} else {
+							$("#lookUpAssignment").load(
+											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						}
+						
 						$("input[name='assignment_type']").change(function() {
 											if ($(this).val() == "PROJECT") {
 												$("#lookUpAssignment")

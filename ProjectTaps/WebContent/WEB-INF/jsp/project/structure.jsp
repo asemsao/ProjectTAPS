@@ -135,7 +135,7 @@
 								<td colspan=5 class="text-right">
 									<button id="add-btn" onclick="javascript:button('addMember')"
 										class="success">Add</button>
-									<button id="back-btn" onclick="javascript:button('cancel')">Back</button>
+									<button id="back-btn" onclick="javascript:button('cancel')" class="button info">Back</button>
 								</td>
 							</tr>
 						</tbody>

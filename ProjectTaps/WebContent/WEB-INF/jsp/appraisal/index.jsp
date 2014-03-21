@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<jsp:include page="/js/import.jsp" />
 <script>
 	function flyToPage(task) {
 		document.specialAppraisalForm.task.value = task;
@@ -20,6 +21,8 @@
 		document.specialAppraisalForm.submit();
 	}
 	$(document).ready(function() {
+		$("#startDate").attr("placeholder", "Start Date");
+		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 		if ($("#message").val() != "") {
 			setTimeout(function() {
@@ -36,7 +39,6 @@
 		}
 	});
 </script>
-<jsp:include page="/js/import.jsp" />
 
 <title>Appraisal</title>
 </head>
