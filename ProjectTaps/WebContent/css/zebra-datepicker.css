@@ -11,7 +11,7 @@
 
 .Zebra_DatePicker *,
 .Zebra_DatePicker *:after,
-.Zebra_DatePicker *:before  { -moz-box-siz	ing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important }
+.Zebra_DatePicker *:before  { -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important }
 
 .Zebra_DatePicker           { position: absolute; background: #FFF; border: 1px solid #1BA1E2; display: none; z-index: 100; padding: 5px }
 

@@ -18,19 +18,19 @@ $(document).ready(function() {
 	
 	$(".datepicker-start").Zebra_DatePicker({
 		format : "d/m/Y",
-		pair : $("#datepicker-end")
+		pair : $(".datepicker-end")
 	});
 	
 	$(".datepicker-future-start").Zebra_DatePicker({
 		format : "d/m/Y",
 		direction : true,
-		pair : $("#datepicker-end")
+		pair : $(".datepicker-end")
 	});
 	
 	$(".datepicker-back-start").Zebra_DatePicker({
 		format : "d/m/Y",
 		direction : false,
-		pair : $("#datepicker-end")
+		pair : $(".datepicker-end")
 	});
 	
 	$(".datepicker-end").Zebra_DatePicker({
