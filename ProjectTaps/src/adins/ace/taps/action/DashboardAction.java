@@ -48,7 +48,8 @@ public class DashboardAction extends Action {
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
 
-		String userDomain = "domain1";
+//		String userDomain = "domain1";
+		String userDomain = (String) session.getAttribute("username");
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			aMan.updateFlag(dForm.getTaskCode());

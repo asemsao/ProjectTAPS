@@ -25,10 +25,11 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function button(task,param,param2) {
+	function button(task,param,param2,param3) {
 		document.reportForm.task.value = task;
 		document.reportForm.param.value = param;
 		document.reportForm.param2.value = param2;
+		document.reportForm.param3.value = param3;
 		document.reportForm.submit();
 	}
 	$(function() {

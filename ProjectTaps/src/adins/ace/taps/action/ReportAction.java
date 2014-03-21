@@ -33,14 +33,14 @@ public class ReportAction extends Action {
 		String orgName = "MANAJEMEN";
 		String orgLevel = "0";
 		HttpSession session = request.getSession(true);
-		
+		//rForm.setReportPeriode("I");
 		
 		if ("view".equals(rForm.getTask())) {
 			Map h = new HashMap();
-			System.out.println("periode "+rForm.getPeriode());
-			System.out.println("month "+rForm.getReportMonth());
-			System.out.println("report periode "+rForm.getReportPeriode());
-			System.out.println("year "+rForm.getReportYear());
+			//System.out.println("periode "+rForm.getPeriode());
+			//System.out.println("month "+rForm.getReportMonth());
+			//System.out.println("report periode "+rForm.getReportPeriode());
+			//System.out.println("year "+rForm.getReportYear());
 			
 			if (rForm.getParam2()!=null) {
 				//System.out.println("not null  "+mForm.getParam2());
@@ -57,7 +57,8 @@ public class ReportAction extends Action {
 						//System.out.println(rBean.getOrganizationParent());
 						rForm.setParam4(rBean.getOrganizationParent());
 						rForm.setParam5(rBean.getOrganizationParentName());
-					}					
+					}
+					session.setAttribute("buPrint", rForm.getParam().replaceAll(" ",""));
 					rForm.setListReports(rMan.getReportLevel1(h));
 					return mapping.findForward("View");
 				} else
@@ -69,6 +70,7 @@ public class ReportAction extends Action {
 					h.put("reportMonth", rForm.getReportMonth());
 					ReportBean rBean = new ReportBean();
 					rBean = rMan.getHeadOrganization(h);
+					session.setAttribute("buPrint", rForm.getParam().replaceAll(" ",""));
 					rForm.setParam4(rBean.getOrganizationParent());
 					rForm.setParam5(rBean.getOrganizationParentName());
 					rForm.setListReports(rMan.getReportLevel2(h));
@@ -87,6 +89,7 @@ public class ReportAction extends Action {
 					h.put("reportMonth", rForm.getReportMonth());
 					rForm.setParam2(orgLevel);
 					rForm.setParam3(orgName);
+					session.setAttribute("buPrint", orgCode);
 					rForm.setListReports(rMan.getReportLevel1(h));
 					return mapping.findForward("View");
 				} else
@@ -98,6 +101,7 @@ public class ReportAction extends Action {
 					h.put("reportMonth", rForm.getReportMonth());
 					rForm.setParam2(orgLevel);
 					rForm.setParam3(orgName);
+					session.setAttribute("buPrint", orgCode);
 					rForm.setListReports(rMan.getReportLevel2(h));
 					return mapping.findForward("ViewLevel2");
 				}
@@ -107,31 +111,31 @@ public class ReportAction extends Action {
 		}
 		
 		if ("1 Months".equals(rForm.getPeriode())) {
-			System.out.println("MASUK 1 MONTHS");
+			//System.out.println("MASUK 1 MONTHS");
 			if ("01".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "JANUARY");
+				session.setAttribute("periodePrint", "January");
 			} else if ("02".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "FEBRUARY");
+				session.setAttribute("periodePrint", "February");
 			} else if ("03".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "MARCH");
+				session.setAttribute("periodePrint", "March");
 			} else if ("04".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "APRIL");
+				session.setAttribute("periodePrint", "April");
 			} else if ("05".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "MAY");
+				session.setAttribute("periodePrint", "May");
 			} else if ("06".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "JUNE");
+				session.setAttribute("periodePrint", "June");
 			} else if ("07".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "JULY");
+				session.setAttribute("periodePrint", "July");
 			} else if ("08".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "AUGUST");
+				session.setAttribute("periodePrint", "August");
 			} else if ("09".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "SEPTEMBER");
+				session.setAttribute("periodePrint", "September");
 			} else if ("10".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "OCTOBER");
+				session.setAttribute("periodePrint", "October");
 			} else if ("11".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "NOVEMBER");
+				session.setAttribute("periodePrint", "November");
 			} else if ("12".equals(rForm.getReportMonth())) {
-				session.setAttribute("periodePrint", "DESEMBER");
+				session.setAttribute("periodePrint", "December");
 			}
 			
 		}
@@ -141,17 +145,16 @@ public class ReportAction extends Action {
 			h.put("prjCode", "");
 			if ("6 Months".equals(rForm.getPeriode())) {
 				if ("I".equals(rForm.getReportPeriode())) {
-					session.setAttribute("periodePrint", "JANUARI - JUNI");
+					session.setAttribute("periodePrint", "January - June");
 					session.setAttribute("periodeReportPrint", "'01','02','03','04','05','06'");
 				} else {
-					session.setAttribute("periodePrint", "JULI - DESEMBER");
+					session.setAttribute("periodePrint", "July - December");
 					session.setAttribute("periodeReportPrint", "'07','08','09','10','11','12'");
 				}
 			} else {
 				session.setAttribute("periodeReportPrint", "'"+rForm.getReportMonth()+"'");
 			}
-			
-			session.setAttribute("buPrint", rForm.getParam());			
+						
 			session.setAttribute("yearPrint", rForm.getReportYear());
 			
 			return mapping.findForward("PrintReportDept");
@@ -159,35 +162,37 @@ public class ReportAction extends Action {
 		if ("printReportBU".equals(rForm.getTask())) {
 			if ("6 Months".equals(rForm.getPeriode())) {
 				if ("I".equals(rForm.getReportPeriode())) {
+					session.setAttribute("periodePrint", "January - June");
 					session.setAttribute("periodeReportPrint", "'01','02','03','04','05','06'");
 				} else {
+					session.setAttribute("periodePrint", "July - December");
 					session.setAttribute("periodeReportPrint", "'07','08','09','10','11','12'");
 				}
 			} else {
 				session.setAttribute("periodeReportPrint", "'"+rForm.getReportMonth()+"'");
 			}
-			
-			session.setAttribute("buPrint", rForm.getParam());			
+						
 			session.setAttribute("yearPrint", rForm.getReportYear());
 			
 			return mapping.findForward("PrintReportBU");
 		}
 		if ("printReportBOM".equals(rForm.getTask())) {
-			System.out.println("MASUK Print BOM");
+			//System.out.println("MASUK Print BOM");
 			if ("6 Months".equals(rForm.getPeriode())) {
-				System.out.println("MASUK 6 Months");
+				//System.out.println("MASUK 6 Months");
 				if ("I".equals(rForm.getReportPeriode())) {
-					System.out.println("MASUK I");
+					//System.out.println("MASUK I");
+					session.setAttribute("periodePrint", "January - June");
 					session.setAttribute("periodeReportPrint", "'01','02','03','04','05','06'");
 				} else {
+					session.setAttribute("periodePrint", "July - December");
 					session.setAttribute("periodeReportPrint", "'07','08','09','10','11','12'");
 				}
 			} else {
-				System.out.println("MASUK Moth Print");
+				//System.out.println("MASUK Moth Print");
 				session.setAttribute("periodeReportPrint", "'"+rForm.getReportMonth()+"'");
 			}
 			
-			session.setAttribute("buPrint", rForm.getParam());			
 			session.setAttribute("yearPrint", rForm.getReportYear());
 			
 			return mapping.findForward("PrintReportBOM");

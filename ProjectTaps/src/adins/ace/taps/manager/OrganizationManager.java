@@ -304,7 +304,6 @@ public class OrganizationManager {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("organization.deleteRoleSPV", headDomain);
 			ibatisSqlMap.commitTransaction();
-			System.out.println("delete SPV");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

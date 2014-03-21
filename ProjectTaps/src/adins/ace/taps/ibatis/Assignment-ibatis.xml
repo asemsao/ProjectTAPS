@@ -123,6 +123,7 @@
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
 			  SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			 		   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			           a.task_code AS assignmentCode,
 			           a.assignment_category AS assignmentCategory,
 			           e.first_name || ' ' || e.last_name AS fullName,
@@ -176,7 +177,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, assignmentDate DESC
+		ORDER BY flag DESC, claimDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -242,6 +243,7 @@
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
 			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			         TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
@@ -299,7 +301,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, assignmentDate DESC
+		ORDER BY flag DESC, claimDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -365,6 +367,7 @@
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
 			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code) , 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			         TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
@@ -415,7 +418,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, assignmentDate DESC
+		ORDER BY flag DESC, claimDate DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -1002,18 +1005,26 @@
 				         ON a.report_to = e.user_domain
 				 WHERE   a.current_status != 'DELETED'
 				<dynamic prepend="AND">
-					<isNotNull property="userDomain">
-						<isNotEmpty property="userDomain">
+					<isNotNull property="userDomainReportTo">
+						<isNotEmpty property="userDomainReportTo">
 							LOWER(a.assign_to) LIKE LOWER
-							('$userDomain$')
+							('$userDomainReportTo$')
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
 				<dynamic prepend="AND">
-					<isNotNull property="assignmemtCategory">
-						<isNotEmpty property="assignmemtCategory">
+					<isNotNull property="userDomainAssignTo">
+						<isNotEmpty property="userDomainAssignTo">
+							LOWER(a.assign_to) LIKE LOWER
+							('$userDomainAssignTo$')
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+				<dynamic prepend="AND">
+					<isNotNull property="assignmentCategory">
+						<isNotEmpty property="assignmentCategory">
 							LOWER(a.assignment_category) LIKE
-							LOWER ('$assignmemtCategory$')
+							LOWER ('$assignmentCategory$')
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
@@ -1077,18 +1088,26 @@
 		         ON a.report_to = e.user_domain
 		 WHERE   a.current_status != 'DELETED'
 		<dynamic prepend="AND">
-			<isNotNull property="userDomain">
-				<isNotEmpty property="userDomain">
+			<isNotNull property="userDomainReportTo">
+				<isNotEmpty property="userDomainReportTo">
 					LOWER(a.assign_to) LIKE LOWER
-					('$userDomain$')
+					('$userDomainReportTo$')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
 		<dynamic prepend="AND">
-			<isNotNull property="assignmemtCategory">
-				<isNotEmpty property="assignmemtCategory">
+			<isNotNull property="userDomainAssignTo">
+				<isNotEmpty property="userDomainAssignTo">
+					LOWER(a.assign_to) LIKE LOWER
+					('$userDomainAssignTo$')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="assignmentCategory">
+				<isNotEmpty property="assignmentCategory">
 					LOWER(a.assignment_category) LIKE
-					LOWER ('$assignmemtCategory$')
+					LOWER ('$assignmentCategory$')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>

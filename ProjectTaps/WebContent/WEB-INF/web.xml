@@ -42,7 +42,6 @@
 		<url-pattern>/newAssignment.do</url-pattern>
 		<url-pattern>/claimSupervisorAssignment.do</url-pattern>
 		<url-pattern>/selfSupervisorAssignment.do</url-pattern>
-		<url-pattern>/employeeReport.do</url-pattern>
 	</filter-mapping>
 
 	<filter>

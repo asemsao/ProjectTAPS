@@ -157,15 +157,16 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
 		if ("newAssignments".equals(ajaxForm.getMode())) {
-			params.put("assignmemtCategory", ajaxForm.getAssignmentCategory());
+			params.put("userDomainReportTo", session.getAttribute("username"));
+			params.put("assignmentCategory", ajaxForm.getAssignmentCategory());
 			params.put("assignmentType", ajaxForm.getAssignmentType());
 			ajaxForm.setListEmployeeReport(asgMan.lookUpEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countLookUpEmployee(params));
 		}
 		if ("newSelfAssignments".equals(ajaxForm.getMode())) {
 			// nanti dari user domain dari session
-			params.put("userDomain", "domain3");
-			params.put("assignmemtCategory", ajaxForm.getAssignmentCategory());
+			params.put("userDomainAssignTo", session.getAttribute("username"));
+			params.put("assignmentCategory", ajaxForm.getAssignmentCategory());
 			params.put("assignmentType", ajaxForm.getAssignmentType());
 			ajaxForm.setListEmployeeReport(asgMan.lookUpEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countLookUpEmployee(params));

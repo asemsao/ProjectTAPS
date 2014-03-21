@@ -31,20 +31,6 @@
 	$(document)
 			.ready(
 					function() {
-						if ($("#assignmentType").val() == 'PROJECT'){
-							$("#bu").hide();
-							$(".pr").show();
-						}else{
-							$(".pr").hide();
-							$("#bu").show();
-						}
-						
-						if ($("#activityType").val() == 'ADHOC'){
-							$(".adhoc").show();
-						}else{
-							$(".adhoc").hide();
-						}
-						
 						var project_code = $("#project-code").val();
 						var organization_code = $("#organization-code-view")
 								.val();
