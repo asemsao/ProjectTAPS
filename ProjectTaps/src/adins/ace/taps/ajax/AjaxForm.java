@@ -42,6 +42,7 @@ public class AjaxForm extends ActionForm {
 	private String userDomain;
 	private String assignmentCategory;
 	private String assignmentType;
+	private String paramProjectCode;
 
 	
 	public String getUserDomain() {
@@ -267,5 +268,13 @@ public class AjaxForm extends ActionForm {
 		this.checkDeleteEmpoyee = checkDeleteEmpoyee;
 	}
 
+	public String getParamProjectCode() {
+		return paramProjectCode;
+	}
+
+	public void setParamProjectCode(String paramProjectCode) {
+		this.paramProjectCode = paramProjectCode;
+	}
+	
 
 }
