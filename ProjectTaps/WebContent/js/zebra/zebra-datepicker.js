@@ -102,7 +102,7 @@
                 if (jb && O.settings.strict && Z(jb.getFullYear(), jb.getMonth(), jb.getDate()) && P.val(""), b || fb(z), !O.settings.always_visible) {
                     if (!b) {
                         if (O.settings.show_icon) {
-                            "firefox" == hb.name && P.is('input[type="text"]') && "inline" == P.css("display") && P.css("display", "inline-block");
+                            "firefox" == hb.name && P.is('input[type="text"]') && "inline" == P.css("display");
                             var kb = jQuery('<span class="Zebra_DatePicker_Icon_Wrapper"></span>').css({
                                 display: P.css("display"),
                                 position: "static" == P.css("position") ? "relative" : P.css("position"),
@@ -149,7 +149,7 @@
                             O.update()
                         }, 100))
                     });
-                    var tb = '<div class="Zebra_DatePicker"><table class="dp_header"><tr><td class="dp_previous">' + O.settings.header_navigation[0] + '</td><td class="dp_caption">&#032;</td><td class="dp_next">' + O.settings.header_navigation[1] + '</td></tr></table><table class="dp_daypicker"></table><table class="dp_monthpicker"></table><table class="dp_yearpicker"></table><table class="dp_footer"><tr><td class="dp_today"' + (O.settings.show_clear_date !== !1 ? ' style="width:50%"' : "") + ">" + L + '</td><td class="dp_clear"' + (L !== !1 ? ' style="width:50%"' : "") + ">" + O.settings.lang_clear_date + "</td></tr></table></div>";
+                    var tb = '<div class="Zebra_DatePicker"><table class="dp_header"><tr><td class="dp_previous">' + O.settings.header_navigation[0] + '</td><td class="dp_caption">&#032;</td><td class="dp_next">' + O.settings.header_navigation[1] + '</td></tr></table><table class="dp_daypicker" style="width: 100%; height: 217px; display: none;"></table><table class="dp_monthpicker"></table><table class="dp_yearpicker"></table><table class="dp_footer"><tr><td class="dp_today"' + (O.settings.show_clear_date !== !1 ? ' style="width:50%"' : "") + ">" + L + '</td><td class="dp_clear"' + (L !== !1 ? ' style="width:50%"' : "") + ">" + O.settings.lang_clear_date + "</td></tr></table></div>";
                     e = a(tb), O.datepicker = e, g = a("table.dp_header", e), h = a("table.dp_daypicker", e), i = a("table.dp_monthpicker", e), j = a("table.dp_yearpicker", e), K = a("table.dp_footer", e), J = a("td.dp_today", K), k = a("td.dp_clear", K), O.settings.always_visible ? P.attr("disabled") || (O.settings.always_visible.append(e), O.show()) : a("body").append(e), e.delegate("td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_blocked, .dp_week_number)", "mouseover", function () {
                         a(this).addClass("dp_hover")
                     }).delegate("td:not(.dp_disabled, .dp_weekend_disabled, .dp_not_in_month, .dp_blocked, .dp_week_number)", "mouseout", function () {
