@@ -28,6 +28,9 @@
 		document.employeeReportForm.submit();
 	}
 	$(document).ready(function() {
+		$("#startDate").attr("placeholder", "Start Date");
+		$("#endDate").attr("placeholder", "End Date");
+		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
 		if ($("#message").val() != "") {
 			setTimeout(function() {
@@ -37,8 +40,6 @@
 						color : 'white'
 					},
 					shadow : true,
-					// 					height : "120px",
-					// 					width : "360px",
 					position : 'top-right',
 					content : $("#message").val()
 				});
@@ -67,7 +68,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="startDate" name="employeeReportForm"></html:text>
+										<html:text property="startDate" name="employeeReportForm" styleId="startDate" styleClass="datepicker-all"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -76,7 +77,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-end">
-										<html:text property="endDate" name="employeeReportForm"></html:text>
+										<html:text property="endDate" name="employeeReportForm" styleId="endDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>

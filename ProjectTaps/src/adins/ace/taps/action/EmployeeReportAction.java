@@ -27,7 +27,8 @@ public class EmployeeReportAction extends Action {
 		Map params = new HashMap();
 		
 		//testing pake domain 205
-		session.setAttribute("username", "domain3");
+//		session.setAttribute("username", "domain3");
+		String sessionUserDomain = (String) session.getAttribute("username");
 		//nanti dihapus
 		
 		if (session.getAttribute("taskCode") != null) {
@@ -109,7 +110,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
-			params.put("sessionUserDomain", session.getAttribute("username"));
+			params.put("sessionUserDomain", sessionUserDomain);
 			eForm.setCountRecord(eMan.countEmployeeReportEmployee(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -167,7 +168,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
-			params.put("sessionUserDomain", session.getAttribute("username"));
+			params.put("sessionUserDomain", sessionUserDomain);
 			eForm.setCountRecord(eMan.countEmployeeReportSupervisor(params));
 			if (eForm.getCountRecord() % 10 == 0) {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
@@ -205,7 +206,7 @@ public class EmployeeReportAction extends Action {
 			params.put("keyword", eForm.getKeyword());
 			params.put("startDate", eForm.getStartDate());
 			params.put("endDate", eForm.getEndDate());
-			params.put("sessionUserDomain", session.getAttribute("username"));
+			params.put("sessionUserDomain", sessionUserDomain);
 			eForm.setCountRecord(eMan.countAssignmentSupervisor(params));
 
 			if (eForm.getCountRecord() % 10 == 0) {

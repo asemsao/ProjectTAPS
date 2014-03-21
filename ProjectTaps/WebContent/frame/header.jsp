@@ -7,6 +7,19 @@
 <%@page import="adins.ace.taps.manager.LoginManager"%>
 <%@page import="adins.ace.taps.configuration.App"%>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#star-achivement-icon").mouseover(function(){
+		    $(this).removeClass('icon-star');
+		    $(this).addClass('icon-star-3');
+		});
+		$("#star-achivement-icon").mouseout(function(){
+			 $(this).removeClass('icon-star-3');
+			 $(this).addClass('icon-star');
+		});		
+	});
+</script>
+
 <html:form action="/menu" method="POST" styleId="menuForm">
 	<div class="bg-dark">
 		<div class="navigation-bar dark header-taps">
@@ -27,7 +40,7 @@
 					%>
 
 					<li><a class="dropdown-toggle element" href="#"><i
-							class="icon-user-3"></i><%=roleList.get(i).getRoleName()%></a>
+							class="icon-user-3"></i><span class="menu-header"><%=roleList.get(i).getRoleName()%></span></a>
 						<ul class="dropdown-menu" data-role="dropdown">
 							<%
 								for (int j = 0; j < listMenu.size(); j++) {
@@ -75,9 +88,15 @@
 					%>
 				</ul>
 				<ul class="element-menu place-right">
+					<li>
+						<div class="element place-right" title="Stars Achievement">
+							<span id="star-achivement-icon" class="icon-star"></span>
+							<span class="star-achievement"><%=session.getAttribute("star")%></span>
+						</div>
+					</li>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
-							<%=session.getAttribute("fullname")%></a> 
+							<span class="menu-header"><%=session.getAttribute("fullname")%></span></a> 
 						<%
 							if ("true".equals(App.getConfiguration("recovery_mode"))) {
 						%>	

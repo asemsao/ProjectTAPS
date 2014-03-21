@@ -260,15 +260,14 @@
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<%} %>
-							
-							<%
-								if ("RFA".equals(session.getAttribute("status"))||
-										"APPROVED".equals(session.getAttribute("status"))) {
-							%>	
 							<tr>
-								<td class="size3">Appraisal Star</td>
+								<td>Appraisal Star</td>
 								<td>:</td>
 								<td colspan=2>
+									<%
+										if ("RFA".equals(session.getAttribute("status"))) {
+												
+									%>
 									<div class="star-hider">
 										<div class="rating-kiri" style="float: left;">
 											<select id="rating-kiri" name="rating">
@@ -295,15 +294,39 @@
 												<option value="5">+5</option>
 											</select>
 										</div>
-
 										<p class="star"></p>
-										<html:hidden property="selfAssignBean.appraisalStar" styleId="star" />
+										<html:hidden property="selfAssignBean.appraisalStar" name="selfAssignmentForm" styleId="star" />
 										<button type="button" id="edit-star-btn" class="default">Edit</button>
-
 									</div>
+									<%
+										} else if("APPROVED".equals(session.getAttribute("status"))){
+									%>
+										<bean:define id="temp" name="selfAssignmentForm" property="selfAssignBean.appraisalStar" type="Integer" />
+										<%
+											Integer sc = temp;
+											if (sc > 0) {
+												for (int i = 0; i < sc; i++) {
+										%> 
+													<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+										<%
+												}
+											} else if (sc < 0) {
+												for (int i = 0; i < Math.abs(sc); i++) {
+										%>
+													<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<%
+												}
+											} else {
+										%>
+												<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+										<%
+											}
+										%>
+									<%
+										}
+									%>
 								</td>
-							</tr>	
-							<%} %>
+							</tr>
 							<%
 								if ("RFA".equals(session.getAttribute("status"))) {
 							%>	
@@ -348,7 +371,7 @@
 									<html:button property="cancel" onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Close</html:button>
 								</td>	
-							<%} %>
+							<%}%>
 							</tr>
 						</tbody>
 					</table>

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/timeselector.css">
 <link rel="stylesheet" href="css/wizard.css">
 <link rel="stylesheet" href="css/validation-style.css">
+<link rel="stylesheet" href="css/zebra-datepicker.css">
 
 <script src="js/jquery/jquery-1.8.3.js"></script>
 <script src="js/jquery/jquery.min.js"></script>
@@ -23,7 +24,11 @@
 <script src="js/rating/jquery.barrating.js"></script>
 <script src="js/rating/rating.js"></script>
 <script src="js/other/timeselector.js"></script>
-<script src="js/other/formToWizard.js"></script>
+<script src="js/wizard/formToWizard.js"></script>
+<script src="js/wizard/transfer-project-wizard.js"></script>
+<script src="js/wizard/manage-role-wizard.js"></script>
+<script src="js/zebra/zebra-datepicker.js"></script>
+<script src="js/zebra/define-datepicker.js"></script>
 
 <script src="js/validation/jquery.validate.js"></script>
 <script src="js/validation/validation-script.js"></script>

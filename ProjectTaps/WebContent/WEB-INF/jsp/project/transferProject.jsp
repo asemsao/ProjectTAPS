@@ -255,10 +255,10 @@
 					</div>
 					</div>
 					<br />
-					<div class="input-control text" id="datepicker-begin">
+					<div class="input-control text">
 										<html:text property="transferDate"
-											name="transferProjectForm" styleId="transferDate"></html:text>
-										<button type="button" class="btn-date"></button>
+											name="transferProjectForm" styleClass="datepicker-all"></html:text>
+										
 										</div>
 					
 					</div>

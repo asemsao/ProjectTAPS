@@ -53,6 +53,10 @@
 							}, 1000);
 						}
 
+						if ($("#golonganNumber").val() == "6") {
+							$("#golonganLevel").hide();
+							$("#golonganLevel").val("");
+						}
 						$("#golonganNumber").change(function() {
 							if ($("#golonganNumber").val() == "6") {
 								$("#golonganLevel").hide();
@@ -99,7 +103,6 @@
 											<html:text property="newEmployee.employeeDomain"
 												name="employeeForm" styleId="activeDirectory-domain"
 												styleClass="employeeDomain" readonly="true"></html:text>
-											<button type="button" class="btn-search" id="activeDirectory"></button>
 										</div>
 									</div>
 								</td>
@@ -219,7 +222,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress"
+										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -257,7 +260,6 @@
 												style="width:70px;" name="employeeForm"
 												styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
-												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
 												<html:option value="3">3</html:option>
 												<html:option value="4">4</html:option>
@@ -283,7 +285,7 @@
 								<td colspan="4" class="text-right">
 									<button onclick="button('saveEditEmployee')"
 										class="button success">Save</button>
-									<button onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
