@@ -8,7 +8,14 @@ public class MenuBean implements Serializable {
 	private String menuName;
 	private String task;
 	private String description;
+	private String isExist;
 	
+	public String getIsExist() {
+		return isExist;
+	}
+	public void setIsExist(String isExist) {
+		this.isExist = isExist;
+	}
 	public String getMenuId() {
 		return menuId;
 	}

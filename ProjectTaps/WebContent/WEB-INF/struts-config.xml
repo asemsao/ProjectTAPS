@@ -82,7 +82,7 @@
 		<action name="manageRoleForm" path="/manageRole" scope="request"
 			type="adins.ace.taps.action.ManageRoleAction">
 			<forward name="Dashboard" path="/dashboard.do" />
-			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/index.jsp" />
+			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/manageRole.jsp" />
 			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
 		</action>
 		
