@@ -54,22 +54,17 @@
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
-						$("#lookUpAssignment")
-								.load(
-										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-						$("input[name='assignment_type']")
-								.change(
-										function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-											}
-										});
+
+						if ($("#assignmentType").val() == "PROJECT") {
+							$("#lookUpAssignment")
+									.load(
+											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+						} else {
+							$("#lookUpAssignment")
+									.load(
+											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						}
+
 						$("#assignmentDate").attr("placeholder",
 								"Assignment Date");
 						$("#assignmentDueDate").attr("placeholder",

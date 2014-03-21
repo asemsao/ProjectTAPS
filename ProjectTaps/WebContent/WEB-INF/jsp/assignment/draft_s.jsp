@@ -67,19 +67,15 @@
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
-						$("input[name='assignment_type']")
-								.change(
-										function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-											}
-										});
+						if ($("#assignmentType").val() == "PROJECT") {
+							$("#lookUpAssignment")
+									.load(
+											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+						} else {
+							$("#lookUpAssignment")
+									.load(
+											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						}
 						$("#timepicker").timeselector();
 						$("#timepicker").attr("placeholder", "Assignment Time");
 					});

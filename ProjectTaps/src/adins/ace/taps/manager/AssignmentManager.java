@@ -780,12 +780,12 @@ public class AssignmentManager {
 		return manHours;
 	}
 
-	public Integer countLookUpEmployee(Map params) {
+	public Integer countLookUpAssignmentEmployee(Map params) {
 		Integer count = null;
 		try {
 			ibatisSQLMap.startTransaction();
 			count = (Integer) ibatisSQLMap.queryForObject(
-					"assignment.countLookUpEmployee", params);
+					"assignment.countlookUpAssignmentEmployee", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -799,11 +799,49 @@ public class AssignmentManager {
 		return count;
 	}
 
-	public List<EmployeeReportBean> lookUpEmployee(Map params) {
+	public List<EmployeeReportBean> lookUpAssignmentEmployee(Map params) {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.lookUpEmployee",
+			list = ibatisSQLMap.queryForList("assignment.lookUpAssignmentEmployee",
+					params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public Integer countLookUpAssignmentSupervisor(Map params) {
+		Integer count = null;
+		try {
+			ibatisSQLMap.startTransaction();
+			count = (Integer) ibatisSQLMap.queryForObject(
+					"assignment.countLookUpAssignmentSupervisor", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	public List<EmployeeReportBean> lookUpAssignmentSupervisor(Map params) {
+		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			list = ibatisSQLMap.queryForList("assignment.lookUpAssignmentSupervisor",
 					params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
