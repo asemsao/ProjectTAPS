@@ -77,13 +77,17 @@
 			$("#stepDesc" + i).addClass("current");
 		}
 
-	}
-	
+	};
+
 })(jQuery);
 
 function checkAll(elem) {
 	if ($(elem).prop("checked")) {
-		$("input:checkbox[name='member_choose']").prop("checked", true);
+		$("input:checkbox[name='member_choose']").each(function () {
+			if (!$(this).is(":disabled")) {
+				$(this).prop("checked", true);
+			}
+		});
 	} else {
 		$("input:checkbox[name='member_choose']").prop("checked", false);
 	}
@@ -360,7 +364,11 @@ $(document).ready(function() {
 					structureContent += "<tbody>";			
 					for ( var i in json.listMember) {
 						structureContent += "<tr>";
-						structureContent += "<td class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" name=\"member_choose\" value=\"" + json.listMember[i].assigneeUserDomain + "@" + json.listMember[i].assignee + "\" \/><span class=\"check\"><\/span><\/label><\/div><\/td>";
+						if (json.listMember[i].headBU == '0') {
+							structureContent += "<td class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" name=\"member_choose\" value=\"" + json.listMember[i].assigneeUserDomain + "@" + json.listMember[i].assignee + "\" \/><span class=\"check\"><\/span><\/label><\/div><\/td>";
+						} else {
+							structureContent += "<td class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input disabled type=\"checkbox\" name=\"member_choose\" value=\"" + json.listMember[i].assigneeUserDomain + "@" + json.listMember[i].assignee + "\" \/><span class=\"check\"><\/span><\/label><\/div><\/td>";
+						}
 						structureContent += "<td>";
 						structureContent += json.listMember[i].projectRole;
 						structureContent += "</td><td>";

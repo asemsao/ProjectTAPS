@@ -47,6 +47,7 @@ public class EmployeeAction extends Action {
 			Map user = new HashMap();
 			user.put("username", "devri.rs");
 			user.put("password", mForm.getPassword());
+			session.setAttribute("messagecolor", "red");
 			if (lMan.tryLogin(user)) {
 				if (mForm.getNewPassword().equals(
 						mForm.getNewPasswordConfirmation())) {
@@ -54,6 +55,7 @@ public class EmployeeAction extends Action {
 					if (mMan.updateLoginEmployee(user)) {
 						session.setAttribute("messagecp",
 								"Change Password SUCCESSFULL!");
+						session.setAttribute("messagecolor", "green");
 					} else {
 						session.setAttribute("messagecp",
 								"Change Password FAILED!");

@@ -148,7 +148,7 @@ public class OrganizationManager {
 		}
 		return countMember;
 	}
-	
+
 	public Integer countMember(Map params) {
 		Integer countMember = null;
 		try {
@@ -158,7 +158,7 @@ public class OrganizationManager {
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		
+
 		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
@@ -168,7 +168,7 @@ public class OrganizationManager {
 		}
 		return countMember;
 	}
-	
+
 	public Integer countProject(Map params) {
 		Integer count = null;
 		try {
@@ -178,7 +178,7 @@ public class OrganizationManager {
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		
+
 		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
@@ -188,13 +188,13 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-	
-	public Integer countRole(String headDomain) {
+
+	public Integer countRoleSPV(String headDomain) {
 		Integer count = null;
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
-					"organization.countRole", headDomain);
+					"organization.countRoleSPV", headDomain);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,6 +208,26 @@ public class OrganizationManager {
 		return count;
 	}
 
+	public Integer countDirectReportProject(String headDomain) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countDirectReport", headDomain);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+
+	
 	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
 		boolean flag = false;
@@ -244,7 +264,24 @@ public class OrganizationManager {
 			}
 		}
 	}
-	
+
+	public void insertRoleSPV(OrganizationBean eBean) throws SQLException,
+			IOException {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("organization.insertRoleSPV", eBean);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public void deleteRole(String headDomain) {
 		try {
 			ibatisSqlMap.startTransaction();
@@ -262,6 +299,24 @@ public class OrganizationManager {
 		}
 	}
 	
+	public void deleteRoleSPV(String headDomain) {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("organization.deleteRoleSPV", headDomain);
+			ibatisSqlMap.commitTransaction();
+			System.out.println("delete SPV");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public boolean deleteOrganization(String organization_code) {
 		boolean flag = false;
 		try {
@@ -368,14 +423,13 @@ public class OrganizationManager {
 		}
 		return flag;
 	}
-	
+
 	public boolean updateAssignment(OrganizationBean orgBean) {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.updateAssignment", orgBean);
 			ibatisSqlMap.commitTransaction();
-			System.out.println("update assigment");
 			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -391,13 +445,12 @@ public class OrganizationManager {
 		}
 		return flag;
 	}
-	
+
 	public void updateReportAssignment(OrganizationBean orgBean) {
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.updateReportAssignment", orgBean);
 			ibatisSqlMap.commitTransaction();
-			System.out.println("updateReportAssignment");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

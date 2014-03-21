@@ -178,7 +178,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		emp.last_name AS directReport,
 		ps.assignee_user_domain AS
 		assigneeUserDomain, e.picture AS
-		assigneePhoto, emp.picture AS directReportPhoto
+		assigneePhoto, emp.picture AS directReportPhoto, (SELECT COUNT(1) FROM organizations z WHERE z.head_user_domain = ps.assignee_user_domain) AS headBU
 		FROM
 		organizations o,
 		projects p,
@@ -331,6 +331,5 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPPER(o.organization_code)
 		=
 		UPPER(o.parent_organization_code)
-
 	</select>
 </sqlMap>
