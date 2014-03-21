@@ -16,8 +16,8 @@ String path = "C:\\Program Files\\Crystal Decisions\\Report Application Server 9
 /*********** TESTING *************/
 // Should be using XML config file: clientSDKOptions.xml.
 String rasHostName = "192.168.10.56";
-String dbUser = "hr";
-String dbPassword = "hr";
+String dbUser = "TAPS";
+String dbPassword = "taps";
 
 
 /**

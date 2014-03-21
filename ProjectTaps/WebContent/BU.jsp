@@ -14,13 +14,27 @@
 	    ReportClientDocument report = getClientDocument(REPORT_NAME);
 	      try {
 	 	 int i = 0;
-	 	setDocParameter(i++,"Januari - Juni", report);
-	 	setDocParameter(i++,"01/04/2014", report);
-	 	setDocParameter(i++,"CSD", report);
-	 	setDocParameter(i++,"'01','02','03'", report);
-	 	setDocParameter(i++,"01/01/2014", report);
-	 	setDocParameter(i++,"2014", report);
-		
+	 	String bu = "";
+	 	String periode = "";
+	 	String periodeReport = "";
+	 	String year = "";
+	 	if (request.getSession().getAttribute("buPrint") != null) {
+	 		bu = request.getSession().getAttribute("buPrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("periodePrint") != null) {
+	 		periode = request.getSession().getAttribute("periodePrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("periodeReportPrint") != null) {
+	 		periodeReport = request.getSession().getAttribute("periodeReportPrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("yearPrint") != null) {
+	 		year = request.getSession().getAttribute("yearPrint").toString();
+	 	}
+	 	setDocParameter(i++,periode, report);
+	 	setDocParameter(i++,bu, report);
+	 	setDocParameter(i++,periodeReport, report);
+	 	setDocParameter(i++,year, report);
+	 	
 		
 		viewReport(report, request, response, session);
 
