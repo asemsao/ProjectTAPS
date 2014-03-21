@@ -17,10 +17,9 @@ public class SpecialAppraisalForm extends ActionForm {
 	private String searchKeyword;
 	private String startDate;
 	private String endDate;
-	
+	private String message;
+	private String color;
 	private SpecialAppraisalBean appraisalBean = new SpecialAppraisalBean();
-
-
 
 	public String getStartDate() {
 		return startDate;
@@ -112,5 +111,21 @@ public class SpecialAppraisalForm extends ActionForm {
 	public void setTask(String task) {
 		this.task = task;
 	}
-	
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 }
