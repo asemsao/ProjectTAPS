@@ -15,12 +15,10 @@
 			setTimeout(function() {
 				$.Notify({
 					style : {
-						background : 'green',
+						background : $("#messagecolor").val(),
 						color : 'white'
 					},
 					shadow : true,
-					// 					height : "120px",
-					// 					width : "360px",
 					position : 'top-right',
 					content : $("#messageCRUD").val()
 				});
@@ -84,6 +82,9 @@
 					<html:hidden property="maxpage" name="organizationForm" />
 					<html:hidden property="organizationCode" styleId="organizationCode"
 						name="organizationForm" />
+					<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" 
+						name="organizationForm" />">
 					<input type="hidden" id="messageCRUD"
 						value="<bean:write  property="message" 
 						name="organizationForm" />">
@@ -197,5 +198,5 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="/frame/footer.jsp" />
+	<jsp:include page="/frame/footer.jsp" /></body>
 </html>

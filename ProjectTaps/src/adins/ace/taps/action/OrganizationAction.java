@@ -44,14 +44,18 @@ public class OrganizationAction extends Action {
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
 					orgMan.insertRole(orgForm.getOrgBean());
 					orgForm.setMessage("Insert Business Unit Successfull!");
+					orgForm.setColor("green");
 				} else {
 					orgForm.setMessage("Insert Business Unit Failed!");
+					orgForm.setColor("red");
 				}
 			} else {
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
 					orgForm.setMessage("Insert Business Unit Successfull!");
+					orgForm.setColor("green");
 				} else {
 					orgForm.setMessage("Insert Business Unit Failed!");
+					orgForm.setColor("red");
 				}
 			}
 
@@ -68,8 +72,10 @@ public class OrganizationAction extends Action {
 				orgMan.insertRole(orgForm.getOrgBean());
 				orgMan.updateReportAssignment(orgForm.getOrgBean());
 				orgForm.setMessage("Edit Business Unit Successfull!");
+				orgForm.setColor("green");
 			} else {
 				orgForm.setMessage("Edit Business Unit Failed!");
+				orgForm.setColor("red");
 			}
 		}
 		if ("delete".equals(orgForm.getTask())) {
@@ -91,13 +97,17 @@ public class OrganizationAction extends Action {
 								.getHeadDomain());
 						orgMan.deleteRole(orgForm.getHeadDomain());
 						orgForm.setMessage("Delete Business Unit Successfull!");
+						orgForm.setColor("green");
 					} else {
 						orgForm.setMessage("Delete Business Unit Failed! has Projects");
+						orgForm.setColor("red");
 					}
 				} else
 					orgForm.setMessage("Delete Business Unit Failed! has child");
+					orgForm.setColor("red");
 			} else
 				orgForm.setMessage("Delete Business Unit Failed! has member");
+				orgForm.setColor("red");
 		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
