@@ -101,8 +101,10 @@ public class DashboardAction extends Action {
 			return null;
 		}
 		if ("claim".equals(dForm.getTask())){
-			//add to detail claim assignment -> back to list
+			//check if that day you've already claim assignment, add to detail claim assignment -> back to list
 			dForm.getClaimBean().setCreatedBy(userDomain);
+			Map checkDetailClaim = new HashMap();
+			
 			success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}

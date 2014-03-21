@@ -109,12 +109,12 @@
 							</tr>
 							<%} %>
 							<tr>
-								<td>Activty Type</td>
+								<td>Activity Type</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.activityType"
 											name="selfAssignmentForm" /></td>
 								<%if(session.getAttribute("adhoc").equals("ADHOC")){ %>
-								<td><b>Adhoc to </b> : <bean:write property="selfAssignBean.adhocFullName"
+								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName"
 											name="selfAssignmentForm" />
 								</td>
 								<%} %>

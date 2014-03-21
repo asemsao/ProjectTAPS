@@ -105,7 +105,7 @@
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
 								%>
-								<td><b>Adhoc to </b> : <bean:write
+								<td><b>AdHoc to </b> : <bean:write
 										property="selfAssignBean.adhocFullName" name="dashboardForm" />
 								</td>
 								<%
@@ -119,7 +119,7 @@
 										property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Manhours</td>
+								<td>ManHours</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control select">
 										<html:select property="selfAssignBean.manHours"
