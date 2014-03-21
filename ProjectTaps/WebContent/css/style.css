@@ -5,7 +5,16 @@ body {
 	background-image: url('../images/bg.jpg');
 	background-attachment: fixed;
 }
-
+.address-field{
+	max-width: 600px;
+	min-height: 150px;
+	max-height: 150px;
+}
+#description{
+	max-width: 500px;
+	min-height: 50px;
+	max-height: 150px;
+}
 a, button {
 	cursor: pointer;
 }
@@ -111,7 +120,6 @@ textarea {
 	margin-left: 0px !important;
 	margin-right: 10px;
 }
-
 #edit-star-btn {
 	float: right;
 	display: none;
@@ -120,4 +128,12 @@ textarea {
 .ava-rank {
 	width: 30px;
 	height: 30px;
+}
+
+.btn-date {
+	cursor: text !important;
+}
+
+.menu-header{
+	margin-right : 10px;
 }

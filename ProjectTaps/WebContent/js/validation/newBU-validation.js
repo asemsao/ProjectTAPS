@@ -1,9 +1,14 @@
-function specialAppraisalValidation() {
+function newBUValidation() {
 
 	// =================================================================================
-	// SPECIAL APPRAISAL
+	// New BU
 	// =================================================================================
-	$('#createdDate').tooltipster({
+	$('#organizationCode').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#organizationName').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
@@ -13,14 +18,9 @@ function specialAppraisalValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
-	$('#description').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
 
 	// initialize validate plugin on the form
-	$('#specialAppraisal').validate({
+	$('.organizationForm').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
@@ -32,13 +32,13 @@ function specialAppraisalValidation() {
 			$(element).tooltipster('update', 'accepted');
 		},
 		rules : {
-			'appraisalBean.createdDate' : {
+			'orgBean.organizationCode' : {
 				required : true
 			},
-			'appraisalBean.employeeName' : {
+			'orgBean.organizationName' : {
 				required : true
 			},
-			'appraisalBean.description' : {
+			'orgBean.headName' : {
 				required : true
 			}
 		},

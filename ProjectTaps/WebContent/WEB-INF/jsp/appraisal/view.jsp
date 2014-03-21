@@ -17,6 +17,9 @@
 		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
+	$(document).ready(function() {
+		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+	
 </script>
 <title>View Special Appraisal</title>
 </head>

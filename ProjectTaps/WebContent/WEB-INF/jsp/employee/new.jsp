@@ -209,7 +209,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress"
+										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -247,7 +247,6 @@
 												style="width:70px;" name="employeeForm"
 												styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
-												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
 												<html:option value="3">3</html:option>
 												<html:option value="4">4</html:option>

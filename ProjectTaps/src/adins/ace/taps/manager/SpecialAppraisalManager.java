@@ -38,12 +38,14 @@ public class SpecialAppraisalManager {
 		return bean;
 	}
 
-	public void Insert(SpecialAppraisalBean Bean) {
+	public boolean Insert(SpecialAppraisalBean Bean) {
+		boolean success = false;
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap
 					.insert("SpecialAppraisal.insertSpecialAppraisal", Bean);
 			ibatisSqlMap.commitTransaction();
+			success = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,6 +57,7 @@ public class SpecialAppraisalManager {
 				e2.printStackTrace();
 			}
 		}
+		return success;
 	}
 
 	public List searchSpecialAppraisal(Map params) {

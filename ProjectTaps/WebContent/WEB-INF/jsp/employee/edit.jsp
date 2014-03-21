@@ -43,18 +43,20 @@
 							setTimeout(function() {
 								$.Notify({
 									style : {
-										background : 'green',
+										background : $("#messagecolor").val(),
 										color : 'white'
 									},
 									shadow : true,
-									// 					height : "120px",
-									// 					width : "360px",
 									position : 'top-right',
 									content : $("#messageCRUD").val()
 								});
 							}, 1000);
 						}
-						
+
+						if ($("#golonganNumber").val() == "6") {
+							$("#golonganLevel").hide();
+							$("#golonganLevel").val("");
+						}
 						$("#golonganNumber").change(function() {
 							if ($("#golonganNumber").val() == "6") {
 								$("#golonganLevel").hide();
@@ -76,6 +78,8 @@
 		<html:hidden property="task" name="employeeForm" />
 		<input type="hidden" id="messageCRUD"
 			value="<bean:write  property="message" name="employeeForm" />">
+		<input type="hidden" id="messagecolor"
+			value="<bean:write  property="color" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -99,7 +103,6 @@
 											<html:text property="newEmployee.employeeDomain"
 												name="employeeForm" styleId="activeDirectory-domain"
 												styleClass="employeeDomain" readonly="true"></html:text>
-											<button type="button" class="btn-search" id="activeDirectory"></button>
 										</div>
 									</div>
 								</td>
@@ -219,7 +222,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress"
+										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -254,17 +257,18 @@
 									<div class="auto-complete">
 										<div class="input-control select">
 											<html:select property="newEmployee.golonganNumber"
-												style="width:70px;" name="employeeForm" styleId="golonganNumber">
+												style="width:70px;" name="employeeForm"
+												styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
-												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
 												<html:option value="3">3</html:option>
 												<html:option value="4">4</html:option>
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel" styleId="golonganLevel"
-												style="width:70px;" name="employeeForm">
+											<html:select property="newEmployee.golonganLevel"
+												styleId="golonganLevel" style="width:70px;"
+												name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>
@@ -281,7 +285,7 @@
 								<td colspan="4" class="text-right">
 									<button onclick="button('saveEditEmployee')"
 										class="button success">Save</button>
-									<button onclick="button('cancel')">Cancel</button>
+									<button onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

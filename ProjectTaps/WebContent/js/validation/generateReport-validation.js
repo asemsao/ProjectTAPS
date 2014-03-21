@@ -1,7 +1,7 @@
 function reportValidation() {
 
 	// =================================================================================
-	// GENERATE REPORT VALIDATION
+	// REPORT VALIDATION
 	// =================================================================================
 	$('.reportForm input[id="reportYear"]').tooltipster({
 		trigger : 'hover',

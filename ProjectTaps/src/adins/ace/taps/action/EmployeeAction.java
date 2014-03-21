@@ -51,15 +51,21 @@ public class EmployeeAction extends Action {
 			if (lMan.tryLogin(user)) {
 				if (mForm.getNewPassword().equals(
 						mForm.getNewPasswordConfirmation())) {
-					user.put("password", mForm.getNewPassword());
-					if (mMan.updateLoginEmployee(user)) {
+					if (mForm.getNewPassword().length() > 5) {
+						user.put("password", mForm.getNewPassword());
+						if (mMan.updateLoginEmployee(user)) {
+							session.setAttribute("messagecp",
+									"Change Password SUCCESSFULL!");
+							session.setAttribute("messagecolor", "green");
+						} else {
+							session.setAttribute("messagecp",
+									"Change Password FAILED!");
+						}
+					}else{
 						session.setAttribute("messagecp",
-								"Change Password SUCCESSFULL!");
-						session.setAttribute("messagecolor", "green");
-					} else {
-						session.setAttribute("messagecp",
-								"Change Password FAILED!");
+								"Password must be contain min. 6 characters");
 					}
+
 				} else {
 					session.setAttribute("messagecp",
 							"Change Password FAILED! Your Password is Doesn't Match");
@@ -78,7 +84,13 @@ public class EmployeeAction extends Action {
 		if ("delete".equals(mForm.getTask())) {
 			boolean flag = false;
 			flag = mMan.deleteEmployee(mForm.getEmployeeDomain());
-			System.out.println(flag);
+			if (flag) {
+				mForm.setMessage("Delete Employee Successfull!");
+				mForm.setColor("green");
+			} else {
+				mForm.setMessage("Delete Employee Successfull!");
+				mForm.setColor("red");
+			}
 			mForm.setEmployeeDomain(null);
 		}
 
@@ -168,6 +180,11 @@ public class EmployeeAction extends Action {
 					data.put("password", "employeetaps");
 				}
 				mMan.insertLoginEmployee(data);
+				mForm.setMessage("Add Employee Successfull!");
+				mForm.setColor("green");
+			} else {
+				mForm.setMessage("Add Employee Failed!");
+				mForm.setColor("red");
 			}
 		}
 		if ("saveEditEmployee".equals(mForm.getTask())) {
@@ -192,6 +209,7 @@ public class EmployeeAction extends Action {
 						session.getAttribute("username").toString());
 				flag = mMan.updateEmployee(mForm.getNewEmployee());
 				mForm.setMessage("Edit Employee Successfull!");
+				mForm.setColor("green");
 			} else {
 				if (organizationList
 						.get(0)
@@ -202,11 +220,13 @@ public class EmployeeAction extends Action {
 							session.getAttribute("username").toString());
 					flag = mMan.updateEmployee(mForm.getNewEmployee());
 					mForm.setMessage("Edit Employee Successfull!");
+					mForm.setColor("green");
 
 				} else {
 					mForm.setTask("edit");
 					mForm.setMessage(organizationList.get(0)
 							.getHeadUserDomain() + " Can't Move To Other BU!");
+					mForm.setColor("red");
 					return mapping.findForward("Edit");
 				}
 			}

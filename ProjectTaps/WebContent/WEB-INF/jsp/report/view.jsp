@@ -273,6 +273,11 @@
 						</tr>
 						</tbody>
 						</table>
+						1. <bean:write name="reportForm" property="param" /><br />
+						2. <bean:write name="reportForm" property="param2" /><br />
+						3. <bean:write name="reportForm" property="param3" /><br />
+						4. <bean:write name="reportForm" property="param4" /><br />
+						5. <bean:write name="reportForm" property="param5" /><br />
 					</div>
 				</div>
 			</div>

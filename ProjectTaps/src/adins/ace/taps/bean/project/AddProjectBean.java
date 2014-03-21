@@ -2,6 +2,7 @@ package adins.ace.taps.bean.project;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class AddProjectBean implements Serializable 
 {
 	private String projectCode;
@@ -9,6 +10,7 @@ public class AddProjectBean implements Serializable
 	private String client;
 	private String phaseId;
 	private String organizationCode;
+	private String organizationName;
 	private String startDate;
 	private String endDate;
 	private String flag;
@@ -75,6 +77,12 @@ public class AddProjectBean implements Serializable
 	}
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
+	}
+	public String getOrganizationName() {
+		return organizationName;
+	}
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
 	}
 	
 }

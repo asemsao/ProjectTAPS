@@ -7,6 +7,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<typeAlias alias="dashboardBean"
 		type="adins.ace.taps.bean.dashboard.DashboardBean" />
 
+	<select id="starAchievement" resultClass="int" parameterClass="java.lang.String">
+		SELECT 	SUM (star_after) - SUM (star_before) AS totalStar
+				FROM stars
+		WHERE 	user_domain = #userDomain# AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+	</select>
+	
+
 	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
 		FROM (	SELECT 	e.user_domain AS userDomain, 
@@ -137,6 +144,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -179,7 +187,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, assignmentDate DESC
+				ORDER BY flag DESC, claimDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -228,6 +236,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -270,7 +279,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, assignmentDate DESC
+				ORDER BY flag DESC, claimDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -319,6 +328,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -361,7 +371,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, assignmentDate DESC
+				ORDER BY flag DESC, claimDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -410,6 +420,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -452,7 +463,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, assignmentDate DESC
+				ORDER BY flag DESC, claimDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -501,6 +512,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -543,7 +555,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, assignmentDate DESC
+				ORDER BY flag DESC, claimDate DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>

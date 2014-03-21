@@ -60,7 +60,7 @@ public class LoginAction extends Action {
 					 * SET SESSION session.setAttribute("username", username);
 					 */
 					// /TESTING HAPUS NANTI
-					username = "domain100";
+					username = "DOMAIN205";
 					// ///
 					List<RoleBean> roleList = lMan.roleList(username);
 					String fullname = lMan.getFullName(username);
@@ -70,6 +70,9 @@ public class LoginAction extends Action {
 					if ("true".equals(App.getConfiguration("recovery_mode"))) {
 						session.setAttribute("recoveryMode", "true");
 					}
+					/* Star Achievement */
+					session.setAttribute("star", dMan.starAchievemet("domain3"));
+					
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);
 					try {

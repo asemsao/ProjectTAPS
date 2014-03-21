@@ -24,30 +24,38 @@ public class SpecialAppraisalAction extends Action {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
 		Map params = new HashMap();
-		
+
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
 		if ("New".equals(mForm.getTask())) {
 			return mapping.findForward("New");
-		} else if ("Appraisal".equals(mForm.getTask())) {
-			System.out.println("insert");
-			mMan.Insert(mForm.getAppraisalBean());
-		} else if ("View".equals(mForm.getTask())) {
-			System.out.println("Task View : " + mForm.getTask());
-			System.out.println("Task Param : " + mForm.getParam());
+		}
+		if ("Appraisal".equals(mForm.getTask())) {
+			if(mMan.Insert(mForm.getAppraisalBean())){
+				mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
+				mForm.setColor("green");
+			}else{
+				mForm.setMessage("Adding Special Appraisal to Employee Failed!");
+				mForm.setColor("red");
+			}
+		}
+		if ("View".equals(mForm.getTask())) {
 			mForm.setAppraisalBean(mMan.getUserDomain(mForm.getParam()));
 			return mapping.findForward("View");
-		} else if ("first".equals(mForm.getTask())) {
-			System.out.println("cek");
+		}
+		if ("first".equals(mForm.getTask())) {
 			mForm.setPage(1);
-		} else if ("last".equals(mForm.getTask())) {
+		}
+		if ("last".equals(mForm.getTask())) {
 			mForm.setPage(mForm.getMaxpage());
-		} else if ("prev".equals(mForm.getTask())) {
+		}
+		if ("prev".equals(mForm.getTask())) {
 			if (mForm.getPage() > 1) {
 				mForm.setPage(mForm.getPage() - 1);
 			}
-		} else if ("next".equals(mForm.getTask())) {
+		}
+		if ("next".equals(mForm.getTask())) {
 			if (mForm.getPage() < mForm.getMaxpage()) {
 				mForm.setPage(mForm.getPage() + 1);
 			}
@@ -56,7 +64,7 @@ public class SpecialAppraisalAction extends Action {
 		if ("search".equals(mForm.getTask())) {
 			mForm.setPage(1);
 		}
-		
+
 		params.put("start", (mForm.getPage() - 1) * 10 + 1);
 		params.put("end", (mForm.getPage() * 10));
 		params.put("category", "employeeName");
@@ -66,10 +74,7 @@ public class SpecialAppraisalAction extends Action {
 
 		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
 		mForm.setCountRecord(mMan.countSpecialAppraisal(params));
-		
-		System.out.println("record="+mMan.countSpecialAppraisal(params));
-		
-		
+
 		if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {

@@ -26,6 +26,11 @@
 			function() {
 				$("#lookUpEmployee").load(
 						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+
+				$("#description").attr("maxlength", "1000");
+				$("#createdDate").attr("placeholder", "Date");
+				$("#employee-name").attr("placeholder", "Employee Name");
+				$("#description").attr("placeholder", "Description");
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -60,8 +65,9 @@
 								<td><div class="input-control text">
 										<html:hidden property="appraisalBean.userDomain"
 											name="specialAppraisalForm" styleId="employee-domain" />
-										<input type="text" placeholder="Employee" id="employee-name"
-											readonly="readonly" />
+										<html:text property="appraisalBean.employeeName"
+											readonly="true" name="specialAppraisalForm"
+											styleId="employee-name"></html:text>
 										<button class="btn-search" type="button" id="employee"></button>
 									</div></td>
 							</tr>
@@ -69,7 +75,7 @@
 								<td class="size3">Appraisal Description</td>
 								<td>:</td>
 								<td><html:textarea styleClass="input-control textarea"
-										styleId="descriptionApp" property="appraisalBean.description"
+										styleId="description" property="appraisalBean.description"
 										name="specialAppraisalForm" /></td>
 							</tr>
 							<tr>
@@ -110,11 +116,9 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="text-right"><input type="button"
-									onclick="flyToPage('appraisal')" class="button success"
-									value="Appraisal" /> <input type="button"
-									onclick="flyToPage('cancel')" class="button info"
-									value="Cancel"></td>
+								<td colspan="3" class="text-right">
+									<button onclick="flyToPage('appraisal')" class="button success">Appraisal</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 							</tr>
 						</tbody>
 					</table>

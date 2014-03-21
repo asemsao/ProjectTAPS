@@ -35,7 +35,7 @@ public class OrganizationAction extends Action {
 		if ("new".equals(orgForm.getTask())) {
 			return mapping.findForward("New");
 		}
-		if ("Save".equals(orgForm.getTask())) {
+		if ("save".equals(orgForm.getTask())) {
 			if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
 					orgMan.insertRole(orgForm.getOrgBean());
@@ -47,7 +47,9 @@ public class OrganizationAction extends Action {
 					orgForm.setColor("red");
 				}
 			} else {
+				System.out.println("norole");
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
+					System.out.println("submit");
 					orgMan.insertRole(orgForm.getOrgBean());
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
