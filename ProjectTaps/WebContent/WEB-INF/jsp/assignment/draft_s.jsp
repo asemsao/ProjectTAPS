@@ -27,6 +27,7 @@
 			}
 		}
 	}
+	
 	$(document)
 			.ready(
 					function() {
@@ -37,6 +38,7 @@
 							$(".pr").hide();
 							$("#bu").show();
 						}
+						
 						if ($("#activityType").val() == 'ADHOC'){
 							$(".adhoc").show();
 						}else{

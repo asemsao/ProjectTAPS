@@ -1,3 +1,5 @@
+<%@page import="adins.ace.taps.bean.module.RoleBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -42,43 +44,35 @@
 						var project_code = $("#project-code").val();
 						var organization_code = $("#organization-code-view")
 								.val();
-						$("#lookUpEmployeeOnOrganization")
-								.load(
+						var userDomain = $("#userDomain").val();
+						$("#lookUpEmployeeOnOrganization").load(
 										"/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode="
 												+ organization_code);
-						$("#lookUpEmployeeOnProject")
-								.load(
+						$("#lookUpEmployeeOnProject").load(
 										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
 												+ project_code);
-						$("#lookUpProject")
-								.load(
-										"/ProjectTaps/ajax.do?mode=projects&task=projects");
+						$("#lookUpProject").load(
+								"/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="
+										+ userDomain);
 						$("#employee-name").val($("#employee-fullName").val());
 
 						$("#timepicker").timeselector();
 
-						$('#project-name')
-								.bind(
-										"change",
-										function() {
+						$('#project-name').bind("change",function() {
 											var project_code = $(
 													"#project-code").val();
 											$("#lookUpEmployeeOnProject").html(
 													'');
-											$("#lookUpEmployeeOnProject")
-													.load(
+											$("#lookUpEmployeeOnProject").load(
 															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
 																	+ project_code);
 											$("#employee-name").val("");
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
-						$("#lookUpAssignment")
-								.load(
+						$("#lookUpAssignment").load(
 										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-						$("input[name='assignment_type']")
-								.change(
-										function() {
+						$("input[name='assignment_type']").change(function() {
 											if ($(this).val() == "PROJECT") {
 												$("#lookUpAssignment")
 														.load(
@@ -100,7 +94,7 @@
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
-<body class="metro" onload="javascript:checkRadioButtonValue();">
+<body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/newAssignment" method="POST" styleId="newAssignment">
 		<div class="container container-taps">
@@ -143,7 +137,13 @@
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td><div class="input-control radio margin10">
+								<td>
+									<%	boolean headBU = false;
+										List<RoleBean> roleList = (List) session.getAttribute("role");
+										for (int i = 0; i < roleList.size(); i++) {
+											if (roleList.get(i).getRoleId().equals("hbu") || roleList.get(i).getRoleId().equals("hde") || roleList.get(i).getRoleId().equals("bom")) {
+									%>
+									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
 											checked="checked" value="BU" /> <span class="check"></span>
 											Business Unit
@@ -153,12 +153,29 @@
 										<label> <input type="radio" name="assignment_type"
 											value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div></td>
+									</div>
+									<% headBU = true;} } 
+									if (!headBU) { %>
+									<div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											disabled="disabled" value="BU" /> <span class="check"></span>
+											Business Unit
+										</label>
+									</div>
+									<div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+										</label>
+									</div>
+									<%} %>
+								</td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><div class="pr" class="in-bl">
+								<td>
+									<%if (headBU) {%>
+									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode"
 												name="claimAssignmentForm" styleId="project-code" />
@@ -180,12 +197,33 @@
 											<button type="button" class="btn-search"
 												id="employeeOnOrganization"></button>
 										</div>
-									</div></td>
+									</div>
+									<%} else {%>
+									<div class="input-control text">
+										<html:hidden property="assignmentBean.projectCode"
+											name="claimAssignmentForm" styleId="project-code" />
+										<html:text property="assignmentBean.projectName" readonly="true"
+											name="claimAssignmentForm" styleId="project-name" />
+										<button type="button" class="btn-search" id="project"></button>
+									</div>
+									<br />
+									<br />
+									<div class="input-control text">
+										<html:hidden property="assignmentBean.assignTo"
+											name="claimAssignmentForm" styleId="employee-domain" />
+										<html:text property="assignmentBean.assignToFullName" readonly="true"
+											name="claimAssignmentForm" styleId="employee-name" />
+										<div>
+											<button type="button" class="btn-search"
+												id="employeeOnProject"></button>
+										</div>
+									</div>
+									<%} %>
+								</td>
 							</tr>
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
-									
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode"
 											name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
@@ -214,11 +252,11 @@
 		</div>
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
+		<input type="hidden" id="userDomain" value="DOMAIN205" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm"
 			styleId="assignment-type" />
 	</html:form>
-
 
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
