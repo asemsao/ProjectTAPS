@@ -58,7 +58,8 @@ public class ProjectAction extends Action {
 		}
 		if ("saveProject".equals(pForm.getTask())) {
 			if (pMan.addProject(pForm.getAddProject())) {
-				pForm.setMessage("Insert Successfully");
+				pForm.setMessage("Insert Project Successfully");
+				pForm.setColor("green");
 
 				// insert table history_projects
 				Map param = new HashMap();
@@ -67,7 +68,8 @@ public class ProjectAction extends Action {
 						.getOrganizationCode());
 				pMan.insertHistory(param);
 			} else
-				pForm.setMessage("Insert Failed");
+				pForm.setMessage("Insert Project Failed");
+				pForm.setColor("red");
 
 		}
 		if ("cancel".equals(pForm.getTask())) {
@@ -90,9 +92,11 @@ public class ProjectAction extends Action {
 				// update table assignments
 				pMan.updateAllAssStatus(pForm.getParamProjectCode());
 
-				pForm.setMessage("Deleted Successfully");
+				pForm.setMessage("Deleted Project Successfully");
+				pForm.setColor("green");
 			} else
-				pForm.setMessage("Delete Failed");
+				pForm.setMessage("Delete Project Failed");
+			pForm.setColor("red");
 		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);
@@ -137,9 +141,12 @@ public class ProjectAction extends Action {
 					pMan.insertRole(pForm.getAddSProject()
 							.getDirectreportUserDomain());
 				}
-				pForm.setMessage("Added Successfully");
-			} else
-				pForm.setMessage("Add Failed");
+				pForm.setMessage("Added Employee on Project Successfully");
+				pForm.setColor("green");
+			} else{
+				pForm.setMessage("Add Employee on Project Failed");
+				pForm.setColor("red");
+			}
 
 			// Back to structure.jsp
 			pForm.setPage(1);
@@ -177,30 +184,32 @@ public class ProjectAction extends Action {
 		if ("updateMember".equals(pForm.getTask())) {
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 			pMan.updateMember(pForm.getAddSProject());
-	
-			//Check apakah dia(supervisor yg lama) head BU atau bukan(kalau bukan akan di delete supervisor role nya)
-			if(pMan.notHeadBU(pForm.getDirectReportBefore()))
-			{
-				//Edit direct report yang lama
-				if(pMan.checkRole(pForm.getDirectReportBefore()) == 0)
-				{
+
+			// Check apakah dia(supervisor yg lama) head BU atau bukan(kalau
+			// bukan akan di delete supervisor role nya)
+			if (pMan.notHeadBU(pForm.getDirectReportBefore())) {
+				// Edit direct report yang lama
+				if (pMan.checkRole(pForm.getDirectReportBefore()) == 0) {
 					pMan.deleteRole(pForm.getDirectReportBefore());
 				}
-			}	
-			
-			//Add supervisor role ke Direct Report yang baru
-			if(pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false){
-				pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
 			}
 
-			//update table assignment --> ganti directreport ke orang yang baru 
+			// Add supervisor role ke Direct Report yang baru
+			if (pMan.isExist(pForm.getAddSProject().getDirectreportUserDomain()) == false) {
+				pMan.insertRole(pForm.getAddSProject()
+						.getDirectreportUserDomain());
+			}
+
+			// update table assignment --> ganti directreport ke orang yang baru
 			Map param = new HashMap();
-			param.put("reportTo", pForm.getAddSProject().getDirectreportUserDomain());
-			param.put("assignTo", pForm.getAddSProject().getAssigneeUserDomain());
+			param.put("reportTo", pForm.getAddSProject()
+					.getDirectreportUserDomain());
+			param.put("assignTo", pForm.getAddSProject()
+					.getAssigneeUserDomain());
 			param.put("projectCode", pForm.getParamProjectCode());
 			pMan.changeNewSupervisor(param);
-			
-			//Back to structure.jsp
+
+			// Back to structure.jsp
 			pForm.setPage(1);
 			pForm.setMode("structure");
 			params.put("projectCode", pForm.getParamProjectCode());
@@ -248,14 +257,12 @@ public class ProjectAction extends Action {
 					pForm.getParamAssigneeUserDomain());
 			pForm.getAddSProject().setProjectCode(pForm.getParamProjectCode());
 
-			if(pMan.deleteMember(pForm.getAddSProject()))
-			{	
-				//Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
-				if(pMan.notHeadBU(pForm.getDirectReportUserDomain()))
-				{
-					//update table employee_role
-					if(pMan.checkRole(pForm.getDirectReportUserDomain()) == 0)
-					{
+			if (pMan.deleteMember(pForm.getAddSProject())) {
+				// Check apakah dia head BU atau bukan(kalau bukan akan di
+				// delete supervisor role nya)
+				if (pMan.notHeadBU(pForm.getDirectReportUserDomain())) {
+					// update table employee_role
+					if (pMan.checkRole(pForm.getDirectReportUserDomain()) == 0) {
 						pMan.deleteRole(pForm.getDirectReportUserDomain());
 					}
 				}
@@ -267,9 +274,12 @@ public class ProjectAction extends Action {
 				param.put("directreport", pForm.getDirectReportUserDomain());
 				pMan.updateAssStatus(param);
 
-				pForm.setMessage("Record Has been Deleted");
-			} else
-				pForm.setMessage("Record can't be deleted");
+				pForm.setMessage("Employee has been Deleted from This Project");
+				pForm.setColor("green");
+			} else{
+				pForm.setMessage("Employee can't be deleted from This Project");
+				pForm.setColor("red");
+			}
 
 			// Back to structure.jsp
 			pForm.setPage(1);
