@@ -27,10 +27,24 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		VALUES ('HBU', #headDomain#)
 	</insert>
 
+	<insert id="insertRoleSPV" parameterClass="organizationBean">
+		INSERT INTO
+		employee_role
+		(role_id, user_domain)
+		VALUES ('SPV', #headDomain#)
+	</insert>
+
 	<delete id="deleteRole" parameterClass="java.lang.String">
 		delete from employee_role
 		where
 		user_domain =#headDomain# AND role_id='HBU'
+	</delete>
+
+	<delete id="deleteRoleSPV" parameterClass="java.lang.String">
+		delete from
+		employee_role
+		where
+		user_domain =#headDomain# AND role_id='SPV'
 	</delete>
 
 	<select id="getOrganizationCode" resultClass="organizationBean">
@@ -72,14 +86,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
-	
-	
+
+
 	<update id="updateReportAssignment" parameterClass="organizationBean">
-		UPDATE 
-        assignments SET
-        report_to = #headDomain#
-        WHERE assignment_type = 'BU' AND 
-        UPPER(organization_code)=UPPER(#organizationCode#)
+		UPDATE
+		assignments SET
+		report_to = #headDomain#
+		WHERE assignment_type = 'BU' AND
+		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
 
 	<select id="countOrganizations" resultClass="int"
@@ -439,13 +453,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		LOWER(flag) = 'active'
 	</select>
 
-	<select id="countRole" resultClass="int" parameterClass="java.lang.String">
+	<select id="countRoleSPV" resultClass="int" parameterClass="java.lang.String">
 		SELECT
 		COUNT(1)
 		FROM employee_role
 		WHERE user_domain =
 		#headDomain# AND
-		role_id='HBU'
+		role_id='SPV'
+	</select>
+
+	<select id="countDirectReport" resultClass="int" parameterClass="java.lang.String">
+		SELECT COUNT (1)
+		FROM project_structures
+		WHERE directreport_user_domain = #headDomain#
 	</select>
 
 	<update id="updateAssignment" parameterClass="organizationBean">
