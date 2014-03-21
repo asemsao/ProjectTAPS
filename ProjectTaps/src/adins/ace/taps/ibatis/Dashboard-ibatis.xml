@@ -7,6 +7,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<typeAlias alias="dashboardBean"
 		type="adins.ace.taps.bean.dashboard.DashboardBean" />
 
+	<select id="starAchievement" resultClass="int" parameterClass="java.lang.String">
+		SELECT 	SUM (star_after) - SUM (star_before) AS totalStar
+				FROM stars
+		WHERE 	user_domain = #userDomain# AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+	</select>
+	
+
 	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
 		FROM (	SELECT 	e.user_domain AS userDomain, 

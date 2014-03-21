@@ -88,7 +88,7 @@ $(document).ready(
 					title : 'Flat window',
 					content : $("#lookUpOrganization").html(),
 					padding : 10,
-					title : 'Organizations'
+					title : 'Business Unit'
 				});
 			});
 			$("#assigment").on('click', function() {
