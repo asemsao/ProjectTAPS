@@ -34,7 +34,7 @@
 			setTimeout(function() {
 				$.Notify({
 					style : {
-						background : 'green',
+						background : $("#messagecolor").val(),
 						color : 'white'
 					},
 					shadow : true,
@@ -63,6 +63,7 @@
 					<html:hidden property="maxpage" name="projectForm" />
 					<html:hidden property="directReportUserDomain" name="projectForm" />
 					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="projectForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
