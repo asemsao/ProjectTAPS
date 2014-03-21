@@ -89,6 +89,14 @@ public class AjaxAction extends Action {
 			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
 			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
 		}
+		
+		if("deleteOrganization".equals(ajaxForm.getMode())){
+			params.put("organizationCode", ajaxForm.getOrganizationCode());
+			ajaxForm.setOrganizationProject(orgMan.listProject(params));
+			ajaxForm.setChildOrganization(orgMan.listChild(params));
+			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
+			System.out.println(ajaxForm.getCheckDeleteOrganization());
+		}
 
 		if ("ad".equals(ajaxForm.getMode())) {
 			List<ActiveDirectoryBean> listAD = queAD.queryAD();

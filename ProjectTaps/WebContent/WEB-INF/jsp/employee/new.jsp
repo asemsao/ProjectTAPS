@@ -25,6 +25,7 @@
 	$(document)
 			.ready(
 					function() {
+						$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
 						$(".employeeDomain").attr("placeholder",
 								"Employee Domain");
 						$("#password").attr("placeholder",

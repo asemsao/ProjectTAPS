@@ -16,8 +16,11 @@ import adins.ace.taps.bean.project.ProjectBean;
 public class AjaxForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
 	private int checkDeleteEmpoyee;
+	private int checkDeleteOrganization;
 	private List<EmployeeOrganizationBean> headOrgStatus;
 	private List<EmployeeProjectStructureBean> supervisorStatus;
+	private List<OrganizationBean> childOrganization;
+	private List<OrganizationBean> OrganizationProject;
 	private String task;
 	private String searchCategory;
 	private String searchKeyword;
@@ -44,7 +47,31 @@ public class AjaxForm extends ActionForm {
 	private String assignmentType;
 	private String paramProjectCode;
 
-	
+	public int getCheckDeleteOrganization() {
+		return checkDeleteOrganization;
+	}
+
+	public void setCheckDeleteOrganization(int checkDeleteOrganization) {
+		this.checkDeleteOrganization = checkDeleteOrganization;
+	}
+
+	public List<OrganizationBean> getChildOrganization() {
+		return childOrganization;
+	}
+
+	public void setChildOrganization(List<OrganizationBean> childOrganization) {
+		this.childOrganization = childOrganization;
+	}
+
+	public List<OrganizationBean> getOrganizationProject() {
+		return OrganizationProject;
+	}
+
+	public void setOrganizationProject(
+			List<OrganizationBean> organizationProject) {
+		OrganizationProject = organizationProject;
+	}
+
 	public String getUserDomain() {
 		return userDomain;
 	}
@@ -68,7 +95,7 @@ public class AjaxForm extends ActionForm {
 	public void setAssignmentType(String assignmentType) {
 		this.assignmentType = assignmentType;
 	}
-	
+
 	public String getTask() {
 		return task;
 	}
@@ -244,6 +271,7 @@ public class AjaxForm extends ActionForm {
 	public void setTaskCode(String taskCode) {
 		this.taskCode = taskCode;
 	}
+
 	public List<EmployeeOrganizationBean> getHeadOrgStatus() {
 		return headOrgStatus;
 	}
@@ -256,7 +284,8 @@ public class AjaxForm extends ActionForm {
 		return supervisorStatus;
 	}
 
-	public void setSupervisorStatus(List<EmployeeProjectStructureBean> supervisorStatus) {
+	public void setSupervisorStatus(
+			List<EmployeeProjectStructureBean> supervisorStatus) {
 		this.supervisorStatus = supervisorStatus;
 	}
 
@@ -275,6 +304,5 @@ public class AjaxForm extends ActionForm {
 	public void setParamProjectCode(String paramProjectCode) {
 		this.paramProjectCode = paramProjectCode;
 	}
-	
 
 }

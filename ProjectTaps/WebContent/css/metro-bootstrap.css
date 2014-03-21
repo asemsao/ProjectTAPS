@@ -1683,6 +1683,10 @@ a {
 	width: 380px !important;
 }
 
+.metro .spanEmp,.metro .sizeEmp {
+	width: 390px !important;
+}
+
 .metro .span6,.metro .size6 {
 	width: 460px !important;
 }
@@ -1693,6 +1697,10 @@ a {
 
 .metro .span8,.metro .size8 {
 	width: 620px !important;
+}
+
+.metro .spanSpv,.metro .sizeSpv {
+	width: 650px !important;
 }
 
 .metro .span9,.metro .size9 {
