@@ -12,11 +12,19 @@
 <jsp:include page="/js/import.jsp" />
 <script>
 	function button(task) {
-		document.projectForm.task.value = task;
-		document.projectForm.submit();
+		if (task == "back") {
+			document.projectForm.task.value = task;
+			document.projectForm.submit();
+			return;
+		} else if (task == "saveMember") {
+			document.projectForm.task.value = task;
+			addProjectMember();
+		}
 	}
 	$(document).ready(function() {
 		$("#role").attr("placeholder", "Role in Project");
+		$("#employee-name").attr("placeholder", "Assign to");
+		$("#employee-name-2").attr("placeholder", "Report to");
 		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 	});
@@ -54,7 +62,7 @@
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
-										<input type="text" placeholder="Assign to" id="employee-name" readonly="readonly" />
+										<html:text property="addSProject.assigneeName" name="projectForm" styleId="employee-name" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
@@ -65,15 +73,15 @@
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addSProject.directreportUserDomain" name="projectForm" styleId="employee-domain-2"></html:hidden>
-										<input type="text" placeholder="Report to" id="employee-name-2" readonly="readonly" />
+										<html:text property="addSProject.directreportName" name="projectForm" styleId="employee-name-2" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="javascript:button('saveMember')" class="button success">Save</button>
-									<button id="cancel-btn-2" onclick="javascript:button('back')">Cancel</button>
+									<button id="save-btn" onclick="button('saveMember')" class="button success">Save</button>
+									<button id="cancel-btn-2" onclick="button('back')">Cancel</button>
 								</td>
 							</tr>
 							<html:hidden property="task" name="projectForm" />

@@ -14,7 +14,7 @@
 <script>
 	function button(task) {
 		if (task == "cancel") {
-			document.projectForm.task.value = "";
+			document.projectForm.task.value = task;
 			document.projectForm.submit();
 			return;
 		} else if (task == "updateProject") {

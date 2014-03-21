@@ -13,7 +13,7 @@
 <jsp:include page="/js/import.jsp" />
 <script>
 	function button(task) {
-		if (task == "cancel") {
+		if (task == "back") {
 			document.projectForm.task.value = "";
 			document.projectForm.submit();
 			return;
@@ -135,7 +135,7 @@
 								<td colspan="3" class="text-right">
 									<button id="save-btn" onclick="button('saveProject')"
 										class="success">Save</button>
-									<button id="cancel-btn" onclick="button('cancel')">Cancel</button>
+									<button id="cancel-btn" onclick="button('back')">Cancel</button>
 								</td>
 							</tr>
 

@@ -11,25 +11,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function button(task) 
-	{
-		document.projectForm.task.value = task;
-		document.projectForm.submit();
+	function button(task) {
+		if (task == "back") {
+			document.projectForm.task.value = task;
+			document.projectForm.submit();
+			return;
+		} else if (task == "updateMember") {
+			document.projectForm.task.value = task;
+			editProjectMember();
+		}
 	}
-	$(document).ready(function() {
-		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-	});
+	$(document)
+			.ready(
+					function() {
+						$("#lookUpEmployee2")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+						
+						 $("#projectRole").attr("placeholder", "Role in Project");
+						 $("#employee-name").attr("placeholder", "Assign to");
+						 $("#employee-name-2").attr("placeholder", "Report to");
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Edit Project Member</title>
 </head>
 
 <body class="metro">
-<jsp:include page="/frame/header.jsp" />
+	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/project" method="post" styleClass="projectForm">
-	<div class="container container-taps">
-		<div class="grid">
-			<div class="row row-taps shadow-taps">
+		<html:hidden property="task" name="projectForm" />
+		<html:hidden property="paramProjectCode" name="projectForm" />
+		<html:hidden property="directReportBefore" name="projectForm" />
+		<div class="container container-taps">
+			<div class="grid">
+				<div class="row row-taps shadow-taps">
 					<table class="table">
 						<thead>
 							<tr>
@@ -42,8 +58,10 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="addSProject.assigneeUserDomain" name="projectForm" styleId="employee-domain"></html:hidden>
-										<html:text property="addSProject.assigneeName" styleId="employee-name" readonly="true"></html:text>
+										<html:hidden property="addSProject.assigneeUserDomain"
+											name="projectForm" styleId="employee-domain"></html:hidden>
+										<html:text property="addSProject.assigneeName"
+											styleId="employee-name" readonly="true"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -52,30 +70,30 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="addSProject.projectRole" name="projectForm"></html:text>
+										<html:text property="addSProject.projectRole" styleId="projectRole"
+											name="projectForm"></html:text>
 									</div>
 								</td>
-							</tr>	
+							</tr>
 							<tr>
 								<td>Direct Report</td>
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="addSProject.directreportUserDomain" name="projectForm" styleId="employee-domain-2"></html:hidden>
-										<html:text property="addSProject.directreportName" styleId="employee-name-2" readonly="readonly"></html:text>
+										<html:hidden property="addSProject.directreportUserDomain"
+											name="projectForm" styleId="employee-domain-2"></html:hidden>
+										<html:text property="addSProject.directreportName"
+											styleId="employee-name-2" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="javascript:button('updateMember')" class="button success">Save</button>
-									<button id="cancel-btn-2" onclick="javascript:button('back')">Cancel</button>
+									<button id="save-btn" onclick="button('updateMember')" class="button success">Save</button>
+									<button id="cancel-btn-2" onclick="button('back')">Cancel</button>
 								</td>
 							</tr>
-							<html:hidden property="task" name="projectForm" />
-							<html:hidden property="paramProjectCode" name="projectForm" />
-							<html:hidden property="directReportBefore" name = "projectForm" />
 						</tbody>
 					</table>
 				</div>
