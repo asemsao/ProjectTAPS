@@ -483,4 +483,23 @@ public class DashboardManager {
 		}
 		return read;
 	}
+	
+	public Integer starAchievemet(String userDomain) {
+		Integer total = 0;
+		try {
+			ibatisSQLMap.startTransaction();
+			total = (Integer) ibatisSQLMap.queryForObject(
+					"dashboard.starAchievement", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return total;
+	}
 }

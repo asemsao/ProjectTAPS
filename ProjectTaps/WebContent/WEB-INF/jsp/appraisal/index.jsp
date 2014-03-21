@@ -87,9 +87,6 @@
 									</div>
 								</th>
 							</tr>
-
-
-
 							<tr>
 								<th class="text-center">Appraisal Date</th>
 								<th class="text-center">Employee Name</th>
