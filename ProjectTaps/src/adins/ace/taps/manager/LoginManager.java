@@ -72,7 +72,6 @@ public class LoginManager {
 	public boolean tryLogin(Map params) {
 		boolean pass = false;
 		Integer count = null;
-		System.out.println(params);
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject("login.tryLogin",

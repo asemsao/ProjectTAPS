@@ -6,7 +6,9 @@ package adins.ace.taps.action;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.*;
@@ -15,6 +17,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.bean.module.RoleBean;

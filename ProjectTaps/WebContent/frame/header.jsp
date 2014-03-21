@@ -6,6 +6,50 @@
 <%@page import="adins.ace.taps.bean.module.RoleBean"%>
 <%@page import="adins.ace.taps.manager.LoginManager"%>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#change-password").on('click', function() {
+			$.Dialog({
+				shadow : true,
+				overlay : true,
+				draggable : true,
+				icon : '<span class="icon-key-2"></span>',
+				title : 'Change Password',
+				width : 500,
+				padding : 10,
+				content : 'This Window is draggable by caption.',
+				onShow : function() {
+					var content = $("#changePassword").html();
+					$.Dialog.title("Change Password");
+					$.Dialog.content(content);
+				}
+
+			});
+		});
+	});
+
+	function changePassword() {
+		var params = new Object();
+		params.task = $("task-change-password").val();
+		params.oldPassword = $("#old-password").val();
+		params.newPassword = $("#new-password").val();
+		params.newPasswordConfirmation = $("#new-password-confirmation").val();
+		var data = "task=changePassword&params=" + JSON.stringify(params);
+		$.ajax({
+			url : "/ProjectTaps/login.do",
+			type : "POST",
+			data : data,
+			context : this,
+			error : function() {
+				console.log("problem was here!");
+			},
+			success : function(data) {
+				alert("success");
+			}
+		});
+	}
+</script>
+
 <html:form action="/menu" method="POST" styleId="menuForm">
 	<div class="bg-dark">
 		<div class="navigation-bar dark header-taps">
@@ -78,7 +122,7 @@
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
 							<%=session.getAttribute("fullname")%></a>
 						<ul class="dropdown-menu" data-role="dropdown">
-							<li><a title="Change Password"><span
+							<li><a title="Change Password" id="change-password"><span
 									class="icon-key-2"></span> Change Password</a></li>
 						</ul></li>
 					<li><a title="Logout" href="javascript:menu('logout');"
@@ -90,3 +134,44 @@
 	</div>
 	<html:hidden property="task" name="menuForm" />
 </html:form>
+
+<div id="changePassword" class="hide">
+	<html:form action="/employee" method="post">
+		<html:hidden property="task" name="employeeForm"
+			styleId="task-change-password" value="changePassword" />
+		<table class="table">
+			<tr>
+				<th colspan=3 class="text-center"><h3><%=session.getAttribute("fullname")%></h3></th>
+			</tr>
+			<tr>
+				<td width="25%">Old Password</td>
+				<td>:</td>
+				<td><div class="input-control text">
+						<html:password property="password" name="employeeForm"
+							styleId="old-password" />
+					</div></td>
+			</tr>
+			<tr>
+				<td width="25%">New Password</td>
+				<td>:</td>
+				<td><div class="input-control text">
+						<html:password property="newPassword" name="employeeForm"
+							styleId="new-password" />
+					</div></td>
+			</tr>
+			<tr>
+				<td width="25%">Confirmation</td>
+				<td>:</td>
+				<td><div class="input-control text">
+						<html:password property="newPasswordConfirmation"
+							name="employeeForm" styleId="new-password-confirmation" />
+					</div></td>
+			</tr>
+			<tr>
+				<td colspan=3 class="text-center"><button
+						id="btn-change-password" class="button success">Change
+						Password</button></td>
+			</tr>
+		</table>
+	</html:form>
+</div>
