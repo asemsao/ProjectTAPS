@@ -40,8 +40,6 @@
 						color : 'white'
 					},
 					shadow : true,
-					// 					height : "120px",
-					// 					width : "360px",
 					position : 'top-right',
 					content : $("#message").val()
 				});
@@ -70,7 +68,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="startDate" name="employeeReportForm" styleId="startDate"></html:text>
+										<html:text property="startDate" name="employeeReportForm" styleId="startDate" styleClass="datepicker-all"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
