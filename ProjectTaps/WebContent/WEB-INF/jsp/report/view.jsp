@@ -122,7 +122,10 @@
 <body class="metro">
 	<jsp:include page="../../../frame/header.jsp" />
 
-
+<%System.out.println(request.getSession().getAttribute("periodePrint"));
+	System.out.println(request.getSession().getAttribute("periodeReportPrint"));
+	System.out.println(request.getSession().getAttribute("yearPrint"));
+	System.out.println(request.getSession().getAttribute("buPrint")); %>
 
 	<html:form action="/report" method="POST">
 		<div class="container container-taps">
@@ -165,125 +168,110 @@
 						<button type="button" onclick="javascript:button('printReportBU')">generate
 							PDF</button>
 					</logic:equal>
-					<div id="print">
-						<table id="datatableshow" class="table striped bordered hovered">
-							<thead>
-								<tr>
-									<th colspan=7 class="text-center"><h3>
-											<bean:write property="param3" />
-										</h3></th>
-								</tr>
-								<tr>
-									<th colspan=2 class="text-left"><h5>
-											Report Year :
-											<bean:write property="reportYear" />
-										</h5></th>
-									<th colspan=3 class="text-left"><h5>
-											<logic:notEmpty name="reportForm" property="reportPeriode">
-									Semester : <bean:write property="reportPeriode" />
-										</h5> </logic:notEmpty> <logic:notEmpty name="reportForm" property="reportMonth">
-									Month :<bean:write property="reportMonth" />
-											</h5>
-										</logic:notEmpty></th>
-								</tr>
-								<tr>
-									<th class="text-center">
-										<div class="input-control select">
-											<select>
-												<option value="">All</option>
-											</select>
-										</div>
-									</th>
-									<th class="text-center" colspan=6>
-										<div class="input-control text">
-											<input type="text" placeholder="Keyword of Report" />
-											<button class="btn-search"></button>
-										</div>
-									</th>
-								</tr>
-								<tr>
-									<th class="text-center" rowspan="2">ORGANIZATION CODE</th>
-									<th class="text-center" rowspan="2">ORGANIZATION NAME</th>
-									<th class="text-center" colspan="2">MANHOURS</th>
-									<th class="text-center" rowspan="2">ACTION</th>
-								</tr>
-								<tr>
-									<th class="text-center">BUSINESS UNIT</th>
-									<th class="text-center">PROJECT</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<logic:notEmpty name="reportForm" property="listReports">
-									<logic:iterate id="report" name="reportForm"
-										property="listReports">
-										<logic:equal name="report" property="organizationLevel"
-											value="1">
-											<tr class="text-left">
-												<td colspan="4"><h5>
-														<bean:write name="report" property="organizationName" />
-													</h5></td>
-												<td class="text-center"><a
-													href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');"
-													data-hint="Details" data-hint-position="bottom"><img
-														alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-											</tr>
-										</logic:equal>
-
-										<logic:notEqual name="report" property="organizationLevel"
-											value="1">
-											<tr>
-												<td>&nbsp;&nbsp;&nbsp;<bean:write name="report"
-														property="organizationCode" /></td>
-												<td><bean:write name="report"
-														property="organizationName" /></td>
-												<td class="text-center"><bean:write name="report"
-														property="manhourBU" /></td>
-												<td class="text-center"><bean:write name="report"
-														property="manhourProject" /></td>
-												<td class="text-center"><a
-													href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');"
-													data-hint="Details" data-hint-position="bottom"><img
-														alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-											</tr>
-										</logic:notEqual>
-
-									</logic:iterate>
+					<div id="print">					
+					<table id="datatableshow" class="table striped bordered hovered">
+						<thead>
+							<tr>
+								<th colspan=7 class="text-center"><h3><bean:write property="param3"/> </h3></th>
+							</tr>
+							<tr>
+								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
+								<th colspan=3 class="text-left"><h5>
+								<logic:notEmpty name="reportForm" property="reportPeriode">
+									Semester : <bean:write property="reportPeriode"/> </h5>
 								</logic:notEmpty>
-								<!-- 							<tr> -->
-								<!-- 								<td colspan=6 class="text-center"> -->
-								<!-- 									<div class="pagination"> -->
-								<!-- 										<ul> -->
-								<!-- 											<li class="first"><a><i class="icon-first-2"></i></a></li> -->
-								<!-- 											<li class="prev"><a><i class="icon-previous"></i></a></li> -->
-								<!-- 											<li><a>1</a></li> -->
-								<!-- 											<li><a>2</a></li> -->
-								<!-- 											<li class="active"><a>3</a></li> -->
-								<!-- 											<li class="spaces"><a>...</a></li> -->
-								<!-- 											<li class="disabled"><a>4</a></li> -->
-								<!-- 											<li><a>500</a></li> -->
-								<!-- 											<li class="next"><a><i class="icon-next"></i></a></li> -->
-								<!-- 											<li class="last"><a><i class="icon-last-2"></i></a></li> -->
-								<!-- 										</ul> -->
-								<!-- 									</div> -->
-								<!-- 								</td> -->
-								<!-- 							</tr> -->
-								<tr>
-									<td colspan="5" class="text-right"><logic:equal
-											name="reportForm" property="param2" value="0">
-											<button id="back-btn"
-												onclick="javascript:button('printReportBOM')">Print</button>
-											<button id="back-btn" onclick="javascript:button('back')">Home</button>
-										</logic:equal> <logic:equal name="reportForm" property="param2" value="1">
-											<button id="back-btn"
-												onclick="javascript:button('printReportBU')">Print</button>
-											<button id="back-btn" onclick="javascript:button('back')">Home</button>
-											<button id="back-btn"
-												onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
-										</logic:equal></td>
-								</tr>
-							</tbody>
-
+								<logic:notEmpty name="reportForm" property="reportMonth">
+									Month :<bean:write property="reportMonth"/> </h5>
+								</logic:notEmpty>
+									
+								</th>
+							</tr>
+							<tr>
+								<th class="text-center">
+									<div class="input-control select">
+										<select>
+											<option value="">All</option>
+										</select>
+									</div>
+								</th>
+								<th class="text-center" colspan=6>
+									<div class="input-control text">
+										<input type="text" placeholder="Keyword of Report" />
+										<button class="btn-search"></button>
+									</div>
+								</th>
+							</tr>
+							<tr>
+								<th class="text-center" rowspan="2">ORGANIZATION CODE</th>
+								<th class="text-center" rowspan="2">ORGANIZATION NAME</th>
+								<th class="text-center" colspan="2">MANHOURS</th>
+								<th class="text-center" rowspan="2">ACTION</th>
+							</tr>
+							<tr>
+								<th class="text-center">BUSINESS UNIT</th>
+								<th class="text-center">PROJECT</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty name="reportForm" property="listReports">
+								<logic:iterate id="report" name="reportForm"
+									property="listReports">
+									<logic:equal name="report" property="organizationLevel" value="1">
+										<tr class="text-left">
+											<td colspan="4"><h5><bean:write name="report" property="organizationName" /></h5></td>
+											<td class="text-center"><a
+												href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
+												data-hint-position="bottom"><img alt=""
+													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>											
+										</tr>
+									</logic:equal>
+									
+									<logic:notEqual name="report" property="organizationLevel" value="1">
+									<tr>
+										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
+										<td><bean:write name="report" property="organizationName" /></td>
+										<td class="text-center"><bean:write name="report" property="manhourBU" /></td>
+										<td class="text-center"><bean:write name="report" property="manhourProject" /></td>
+										<td class="text-center"><a
+											href="javascript:button('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
+											data-hint-position="bottom"><img alt=""
+												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+									</tr>
+									</logic:notEqual>
+									
+								</logic:iterate>
+							</logic:notEmpty>
+<!-- 							<tr> -->
+<!-- 								<td colspan=6 class="text-center"> -->
+<!-- 									<div class="pagination"> -->
+<!-- 										<ul> -->
+<!-- 											<li class="first"><a><i class="icon-first-2"></i></a></li> -->
+<!-- 											<li class="prev"><a><i class="icon-previous"></i></a></li> -->
+<!-- 											<li><a>1</a></li> -->
+<!-- 											<li><a>2</a></li> -->
+<!-- 											<li class="active"><a>3</a></li> -->
+<!-- 											<li class="spaces"><a>...</a></li> -->
+<!-- 											<li class="disabled"><a>4</a></li> -->
+<!-- 											<li><a>500</a></li> -->
+<!-- 											<li class="next"><a><i class="icon-next"></i></a></li> -->
+<!-- 											<li class="last"><a><i class="icon-last-2"></i></a></li> -->
+<!-- 										</ul> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+						<tr>
+							<td colspan="5" class="text-right">
+							<logic:equal name="reportForm" property="param2" value="0">
+								<button id="back-btn" onclick="javascript:button('back')">Home</button>
+							</logic:equal>
+							<logic:equal name="reportForm" property="param2" value="1">
+								<button id="back-btn" onclick="javascript:button('back')">Home</button>
+								<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
+							</logic:equal>						
+							</td>
+						</tr>
+						</tbody>
 						</table>
 					</div>
 				</div>
@@ -294,6 +282,7 @@
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
 		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="periode" name="reportForm" />
 		<html:hidden property="reportYear" name="reportForm" />
 		<html:hidden property="reportPeriode" name="reportForm" />
 		<html:hidden property="reportMonth" name="reportForm" />
