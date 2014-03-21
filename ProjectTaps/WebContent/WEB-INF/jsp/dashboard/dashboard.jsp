@@ -31,6 +31,11 @@
 				});
 			}, 1000);
 		}
+		if ($("#spv").val() == "true") {
+			$("#menu-dashboard").addClass('span9');
+		}else{
+			$("#menu-dashboard").addClass('span6');
+		}
 	});
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
@@ -42,7 +47,18 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
+	
+	<%
+		List<RoleBean> roleList = (List) session.getAttribute("role");
+		boolean is_spv = false;
+		for (int i = 0; i < roleList.size(); i++) {
+			if (roleList.get(i).getRoleId().equals("spv")) {
+				is_spv = true;
+				break;
+			}
+		}
+	%>
+	
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
@@ -58,12 +74,12 @@
 				%>
 				<input type="hidden" id="messagecp" value="<%=msg%>" />
 				<input type="hidden" id="messagecolor" value="<%=color%>" />
+				<input type="hidden" id="spv" value="<%=is_spv%>" />
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
-					<div class="span9 center-taps">
+					<div id="menu-dashboard" class="center-taps">
 						<%
-							List<RoleBean> roleList = (List) session.getAttribute("role");
 								for (int i = 0; i < roleList.size(); i++) {
 									if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
