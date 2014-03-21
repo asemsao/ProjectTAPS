@@ -11,6 +11,7 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 @SuppressWarnings("serial")
 public class EmployeeForm extends ActionForm {
 	private String message;
+	private String color;
 	private String employeeDomain;
 	private String task;
 	private String searchKeyword;
@@ -24,6 +25,8 @@ public class EmployeeForm extends ActionForm {
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	private String projectRole;
 	private String password;
+	private String newPassword;
+	private String newPasswordConfirmation;
 
 	public String getTask() {
 		return task;
@@ -135,6 +138,30 @@ public class EmployeeForm extends ActionForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getNewPasswordConfirmation() {
+		return newPasswordConfirmation;
+	}
+
+	public void setNewPasswordConfirmation(String newPasswordConfirmation) {
+		this.newPasswordConfirmation = newPasswordConfirmation;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

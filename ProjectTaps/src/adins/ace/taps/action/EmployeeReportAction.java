@@ -27,7 +27,7 @@ public class EmployeeReportAction extends Action {
 		Map params = new HashMap();
 		
 		//testing pake domain 205
-		session.setAttribute("username", "DOMAIN205");
+		session.setAttribute("username", "domain3");
 		//nanti dihapus
 		
 		if (session.getAttribute("taskCode") != null) {

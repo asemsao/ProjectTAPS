@@ -141,7 +141,7 @@
 												<tr>
 													<th>Claim Date</th>
 													<th>Description</th>
-													<th>Manhour</th>
+													<th>ManHours</th>
 												</tr>
 											</thead>
 											<tbody>

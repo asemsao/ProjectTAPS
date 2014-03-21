@@ -27,6 +27,7 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.PhotoResizeModule;
 
@@ -40,6 +41,36 @@ public class EmployeeAction extends Action {
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
 
+		if ("changePassword".equals(mForm.getTask())
+				&& session.getAttribute("username") != null) {
+			LoginManager lMan = new LoginManager();
+			Map user = new HashMap();
+			user.put("username", "devri.rs");
+			user.put("password", mForm.getPassword());
+			session.setAttribute("messagecolor", "red");
+			if (lMan.tryLogin(user)) {
+				if (mForm.getNewPassword().equals(
+						mForm.getNewPasswordConfirmation())) {
+					user.put("password", mForm.getNewPassword());
+					if (mMan.updateLoginEmployee(user)) {
+						session.setAttribute("messagecp",
+								"Change Password SUCCESSFULL!");
+						session.setAttribute("messagecolor", "green");
+					} else {
+						session.setAttribute("messagecp",
+								"Change Password FAILED!");
+					}
+				} else {
+					session.setAttribute("messagecp",
+							"Change Password FAILED! Your Password is Doesn't Match");
+				}
+			} else {
+				session.setAttribute("messagecp",
+						"Change Password FAILED! Your Old Password is Incorrect!");
+			}
+			return mapping.findForward("Dashboard");
+		}
+
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
@@ -47,7 +78,13 @@ public class EmployeeAction extends Action {
 		if ("delete".equals(mForm.getTask())) {
 			boolean flag = false;
 			flag = mMan.deleteEmployee(mForm.getEmployeeDomain());
-			System.out.println(flag);
+			if (flag) {
+				mForm.setMessage("Delete Employee Successfull!");
+				mForm.setColor("green");
+			} else {
+				mForm.setMessage("Delete Employee Successfull!");
+				mForm.setColor("red");
+			}
 			mForm.setEmployeeDomain(null);
 		}
 
@@ -137,6 +174,11 @@ public class EmployeeAction extends Action {
 					data.put("password", "employeetaps");
 				}
 				mMan.insertLoginEmployee(data);
+				mForm.setMessage("Add Employee Successfull!");
+				mForm.setColor("green");
+			} else {
+				mForm.setMessage("Add Employee Failed!");
+				mForm.setColor("red");
 			}
 		}
 		if ("saveEditEmployee".equals(mForm.getTask())) {
@@ -161,6 +203,7 @@ public class EmployeeAction extends Action {
 						session.getAttribute("username").toString());
 				flag = mMan.updateEmployee(mForm.getNewEmployee());
 				mForm.setMessage("Edit Employee Successfull!");
+				mForm.setColor("green");
 			} else {
 				if (organizationList
 						.get(0)
@@ -171,11 +214,13 @@ public class EmployeeAction extends Action {
 							session.getAttribute("username").toString());
 					flag = mMan.updateEmployee(mForm.getNewEmployee());
 					mForm.setMessage("Edit Employee Successfull!");
+					mForm.setColor("green");
 
 				} else {
 					mForm.setTask("edit");
 					mForm.setMessage(organizationList.get(0)
 							.getHeadUserDomain() + " Can't Move To Other BU!");
+					mForm.setColor("red");
 					return mapping.findForward("Edit");
 				}
 			}

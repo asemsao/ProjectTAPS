@@ -27,6 +27,7 @@
 			}
 		}
 	}
+	
 	$(document)
 			.ready(
 					function() {
@@ -37,6 +38,7 @@
 							$(".pr").hide();
 							$("#bu").show();
 						}
+						
 						if ($("#activityType").val() == 'ADHOC'){
 							$(".adhoc").show();
 						}else{
@@ -199,7 +201,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><div class="adhoc">Ad Hoc To</div></td>
+								<td><div class="adhoc">AdHoc To</div></td>
 								<td><div class="adhoc">:</div></td>
 								<td><div class="adhoc">
 										<div class="input-control text">
