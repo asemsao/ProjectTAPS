@@ -16,7 +16,7 @@
 			document.organizationForm.task.value = "";
 			document.organizationForm.submit();
 			return;
-		} else if (task == "save") {
+		} else if (task == "saveEdit") {
 			document.organizationForm.task.value = task;
 			newBUValidation();
 		}
@@ -154,7 +154,7 @@
 
 							<tr>
 								<td colspan="3" class="text-right">
-									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('saveEdit')" class="button success">Save</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
