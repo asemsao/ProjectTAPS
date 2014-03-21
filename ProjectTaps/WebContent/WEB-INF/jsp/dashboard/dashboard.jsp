@@ -22,7 +22,7 @@
 			setTimeout(function() {
 				$.Notify({
 					style : {
-						background : 'green',
+						background : $("#messagecolor").val(),
 						color : 'white'
 					},
 					shadow : true,
@@ -48,12 +48,16 @@
 			<div class="row row-taps shadow-taps">
 				<%
 					String msg = "";
+					String color = "";
 					if (session.getAttribute("messagecp") != null) {
 						msg = session.getAttribute("messagecp").toString();
+						color = session.getAttribute("messagecolor").toString();
 						session.removeAttribute("messagecp");
+						session.removeAttribute("messagecolor");
 					}
 				%>
 				<input type="hidden" id="messagecp" value="<%=msg%>" />
+				<input type="hidden" id="messagecolor" value="<%=color%>" />
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
 					<h2 class="fg-steel">Things To Do</h2>
