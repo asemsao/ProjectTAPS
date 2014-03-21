@@ -24,6 +24,8 @@ public class EmployeeForm extends ActionForm {
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	private String projectRole;
 	private String password;
+	private String newPassword;
+	private String newPasswordConfirmation;
 
 	public String getTask() {
 		return task;
@@ -135,6 +137,22 @@ public class EmployeeForm extends ActionForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getNewPasswordConfirmation() {
+		return newPasswordConfirmation;
+	}
+
+	public void setNewPasswordConfirmation(String newPasswordConfirmation) {
+		this.newPasswordConfirmation = newPasswordConfirmation;
 	}
 
 }

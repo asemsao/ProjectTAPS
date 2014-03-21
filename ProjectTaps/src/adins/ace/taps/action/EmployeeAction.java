@@ -27,6 +27,7 @@ import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.PhotoResizeModule;
 
@@ -39,6 +40,36 @@ public class EmployeeAction extends Action {
 		EmployeeManager mMan = new EmployeeManager();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
+
+		if ("changePassword".equals(mForm.getTask())
+				&& session.getAttribute("username") != null) {
+			LoginManager lMan = new LoginManager();
+			Map user = new HashMap();
+			user.put("username", "devri.rs");
+			user.put("password", mForm.getPassword());
+			session.setAttribute("messagecolor", "red");
+			if (lMan.tryLogin(user)) {
+				if (mForm.getNewPassword().equals(
+						mForm.getNewPasswordConfirmation())) {
+					user.put("password", mForm.getNewPassword());
+					if (mMan.updateLoginEmployee(user)) {
+						session.setAttribute("messagecp",
+								"Change Password SUCCESSFULL!");
+						session.setAttribute("messagecolor", "green");
+					} else {
+						session.setAttribute("messagecp",
+								"Change Password FAILED!");
+					}
+				} else {
+					session.setAttribute("messagecp",
+							"Change Password FAILED! Your Password is Doesn't Match");
+				}
+			} else {
+				session.setAttribute("messagecp",
+						"Change Password FAILED! Your Old Password is Incorrect!");
+			}
+			return mapping.findForward("Dashboard");
+		}
 
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);

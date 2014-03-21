@@ -21,6 +21,7 @@ public class OrganizationForm extends ActionForm {
 	private List<OrganizationBean> listOrganizations;
 	private List<OrganizationBean> listMemberOrganizations;
 	private String message;
+	private String color;
 	private String mode;
 	private String headDomain;
 
@@ -135,5 +136,13 @@ public class OrganizationForm extends ActionForm {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

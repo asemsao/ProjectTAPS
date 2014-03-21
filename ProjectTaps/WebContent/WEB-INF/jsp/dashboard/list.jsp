@@ -147,17 +147,20 @@
 								<td colspan=7 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a
-												href="javascript:flyToPage('first');"><i
+											<li class="first"><a id="first"
+												onclick="javascript:flyToPage('first');"><i
 													class="icon-first-2"></i></a></li>
-											<li class="prev"><a href="javascript:flyToPage('prev');"><i
+											<li class="prev"><a id="first"
+												onclick="javascript:flyToPage('prev');"><i
 													class="icon-previous"></i></a></li>
 											<li class="disabled"><a>Page <bean:write
 														name="dashboardForm" property="page" /> of <bean:write
 														name="dashboardForm" property="maxPage" /></a></li>
-											<li class="next"><a href="javascript:flyToPage('next');"><i
+											<li class="next"><a id="first"
+												onclick="javascript:flyToPage('next');"><i
 													class="icon-next"></i></a></li>
-											<li class="last"><a href="javascript:flyToPage('last');"><i
+											<li class="last"><a id="first"
+												onclick="javascript:flyToPage('last');"><i
 													id="last" class="icon-last-2"></i></a></li>
 											<li class="disabled"><a>Total Record <bean:write
 														name="dashboardForm" property="countRecord" /></a></li>

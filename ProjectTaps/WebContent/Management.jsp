@@ -14,6 +14,10 @@
 	    ReportClientDocument report = getClientDocument(REPORT_NAME);
 	      try {
 	 	 int i = 0;
+	 	System.out.println(request.getSession().getAttribute("periodePrint"));
+	 	System.out.println(request.getSession().getAttribute("periodeReportPrint"));
+	 	System.out.println(request.getSession().getAttribute("yearPrint"));
+	 	System.out.println(request.getSession().getAttribute("buPrint"));
 	 	setDocParameter(i++,"Januari - Juni", report);
 	 	setDocParameter(i++,"MAN", report);
 	 	setDocParameter(i++,"01/04/2014", report);

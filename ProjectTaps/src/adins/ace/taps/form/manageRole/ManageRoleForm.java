@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
 
 import adins.ace.taps.bean.manageRole.MenuBean;
+import adins.ace.taps.bean.manageRole.RoleBean;
 
 
 
@@ -20,7 +21,10 @@ public class ManageRoleForm extends ActionForm {
 	private Integer maxpage;
 	private Integer countRecord;
 	private List<MenuBean> listMenu;
+	private List<RoleBean> listRole;
 	private MenuBean mrBean = new MenuBean();
+	private MenuBean rBean = new MenuBean();
+	
 	public String getTask() {
 		return task;
 	}
@@ -69,11 +73,23 @@ public class ManageRoleForm extends ActionForm {
 	public void setListMenu(List<MenuBean> listMenu) {
 		this.listMenu = listMenu;
 	}
+	public List<RoleBean> getListRole() {
+		return listRole;
+	}
+	public void setListRole(List<RoleBean> listRole) {
+		this.listRole = listRole;
+	}
 	public MenuBean getMrBean() {
 		return mrBean;
 	}
 	public void setMrBean(MenuBean mrBean) {
 		this.mrBean = mrBean;
+	}
+	public MenuBean getrBean() {
+		return rBean;
+	}
+	public void setrBean(MenuBean rBean) {
+		this.rBean = rBean;
 	}
 	
 }

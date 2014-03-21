@@ -254,6 +254,7 @@
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
 		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="periode" name="reportForm" />
 		<html:hidden property="reportYear" name="reportForm" />
 		<html:hidden property="reportPeriode" name="reportForm" />
 		<html:hidden property="reportMonth" name="reportForm" />
