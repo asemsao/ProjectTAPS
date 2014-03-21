@@ -70,6 +70,11 @@
 											$("#employee-fullName").val("");
 											$("#employee-domain").val("");
 										});
+						if ($("input[name='assignment_type']").val() == "PROJECT"){
+							$("#lookUpAssignment")
+							.load(
+									"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+						}
 						$("#lookUpAssignment").load(
 										"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
 						$("input[name='assignment_type']").change(function() {
