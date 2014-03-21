@@ -40,9 +40,6 @@ public class NewSelfAssignmentAction extends Action {
 		boolean insertToAssignment = false;
 		boolean insertToDetailClaim = false;
 		boolean success = false;
-		// coba pake domain3
-		session.setAttribute("username", "domain3");
-		// nanti dihapus
 
 		if ("retreiveReportTo".equals(aForm.getNewTask())) {
 			Map param = new HashMap();
@@ -59,9 +56,11 @@ public class NewSelfAssignmentAction extends Action {
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
 				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignment(taskCode));
+						.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
+				aForm.setSelfAssignBean(aMan
+						.searchRecordSelfAssignment(taskCode));
 				aForm.setSelfAssignBean(aMan
 						.searchHeadOrganizationCode(sessionUserDomain));
 			}
@@ -110,8 +109,8 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
 				aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 				aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
-				aForm.getSelfAssignBean().setClaimDate(
-						aForm.getSelfAssignBean().getAssignmentDate());
+				String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + ", " + aForm.getSelfAssignBean().getAssignmentTime();
+				aForm.getSelfAssignBean().setClaimDate(assignmentDate);
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
 					aForm.getSelfAssignBean().setFlag("ACTIVE");

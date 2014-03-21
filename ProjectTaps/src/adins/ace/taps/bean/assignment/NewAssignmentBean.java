@@ -7,6 +7,7 @@ public class NewAssignmentBean implements Serializable {
 	private String taskCode = "";
 	private String assignmentDate = "";
 	private String assignmentDueDate = "";
+	private String assignmentTime = "";
 	private String assignmentType = "";
 	private String assignmentCategory = "";
 	private String organizationCode = "";
@@ -41,6 +42,12 @@ public class NewAssignmentBean implements Serializable {
 	private Integer appraisalStar;
 	private Integer starBefore;
 	
+	public String getAssignmentTime() {
+		return assignmentTime;
+	}
+	public void setAssignmentTime(String assignmentTime) {
+		this.assignmentTime = assignmentTime;
+	}
 	public String getClaimDate() {
 		return claimDate;
 	}

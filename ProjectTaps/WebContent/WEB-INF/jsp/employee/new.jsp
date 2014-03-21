@@ -22,8 +22,13 @@
 			employeeValidation();
 		}
 	}
-	$(document).ready(function() {
-						$(".employeeDomain").attr("placeholder","Employee Domain");
+	$(document)
+			.ready(
+					function() {
+						$(".employeeDomain").attr("placeholder",
+								"Employee Domain");
+						$("#password").attr("placeholder",
+								"Default Password employeetaps");
 						$("#employeeCode").attr("placeholder", "Employee Code");
 						$("#employeeNik").attr("placeholder", "NIK");
 						$("#firstName").attr("placeholder", "First Name");
@@ -34,8 +39,21 @@
 						$("#phoneNumber").attr("placeholder", "Phone Number");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
 						$("#email").attr("placeholder", "Email");
-						$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-						$("#lookUpActiveDirectory").load("/ProjectTaps/ajax.do?mode=ad&task=ad");
+						$("#lookUpOrganization")
+								.load(
+										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+						$("#lookUpActiveDirectory").load(
+								"/ProjectTaps/ajax.do?mode=ad&task=ad");
+
+						$("#golonganNumber").change(function() {
+							if ($("#golonganNumber").val() == "6") {
+								$("#golonganLevel").hide();
+								$("#golonganLevel").val("");
+							} else {
+								$("#golonganLevel").show();
+							}
+						});
+						$('.myCheckbox').prop('checked', true);
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -46,7 +64,7 @@
 	<jsp:include page="/frame/header.jsp" />
 	<html:form enctype="multipart/form-data" action="/employee"
 		method="post" styleClass="employeeForm" styleId="employeeAddEdit">
-		<html:hidden property="task" name="employeeForm" styleId="task"/>
+		<html:hidden property="task" name="employeeForm" styleId="task" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -59,23 +77,70 @@
 						</thead>
 						<tbody>
 							<tr>
+
+								<%
+									if (session.getAttribute("recoveryMode") == null) {
+								%>
 								<td>Employee Domain</td>
 								<td>:</td>
-								<td><div class="input-control text">
+								<td>
+									<div class="input-control text">
 										<div class="input-control text">
 											<html:text property="newEmployee.employeeDomain"
-												name="employeeForm" styleId="activeDirectory-domain" styleClass="employeeDomain" readonly="true"></html:text>
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain" readonly="true"></html:text>
 											<button type="button" class="btn-search" id="activeDirectory"></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 								<td rowspan="6" class="text-center"><img
 									src="<%=request.getContextPath()%>/images/user.png"
-									class="cycle avatar"><br>
+									class="cycle avatar"> <br>
 									<div class="input-control file">
 										<html:file property="profilePicture" accept="image/*"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
+								<%
+									} else {
+								%>
+								<td>Employee Domain</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain"></html:text>
+										</div>
+									</div>
+								</td>
+								<td rowspan="7" class="text-center"><img
+									src="<%=request.getContextPath()%>/images/user.png"
+									class="cycle avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
+								<%
+									}
+								%>
 							</tr>
+							<%
+								if (session.getAttribute("recoveryMode") != null) {
+							%>
+							<tr>
+								<td>Password</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<div class="input-control text">
+											<html:password property="password" name="employeeForm"
+												styleId="password" />
+										</div>
+									</div></td>
+							</tr>
+							<%
+								}
+							%>
 							<tr>
 								<td>Employee Code</td>
 								<td>:</td>
@@ -104,8 +169,8 @@
 								<td>Employee Last Name</td>
 								<td>:</td>
 								<td><div class="input-control text ">
-										<html:text property="newEmployee.lastName" name="employeeForm" maxlength="25"
-											styleId="lastName"></html:text>
+										<html:text property="newEmployee.lastName" name="employeeForm"
+											maxlength="25" styleId="lastName"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -113,7 +178,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <html:radio property="newEmployee.gender"
+										<label> <html:radio property="newEmployee.gender" styleId="defaultCheck" 
 												value="M" name="employeeForm"></html:radio> <span
 											class="check"></span> Male
 										</label>
@@ -133,8 +198,9 @@
 									<div class="input-control text ">
 										<html:hidden property="newEmployee.businessUnit"
 											name="employeeForm" styleId="organization-code"></html:hidden>
-										<html:text property="newEmployee.businessUnitName" readonly="true"
-											name="employeeForm" styleId="organization-name" styleClass="businessUnit"></html:text>
+										<html:text property="newEmployee.businessUnitName"
+											readonly="true" name="employeeForm"
+											styleId="organization-name" styleClass="businessUnit"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -143,7 +209,7 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress" 
+										<html:textarea property="newEmployee.employeeAddress"
 											name="employeeForm" styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
@@ -167,8 +233,8 @@
 								<td>Email</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.email" name="employeeForm" maxlength="30"
-											styleId="email"></html:text>
+										<html:text property="newEmployee.email" name="employeeForm"
+											maxlength="30" styleId="email"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -177,8 +243,9 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="newEmployee.golonganNumber" style="width:70px;"
-												name="employeeForm" styleId="golonganNumber">
+											<html:select property="newEmployee.golonganNumber"
+												style="width:70px;" name="employeeForm"
+												styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
@@ -187,8 +254,9 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel" style="width:70px;"
-												name="employeeForm" styleId="golonganLevel">
+											<html:select property="newEmployee.golonganLevel"
+												style="width:70px;" name="employeeForm"
+												styleId="golonganLevel">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>

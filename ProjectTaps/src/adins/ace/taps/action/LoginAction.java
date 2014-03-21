@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
 import adins.ace.taps.bean.module.RoleBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.login.LoginForm;
 import adins.ace.taps.manager.DashboardManager;
 import adins.ace.taps.manager.LoginManager;
@@ -29,65 +30,69 @@ public class LoginAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
 		LoginForm tForm = (LoginForm) form;
 		LoginManager lMan = new LoginManager();
 		LoginModule loginAuth = new LoginModule();
 		HttpSession session = request.getSession(true);
 		DashboardManager dMan = new DashboardManager();
 		DashboardBean bean = new DashboardBean();
-		
+
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
 			if (!"".equals(tForm.getUsername())
 					&& !"".equals(tForm.getPassword())) {
 
-				/*String username = tForm.getUsername();
-				String password = tForm.getPassword();*/
-				//Testing ntar dihapus
-				String username = "kartiko.ew";
-				String password = "K@rtik02014";
-				////
+				String username = tForm.getUsername();
+				String password = tForm.getPassword();
+
 				String domainName = "nu-ace.ad-ins.com";
 
-				pass = loginAuth.getAuthenticationUser(username, password, domainName);
+				pass = loginAuth.getAuthenticationUser(username, password,
+						domainName);
 
-				///TESTING HAPUS NANTI
+				// /TESTING HAPUS NANTI
 				pass = true;
-				/////
+
 				tForm.setPassword("");
 				tForm.setUsername("");
 				if (pass) {
 					/*
-					 * SET SESSION
-					 * session.setAttribute("username", username);
+					 * SET SESSION session.setAttribute("username", username);
 					 */
-					///TESTING HAPUS NANTI
+					// /TESTING HAPUS NANTI
 					username = "domain100";
-					/////
+					// ///
 					List<RoleBean> roleList = lMan.roleList(username);
 					String fullname = lMan.getFullName(username);
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
-					
-					/*set image for header*/
+					if ("true".equals(App.getConfiguration("recovery_mode"))) {
+						session.setAttribute("recoveryMode", "true");
+					}
+					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);
 					try {
 						response.setContentType("image/*");
 						byte[] buffer = bean.getProfilePicture();
 						if (buffer == null) {
-							buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
+							buffer = ExtractPhoto.extractBytes(getServlet()
+									.getServletContext().getRealPath("/")
+									+ "images/user.png");
 						}
-								
-						BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer));  
-						File newFile = new File(getServlet().getServletContext().getRealPath("/")+"images/"+username+"_image.png");
-						ImageIO.write(image, "png", newFile);  
-						session.setAttribute("pathPhoto", "images/"+username+"_image.png");
+
+						BufferedImage image = ImageIO
+								.read(new ByteArrayInputStream(buffer));
+						File newFile = new File(getServlet()
+								.getServletContext().getRealPath("/")
+								+ "images/" + username + "_image.png");
+						ImageIO.write(image, "png", newFile);
+						session.setAttribute("pathPhoto", "images/" + username
+								+ "_image.png");
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					
+
 					return mapping.findForward("Dashboard");
 				} else {
 					return mapping.findForward("Welcome");

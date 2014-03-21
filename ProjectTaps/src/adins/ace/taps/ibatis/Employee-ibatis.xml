@@ -15,12 +15,16 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		headUserDomain FROM organizations WHERE
 		LOWER(head_user_domain)=LOWER(#userDomain#)
 	</select>
+	
 	<select id="checkProjectStructure"
 		resultClass="adins.ace.taps.bean.employee.EmployeeProjectStructureBean"
 		parameterClass="java.util.Map">
-		SELECT project_code AS projectCode, INITCAP(project_role) AS
-		projectRole, directreport_user_domain AS directReport FROM
-		project_structures WHERE LOWER(directreport_user_domain) =
+		SELECT project_code AS projectCode,
+		INITCAP(project_role) AS
+		projectRole, directreport_user_domain AS
+		directReport FROM
+		project_structures WHERE
+		LOWER(directreport_user_domain) =
 		LOWER(#userDomain#)
 	</select>
 
@@ -66,7 +70,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
-					user_domain NOT IN (SELECT head_user_domain FROM organizations)
+					user_domain NOT IN (SELECT
+					head_user_domain FROM organizations)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -123,18 +128,21 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
-					user_domain NOT IN (SELECT head_user_domain FROM organizations)
+					user_domain NOT IN (SELECT
+					head_user_domain FROM organizations)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
+	
 	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.lang.String">
 		SELECT picture AS profilePicture from employees WHERE
 		user_domain=#employeeDomain#
 	</select>
+	
 	<select id="searchEmployeesOnProject" resultClass="employeeBean"
 		parameterClass="java.util.Map">
 		SELECT *
@@ -279,6 +287,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotEmpty>
 		</isNotNull>
 	</update>
+	
 	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT e.picture AS profilePicture, e.user_domain AS
@@ -305,6 +314,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE UPPER(user_domain) =
 		UPPER(#employeeDomain#)
 	</select>
+	
 	<insert id="insertEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
 		INSERT INTO
 		employees(picture, user_domain, employee_nik, employee_code,
@@ -318,14 +328,34 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#gender#,#businessUnit#,#employeeAddress#,#phoneNumber#,#mobileNumber#,#email#,#golonganNumber#
 		|| #golonganLevel#,'ACTIVE',#createBy#,SYSDATE)
 	</insert>
+	
 	<update id="deleteEmployee" parameterClass="java.lang.String">
 		UPDATE employees
 		SET
 		flag='INACTIVE' WHERE user_domain=#employeeDomain#
 	</update>
+	
 	<update id="deleteAssignment" parameterClass="java.lang.String">
-		UPDATE assignments SET current_status='DELETED'
-        WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
-        LOWER(assign_to) = #employeeDomain#
+		UPDATE assignments
+		SET current_status='DELETED'
+		WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
+		LOWER(assign_to) = #employeeDomain#
 	</update>
+
+	<insert id="insertLoginEmployee" parameterClass="java.util.Map">
+		INSERT INTO login (username, password) VALUES (#username#,
+		DBMS_OBFUSCATION_TOOLKIT.md5 ( input => UTL_RAW.cast_to_raw
+		(#password#)
+		))
+	</insert>
+
+	<update id="saveEditLoginEmployees" parameterClass="java.util.Map">
+		UPDATE login
+		SET password =
+            DBMS_OBFUSCATION_TOOLKIT.md5 (
+               input   => UTL_RAW.cast_to_raw (#password#)
+            )
+		WHERE username LIKE #username#
+	</update>
+
 </sqlMap>

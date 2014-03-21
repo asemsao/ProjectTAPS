@@ -21,12 +21,20 @@
 			specialAppraisalValidation();
 		}
 	}
+
+	$(document).ready(
+			function() {
+				$("#lookUpEmployee").load(
+						"/ProjectTaps/ajax.do?mode=employees&task=employees");
+			});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/specialAppraisal" method="post" styleId="specialAppraisal">
+	<html:form action="/specialAppraisal" method="post"
+		styleId="specialAppraisal">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -103,10 +111,10 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right"><input type="button"
-										onclick="flyToPage('appraisal')"
-										class="button success" value="Appraisal"/>
-									<input type="button" onclick="flyToPage('cancel')"
-										class="button info" value="Cancel"></td>
+									onclick="flyToPage('appraisal')" class="button success"
+									value="Appraisal" /> <input type="button"
+									onclick="flyToPage('cancel')" class="button info"
+									value="Cancel"></td>
 							</tr>
 						</tbody>
 					</table>

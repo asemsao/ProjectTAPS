@@ -62,7 +62,6 @@ public class EmployeeReportAction extends Action {
 		}
 
 		if ("employeeReport".equals(session.getAttribute("link"))) {
-			session.setAttribute("username", "domain3");
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("add".equals(eForm.getTask())) {

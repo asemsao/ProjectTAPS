@@ -48,7 +48,7 @@ public class DashboardAction extends Action {
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
 
-		String userDomain = "DOMAIN205";
+		String userDomain = "domain1";
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			aMan.updateFlag(dForm.getTaskCode());
@@ -192,7 +192,6 @@ public class DashboardAction extends Action {
 			paramStatus.put("taskCode",taskCode);
 			paramStatus.put("flag","ACTIVE");
 			success = aMan.updateStatus(paramStatus);
-			
 			//update table star
 			dForm.getClaimBean().setStarBefore(0);
 			starSuccess = aMan.addAssignmentStar(dForm.getClaimBean());
@@ -206,7 +205,7 @@ public class DashboardAction extends Action {
 				emailParams.put("taskCode", taskCode);
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
-				SendMailTls.SendMail(params);
+				SendMailTls.SendMail(emailParams);
 			}
 			//return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
@@ -286,8 +285,6 @@ public class DashboardAction extends Action {
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "ACTIVE");
 			success = aMan.updateStatus(paramStatus);
-			session.removeAttribute("taskCode");
-			System.out.println(success);
 			//update table star
 			dForm.getSelfAssignBean().setStarBefore(0);
 			starSuccess = aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());
@@ -383,20 +380,26 @@ public class DashboardAction extends Action {
 
 		if ("first".equals(dForm.getTask())) {
 			dForm.setPage(1);
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		else if ("last".equals(dForm.getTask())) {
 			dForm.setPage(dForm.getMaxPage());
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		else if ("prev".equals(dForm.getTask())) {
 			if (dForm.getPage() > 1) {
 				dForm.setPage(dForm.getPage() - 1);
 			}
-		} else if ("next".equals(dForm.getTask())) {
+			dForm.setTask((String) session.getAttribute("listDashboard"));
+		} 
+		
+		else if ("next".equals(dForm.getTask())) {
 			if (dForm.getPage() < dForm.getMaxPage()) {
 				dForm.setPage(dForm.getPage() + 1);
 			}
+			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 
 		params.put("start", (dForm.getPage() - 1) * 10 + 1);
@@ -493,6 +496,11 @@ public class DashboardAction extends Action {
 		dForm.setTotalRFAself(dMan.searchTotalRFASelf(userDomain));
 		dForm.setTotalCorrection(dMan.searchTotalCorrection(userDomain));
 		dForm.setTotalCorrectionSelf(dMan.searchTotalCorrectionSelf(userDomain));
+		dForm.setUnreadClaim(dMan.unreadClaim(userDomain));
+		dForm.setUnreadApproval(dMan.unreadApproval(userDomain));
+		dForm.setUnreadApprovalSelf(dMan.unreadApprovalSelf(userDomain));
+		dForm.setUnreadCorrection(dMan.unreadCorrection(userDomain));
+		dForm.setUnreadCorrectionSelf(dMan.unreadCorrectionSelf(userDomain));
 
 		if ("autoRefresh".equals(dForm.getMode())) {
 			PrintWriter out = response.getWriter();			
@@ -509,12 +517,10 @@ public class DashboardAction extends Action {
 		rankingCurrent.put("organizationCode", "CDD");
 
 		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
-		dForm.setListTopTenOrganization(dMan
-				.searchTopTenOrganization(rankingCurrent));
+		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization(rankingCurrent));
 
 		dForm.setListTopTenPrev(dMan.searchTopTen(rankingLast));
-		dForm.setListTopTenOrganizationPrev(dMan
-				.searchTopTenOrganization(rankingLast));
+		dForm.setListTopTenOrganizationPrev(dMan.searchTopTenOrganization(rankingLast));
 
 		return mapping.findForward("Dashboard");
 	}

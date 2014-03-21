@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.*;
@@ -21,9 +22,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
 
+import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.PhotoResizeModule;
 
 public class EmployeeAction extends Action {
@@ -39,8 +43,8 @@ public class EmployeeAction extends Action {
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
-		
-		if("delete".equals(mForm.getTask())){
+
+		if ("delete".equals(mForm.getTask())) {
 			boolean flag = false;
 			flag = mMan.deleteEmployee(mForm.getEmployeeDomain());
 			System.out.println(flag);
@@ -60,6 +64,11 @@ public class EmployeeAction extends Action {
 				try {
 					output = new BufferedOutputStream(outStream);
 					byte[] buffer = bean.getProfilePicture();
+					if (buffer == null) {
+						buffer = ExtractPhoto.extractBytes(getServlet()
+								.getServletContext().getRealPath("/")
+								+ "images/user.png");
+					}
 					response.reset();
 					response.setContentLength(buffer.length);
 					outStream.write(buffer);
@@ -109,17 +118,26 @@ public class EmployeeAction extends Action {
 				byte[] result = resizePhoto.setResizePhoto(filepic,
 						filePathUpload);
 				mForm.getNewEmployee().setProfilePicture(result);
-			}
-			else {
+			} else {
 				filePathUpload = filePathUpload + "/images/user.png";
 				File a = new File(filePathUpload);
 				FileInputStream fis = new FileInputStream(a);
 				mForm.getNewEmployee().setProfilePicture(
 						IOUtils.toByteArray(fis));
 			}
-			mForm.getNewEmployee().setCreateBy(session.getAttribute("username").toString());
+			mForm.getNewEmployee().setCreateBy(
+					session.getAttribute("username").toString());
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
-			System.out.println(flag);
+			if (flag) {
+				Map data = new HashMap();
+				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
+				if (mForm.getPassword() != "") {
+					data.put("password", mForm.getPassword());
+				} else {
+					data.put("password", "employeetaps");
+				}
+				mMan.insertLoginEmployee(data);
+			}
 		}
 		if ("saveEditEmployee".equals(mForm.getTask())) {
 			boolean flag = false;
@@ -133,9 +151,45 @@ public class EmployeeAction extends Action {
 						filePathUpload);
 				mForm.getNewEmployee().setProfilePicture(result);
 			}
-			mForm.getNewEmployee().setUpdateBy(session.getAttribute("username").toString());
-			flag = mMan.updateEmployee(mForm.getNewEmployee());
-			System.out.println(flag);
+
+			params.put("userDomain", mForm.getNewEmployee().getEmployeeDomain());
+			List<EmployeeOrganizationBean> organizationList = mMan
+					.checkEmplooyeeOrganization(params);
+
+			if (organizationList.size() == 0) {
+				mForm.getNewEmployee().setUpdateBy(
+						session.getAttribute("username").toString());
+				flag = mMan.updateEmployee(mForm.getNewEmployee());
+				mForm.setMessage("Edit Employee Successfull!");
+			} else {
+				if (organizationList
+						.get(0)
+						.getOrganizationCode()
+						.equalsIgnoreCase(
+								mForm.getNewEmployee().getBusinessUnit())) {
+					mForm.getNewEmployee().setUpdateBy(
+							session.getAttribute("username").toString());
+					flag = mMan.updateEmployee(mForm.getNewEmployee());
+					mForm.setMessage("Edit Employee Successfull!");
+
+				} else {
+					mForm.setTask("edit");
+					mForm.setMessage(organizationList.get(0)
+							.getHeadUserDomain() + " Can't Move To Other BU!");
+					return mapping.findForward("Edit");
+				}
+			}
+			if (flag) {
+				if ("true".equals(App.getConfiguration("recovery_mode"))) {
+					if (mForm.getPassword() != "") {
+						Map data = new HashMap();
+						data.put("username", mForm.getNewEmployee()
+								.getEmployeeDomain());
+						data.put("password", mForm.getPassword());
+						mMan.updateLoginEmployee(data);
+					}
+				}
+			}
 		}
 
 		if ("first".equals(mForm.getTask())) {

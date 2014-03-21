@@ -10,20 +10,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 
 			(SELECT ROWNUM seqnum, a.*
 		FROM 
-			(SELECT   
-				p.project_code AS projectCode,
-		        p.project_name AS projectName,
-		        SUBSTR (p.project_name, 0, 14) || '...' AS projectShortName,
-		        p.client AS client,
-		        p.organization_code AS organizationCode,
-		        ph.phase_name AS phase,
-		        TO_CHAR (p.start_date, 'DD-MM-YYYY') AS startDate,
-		        TO_CHAR (p.end_date, 'DD-MM-YYYY') AS endDate,
-		        (TRUNC (SYSDATE) - p.start_date) AS runningDay
-  			FROM   projects p, phases ph, project_structures ps
- 			WHERE   p.phase_id = ph.phase_id 
- 			AND p.project_code = ps.project_code 
- 			AND LOWER (p.flag) = 'active'
+			(
+			SELECT   p.project_code AS projectCode,
+			         p.project_name AS projectName,
+			         SUBSTR (p.project_name, 0, 14) || '...' AS projectShortName,
+			         p.client AS client,
+			         p.organization_code AS organizationCode,
+			         ph.phase_name AS phase,
+			         TO_CHAR (p.start_date, 'DD-MM-YYYY') AS startDate,
+			         TO_CHAR (p.end_date, 'DD-MM-YYYY') AS endDate,
+			         (TRUNC (SYSDATE) - p.start_date) AS runningDay
+			  FROM   projects p, phases ph
+			 WHERE       p.phase_id = ph.phase_id
+			         AND LOWER (p.flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -44,6 +43,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LOWER(p.organization_code) LIKE LOWER ('%$keyword$%')
 					</isEqual>
 					<isEqual property="category" compareValue="all">
+						(
 						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
 						OR
 						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
@@ -52,7 +52,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						OR
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 						OR
-						(LOWER(p.organization_code) LIKE LOWER ('%$keyword$%'))
+						LOWER(p.organization_code) LIKE LOWER
+						('%$keyword$%')
+						)
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -67,24 +69,22 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="userDomain">
 				<isNotEmpty property="userDomain">
-					(LOWER(ps.assignee_user_domain)
-						LIKE LOWER ('%$userDomain$%'))
+					(p.project_code IN (SELECT ps.project_code
+					FROM project_structures ps
+					WHERE LOWER(ps.assignee_user_domain) LIKE LOWER (#userDomain#)))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
-		ORDER BY 
-		p.start_date DESC
 		)a WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		) WHERE  <![CDATA[ seqnum >= #start#]]>
 		
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
-		SELECT COUNT (1)
-		FROM   projects p, phases ph, project_structures ps
- 		WHERE   p.phase_id = ph.phase_id 
- 		AND p.project_code = ps.project_code 
- 		AND LOWER (p.flag) = 'active'
+		SELECT   COUNT(1)
+		  FROM   projects p, phases ph
+		 WHERE       p.phase_id = ph.phase_id
+		         AND LOWER (p.flag) = 'active'
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -105,6 +105,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						LOWER(p.organization_code) LIKE LOWER ('%$keyword$%')
 					</isEqual>
 					<isEqual property="category" compareValue="all">
+						(
 						(LOWER(p.project_code) LIKE LOWER ('%$keyword$%'))
 						OR
 						(LOWER(p.project_name) LIKE LOWER ('%$keyword$%'))
@@ -113,7 +114,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						OR
 						(LOWER(ph.phase_name) LIKE LOWER ('%$keyword$%'))
 						OR
-						(LOWER(p.organization_code) LIKE LOWER ('%$keyword$%'))
+						LOWER(p.organization_code) LIKE LOWER
+						('%$keyword$%')
+						)
 					</isEqual>
 				</isNotEmpty>
 			</isNotNull>
@@ -128,8 +131,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="userDomain">
 				<isNotEmpty property="userDomain">
-					(LOWER(ps.assignee_user_domain)
-						LIKE LOWER ('%$userDomain$%'))
+					(p.project_code IN (SELECT ps.project_code
+					FROM project_structures ps
+					WHERE LOWER(ps.assignee_user_domain) LIKE LOWER (#userDomain#)))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -417,4 +421,22 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	    	AND NOT current_status IN ('APPROVED','REJECTED')
 	</update>
 	
+	<update id="changeNewSupervisor" parameterClass = "java.util.Map">
+		UPDATE assignments
+		SET
+			report_to = #reportTo#
+		WHERE
+			assign_to = #assignTo#
+			AND project_code = #projectCode#
+			AND NOT current_status IN ('APPROVED','REJECTED','DELETED')
+	</update>
+	
+	<select id="notHeadBU" parameterClass ="java.lang.String" resultClass= "int">
+		SELECT 
+			count(1)
+		FROM 
+			organizations
+		WHERE 
+			head_user_domain = #userDomain#
+	</select>
 </sqlMap>

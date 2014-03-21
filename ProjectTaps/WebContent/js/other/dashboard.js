@@ -37,7 +37,7 @@ function notification(data) {
 	$("#correction").html(json.totalCorrection);
 	$("#coorection-s").html(json.totalCorrectionSelf);
 
-	if (json.totalRFA > 0) {
+	if (json.unreadApproval) {
 		$("#rfa-link").addClass('notification');
 		$("#rfa-badge").removeClass('bg-gray');
 		$("#rfa-badge").addClass('bg-red');
@@ -46,7 +46,7 @@ function notification(data) {
 		$("#rfa-badge").removeClass('bg-red');
 		$("#rfa-badge").addClass('bg-gray');
 	}
-	if (json.totalRFAself > 0) {
+	if (json.unreadApprovalSelf) {
 		$("#rfa-s-link").addClass('notification');
 		$("#rfa-s-badge").removeClass('bg-gray');
 		$("#rfa-s-badge").addClass('bg-red');
@@ -55,7 +55,7 @@ function notification(data) {
 		$("#rfa-s-badge").removeClass('bg-red');
 		$("#rfa-s-badge").addClass('bg-gray');
 	}
-	if (json.totalClaim > 0) {
+	if (json.unreadClaim) {
 		$("#claim-link").addClass('notification');
 		$("#claim-badge").removeClass('bg-gray');
 		$("#claim-badge").addClass('bg-red');
@@ -64,7 +64,7 @@ function notification(data) {
 		$("#claim-badge").removeClass('bg-red');
 		$("#claim-badge").addClass('bg-gray');
 	}
-	if (json.totalCorrection > 0) {
+	if (json.unreadCorrection) {
 		$("#correction-link").addClass('notification');
 		$("#correction-badge").removeClass('bg-gray');
 		$("#correction-badge").addClass('bg-red');
@@ -73,7 +73,7 @@ function notification(data) {
 		$("#correction-badge").removeClass('bg-red');
 		$("#correction-badge").addClass('bg-gray');
 	}
-	if (json.totalCorrectionSelf > 0) {
+	if (json.unreadCorrectionSelf) {
 		$("#correction-s-link").addClass('notification');
 		$("#correction-s-badge").removeClass('bg-gray');
 		$("#correction-s-badge").addClass('bg-red');

@@ -29,7 +29,7 @@
 						<div class="input-control select">
 							<html:select property="searchCategory" name="ajaxForm"
 								styleClass="search-category-ActiveDirectory">
-								<html:option value="All">All</html:option>
+								<html:option value="">All</html:option>
 								<html:option value="employeeDomain">Employee Domain</html:option>
 								<html:option value="employeeName">Employee Name</html:option>
 							</html:select>

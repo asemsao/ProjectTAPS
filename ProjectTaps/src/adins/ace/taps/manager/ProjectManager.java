@@ -433,4 +433,53 @@ public class ProjectManager {
 			}
 		}
 	}
+	
+	public void changeNewSupervisor(Map param)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("project.changeNewSupervisor",param);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean notHeadBU(String userDomain)
+	{
+		int count = 0;
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			count = (Integer)ibatisSqlMap.queryForObject("project.notHeadBU", userDomain);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if(count == 1)
+			return false;
+		else
+			return true;
+	}
 }
