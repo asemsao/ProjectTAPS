@@ -20,7 +20,7 @@
 			document.organizationForm.task.value = task;
 			newBUValidation();
 		}
-	}
+	};
 
 	function changeopt() {
 		search = document.getElementById("level");

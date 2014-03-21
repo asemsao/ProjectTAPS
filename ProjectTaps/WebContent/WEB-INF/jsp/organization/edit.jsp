@@ -11,42 +11,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.organizationForm.task.value = "";
+			document.organizationForm.submit();
+			return;
+		} else if (task == "save") {
+			document.organizationForm.task.value = task;
+			newBUValidation();
+		}
+	};
 
-function flyToPage(task) {
-	if (task == "cancel") {
-		document.organizationForm.task.value = "";
-		document.organizationForm.submit();
-		return;
-	} else if (task == "save") {
-		document.organizationForm.task.value = task;
-		newBUValidation();
-	}
-}
+	function changeopt() {
+		search = document.getElementById("level");
+		temp = search.options[search.selectedIndex].value;
+		if (temp != 0) {
+			document.getElementById("parent").style.visibility = "visible";
+			document.getElementById(":").style.visibility = "visible";
+			document.getElementById("parent-organization-name").style.visibility = "visible";
+			document.getElementById("organization").style.visibility = "visible";
+		} else {
+			document.getElementById("parent").style.visibility = "hidden";
+			document.getElementById(":").style.visibility = "hidden";
+			document.getElementById("parent-organization-name").style.visibility = "hidden";
+			document.getElementById("organization").style.visibility = "hidden";
+		}
+	};
+	$(document)
+			.ready(
+					function() {
+						var level = $("#level").val();
+						$("#lookUpEmployee")
+								.load(
+										"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
+						$("#lookUpOrganization").load(
+								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+										+ level);
+						$('#level').bind(
+								"change",
+								function() {
+									$("#parent-organization-code").val('');
+									$("#parent-organization-name").val('');
+									$("#lookUpOrganization").html('');
+									$("#lookUpOrganization").load(
+											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+													+ $(this).val());
+								});
 
-	$(document).ready(
-			function() {
-				var level = $("#level").val();
-				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
-				$("#lookUpOrganization").load(
-						"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-								+ level);
-				$('#level').bind(
-						"change",
-						function() {
-							$("#parent-organization-code").val('');
-							$("#parent-organization-name").val('');
-							$("#lookUpOrganization").html('');
-							$("#lookUpOrganization").load(
-									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-											+ $(this).val());
-						});
-
-				$("#organizationCode").attr("placeholder", "Business Unit Code");
-				$("#organizationName").attr("placeholder", "Business Unit Name");
-				$("#employee-name").attr("placeholder", "Head of Business Unit");
-				$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
-			});
+						$("#organizationCode").attr("placeholder",
+								"Business Unit Code");
+						$("#organizationName").attr("placeholder",
+								"Business Unit Name");
+						$("#employee-name").attr("placeholder",
+								"Head of Business Unit");
+						$("#parent-organization-name").attr("placeholder",
+								"Parent Business Unit");
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Edit Business Unit</title>
@@ -54,7 +74,8 @@ function flyToPage(task) {
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post" styleClass="organizationForm">
+	<html:form action="/organization" method="post"
+		styleClass="organizationForm">
 		<html:hidden property="task" name="organizationForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -71,7 +92,8 @@ function flyToPage(task) {
 								<td>:</td>
 								<td><div class="input-control text size3">
 										<html:text property="orgBean.organizationCode"
-											name="organizationForm" styleId="organizationCode" readonly="true"></html:text>
+											name="organizationForm" styleId="organizationCode"
+											readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -90,7 +112,8 @@ function flyToPage(task) {
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level">
+											name="organizationForm" styleId="level" 
+											onchange="javascript:changeopt();">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
@@ -114,8 +137,9 @@ function flyToPage(task) {
 							</tr>
 
 							<tr>
-								<td>Parent Business Unit</td>
-								<td>:</td>
+								<td><label id="parent" style="visibility: visible">Parent
+										Business Unit </label></td>
+								<td><label id=":" style="visibility: visible">:</label></td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
@@ -130,8 +154,8 @@ function flyToPage(task) {
 
 							<tr>
 								<td colspan="3" class="text-right">
-								<button onclick="flyToPage('save')" class="button success">Save</button>
-								<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
