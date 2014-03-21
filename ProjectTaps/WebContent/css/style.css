@@ -128,3 +128,7 @@ textarea {
 .btn-date {
 	cursor: text !important;
 }
+
+.menu-header{
+	margin-right : 10px;
+}
