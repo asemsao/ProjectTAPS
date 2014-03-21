@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import adins.ace.taps.bean.manageRole.MenuBean;
 import adins.ace.taps.bean.manageRole.RoleBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -16,11 +17,11 @@ public class ManageRoleManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
-	public List<RoleBean> searchEmployeeRole() {
-		List<RoleBean> empRoleList = null;
+	public List<RoleBean> searchListRole() {
+		List<RoleBean> roleList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			empRoleList = ibatisSqlMap.queryForList("employeeRole.searchEmployees",
+			roleList = ibatisSqlMap.queryForList("manageRole.searchListRole",
 					null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -31,7 +32,25 @@ public class ManageRoleManager {
 				e2.printStackTrace();
 			}
 		}
-		return empRoleList;
+		return roleList;
+	}
+	
+	public List<MenuBean> searchListMenu() {
+		List<MenuBean> menuList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			menuList = ibatisSqlMap.queryForList("manageRole.searchListRole",
+					null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return menuList;
 	}
 	
 	public RoleBean detailEmployeeRole(Map params) {

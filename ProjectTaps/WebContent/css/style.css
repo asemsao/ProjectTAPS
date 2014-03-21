@@ -5,7 +5,11 @@ body {
 	background-image: url('../images/bg.jpg');
 	background-attachment: fixed;
 }
-
+#description{
+	max-width: 500px;
+	min-height: 50px;
+	max-height: 150px;
+}
 a, button {
 	cursor: pointer;
 }
@@ -111,7 +115,6 @@ textarea {
 	margin-left: 0px !important;
 	margin-right: 10px;
 }
-
 #edit-star-btn {
 	float: right;
 	display: none;

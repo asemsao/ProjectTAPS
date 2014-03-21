@@ -37,3 +37,5 @@
 <script src="js/validation/new-self-assignment-validation.js"></script>
 <script src="js/validation/generateReport-validation.js"></script>
 <script src="js/validation/specialAppraisal-validation.js"></script>
+<script src="js/validation/newBU-validation.js"></script>
+<script src="js/validation/project-validation.js"></script>

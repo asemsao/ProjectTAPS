@@ -75,6 +75,12 @@
 					%>
 				</ul>
 				<ul class="element-menu place-right">
+					<li>
+						<div class="element place-right" title="Stars Achievement">
+							<span class="icon-star"></span>
+							<span class="star-achievement"><%=session.getAttribute("star")%></span>
+						</div>
+					</li>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
 							<%=session.getAttribute("fullname")%></a> 

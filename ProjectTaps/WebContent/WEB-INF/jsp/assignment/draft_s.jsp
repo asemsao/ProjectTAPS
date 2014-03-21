@@ -201,7 +201,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><div class="adhoc">Ad Hoc To</div></td>
+								<td><div class="adhoc">AdHoc To</div></td>
 								<td><div class="adhoc">:</div></td>
 								<td><div class="adhoc">
 										<div class="input-control text">

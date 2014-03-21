@@ -43,18 +43,16 @@
 							setTimeout(function() {
 								$.Notify({
 									style : {
-										background : 'green',
+										background : $("#messagecolor").val(),
 										color : 'white'
 									},
 									shadow : true,
-									// 					height : "120px",
-									// 					width : "360px",
 									position : 'top-right',
 									content : $("#messageCRUD").val()
 								});
 							}, 1000);
 						}
-						
+
 						$("#golonganNumber").change(function() {
 							if ($("#golonganNumber").val() == "6") {
 								$("#golonganLevel").hide();
@@ -76,6 +74,8 @@
 		<html:hidden property="task" name="employeeForm" />
 		<input type="hidden" id="messageCRUD"
 			value="<bean:write  property="message" name="employeeForm" />">
+		<input type="hidden" id="messagecolor"
+			value="<bean:write  property="color" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -254,7 +254,8 @@
 									<div class="auto-complete">
 										<div class="input-control select">
 											<html:select property="newEmployee.golonganNumber"
-												style="width:70px;" name="employeeForm" styleId="golonganNumber">
+												style="width:70px;" name="employeeForm"
+												styleId="golonganNumber">
 												<html:option value="">Gol</html:option>
 												<html:option value="1">1</html:option>
 												<html:option value="2">2</html:option>
@@ -263,8 +264,9 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel" styleId="golonganLevel"
-												style="width:70px;" name="employeeForm">
+											<html:select property="newEmployee.golonganLevel"
+												styleId="golonganLevel" style="width:70px;"
+												name="employeeForm">
 												<html:option value="">Level</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>

@@ -29,6 +29,7 @@ public class ProjectForm extends ActionForm {
 	private Integer maxpage;
 	private String mode;
 	private String message;
+	private String color;
 	private String directReportUserDomain;
 	private String directReportBefore;
 	
@@ -200,6 +201,14 @@ public class ProjectForm extends ActionForm {
 
 	public void setDirectReportBefore(String directReportBefore) {
 		this.directReportBefore = directReportBefore;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 }

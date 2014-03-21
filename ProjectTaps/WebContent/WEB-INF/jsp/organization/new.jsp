@@ -12,8 +12,14 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.organizationForm.task.value = task;
-		document.organizationForm.submit();
+		if (task == "cancel") {
+			document.organizationForm.task.value = "";
+			document.organizationForm.submit();
+			return;
+		} else if (task == "save") {
+			document.organizationForm.task.value = task;
+			newBUValidation();
+		}
 	}
 
 	function changeopt() {
@@ -52,6 +58,12 @@
 											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 													+ $(this).val());
 								});
+
+						$("#organizationCode").attr("placeholder", "Business Unit Code");
+						$("#organizationName").attr("placeholder", "Business Unit Name");
+						$("#employee-name").attr("placeholder", "Head of Business Unit");
+						$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
+						
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -60,7 +72,8 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post">
+	<html:form action="/organization" method="post" styleClass="organizationForm">
+		<html:hidden property="task" name="organizationForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -75,7 +88,7 @@
 								<td>Business Unit Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="orgBean.organizationCode"
+										<html:text property="orgBean.organizationCode" styleId="organizationCode"
 											name="organizationForm"></html:text>
 									</div></td>
 							</tr>
@@ -84,7 +97,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="orgBean.organizationName"
+										<html:text property="orgBean.organizationName" styleId="organizationName"
 											name="organizationForm"></html:text>
 									</div>
 								</td>
@@ -111,8 +124,8 @@
 									<div class="input-control text">
 										<html:hidden property="orgBean.headDomain"
 											name="organizationForm" styleId="employee-domain" />
-										<input type="text" placeholder="Head of Business Unit"
-											id="employee-name" readonly="readonly" />
+										<html:text property="orgBean.headName" readonly="true"
+											name="organizationForm" styleId="employee-name" />
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
@@ -125,25 +138,23 @@
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
 											name="organizationForm" styleId="parent-organization-code" />
-										<input type="text" placeholder="Parent Business Unit"
-											readonly="readonly" id="parent-organization-name" />
+										<html:text property="orgBean.parentName" readonly="true"
+											name="organizationForm" styleId="parent-organization-name" />
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="text-right"><html:button
-										property="save" onclick="javascript:flyToPage('Save');"
-										styleClass="button success">Save</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('Cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan="3" class="text-right">
+								<button onclick="flyToPage('save')" class="button success">Save</button>
+								<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="organizationForm" />
 		<input type="hidden" id="headBu" value="headBu" />
 	</html:form>
 	<div id="lookUpEmployee" class="hide"></div>

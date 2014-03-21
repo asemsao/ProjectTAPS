@@ -25,10 +25,11 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function button(task,param,param2) {
+	function button(task,param,param2,param3) {
 		document.reportForm.task.value = task;
 		document.reportForm.param.value = param;
 		document.reportForm.param2.value = param2;
+		document.reportForm.param3.value = param3;
 		document.reportForm.submit();
 	}
 	$(function() {
@@ -245,7 +246,11 @@
 
 					</table>
 					</div>
-					
+						1. <bean:write name="reportForm" property="param" /><br />
+						2. <bean:write name="reportForm" property="param2" /><br />
+						3. <bean:write name="reportForm" property="param3" /><br />
+						4. <bean:write name="reportForm" property="param4" /><br />
+						5. <bean:write name="reportForm" property="param5" /><br />
 				</div>
 			</div>
 		</div>
