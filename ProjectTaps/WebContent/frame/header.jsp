@@ -27,27 +27,6 @@
 			});
 		});
 	});
-
-	function changePassword() {
-		var params = new Object();
-		params.task = $("task-change-password").val();
-		params.oldPassword = $("#old-password").val();
-		params.newPassword = $("#new-password").val();
-		params.newPasswordConfirmation = $("#new-password-confirmation").val();
-		var data = "task=changePassword&params=" + JSON.stringify(params);
-		$.ajax({
-			url : "/ProjectTaps/login.do",
-			type : "POST",
-			data : data,
-			context : this,
-			error : function() {
-				console.log("problem was here!");
-			},
-			success : function(data) {
-				alert("success");
-			}
-		});
-	}
 </script>
 
 <html:form action="/menu" method="POST" styleId="menuForm">
