@@ -32,9 +32,9 @@
 			}, 1000);
 		}
 		if ($("#spv").val() == "true") {
-			$("#menu-dashboard").addClass('span9');
+			$("#menu-dashboard").addClass('spanSpv');
 		}else{
-			$("#menu-dashboard").addClass('span6');
+			$("#menu-dashboard").addClass('spanEmp');
 		}
 	});
 	function flyToPage(task) {
