@@ -11,10 +11,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
-	function flyToPage(task) {
-		document.organizationForm.task.value = task;
+
+function flyToPage(task) {
+	if (task == "cancel") {
+		document.organizationForm.task.value = "";
 		document.organizationForm.submit();
+		return;
+	} else if (task == "save") {
+		document.organizationForm.task.value = task;
+		newBUValidation();
 	}
+}
 
 	$(document).ready(
 			function() {
@@ -34,6 +41,11 @@
 									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 											+ $(this).val());
 						});
+
+				$("#organizationCode").attr("placeholder", "Business Unit Code");
+				$("#organizationName").attr("placeholder", "Business Unit Name");
+				$("#employee-name").attr("placeholder", "Head of Business Unit");
+				$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -42,7 +54,8 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post">
+	<html:form action="/organization" method="post" styleClass="organizationForm">
+		<html:hidden property="task" name="organizationForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -116,18 +129,16 @@
 							</tr>
 
 							<tr>
-								<td colspan="3" class="text-right"><html:button
-										property="save" onclick="javascript:flyToPage('saveEdit');"
-										styleClass="button success">Save</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('Cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan="3" class="text-right">
+								<button onclick="flyToPage('save')" class="button success">Save</button>
+								<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
-		<html:hidden property="task" name="organizationForm" />
 		<input type="hidden" id="headBu" value="headBu" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />

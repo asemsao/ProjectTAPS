@@ -23,6 +23,11 @@ function newSelfAssignmentValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
+	$('#newSelfAssignment input[id="timepicker"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
 
 	// initialize validate plugin on the form
 	$('#newSelfAssignment').validate({
@@ -47,6 +52,9 @@ function newSelfAssignmentValidation() {
 				required : true
 			},
 			'selfAssignBean.adhocFullName' : {
+				required : true
+			},
+			'selfAssignBean.assignmentTime' : {
 				required : true
 			}
 		},
