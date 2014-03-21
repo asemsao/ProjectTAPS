@@ -64,6 +64,9 @@ public class OrganizationAction extends Action {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll(" ", "")));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
+			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
+					.getOrganizationCode().replaceAll(" ", "")));
+			System.out.println(orgForm.getCountChild());
 			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
@@ -85,7 +88,7 @@ public class OrganizationAction extends Action {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll(" ", "")));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
-			if (orgMan.countMember(params) == 0) {
+			if (orgMan.countMemberOrganizations(params) == 0) {
 				if (orgMan.countChildOrganizations(orgForm
 						.getOrganizationCode().replaceAll(" ", "")) == 0) {
 					if (orgMan.countProject(params) == 0) {

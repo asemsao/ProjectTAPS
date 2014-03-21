@@ -24,6 +24,15 @@ public class OrganizationForm extends ActionForm {
 	private String color;
 	private String mode;
 	private String headDomain;
+	private int countChild;
+
+	public int getCountChild() {
+		return countChild;
+	}
+
+	public void setCountChild(int countChild) {
+		this.countChild = countChild;
+	}
 
 	public String getHeadDomain() {
 		return headDomain;

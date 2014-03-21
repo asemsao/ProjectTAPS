@@ -28,6 +28,9 @@
 						"/ProjectTaps/ajax.do?mode=employees&task=employees");
 
 				$("#description").attr("maxlength", "1000");
+				$("#createdDate").attr("placeholder", "Date");
+				$("#employee-name").attr("placeholder", "Employee Name");
+				$("#description").attr("placeholder", "Description");
 			});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>

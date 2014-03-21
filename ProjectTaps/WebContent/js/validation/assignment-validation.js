@@ -33,6 +33,16 @@ function newAssignmentValidation() {
         onlyOne: false,
         position: 'right'
     });
+    $('#newAssignment input[id="employee-name"]').tooltipster({
+        trigger: 'hover',
+        onlyOne: false,
+        position: 'right'
+    });
+    $('#description').tooltipster({
+        trigger: 'hover',
+        onlyOne: false,
+        position: 'right'
+    });
 
     // initialize validate plugin on the form
     $('#newAssignment').validate({
@@ -63,6 +73,9 @@ function newAssignmentValidation() {
                 required: true
             },
         	'assignmentBean.assignToFullName': {
+                required: true
+            },
+        	'assignmentBean.description': {
                 required: true
             }
         },

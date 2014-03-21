@@ -73,7 +73,6 @@ function addProjectValidation() {
 	});
 };
 
-
 function editProjectValidation() {
 
 	// =================================================================================
@@ -140,6 +139,103 @@ function editProjectValidation() {
 			},
 			'pBean.endDate' : {
 				required : true
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+};
+
+function addProjectMember() {
+
+	// =================================================================================
+	// ADD Project Member
+	// =================================================================================
+	$('#role').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employee-name').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employee-name-2').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	// initialize validate plugin on the form
+	$('.projectForm').validate({
+		
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'addSProject.projectRole' : {
+				required : true
+			},
+			'addSProject.assigneeName' : {
+				required : true
+			},
+			'addSProject.directreportName' : {
+				required : true,
+				notEqualTo: true
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+};
+
+
+function editProjectMember() {
+
+	// =================================================================================
+	// EDIT Project Member
+	// =================================================================================
+	$('#projectRole').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employee-name-2').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+
+	// initialize validate plugin on the form
+	$('.projectForm').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'addSProject.projectRole' : {
+				required : true
+			},
+			'addSProject.directreportName' : {
+				required : true,
+				notEqualTo: true
 			}
 		},
 		submitHandler : function(form) {

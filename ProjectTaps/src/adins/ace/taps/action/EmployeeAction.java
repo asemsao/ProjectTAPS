@@ -51,15 +51,21 @@ public class EmployeeAction extends Action {
 			if (lMan.tryLogin(user)) {
 				if (mForm.getNewPassword().equals(
 						mForm.getNewPasswordConfirmation())) {
-					user.put("password", mForm.getNewPassword());
-					if (mMan.updateLoginEmployee(user)) {
+					if (mForm.getNewPassword().length() > 5) {
+						user.put("password", mForm.getNewPassword());
+						if (mMan.updateLoginEmployee(user)) {
+							session.setAttribute("messagecp",
+									"Change Password SUCCESSFULL!");
+							session.setAttribute("messagecolor", "green");
+						} else {
+							session.setAttribute("messagecp",
+									"Change Password FAILED!");
+						}
+					}else{
 						session.setAttribute("messagecp",
-								"Change Password SUCCESSFULL!");
-						session.setAttribute("messagecolor", "green");
-					} else {
-						session.setAttribute("messagecp",
-								"Change Password FAILED!");
+								"Password must be contain min. 6 characters");
 					}
+
 				} else {
 					session.setAttribute("messagecp",
 							"Change Password FAILED! Your Password is Doesn't Match");

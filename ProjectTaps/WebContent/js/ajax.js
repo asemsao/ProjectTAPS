@@ -19,6 +19,25 @@ $(document).ready(
 							});
 						}, 500);
 					});
+			$(".deleteProject").on(
+					'click',
+					function() {
+						$("#lookUpDeleteProject").load(
+								"/ProjectTaps/ajax.do?mode=deleteProject&task=deleteProject&projectCode="
+										+ $(this).attr('alt').trim());
+						setTimeout(function() {
+							$.Dialog({
+								overlay : true,
+								shadow : true,
+								flat : true,
+								icon : '<img src="images/LOGO_Taps6.png">',
+								title : 'Flat window',
+								content : $("#lookUpDeleteProject").html(),
+								padding : 10,
+								title : 'Assignment'
+							});
+						}, 500);
+					});
 			$("#activeDirectory").on('click', function() {
 				$.Dialog({
 					overlay : true,
@@ -166,7 +185,7 @@ function setResponseAssignmentDelete(data) {
 	content += "<th class='text-center'>Date</th>";
 	content += "<th class='text-center'>Code</th>";
 	content += "<th class='text-center'>Type</th>";
-	content += "<th class='text-center'>Employee</th>";
+	content += "<th class='text-center'>Report To</th>";
 	content += "<th class='text-center'>Deadline</th>";
 	content += "</tr>";
 	content += "</thead>";
@@ -230,6 +249,123 @@ function chooseAssignmentDelete(task) {
 		$("#employeeDomain").val(choosen);
 		$("#task").val("delete");
 		$("#CRUDForm").submit();
+	}
+	$.Dialog.close();
+}
+
+//===============================================================================
+//Fungsi ajax look up untuk delete Project
+//===============================================================================
+function loadProjectDelete(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpDeleteProject").html(),
+			padding : 10,
+			title : 'Assignment'
+		});
+		$(".search-category-project-delete").get(1).value = searchCategory;
+		$(".search-keyword-project-delete").get(1).value = searchKeyword;
+	}, 400);
+}
+
+function setParameterProjectDelete() {
+	var task = $("#task-project-delete").val();
+	var search = $(".search-category-project-delete").get(1).value;
+	var value = $(".search-keyword-project-delete").get(1).value;
+	var page = $("#page-project-delete").val();
+	var maxpage = $("#maxpage-project-delete").val();
+	var assignmentCategory = $("#assignmentCategory-project-delete").val();
+	var assignmentType = $("#assignmentType-project-delete").val();
+	var mode = $("#mode-project-delete").val();
+	var projectCode = $("#projectCode-project-delete").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
+			+ assignmentType + "&projectCode=" + projectCode;
+	return data;
+}
+
+function setResponseProjectDelete(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Type</th>";
+	content += "<th class='text-center'>Report To</th>";
+	content += "<th class='text-center'>Deadline</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeeReport) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].fullName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-project-delete").html(content);
+	$("#page-project-delete").val(json.page);
+	$("#current-page-project-delete").html(json.page);
+	$("#maxpage-project-delete").val(json.maxpage);
+	$("#max-page-project-delete").html(json.maxpage);
+	$("#total-record-project-delete").html(json.countRecord);
+	$(".search-category-project-delete").val(json.searchCategory);
+	$(".search-keyword-project-delete").val(json.searchKeyword);
+}
+
+function pagingProjectDelete(direction) {
+	var searchCategory = $(".search-category-project-delete").get(1).value;
+	var searchKeyword = $(".search-keyword-project-delete").get(1).value;
+	$.Dialog.close();
+	$("#task-project-delete").val(direction);
+	var data = setParameterProjectDelete();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseProjectDelete(data);
+		}
+	});
+
+	loadProjectDelete(searchCategory, searchKeyword);
+}
+
+function chooseProjectDelete(task) {
+	if (task == "delete") {
+		var choosen = $("input[id='projectCode-project-delete']").val();
+		$("#projectCode").val(choosen);
+		$("#task").val("deleteProject");
+		$("#proForm").submit();
 	}
 	$.Dialog.close();
 }
