@@ -4,6 +4,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="report">
+	
+	<insert id="tes">
+		insert into tes_savepoint values('test1')
+	</insert>
+	
+	<insert id="tes2">
+		insert into tes_savepoint values('test2')
+	</insert>
+	
+	<insert id="tes3">
+		insert into tes_savepoint values('test3')
+	</insert>
+	
 	<select id="getAllReports" 
 		resultClass="adins.ace.taps.bean.report.ReportBean">
 		select task_code as reportId, organization_code as firstName, project_code as lastName

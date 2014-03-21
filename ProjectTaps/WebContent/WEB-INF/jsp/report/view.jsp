@@ -122,7 +122,10 @@
 <body class="metro">
 	<jsp:include page="../../../frame/header.jsp" />
 
-
+<%System.out.println(request.getSession().getAttribute("periodePrint"));
+	System.out.println(request.getSession().getAttribute("periodeReportPrint"));
+	System.out.println(request.getSession().getAttribute("yearPrint"));
+	System.out.println(request.getSession().getAttribute("buPrint")); %>
 
 	<html:form action="/report" method="POST">
 		<div class="container container-taps">
@@ -254,11 +257,9 @@
 						<tr>
 							<td colspan="5" class="text-right">
 							<logic:equal name="reportForm" property="param2" value="0">
-								<button id="back-btn" onclick="javascript:button('printReportBOM')">Print</button>
 								<button id="back-btn" onclick="javascript:button('back')">Home</button>
 							</logic:equal>
 							<logic:equal name="reportForm" property="param2" value="1">
-								<button id="back-btn" onclick="javascript:button('printReportBU')">Print</button>
 								<button id="back-btn" onclick="javascript:button('back')">Home</button>
 								<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','0','<bean:write name="reportForm" property="param5" />')">Back</button>
 							</logic:equal>						
@@ -276,6 +277,7 @@
 		<html:hidden property="param2" name="reportForm" />
 		<html:hidden property="param3" name="reportForm" />
 		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="periode" name="reportForm" />
 		<html:hidden property="reportYear" name="reportForm" />
 		<html:hidden property="reportPeriode" name="reportForm" />
 		<html:hidden property="reportMonth" name="reportForm" />
