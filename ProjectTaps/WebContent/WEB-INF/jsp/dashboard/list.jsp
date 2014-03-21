@@ -44,7 +44,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="startDate" name="dashboardForm"></html:text>
+										<html:text property="startDate" name="dashboardForm" styleClass="datepicker-all"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -53,7 +53,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker-end">
-										<html:text property="endDate" name="dashboardForm"></html:text>
+										<html:text property="endDate" name="dashboardForm" styleClass="datepicker-all"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
