@@ -105,13 +105,13 @@
 								}
 							%>
 							<tr>
-								<td>Activty Type</td>
+								<td>Activity Type</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.activityType" name="selfAssignmentForm" /></td>
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
 								%>
-								<td><b>Adhoc to </b> : <bean:write property="selfAssignBean.adhocFullName" name="selfAssignmentForm" /></td>
+								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName" name="selfAssignmentForm" /></td>
 								<%
 									}
 								%>
@@ -127,7 +127,7 @@
 											|| "REJECTED".equals(session.getAttribute("status"))) {
 							%>
 							<tr>
-								<td>Manhours</td>
+								<td>ManHours</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm" disabled="true">
