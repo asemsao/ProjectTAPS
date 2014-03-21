@@ -109,19 +109,35 @@
 							<tr>
 								<td>Business Unit Level</td>
 								<td>:</td>
-								<td>
-									<div class="input-control select">
-										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level" 
-											onchange="javascript:changeopt();">
-											<html:option value="2">Level 2</html:option>
-											<html:option value="1">Level 1</html:option>
-											<html:option value="0">Level 0</html:option>
-										</html:select>
-									</div>
-								</td>
+								<logic:equal value="0" property="countChild"
+									name="organizationForm">
+									<td>
+										<div class="input-control select">
+											<html:select property="orgBean.organizationLevel"
+												name="organizationForm" styleId="level"
+												onchange="javascript:changeopt();">
+												<html:option value="2">Level 2</html:option>
+												<html:option value="1">Level 1</html:option>
+												<html:option value="0">Level 0</html:option>
+											</html:select>
+										</div>
+									</td>
+								</logic:equal>
+
+								<logic:notEqual value="0" property="countChild"
+									name="organizationForm">
+									<td>
+										<div class="input-control select">
+											<html:select property="orgBean.organizationLevel"
+												name="organizationForm" styleId="level" disabled="true">
+												<html:option value="2">Level 2</html:option>
+												<html:option value="1">Level 1</html:option>
+												<html:option value="0">Level 0</html:option>
+											</html:select>
+										</div>
+									</td>
+								</logic:notEqual>
 							</tr>
-							<tr>
 							<tr>
 								<td>Head Name</td>
 								<td>:</td>

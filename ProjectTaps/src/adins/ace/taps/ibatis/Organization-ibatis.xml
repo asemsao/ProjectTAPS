@@ -16,7 +16,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#headDomain#, #organizationLevel#,
 		#parentCode#,
 		'ACTIVE',
-		'domain100',
+		#userDomain#,
 		SYSDATE)
 	</insert>
 
@@ -81,13 +81,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		organization_level =
 		#organizationLevel#,
 		parent_organization_code = #parentCode#,
-		updated_by = 'domain100',
+		updated_by = #userDomain#,
 		updated_date = SYSDATE
 		WHERE
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
-
-
+	
 	<update id="updateReportAssignment" parameterClass="organizationBean">
 		UPDATE
 		assignments SET
