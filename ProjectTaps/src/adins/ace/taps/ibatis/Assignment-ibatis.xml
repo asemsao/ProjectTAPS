@@ -754,7 +754,7 @@
 	</select>
 
 	<select id="searchRecordClaimAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
-		parameterClass="java.lang.String">
+		parameterClass="java.util.Map">
 		SELECT   a.task_code AS taskCode,
 		         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 		         TO_CHAR (a.assignment_date, 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
@@ -777,13 +777,13 @@
 		            AS appraisalStar,
 		         (
 		         	SELECT   CASE
-					            WHEN MIN (created_date) BETWEEN SYSDATE - 7 AND SYSDATE
+					            WHEN MIN (created_date) BETWEEN SYSDATE - #maxDate# AND SYSDATE
 					            THEN
-					               'True'
+					               'true'
 					            ELSE
-					               'False'
+					               'false'
 					         END
-					  FROM   stars
+					  FROM   stars s
 					 WHERE   a.task_code = s.task_code(+)
 		         )
 		         AS updateableStar

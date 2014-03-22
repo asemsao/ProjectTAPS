@@ -91,11 +91,11 @@ public class AjaxAction extends Action {
 		}
 		
 		if("deleteOrganization".equals(ajaxForm.getMode())){
+			System.out.println("AC.deleteORG");
 			params.put("organizationCode", ajaxForm.getOrganizationCode());
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
-			System.out.println(ajaxForm.getCheckDeleteOrganization());
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {

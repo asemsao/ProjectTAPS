@@ -113,9 +113,9 @@
 								<td>Start Date</td>
 								<td>:</td>
 								<td>
-									<div class="input-control text" id="datepicker-begin">
+									<div class="input-control text" id="datepicker">
 										<html:text property="addProject.startDate" name="projectForm"
-											styleId="startDate" readonly="true"></html:text>
+											styleId="startDate" readonly="true" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>
@@ -124,9 +124,9 @@
 								<td>Estimate Finish Date</td>
 								<td>:</td>
 								<td>
-									<div class="input-control text " id="datepicker-end">
+									<div class="input-control text " id="datepicker">
 										<html:text property="addProject.endDate" name="projectForm"
-											styleId="endDate" readonly="true"></html:text>
+											styleId="endDate" readonly="true" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>

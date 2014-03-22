@@ -59,13 +59,13 @@
 			$("#CRUDForm").submit();
 		});
 		$(".delete-link").click(function() {
-			$("#deleteId").html($(this).attr('alt').trim().replace(/\-/g, ''));
 			$("#organizationCode").val($(this).attr('alt').trim());
-			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
+			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Business Unit</title>
 </head>
 
@@ -152,12 +152,22 @@
 											alt="<bean:write name='organization' property='organizationCode' />"
 											data-hint="Edit Organization" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a class="delete-link"
-											href="javascript:confDel()" data-hint="Delete Organization"
-											data-hint-position="bottom"
+										<!-- 										<td class="text-center"><a class="delete-link" -->
+										<!-- 											href="javascript:confDel()" data-hint="Delete Organization" -->
+										<!-- 											data-hint-position="bottom" -->
+										<%-- 											alt="<bean:write name="organization" --%>
+										<%-- 												property="organizationCode" />"><img --%>
+										<%-- 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td> --%>
+
+										<td class="text-center"><a href="#"
+											class="delete-link deleteOrganization"
+											data-hint="Delete Organization" data-hint-position="bottom"
 											alt="<bean:write name="organization"
 												property="organizationCode" />"><img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a>
+										</td>
+
+
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -198,5 +208,6 @@
 			</div>
 		</div>
 	</div>
+	<div id="lookUpDeleteOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </html>
