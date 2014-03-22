@@ -64,73 +64,51 @@
 			}
 		});
 	}
-	$(document)
-			.ready(
-					function() {
-						var project_code = $("#project-code").val();
-						var organization_code = $("#organization-code-view")
-								.val();
-						var userDomain = $("#userDomain").val();
+	$(document).ready(function() {
+		var project_code = $("#project-code").val();
+		var organization_code = $("#organization-code-view").val();
+		var userDomain = $("#userDomain").val();
 
-						$("#employee-name").val($("#employee-fullName").val());
-						$("#employee-name-2").val(
-								$("#employee-fullName-2").val());
-						$("#lookUpProject").load(
-								"/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="
-										+ userDomain);
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
-						$("#lookUpEmployee2")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-						$("#lookUpAssignment")
-								.load(
-										"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-						$('#project-name').bind("change", function() {
-							setReportTo();
-						});
-						$("input[name='assignment_type']")
-								.change(
-										function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-											}
-										});
+		$("#employee-name").val($("#employee-fullName").val());
+		$("#employee-name-2").val($("#employee-fullName-2").val());
+		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="+ userDomain);
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		$('#project-name').bind("change", function() {
+			setReportTo();
+		});
+		$("input[name='assignment_type']").change(function() {
+			if ($(this).val() == "PROJECT") {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
+			} else {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+			}
+		});
 
-						$("#assignmentDate").attr("placeholder",
-								"Assignment Date");
-						$("#project-name").attr("placeholder", "Project");
-						$("#employee-name").attr("placeholder", "Employee");
-						$("#employee-name-2").attr("placeholder", "Employee");
-						$("#assignment-code").attr("placeholder",
-								"Reff Task Code");
-						$("#description").attr("placeholder", "Description");
-						$("#timepicker").timeselector();
-						$("#timepicker").attr("placeholder", "Assignment Time");
-					});
+		$("#assignmentDate").attr("placeholder", "Assignment Date");
+		$("#project-name").attr("placeholder", "Project");
+		$("#employee-name").attr("placeholder", "Employee");
+		$("#employee-name-2").attr("placeholder", "Employee");
+		$("#assignment-code").attr("placeholder", "Reff Task Code");
+		$("#description").attr("placeholder", "Description");
+		$("#timepicker").timeselector();
+		$("#timepicker").attr("placeholder", "Assignment Time");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Self Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST"
-		styleId="newSelfAssignment">
+	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan=3 class="text-center"><h3>New Self
-										Assignment</h3></th>
+								<th colspan=3 class="text-center"><h3>New Self Assignment</h3></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -138,8 +116,7 @@
 								<td>Assignment Date</td>
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
+										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -147,10 +124,9 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.assignmentTime"
-											name="selfAssignmentForm" styleId="timepicker"
-											readonly="readonly"></html:text>
-									</div></td>
+										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>

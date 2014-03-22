@@ -63,8 +63,8 @@ public class NewSelfAssignmentAction extends Action {
 						.searchRecordSelfAssignment(taskCode));
 				aForm.setSelfAssignBean(aMan
 						.searchHeadOrganizationCode(sessionUserDomain));
+				return mapping.findForward("NewSelfAssignment");
 			}
-			return mapping.findForward("NewSelfAssignment");
 		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
@@ -73,8 +73,10 @@ public class NewSelfAssignmentAction extends Action {
 				success = aMan.deleteAssignment(taskCode);
 				if (success) {
 					session.setAttribute("message", "Success Delete Assignment");
+					session.setAttribute("color", "green");
 				} else {
 					session.setAttribute("message", "Failed Delete Assignment");
+					session.setAttribute("color", "red");
 				}
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
@@ -134,6 +136,8 @@ public class NewSelfAssignmentAction extends Action {
 					insertToDetailClaim = aMan.addDetailClaim(aForm
 							.getSelfAssignBean());
 					if (insertToDetailClaim && insertToAssignment) {
+						session.setAttribute("message", "Create Self Assignment Success!");
+						session.setAttribute("color", "green");
 						if (rfa) {
 							Map paramStatus = new HashMap();
 							paramStatus.put("updatedBy", aForm
@@ -152,6 +156,9 @@ public class NewSelfAssignmentAction extends Action {
 							params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
 							SendMailTls.SendMail(params);
 						}
+					} else {
+						session.setAttribute("message", "Create Self Assignment Failed!");
+						session.setAttribute("color", "red");
 					}
 				}
 

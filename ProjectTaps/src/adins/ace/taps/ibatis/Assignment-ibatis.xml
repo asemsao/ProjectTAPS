@@ -689,7 +689,11 @@
 		         a.adhoc_user_domain AS adhocUserDomain,
 		         adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName,
 		         a.description AS description,
-		         d.manhour AS manHours
+		         d.manhour AS manHours,
+		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
+		            FROM   stars s
+		           WHERE   a.task_code = s.task_code(+))
+		            AS appraisalStar
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
@@ -730,11 +734,7 @@
 		         a.adhoc_user_domain AS adhocUserDomain,
 		         adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName,
 		         a.description AS description,
-		         d.manhour AS manHours,
-		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
-		            FROM   stars s
-		           WHERE   a.task_code = s.task_code(+))
-		            AS appraisalStar
+		         d.manhour AS manHours
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
@@ -763,6 +763,7 @@
 		         e.first_name || ' ' || e.last_name AS fullName,
 		         a.report_to AS reportTo,
 		         a.created_by AS createdBy,
+		         o.organization_code AS organizationCode,
 		         o.organization_name AS organizationName,
 		         spv.first_name || ' ' || spv.last_name AS createdByName,
 		         p.project_name AS projectName,
