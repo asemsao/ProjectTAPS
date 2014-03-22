@@ -52,7 +52,13 @@ public class LoginAction extends Action {
 
 				// /TESTING HAPUS NANTI
 				pass = true;
-
+				if(tForm.getUsername().equals("205")){
+					username = "DOMAIN205";
+				} else if(tForm.getUsername().equals("3")){
+					username = "domain3";
+				}else{
+					username = "domain100";
+				}
 				tForm.setPassword("");
 				tForm.setUsername("");
 				if (pass) {
@@ -60,7 +66,7 @@ public class LoginAction extends Action {
 					 * SET SESSION session.setAttribute("username", username);
 					 */
 					// /TESTING HAPUS NANTI
-					username = "DOMAIN205";
+//					username = "DOMAIN205";
 					// ///
 					List<RoleBean> roleList = lMan.roleList(username);
 					String fullname = lMan.getFullName(username);
