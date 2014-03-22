@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.dashboard.DashboardBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.dashboard.DashboardForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
@@ -47,6 +48,8 @@ public class DashboardAction extends Action {
 		Map params = new HashMap();
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
+		params.put("maxDate", App.getConfiguration("max_date"));
+		params.put("taskCode", dForm.getTaskCode());
 
 		String userDomain = (String) session.getAttribute("username");
 		/* code to display detail record each status */
@@ -71,8 +74,7 @@ public class DashboardAction extends Action {
 			aMan.updateFlag(dForm.getTaskCode());
 			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
 					.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
-					.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Correction");
 		}
@@ -92,8 +94,7 @@ public class DashboardAction extends Action {
 			aMan.updateFlag(dForm.getTaskCode());
 			dForm.setListDetailClaim(aMan.searchListDetailClaim(dForm
 					.getTaskCode()));
-			dForm.setClaimBean(aMan.searchRecordClaimAssignment(dForm
-					.getTaskCode()));
+			dForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 			dForm.setTotalManHours(aMan.getTotalManHours(dForm.getTaskCode()));
 			return mapping.findForward("Approval");
 		}

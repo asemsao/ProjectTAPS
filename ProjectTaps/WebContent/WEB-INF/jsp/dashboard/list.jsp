@@ -144,7 +144,7 @@
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listAssignment" name="dashboardForm">
-								<tr>
+								<tr class="text-center">
 									<td colspan="7">Data Not Found</td>
 								</tr>
 							</logic:empty>

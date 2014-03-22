@@ -64,73 +64,51 @@
 			}
 		});
 	}
-	$(document)
-			.ready(
-					function() {
-						var project_code = $("#project-code").val();
-						var organization_code = $("#organization-code-view")
-								.val();
-						var userDomain = $("#userDomain").val();
+	$(document).ready(function() {
+// 		var project_code = $("#project-code").val();
+// 		var organization_code = $("#organization-code-view").val();
+		var userDomain = $("#userDomain").val();
 
-						$("#employee-name").val($("#employee-fullName").val());
-						$("#employee-name-2").val(
-								$("#employee-fullName-2").val());
-						$("#lookUpProject").load(
-								"/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="
-										+ userDomain);
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees");
-						$("#lookUpEmployee2")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-						$("#lookUpAssignment")
-								.load(
-										"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-						$('#project-name').bind("change", function() {
-							setReportTo();
-						});
-						$("input[name='assignment_type']")
-								.change(
-										function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-											}
-										});
+		$("#employee-name").val($("#employee-fullName").val());
+		$("#employee-name-2").val($("#employee-fullName-2").val());
+		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="+ userDomain);
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		$('#project-name').bind("change", function() {
+			setReportTo();
+		});
+		$("input[name='assignment_type']").change(function() {
+			if ($(this).val() == "PROJECT") {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
+			} else {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+			}
+		});
 
-						$("#assignmentDate").attr("placeholder",
-								"Assignment Date");
-						$("#project-name").attr("placeholder", "Project");
-						$("#employee-name").attr("placeholder", "Employee");
-						$("#employee-name-2").attr("placeholder", "Employee");
-						$("#assignment-code").attr("placeholder",
-								"Reff Task Code");
-						$("#description").attr("placeholder", "Description");
-						$("#timepicker").timeselector();
-						$("#timepicker").attr("placeholder", "Assignment Time");
-					});
+		$("#assignmentDate").attr("placeholder", "Assignment Date");
+		$("#project-name").attr("placeholder", "Project");
+		$("#employee-name").attr("placeholder", "Employee");
+		$("#employee-name-2").attr("placeholder", "Employee");
+		$("#assignment-code").attr("placeholder", "Reff Task Code");
+		$("#description").attr("placeholder", "Description");
+		$("#timepicker").timeselector();
+		$("#timepicker").attr("placeholder", "Assignment Time");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Self Assignment</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST"
-		styleId="newSelfAssignment">
+	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan=3 class="text-center"><h3>New Self
-										Assignment</h3></th>
+								<th colspan=3 class="text-center"><h3>New Self Assignment</h3></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -138,8 +116,7 @@
 								<td>Assignment Date</td>
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
+										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -147,10 +124,9 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.assignmentTime"
-											name="selfAssignmentForm" styleId="timepicker"
-											readonly="readonly"></html:text>
-									</div></td>
+										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
@@ -166,26 +142,23 @@
 										if (!headBU){
 									%>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" checked="checked" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
 										</label>
 									</div>
 									<%} else { %>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											disabled="disabled" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span> 
+											Project
 										</label>
 									</div>
 									<%} %>
@@ -197,19 +170,14 @@
 								<td>:</td>
 								<td>
 									<div id="bu">
-										<bean:write property="selfAssignBean.organizationName"
-											name="selfAssignmentForm" />
+										<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
 										&nbsp;&nbsp; <b>Report to </b> :
-										<bean:write property="selfAssignBean.headUserName"
-											name="selfAssignmentForm" />
+										<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<html:hidden property="selfAssignBean.projectCode"
-												name="selfAssignmentForm" styleId="project-code"></html:hidden>
-											<html:text property="selfAssignBean.projectName"
-												readonly="true" name="selfAssignmentForm"
-												styleId="project-name"></html:text>
+											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+											<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -219,13 +187,9 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo"
-											name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -234,11 +198,8 @@
 								<td>Assign By</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:hidden property="selfAssignBean.projectCode"
-											name="selfAssignmentForm" styleId="project-code"></html:hidden>
-										<html:text property="selfAssignBean.projectName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="project-name"></html:text>
+										<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+										<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
 										<button type="button" class="btn-search" id="project"></button>
 									</div>
 								</td>
@@ -248,13 +209,9 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo"
-											name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -264,19 +221,18 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											checked="checked" value="Routine" /> <span class="check"></span>
+										<label> <input type="radio" name="activity_type" checked="checked" value="Routine" /> <span class="check"></span>
 											Routine
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											value="Initiative" /> <span class="check"></span> Initiative
+										<label> <input type="radio" name="activity_type" value="Initiative" /> <span class="check"></span> 
+											Initiative
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											value="ADHOC" /> <span class="check"></span> AdHoc
+										<label> <input type="radio" name="activity_type" value="ADHOC" /> <span class="check"></span> 
+											AdHoc
 										</label>
 									</div>
 								</td>
@@ -286,11 +242,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.adhocUserDomain"
-											name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:text property="selfAssignBean.adhocFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name-2" />
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name-2" />
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
@@ -299,9 +252,7 @@
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.reffTaskCode"
-											readonly="true" name="selfAssignmentForm"
-											styleId="assignment-code"></html:text>
+										<html:text property="selfAssignBean.reffTaskCode" readonly="true" name="selfAssignmentForm" styleId="assignment-code"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
@@ -310,8 +261,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control select">
-										<html:select property="selfAssignBean.manHours"
-											name="selfAssignmentForm">
+										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -368,9 +318,7 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea"
-										styleId="description"></html:textarea></td>
+								<td><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
@@ -387,14 +335,12 @@
 		<html:hidden property="newTask" name="selfAssignmentForm" />
 		<html:hidden property="assignmentType" name="selfAssignmentForm" />
 		<html:hidden property="activityType" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.detailId"
-			name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.headUserDomain"
-			name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
 
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain" value="DOMAIN205" />
+		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

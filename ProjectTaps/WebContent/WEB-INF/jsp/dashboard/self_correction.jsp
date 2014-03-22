@@ -20,9 +20,7 @@
 	$(document).ready(
 			function() {
 				var task_code = $("#task-code").val();
-				$("#historyComment").load(
-						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
-								+ task_code);
+				$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
 			});
 </script>
 <title>Self Assignment</title>
@@ -34,21 +32,13 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/dashboard" method="POST">
-					<html:hidden property="selfAssignBean.currentStatus"
-						name="dashboardForm" styleId="status" />
-					<html:hidden property="selfAssignBean.taskCode"
-						name="dashboardForm" styleId="task-code" />
+					<html:hidden property="selfAssignBean.currentStatus" name="dashboardForm" styleId="status" />
+					<html:hidden property="selfAssignBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<html:hidden property="task" name="dashboardForm" />
-					<html:hidden property="selfAssignBean.assignTo"
-						name="dashboardForm" />
-					<html:hidden property="selfAssignBean.reportTo"
-						name="dashboardForm" />
-					<input type="hidden" name="tmpDescription"
-						value="<bean:write 
-				property="selfAssignBean.description" name="dashboardForm" />" />
-					<input type="hidden" name="tmpManHours"
-						value="<bean:write 
-				property="selfAssignBean.manHours" name="dashboardForm" />" />
+					<html:hidden property="selfAssignBean.assignTo" name="dashboardForm" />
+					<html:hidden property="selfAssignBean.reportTo" name="dashboardForm" />
+					<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="dashboardForm" />" />
+					<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="dashboardForm" />" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -60,15 +50,13 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
+								<td colspan=2><bean:write property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
 
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
+								<td colspan=2><bean:write property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
 							</tr>
 							<%
 								if (session.getAttribute("type").equals("PROJECT")) {
@@ -76,11 +64,8 @@
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
-								<td><bean:write property="selfAssignBean.projectName"
-										name="dashboardForm"></bean:write></td>
-								<td><b>Report to </b> : <bean:write
-										property="selfAssignBean.reportToFullName"
-										name="dashboardForm"></bean:write></td>
+								<td><bean:write property="selfAssignBean.projectName" name="dashboardForm"></bean:write></td>
+								<td><b>Report to </b> : <bean:write property="selfAssignBean.reportToFullName" name="dashboardForm"></bean:write></td>
 							</tr>
 							<%
 								} else {
@@ -88,10 +73,8 @@
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
-								<td><bean:write property="selfAssignBean.organizationName"
-										name="dashboardForm" /></td>
-								<td><b>Report to </b> : <bean:write
-										property="selfAssignBean.headUserName" name="dashboardForm" />
+								<td><bean:write property="selfAssignBean.organizationName" name="dashboardForm" /></td>
+								<td><b>Report to </b> : <bean:write property="selfAssignBean.headUserName" name="dashboardForm" />
 								</td>
 							</tr>
 							<%
@@ -100,13 +83,11 @@
 							<tr>
 								<td>Activity Type</td>
 								<td>:</td>
-								<td><bean:write property="selfAssignBean.activityType"
-										name="dashboardForm" /></td>
+								<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
 								%>
-								<td><b>AdHoc to </b> : <bean:write
-										property="selfAssignBean.adhocFullName" name="dashboardForm" />
+								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName" name="dashboardForm" />
 								</td>
 								<%
 									}
@@ -115,15 +96,13 @@
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>ManHours</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control select">
-										<html:select property="selfAssignBean.manHours"
-											name="dashboardForm">
+										<html:select property="selfAssignBean.manHours" name="dashboardForm">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -179,23 +158,20 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><html:textarea
-										property="selfAssignBean.description" name="dashboardForm"
+								<td colspan=2><html:textarea property="selfAssignBean.description" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
 								<td>Comment</td>
 								<td>:</td>
-								<td colspan=2><html:textarea
-										property="selfAssignBean.comment" name="dashboardForm"
+								<td colspan=2><html:textarea property="selfAssignBean.comment" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=4 class="text-right"><html:button
-										property="assign" onclick="javascript:flyToPage('rfaSelf')"
-										styleClass="button success">RFA</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button></td>
+								<td colspan=4 class="text-right">
+									<button onclick="javascript:flyToPage('rfaSelf')" class="button success">RFA</button> 
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>

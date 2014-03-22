@@ -17,6 +17,10 @@
 			name="ajaxForm" />
 		<html:hidden property="mode" styleId="mode-organization-delete"
 			name="ajaxForm" />
+		<html:hidden property="page" styleId="page-organization-delete"
+			name="ajaxForm" />
+		<html:hidden property="maxpage" styleId="maxpage-organization-delete"
+			name="ajaxForm" />
 
 
 		<logic:notEqual name="ajaxForm" property="checkDeleteEmpoyee"
@@ -41,9 +45,14 @@
 						<logic:iterate id="organization" name="ajaxForm"
 							property="childOrganization">
 							<tr>
+								<td>Business Unit Code</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="organizationCode" /></td>
-
+								</tr>
+								<tr>
+								<td>Business Unit Name</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="organizationName" /></td>
 							</tr>
@@ -51,50 +60,31 @@
 					</tbody>
 				</logic:notEmpty>
 
-				<logic:notEmpty name="ajaxForm" property="OrganizationProject">
-					<thead>
-						<tr>
-							<td><strong>PROJECT</strong></td>
-						</tr>
-					</thead>
-					<tbody>
-							<logic:iterate id="organization" name="ajaxForm"
-							property="OrganizationProject">
-							<tr>
-								<td><bean:write name="organization"
-										property="projectCode" /></td>
-
-								<td><bean:write name="organization"
-										property="projectName" /></td>
-							</tr>
-						</logic:iterate>
-					</tbody>
-				</logic:notEmpty>
-
-				<thead>
-					<tr>
-						<th class="text-center">
-							<button type="button" class='button info'
-								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-						</th>
-					</tr>
-				</thead>
+				
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th class="text-center"> -->
+<!-- 							<button type="button" class='button info' -->
+<!-- 								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
+<!-- 						</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
 			</table>
 		</logic:notEqual>
 
 		<logic:equal name="ajaxForm" property="checkDeleteEmpoyee" value="0">
 			<table class="table striped bordered hovered">
-				<thead>
+				<thead><tr>
 					<th><strong>Are you sure to DELETE business Unit <bean:write
 								name="ajaxForm" property="organizationCode" /> ?
-					</strong></th>
-					<th class="text-center"><button type="button"
-							class='button danger'
-							onclick="javascript:chooseAssignmentDelete('delete')">Delete</button>
-						<button type="button" class='button info'
-							onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-					</th>
-					</tr>
+					</strong></th></tr>
+<!-- 					<tr> -->
+<!-- 					<th class="text-center"><button type="button" -->
+<!-- 							class='button danger' -->
+<!-- 							onclick="javascript:chooseOrganizationDelete('delete')">Delete</button> -->
+<!-- 						<button type="button" class='button info' -->
+<!-- 							onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
+<!-- 					</th></tr> -->
 				</thead>
 			</table>
 		</logic:equal>

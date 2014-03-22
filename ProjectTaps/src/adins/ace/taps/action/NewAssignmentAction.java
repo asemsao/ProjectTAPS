@@ -50,8 +50,10 @@ public class NewAssignmentAction extends Action {
 				success = aMan.deleteAssignment(taskCode);
 				if (success) {
 					session.setAttribute("message", "Success Delete Assignment");
+					session.setAttribute("color", "green");
 				} else {
 					session.setAttribute("message", "Failed Delete Assignment");
+					session.setAttribute("color", "red");
 				}
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
@@ -98,7 +100,7 @@ public class NewAssignmentAction extends Action {
 
 				if (success) {
 					session.setAttribute("message", "Create Assignment Success!");
-
+					session.setAttribute("color", "green");
 					/* sending notification on email */
 					if (assign) {
 						Map paramStatus = new HashMap();
@@ -117,6 +119,7 @@ public class NewAssignmentAction extends Action {
 					}
 				} else {
 					session.setAttribute("message", "Create Assignment Failed!");
+					session.setAttribute("color", "red");
 				}
 
 				session.removeAttribute("taskCode");

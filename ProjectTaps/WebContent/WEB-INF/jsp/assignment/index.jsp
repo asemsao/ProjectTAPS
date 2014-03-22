@@ -31,11 +31,11 @@
 		$("#startDate").attr("placeholder", "Start Date");
 		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
-		if ($("#message").val() != "") {
+		if ($("#message").val() != "") { 
 			setTimeout(function() {
 				$.Notify({
 					style : {
-						background : 'green',
+						background : $("#color").val(),
 						color : 'white'
 					},
 					shadow : true,
@@ -55,9 +55,8 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/employeeReport" method="post">
-					<input type="hidden" id="message"
-						value="<bean:write  property="message" 
-						name="employeeReportForm" />">
+					<input type="hidden" id="message" value="<bean:write property="message" name="employeeReportForm" />">
+					<input type="hidden" id="color" value="<bean:write property="color" name="employeeReportForm" />">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -67,8 +66,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker">
-										<html:text property="startDate" name="employeeReportForm"
-											styleId="startDate" styleClass="datepicker-start"></html:text>
+										<html:text property="startDate" name="employeeReportForm" styleId="startDate" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -77,8 +75,7 @@
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
 									<div class="input-control text" id="datepicker">
-										<html:text property="endDate" name="employeeReportForm"
-											styleId="endDate" styleClass="datepicker-end"></html:text>
+										<html:text property="endDate" name="employeeReportForm" styleId="endDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -98,10 +95,8 @@
 
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
-										<html:text property="keyword" name="employeeReportForm"
-											styleId="searchKeyword"></html:text>
-										<button class="btn-search"
-											onclick="javascript:flyToPage('search');"></button>
+										<html:text property="keyword" name="employeeReportForm" styleId="searchKeyword"></html:text>
+										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -128,51 +123,43 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listAssignment"
-								name="employeeReportForm">
-								<logic:iterate id="assignment" name="employeeReportForm"
-									property="listAssignment">
+							<logic:notEmpty property="listAssignment" name="employeeReportForm">
+								<logic:iterate id="assignment" name="employeeReportForm" property="listAssignment">
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentCode" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentCategory" name="assignment" /></td>
-											<td class="text-bold text-italic"><bean:write
-													property="fullName" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="createdDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><a
-												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentCode" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentCategory" name="assignment" /></td>
+											<td class="text-bold text-italic">
+												<bean:write property="fullName" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="createdDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<a href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />','<bean:write
-													property="currentStatus" name="assignment" />' );"><bean:write
-														property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />','<bean:write property="currentStatus" 
+												name="assignment" />' );"><bean:write property="currentStatus" 
+												name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
 										<tr>
-											<td class="text-center"><bean:write
-													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentCode" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentCategory" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentDate" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentCode" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentCategory" name="assignment" /></td>
 											<td><bean:write property="fullName" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="createdDate" name="assignment" /></td>
-											<td class="text-center"><a
-												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+											<td class="text-center"><bean:write property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
+											<td class="text-center"><a href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />','<bean:write
-													property="currentStatus" name="assignment" />' );"><bean:write
-														property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />','<bean:write property="currentStatus" 
+												name="assignment" />' );"><bean:write property="currentStatus" 
+												name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
 
@@ -187,42 +174,31 @@
 								<td colspan=5 class="text-center">
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"
-												onclick="javascript:flyToPage('first');"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="first"
-												onclick="javascript:flyToPage('prev');"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write
-														name="employeeReportForm" property="page" /> of <bean:write
-														name="employeeReportForm" property="maxpage" /></a></li>
-											<li class="next"><a id="first"
-												onclick="javascript:flyToPage('next');"><i
-													class="icon-next"></i></a></li>
-											<li class="last"><a id="first"
-												onclick="javascript:flyToPage('last');"><i id="last"
-													class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <bean:write
-														name="employeeReportForm" property="countRecord" /></a></li>
+											<li class="first"><a id="first" onclick="javascript:flyToPage('first');"><i class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="first" onclick="javascript:flyToPage('prev');"><i class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page 
+												<bean:write name="employeeReportForm" property="page" /> of 
+												<bean:write name="employeeReportForm" property="maxpage" /></a></li>
+											<li class="next"><a id="first" onclick="javascript:flyToPage('next');"><i class="icon-next"></i></a></li>
+											<li class="last"><a id="first" onclick="javascript:flyToPage('last');"><i id="last" class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <bean:write name="employeeReportForm" property="countRecord" /></a></li>
 										</ul>
 									</div>
 								</td>
 								<%
 									if ("assignment".equals(session.getAttribute("link"))) {
 								%>
-								<td colspan=2 class="text-right"><a
-									href="javascript:flyToPage('add');" data-hint="New Assignment"
-									data-hint-position="bottom"><img alt=""
-										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
+								<td colspan=2 class="text-right">
+									<a href="javascript:flyToPage('add');" data-hint="New Assignment" data-hint-position="bottom">
+									<img alt="" src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a>
+								</td>
 								<%
-									} else if ("employeeReport"
-												.equals(session.getAttribute("link"))) {
+									} else if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-								<td colspan=2 class="text-right"><a
-									href="javascript:flyToPage('add');"
-									data-hint="New Self Assignment" data-hint-position="bottom"><img
-										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a></td>
+								<td colspan=2 class="text-right">
+									<a href="javascript:flyToPage('add');" data-hint="New Self Assignment" data-hint-position="bottom">
+									<img alt="" src="<%=request.getContextPath()%>/images/ADD_ASSIGNMENTT.png"></a>
+								</td>
 								<%
 									}
 								%>
