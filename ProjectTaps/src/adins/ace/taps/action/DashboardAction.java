@@ -60,7 +60,7 @@ public class DashboardAction extends Action {
 		}
 		if ("CORRECTION".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
 			aMan.updateFlag(dForm.getTaskCode());
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
 			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("CorrectionSelf");
@@ -74,7 +74,7 @@ public class DashboardAction extends Action {
 		}
 		if ("RFA".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
 			aMan.updateFlag(dForm.getTaskCode());
-			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(dForm.getTaskCode()));
+			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
 			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("ApprovalSelf");

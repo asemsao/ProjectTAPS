@@ -669,7 +669,7 @@
 	</select>
 
 	<select id="searchRecordSelfAssignment" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean"
-		parameterClass="java.lang.String">
+		parameterClass="java.util.Map">
 		SELECT   a.task_code AS taskCode,
 		         TO_CHAR (a.assignment_date, 'DD/MM/YYYY') AS assignmentDate,
 		         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
@@ -690,10 +690,21 @@
 		         adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName,
 		         a.description AS description,
 		         d.manhour AS manHours,
-		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
+		         (SELECT   NVL((SUM (s.star_after) - SUM (s.star_before)),0)
 		            FROM   stars s
 		           WHERE   a.task_code = s.task_code(+))
-		            AS appraisalStar
+		            AS appraisalStar,
+		         (  SELECT   CASE
+					            WHEN MIN (created_date) BETWEEN SYSDATE - #maxDate# AND SYSDATE
+					            THEN
+					               'true'
+					            ELSE
+					               'false'
+					         END
+					  FROM   stars s
+					 WHERE   a.task_code = s.task_code(+)
+		         )
+		         AS updateableStar
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
@@ -771,7 +782,7 @@
 		         a.activity_type AS activityType,
 		         a.current_status AS status,
 		         a.description AS description,
-		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
+		         (SELECT   NVL((SUM (s.star_after) - SUM (s.star_before)),0)
 		            FROM   stars s
 		           WHERE   a.task_code = s.task_code(+))
 		            AS appraisalStar,

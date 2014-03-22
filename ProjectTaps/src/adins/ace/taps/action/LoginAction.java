@@ -65,7 +65,8 @@ public class LoginAction extends Action {
 					/*
 					 * SET SESSION session.setAttribute("username", username);
 					 */
-
+					// /TESTING HAPUS NANTI
+					username = "domain100";
 					List<RoleBean> roleList = lMan.roleList(username);
 					String fullname = lMan.getFullName(username);
 					session.setAttribute("role", roleList);

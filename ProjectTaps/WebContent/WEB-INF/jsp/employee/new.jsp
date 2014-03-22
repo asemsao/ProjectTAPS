@@ -25,7 +25,8 @@
 	$(document)
 			.ready(
 					function() {
-						$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
+						$("#__input_file_wrapper__").attr('placeholder',
+								'Browse File');
 						$(".employeeDomain").attr("placeholder",
 								"Employee Domain");
 						$("#password").attr("placeholder",
@@ -37,7 +38,12 @@
 						$(".businessUnit").attr("placeholder", "Business Unit");
 						$("#employeeAddress").attr("placeholder", "Address");
 						$("#employeeAddress").attr("maxlength", "500");
-						$("#phoneNumber").attr("placeholder", "Phone Number");
+						$("#phoneNumberAreaCode").attr("placeholder", "Area");
+						$("#phoneNumberMidNumb").attr("placeholder", "Prefix");
+						$("#phoneNumberLastNumb").attr("placeholder", "Ext");
+						$("#mobileNumberAreaCode").attr("placeholder", "Area");
+						$("#mobileNumberMidNumb").attr("placeholder", "Prefix");
+						$("#mobileNumberLastNumb").attr("placeholder", "Prefix");
 						$("#mobileNumber").attr("placeholder", "Mobile Number");
 						$("#email").attr("placeholder", "Email");
 						$("#lookUpOrganization")
@@ -179,9 +185,9 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <html:radio property="newEmployee.gender" styleId="defaultCheck" 
-												value="M" name="employeeForm"></html:radio> <span
-											class="check"></span> Male
+										<label> <html:radio property="newEmployee.gender"
+												styleId="defaultCheck" value="M" name="employeeForm"></html:radio>
+											<span class="check"></span> Male
 										</label>
 									</div>
 									<div class="input-control radio margin10">
@@ -210,24 +216,45 @@
 								<td>Address</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
-											name="employeeForm" styleId="employeeAddress"></html:textarea>
+										<html:textarea property="newEmployee.employeeAddress"
+											styleClass="address-field" name="employeeForm"
+											styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Phone No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.phoneNumber" maxlength="12"
-											name="employeeForm" styleId="phoneNumber"></html:text>
+										<strong>(</strong>
+										<html:text property="newEmployee.phoneNumberAreaCode"
+											name="employeeForm" styleId="phoneNumberAreaCode"
+											style="width: 45px;" maxlength="4"></html:text>
+										<strong>)&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.phoneNumberMidNumb"
+											name="employeeForm" styleId="phoneNumberMidNumb"
+											style="width: 70px;" maxlength="7"></html:text>
+										<strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.phoneNumberLastNumb"
+											name="employeeForm" styleId="phoneNumberLastNumb"
+											style="width: 50px;" maxlength="4"></html:text>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Mobile No</td>
 								<td>:</td>
 								<td colspan="2"><div class="input-control text ">
-										<html:text property="newEmployee.mobileNumber" maxlength="15"
-											name="employeeForm" styleId="mobileNumber"></html:text>
+										<strong>(</strong>
+										<html:text property="newEmployee.mobileNumberAreaCode"
+											name="employeeForm" styleId="mobileNumberAreaCode"
+											style="width: 45px;" maxlength="4"></html:text>
+										<strong>)&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.mobileNumberMidNumb"
+											name="employeeForm" styleId="mobileNumberMidNumb"
+											style="width: 50px;" maxlength="4"></html:text>
+										&nbsp;
+										<html:text property="newEmployee.mobileNumberLastNumb"
+											name="employeeForm" styleId="mobileNumberLastNumb"
+											style="width: 70px;" maxlength="7"></html:text>
 									</div></td>
 							</tr>
 							<tr>

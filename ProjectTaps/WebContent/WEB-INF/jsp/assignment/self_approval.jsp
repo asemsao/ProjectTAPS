@@ -289,39 +289,68 @@
 							<tr>
 								<td>Appraisal Star</td>
 								<td>:</td>
-								<td colspan=2>
-									<div class="star-hider">
-										<div class="rating-kiri" style="float: left;">
-											<select id="rating-kiri" name="rating">
-												<option value="-5">-5</option>
-												<option value="-4">-4</option>
-												<option value="-3">-3</option>
-												<option value="-2">-2</option>
-												<option value="-1">-1</option>
-											</select>
-										</div>
+								<td colspan=2><logic:equal value="true"
+										property="selfAssignBean.updateableStar"
+										name="selfAssignmentForm">
+										<div class="star-hider">
+											<div class="rating-kiri" style="float: left;">
+												<select id="rating-kiri" name="rating">
+													<option value="-5">-5</option>
+													<option value="-4">-4</option>
+													<option value="-3">-3</option>
+													<option value="-2">-2</option>
+													<option value="-1">-1</option>
+												</select>
+											</div>
 
-										<div class="rating-tengah" style="float: left;">
-											<select id="rating-tengah" name="rating">
-												<option value="0">0</option>
-											</select>
-										</div>
+											<div class="rating-tengah" style="float: left;">
+												<select id="rating-tengah" name="rating">
+													<option value="0">0</option>
+												</select>
+											</div>
 
-										<div class="rating-kanan" style="float: left;">
-											<select id="rating-kanan" name="rating">
-												<option value="1">+1</option>
-												<option value="2">+2</option>
-												<option value="3">+3</option>
-												<option value="4">+4</option>
-												<option value="5">+5</option>
-											</select>
+											<div class="rating-kanan" style="float: left;">
+												<select id="rating-kanan" name="rating">
+													<option value="1">+1</option>
+													<option value="2">+2</option>
+													<option value="3">+3</option>
+													<option value="4">+4</option>
+													<option value="5">+5</option>
+												</select>
+											</div>
+											<p class="star"></p>
+											<html:hidden property="selfAssignBean.appraisalStar"
+												name="selfAssignmentForm" styleId="star" />
+											<button type="button" id="edit-star-btn" class="default">Edit</button>
 										</div>
-										<p class="star"></p>
-										<html:hidden property="selfAssignBean.appraisalStar"
-											name="selfAssignmentForm" styleId="star" />
-										<button type="button" id="edit-star-btn" class="default">Edit</button>
-									</div>
-								</td>
+									</logic:equal> <logic:equal value="false"
+										property="selfAssignBean.updateableStar" name="selfAssignmentForm">
+										<bean:define id="temp" name="selfAssignmentForm"
+											property="selfAssignBean.appraisalStar" type="Integer" />
+										<%
+											Integer sc = temp;
+														if (sc > 0) {
+															for (int i = 0; i < sc; i++) {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+										<%
+											}
+														} else if (sc < 0) {
+															for (int i = 0; i < Math.abs(sc); i++) {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<%
+											}
+														} else {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+										<%
+											}
+										%>
+									</logic:equal></td>
 							</tr>
 							<%
 								}
@@ -366,11 +395,13 @@
 								<%
 									} else if ("APPROVED".equals(session.getAttribute("status"))) {
 								%>
-								<td colspan=4 class="text-right"><html:button
-										property="assign"
-										onclick="javascript:flyToPage('updateStar');"
-										styleClass="button success">Update Star</html:button> <html:button
-										property="cancel" onclick="javascript:flyToPage('cancel');"
+								<td colspan=4 class="text-right"><logic:equal value="true"
+										property="selfAssignBean.updateableStar" name="selfAssignmentForm">
+										<html:button property="assign"
+											onclick="javascript:flyToPage('updateStar');"
+											styleClass="button success">Update Star</html:button>
+									</logic:equal> <html:button property="cancel"
+										onclick="javascript:flyToPage('cancel');"
 										styleClass="button info">Cancel</html:button></td>
 								<%
 									} else {

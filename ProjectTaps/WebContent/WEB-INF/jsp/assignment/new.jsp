@@ -37,46 +37,57 @@
 			}
 		}
 	}
-
 	$(document).ready(function() {
 		var project_code = $("#project-code").val();
 		var organization_code = $("#organization-code-view").val();
 		var userDomain = $("#userDomain").val();
-		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
-		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
+		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode="
+												+ organization_code);
+		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+												+ project_code);
+		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="+ userDomain);
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#timepicker").timeselector();
 		$('#project-name').bind("change",function() {
-			var project_code = $("#project-code").val();
-			$("#lookUpEmployeeOnProject").html('');
-			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-			$("#employee-name").val("");
-			$("#employee-fullName").val("");
-			$("#employee-domain").val("");
-		});
-						
-		if ($("input[name='assignment_type']").val() == "PROJECT"){
-			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-		} else {
-			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-		}
-						
-		$("input[name='assignment_type']").change(function() {
-			if ($(this).val() == "PROJECT") {
-				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-			} else {
-				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-			}
-		});
-		$("#assignmentDate").attr("placeholder", "Assignment Date");
-		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
-		$("#timepicker").attr("placeholder", "Assignment Time");
-		$("#project-name").attr("placeholder", "Project");
-		$("#employee-name").attr("placeholder", "Employee");
-		$("#assignment-code").attr("placeholder", "Reff Task Code");
-		$("#description").attr("placeholder", "Description");
-	});
+											var project_code = $(
+													"#project-code").val();
+											$("#lookUpEmployeeOnProject").html(
+													'');
+											$("#lookUpEmployeeOnProject")
+													.load(
+															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
+																	+ project_code);
+											$("#employee-name").val("");
+											$("#employee-fullName").val("");
+											$("#employee-domain").val("");
+										});
+
+						if ($("input[name='assignment_type']").val() == "PROJECT") {
+							$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+						} else {
+							$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+						}
+
+						$("input[name='assignment_type']").change(
+										function() {
+											if ($(this).val() == "PROJECT") {
+												$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+											} else {
+												$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+											}
+										});
+						$("#assignmentDate").attr("placeholder",
+								"Assignment Date");
+						$("#assignmentDueDate").attr("placeholder",
+								"Assignment Due Date");
+						$("#timepicker").attr("placeholder", "Assignment Time");
+						$("#project-name").attr("placeholder", "Project");
+						$("#employee-name").attr("placeholder", "Employee");
+						$("#assignment-code").attr("placeholder",
+								"Reff Task Code");
+						$("#description").attr("placeholder", "Description");
+						$("#description").attr("maxlength", "1000");
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
@@ -117,7 +128,13 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
+<<<<<<< HEAD
+										<html:text property="assignmentBean.assignmentTime"
+											name="claimAssignmentForm" styleId="timepicker"
+											readonly="true"></html:text>
+=======
 										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
+>>>>>>> branch 'master' of https://github.com/asemsao/ProjectTAPS.git
 									</div></td>
 							</tr>
 							<tr>

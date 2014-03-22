@@ -33,12 +33,32 @@ function employeeValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
-	$('#employeeAddEdit input[id="phoneNumber"]').tooltipster({
+	$('#employeeAddEdit input[id="phoneNumberAreaCode"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
-	$('#employeeAddEdit input[id="mobileNumber"]').tooltipster({
+	$('#employeeAddEdit input[id="phoneNumberMidNumb"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employeeAddEdit input[id="phoneNumberLastNumb"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employeeAddEdit input[id="mobileNumberAreaCode"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employeeAddEdit input[id="mobileNumberMidNumb"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#employeeAddEdit input[id="mobileNumberLastNumb"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
@@ -92,10 +112,22 @@ function employeeValidation() {
 			'newEmployee.employeeAddress' : {
 				required : true
 			},
-			'newEmployee.phoneNumber' : {
+			'newEmployee.phoneNumberAreaCode' : {
 				digits : true
 			},
-			'newEmployee.mobileNumber' : {
+			'newEmployee.phoneNumberMidNumb' : {
+				digits : true
+			},
+			'newEmployee.phoneNumberLastNumb' : {
+				digits : true
+			},
+			'newEmployee.mobileNumberAreaCode' : {
+				digits : true
+			},
+			'newEmployee.mobileNumberMidNumb' : {
+				digits : true
+			},
+			'newEmployee.mobileNumberLastNumb' : {
 				digits : true
 			},
 			'newEmployee.email' : {
