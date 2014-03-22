@@ -314,16 +314,16 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
-										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									%> <button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 									<%
 									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> <html:button property="claim-btn" onclick="javascript:flyToPage('claim');" styleClass="button success">Claim</html:button> 
-										<html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
-										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									 %> <button onclick="javascript:flyToPage('claim');" class="button success">Claim</button> 
+										<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 									<%
 									 	} else {
-									 %> <html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Close</html:button>
+									 %> <button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
 								</td>
 								<%
 									}
