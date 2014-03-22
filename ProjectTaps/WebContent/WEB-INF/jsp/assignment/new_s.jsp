@@ -65,8 +65,8 @@
 		});
 	}
 	$(document).ready(function() {
-		var project_code = $("#project-code").val();
-		var organization_code = $("#organization-code-view").val();
+// 		var project_code = $("#project-code").val();
+// 		var organization_code = $("#organization-code-view").val();
 		var userDomain = $("#userDomain").val();
 
 		$("#employee-name").val($("#employee-fullName").val());
@@ -142,26 +142,23 @@
 										if (!headBU){
 									%>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" checked="checked" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
 										</label>
 									</div>
 									<%} else { %>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											disabled="disabled" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span> 
+											Project
 										</label>
 									</div>
 									<%} %>
@@ -173,19 +170,14 @@
 								<td>:</td>
 								<td>
 									<div id="bu">
-										<bean:write property="selfAssignBean.organizationName"
-											name="selfAssignmentForm" />
+										<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
 										&nbsp;&nbsp; <b>Report to </b> :
-										<bean:write property="selfAssignBean.headUserName"
-											name="selfAssignmentForm" />
+										<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<html:hidden property="selfAssignBean.projectCode"
-												name="selfAssignmentForm" styleId="project-code"></html:hidden>
-											<html:text property="selfAssignBean.projectName"
-												readonly="true" name="selfAssignmentForm"
-												styleId="project-name"></html:text>
+											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+											<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div></td>
@@ -195,13 +187,9 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo"
-											name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -210,11 +198,8 @@
 								<td>Assign By</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:hidden property="selfAssignBean.projectCode"
-											name="selfAssignmentForm" styleId="project-code"></html:hidden>
-										<html:text property="selfAssignBean.projectName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="project-name"></html:text>
+										<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+										<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
 										<button type="button" class="btn-search" id="project"></button>
 									</div>
 								</td>
@@ -224,13 +209,9 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo"
-											name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
@@ -240,19 +221,18 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											checked="checked" value="Routine" /> <span class="check"></span>
+										<label> <input type="radio" name="activity_type" checked="checked" value="Routine" /> <span class="check"></span>
 											Routine
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											value="Initiative" /> <span class="check"></span> Initiative
+										<label> <input type="radio" name="activity_type" value="Initiative" /> <span class="check"></span> 
+											Initiative
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type"
-											value="ADHOC" /> <span class="check"></span> AdHoc
+										<label> <input type="radio" name="activity_type" value="ADHOC" /> <span class="check"></span> 
+											AdHoc
 										</label>
 									</div>
 								</td>
@@ -262,11 +242,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="selfAssignBean.adhocUserDomain"
-											name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:text property="selfAssignBean.adhocFullName"
-											readonly="true" name="selfAssignmentForm"
-											styleId="employee-name-2" />
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name-2" />
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
@@ -275,9 +252,7 @@
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="selfAssignBean.reffTaskCode"
-											readonly="true" name="selfAssignmentForm"
-											styleId="assignment-code"></html:text>
+										<html:text property="selfAssignBean.reffTaskCode" readonly="true" name="selfAssignmentForm" styleId="assignment-code"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
@@ -286,8 +261,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control select">
-										<html:select property="selfAssignBean.manHours"
-											name="selfAssignmentForm">
+										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -344,9 +318,7 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm" styleClass="input-control textarea"
-										styleId="description"></html:textarea></td>
+								<td><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
@@ -363,10 +335,8 @@
 		<html:hidden property="newTask" name="selfAssignmentForm" />
 		<html:hidden property="assignmentType" name="selfAssignmentForm" />
 		<html:hidden property="activityType" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.detailId"
-			name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.headUserDomain"
-			name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
 
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
