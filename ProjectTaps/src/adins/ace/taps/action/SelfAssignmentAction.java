@@ -76,7 +76,7 @@ public class SelfAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 		
-		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
+//		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
 		
 		/*this session to check assignment type in self_correction.jsp*/
 		session.setAttribute("type", sForm.getSelfAssignBean().getAssignmentType());
