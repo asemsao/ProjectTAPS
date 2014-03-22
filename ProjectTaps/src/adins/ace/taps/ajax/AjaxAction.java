@@ -73,6 +73,7 @@ public class AjaxAction extends Action {
 		params.put("end", (ajaxForm.getPage() * 10));
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
+		
 		if ("deleteEmployee".equals(ajaxForm.getMode())) {
 			params.put("userDomain", ajaxForm.getUserDomain());
 			ajaxForm.setHeadOrgStatus(empMan.checkEmplooyeeOrganization(params));
@@ -80,6 +81,21 @@ public class AjaxAction extends Action {
 			ajaxForm.setCheckDeleteEmpoyee(ajaxForm.getHeadOrgStatus().size()+ajaxForm.getSupervisorStatus().size());
 			ajaxForm.setListEmployeeReport(asgMan.employeeAssignmentList(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeAssignmentList(params));
+		}
+		
+		if("deleteProject".equals(ajaxForm.getMode()))
+		{
+			params.put("projectCode", ajaxForm.getProjectCode());
+			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
+			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
+		}
+		
+		if("deleteOrganization".equals(ajaxForm.getMode())){
+			params.put("organizationCode", ajaxForm.getOrganizationCode());
+			ajaxForm.setOrganizationProject(orgMan.listProject(params));
+			ajaxForm.setChildOrganization(orgMan.listChild(params));
+			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
+			System.out.println(ajaxForm.getCheckDeleteOrganization());
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {
@@ -238,6 +254,9 @@ public class AjaxAction extends Action {
 		}
 		if ("deleteEmployee".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteEmployee");
+		}
+		if ("deleteProject".equals(ajaxForm.getTask())) {
+			return mapping.findForward("deleteProject");
 		}
 		return null;
 	}

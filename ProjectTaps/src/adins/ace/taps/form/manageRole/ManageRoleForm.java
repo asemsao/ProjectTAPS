@@ -15,6 +15,7 @@ public class ManageRoleForm extends ActionForm {
 	
 	private String task;
 	private String param;
+	private String roleId;
 	private String searchKeyword;
 	private String searchCategory;
 	private Integer page;
@@ -22,8 +23,9 @@ public class ManageRoleForm extends ActionForm {
 	private Integer countRecord;
 	private List<MenuBean> listMenu;
 	private List<RoleBean> listRole;
+	private List<MenuBean> listMenuByRole;
 	private MenuBean mrBean = new MenuBean();
-	private MenuBean rBean = new MenuBean();
+	private RoleBean rBean = new RoleBean();
 	
 	public String getTask() {
 		return task;
@@ -85,11 +87,23 @@ public class ManageRoleForm extends ActionForm {
 	public void setMrBean(MenuBean mrBean) {
 		this.mrBean = mrBean;
 	}
-	public MenuBean getrBean() {
+	public RoleBean getrBean() {
 		return rBean;
 	}
-	public void setrBean(MenuBean rBean) {
+	public void setrBean(RoleBean rBean) {
 		this.rBean = rBean;
+	}
+	public String getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	public List<MenuBean> getListMenuByRole() {
+		return listMenuByRole;
+	}
+	public void setListMenuByRole(List<MenuBean> listMenuByRole) {
+		this.listMenuByRole = listMenuByRole;
 	}
 	
 }

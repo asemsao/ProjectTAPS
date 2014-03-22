@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -7,80 +7,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>AJAX DELETE EMPLOYEE</title>
+<title>AJAX DELETE PROJECT</title>
 </head>
 <body>
 	<html:form action="/ajax" method="post">
-		<html:hidden property="userDomain"
-			styleId="userDomain-assignment-delete" name="ajaxForm" />
-		<html:hidden property="task" styleId="task-assignment-delete"
+		<html:hidden property="projectCode"
+			styleId="projectCode-project-delete" name="ajaxForm" />
+		<html:hidden property="task" styleId="task-project-delete"
 			name="ajaxForm" />
-		<html:hidden property="mode" styleId="mode-assignment-delete"
+		<html:hidden property="mode" styleId="mode-project-delete"
 			name="ajaxForm" />
-		<html:hidden property="page" styleId="page-assignment-delete"
+		<html:hidden property="page" styleId="page-project-delete"
 			name="ajaxForm" />
-		<html:hidden property="maxpage" styleId="maxpage-assignment-delete"
+		<html:hidden property="maxpage" styleId="maxpage-project-delete"
 			name="ajaxForm" />
 		<html:hidden property="assignmentCategory"
-			styleId="assignmentCategory-assignment-delete" name="ajaxForm" />
+			styleId="assignmentCategory-project-delete" name="ajaxForm" />
 		<html:hidden property="assignmentType"
-			styleId="assignmentType-assignment-delete" name="ajaxForm" />
+			styleId="assignmentType-project-delete" name="ajaxForm" />
+		<html:hidden property="paramProjectCode" 
+			name="ajaxForm" styleId="projectCode-project-delete"/>
+			
 
-		<logic:notEqual name="ajaxForm" property="checkDeleteEmpoyee"
-			value="0">
-			<table class="table striped bordered hovered">
-				<thead>
-					<tr>
-						<th><strong>Employee <bean:write name="ajaxForm"
-									property="userDomain" /> Can't be deleted because he/she still
-								in
-						</strong></th>
-					</tr>
-				</thead>
-				<logic:notEmpty name="ajaxForm" property="headOrgStatus">
-					<tbody>
-						<logic:iterate id="assignment" name="ajaxForm"
-							property="headOrgStatus">
-							<tr>
-								<td><strong>Organization&nbsp;<bean:write
-											name="assignment" property="organizationCode" />/<bean:write
-											name="assignment" property="organizationName" />
-								</strong></td>
-							</tr>
-						</logic:iterate>
-					</tbody>
-				</logic:notEmpty>
-
-				<logic:notEmpty name="ajaxForm" property="supervisorStatus">
-					<thead>
-						<tr>
-							<td><strong>PROJECT</strong></td>
-						</tr>
-					</thead>
-					<tbody>
-						<logic:iterate id="assignment" name="ajaxForm"
-							property="supervisorStatus">
-							<tr>
-								<td>&nbsp;&nbsp;&nbsp; <bean:write name="assignment"
-										property="projectCode" /> AS <bean:write name="assignment"
-										property="projectRole" /></td>
-							</tr>
-						</logic:iterate>
-					</tbody>
-				</logic:notEmpty>
-
-				<thead>
-					<tr>
-						<th class="text-center">
-							<button type="button" class='button info'
-								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-						</th>
-					</tr>
-				</thead>
-			</table>
-		</logic:notEqual>
-
-		<logic:equal name="ajaxForm" property="checkDeleteEmpoyee" value="0">
+		
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
@@ -90,7 +39,7 @@
 						<th class="text-center" colspan=2>
 							<div class="input-control select">
 								<html:select property="searchCategory" name="ajaxForm"
-									styleClass="search-category-assignment-delete">
+									styleClass="search-category-project-delete">
 									<html:option value="All">All</html:option>
 									<html:option value="taskCode">Assignment Code</html:option>
 									<html:option value="taskType">Assignment Category</html:option>
@@ -101,16 +50,16 @@
 						<th class="text-center" colspan=5>
 							<div class="input-control text">
 								<html:text property="searchKeyword" name="ajaxForm"
-									styleClass="search-keyword-assignment-delete"
-									onkeydown="if (event.keyCode == 13){ javascript:pagingAssignmentDelete('search'); return false;}"></html:text>
+									styleClass="search-keyword-project-delete"
+									onkeydown="if (event.keyCode == 13){ javascript:pagingProjectDelete('search'); return false;}"></html:text>
 								<button type="button" class="btn-search"
-									onclick="javascript:pagingAssignmentDelete('search');"></button>
+									onclick="javascript:pagingProjectDelete('search');"></button>
 							</div>
 						</th>
 					</tr>
 				</thead>
 			</table>
-			<div id="table-ajax-assignment-delete">
+			<div id="table-ajax-project-delete">
 				<table class="table striped bordered hovered">
 					<thead>
 						<tr>
@@ -153,38 +102,38 @@
 							<div class="pagination">
 								<ul>
 									<li class="first"><a
-										onclick="javascript:pagingAssignmentDelete('first');"><i
+										onclick="javascript:pagingProjectDelete('first');"><i
 											class="icon-first-2"></i></a></li>
 									<li class="prev"><a
-										onclick="javascript:pagingAssignmentDelete('prev');"><i
+										onclick="javascript:pagingProjectDelete('prev');"><i
 											class="icon-previous"></i></a></li>
 									<li class="disabled"><a>Page <span
-											id="current-page-assignment-delete"><bean:write
+											id="current-page-project-delete"><bean:write
 													name="ajaxForm" property="page" /></span> of <span
-											id="max-page-assignment-delete"><bean:write
+											id="max-page-project-delete"><bean:write
 													name="ajaxForm" property="maxpage" /></span></a></li>
 									<li class="next"><a
-										onclick="javascript:pagingAssignmentDelete('next');"><i
+										onclick="javascript:pagingProjectDelete('next');"><i
 											class="icon-next"></i></a></li>
 									<li class="last"><a
-										onclick="javascript:pagingAssignmentDelete('last');"><i
+										onclick="javascript:pagingProjectDelete('last');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
-											id="total-record-assignment-delete"><bean:write
+											id="total-record-project-delete"><bean:write
 													name="ajaxForm" property="countRecord" /></span></a></li>
 								</ul>
 							</div>
 						</th>
 						<th class="text-center"><button type="button"
 								class='button danger'
-								onclick="javascript:chooseAssignmentDelete('delete')">Delete</button>
+								onclick="javascript:chooseProjectDelete('delete')">Delete</button>
 							<button type="button" class='button info'
-								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
+								onclick="javascript:chooseProjectDelete('cancel')">Cancel</button>
 						</th>
 					</tr>
 				</thead>
 			</table>
-		</logic:equal>
+		
 	</html:form>
 </body>
 </html>

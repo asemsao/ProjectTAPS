@@ -39,6 +39,7 @@
 			<forward name="employeesOnOrganization" path="/WEB-INF/jsp/ajax/employeesOnOrganization.jsp" />
 			<forward name="comments" path="/WEB-INF/jsp/ajax/comments.jsp" />
 			<forward name="deleteEmployee" path="/WEB-INF/jsp/ajax/deleteEmployee.jsp" />
+			<forward name="deleteProject" path="/WEB-INF/jsp/ajax/deleteProject.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"
@@ -82,7 +83,7 @@
 		<action name="manageRoleForm" path="/manageRole" scope="request"
 			type="adins.ace.taps.action.ManageRoleAction">
 			<forward name="Dashboard" path="/dashboard.do" />
-			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/index.jsp" />
+			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/manageRole.jsp" />
 			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
 		</action>
 		

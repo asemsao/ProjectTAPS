@@ -35,12 +35,12 @@ public class ManageRoleManager {
 		return roleList;
 	}
 	
-	public List<MenuBean> searchListMenu() {
+	public List<MenuBean> searchListMenu(String roleId) {
 		List<MenuBean> menuList = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			menuList = ibatisSqlMap.queryForList("manageRole.searchListRole",
-					null);
+			menuList = ibatisSqlMap.queryForList("manageRole.searchListMenu",
+					roleId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -53,12 +53,13 @@ public class ManageRoleManager {
 		return menuList;
 	}
 	
-	public RoleBean detailEmployeeRole(Map params) {
-		RoleBean erBean = null;
+	public boolean deleteRoleMenu(Map h) {
+		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			erBean = (RoleBean) ibatisSqlMap.queryForObject("employeeRole.detailEmployeeRole",
-					params);
+			ibatisSqlMap.delete("manageRole.deleteRoleMenu",
+					h);
+			ibatisSqlMap.commitTransaction();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -68,6 +69,61 @@ public class ManageRoleManager {
 				e2.printStackTrace();
 			}
 		}
-		return erBean;
+		return flag;
 	}
+		
+	public boolean insertRoleMenu(Map h) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("manageRole.insertRoleMenu",
+					h);
+			ibatisSqlMap.commitTransaction();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
+//	public List<MenuBean> searchListRoleMenu(Map h) {
+//		List<MenuBean> menuList = null;
+//		try {
+//			ibatisSqlMap.startTransaction();
+//			menuList = ibatisSqlMap.queryForList("manageRole.searchListRoleMenu",
+//					h);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				ibatisSqlMap.endTransaction();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//		return menuList;
+//	}
+	
+//	public RoleBean detailEmployeeRole(Map params) {
+//		RoleBean erBean = null;
+//		try {
+//			ibatisSqlMap.startTransaction();
+//			erBean = (RoleBean) ibatisSqlMap.queryForObject("employeeRole.detailEmployeeRole",
+//					params);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				ibatisSqlMap.endTransaction();
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
+//			}
+//		}
+//		return erBean;
+//	}
 }

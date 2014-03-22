@@ -20,6 +20,24 @@ public class OrganizationBean implements Serializable {
 	private String updateBy;
 	private String updateDate;
 	private String sessionUserDomain;
+	private String projectCode;
+	private String projectName;
+
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
 
 	public String getParentName() {
 		return parentName;

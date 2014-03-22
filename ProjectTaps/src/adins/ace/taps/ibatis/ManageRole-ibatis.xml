@@ -13,9 +13,30 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 	
 	<select id="searchListMenu" resultClass="menuBean"
-	parameterClass="java.util.Map">
-		select menu_id as menuId, menu_name as menuName, task as task, description as description from menu
+	parameterClass="java.lang.String">
+		select m.menu_id as menuId, m.menu_name as menuName, m.task as task, m.description as description, 
+		(select count(1) from role_menu rm where rm.role_id=#roleId# and rm.menu_id = m.menu_id) as isExist from menu m
 	</select>
+	
+<!-- 	<select id="searchListRoleMenu" resultClass="menuBean" -->
+<!-- 	parameterClass="java.util.Map"> -->
+<!-- 		select menu_id as menuId from role_menu -->
+<!-- 		where role_id = #roleId# -->
+<!-- 	</select> -->
+	
+	<delete id="deleteRoleMenu" parameterClass="java.util.Map">
+		delete from role_menu where role_id=#roleId#
+	</delete>
+	
+	<insert id="insertRoleMenu" parameterClass="java.util.Map">
+		insert into role_menu(role_id,menu_id) values (#roleId#,#menuId#)
+	</insert>
+	
+	
+	
+	
+	
+	
 	
 <!-- 	<select id="searchEmployees" resultClass="roleBean" -->
 <!-- 		parameterClass="java.util.Map"> -->

@@ -5,9 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
-import adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -53,6 +51,44 @@ public class OrganizationManager {
 			}
 		}
 		return orgList;
+	}
+	
+	public List<OrganizationBean> listProject(Map params) {
+		List<OrganizationBean> listProject = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			listProject = ibatisSqlMap.queryForList(
+					"organization.selectProject", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return listProject;
+	}
+	
+	public List<OrganizationBean> listChild(Map params) {
+		List<OrganizationBean> listProject = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			listProject = ibatisSqlMap.queryForList(
+					"organization.selectChild", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return listProject;
 	}
 
 	public Integer countOrganizations(Map params) {
@@ -422,6 +458,7 @@ public class OrganizationManager {
 		}
 		return flag;
 	}
+	
 
 	public boolean updateAssignment(OrganizationBean orgBean) {
 		boolean flag = false;

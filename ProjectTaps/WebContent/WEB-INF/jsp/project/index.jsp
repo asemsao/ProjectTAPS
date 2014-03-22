@@ -42,8 +42,13 @@
 				});
 			}, 1000);
 		}
+		$(".delete-link").click(function() {
+			$("#projectCode").val($(this).attr('alt').trim());
+			$("#proForm").val($(this).attr('alt').trim());
+		});
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
 <title>Project</title>
 </head>
@@ -54,11 +59,11 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/project" method="post" styleClass="projectForm">
-					<html:hidden property="task" name="projectForm" />
+				<html:form action="/project" method="post" styleClass="projectForm" styleId = "proForm">
+					<html:hidden property="task" name="projectForm" styleId="task"/>
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
-					<html:hidden property="paramProjectCode" name="projectForm" />
+					<html:hidden property="paramProjectCode" name="projectForm" styleId="projectCode"/>
 					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
 					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="projectForm" />">
 					<table class="table striped bordered hovered">
@@ -132,8 +137,12 @@
 											href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');"
 											data-hint="Edit Project" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="javascript:deleteConfirm('deleteProject','<bean:write name="project" property="projectCode" />')"
-											data-hint="Delete Project" data-hint-position="bottom"><img
+<%-- 										<td class="text-center"><a href="javascript:deleteConfirm('deleteProject','<bean:write name="project" property="projectCode" />')" --%>
+<!-- 											data-hint="Delete Project" data-hint-position="bottom"><img -->
+<%-- 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td> --%>
+										<td class="text-center"><a href="#" class="delete-link deleteProject"
+											data-hint="Delete Project" data-hint-position="bottom" alt="<bean:write name="project"
+												property="projectCode" />"> <img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
 									</tr>
 								</logic:iterate>
@@ -176,7 +185,7 @@
 			</div>
 		</div>
 	</div>
-
+	<div id="lookUpDeleteProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 
