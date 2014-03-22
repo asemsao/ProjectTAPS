@@ -32,7 +32,11 @@
 		var assignment_type = $("#assignment-type").val();
 		var project_code = $("#project-code").val();
 		var organization_code = $("#organization-code-view").val();
-
+		var activity_type = $("#assignment-type").val();
+		alert(activity_type);
+		if (activity_type == "ADHOC"){
+			$(".adhoc").show();
+		}
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#employee-name-2").val($("#employee-fullName-2").val());
 		$("#project-name").val($("#project-fullName").val());
@@ -64,6 +68,7 @@
 		$("#employee-name").attr("placeholder", "Employee");
 		$("#employee-name-2").attr("placeholder", "Employee");
 		$("#description").attr("placeholder", "Description");
+		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -137,7 +142,7 @@
 								<td>:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="activity_type" checked="checked" value="Routine" /> <span class="check"></span>
+										<label> <input type="radio" name="activity_type" value="Routine" /> <span class="check"></span>
 											Routine
 										</label>
 									</div>
@@ -255,6 +260,7 @@
 		<html:hidden property="activityType" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
+		<html:hidden property="selfAssignBean.activityType" name="selfAssignmentForm" styleId="activity-type" />
 		<html:hidden property="selfAssignBean.assignmentType" name="selfAssignmentForm" styleId="assignmentType" />
 		<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view" />
 	</html:form>

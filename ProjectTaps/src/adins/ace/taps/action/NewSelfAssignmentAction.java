@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
@@ -59,10 +60,11 @@ public class NewSelfAssignmentAction extends Action {
 						.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
-				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignment(taskCode));
-				aForm.setSelfAssignBean(aMan
-						.searchHeadOrganizationCode(sessionUserDomain));
+				Map params = new HashMap();
+				params.put("taskCode", taskCode);
+				params.put("maxDate", App.getConfiguration("max_date"));
+				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
+				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
 				return mapping.findForward("NewSelfAssignment");
 			}
 		} else {
