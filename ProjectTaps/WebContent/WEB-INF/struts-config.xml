@@ -82,9 +82,9 @@
 		
 		<action name="manageRoleForm" path="/manageRole" scope="request"
 			type="adins.ace.taps.action.ManageRoleAction">
-			<forward name="Dashboard" path="/dashboard.do" />
-			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/manageRole.jsp" />
-			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
+			<forward name="ListRole" path="/WEB-INF/jsp/manageRole/index.jsp" />
+			<forward name="WizardManageRole" path="/WEB-INF/jsp/manageRole/manageRole.jsp" />
+			<forward name="ListMemberRole" path="/WEB-INF/jsp/manageRole/listMember.jsp" />
 		</action>
 		
 		<action name="specialAppraisalForm" path="/specialAppraisal"
@@ -107,7 +107,7 @@
 			<forward name="EmployeeReport" path="/employeeReport.do" />
 			<forward name="Welcome" path="/WEB-INF/index.jsp" />
 			<forward name="TransferProject" path="/transferProject.do" />
-			<forward name="ManageRole" path="/manageRole.do" />
+			<forward name="ManageRole" path="/manageRole.do?task=home" />
 		</action>
 		<action name="dashboardForm" path="/dashboard" scope="request"
 			type="adins.ace.taps.action.DashboardAction">
