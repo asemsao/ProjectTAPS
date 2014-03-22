@@ -147,17 +147,10 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<<<<<<< HEAD
 										<html:text property="selfAssignBean.assignmentTime"
 											name="selfAssignmentForm" styleId="timepicker"
 											readonly="true"></html:text>
-									</div></td> =======
-								<html:text property="selfAssignBean.assignmentTime"
-									name="selfAssignmentForm" styleId="timepicker"
-									readonly="readonly"></html:text>
-								</div>
-								</td> >>>>>>> branch 'master' of
-								https://github.com/asemsao/ProjectTAPS.git
+									</div></td> 
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
