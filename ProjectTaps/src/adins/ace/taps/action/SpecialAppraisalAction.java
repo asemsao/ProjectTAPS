@@ -31,7 +31,7 @@ public class SpecialAppraisalAction extends Action {
 			return mapping.findForward("New");
 		}
 
-		if ("appraisal".equals(mForm.getTask())) {
+		if ("Appraisal".equals(mForm.getTask())) {
 			if(mMan.Insert(mForm.getAppraisalBean())){
 				mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
 				mForm.setColor("green");
