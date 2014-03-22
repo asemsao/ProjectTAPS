@@ -774,7 +774,19 @@
 		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
 		            FROM   stars s
 		           WHERE   a.task_code = s.task_code(+))
-		            AS appraisalStar
+		            AS appraisalStar,
+		         (
+		         	SELECT   CASE
+					            WHEN MIN (created_date) BETWEEN SYSDATE - 7 AND SYSDATE
+					            THEN
+					               'True'
+					            ELSE
+					               'False'
+					         END
+					  FROM   stars
+					 WHERE   a.task_code = s.task_code(+)
+		         )
+		         AS updateableStar
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
