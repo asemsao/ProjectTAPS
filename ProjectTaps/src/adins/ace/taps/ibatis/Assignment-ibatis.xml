@@ -779,11 +779,11 @@
 		         	SELECT   CASE
 					            WHEN MIN (created_date) BETWEEN SYSDATE - 7 AND SYSDATE
 					            THEN
-					               'True'
+					               'true'
 					            ELSE
-					               'False'
+					               'false'
 					         END
-					  FROM   stars
+					  FROM   stars s
 					 WHERE   a.task_code = s.task_code(+)
 		         )
 		         AS updateableStar

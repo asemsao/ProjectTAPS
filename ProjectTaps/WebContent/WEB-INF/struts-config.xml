@@ -29,6 +29,8 @@
 	</form-beans>
 
 	<global-exceptions>
+		<exception key="error.global.mesage" type="javax.servlet.ServletException"
+			path="/WEB-INF/jsp/error/error.jsp" />
 		<exception key="error.global.mesage" type="java.lang.RuntimeException"
 			path="/WEB-INF/jsp/error/error.jsp" />
 		<exception key="error.global.mesage" type="java.lang.NullPointerException"
