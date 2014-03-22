@@ -14,8 +14,16 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<h1>Stay Calm and GGMU</h1>
-				<html:errors />
+				<table class="table striped bordered hovered">
+					<tr>
+						<th class="text-center">
+							<h1>Stay Calm and Give Your Best Performance</h1>
+						</th>
+					</tr>
+					<tr>
+						<th class="text-center"><html:errors /></th>
+					</tr>
+				</table>
 			</div>
 		</div>
 	</div>
