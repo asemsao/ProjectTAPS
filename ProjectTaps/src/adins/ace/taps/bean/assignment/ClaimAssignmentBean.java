@@ -49,6 +49,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String senderName="";
 	private String emailReceiver="";
 	private String nameReceiver="";
+	private String updateableStar;
 	
 	public String getAssignmentDate() {
 		return assignmentDate;
@@ -319,5 +320,11 @@ public class ClaimAssignmentBean implements Serializable {
 	}
 	public void setNameReceiver(String nameReceiver) {
 		this.nameReceiver = nameReceiver;
+	}
+	public String getUpdateableStar() {
+		return updateableStar;
+	}
+	public void setUpdateableStar(String updateableStar) {
+		this.updateableStar = updateableStar;
 	}	
 }
