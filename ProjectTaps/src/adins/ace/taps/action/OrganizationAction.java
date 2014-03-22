@@ -27,7 +27,9 @@ public class OrganizationAction extends Action {
 		OrganizationForm orgForm = (OrganizationForm) form;
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
-
+		HttpSession session = request.getSession(true);
+		orgForm.getOrgBean().setSessionUserDomain((String) session.getAttribute("username"));
+		
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
 		}
