@@ -110,6 +110,7 @@
 						$("#assignment-code").attr("placeholder",
 								"Reff Task Code");
 						$("#description").attr("placeholder", "Description");
+						$("#description").attr("maxlength", "1000");
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -157,7 +158,7 @@
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.assignmentTime"
 											name="claimAssignmentForm" styleId="timepicker"
-											readonly="readonly"></html:text>
+											readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>

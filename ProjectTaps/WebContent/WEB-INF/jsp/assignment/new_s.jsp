@@ -112,6 +112,7 @@
 						$("#assignment-code").attr("placeholder",
 								"Reff Task Code");
 						$("#description").attr("placeholder", "Description");
+						$("#description").attr("maxlength", "1000");
 						$("#timepicker").timeselector();
 						$("#timepicker").attr("placeholder", "Assignment Time");
 					});
@@ -149,7 +150,7 @@
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.assignmentTime"
 											name="selfAssignmentForm" styleId="timepicker"
-											readonly="readonly"></html:text>
+											readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
