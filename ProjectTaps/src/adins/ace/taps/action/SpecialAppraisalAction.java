@@ -24,14 +24,14 @@ public class SpecialAppraisalAction extends Action {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
 		Map params = new HashMap();
-
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
 		if ("New".equals(mForm.getTask())) {
 			return mapping.findForward("New");
 		}
-		if ("Appraisal".equals(mForm.getTask())) {
+
+		if ("appraisal".equals(mForm.getTask())) {
 			if(mMan.Insert(mForm.getAppraisalBean())){
 				mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
 				mForm.setColor("green");
