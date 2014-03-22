@@ -18,6 +18,11 @@ function newBUValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
+	$('#parent-organization-name').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
 
 	// initialize validate plugin on the form
 	$('.organizationForm').validate({
@@ -39,6 +44,9 @@ function newBUValidation() {
 				required : true
 			},
 			'orgBean.headName' : {
+				required : true
+			},
+			'orgBean.parentName' : {
 				required : true
 			}
 		},
