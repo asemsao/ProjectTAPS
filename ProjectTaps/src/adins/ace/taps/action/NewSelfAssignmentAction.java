@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.NewAssignmentBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
@@ -59,12 +60,13 @@ public class NewSelfAssignmentAction extends Action {
 						.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
-				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignment(taskCode));
-				aForm.setSelfAssignBean(aMan
-						.searchHeadOrganizationCode(sessionUserDomain));
+				Map params = new HashMap();
+				params.put("taskCode", taskCode);
+				params.put("maxDate", App.getConfiguration("max_date"));
+				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
+				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
+				return mapping.findForward("NewSelfAssignment");
 			}
-			return mapping.findForward("NewSelfAssignment");
 		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
@@ -73,8 +75,10 @@ public class NewSelfAssignmentAction extends Action {
 				success = aMan.deleteAssignment(taskCode);
 				if (success) {
 					session.setAttribute("message", "Success Delete Assignment");
+					session.setAttribute("color", "green");
 				} else {
 					session.setAttribute("message", "Failed Delete Assignment");
+					session.setAttribute("color", "red");
 				}
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
@@ -134,6 +138,8 @@ public class NewSelfAssignmentAction extends Action {
 					insertToDetailClaim = aMan.addDetailClaim(aForm
 							.getSelfAssignBean());
 					if (insertToDetailClaim && insertToAssignment) {
+						session.setAttribute("message", "Create Self Assignment Success!");
+						session.setAttribute("color", "green");
 						if (rfa) {
 							Map paramStatus = new HashMap();
 							paramStatus.put("updatedBy", aForm
@@ -152,6 +158,9 @@ public class NewSelfAssignmentAction extends Action {
 							params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
 							SendMailTls.SendMail(params);
 						}
+					} else {
+						session.setAttribute("message", "Create Self Assignment Failed!");
+						session.setAttribute("color", "red");
 					}
 				}
 

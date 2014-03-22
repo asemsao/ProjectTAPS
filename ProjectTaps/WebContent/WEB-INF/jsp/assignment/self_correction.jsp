@@ -18,13 +18,10 @@
 		document.selfAssignmentForm.submit();
 	}
 
-	$(document).ready(
-			function() {
-				var task_code = $("#task-code").val();
-				$("#historyComment").load(
-						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
-								+ task_code);
-			});
+	$(document).ready(function() {
+		var task_code = $("#task-code").val();
+		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+	});
 </script>
 <title>Self Assignment</title>
 </head>

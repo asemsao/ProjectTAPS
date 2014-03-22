@@ -41,6 +41,7 @@ public class NewAssignmentBean implements Serializable {
 	private String commentTo;
 	private Integer appraisalStar;
 	private Integer starBefore;
+	private String updateableStar;
 	
 	public String getAssignmentTime() {
 		return assignmentTime;
@@ -263,6 +264,12 @@ public class NewAssignmentBean implements Serializable {
 	}
 	public void setCommentTo(String commentTo) {
 		this.commentTo = commentTo;
+	}
+	public String getUpdateableStar() {
+		return updateableStar;
+	}
+	public void setUpdateableStar(String updateableStar) {
+		this.updateableStar = updateableStar;
 	}
 	
 }

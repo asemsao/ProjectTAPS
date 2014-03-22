@@ -1,6 +1,9 @@
 package adins.ace.taps.bean.module;
 
-public class RoleBean {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class RoleBean implements Serializable{
 	private String roleId;
 	private String roleName;
 	public String getRoleId() {

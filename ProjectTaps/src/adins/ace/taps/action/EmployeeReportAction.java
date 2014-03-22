@@ -39,6 +39,11 @@ public class EmployeeReportAction extends Action {
 			eForm.setMessage(session.getAttribute("message").toString());
 			session.removeAttribute("message");
 		}
+		
+		if (session.getAttribute("color") != null) {
+			eForm.setColor(session.getAttribute("color").toString());
+			session.removeAttribute("color");
+		}
 
 		if (eForm.getPage() == null) {
 			eForm.setPage(1);
@@ -196,6 +201,8 @@ public class EmployeeReportAction extends Action {
 					eMan.updateFlag(eForm.getTaskCode());
 					return mapping.findForward("RFASupervisor");
 				} else if ("APPROVED".equals(eForm.getCurrentStatus())) {
+					return mapping.findForward("ApprovedSupervisor");
+				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("ApprovedSupervisor");
 				}
 			}

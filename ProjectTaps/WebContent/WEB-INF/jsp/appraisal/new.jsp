@@ -16,7 +16,7 @@
 			document.specialAppraisalForm.task.value = "";
 			document.specialAppraisalForm.submit();
 			return;
-		} else if (task == "appraisal") {
+		} else if (task == "Appraisal") {
 			document.specialAppraisalForm.task.value = task;
 			specialAppraisalValidation();
 		}
@@ -55,7 +55,7 @@
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="appraisalBean.createdDate"
-											styleId="createdDate" name="specialAppraisalForm"></html:text>
+											styleId="createdDate" name="specialAppraisalForm" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -117,7 +117,7 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button onclick="flyToPage('appraisal')" class="button success">Appraisal</button>
+									<button onclick="flyToPage('Appraisal')" class="button success">Appraisal</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 							</tr>
 						</tbody>

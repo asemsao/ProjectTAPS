@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
@@ -148,11 +149,15 @@ public class SelfSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} 
-		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
+		
+		Map params = new HashMap();
+		params.put("taskCode", taskCode);
+		params.put("maxDate", App.getConfiguration("max_date"));
+		
+		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 		
 		/*this session to check assignment type in self_correction.jsp*/
 		session.setAttribute("type", sForm.getSelfAssignBean().getAssignmentType());
-		
 		/*this session to check activity type in self_correction.jsp*/
 		session.setAttribute("adhoc", sForm.getSelfAssignBean().getActivityType());
 		return mapping.findForward("Correction");

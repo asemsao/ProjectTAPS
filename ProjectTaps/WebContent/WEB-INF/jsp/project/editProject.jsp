@@ -107,7 +107,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text" id="datepicker-begin">
-										<html:text property="pBean.startDate" name="projectForm"></html:text>
+										<html:text property="pBean.startDate" name="projectForm" 
+										styleId="startDate" readonly="true" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>
@@ -117,7 +118,8 @@
 								<td>:</td>
 								<td>
 									<div class="input-control text " id="datepicker-end">
-										<html:text property="pBean.endDate" name="projectForm"></html:text>
+										<html:text property="pBean.endDate" name="projectForm"
+										styleId="endDate" readonly="true" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>

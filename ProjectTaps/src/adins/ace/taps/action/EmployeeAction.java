@@ -141,6 +141,21 @@ public class EmployeeAction extends Action {
 		if ("edit".equals(mForm.getTask())) {
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
+			String tamp = mForm.getNewEmployee().getPhoneNumber().replaceAll("\\(|\\)|\\-", "-");
+			System.out.println("A"+tamp);
+			String[] temp = tamp.split("-");
+			mForm.getNewEmployee().setPhoneNumberAreaCode(temp[1].trim());
+			mForm.getNewEmployee().setPhoneNumberMidNumb(temp[2].trim());
+			mForm.getNewEmployee().setPhoneNumberLastNumb(temp[3].trim());
+			tamp = mForm.getNewEmployee().getMobileNumber().replaceAll("\\(|\\)|\\-", "-");
+			if(tamp.charAt(0)!='-'){
+				tamp = "-"+tamp;
+			}
+			System.out.println("B"+tamp);
+			temp = tamp.split("-");
+			mForm.getNewEmployee().setMobileNumberAreaCode(temp[1].trim());
+			mForm.getNewEmployee().setMobileNumberMidNumb(temp[2].trim());
+			mForm.getNewEmployee().setMobileNumberLastNumb(temp[3].trim());
 			return mapping.findForward("Edit");
 		}
 		if ("new".equals(mForm.getTask())) {
@@ -168,8 +183,10 @@ public class EmployeeAction extends Action {
 				mForm.getNewEmployee().setProfilePicture(
 						IOUtils.toByteArray(fis));
 			}
-			mForm.getNewEmployee().setCreateBy(
-					session.getAttribute("username").toString());
+			mForm.getNewEmployee().setCreateBy(session.getAttribute("username").toString());
+			mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
+			mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
+			
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			if (flag) {
 				Map data = new HashMap();
@@ -207,6 +224,8 @@ public class EmployeeAction extends Action {
 			if (organizationList.size() == 0) {
 				mForm.getNewEmployee().setUpdateBy(
 						session.getAttribute("username").toString());
+				mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
+				mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
 				flag = mMan.updateEmployee(mForm.getNewEmployee());
 				mForm.setMessage("Edit Employee Successfull!");
 				mForm.setColor("green");
@@ -218,10 +237,11 @@ public class EmployeeAction extends Action {
 								mForm.getNewEmployee().getBusinessUnit())) {
 					mForm.getNewEmployee().setUpdateBy(
 							session.getAttribute("username").toString());
+					mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
+					mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
 					flag = mMan.updateEmployee(mForm.getNewEmployee());
 					mForm.setMessage("Edit Employee Successfull!");
 					mForm.setColor("green");
-
 				} else {
 					mForm.setTask("edit");
 					mForm.setMessage(organizationList.get(0)

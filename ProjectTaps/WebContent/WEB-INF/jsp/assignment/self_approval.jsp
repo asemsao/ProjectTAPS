@@ -17,7 +17,7 @@
 		document.selfAssignmentForm.task.value = task;
 		document.selfAssignmentForm.submit();
 	}
-	
+
 	$(document).ready(
 			function() {
 				var task_code = $("#task-code").val();
@@ -35,13 +35,18 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-			<html:form action="/selfSupervisorAssignment" method="POST">
-			<html:hidden property="selfAssignBean.currentStatus" name="selfAssignmentForm" styleId="status" />
-			<html:hidden property="selfAssignBean.taskCode" name="selfAssignmentForm" styleId="task-code" />
-			<html:hidden property="task" name="selfAssignmentForm" />
-			<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="selfAssignmentForm" />" />
-			<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
-			<html:hidden property="selfAssignBean.assignTo" name="selfAssignmentForm" />
+				<html:form action="/selfSupervisorAssignment" method="POST">
+					<html:hidden property="selfAssignBean.currentStatus"
+						name="selfAssignmentForm" styleId="status" />
+					<html:hidden property="selfAssignBean.taskCode"
+						name="selfAssignmentForm" styleId="task-code" />
+					<html:hidden property="task" name="selfAssignmentForm" />
+					<input type="hidden" name="tmpDescription"
+						value="<bean:write property="selfAssignBean.description" name="selfAssignmentForm" />" />
+					<input type="hidden" name="tmpManHours"
+						value="<bean:write property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
+					<html:hidden property="selfAssignBean.assignTo"
+						name="selfAssignmentForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -70,60 +75,74 @@
 										<%
 											}
 										%>
-									</h3></td>
+									</h3>
+								</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm"></bean:write></td>
-								
+								<td colspan=2><bean:write
+										property="selfAssignBean.assignmentDate"
+										name="selfAssignmentForm"></bean:write></td>
+
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="selfAssignBean.assignmentType"
-											name="selfAssignmentForm"></bean:write></td>
+								<td colspan=2><bean:write
+										property="selfAssignBean.assignmentType"
+										name="selfAssignmentForm"></bean:write></td>
 							</tr>
-							<%if(session.getAttribute("type").equals("PROJECT")){ %>
+							<%
+								if (session.getAttribute("type").equals("PROJECT")) {
+							%>
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.projectName"
-											name="selfAssignmentForm"></bean:write></td>
-								<td><b>Report to </b> : <bean:write property="selfAssignBean.reportToFullName"
-											name="selfAssignmentForm"></bean:write>
-								</td>
+										name="selfAssignmentForm"></bean:write></td>
+								<td><b>Report to </b> : <bean:write
+										property="selfAssignBean.reportToFullName"
+										name="selfAssignmentForm"></bean:write></td>
 							</tr>
-							<%} else{%>
-								<tr>
+							<%
+								} else {
+							%>
+							<tr>
 								<td>Assign By</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.organizationName"
-											name="selfAssignmentForm" /></td>
-								<td><b>Report to </b> : <bean:write property="selfAssignBean.headUserName"
-											name="selfAssignmentForm" />
-								</td>
+										name="selfAssignmentForm" /></td>
+								<td><b>Report to </b> : <bean:write
+										property="selfAssignBean.headUserName"
+										name="selfAssignmentForm" /></td>
 							</tr>
-							<%} %>
+							<%
+								}
+							%>
 							<tr>
 								<td>Activity Type</td>
 								<td>:</td>
 								<td><bean:write property="selfAssignBean.activityType"
-											name="selfAssignmentForm" /></td>
-								<%if(session.getAttribute("adhoc").equals("ADHOC")){ %>
-								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName"
-											name="selfAssignmentForm" />
-								</td>
-								<%} %>
+										name="selfAssignmentForm" /></td>
+								<%
+									if (session.getAttribute("adhoc").equals("ADHOC")) {
+								%>
+								<td><b>AdHoc to </b> : <bean:write
+										property="selfAssignBean.adhocFullName"
+										name="selfAssignmentForm" /></td>
+								<%
+									}
+								%>
 							</tr>
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode"
-											name="selfAssignmentForm" /></td>
+								<td colspan=2><bean:write
+										property="selfAssignBean.reffTaskCode"
+										name="selfAssignmentForm" /></td>
 							</tr>
 							<%
 								if ("RFA".equals(session.getAttribute("status"))) {
@@ -189,11 +208,13 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.description"
-										name="selfAssignmentForm"
-										styleClass="input-control textarea"></html:textarea></td>
+								<td colspan=2><html:textarea
+										property="selfAssignBean.description"
+										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
-							<%}else{ %>
+							<%
+								} else {
+							%>
 							<tr>
 								<td>Manhours</td>
 								<td>:</td>
@@ -255,133 +276,151 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.description"
+								<td colspan=2><html:textarea
+										property="selfAssignBean.description"
 										name="selfAssignmentForm" readonly="true"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
-							<%} 
-							if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {%>
+							<%
+								}
+									if ("RFA".equals(session.getAttribute("status"))
+											|| "APPROVED".equals(session.getAttribute("status"))) {
+							%>
 							<tr>
 								<td>Appraisal Star</td>
 								<td>:</td>
-								<td colspan=2>
-									<%
-										if ("RFA".equals(session.getAttribute("status"))) {
-												
-									%>
-									<div class="star-hider">
-										<div class="rating-kiri" style="float: left;">
-											<select id="rating-kiri" name="rating">
-												<option value="-5">-5</option>
-												<option value="-4">-4</option>
-												<option value="-3">-3</option>
-												<option value="-2">-2</option>
-												<option value="-1">-1</option>
-											</select>
-										</div>
+								<td colspan=2><logic:equal value="true"
+										property="selfAssignBean.updateableStar"
+										name="selfAssignmentForm">
+										<div class="star-hider">
+											<div class="rating-kiri" style="float: left;">
+												<select id="rating-kiri" name="rating">
+													<option value="-5">-5</option>
+													<option value="-4">-4</option>
+													<option value="-3">-3</option>
+													<option value="-2">-2</option>
+													<option value="-1">-1</option>
+												</select>
+											</div>
 
-										<div class="rating-tengah" style="float: left;">
-											<select id="rating-tengah" name="rating">
-												<option value="0">0</option>
-											</select>
-										</div>
+											<div class="rating-tengah" style="float: left;">
+												<select id="rating-tengah" name="rating">
+													<option value="0">0</option>
+												</select>
+											</div>
 
-										<div class="rating-kanan" style="float: left;">
-											<select id="rating-kanan" name="rating">
-												<option value="1">+1</option>
-												<option value="2">+2</option>
-												<option value="3">+3</option>
-												<option value="4">+4</option>
-												<option value="5">+5</option>
-											</select>
+											<div class="rating-kanan" style="float: left;">
+												<select id="rating-kanan" name="rating">
+													<option value="1">+1</option>
+													<option value="2">+2</option>
+													<option value="3">+3</option>
+													<option value="4">+4</option>
+													<option value="5">+5</option>
+												</select>
+											</div>
+											<p class="star"></p>
+											<html:hidden property="selfAssignBean.appraisalStar"
+												name="selfAssignmentForm" styleId="star" />
+											<button type="button" id="edit-star-btn" class="default">Edit</button>
 										</div>
-										<p class="star"></p>
-										<html:hidden property="selfAssignBean.appraisalStar" name="selfAssignmentForm" styleId="star" />
-										<button type="button" id="edit-star-btn" class="default">Edit</button>
-									</div>
-									<%
-										} else if("APPROVED".equals(session.getAttribute("status"))){
-									%>
-										<bean:define id="temp" name="selfAssignmentForm" property="selfAssignBean.appraisalStar" type="Integer" />
+									</logic:equal> <logic:equal value="false"
+										property="selfAssignBean.updateableStar" name="selfAssignmentForm">
+										<bean:define id="temp" name="selfAssignmentForm"
+											property="selfAssignBean.appraisalStar" type="Integer" />
 										<%
 											Integer sc = temp;
-											if (sc > 0) {
-												for (int i = 0; i < sc; i++) {
-										%> 
-													<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
-										<%
-												}
-											} else if (sc < 0) {
-												for (int i = 0; i < Math.abs(sc); i++) {
+														if (sc > 0) {
+															for (int i = 0; i < sc; i++) {
 										%>
-													<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
 										<%
-												}
-											} else {
+											}
+														} else if (sc < 0) {
+															for (int i = 0; i < Math.abs(sc); i++) {
 										%>
-												<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<%
+											}
+														} else {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
 										<%
 											}
 										%>
-									<%
-										}
-									%>
-								</td>
+									</logic:equal></td>
 							</tr>
-							<%}
-								if ("RFA".equals(session.getAttribute("status"))) {
-							%>	
-							<tr>					
+							<%
+								}
+									if ("RFA".equals(session.getAttribute("status"))) {
+							%>
+							<tr>
 								<td>Comment</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.comment"
-										name="selfAssignmentForm"
+								<td colspan=2><html:textarea
+										property="selfAssignBean.comment" name="selfAssignmentForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
-							<%} %>
-							
-							<tr>
 							<%
-								if ("CORRECTION".equals(session.getAttribute("status")) ||
-										"REJECTED".equals(session.getAttribute("status"))) {
-							%>							
-								<td colspan=4 class="text-right">
-									<html:button property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button>
-								</td>
-							
-							<%}else if("RFA".equals(session.getAttribute("status"))){ %>
-								<td colspan=4 class="text-right">
-								<html:button property="approve-btn"
-									onclick="javascript:flyToPage('approved');" styleClass="button success">Approve</html:button> 
-								<html:button  property="correction-btn"
-									onclick="javascript:flyToPage('correction');" styleClass="button warning">Correction</html:button> 
-								<html:button property="reject-btn"
-									onclick="javascript:flyToPage('reject');" styleClass="button danger">Reject</html:button> 
-								<html:button property="cancel-btn"
-									onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button></td>
-							<%} else if("APPROVED".equals(session.getAttribute("status"))){ %>							
-								<td colspan=4 class="text-right">
-									<html:button property="assign" onclick="javascript:flyToPage('updateStar');"
-										styleClass="button success">Update Star</html:button>
-									<html:button property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button>
-								</td>	
-							<%} else{ %>							
-								<td colspan=4 class="text-right">
-									<html:button property="cancel" onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button>
-								</td>	
-							<%}%>
+								}
+							%>
+
+							<tr>
+								<%
+									if ("CORRECTION".equals(session.getAttribute("status"))
+												|| "REJECTED".equals(session.getAttribute("status"))) {
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="cancel" onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button></td>
+
+								<%
+									} else if ("RFA".equals(session.getAttribute("status"))) {
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="approve-btn"
+										onclick="javascript:flyToPage('approved');"
+										styleClass="button success">Approve</html:button> <html:button
+										property="correction-btn"
+										onclick="javascript:flyToPage('correction');"
+										styleClass="button warning">Correction</html:button> <html:button
+										property="reject-btn"
+										onclick="javascript:flyToPage('reject');"
+										styleClass="button danger">Reject</html:button> <html:button
+										property="cancel-btn"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
+								<%
+									} else if ("APPROVED".equals(session.getAttribute("status"))) {
+								%>
+								<td colspan=4 class="text-right"><logic:equal value="true"
+										property="selfAssignBean.updateableStar" name="selfAssignmentForm">
+										<html:button property="assign"
+											onclick="javascript:flyToPage('updateStar');"
+											styleClass="button success">Update Star</html:button>
+									</logic:equal> <html:button property="cancel"
+										onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Cancel</html:button></td>
+								<%
+									} else {
+								%>
+								<td colspan=4 class="text-right"><html:button
+										property="cancel" onclick="javascript:flyToPage('cancel');"
+										styleClass="button info">Close</html:button></td>
+								<%
+									}
+								%>
 							</tr>
 						</tbody>
 					</table>
-					</html:form>
-					<div id="historyComment"></div>
-					</div>
+				</html:form>
+				<div id="historyComment"></div>
 			</div>
 		</div>
-	
+	</div>
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

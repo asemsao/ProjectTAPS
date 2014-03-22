@@ -17,7 +17,13 @@ public class NewEmployeeBean implements Serializable {
 	private String businessUnitName;
 	private String employeeAddress;
 	private String phoneNumber;
+	private String phoneNumberAreaCode;
+	private String phoneNumberMidNumb;
+	private String phoneNumberLastNumb;
 	private String mobileNumber;
+	private String mobileNumberAreaCode;
+	private String mobileNumberMidNumb;
+	private String mobileNumberLastNumb;
 	private String email;
 	private String golonganNumber;
 	private String golonganLevel;
@@ -28,6 +34,24 @@ public class NewEmployeeBean implements Serializable {
 	private String updateBy;
 	private String updateDate;
 	private FormFile tempProfPic;
+	public String getPhoneNumberAreaCode() {
+		return phoneNumberAreaCode;
+	}
+	public void setPhoneNumberAreaCode(String phoneNumberAreaCode) {
+		this.phoneNumberAreaCode = phoneNumberAreaCode;
+	}
+	public String getPhoneNumberMidNumb() {
+		return phoneNumberMidNumb;
+	}
+	public void setPhoneNumberMidNumb(String phoneNumberMidNumb) {
+		this.phoneNumberMidNumb = phoneNumberMidNumb;
+	}
+	public String getPhoneNumberLastNumb() {
+		return phoneNumberLastNumb;
+	}
+	public void setPhoneNumberLastNumb(String phoneNumberLastNumb) {
+		this.phoneNumberLastNumb = phoneNumberLastNumb;
+	}
 	public String getTask() {
 		return task;
 	}
@@ -159,5 +183,23 @@ public class NewEmployeeBean implements Serializable {
 	}
 	public void setBusinessUnitName(String businessUnitName) {
 		this.businessUnitName = businessUnitName;
+	}
+	public String getMobileNumberAreaCode() {
+		return mobileNumberAreaCode;
+	}
+	public void setMobileNumberAreaCode(String mobileNumberAreaCode) {
+		this.mobileNumberAreaCode = mobileNumberAreaCode;
+	}
+	public String getMobileNumberMidNumb() {
+		return mobileNumberMidNumb;
+	}
+	public void setMobileNumberMidNumb(String mobileNumberMidNumb) {
+		this.mobileNumberMidNumb = mobileNumberMidNumb;
+	}
+	public String getMobileNumberLastNumb() {
+		return mobileNumberLastNumb;
+	}
+	public void setMobileNumberLastNumb(String mobileNumberLastNumb) {
+		this.mobileNumberLastNumb = mobileNumberLastNumb;
 	}
 }

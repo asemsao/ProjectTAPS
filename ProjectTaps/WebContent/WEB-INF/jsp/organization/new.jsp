@@ -130,7 +130,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
+							<tr class="parent-organization">
 								<td><label id="parent" style="visibility: visible">Parent
 										Business Unit </label></td>
 								<td><label id=":" style="visibility: visible">:</label></td>

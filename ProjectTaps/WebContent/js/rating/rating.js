@@ -1,10 +1,25 @@
 $(function() {
+	var currentStar = $("#star").val();
+	var kiri = 0;
+	var tengah = 0;
+	var kanan = 0;
+	if (currentStar > 0) {
+		if (currentStar > 5) {
+			currentStar = 5;
+		}
+		kanan = currentStar + "";
+	} else if (currentStar < 0) {
+		kiri = currentStar + '';
+	} else if (currentStar == 0) {
+		tengah = currentStar + "";
+	}
+
 	$('#rating-kiri')
 			.barrating(
 					{
-						showSelectedRating : true,
+						showSelectedRating : false,
 						showValues : false,
-						initialRating : '0',
+						initialRating : kiri + '',
 						reverse : true,
 						onSelect : function(value, text) {
 							$('div.star-hider p').empty();
@@ -25,9 +40,9 @@ $(function() {
 	$('#rating-tengah')
 			.barrating(
 					{
-						showSelectedRating : true,
+						showSelectedRating : false,
 						showValues : false,
-						initialRating : '0',
+						initialRating : tengah + '',
 						onSelect : function(value, text) {
 							$('div.star-hider p').empty();
 							$('div.star-hider p').append("&nbsp;");
@@ -45,9 +60,9 @@ $(function() {
 	$('#rating-kanan')
 			.barrating(
 					{
-						showSelectedRating : true,
+						showSelectedRating : false,
 						showValues : false,
-						initialRating : '0',
+						initialRating : kanan + '',
 						onSelect : function(value, text) {
 							$('div.star-hider p').empty();
 							$('div.star-hider p').append("&nbsp;");
@@ -71,5 +86,4 @@ $(function() {
 		$('div.rating-kanan').show();
 		$(this).hide();
 	});
-
 });
