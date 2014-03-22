@@ -28,14 +28,16 @@
 			type="adins.ace.taps.form.dashboard.DashboardForm" />
 	</form-beans>
 
-	<global-exceptions>
-		<exception key="error.global.mesage" type="java.lang.RuntimeException"
-			path="/WEB-INF/jsp/error/error.jsp" />
-		<exception key="error.global.mesage" type="java.lang.NullPointerException"
-			path="/WEB-INF/jsp/error/error.jsp" />
-		<exception key="error.global.mesage" type="java.io.IOException"
-			path="/WEB-INF/jsp/error/error.jsp" />
-	</global-exceptions>
+<!-- 	<global-exceptions> -->
+<!-- 		<exception key="error.global.mesage" type="javax.servlet.ServletException" -->
+<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
+<!-- 		<exception key="error.global.mesage" type="java.lang.RuntimeException" -->
+<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
+<!-- 		<exception key="error.global.mesage" type="java.lang.NullPointerException" -->
+<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
+<!-- 		<exception key="error.global.mesage" type="java.io.IOException" -->
+<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
+<!-- 	</global-exceptions> -->
 
 	<action-mappings>
 		<action name="ajaxForm" path="/ajax" scope="request"
@@ -51,6 +53,7 @@
 			<forward name="comments" path="/WEB-INF/jsp/ajax/comments.jsp" />
 			<forward name="deleteEmployee" path="/WEB-INF/jsp/ajax/deleteEmployee.jsp" />
 			<forward name="deleteProject" path="/WEB-INF/jsp/ajax/deleteProject.jsp" />
+			<forward name="deleteOrganization" path="/WEB-INF/jsp/ajax/deleteOrganization.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"

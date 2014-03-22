@@ -430,12 +430,12 @@ public class AssignmentManager {
 		return assignmentBean;
 	}
 	
-	public ClaimAssignmentBean searchRecordClaimAssignment(String taskCode) {
+	public ClaimAssignmentBean searchRecordClaimAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
 			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
-					"assignment.searchRecordClaimAssignment", taskCode);
+					"assignment.searchRecordClaimAssignment", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -996,5 +996,25 @@ public class AssignmentManager {
 			}
 		}
 		return bean;
+	}
+	
+	public String checkClaimDate(Map params){
+		String status = null;
+		System.out.println(params);
+		try {
+			ibatisSQLMap.startTransaction();
+			status = (String) ibatisSQLMap.queryForObject("assignment.checkClaimDate", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println(status);
+		return status;
 	}
 }

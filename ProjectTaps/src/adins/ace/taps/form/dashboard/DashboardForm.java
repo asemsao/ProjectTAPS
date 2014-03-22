@@ -44,7 +44,25 @@ public class DashboardForm extends ActionForm {
 	private boolean unreadApprovalSelf;
 	private boolean unreadCorrection;
 	private boolean unreadCorrectionSelf;
+	private String message;
+	private String color;
 	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public NewAssignmentBean getSelfAssignBean() {
 		return selfAssignBean;
 	}

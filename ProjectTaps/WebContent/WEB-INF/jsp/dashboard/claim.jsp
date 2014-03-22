@@ -37,56 +37,46 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<td colspan=4 class="text-center text-bold"><h3>Claim
-										Assignment</h3></td>
+								<td colspan=4 class="text-center text-bold"><h3>Claim Assignment</h3></td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentType" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentType" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><bean:write property="claimBean.assignToFullName"
-										name="dashboardForm" /></td>
-								<td><b>Assignment From </b> : <bean:write
-										property="claimBean.reportToFullName" name="dashboardForm" /></td>
+								<td><bean:write property="claimBean.assignToFullName" name="dashboardForm" /></td>
+								<td><b>Assignment From </b> : <bean:write property="claimBean.reportToFullName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Reff Assignment</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.reffTaskCode"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.description"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><div class="input-control text"
-										id="datepicker">
-										<html:text property="claimBean.claimDate" name="dashboardForm"
-											styleId="assignmentDate" styleClass="datepicker-back" />
+								<td colspan=2><div class="input-control text" id="datepicker">
+										<html:text property="claimBean.claimDate" name="dashboardForm" styleId="assignmentDate" styleClass="datepicker-back" />
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -94,8 +84,7 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control text">
-										<html:text property="claimBean.claimTime"
-											name="dashboardForm" styleId="timepicker" readonly="readonly"></html:text>
+										<html:text property="claimBean.claimTime" name="dashboardForm" styleId="timepicker" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -103,8 +92,7 @@
 								<td>:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm"
-											property="claimBean.manHours">
+										<html:select name="dashboardForm" property="claimBean.manHours">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -161,19 +149,15 @@
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><html:textarea
-										property="claimBean.detailDescription" name="dashboardForm"
+								<td colspan=2><html:textarea property="claimBean.detailDescription" name="dashboardForm"
 										rows="3" styleId="description" styleClass="input-control textarea">
 									</html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right">
-									<button onclick="javascript:flyToPage('claim');"
-										class="button success">Claim</button>
-									<button onclick="javascript:flyToPage('rfa');"
-										class="button success">RFA</button>
-									<button onclick="javascript:flyToPage('cancel');"
-										class="button info">Cancel</button>
+									<button onclick="javascript:flyToPage('claim');" class="button success">Claim</button>
+									<button onclick="javascript:flyToPage('rfa');" class="button success">RFA</button>
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

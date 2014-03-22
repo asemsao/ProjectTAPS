@@ -67,9 +67,8 @@
 	$(document)
 			.ready(
 					function() {
-						var project_code = $("#project-code").val();
-						var organization_code = $("#organization-code-view")
-								.val();
+						// 		var project_code = $("#project-code").val();
+						// 		var organization_code = $("#organization-code-view").val();
 						var userDomain = $("#userDomain").val();
 
 						$("#employee-name").val($("#employee-fullName").val());
@@ -103,7 +102,6 @@
 																"/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
 											}
 										});
-
 						$("#assignmentDate").attr("placeholder",
 								"Assignment Date");
 						$("#project-name").attr("placeholder", "Project");
@@ -140,7 +138,8 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
+											name="selfAssignmentForm" styleId="assignmentDate"
+											styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -148,23 +147,33 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
+										<<<<<<< HEAD
 										<html:text property="selfAssignBean.assignmentTime"
 											name="selfAssignmentForm" styleId="timepicker"
 											readonly="true"></html:text>
-									</div></td>
+									</div></td> =======
+								<html:text property="selfAssignBean.assignmentTime"
+									name="selfAssignmentForm" styleId="timepicker"
+									readonly="readonly"></html:text>
+								</div>
+								</td> >>>>>>> branch 'master' of
+								https://github.com/asemsao/ProjectTAPS.git
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td>
-									<%	boolean headBU = false;
-										List<RoleBean> roleList = (List) session.getAttribute("role");
-										for (int i = 0; i < roleList.size(); i++) {
-											if (roleList.get(i).getRoleId().equals("hbu") || roleList.get(i).getRoleId().equals("hde") || roleList.get(i).getRoleId().equals("bom")) {
-												headBU = true;
+									<%
+										boolean headBU = false;
+											List<RoleBean> roleList = (List) session.getAttribute("role");
+											for (int i = 0; i < roleList.size(); i++) {
+												if (roleList.get(i).getRoleId().equals("hbu")
+														|| roleList.get(i).getRoleId().equals("hde")
+														|| roleList.get(i).getRoleId().equals("bom")) {
+													headBU = true;
+												}
 											}
-										}
-										if (!headBU){
+											if (!headBU) {
 									%>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
@@ -176,8 +185,9 @@
 										<label> <input type="radio" name="assignment_type"
 											value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div>
-									<%} else { %>
+									</div> <%
+ 	} else {
+ %>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
 											disabled="disabled" value="BU" /> <span class="check"></span>
@@ -186,13 +196,17 @@
 									</div>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+											checked="checked" value="PROJECT" /> <span class="check"></span>
+											Project
 										</label>
-									</div>
-									<%} %>
+									</div> <%
+ 	}
+ %>
 								</td>
 							</tr>
-							<%if (!headBU) {%>
+							<%
+								if (!headBU) {
+							%>
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
@@ -213,7 +227,8 @@
 												styleId="project-name"></html:text>
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr class="pr">
 								<td>Report To</td>
@@ -225,12 +240,13 @@
 										<html:text property="selfAssignBean.reportToFullName"
 											readonly="true" name="selfAssignmentForm"
 											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
-							<%} else {%>
+							<%
+								} else {
+							%>
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
@@ -241,8 +257,7 @@
 											readonly="true" name="selfAssignmentForm"
 											styleId="project-name"></html:text>
 										<button type="button" class="btn-search" id="project"></button>
-									</div>
-								</td>
+									</div></td>
 							</tr>
 							<tr>
 								<td>Report To</td>
@@ -254,12 +269,13 @@
 										<html:text property="selfAssignBean.reportToFullName"
 											readonly="true" name="selfAssignmentForm"
 											styleId="employee-name" />
-										<button type="button" class="btn-search"
-											id="employee"></button>
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 							</tr>
-							<%} %>
+							<%
+								}
+							%>
 							<tr>
 								<td>Activity Type</td>
 								<td>:</td>
@@ -395,7 +411,8 @@
 
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
+		<input type="hidden" id="userDomain"
+			value="<%=session.getAttribute("username")%>" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

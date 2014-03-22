@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
@@ -84,8 +85,12 @@ public class ClaimAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 
+		Map params = new HashMap();
+		params.put("taskCode", taskCode);
+		params.put("maxDate", App.getConfiguration("max_date"));
+		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Claim");
 	}

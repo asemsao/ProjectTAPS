@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
@@ -118,8 +119,13 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 
+		Map params = new HashMap();
+		params.put("taskCode", taskCode);
+		params.put("maxDate", App.getConfiguration("max_date"));
+		
+		System.out.println(params);
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		aForm.setClaimBean(aMan.searchRecordClaimAssignment(taskCode));
+		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Approval");
 	}
