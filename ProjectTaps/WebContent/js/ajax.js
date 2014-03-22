@@ -38,6 +38,25 @@ $(document).ready(
 							});
 						}, 500);
 					});
+			$(".deleteOrganization").on(
+					'click',
+					function() {
+						$("#lookUpDeleteOrganization").load(
+								"/ProjectTaps/ajax.do?mode=deleteOrganization&task=deleteOrganization&organizationCode="
+										+ $(this).attr('alt').trim());
+						setTimeout(function() {
+							$.Dialog({
+								overlay : true,
+								shadow : true,
+								flat : true,
+								icon : '<img src="images/LOGO_Taps6.png">',
+								title : 'Flat window',
+								content : $("#lookUpDeleteOrganization").html(),
+								padding : 10,
+								title : 'Assignment'
+							});
+						}, 500);
+					});
 			$("#activeDirectory").on('click', function() {
 				$.Dialog({
 					overlay : true,

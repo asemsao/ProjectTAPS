@@ -17,6 +17,10 @@
 			name="ajaxForm" />
 		<html:hidden property="mode" styleId="mode-organization-delete"
 			name="ajaxForm" />
+		<html:hidden property="page" styleId="page-organization-delete"
+			name="ajaxForm" />
+		<html:hidden property="maxpage" styleId="maxpage-organization-delete"
+			name="ajaxForm" />
 
 
 		<logic:notEqual name="ajaxForm" property="checkDeleteEmpoyee"
@@ -41,9 +45,14 @@
 						<logic:iterate id="organization" name="ajaxForm"
 							property="childOrganization">
 							<tr>
+								<td>Business Unit Code</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="organizationCode" /></td>
-
+								</tr>
+								<tr>
+								<td>Business Unit Name</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="organizationName" /></td>
 							</tr>
@@ -61,9 +70,15 @@
 							<logic:iterate id="organization" name="ajaxForm"
 							property="OrganizationProject">
 							<tr>
+							<td>Project Code</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="projectCode" /></td>
-
+							</tr>
+							
+							<tr>
+							<td>Project Name</td>
+								<td>:</td>
 								<td><bean:write name="organization"
 										property="projectName" /></td>
 							</tr>
@@ -84,17 +99,17 @@
 
 		<logic:equal name="ajaxForm" property="checkDeleteEmpoyee" value="0">
 			<table class="table striped bordered hovered">
-				<thead>
+				<thead><tr>
 					<th><strong>Are you sure to DELETE business Unit <bean:write
 								name="ajaxForm" property="organizationCode" /> ?
-					</strong></th>
+					</strong></th></tr>
+					<tr>
 					<th class="text-center"><button type="button"
 							class='button danger'
 							onclick="javascript:chooseAssignmentDelete('delete')">Delete</button>
 						<button type="button" class='button info'
 							onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-					</th>
-					</tr>
+					</th></tr>
 				</thead>
 			</table>
 		</logic:equal>

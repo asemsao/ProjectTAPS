@@ -91,6 +91,7 @@ public class AjaxAction extends Action {
 		}
 		
 		if("deleteOrganization".equals(ajaxForm.getMode())){
+			System.out.println("AC.deleteORG");
 			params.put("organizationCode", ajaxForm.getOrganizationCode());
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
