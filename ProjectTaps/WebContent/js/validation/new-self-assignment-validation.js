@@ -54,7 +54,8 @@ function newSelfAssignmentValidation() {
 				required : true
 			},
 			'selfAssignBean.reportToFullName' : {
-				required : true
+				required : true,
+				notEqualToAssignmentTo: true
 			},
 			'selfAssignBean.adhocFullName' : {
 				required : true

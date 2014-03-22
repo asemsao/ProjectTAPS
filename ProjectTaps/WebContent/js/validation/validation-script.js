@@ -1,6 +1,12 @@
 $.validator.addMethod("notEqualTo", function(value, element) {
 	return $('#employee-name').val() != $('#employee-name-2').val()
-}, "Assignee and Direct Report should not match");
+}, "Assignee and Direct Report must be different");
+
+$.validator.addMethod("notEqualToAssignmentTo", function(value, element) {
+	return $('#userDomain').val() != $('#employee-domain').val()
+}, "You Must Select Other People");
+
+
 
 (function(d, f, g, b) {
 	var e = "tooltipster", c = {

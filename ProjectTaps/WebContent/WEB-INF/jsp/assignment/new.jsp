@@ -38,73 +38,55 @@
 		}
 	}
 
-	$(document)
-			.ready(
-					function() {
-						var project_code = $("#project-code").val();
-						var organization_code = $("#organization-code-view")
-								.val();
-						var userDomain = $("#userDomain").val();
-						$("#lookUpEmployeeOnOrganization").load(
-										"/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode="
-												+ organization_code);
-						$("#lookUpEmployeeOnProject").load(
-										"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-												+ project_code);
-						$("#lookUpProject").load(
-								"/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain="
-										+ userDomain);
-						$("#employee-name").val($("#employee-fullName").val());
-
-						$("#timepicker").timeselector();
-
-						$('#project-name').bind("change",function() {
-											var project_code = $(
-													"#project-code").val();
-											$("#lookUpEmployeeOnProject").html(
-													'');
-											$("#lookUpEmployeeOnProject").load(
-															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-																	+ project_code);
-											$("#employee-name").val("");
-											$("#employee-fullName").val("");
-											$("#employee-domain").val("");
-										});
+	$(document).ready(function() {
+		var project_code = $("#project-code").val();
+		var organization_code = $("#organization-code-view").val();
+		var userDomain = $("#userDomain").val();
+		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
+		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
+		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
+		$("#employee-name").val($("#employee-fullName").val());
+		$("#timepicker").timeselector();
+		$('#project-name').bind("change",function() {
+			var project_code = $("#project-code").val();
+			$("#lookUpEmployeeOnProject").html('');
+			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
+			$("#employee-name").val("");
+			$("#employee-fullName").val("");
+			$("#employee-domain").val("");
+		});
 						
-						if ($("input[name='assignment_type']").val() == "PROJECT"){
-							$("#lookUpAssignment")
-							.load(
-									"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-						} else {
-							$("#lookUpAssignment").load(
-											"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-						}
+		if ($("input[name='assignment_type']").val() == "PROJECT"){
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+		} else {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+		}
 						
-						$("input[name='assignment_type']").change(function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment")
-														.load(
-																"/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-											}
-										});
-						$("#assignmentDate").attr("placeholder", "Assignment Date");
-						$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
-						$("#timepicker").attr("placeholder", "Assignment Time");
-						$("#project-name").attr("placeholder", "Project");
-						$("#employee-name").attr("placeholder", "Employee");
-						$("#assignment-code").attr("placeholder", "Reff Task Code");
-						$("#description").attr("placeholder", "Description");
-					});
+		$("input[name='assignment_type']").change(function() {
+			if ($(this).val() == "PROJECT") {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+			} else {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+			}
+		});
+		$("#assignmentDate").attr("placeholder", "Assignment Date");
+		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
+		$("#timepicker").attr("placeholder", "Assignment Time");
+		$("#project-name").attr("placeholder", "Project");
+		$("#employee-name").attr("placeholder", "Employee");
+		$("#assignment-code").attr("placeholder", "Reff Task Code");
+		$("#description").attr("placeholder", "Description");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST" styleId="newAssignment">
+	<html:form action="/newAssignment" method="POST"
+		styleId="newAssignment">
+		<html:hidden property="newTask" name="claimAssignmentForm" />
+		<html:hidden property="assignmentType" name="claimAssignmentForm"
+			styleId="assignment-type" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -119,8 +101,7 @@
 								<td>Assignment Date</td>
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker">
-										<html:text property="assignmentBean.assignmentDate"
-											name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
+										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -128,8 +109,7 @@
 								<td>Assignment Due Date</td>
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="assignmentBean.assignmentDueDate"
-											name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
+										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -137,119 +117,107 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="assignmentBean.assignmentTime"
-											name="claimAssignmentForm" styleId="timepicker"
-											readonly="readonly"></html:text>
+										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td>
-									<%	boolean headBU = false;
-										List<RoleBean> roleList = (List) session.getAttribute("role");
-										for (int i = 0; i < roleList.size(); i++) {
-											if (roleList.get(i).getRoleId().equals("hbu") || roleList.get(i).getRoleId().equals("hde") || roleList.get(i).getRoleId().equals("bom")) {
+									<%
+										boolean headBU = false;
+											List<RoleBean> roleList = (List) session.getAttribute("role");
+											for (int i = 0; i < roleList.size(); i++) {
+												if (roleList.get(i).getRoleId().equals("hbu")
+														|| roleList.get(i).getRoleId().equals("hde")
+														|| roleList.get(i).getRoleId().equals("bom")) {
 									%>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" checked="checked" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div>
-									<% headBU = true;} } 
-									if (!headBU) { %>
+									</div> <%
+										 	headBU = true;
+										 			}
+										 		}
+										 		if (!headBU) {
+										 %>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											disabled="disabled" value="BU" /> <span class="check"></span>
+										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
 											Business Unit
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type"
-											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div>
-									<%} %>
+									</div> <%
+										 	}
+										 %>
 								</td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
 								<td>
-									<%if (headBU) {%>
+									<%
+										if (headBU) {
+									%>
 									<div class="pr" class="in-bl">
 										<div class="input-control text">
-											<html:hidden property="assignmentBean.projectCode"
-												name="claimAssignmentForm" styleId="project-code" />
-											<html:text property="assignmentBean.projectName" readonly="true"
-												name="claimAssignmentForm" styleId="project-name" />
+											<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
+											<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
 											<button type="button" class="btn-search" id="project"></button>
 										</div>
 									</div> <br />
 									<div class="input-control text">
-										<html:hidden property="assignmentBean.assignTo"
-											name="claimAssignmentForm" styleId="employee-domain" />
-										<html:text property="assignmentBean.assignToFullName" readonly="true"
-											name="claimAssignmentForm" styleId="employee-name" />
+										<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
+										<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
 										<div class="pr" class="in-bl">
-											<button type="button" class="btn-search"
-												id="employeeOnProject"></button>
+											<button type="button" class="btn-search" id="employeeOnProject"></button>
 										</div>
 										<div id="bu" class="in-bl">
-											<button type="button" class="btn-search"
-												id="employeeOnOrganization"></button>
+											<button type="button" class="btn-search" id="employeeOnOrganization"></button>
 										</div>
-									</div>
-									<%} else {%>
+									</div> <%
+										 	} else {
+										 %>
 									<div class="input-control text">
-										<html:hidden property="assignmentBean.projectCode"
-											name="claimAssignmentForm" styleId="project-code" />
-										<html:text property="assignmentBean.projectName" readonly="true"
-											name="claimAssignmentForm" styleId="project-name" />
+										<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
+										<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
 										<button type="button" class="btn-search" id="project"></button>
-									</div>
-									<br />
-									<br />
+									</div> <br /> <br />
 									<div class="input-control text">
-										<html:hidden property="assignmentBean.assignTo"
-											name="claimAssignmentForm" styleId="employee-domain" />
-										<html:text property="assignmentBean.assignToFullName" readonly="true"
-											name="claimAssignmentForm" styleId="employee-name" />
+										<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
+										<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
 										<div>
-											<button type="button" class="btn-search"
-												id="employeeOnProject"></button>
+											<button type="button" class="btn-search" id="employeeOnProject"></button>
 										</div>
-									</div>
-									<%} %>
+									</div> <%
+										 	}
+										 %>
 								</td>
 							</tr>
 							<tr>
 								<td>Reff Task Code</td>
 								<td>:</td>
 								<td><div class="input-control text">
-										<html:text property="assignmentBean.reffTaskCode"
-											name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
+										<html:text property="assignmentBean.reffTaskCode" name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td><html:textarea property="assignmentBean.description"
-										name="claimAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
+								<td><html:textarea property="assignmentBean.description" name="claimAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
-								<button onclick="flyToPage('save')"
-										class="button success">Save</button>
-								<button onclick="flyToPage('assign')"
-										class="button success">Assign</button>
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('assign')" class="button success">Assign</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
@@ -260,10 +228,9 @@
 		</div>
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain" value="DOMAIN205" />
+		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
-		<html:hidden property="assignmentType" name="claimAssignmentForm"
-			styleId="assignment-type" />
+		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

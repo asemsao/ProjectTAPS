@@ -17,40 +17,34 @@
 		document.claimAssignmentForm.submit();
 	}
 
-	$(document).ready(
-			function() {
-				var task_code = $("#task-code").val();
-				$("#historyComment").load(
-						"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
-								+ task_code);
-				$(".manHourUpdate").change(
-						function() {
-							var totalMh = 0.0;
-							$(".manHourUpdate").each(function() {
-								totalMh += parseFloat($(this).val());
-							});
-							
-							$("#total-mh").html(calculateTotalMh(totalMh + ""));
-
-							var detailId = $(this).prev().val();
-							var manHour = $(this).val();
-							var data = "task=updateDetailClaim&detailId="
-									+ detailId + "&manHour=" + manHour;
-							$.ajax({
-								url : "/ProjectTaps/claimAssignment.do",
-								type : "POST",
-								data : data,
-								context : this,
-								error : function() {
-									console.log("problem was here!");
-								},
-								success : function(data) {
-									console.log("success");
-								}
-							});
-
-						});
+	$(document).ready(function() {
+		var task_code = $("#task-code").val();
+		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
+		$(".manHourUpdate").change(function() {
+			var totalMh = 0.0;
+			$(".manHourUpdate").each(function() {
+				totalMh += parseFloat($(this).val());
 			});
+							
+			$("#total-mh").html(calculateTotalMh(totalMh + ""));
+
+			var detailId = $(this).prev().val();
+			var manHour = $(this).val();
+			var data = "task=updateDetailClaim&detailId=" + detailId + "&manHour=" + manHour;
+			$.ajax({
+				url : "/ProjectTaps/claimAssignment.do",
+				type : "POST",
+				data : data,
+				context : this,
+				error : function() {
+					console.log("problem was here!");
+				},
+				success : function(data) {
+					console.log("success");
+				}
+			});
+		});
+	});
 </script>
 
 <title>Assignment</title>
@@ -62,12 +56,9 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/claimAssignment" method="POST">
-					<html:hidden property="claimBean.status" name="claimAssignmentForm"
-						styleId="status" />
-					<html:hidden property="claimBean.taskCode"
-						name="claimAssignmentForm" styleId="task-code" />
-					<html:hidden property="claimBean.reportTo"
-						name="claimAssignmentForm" styleId="task-code" />
+					<html:hidden property="claimBean.status" name="claimAssignmentForm" styleId="status" />
+					<html:hidden property="claimBean.taskCode" name="claimAssignmentForm" styleId="task-code" />
+					<html:hidden property="claimBean.reportTo" name="claimAssignmentForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -104,55 +95,48 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDate" name="claimAssignmentForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDate" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate"
-										name="claimAssignmentForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><logic:equal
-										property="claimBean.assignmentType" name="claimAssignmentForm"
-										value="BU">Business Unit - 
-									<bean:write property="claimBean.organizationName"
-											name="claimAssignmentForm" />
-									</logic:equal> <logic:equal property="claimBean.assignmentType"
-										name="claimAssignmentForm" value="PROJECT"> Project - 
-									<bean:write property="claimBean.projectName"
-											name="claimAssignmentForm" />
-									</logic:equal></td>
+								<td colspan=2>
+									<logic:equal property="claimBean.assignmentType" name="claimAssignmentForm" value="BU">
+										Business Unit - 
+										<bean:write property="claimBean.organizationName" name="claimAssignmentForm" />
+									</logic:equal> 
+									<logic:equal property="claimBean.assignmentType" name="claimAssignmentForm" value="PROJECT"> 
+										Project - 
+										<bean:write property="claimBean.projectName" name="claimAssignmentForm" />
+									</logic:equal>
+								</td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><bean:write property="claimBean.fullName"
-										name="claimAssignmentForm" /></td>
-								<td><b>Assignment From </b> : <bean:write
-										property="claimBean.createdByName" name="claimAssignmentForm" /></td>
+								<td><bean:write property="claimBean.fullName" name="claimAssignmentForm" /></td>
+								<td><b>Assignment From </b> : <bean:write property="claimBean.createdByName" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Reff Assignment</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.reffTaskCode"
-										name="claimAssignmentForm" /></td>
+								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.description"
-										name="claimAssignmentForm" /></td>
+								<td colspan=2><bean:write property="claimBean.description" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
 								<td>Detail Claim</td>
 								<td>:</td>
-								<td colspan=2><logic:notEmpty property="listDetailClaim"
-										name="claimAssignmentForm">
+								<td colspan=2>
+									<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
 										<table class="table striped bordered hovered">
 											<thead>
 												<tr>
@@ -163,29 +147,20 @@
 											</thead>
 											<tbody>
 												<tr>
-													<logic:iterate id="assignment" property="listDetailClaim"
-														name="claimAssignmentForm">
+													<logic:iterate id="assignment" property="listDetailClaim" name="claimAssignmentForm">
 														<tr>
-															<td class="text-center"><bean:write
-																	property="claimDate" name="assignment" /></td>
+															<td class="text-center"><bean:write property="claimDate" name="assignment" /></td>
 															<%
-																if ("CLAIM".equals(session.getAttribute("status"))
-																					|| "CORRECTION".equals(session
-																							.getAttribute("status"))) {
+																if ("CLAIM".equals(session.getAttribute("status")) 
+																		|| "CORRECTION".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription"
-																	name="assignment" rows="2"
-																	styleClass="input-control textarea"></html:textarea></td>
+															<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea"></html:textarea></td>
 															<%
-																} else if ("APPROVED".equals(session
-																					.getAttribute("status"))
-																					|| "RFA".equals(session.getAttribute("status"))
-																					|| "REJECTED".equals(session
-																							.getAttribute("status"))) {
+																} else if ("APPROVED".equals(session.getAttribute("status"))
+																		|| "RFA".equals(session.getAttribute("status"))
+																		|| "REJECTED".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription"
-																	name="assignment" rows="2"
-																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
+															<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
 																}
 															%>
@@ -193,12 +168,10 @@
 																<div class="input-control select">
 																	<%
 																		if ("CLAIM".equals(session.getAttribute("status"))
-																							|| "CORRECTION".equals(session
-																									.getAttribute("status"))) {
+																				|| "CORRECTION".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:hidden property="detailId" name="assignment" />
-																	<html:select property="manHours" name="assignment"
-																		styleClass="manHourUpdate">
+																	<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1.0">01:00</html:option>
@@ -250,14 +223,11 @@
 																		<html:option value="24.0">24:00</html:option>
 																	</html:select>
 																	<%
-																		} else if ("APPROVED".equals(session
-																							.getAttribute("status"))
-																							|| "RFA".equals(session.getAttribute("status"))
-																							|| "REJECTED".equals(session
-																									.getAttribute("status"))) {
+																		} else if ("APPROVED".equals(session.getAttribute("status"))
+																				|| "RFA".equals(session.getAttribute("status"))
+																				|| "REJECTED".equals(session.getAttribute("status"))) {
 																	%>
-																	<html:select property="manHours" name="assignment"
-																		disabled="true">
+																	<html:select property="manHours" name="assignment" disabled="true">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1.0">01:00</html:option>
@@ -319,8 +289,9 @@
 													</logic:iterate>
 												<tr>
 													<td colspan=2 class="text-right">Total</td>
-													<td class="text-center"><span id="total-mh"><bean:write
-																property="totalManhours" name="claimAssignmentForm" /></span></td>
+													<td class="text-center"><span id="total-mh">
+														<bean:write property="totalManhours" name="claimAssignmentForm" /></span>
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -328,14 +299,13 @@
 							</tr>
 							<tr>
 								<%
-									if ("CLAIM".equals(session.getAttribute("status"))
-												|| "CORRECTION".equals(session.getAttribute("status"))) {
+									if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
 								%>
 								<td>Comment</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property="claimBean.comment"
-										name="claimAssignmentForm" rows="3"
-										styleClass="input-control textarea"></html:textarea></td>
+								<td colspan=2>
+									<html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3" styleClass="input-control textarea"></html:textarea>
+								</td>
 								<%
 									}
 								%>
@@ -344,27 +314,16 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <html:button
-										property="claimclose-btn"
-										onclick="javascript:flyToPage('RFA');"
-										styleClass="button success">RFA</html:button> <html:button
-										property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> <%
- 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
- %> <html:button property="claim-btn"
-										onclick="javascript:flyToPage('claim');"
-										styleClass="button success">Claim</html:button> <html:button
-										property="claimclose-btn"
-										onclick="javascript:flyToPage('RFA');"
-										styleClass="button success">RFA</html:button> <html:button
-										property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Cancel</html:button> <%
- 	} else {
- %> <html:button property="cancel-btn"
-										onclick="javascript:flyToPage('cancel');"
-										styleClass="button info">Close</html:button>
+									%> <html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
+										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									<%
+									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+									 %> <html:button property="claim-btn" onclick="javascript:flyToPage('claim');" styleClass="button success">Claim</html:button> 
+										<html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
+										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									<%
+									 	} else {
+									 %> <html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Close</html:button>
 								</td>
 								<%
 									}
