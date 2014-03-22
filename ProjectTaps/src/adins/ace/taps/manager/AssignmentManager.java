@@ -997,4 +997,24 @@ public class AssignmentManager {
 		}
 		return bean;
 	}
+	
+	public String checkClaimDate(Map params){
+		String status = null;
+		System.out.println(params);
+		try {
+			ibatisSQLMap.startTransaction();
+			status = (String) ibatisSQLMap.queryForObject("assignment.checkClaimDate", params);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println(status);
+		return status;
+	}
 }

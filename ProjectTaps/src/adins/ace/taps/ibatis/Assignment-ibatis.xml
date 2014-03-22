@@ -1480,4 +1480,18 @@
 			</isNotNull>
 		</dynamic>
 	</select>
+	
+	<select id="checkClaimDate" resultClass="java.lang.String" parameterClass="java.util.Map">
+		SELECT   CASE
+		            WHEN #claimDate# IN
+		                       (SELECT   TO_CHAR (claim_date, 'DD/MM/YYYY')
+		                          FROM   detail_claim_assignments
+		                         WHERE   task_code = #taskCode#)
+		            THEN
+		               'false'
+		            ELSE
+		               'true'
+		         END
+		  FROM   DUAL
+	</select>
 </sqlMap>

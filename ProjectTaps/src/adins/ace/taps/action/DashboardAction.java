@@ -105,8 +105,22 @@ public class DashboardAction extends Action {
 			// claim assignment -> back to list
 			dForm.getClaimBean().setCreatedBy(userDomain);
 			Map checkDetailClaim = new HashMap();
-
-			success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
+			checkDetailClaim.put("taskCode",dForm.getClaimBean().getTaskCode());
+			checkDetailClaim.put("claimDate",dForm.getClaimBean().getClaimDate());
+			String addDetail = aMan.checkClaimDate(checkDetailClaim);
+			if (addDetail.equals("true")){
+				success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
+				if (success) {
+					dForm.setMessage("Add Detail Claim Success");
+					dForm.setColor("green");
+				} else {
+					dForm.setMessage("Failed Adding Detail Claim");
+					dForm.setColor("red");
+				}
+			} else {
+				dForm.setMessage("You've already claim assignment that day");
+				dForm.setColor("red");
+			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rfa".equals(dForm.getTask())) {

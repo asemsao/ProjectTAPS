@@ -84,7 +84,7 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control text">
-										<html:text property="claimBean.claimTime" name="dashboardForm" styleId="timepicker" readonly="readonly"></html:text>
+										<html:text property="claimBean.claimTime" name="dashboardForm" styleId="timepicker" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>

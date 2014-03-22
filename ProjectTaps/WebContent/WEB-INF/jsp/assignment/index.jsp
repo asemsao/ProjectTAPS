@@ -55,8 +55,10 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/employeeReport" method="post">
-					<input type="hidden" id="message" value="<bean:write property="message" name="employeeReportForm" />">
-					<input type="hidden" id="color" value="<bean:write property="color" name="employeeReportForm" />">
+					<html:hidden property="message" name="employeeReportForm" styleId="message"/>
+					<html:hidden property="color" name="employeeReportForm" styleId="color"/>
+<%-- 					<input type="hidden" id="message" value="<bean:write property="message" name="employeeReportForm" />"> --%>
+<%-- 					<input type="hidden" id="color" value="<bean:write property="color" name="employeeReportForm" />"> --%>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>

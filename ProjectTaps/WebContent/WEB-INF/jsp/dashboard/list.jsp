@@ -30,6 +30,19 @@
 		$("#startDate").attr("placeholder", "Start Date");
 		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
+		if ($("#message").val() != "") { 
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#color").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#message").val()
+				});
+			}, 1000);
+		}
 	});
 </script>
 
@@ -37,6 +50,8 @@
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/dashboard" method="post">
+		<html:hidden property="message" name="dashboardForm" styleId="message"/>
+		<html:hidden property="color" name="dashboardForm" styleId="color"/>
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
