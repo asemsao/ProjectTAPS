@@ -430,12 +430,12 @@ public class AssignmentManager {
 		return assignmentBean;
 	}
 	
-	public ClaimAssignmentBean searchRecordClaimAssignment(String taskCode) {
+	public ClaimAssignmentBean searchRecordClaimAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
 			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
-					"assignment.searchRecordClaimAssignment", taskCode);
+					"assignment.searchRecordClaimAssignment", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
