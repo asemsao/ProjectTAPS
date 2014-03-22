@@ -394,7 +394,7 @@
 
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain" value="DOMAIN205" />
+		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>
