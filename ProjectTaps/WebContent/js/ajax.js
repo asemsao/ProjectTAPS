@@ -53,7 +53,7 @@ $(document).ready(
 								title : 'Flat window',
 								content : $("#lookUpDeleteOrganization").html(),
 								padding : 10,
-								title : 'Assignment'
+								title : 'Business Unit'
 							});
 						}, 500);
 					});

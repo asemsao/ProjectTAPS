@@ -59,13 +59,13 @@
 			$("#CRUDForm").submit();
 		});
 		$(".delete-link").click(function() {
-			alert("masuk delete");
 			$("#organizationCode").val($(this).attr('alt').trim());
-			$("#CRUDForm").val($(this).attr('alt').trim().replace(/\-/g, ''));
+			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Business Unit</title>
 </head>
 

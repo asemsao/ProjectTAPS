@@ -16,52 +16,33 @@
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
-	$(document)
-			.ready(
-					function() {
-						var task_code = $("#task-code").val();
-						$("#historyComment").load(
-								"/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="
-										+ task_code);
-						$(".manHourUpdate")
-								.change(
-										function() {
-											var totalMh = 0.0;
-											$(".manHourUpdate")
-													.each(
-															function() {
-																totalMh += parseFloat($(
-																		this)
-																		.val());
-															});
+	$(document).ready(function() {
+		var task_code = $("#task-code").val();
+		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		$(".manHourUpdate").change(function() {
+			var totalMh = 0.0;
+			$(".manHourUpdate").each(function() {
+				totalMh += parseFloat($(this).val());
+			});
 
-											$("#total-mh").html(
-													calculateTotalMh(totalMh
-															+ ""));
-											var detailId = $(this).prev().val();
-											var manHour = $(this).val();
-											var data = "task=updateDetailClaim&detailId="
-													+ detailId
-													+ "&manHour="
-													+ manHour;
-											$
-													.ajax({
-														url : "/ProjectTaps/claimAssignment.do",
-														type : "POST",
-														data : data,
-														context : this,
-														error : function() {
-															console
-																	.log("problem was here!");
-														},
-														success : function(data) {
-															console
-																	.log("success");
-														}
-													});
-
-										});
-					});
+			$("#total-mh").html(calculateTotalMh(totalMh + ""));
+			var detailId = $(this).prev().val();
+			var manHour = $(this).val();
+			var data = "task=updateDetailClaim&detailId=" + detailId + "&manHour=" + manHour;
+			$.ajax({
+				url : "/ProjectTaps/claimAssignment.do",
+				type : "POST",
+				data : data,
+				context : this,
+				error : function() {
+					console.log("problem was here!");
+				},
+				success : function(data) {
+					console.log("success");
+				}
+			});
+		});
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Assignment</title>
@@ -88,54 +69,44 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Assignment Type</td>
 								<td>:</td>
-								<td colspan=2><logic:equal
-										property="claimBean.assignmentType" name="dashboardForm"
-										value="BU">Business Unit - 
-									<bean:write property="claimBean.organizationName"
-											name="dashboardForm" />
-									</logic:equal> <logic:equal property="claimBean.assignmentType"
-										name="dashboardForm" value="PROJECT"> Project - 
-									<bean:write property="claimBean.projectName"
-											name="dashboardForm" />
+								<td colspan=2>
+									<logic:equal property="claimBean.assignmentType" name="dashboardForm" value="BU">Business Unit - 
+										<bean:write property="claimBean.organizationName" name="dashboardForm" />
+									</logic:equal> 
+									<logic:equal property="claimBean.assignmentType" name="dashboardForm" value="PROJECT"> Project - 
+										<bean:write property="claimBean.projectName" name="dashboardForm" />
 									</logic:equal></td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
-								<td><bean:write property="claimBean.fullName"
-										name="dashboardForm" /></td>
-								<td><b>Assignment From </b> : <bean:write
-										property="claimBean.createdByName" name="dashboardForm" /></td>
+								<td><bean:write property="claimBean.fullName" name="dashboardForm" /></td>
+								<td><b>Assignment From </b> : <bean:write property="claimBean.createdByName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Reff Assignment</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.reffTaskCode"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Description</td>
 								<td>:</td>
-								<td colspan=2><bean:write property="claimBean.description"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td>Detail Claim</td>
 								<td>:</td>
-								<td colspan=2><logic:notEmpty property="listDetailClaim"
-										name="dashboardForm">
+								<td colspan=2><logic:notEmpty property="listDetailClaim" name="dashboardForm">
 										<table class="table striped bordered hovered">
 											<thead>
 												<tr>
@@ -146,19 +117,15 @@
 											</thead>
 											<tbody>
 												<tr>
-													<logic:iterate id="assignment" property="listDetailClaim"
-														name="dashboardForm">
+													<logic:iterate id="assignment" property="listDetailClaim" name="dashboardForm">
 														<tr>
-															<td class="text-center"><bean:write
-																	property="claimDate" name="assignment" /></td>
-															<td><html:textarea property="detailDescription"
-																	name="assignment" rows="2" readonly="readonly"
+															<td class="text-center"><bean:write property="claimDate" name="assignment" /></td>
+															<td><html:textarea property="detailDescription" name="assignment" rows="2" readonly="readonly"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<td class="text-center">
 																<div class="input-control select">
 																	<html:hidden property="detailId" name="assignment" />
-																	<html:select property="manHours" name="assignment"
-																		styleClass="manHourUpdate">
+																	<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
 																		<html:option value="">00:00</html:option>
 																		<html:option value="0.5">00:30</html:option>
 																		<html:option value="1.0">01:00</html:option>
@@ -216,8 +183,8 @@
 													</logic:iterate>
 												<tr>
 													<td colspan=2 class="text-right">Total</td>
-													<td class="text-center"><span id="total-mh"><bean:write
-																property="totalManHours" name="dashboardForm" /></span></td>
+													<td class="text-center"><span id="total-mh">
+														<bean:write property="totalManHours" name="dashboardForm" /></span></td>
 												</tr>
 											</tbody>
 										</table>
@@ -262,20 +229,15 @@
 							<tr>
 								<td>Comment</td>
 								<td>:</td>
-								<td colspan=2><html:textarea property="claimBean.comment"
-										name="dashboardForm" rows="3"
+								<td colspan=2><html:textarea property="claimBean.comment" name="dashboardForm" rows="3"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=4 class="text-right"><button
-										onclick="javascript:flyToPage('approved');"
-										class="button success">Approve</button>
-									<button onclick="javascript:flyToPage('correction');"
-										class="button warning">Correction</button>
-									<button onclick="javascript:flyToPage('reject');"
-										class="button danger">Reject</button>
-									<button onclick="javascript:flyToPage('cancel');"
-										class="button info">Cancel</button></td>
+								<td colspan=4 class="text-right">
+									<button onclick="javascript:flyToPage('approved');" class="button success">Approve</button>
+									<button onclick="javascript:flyToPage('correction');" class="button warning">Correction</button>
+									<button onclick="javascript:flyToPage('reject');" class="button danger">Reject</button>
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 							</tr>
 						</tbody>
 					</table>

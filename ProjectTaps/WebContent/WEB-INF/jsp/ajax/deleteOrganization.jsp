@@ -60,40 +60,15 @@
 					</tbody>
 				</logic:notEmpty>
 
-				<logic:notEmpty name="ajaxForm" property="OrganizationProject">
-					<thead>
-						<tr>
-							<td><strong>PROJECT</strong></td>
-						</tr>
-					</thead>
-					<tbody>
-							<logic:iterate id="organization" name="ajaxForm"
-							property="OrganizationProject">
-							<tr>
-							<td>Project Code</td>
-								<td>:</td>
-								<td><bean:write name="organization"
-										property="projectCode" /></td>
-							</tr>
-							
-							<tr>
-							<td>Project Name</td>
-								<td>:</td>
-								<td><bean:write name="organization"
-										property="projectName" /></td>
-							</tr>
-						</logic:iterate>
-					</tbody>
-				</logic:notEmpty>
-
-				<thead>
-					<tr>
-						<th class="text-center">
-							<button type="button" class='button info'
-								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-						</th>
-					</tr>
-				</thead>
+				
+<!-- 				<thead> -->
+<!-- 					<tr> -->
+<!-- 						<th class="text-center"> -->
+<!-- 							<button type="button" class='button info' -->
+<!-- 								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
+<!-- 						</th> -->
+<!-- 					</tr> -->
+<!-- 				</thead> -->
 			</table>
 		</logic:notEqual>
 
@@ -103,13 +78,13 @@
 					<th><strong>Are you sure to DELETE business Unit <bean:write
 								name="ajaxForm" property="organizationCode" /> ?
 					</strong></th></tr>
-					<tr>
-					<th class="text-center"><button type="button"
-							class='button danger'
-							onclick="javascript:chooseAssignmentDelete('delete')">Delete</button>
-						<button type="button" class='button info'
-							onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
-					</th></tr>
+<!-- 					<tr> -->
+<!-- 					<th class="text-center"><button type="button" -->
+<!-- 							class='button danger' -->
+<!-- 							onclick="javascript:chooseOrganizationDelete('delete')">Delete</button> -->
+<!-- 						<button type="button" class='button info' -->
+<!-- 							onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
+<!-- 					</th></tr> -->
 				</thead>
 			</table>
 		</logic:equal>
