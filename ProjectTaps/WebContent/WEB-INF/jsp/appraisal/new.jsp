@@ -55,7 +55,7 @@
 								<td>:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="appraisalBean.createdDate"
-											styleId="createdDate" name="specialAppraisalForm"></html:text>
+											styleId="createdDate" name="specialAppraisalForm" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>

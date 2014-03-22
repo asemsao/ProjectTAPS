@@ -61,7 +61,7 @@
 								<th colspan=3>
 									<div class="input-control text" id="datepicker-begin">
 										<html:text property="startDate" name="specialAppraisalForm"
-											styleId="startDate"></html:text>
+											styleId="startDate" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -72,7 +72,7 @@
 								<th colspan=3>
 									<div class="input-control text" id="datepicker-begin">
 										<html:text property="endDate" name="specialAppraisalForm"
-											styleId="endDate"></html:text>
+											styleId="endDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
