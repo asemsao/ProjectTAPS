@@ -139,7 +139,7 @@
 								<td>:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate"
-											name="selfAssignmentForm" styleId="assignmentDate"></html:text>
+											name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>

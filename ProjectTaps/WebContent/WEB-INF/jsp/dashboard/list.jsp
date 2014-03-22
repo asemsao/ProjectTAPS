@@ -26,6 +26,11 @@
 		document.dashboardForm.taskType.value = taskType;
 		document.dashboardForm.submit();
 	}
+	$(document).ready(function() {
+		$("#startDate").attr("placeholder", "Start Date");
+		$("#endDate").attr("placeholder", "End Date");
+		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
+	});
 </script>
 
 </head>
@@ -43,8 +48,8 @@
 							<tr>
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
-									<div class="input-control text" id="datepicker-begin">
-										<html:text property="startDate" name="dashboardForm" styleClass="datepicker-all"></html:text>
+									<div class="input-control text" id="datepicker">
+										<html:text property="startDate" name="dashboardForm" styleId="startDate" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -52,8 +57,8 @@
 							<tr>
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
-									<div class="input-control text" id="datepicker-end">
-										<html:text property="endDate" name="dashboardForm" styleClass="datepicker-all"></html:text>
+									<div class="input-control text" id="datepicker">
+										<html:text property="endDate" name="dashboardForm" styleId="endDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -61,7 +66,7 @@
 							<tr>
 								<th colspan=2 class="text-center">
 									<div class="input-control select">
-										<html:select property="category" name="dashboardForm">
+										<html:select property="category" name="dashboardForm" >
 											<html:option value="All">All</html:option>
 											<html:option value="taskCode">Assignment Code</html:option>
 											<html:option value="taskType">Assignment Category</html:option>
@@ -73,7 +78,7 @@
 								<th colspan=5 class="text-center">
 									<div class="input-control text">
 										<html:text property="keyword" name="dashboardForm"
-											styleId="searchKeyword"></html:text>
+											styleId="searchKeyword" ></html:text>
 										<button class="btn-search"
 											onclick="javascript:flyToPage('search');"></button>
 									</div>

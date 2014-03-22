@@ -22,6 +22,7 @@ public class ClaimAssignmentBean implements Serializable {
 	private String description;
 	private Integer detailId;
 	private String claimDate;
+	private String claimTime;
 	private String detailDescription;
 	private Double manHours;
 	private String updatedBy;
@@ -156,6 +157,12 @@ public class ClaimAssignmentBean implements Serializable {
 	}
 	public void setClaimDate(String claimDate) {
 		this.claimDate = claimDate;
+	}
+	public String getClaimTime() {
+		return claimTime;
+	}
+	public void setClaimTime(String claimTime) {
+		this.claimTime = claimTime;
 	}
 	public String getDetailDescription() {
 		return detailDescription;

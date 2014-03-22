@@ -31,7 +31,6 @@
 		$("#startDate").attr("placeholder", "Start Date");
 		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
-		$("#searchKeyword").attr("placeholder", "Keyword of Assignment");
 		if ($("#message").val() != "") {
 			setTimeout(function() {
 				$.Notify({
@@ -67,9 +66,9 @@
 							<tr>
 								<th colspan=2 class="text-center">Assignment Deadline From</th>
 								<th colspan=5>
-									<div class="input-control text" id="datepicker-begin">
+									<div class="input-control text" id="datepicker">
 										<html:text property="startDate" name="employeeReportForm"
-											styleId="startDate" styleClass="datepicker-all"></html:text>
+											styleId="startDate" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -77,9 +76,9 @@
 							<tr>
 								<th colspan=2 class="text-center">Assignment Deadline To</th>
 								<th colspan=5>
-									<div class="input-control text" id="datepicker-end">
+									<div class="input-control text" id="datepicker">
 										<html:text property="endDate" name="employeeReportForm"
-											styleId="endDate" styleClass="datepicker-all"></html:text>
+											styleId="endDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>

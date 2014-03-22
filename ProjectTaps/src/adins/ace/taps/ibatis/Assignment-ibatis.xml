@@ -857,7 +857,7 @@
 		                                      flag)
 		  VALUES   (SEQUENCE_CLAIMS.NEXTVAL,
 		            #taskCode#,
-		            TO_DATE (#claimDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
+		            TO_DATE (#claimDate# || ' ' || #claimTime#, 'DD/MM/YYYY HH24:MI'),
 		            #manHours#,
 		            #detailDescription#,
 		            #createdBy#,
@@ -1011,7 +1011,7 @@
 				         LEFT JOIN
 				            employees e
 				         ON a.report_to = e.user_domain
-				 WHERE   a.current_status != 'DELETED'
+				 WHERE   a.current_status != 'DELETED' AND a.current_status != 'DRAFT'
 				<dynamic prepend="AND">
 					<isNotNull property="userDomainAssignTo">
 						<isNotEmpty property="userDomainAssignTo">
@@ -1086,7 +1086,7 @@
 		         LEFT JOIN
 		            employees e
 		         ON a.report_to = e.user_domain
-		 WHERE   a.current_status != 'DELETED'
+		 WHERE   a.current_status != 'DELETED' AND a.current_status != 'DRAFT'
 		<dynamic prepend="AND">
 			<isNotNull property="userDomainAssignTo">
 				<isNotEmpty property="userDomainAssignTo">
@@ -1166,7 +1166,7 @@
 				         LEFT JOIN
 				            employees e
 				         ON a.assign_to = e.user_domain
-				 WHERE   a.current_status != 'DELETED'
+				 WHERE   a.current_status != 'DELETED' AND a.current_status != 'DRAFT'
 				<dynamic prepend="AND">
 					<isNotNull property="userDomainReportTo">
 						<isNotEmpty property="userDomainReportTo">
@@ -1241,7 +1241,7 @@
 		         LEFT JOIN
 		            employees e
 		         ON a.assign_to = e.user_domain
-		 WHERE   a.current_status != 'DELETED'
+		 WHERE   a.current_status != 'DELETED' AND a.current_status != 'DRAFT'
 		<dynamic prepend="AND">
 			<isNotNull property="userDomainReportTo">
 				<isNotEmpty property="userDomainReportTo">

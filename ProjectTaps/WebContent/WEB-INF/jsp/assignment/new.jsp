@@ -118,18 +118,18 @@
 							<tr>
 								<td>Assignment Date</td>
 								<td>:</td>
-								<td><div class="input-control text " id="datepicker-begin">
+								<td><div class="input-control text " id="datepicker">
 										<html:text property="assignmentBean.assignmentDate"
-											name="claimAssignmentForm" styleId="assignmentDate"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
 								<td>Assignment Due Date</td>
 								<td>:</td>
-								<td><div class="input-control text" id="datepicker-end">
+								<td><div class="input-control text" id="datepicker">
 										<html:text property="assignmentBean.assignmentDueDate"
-											name="claimAssignmentForm" styleId="assignmentDueDate"></html:text>
+											name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>

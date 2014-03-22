@@ -21,8 +21,8 @@
 	$(document).ready(function() {
 		$("#timepicker").timeselector();
 		$("#assignmentDate").attr("placeholder", "Assignment Date");
-		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
 		$("#timepicker").attr("placeholder", "Assignment Time");
+		$("#description").attr("placeholder", "Description");
 	});
 </script>
 
@@ -85,7 +85,8 @@
 								<td>:</td>
 								<td colspan=2><div class="input-control text"
 										id="datepicker">
-										<html:text property="claimBean.claimDate" name="dashboardForm" />
+										<html:text property="claimBean.claimDate" name="dashboardForm"
+											styleId="assignmentDate" styleClass="datepicker-back" />
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -93,7 +94,7 @@
 								<td>Assignment Time</td>
 								<td>:</td>
 								<td colspan=2><div class="input-control text">
-										<html:text property="claimBean.assignmentTime"
+										<html:text property="claimBean.claimTime"
 											name="dashboardForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
@@ -162,7 +163,7 @@
 								<td>:</td>
 								<td colspan=2><html:textarea
 										property="claimBean.detailDescription" name="dashboardForm"
-										rows="3" styleClass="input-control textarea">
+										rows="3" styleId="description" styleClass="input-control textarea">
 									</html:textarea></td>
 							</tr>
 							<tr>
