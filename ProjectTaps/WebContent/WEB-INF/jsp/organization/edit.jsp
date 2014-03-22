@@ -47,6 +47,10 @@
 						$("#lookUpOrganization").load(
 								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 										+ level);
+
+						if ($("#level").val() == "0") {
+							$("#parent-organization").hide();
+						}
 						$('#level').bind(
 								"change",
 								function() {
@@ -152,7 +156,7 @@
 								</td>
 							</tr>
 
-							<tr>
+							<tr id="parent-organization">
 								<td><label id="parent" style="visibility: visible">Parent
 										Business Unit </label></td>
 								<td><label id=":" style="visibility: visible">:</label></td>

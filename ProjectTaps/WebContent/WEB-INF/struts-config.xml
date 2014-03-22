@@ -4,9 +4,11 @@
 <struts-config>
 
 	<form-beans>
-		<form-bean name="manageRoleForm" type="adins.ace.taps.form.manageRole.ManageRoleForm" />
+		<form-bean name="manageRoleForm"
+			type="adins.ace.taps.form.manageRole.ManageRoleForm" />
 		<form-bean name="projectForm" type="adins.ace.taps.form.project.ProjectForm" />
-		<form-bean name="transferProjectForm" type="adins.ace.taps.form.project.TransferProjectForm" />
+		<form-bean name="transferProjectForm"
+			type="adins.ace.taps.form.project.TransferProjectForm" />
 		<form-bean name="reportForm" type="adins.ace.taps.form.report.ReportForm" />
 		<form-bean name="organizationForm"
 			type="adins.ace.taps.form.organization.OrganizationForm" />
@@ -25,6 +27,15 @@
 		<form-bean name="dashboardForm"
 			type="adins.ace.taps.form.dashboard.DashboardForm" />
 	</form-beans>
+
+	<global-exceptions>
+		<exception key="error.global.mesage" type="java.lang.RuntimeException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="java.lang.NullPointerException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="java.io.IOException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+	</global-exceptions>
 
 	<action-mappings>
 		<action name="ajaxForm" path="/ajax" scope="request"
@@ -51,8 +62,8 @@
 			<forward name="AddMember" path="/WEB-INF/jsp/project/add.jsp" />
 			<forward name="EditMember" path="/WEB-INF/jsp/project/editMember.jsp" />
 		</action>
-		<action name="transferProjectForm" path="/transferProject" scope="request"
-			type="adins.ace.taps.action.TransferProjectAction">
+		<action name="transferProjectForm" path="/transferProject"
+			scope="request" type="adins.ace.taps.action.TransferProjectAction">
 			<forward name="ListTransferProject" path="/WEB-INF/jsp/project/transferProject.jsp" />
 		</action>
 		<action name="reportForm" path="/report" scope="request"
@@ -79,14 +90,14 @@
 			<forward name="New" path="/WEB-INF/jsp/employee/new.jsp" />
 			<forward name="ListEmployee" path="/WEB-INF/jsp/employee/index.jsp" />
 		</action>
-		
+
 		<action name="manageRoleForm" path="/manageRole" scope="request"
 			type="adins.ace.taps.action.ManageRoleAction">
 			<forward name="Dashboard" path="/dashboard.do" />
 			<forward name="ListEmployeeRole" path="/WEB-INF/jsp/manageRole/manageRole.jsp" />
 			<forward name="DetailEmployeeRole" path="/WEB-INF/jsp/manageRole/detail.jsp" />
 		</action>
-		
+
 		<action name="specialAppraisalForm" path="/specialAppraisal"
 			scope="request" type="adins.ace.taps.action.SpecialAppraisalAction">
 			<forward name="View" path="/WEB-INF/jsp/appraisal/view.jsp" />
@@ -172,8 +183,8 @@
 			<forward name="Approval" path="/WEB-INF/jsp/assignment/approval.jsp" />
 			<forward name="Cancel" path="/employeeReport.do" />
 		</action>
-		<action name="selfAssignmentForm" path="/selfAssignment"
-			scope="request" type="adins.ace.taps.action.SelfAssignmentAction">
+		<action name="selfAssignmentForm" path="/selfAssignment" scope="request"
+			type="adins.ace.taps.action.SelfAssignmentAction">
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_correction.jsp" />
 			<forward name="Cancel" path="/employeeReport.do" />
 		</action>

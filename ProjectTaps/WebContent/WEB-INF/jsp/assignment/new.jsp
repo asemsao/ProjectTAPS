@@ -47,7 +47,6 @@
 		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#timepicker").timeselector();
-
 		$('#project-name').bind("change",function() {
 			var project_code = $("#project-code").val();
 			$("#lookUpEmployeeOnProject").html('');
@@ -83,7 +82,11 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST" styleId="newAssignment">
+	<html:form action="/newAssignment" method="POST"
+		styleId="newAssignment">
+		<html:hidden property="newTask" name="claimAssignmentForm" />
+		<html:hidden property="assignmentType" name="claimAssignmentForm"
+			styleId="assignment-type" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -121,10 +124,13 @@
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td>
-									<%	boolean headBU = false;
-										List<RoleBean> roleList = (List) session.getAttribute("role");
-										for (int i = 0; i < roleList.size(); i++) {
-											if (roleList.get(i).getRoleId().equals("hbu") || roleList.get(i).getRoleId().equals("hde") || roleList.get(i).getRoleId().equals("bom")) {
+									<%
+										boolean headBU = false;
+											List<RoleBean> roleList = (List) session.getAttribute("role");
+											for (int i = 0; i < roleList.size(); i++) {
+												if (roleList.get(i).getRoleId().equals("hbu")
+														|| roleList.get(i).getRoleId().equals("hde")
+														|| roleList.get(i).getRoleId().equals("bom")) {
 									%>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" checked="checked" value="BU" /> <span class="check"></span>
@@ -134,9 +140,12 @@
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div>
-									<% headBU = true;} } 
-									if (!headBU) { %>
+									</div> <%
+										 	headBU = true;
+										 			}
+										 		}
+										 		if (!headBU) {
+										 %>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
 											Business Unit
@@ -145,15 +154,18 @@
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div>
-									<%} %>
+									</div> <%
+										 	}
+										 %>
 								</td>
 							</tr>
 							<tr>
 								<td>Assign To</td>
 								<td>:</td>
 								<td>
-									<%if (headBU) {%>
+									<%
+										if (headBU) {
+									%>
 									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
@@ -170,23 +182,23 @@
 										<div id="bu" class="in-bl">
 											<button type="button" class="btn-search" id="employeeOnOrganization"></button>
 										</div>
-									</div>
-									<%} else {%>
+									</div> <%
+										 	} else {
+										 %>
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
 										<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
 										<button type="button" class="btn-search" id="project"></button>
-									</div>
-									<br />
-									<br />
+									</div> <br /> <br />
 									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
 										<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
 										<div>
 											<button type="button" class="btn-search" id="employeeOnProject"></button>
 										</div>
-									</div>
-									<%} %>
+									</div> <%
+										 	}
+										 %>
 								</td>
 							</tr>
 							<tr>
@@ -216,7 +228,7 @@
 		</div>
 		<!-- ini nanti ambil session -->
 		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain" value="DOMAIN205" />
+		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
 	</html:form>
