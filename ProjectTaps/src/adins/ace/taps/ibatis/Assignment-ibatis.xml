@@ -730,7 +730,11 @@
 		         a.adhoc_user_domain AS adhocUserDomain,
 		         adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName,
 		         a.description AS description,
-		         d.manhour AS manHours
+		         d.manhour AS manHours,
+		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
+		            FROM   stars s
+		           WHERE   a.task_code = s.task_code(+))
+		            AS appraisalStar
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,
@@ -765,7 +769,11 @@
 		         a.reff_task_code AS reffTaskCode,
 		         a.activity_type AS activityType,
 		         a.current_status AS status,
-		         a.description AS description
+		         a.description AS description,
+		         (SELECT   (SUM (s.star_after) - SUM (s.star_before))
+		            FROM   stars s
+		           WHERE   a.task_code = s.task_code(+))
+		            AS appraisalStar
 		  FROM   assignments a,
 		         organizations o,
 		         employees e,

@@ -1,3 +1,5 @@
+<%@page import="adins.ace.taps.bean.module.RoleBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -154,6 +156,15 @@
 								<td>Assignment Type</td>
 								<td>:</td>
 								<td>
+									<%	boolean headBU = false;
+										List<RoleBean> roleList = (List) session.getAttribute("role");
+										for (int i = 0; i < roleList.size(); i++) {
+											if (roleList.get(i).getRoleId().equals("hbu") || roleList.get(i).getRoleId().equals("hde") || roleList.get(i).getRoleId().equals("bom")) {
+												headBU = true;
+											}
+										}
+										if (!headBU){
+									%>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type"
 											checked="checked" value="BU" /> <span class="check"></span>
@@ -165,12 +176,27 @@
 											value="PROJECT" /> <span class="check"></span> Project
 										</label>
 									</div>
+									<%} else { %>
+									<div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											disabled="disabled" value="BU" /> <span class="check"></span>
+											Business Unit
+										</label>
+									</div>
+									<div class="input-control radio margin10">
+										<label> <input type="radio" name="assignment_type"
+											checked="checked" value="PROJECT" /> <span class="check"></span> Project
+										</label>
+									</div>
+									<%} %>
 								</td>
 							</tr>
+							<%if (!headBU) {%>
 							<tr>
 								<td>Assign By</td>
 								<td>:</td>
-								<td><div id="bu">
+								<td>
+									<div id="bu">
 										<bean:write property="selfAssignBean.organizationName"
 											name="selfAssignmentForm" />
 										&nbsp;&nbsp; <b>Report to </b> :
@@ -203,6 +229,36 @@
 									</div>
 								</td>
 							</tr>
+							<%} else {%>
+							<tr>
+								<td>Assign By</td>
+								<td>:</td>
+								<td><div class="input-control text">
+										<html:hidden property="selfAssignBean.projectCode"
+											name="selfAssignmentForm" styleId="project-code"></html:hidden>
+										<html:text property="selfAssignBean.projectName"
+											readonly="true" name="selfAssignmentForm"
+											styleId="project-name"></html:text>
+										<button type="button" class="btn-search" id="project"></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>Report To</td>
+								<td>:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="selfAssignBean.reportTo"
+											name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.reportToFullName"
+											readonly="true" name="selfAssignmentForm"
+											styleId="employee-name" />
+										<button type="button" class="btn-search"
+											id="employee"></button>
+									</div>
+								</td>
+							</tr>
+							<%} %>
 							<tr>
 								<td>Activity Type</td>
 								<td>:</td>

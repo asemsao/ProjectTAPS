@@ -259,7 +259,8 @@
 										name="selfAssignmentForm" readonly="true"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
-							<%} %>
+							<%} 
+							if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) {%>
 							<tr>
 								<td>Appraisal Star</td>
 								<td>:</td>
@@ -327,7 +328,7 @@
 									%>
 								</td>
 							</tr>
-							<%
+							<%}
 								if ("RFA".equals(session.getAttribute("status"))) {
 							%>	
 							<tr>					

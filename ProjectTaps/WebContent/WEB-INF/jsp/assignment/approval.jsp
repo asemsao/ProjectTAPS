@@ -334,6 +334,7 @@
 										</table>
 									</logic:notEmpty></td>
 							</tr>
+							<%if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) { %>
 							<tr>
 								<td>Appraisal Star</td>
 								<td>:</td>
@@ -401,6 +402,7 @@
 									%>
 								</td>
 							</tr>
+							<%} %>
 							<tr>
 								<%
 									if ("RFA".equals(session.getAttribute("status"))) {
