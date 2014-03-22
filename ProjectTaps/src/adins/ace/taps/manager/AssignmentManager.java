@@ -390,13 +390,12 @@ public class AssignmentManager {
 		return assignmentBean;
 	}
 
-	public NewAssignmentBean searchRecordSelfAssignment(String taskCode) {
+	public NewAssignmentBean searchRecordSelfAssignment(Map params) {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();
-		System.out.println(assignmentBean.getTaskCode());
 		try {
 			ibatisSQLMap.startTransaction();
 			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
-					"assignment.searchRecordSelfAssignment", taskCode);
+					"assignment.searchRecordSelfAssignment", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -412,7 +411,6 @@ public class AssignmentManager {
 
 	public NewAssignmentBean searchRecordSelfAssignmentDraft(String taskCode) {
 		NewAssignmentBean assignmentBean = new NewAssignmentBean();
-		System.out.println(assignmentBean.getTaskCode());
 		try {
 			ibatisSQLMap.startTransaction();
 			assignmentBean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
@@ -1000,7 +998,6 @@ public class AssignmentManager {
 	
 	public String checkClaimDate(Map params){
 		String status = null;
-		System.out.println(params);
 		try {
 			ibatisSQLMap.startTransaction();
 			status = (String) ibatisSQLMap.queryForObject("assignment.checkClaimDate", params);
@@ -1014,7 +1011,6 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-		System.out.println(status);
 		return status;
 	}
 }

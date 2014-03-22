@@ -202,6 +202,8 @@ public class EmployeeReportAction extends Action {
 					return mapping.findForward("RFASupervisor");
 				} else if ("APPROVED".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("ApprovedSupervisor");
+				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
+					return mapping.findForward("ApprovedSupervisor");
 				}
 			}
 
