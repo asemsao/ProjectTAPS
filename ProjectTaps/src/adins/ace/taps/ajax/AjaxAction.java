@@ -91,11 +91,11 @@ public class AjaxAction extends Action {
 		}
 		
 		if("deleteOrganization".equals(ajaxForm.getMode())){
-			System.out.println("AC.deleteORG");
 			params.put("organizationCode", ajaxForm.getOrganizationCode());
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
+			ajaxForm.setCountRecord(0);
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {
@@ -251,6 +251,9 @@ public class AjaxAction extends Action {
 		}
 		if ("deleteProject".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteProject");
+		}
+		if ("deleteOrganization".equals(ajaxForm.getTask())) {
+			return mapping.findForward("deleteOrganization");
 		}
 		return null;
 	}
