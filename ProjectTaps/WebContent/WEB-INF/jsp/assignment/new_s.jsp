@@ -351,11 +351,8 @@
 		<html:hidden property="activityType" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
-
-		<!-- ini nanti ambil session -->
-		<input type="hidden" id="organization-code-view" value="CDD" />
-		<input type="hidden" id="userDomain"
-			value="<%=session.getAttribute("username")%>" />
+		<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view"/>
+		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username")%>" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

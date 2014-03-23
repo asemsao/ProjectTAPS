@@ -24,6 +24,7 @@ import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
 
 public class SelfAssignmentAction extends Action {
+	//this is action for self assignment from employees view
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +42,8 @@ public class SelfAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("RFA".equals(sForm.getTask())) {
+			//request for approval to supervisor, change status to RFA
+			//update description or manhours if there's a change
 			String tmpDescription="";
 			String tmpManHours="";
 			tmpDescription = request.getParameter("tmpDescription");
@@ -76,6 +79,8 @@ public class SelfAssignmentAction extends Action {
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		}
+		
+		// Show record self assignment
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));

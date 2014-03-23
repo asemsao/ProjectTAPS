@@ -227,11 +227,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ini nanti ambil session -->
-		<input type="hidden" id="organization-code-view" value="CDD" />
 		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
+		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view"/>
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>
