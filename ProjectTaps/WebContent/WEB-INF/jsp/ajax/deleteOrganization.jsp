@@ -49,8 +49,8 @@
 								<td>:</td>
 								<td><bean:write name="organization"
 										property="organizationCode" /></td>
-								</tr>
-								<tr>
+							</tr>
+							<tr>
 								<td>Business Unit Name</td>
 								<td>:</td>
 								<td><bean:write name="organization"
@@ -59,32 +59,33 @@
 						</logic:iterate>
 					</tbody>
 				</logic:notEmpty>
-
-				
-<!-- 				<thead> -->
-<!-- 					<tr> -->
-<!-- 						<th class="text-center"> -->
-<!-- 							<button type="button" class='button info' -->
-<!-- 								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
-<!-- 						</th> -->
-<!-- 					</tr> -->
-<!-- 				</thead> -->
+				<thead>
+					<tr>
+						<th class="text-center">
+							<button type="button" class='button info'
+								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
+						</th>
+					</tr>
+				</thead>
 			</table>
 		</logic:notEqual>
 
 		<logic:equal name="ajaxForm" property="checkDeleteEmpoyee" value="0">
 			<table class="table striped bordered hovered">
-				<thead><tr>
-					<th><strong>Are you sure to DELETE business Unit <bean:write
-								name="ajaxForm" property="organizationCode" /> ?
-					</strong></th></tr>
-<!-- 					<tr> -->
-<!-- 					<th class="text-center"><button type="button" -->
-<!-- 							class='button danger' -->
-<!-- 							onclick="javascript:chooseOrganizationDelete('delete')">Delete</button> -->
-<!-- 						<button type="button" class='button info' -->
-<!-- 							onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button> -->
-<!-- 					</th></tr> -->
+				<thead>
+					<tr>
+						<th><strong>Are you sure to DELETE business Unit <bean:write
+									name="ajaxForm" property="organizationCode" /> ?
+						</strong></th>
+					</tr>
+					<tr>
+						<th class="text-center"><button type="button"
+								class='button danger'
+								onclick="javascript:chooseOrganizationDelete('delete')">Delete</button>
+							<button type="button" class='button info'
+								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
+						</th>
+					</tr>
 				</thead>
 			</table>
 		</logic:equal>
