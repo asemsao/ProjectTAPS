@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.struts.action.ActionForm;
 
-import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.organization.OrganizationBean;
 
 @SuppressWarnings("serial")

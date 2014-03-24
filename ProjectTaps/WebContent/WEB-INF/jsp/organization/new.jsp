@@ -21,23 +21,6 @@
 			newBUValidation();
 		}
 	}
-
-	function changeopt() {
-		search = document.getElementById("level");
-		temp = search.options[search.selectedIndex].value;
-		if (temp != 0) {
-			document.getElementById("parent").style.visibility = "visible";
-			document.getElementById(":").style.visibility = "visible";
-			document.getElementById("parent-organization-name").style.visibility = "visible";
-			document.getElementById("organization").style.visibility = "visible";
-		} else {
-			document.getElementById("parent").style.visibility = "hidden";
-			document.getElementById(":").style.visibility = "hidden";
-			document.getElementById("parent-organization-name").style.visibility = "hidden";
-			document.getElementById("organization").style.visibility = "hidden";
-		}
-	};
-
 	$(document)
 			.ready(
 					function() {
@@ -48,17 +31,18 @@
 						$("#lookUpOrganization").load(
 								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 										+ level);
-						$('#level').bind(
-								"change",
-								function() {
-									$("#parent-organization-code").val('');
-									$("#parent-organization-name").val('');
-									$("#lookUpOrganization").html('');
-									$("#lookUpOrganization").load(
-											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-													+ $(this).val());
-								});
+						
 
+						$("#level").change(function() {
+							if ($("#level").val() == "0") {
+								$(".parent-organization").hide();
+							} else {
+								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+										+ $(this).val());
+								$(".parent-organization").show();
+							}
+						});
+						
 						$("#organizationCode").attr("placeholder", "Business Unit Code");
 						$("#organizationName").attr("placeholder", "Business Unit Name");
 						$("#employee-name").attr("placeholder", "Head of Business Unit");
@@ -85,7 +69,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Business Unit Code</td>
+								<th class="field-form">Business Unit Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="orgBean.organizationCode" styleId="organizationCode"
@@ -93,7 +77,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Business Unit Name</td>
+								<th class="field-form">Business Unit Name</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -103,13 +87,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Business Unit Level</td>
+								<th class="field-form">Business Unit Level</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level"
-											onchange="javascript:changeopt();">
+											name="organizationForm" styleId="level">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
@@ -118,7 +101,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Head Name</td>
+								<th class="field-form">Head Name</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -131,8 +114,8 @@
 								</td>
 							</tr>
 							<tr class="parent-organization">
-								<td class="field-form"><label id="parent" style="visibility: visible">Parent
-										Business Unit </label></td>
+								<th class="field-form"><label id="parent" style="visibility: visible">Parent
+										Business Unit </label></th>
 								<td class="field-separator"><label id=":" style="visibility: visible">:</label></td>
 								<td>
 									<div class="input-control text">

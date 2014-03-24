@@ -116,7 +116,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate"
@@ -125,7 +125,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Time</td>
+								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker"
@@ -133,7 +133,7 @@
 									</div></td> 
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td>
 									<%
@@ -177,7 +177,7 @@
 								if (!headBU) {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div id="bu">
@@ -195,7 +195,7 @@
 								</td>
 							</tr>
 							<tr class="pr">
-								<td class="field-form">Report To</td>
+								<th class="field-form">Report To</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -209,7 +209,7 @@
 								} else {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
@@ -218,7 +218,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Report To</td>
+								<th class="field-form">Report To</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -232,7 +232,7 @@
 								}
 							%>
 							<tr>
-								<td class="field-form">Activity Type</td>
+								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
@@ -251,7 +251,7 @@
 								</td>
 							</tr>
 							<tr class="adhoc">
-								<td class="field-form">AdHoc To</td>
+								<th class="field-form">AdHoc To</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -262,7 +262,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Task Code</td>
+								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.reffTaskCode" readonly="true" name="selfAssignmentForm" styleId="assignment-code"></html:text>
@@ -270,7 +270,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">ManHours</td>
+								<th class="field-form">ManHours</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
@@ -329,7 +329,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea"
 										styleId="description"></html:textarea></td>
@@ -351,8 +351,8 @@
 		<html:hidden property="activityType" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
 		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view"/>
 		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username")%>" />
+		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

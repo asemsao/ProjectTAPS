@@ -46,15 +46,27 @@ public class SelfAssignmentAction extends Action {
 			//update description or manhours if there's a change
 			String tmpDescription="";
 			String tmpManHours="";
+			String tmpActivityType="";
+			String tmpAdhocUserDomain="";
 			tmpDescription = request.getParameter("tmpDescription");
 			tmpManHours = request.getParameter("tmpManHours");
+			tmpActivityType = request.getParameter("tmpActivityType");
+			tmpAdhocUserDomain = request.getParameter("tmpAdhocDomain");
+			if (sForm.getSelfAssignBean().getActivityType().equals("Routine") || sForm.getSelfAssignBean().getActivityType().equals("Initiative")){
+				sForm.getSelfAssignBean().setAdhocUserDomain(null);
+			}
 			if (!tmpDescription.equals(sForm.getSelfAssignBean().getDescription())) {
 				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
 			}
 			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(sForm.getSelfAssignBean());
 			}
-			
+			if (!tmpActivityType.equals(sForm.getSelfAssignBean().getActivityType())) {
+				aMan.editActivityType(sForm.getSelfAssignBean());
+			}
+			if (!tmpAdhocUserDomain.equals(sForm.getSelfAssignBean().getAdhocUserDomain())) {
+				aMan.editAdhocUserDomain(sForm.getSelfAssignBean());
+			}
 			sForm.getSelfAssignBean().setCurrentStatus("RFA");
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();

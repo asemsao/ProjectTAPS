@@ -120,9 +120,9 @@
 								<logic:iterate id="employee" name="employeeForm"
 									property="listEmployees">
 									<tr>
-										<td><bean:write name="employee" property="employeeCode" /></td>
-										<td><bean:write name="employee" property="employeeDomain" /></td>
-										<td><bean:write name="employee" property="employeeNik" /></td>
+										<td class="text-center"><bean:write name="employee" property="employeeCode" /></td>
+										<td class="text-center"><bean:write name="employee" property="employeeDomain" /></td>
+										<td class="text-center"><bean:write name="employee" property="employeeNik" /></td>
 										<td><bean:write name="employee" property="employeeName" /></td>
 										<td><bean:write name="employee"
 												property="employeeAddress" /></td>

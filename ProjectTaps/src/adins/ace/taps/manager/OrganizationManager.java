@@ -53,6 +53,23 @@ public class OrganizationManager {
 		return orgList;
 	}
 	
+	public String getOrganizationName(Map params){
+		String OrganizationName = "";
+		try {
+			ibatisSqlMap.startTransaction();
+			OrganizationName = (String) ibatisSqlMap.queryForObject("organization.selectOrganizationName", params);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return OrganizationName;		
+	}
+	
 	public List<OrganizationBean> listProject(Map params) {
 		List<OrganizationBean> listProject = null;
 		try {
@@ -498,7 +515,28 @@ public class OrganizationManager {
 		return flag;
 	}
 	
-
+	public boolean submitEditWithChild(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("organization.editOrganizationWithChild", orgBean);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				flag = false;
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
 	public boolean updateAssignment(OrganizationBean orgBean) {
 		boolean flag = false;
 		try {

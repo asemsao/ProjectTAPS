@@ -23,9 +23,10 @@
 		<html:hidden property="maxpage" styleId="maxpage-organization-delete"
 			name="ajaxForm" />
 
-
 		<logic:notEqual name="ajaxForm" property="checkDeleteOrganization"
 			value="0">
+
+			<!-- TABEL ORG PROJECT -->
 			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
@@ -34,64 +35,85 @@
 								deleted because has
 						</strong></th>
 					</tr>
-					<logic:notEqual name="ajaxForm" property="countMemberOrganization" value="0">
-						<thead>
-							<tr>
-								<td colspan="3"><strong><bean:write
-											name="ajaxForm" property="countMemberOrganization" />
-										members in Business Unit </strong></td>
-							</tr>
-						</thead>
-
+					<logic:notEqual name="ajaxForm" property="countMemberOrganization"
+						value="0">
+						<tr>
+							<td colspan="3"><strong><bean:write name="ajaxForm"
+										property="countMemberOrganization" /> members in Business
+									Unit </strong></td>
+						</tr>
 					</logic:notEqual>
-
-
 				</thead>
-				<logic:notEmpty name="ajaxForm" property="organizationProject">
+			</table>
+
+			<div id="table-ajax-organization-delete">
+				<table class="table striped bordered hovered">
 					<thead>
 						<tr>
-							<td colspan="3"><strong>Business Project</strong></td>
+							<td colspan="3"><strong>Project</strong></td>
 						</tr>
 						<tr>
-							<td>Project Code</td>
-							<td>Project Name</td>
+							<th class="text-center">Project Code</th>
+							<th class="text-center">Project Name</th>
 						</tr>
 					</thead>
+					<tbody>
+						<logic:notEmpty name="ajaxForm" property="organizationProject">
+							<logic:iterate id="project" name="ajaxForm"
+								property="organizationProject">
+								<tr>
+									<td class="text-center"><bean:write name="project"
+											property="projectCode" /></td>
+									<td class="text-center"><bean:write name="project"
+											property="projectName" /></td>
+								</tr>
+							</logic:iterate>
+						</logic:notEmpty>
+						<logic:empty name="ajaxForm" property="organizationProject">
+							<tr>
+								<td class="text-center" colspan=6>No Project</td>
+							</tr>
+						</logic:empty>
+					</tbody>
 
-					<logic:iterate id="project" name="ajaxForm"
-						property="organizationProject">
+					<tbody>
 						<tr>
-							<td><bean:write name="project" property="projectCode" /></td>
-							<td><bean:write name="project" property="projectName" /></td>
 						</tr>
-
-					</logic:iterate>
-
-				</logic:notEmpty>
-
-				<logic:notEmpty name="ajaxForm" property="childOrganization">
+					</tbody>
+					<!-- TABEL BU CHILD -->
 					<thead>
 						<tr>
 							<td colspan="3"><strong>Business Unit's Child</strong></td>
 						</tr>
-					</thead>
-					<tr>
-						<td>Business Unit Code</td>
-						<td>Business Unit Name</td>
-					</tr>
-					<logic:iterate id="organization" name="ajaxForm"
-						property="childOrganization">
 						<tr>
-
-							<td><bean:write name="organization"
-									property="organizationCode" /></td>
-
-							<td><bean:write name="organization"
-									property="organizationName" /></td>
+							<td class="text-center">Business Unit Code</td>
+							<td class="text-center">Business Unit Name</td>
 						</tr>
-					</logic:iterate>
+					</thead>
+					<tbody>
+						<logic:notEmpty name="ajaxForm" property="childOrganization">
+							<logic:iterate id="organization" name="ajaxForm"
+								property="childOrganization">
+								<tr>
+									<td><bean:write name="organization"
+											property="organizationCode" /></td>
+									<td><bean:write name="organization"
+											property="organizationName" /></td>
+								</tr>
+							</logic:iterate>
+						</logic:notEmpty>
+						<logic:empty name="ajaxForm" property="childOrganization">
+							<tr>
+								<td class="text-center" colspan=6>No Child Organization</td>
+							</tr>
+						</logic:empty>
+					</tbody>
+				</table>
+			</div>
 
-				</logic:notEmpty>
+			<!-- PAGGING -->
+
+			<table class="table striped bordered hovered">
 				<thead>
 					<tr>
 						<th colspan=3 class="text-center">
@@ -104,9 +126,9 @@
 										onclick="javascript:pagingOrganizationDelete('prev');"><i
 											class="icon-previous"></i></a></li>
 									<li class="disabled"><a>Page <span
-											id="current-page-Organization-delete"><bean:write
+											id="current-page-organization-delete"><bean:write
 													name="ajaxForm" property="page" /></span> of <span
-											id="max-page-Organization-delete"><bean:write
+											id="max-page-organization-delete"><bean:write
 													name="ajaxForm" property="maxpage" /></span></a></li>
 									<li class="next"><a
 										onclick="javascript:pagingOrganizationDelete('next');"><i
@@ -115,7 +137,7 @@
 										onclick="javascript:pagingOrganizationDelete('last');"><i
 											class="icon-last-2"></i></a></li>
 									<li class="disabled"><a>Total Record <span
-											id="total-record-Organization-delete"><bean:write
+											id="total-record-organization-delete"><bean:write
 													name="ajaxForm" property="countRecord" /></span></a></li>
 								</ul>
 							</div>
@@ -130,7 +152,7 @@
 				</thead>
 			</table>
 		</logic:notEqual>
-
+		<%-- 
 		<logic:equal name="ajaxForm" property="checkDeleteOrganization"
 			value="0">
 			<table class="table striped bordered hovered">
@@ -151,7 +173,7 @@
 					</tr>
 				</thead>
 			</table>
-		</logic:equal>
+		</logic:equal> --%>
 	</html:form>
 </body>
 </html>

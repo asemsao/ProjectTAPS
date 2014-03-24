@@ -21,7 +21,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/transferProject" method="post" styleClass="transferProjectForm" styleId="myForm">
+				<html:form action="/transferProject" method="post" styleClass="transferProjectForm" styleId="tpForm">
 					<html:hidden property="task" name="transferProjectForm" styleId="task" />
 					<html:hidden property="pagingDirection" name="transferProjectForm" styleId="pagingDirection" />
 					<html:hidden property="pageP" name="transferProjectForm" styleId="pageP" />
@@ -29,6 +29,8 @@
 					<html:hidden property="pageO" name="transferProjectForm" styleId="pageO" />
 					<html:hidden property="maxPageO" name="transferProjectForm" styleId="maxPageO" />
 					<html:hidden property="orgBefore" name="transferProjectForm" styleId="orgBefore" />
+					<html:hidden property="message" name="transferProjectForm" styleId="message" />
+					<html:hidden property="color" name="transferProjectForm" styleId="color" />
 					
 					<fieldset>
 					<legend>CHOOSE PROJECT</legend>
@@ -255,10 +257,17 @@
 					</div>
 					</div>
 					<br />
+					
 					<div class="input-control text">
+					<%
+					java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+					java.util.Date date = new java.util.Date();
+					String dateString = df.format(date);
+					%>
 										<html:text property="transferDate"
-											name="transferProjectForm" styleClass="datepicker-all"></html:text>
-										
+											name="transferProjectForm" styleClass="datepicker-all" value="<%=dateString %>">
+											</html:text>
+										<button type="button" disabled class="btn-date"></button>
 										</div>
 					
 					</div>

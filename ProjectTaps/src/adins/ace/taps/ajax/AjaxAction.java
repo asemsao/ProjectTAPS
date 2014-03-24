@@ -26,6 +26,7 @@ import adins.ace.taps.manager.ProjectManager;
 import adins.ace.taps.module.QueryActiveDirectory;
 
 public class AjaxAction extends Action {
+
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -42,7 +43,7 @@ public class AjaxAction extends Action {
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
-
+		int recordPerPage=10;
 		if (ajaxForm.getPage() == null) {
 			ajaxForm.setPage(1);
 		}
@@ -69,8 +70,8 @@ public class AjaxAction extends Action {
 			ajaxForm.setPage(1);
 		}
 
-		params.put("start", (ajaxForm.getPage() - 1) * 10 + 1);
-		params.put("end", (ajaxForm.getPage() * 10));
+		params.put("start", (ajaxForm.getPage() - 1) * recordPerPage + 1);
+		params.put("end", (ajaxForm.getPage() * recordPerPage));
 		params.put("category", ajaxForm.getSearchCategory());
 		params.put("keyword", ajaxForm.getSearchKeyword());
 
@@ -92,21 +93,17 @@ public class AjaxAction extends Action {
 		}
 
 		if ("deleteOrganization".equals(ajaxForm.getMode())) {
-			params.put("organizationCode", ajaxForm.getOrganizationCode()
-					.replaceAll(" ", ""));
+			recordPerPage = recordPerPage-5;
+			params.put("start", (ajaxForm.getPage() - 1) * recordPerPage + 1);
+			params.put("end", (ajaxForm.getPage() * recordPerPage));
+			params.put("organizationCode", ajaxForm.getOrganizationCode().trim());
+			int record = orgMan.countListProject(params)+orgMan.countListChild(params);
+			System.out.println(record);
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCountMemberOrganization(orgMan.countMember(params));
-			ajaxForm.setCheckDeleteOrganization(ajaxForm
-					.getOrganizationProject().size()
-					+ ajaxForm.getChildOrganization().size()
-					+ ajaxForm.getCountMemberOrganization());
-			ajaxForm.setCountRecord(ajaxForm.getCheckDeleteOrganization());
-			System.out.println("AC.count member " + orgMan.countMember(params));
-			System.out.println("AC.count project "
-					+ orgMan.countListProject(params));
-			System.out.println("AC.count child "
-					+ orgMan.countListChild(params));
+			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ ajaxForm.getChildOrganization().size()+ ajaxForm.getCountMemberOrganization());
+			ajaxForm.setCountRecord(record);
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {
@@ -222,10 +219,10 @@ public class AjaxAction extends Action {
 			ajaxForm.setListProject(prjMan.searchProject(params));
 			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
-		if (ajaxForm.getCountRecord() % 10 == 0) {
-			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / 10));
+		if (ajaxForm.getCountRecord() % recordPerPage == 0) {
+			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / recordPerPage));
 		} else {
-			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / 10)) + 1);
+			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / recordPerPage)) + 1);
 		}
 
 		if (ajaxForm.getMaxpage() == 0) {

@@ -35,25 +35,25 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Appraisal Date</td>
+								<th class="field-form">Appraisal Date</th>
 								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.createdDate" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal To</td>
+								<th class="field-form">Appraisal To</th>
 								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.employeeName" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal Description</td>
+								<th class="field-form">Appraisal Description</th>
 								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.description" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal Star</td>
+								<th class="field-form">Appraisal Star</th>
 								<td class="field-separator">:</td>
 								<td>
 									<bean:define id="temp" name="specialAppraisalForm" property="appraisalBean.appraisalStar" type="Integer" />

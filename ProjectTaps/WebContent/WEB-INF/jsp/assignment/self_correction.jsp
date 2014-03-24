@@ -15,21 +15,32 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.selfAssignmentForm.task.value = task;
+		document.getElementById("activity-type").value = getRadioValue("activity_type");
 		document.selfAssignmentForm.submit();
 	}
 
+	function getRadioValue(theRadioGroup) {
+		var elements = document.getElementsByName(theRadioGroup);
+		for ( var i = 0, l = elements.length; i < l; i++) {
+			if (elements[i].checked) {
+				return elements[i].value;
+			}
+		}
+	}
+	
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
 		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
 		}
-		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
 		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
-		$("#employee-name-2").attr("placeholder", "Employee");
+		$("#employee-name").attr("placeholder", "Employee");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Self Assignment</title>
 </head>
 <body class="metro">
@@ -45,6 +56,8 @@
 					<html:hidden property="task" name="selfAssignmentForm" />
 					<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="selfAssignmentForm" />" />
 					<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
+					<input type="hidden" name="tmpActivityType" value="<bean:write property="selfAssignBean.activityType" name="selfAssignmentForm" />" />
+					<input type="hidden" name="tmpAdhocDomain" value="<bean:write property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" />" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -77,13 +90,13 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.assignmentDate" name="selfAssignmentForm"></bean:write></td>
 
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.assignmentType" name="selfAssignmentForm"></bean:write></td>
 							</tr>
@@ -91,7 +104,7 @@
 								if (session.getAttribute("type").equals("PROJECT")) {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.projectName" name="selfAssignmentForm"></bean:write></td>
 								<td class="field-extra-text"><b>Report to </b> : </td>
@@ -101,7 +114,7 @@
 								} else {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" /></td>
 								<td class="field-extra-text"><b>Report to </b> : </td>
@@ -111,7 +124,7 @@
 								}
 							%>
 							<tr>
-								<td class="field-form">Activity Type</td>
+								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>
 								<%
 									if ("CORRECTION".equals(session.getAttribute("status"))) {
@@ -136,9 +149,9 @@
 								<td class="adhoc field-extra-text"><b>To :</b></td>
 								<td>
 									<div class="adhoc input-control text field-text">
-										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name-2" />
-										<button type="button" class="btn-search" id="employee2"></button>
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 								<%
@@ -152,7 +165,7 @@
 								%>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Task Code</td>
+								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.reffTaskCode" name="selfAssignmentForm" /></td>
 							</tr>
@@ -162,7 +175,7 @@
 											|| "REJECTED".equals(session.getAttribute("status"))) {
 							%>
 							<tr>
-								<td class="field-form">ManHours</td>
+								<th class="field-form">ManHours</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm" disabled="true">
@@ -219,7 +232,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" readonly="true"
 										styleClass="input-control textarea"></html:textarea></td>
@@ -228,7 +241,7 @@
 								} else {
 							%>
 							<tr>
-								<td class="field-form">ManHours</td>
+								<th class="field-form">ManHours</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm">
@@ -285,7 +298,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><html:textarea property="selfAssignBean.description"
 										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
@@ -297,7 +310,7 @@
 								if ("CORRECTION".equals(session.getAttribute("status"))) {
 							%>
 							<tr>
-								<td class="field-form">Comment</td>
+								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><html:textarea property="selfAssignBean.comment" name="selfAssignmentForm"
 										styleClass="input-control textarea"></html:textarea></td>
@@ -329,7 +342,7 @@
 					</table>
 				</html:form>
 				<div id="historyComment"></div>
-				<div id="lookUpEmployee2" class="hide"></div>
+				<div id="lookUpEmployee" class="hide"></div>
 			</div>
 		</div>
 	</div>

@@ -11,7 +11,7 @@ $(document).ready(
 								overlay : true,
 								shadow : true,
 								flat : true,
-								icon : '<img src="images/LOGO_Taps6.png">',
+								icon : '<img src="images/LOGO_TITLE.png">',
 								title : 'Flat window',
 								content : $("#lookUpDeleteEmployee").html(),
 								padding : 10,
@@ -30,7 +30,7 @@ $(document).ready(
 								overlay : true,
 								shadow : true,
 								flat : true,
-								icon : '<img src="images/LOGO_Taps6.png">',
+								icon : '<img src="images/LOGO_TITLE.png">',
 								title : 'Flat window',
 								content : $("#lookUpDeleteProject").html(),
 								padding : 10,
@@ -49,7 +49,7 @@ $(document).ready(
 								overlay : true,
 								shadow : true,
 								flat : true,
-								icon : '<img src="images/LOGO_Taps6.png">',
+								icon : '<img src="images/LOGO_TITLE.png">',
 								title : 'Flat window',
 								content : $("#lookUpDeleteOrganization").html(),
 								padding : 10,
@@ -62,7 +62,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpActiveDirectory").html(),
 					padding : 10,
@@ -74,7 +74,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployee").html(),
 					padding : 10,
@@ -86,7 +86,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployee2").html(),
 					padding : 10,
@@ -98,7 +98,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployeeOnProject").html(),
 					padding : 10,
@@ -110,7 +110,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployeeOnOrganization").html(),
 					padding : 10,
@@ -122,7 +122,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpOrganization").html(),
 					padding : 10,
@@ -134,7 +134,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpAssignment").html(),
 					padding : 10,
@@ -146,7 +146,7 @@ $(document).ready(
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpProject").html(),
 					padding : 10,
@@ -157,93 +157,132 @@ $(document).ready(
 //===============================================================================
 //Fungsi ajax look up untuk organization delete
 //===============================================================================
-function loadOrganizationDelete(searchCategory, searchKeyword) {
+function loadOrganizationDelete() {
 	setTimeout(function() {
 		$.Dialog({
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpDeleteOrganization").html(),
 			padding : 10,
-			title : 'Assignment On Organization'
+			title : 'Delete Organization'
 		});
-		$(".search-category-organization-delete").get(1).value = searchCategory;
-		$(".search-keyword-organization-delete").get(1).value = searchKeyword;
 	}, 400);
 }
 
 function setParameterOrganizationDelete() {
 	var task = $("#task-organization-delete").val();
-	var search = $(".search-category-organization-delete").get(1).value;
-	var value = $(".search-keyword-organization-delete").get(1).value;
 	var page = $("#page-organization-delete").val();
 	var maxpage = $("#maxpage-organization-delete").val();
-	var assignmentCategory = $("#assignmentCategory-organization-delete").val();
-	var assignmentType = $("#assignmentType-organization-delete").val();
 	var mode = $("#mode-organization-delete").val();
-	var userDomain = $("#userDomain-organization-delete").val();
-	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
-			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
-			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
-			+ assignmentType + "&userDomain=" + userDomain;
+	var organizationCode = $("#organizationCode-delete").val();
+	var data = "task=" + task + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&organizationCode=" + organizationCode;
 	return data;
 }
 
 function setResponseOrganizationDelete(data) {
 	var json = $.parseJSON(data);
-	var content = "<table ";
-	content += "class='table striped bordered hovered'>";
-	content += "<thead>";
-	content += "</thead>";
-	content += "<tbody>";
+	var content = "<table class='table striped bordered hovered'>";
 	content += "<thead>";
 	content += "<tr>";
-	content += "<th class='text-center'>Date</th>";
-	content += "<th class='text-center'>Code</th>";
-	content += "<th class='text-center'>Type</th>";
-	content += "<th class='text-center'>Report To</th>";
-	content += "<th class='text-center'>Deadline</th>";
+	content += "<td colspan='3'><strong>Project</strong></td>";
+	content += "</tr>";
+	content += "<tr>";
+	content += "<th class='text-center'>Project Code</th>";
+	content += "<th class='text-center'>Project Name</th>";
 	content += "</tr>";
 	content += "</thead>";
 	content += "<tbody>";
-	for ( var i in json.listEmployeeReport) {
+
+	for ( var i in json.organizationProject) {
 		content += "<tr>";
 		content += "<td class='text-center'>";
-		content += json.listEmployeeReport[i].assignmentDate;
+		content += json.organizationProject[i].projectCode;
 		content += "</td>";
 		content += "<td class='text-center'>";
-		content += json.listEmployeeReport[i].assignmentCode;
+		content += json.organizationProject[i].projectName;
 		content += "</td>";
-		content += "<td>";
-		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</tr>";
+	}
+	content += "<logic:empty name='ajaxForm' property='organizationProject'>";
+	content += "<tr>";
+	content += "<td class='text-center' colspan=6>No Project</td>";
+	content += "</tr>";
+	content += "</logic:empty>";
+	content += "</tbody>";
+	content += "<tbody>";
+	content += "<tr>";
+	content += "</tr>";
+	content += "</tbody>";
+	content += "<!-- TABEL BU CHILD -->";
+	
+	content += "<thead>";
+	content += "<tr>";
+	content += "<td colspan='3'><strong>Business Unit's Child</strong></td>";
+	content += "</tr>";
+	content += "<tr>";
+	content += "<td class='text-center'>Business Unit Code</td>";
+	content += "<td class='text-center'>Business Unit Name</td>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.childOrganization) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.childOrganization[i].organizationCode;
 		content += "</td>";
-		content += "<td>";
-		content += json.listEmployeeReport[i].fullName;
+		content += "<td class='text-center'>";
+		content += json.childOrganization[i].organizationName;
 		content += "</td>";
-		content += "<td>";
-		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</tr>";
+	}
+	content += "<logic:empty name='ajaxForm' property='childOrganization'>";
+	content += "<tr>";
+	content += "<td class='text-center' colspan=6>No Child Organization</td>";
+	content += "</tr>";
+	content += "</logic:empty>";
+	content += "</tbody>";
+	content += "</table>";
+	
+	
+	/*
+	
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Project Code</th>";
+	content += "<th class='text-center'>Project Name</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.organizationProject) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.organizationProject[i].projectCode;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.organizationProject[i].projectName;
 		content += "</td>";
 		content += "</tr>";
 	}
 	content += "</tbody>";
-	content += "</table>";
-	$("#table-ajax-assignment-delete").html(content);
-	$("#page-assignment-delete").val(json.page);
-	$("#current-page-assignment-delete").html(json.page);
-	$("#maxpage-assignment-delete").val(json.maxpage);
-	$("#max-page-assignment-delete").html(json.maxpage);
-	$("#total-record-assignment-delete").html(json.countRecord);
-	$(".search-category-assignment-delete").val(json.searchCategory);
-	$(".search-keyword-assignment-delete").val(json.searchKeyword);
+	content += "</table>";*/
+	$("#table-ajax-organization-delete").html(content);
+	$("#page-organization-delete").val(json.page);
+	$("#current-page-organization-delete").html(json.page);
+	$("#maxpage-organization-delete").val(json.maxpage);
+	$("#max-page-organization-delete").html(json.maxpage);
+	$("#total-record-organization-delete").html(json.countRecord);
 }
 
 function pagingOrganizationDelete(direction) {
-	var searchCategory = $(".search-category-assignment-delete").get(1).value;
-	var searchKeyword = $(".search-keyword-assignment-delete").get(1).value;
 	$.Dialog.close();
-	$("#task-assignment-delete").val(direction);
+	$("#task-organization-delete").val(direction);
 	var data = setParameterOrganizationDelete();
 	$.ajax({
 		url : "/ProjectTaps/ajax.do",
@@ -258,7 +297,7 @@ function pagingOrganizationDelete(direction) {
 		}
 	});
 
-	loadOrganizationDelete(searchCategory, searchKeyword);
+	loadOrganizationDelete();
 }
 
 function chooseOrganizationDelete(task) {
@@ -281,7 +320,7 @@ function loadAssignmentDelete(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpDeleteEmployee").html(),
 			padding : 10,
@@ -398,7 +437,7 @@ function loadProjectDelete(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpDeleteProject").html(),
 			padding : 10,
@@ -515,7 +554,7 @@ function loadActiveDirectory(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpActiveDirectory").html(),
 			padding : 10,
@@ -617,7 +656,7 @@ function loadEmployee(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpEmployee").html(),
 			padding : 10,
@@ -735,7 +774,7 @@ function loadEmployeeOnProject(searchCategory, searchKeyword) {
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployeeOnProject").html(),
 					padding : 10,
@@ -849,7 +888,7 @@ function loadEmployeeOnOrganization(searchCategory, searchKeyword) {
 					overlay : true,
 					shadow : true,
 					flat : true,
-					icon : '<img src="images/LOGO_Taps6.png">',
+					icon : '<img src="images/LOGO_TITLE.png">',
 					title : 'Flat window',
 					content : $("#lookUpEmployeeOnOrganization").html(),
 					padding : 10,
@@ -964,7 +1003,7 @@ function loadEmployee2(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpEmployee2").html(),
 			padding : 10,
@@ -1075,7 +1114,7 @@ function loadOrganization(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpOrganization").html(),
 			padding : 10,
@@ -1186,7 +1225,7 @@ function loadAssignment(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpAssignment").html(),
 			padding : 10,
@@ -1304,7 +1343,7 @@ function loadProject(searchCategory, searchKeyword) {
 			overlay : true,
 			shadow : true,
 			flat : true,
-			icon : '<img src="images/LOGO_Taps6.png">',
+			icon : '<img src="images/LOGO_TITLE.png">',
 			title : 'Flat window',
 			content : $("#lookUpProject").html(),
 			padding : 10,

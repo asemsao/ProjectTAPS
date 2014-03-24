@@ -22,7 +22,7 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-			//newAssignmentValidation();
+			newAssignmentValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
@@ -98,7 +98,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker">
 										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
@@ -106,7 +106,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Due Date</td>
+								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
@@ -114,7 +114,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Time</td>
+								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.assignmentTime"
@@ -123,7 +123,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td>
 									<%
@@ -162,7 +162,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Assign To</td>
+								<th class="field-form">Assign To</th>
 								<td class="field-separator">:</td>
 								<td>
 									<%
@@ -204,7 +204,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Task Code</td>
+								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode" name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
@@ -212,7 +212,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td><html:textarea property="assignmentBean.description" name="claimAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
@@ -229,9 +229,9 @@
 			</div>
 		</div>
 		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
+		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
-		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view"/>
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

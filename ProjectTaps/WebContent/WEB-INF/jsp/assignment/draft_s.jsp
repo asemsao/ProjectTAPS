@@ -33,6 +33,7 @@
 		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
+			
 		}
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#employee-name-2").val($("#employee-fullName-2").val());
@@ -85,7 +86,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm"></html:text>
@@ -93,19 +94,19 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Time</td>
+								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.assignmentType" name="selfAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><div id="bu">
 										<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
@@ -121,22 +122,22 @@
 										</div>
 									</div></td>
 							</tr>
-							<tr>
-								<td class="field-form"><div class="pr">Report To</div></td>
-								<td class="field-separator"><div class="pr">:</div></td>
-								<td><div class="pr">
-										<div class="input-control text">
-											<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-											<html:hidden property="selfAssignBean.reportToFullName" name="selfAssignmentForm" styleId="employee-fullName" />
-											<input type="text" id="employee-name" readonly="readonly" />
-											<div class="pr" class="in-bl">
-												<button type="button" class="btn-search" id="employeeOnProject"></button>
-											</div>
+							<tr class="pr">
+								<th class="field-form">Report To</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:hidden property="selfAssignBean.reportToFullName" name="selfAssignmentForm" styleId="employee-fullName" />
+										<input type="text" id="employee-name" readonly="readonly" />
+										<div class="pr" class="in-bl">
+											<button type="button" class="btn-search" id="employeeOnProject"></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Activity Type</td>
+								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
@@ -154,20 +155,20 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td class="field-form"><div class="adhoc">AdHoc To</div></td>
-								<td class="field-separator"><div class="adhoc">:</div></td>
-								<td><div class="adhoc">
-										<div class="input-control text">
-											<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
-											<html:hidden property="selfAssignBean.adhocFullName" name="selfAssignmentForm" styleId="employee-fullName-2" />
-											<input type="text" id="employee-name-2" readonly="readonly" />
-											<button type="button" class="btn-search" id="employee2"></button>
-										</div>
-									</div></td>
+							<tr class="adhoc">
+								<th class="field-form">AdHoc To</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
+										<html:hidden property="selfAssignBean.adhocFullName" name="selfAssignmentForm" styleId="employee-fullName-2" />
+										<input type="text" id="employee-name-2" readonly="readonly" />
+										<button type="button" class="btn-search" id="employee2"></button>
+									</div>
+								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Task Code</td>
+								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="selfAssignBean.reffTaskCode" name="selfAssignmentForm" styleId="assignment-code"></html:text>
@@ -176,7 +177,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">ManHours</td>
+								<th class="field-form">ManHours</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
@@ -235,7 +236,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleId="description" styleClass="input-control textarea"></html:textarea></td>
 							</tr>

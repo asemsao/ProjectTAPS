@@ -12,7 +12,6 @@ public class TransferProjectForm extends ActionForm {
 	private static final long serialVersionUID = 1L;
 	private String task;
 	private String pagingDirection;
-	private String paramProjectCode;
 	private String projectKeyword;
 	private String projectCategory;
 	private String orgKeyword;
@@ -35,6 +34,8 @@ public class TransferProjectForm extends ActionForm {
 	private Integer pageO;
 	private Integer maxPageO;
 	private Integer countRecordO;
+	private String message;
+	private String color;
 	
 	public String getTask() {
 		return task;
@@ -47,12 +48,6 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setPagingDirection(String pagingDirection) {
 		this.pagingDirection = pagingDirection;
-	}
-	public String getParamProjectCode() {
-		return paramProjectCode;
-	}
-	public void setParamProjectCode(String paramProjectCode) {
-		this.paramProjectCode = paramProjectCode;
 	}
 	public String getProjectKeyword() {
 		return projectKeyword;
@@ -186,8 +181,17 @@ public class TransferProjectForm extends ActionForm {
 	public void setCountRecordO(Integer countRecordO) {
 		this.countRecordO = countRecordO;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 }

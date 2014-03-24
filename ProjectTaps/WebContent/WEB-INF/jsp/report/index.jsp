@@ -53,7 +53,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Year</td>
+								<th class="field-form">Year</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text name="reportForm" property="reportYear" styleClass="datepicker-year"
@@ -61,7 +61,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Period</td>
+								<th class="field-form">Period</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
@@ -81,7 +81,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Choose</td>
+								<th class="field-form">Choose</th>
 								<td class="field-separator">:</td>
 								<td colspan="1">
 
