@@ -74,8 +74,8 @@ public class ReportAction extends Action {
 					rForm.setParam4(rBean.getOrganizationParent());
 					rForm.setParam5(rBean.getOrganizationParentName());
 					rForm.setListReports(rMan.getReportLevel2(h));
-					//Savepoint savepoint = rMan.insertSavePoint();
-					//rMan.insertSavePoint2(savepoint);
+					rMan.insertSavePoint();
+					rMan.insertSavePoint2();
 					return mapping.findForward("ViewLevel2");
 				}
 			} else {
@@ -101,6 +101,8 @@ public class ReportAction extends Action {
 					h.put("reportMonth", rForm.getReportMonth());
 					rForm.setParam2(orgLevel);
 					rForm.setParam3(orgName);
+					rMan.insertSavePoint();
+					rMan.insertSavePoint2();
 					session.setAttribute("buPrint", orgCode);
 					rForm.setListReports(rMan.getReportLevel2(h));
 					return mapping.findForward("ViewLevel2");

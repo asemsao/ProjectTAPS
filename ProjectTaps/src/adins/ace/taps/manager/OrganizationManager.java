@@ -515,7 +515,28 @@ public class OrganizationManager {
 		return flag;
 	}
 	
-
+	public boolean submitEditWithChild(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.update("organization.editOrganizationWithChild", orgBean);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				flag = false;
+				e.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
 	public boolean updateAssignment(OrganizationBean orgBean) {
 		boolean flag = false;
 		try {
