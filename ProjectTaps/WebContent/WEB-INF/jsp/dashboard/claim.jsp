@@ -29,7 +29,8 @@
 			var data = $myText.data("value"), val = $myText.val();
 			if (data !== val) {
 				$myText.data("value", val);
-				if ($("#claimDateString").val().indexOf($(this).val()) >= 0) {
+				var cds = $("#claimDateString").val();
+				if (cds.indexOf(val) != -1) {
 					$("#btnClaim").hide();
 					$("#btnRfa").hide();
 				} else {
