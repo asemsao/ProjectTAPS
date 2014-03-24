@@ -14,7 +14,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -25,7 +24,6 @@ public class OrganizationAction extends Action {
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
-		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
 		orgForm.getOrgBean().setSessionUserDomain(
@@ -68,7 +66,6 @@ public class OrganizationAction extends Action {
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 					.getOrganizationCode().replaceAll(" ", "")));
-			System.out.println(orgForm.getCountChild());
 			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
