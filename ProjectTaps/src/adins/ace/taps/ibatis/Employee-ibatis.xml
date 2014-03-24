@@ -357,5 +357,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
             )
 		WHERE username LIKE #username#
 	</update>
+	
+	<insert id="insertRoleEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">
+		INSERT INTO
+		employee_role
+		(role_id, user_domain)
+		VALUES ('EMP', #employeeDomain#)
+	</insert>
 
 </sqlMap>
