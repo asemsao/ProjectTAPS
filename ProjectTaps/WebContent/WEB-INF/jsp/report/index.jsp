@@ -41,16 +41,16 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Year</td>
-								<td>:</td>
+								<td class="field-form">Year</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text name="reportForm" property="reportYear" styleClass="datepicker-year"
 											styleId="reportYear"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Period</td>
-								<td>:</td>
+								<td class="field-form">Period</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
 										<label> <html:radio name="reportForm"
@@ -69,8 +69,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Choose</td>
-								<td>:</td>
+								<td class="field-form">Choose</td>
+								<td class="field-separator">:</td>
 								<td colspan="1">
 
 									<div id="6month">

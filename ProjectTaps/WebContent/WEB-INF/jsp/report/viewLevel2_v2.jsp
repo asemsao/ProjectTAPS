@@ -166,14 +166,13 @@
 							</tr>
 							<tr>
 								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
-								<th colspan=2 class="text-left"><h5>
+								<th colspan=2 class="text-left">
 								<logic:notEmpty name="reportForm" property="reportPeriode">
-									Semester : <bean:write property="reportPeriode"/> </h5>
+									Semester :<h5><bean:write property="reportPeriode"/></h5>
 								</logic:notEmpty>
 								<logic:notEmpty name="reportForm" property="reportMonth">
-									Month :<bean:write property="reportMonth"/> </h5>
+									Month :<h5><bean:write property="reportMonth"/></h5>
 								</logic:notEmpty>
-									
 								</th>
 							</tr>
 							<tr>
