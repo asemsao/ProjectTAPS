@@ -35,7 +35,6 @@ public class NewAssignmentAction extends Action {
 		Date date = new Date();
 		boolean success = false;
 		boolean assign = false;
-
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
 				aForm.setAssignmentBean(aMan.searchRecordAssignment(taskCode));
@@ -62,7 +61,9 @@ public class NewAssignmentAction extends Action {
 						aForm.getAssignmentType());
 				aForm.getAssignmentBean().setReportTo(userDomain);
 				String paramCode = "";
+				System.out.println(aForm.getAssignmentType()+"inniiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 				if ("BU".equals(aForm.getAssignmentType())) {
+					System.out.println("BUUUUUUUUUUUUUUUUUUUUUU");
 					aForm.getAssignmentBean().setOrganizationCode(
 							aMan.searchOrganizationCode(userDomain));
 					aForm.getAssignmentBean().setProjectCode(null);
@@ -70,13 +71,16 @@ public class NewAssignmentAction extends Action {
 							+ dateFormat.format(date);
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeOrganization(paramCode);
+					
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode()
 							+ dateFormat.format(date);
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeProject(paramCode);
+					System.out.println("projeeeccccccccccccccccccccccct");
+					
 				}
-				
+				System.out.println("paramasdasdasdsadasdasdaaaaaaaaaaaaaaaaa"+paramCode);
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
 				if ("save".equals(aForm.getNewTask())) {

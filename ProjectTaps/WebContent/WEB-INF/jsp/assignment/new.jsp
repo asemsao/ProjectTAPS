@@ -22,10 +22,11 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-			newAssignmentValidation();
+			//newAssignmentValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
-			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
+			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
+			alert(getRadioValue("assignment_type"));
 			newAssignmentValidation();
 		}
 	}
@@ -95,9 +96,6 @@
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/newAssignment" method="POST"
 		styleId="newAssignment">
-		<html:hidden property="newTask" name="claimAssignmentForm" />
-		<html:hidden property="assignmentType" name="claimAssignmentForm"
-			styleId="assignment-type" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
