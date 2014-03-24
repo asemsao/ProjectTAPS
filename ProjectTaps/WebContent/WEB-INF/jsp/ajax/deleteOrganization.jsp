@@ -61,18 +61,17 @@
 							<td colspan="3"><strong>Business Unit's Child</strong></td>
 						</tr>
 					</thead>
-					
+					<tr>
+					<td>Business Unit Code</td>
+					<td>Business Unit Name</td>
+					</tr>
 						<logic:iterate id="organization" name="ajaxForm"
 							property="childOrganization">
 							<tr>
-								<td>Business Unit Code</td>
-								<td>:</td>
+								
 								<td><bean:write name="organization"
 										property="organizationCode" /></td>
-							</tr>
-							<tr>
-								<td>Business Unit Name</td>
-								<td>:</td>
+								
 								<td><bean:write name="organization"
 										property="organizationName" /></td>
 							</tr>
