@@ -67,13 +67,13 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
 
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
 							</tr>
@@ -81,7 +81,7 @@
 								if (session.getAttribute("type").equals("PROJECT")) {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.projectName" name="dashboardForm"></bean:write></td>
 								<td class="field-extra-text"><b>Report to </b> : </td>
@@ -91,7 +91,7 @@
 								} else {
 							%>
 							<tr>
-								<td class="field-form">Assign By</td>
+								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.organizationName" name="dashboardForm" /></td>
 								<td class="field-extra-text"><b>Report to </b> : </td>
@@ -102,7 +102,7 @@
 							%>
 							<tr>
 								<logic:equal property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
-									<td class="field-form">Activity Type</td>
+									<th class="field-form">Activity Type</th>
 									<td class="field-separator">:</td>
 									<td>
 										<div class="input-control radio margin10">
@@ -131,7 +131,7 @@
 									</td>
 								</logic:equal>
 								<logic:notEqual property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
-									<td class="field-form">Activity Type</td>
+									<th class="field-form">Activity Type</th>
 									<td class="field-separator">:</td>
 									<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
 									<td class="adhoc field-extra-text"><b>AdHoc to </b> : </td>
@@ -139,12 +139,12 @@
 								</logic:notEqual>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Task Code</td>
+								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><bean:write property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">ManHours</td>
+								<th class="field-form">ManHours</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="dashboardForm">
@@ -201,13 +201,13 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><html:textarea property="selfAssignBean.description" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td class="field-form">Comment</td>
+								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
 								<td colspan=3><html:textarea property="selfAssignBean.comment" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>

@@ -68,17 +68,17 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Assignment Date</td>
+								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Due Date</td>
+								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignment Type</td>
+								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:equal property="claimBean.assignmentType" name="dashboardForm" value="BU">Business Unit - 
@@ -89,24 +89,24 @@
 									</logic:equal></td>
 							</tr>
 							<tr>
-								<td class="field-form">Assign To</td>
+								<th class="field-form">Assign To</th>
 								<td class="field-separator">:</td>
 								<td><bean:write property="claimBean.fullName" name="dashboardForm" /></td>
 								<td><b>Assignment From </b> : <bean:write property="claimBean.createdByName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Reff Assignment</td>
+								<th class="field-form">Reff Assignment</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Description</td>
+								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.description"
 										name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Detail Claim</td>
+								<th class="field-form">Detail Claim</th>
 								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:notEmpty property="listDetailClaim" name="dashboardForm">
@@ -185,7 +185,7 @@
 
 													</logic:iterate>
 												<tr>
-													<td colspan=2 class="text-right">Total</td>
+													<th colspan=2 class="text-right">Total</th>
 													<td class="text-center"><span id="total-mh">
 														<bean:write property="totalManHours" name="dashboardForm" /></span></td>
 												</tr>
@@ -194,7 +194,7 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
-								<td class="field-form">Comment</td>
+								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="claimBean.comment" name="dashboardForm" rows="3"
 										styleClass="input-control textarea"></html:textarea></td>
