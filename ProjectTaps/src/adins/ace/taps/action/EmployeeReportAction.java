@@ -25,11 +25,7 @@ public class EmployeeReportAction extends Action {
 		AssignmentManager eMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		Map params = new HashMap();
-		
-		//testing pake domain 205
-//		session.setAttribute("username", "domain3");
 		String sessionUserDomain = (String) session.getAttribute("username");
-		//nanti dihapus
 		
 		if (session.getAttribute("taskCode") != null) {
 			session.removeAttribute("taskCode");
@@ -124,8 +120,7 @@ public class EmployeeReportAction extends Action {
 			}
 			eForm.setListAssignment(eMan.searchEmployeeReportEmployee(params));
 
-		} else if ("employeeReportSupervisor".equals(session
-				.getAttribute("link"))) {
+		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("view".equals(eForm.getTask())) {
@@ -139,30 +134,26 @@ public class EmployeeReportAction extends Action {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("CorrectionSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping
-								.findForward("SelfAssignmentCorrectionSupervisor");
+						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
 					}
 				} else if ("RFA".equals(eForm.getCurrentStatus())) {
 					eMan.updateFlag(eForm.getTaskCode());
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("RFASupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping
-								.findForward("RFASelfSupervisorAssignment");
+						return mapping.findForward("RFASelfSupervisorAssignment");
 					}
 				} else if ("APPROVED".equals(eForm.getCurrentStatus())) {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("ApprovedSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping
-								.findForward("ApprovedSupervisorSelfAssignment");
+						return mapping.findForward("ApprovedSupervisorSelfAssignment");
 					}
 				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
 					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("CorrectionSupervisor");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
-						return mapping
-								.findForward("SelfAssignmentCorrectionSupervisor");
+						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
 					}
 				}
 			}

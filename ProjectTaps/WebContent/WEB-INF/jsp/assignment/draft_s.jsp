@@ -29,11 +29,8 @@
 	}
 
 	$(document).ready(function() {
-		var assignment_type = $("#assignment-type").val();
 		var project_code = $("#project-code").val();
-		var organization_code = $("#organization-code-view").val();
-		var activity_type = $("#assignment-type").val();
-		alert(activity_type);
+		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
 		}
@@ -67,6 +64,7 @@
 		$("#project-name").attr("placeholder", "Project");
 		$("#employee-name").attr("placeholder", "Employee");
 		$("#employee-name-2").attr("placeholder", "Employee");
+		$("#assignment-code").attr("placeholder","Reff Task Code");
 		$("#description").attr("placeholder", "Description");
 		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
 	});

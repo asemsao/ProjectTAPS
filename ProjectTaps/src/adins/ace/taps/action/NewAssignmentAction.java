@@ -41,7 +41,10 @@ public class NewAssignmentAction extends Action {
 				aForm.setAssignmentBean(aMan.searchRecordAssignment(taskCode));
 				return mapping.findForward("EditAssignment");
 			}
-			return mapping.findForward("NewAssignment");
+			else {
+				aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode(userDomain));
+				return mapping.findForward("NewAssignment");
+			}
 		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
