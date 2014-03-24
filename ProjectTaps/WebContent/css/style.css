@@ -153,3 +153,13 @@ textarea {
 #datepicker>span {
 	display: block !important;
 }
+
+.field-form {
+	width: 20%;
+	text-align: right;
+}
+
+.field-separator {
+	width: 2%;
+	text-align: center;
+}
