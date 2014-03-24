@@ -480,7 +480,7 @@
 	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		INSERT INTO assignments (
 								task_code,
-								assignment_date,
+                                assignment_date,
 								assignment_due_date,
 								assignment_type,
 								assignment_category,
@@ -501,7 +501,7 @@
 								)
 		VALUES (
 				#taskCode#,
-				TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
+                TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
 				#assignmentDueDate#,
 				#assignmentType#,
 				'ASSIGNMENT',
@@ -661,10 +661,10 @@
 		         employees mgr,
 		         projects p
 		 WHERE       a.task_code = #taskCode#
-		         AND a.assign_to = e.user_domain
-		         AND a.report_to = e2.user_domain
-		         AND e.organization_code = o.organization_code
-		         AND o.head_user_domain = mgr.user_domain
+		         AND a.assign_to = e.user_domain(+)
+		         AND a.report_to = e2.user_domain(+)
+		         AND e.organization_code = o.organization_code(+)
+		         AND o.head_user_domain = mgr.user_domain(+)
 		         AND a.project_code = p.project_code(+)
 	</select>
 
@@ -714,7 +714,7 @@
 		         detail_claim_assignments d,
 		         projects p
 		 WHERE       a.task_code = #taskCode#
-		         AND a.assign_to = e.user_domain
+		         AND a.assign_to = e.user_domain(+)
 		         AND a.report_to = e2.user_domain(+)
 		         AND a.adhoc_user_domain = adhoc.user_domain(+)
 		         AND a.organization_code = o.organization_code(+)
@@ -755,7 +755,7 @@
 		         detail_claim_assignments d,
 		         projects p
 		 WHERE       a.task_code = #taskCode#
-		         AND a.assign_to = e.user_domain
+		         AND a.assign_to = e.user_domain(+)
 		         AND a.report_to = e2.user_domain(+)
 		         AND a.adhoc_user_domain = adhoc.user_domain(+)
 		         AND a.organization_code = o.organization_code(+)
@@ -804,9 +804,9 @@
 		         employees spv,
 		         projects p
 		 WHERE       a.task_code = #taskCode#
-		         AND a.assign_to = e.user_domain
-		         AND e.organization_code = o.organization_code
-		         AND o.head_user_domain = spv.user_domain
+		         AND a.assign_to = e.user_domain(+)
+		         AND e.organization_code = o.organization_code(+)
+		         AND o.head_user_domain = spv.user_domain(+)
 		         AND a.project_code = p.project_code(+)
 	</select>
 

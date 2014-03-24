@@ -13,7 +13,19 @@
 			document.reportForm.task.value = "";
 			document.reportForm.submit();
 			return;
-		} else if (task == "view") {
+		} else {
+			document.reportForm.task.value = task;
+			reportValidation();
+		}
+	}
+	
+	function report(task,param) {
+		if (task == "cancel") {
+			document.reportForm.task.value = "";
+			document.reportForm.submit();
+			return;
+		} else {
+			document.reportForm.buPrint.value = param;
 			document.reportForm.task.value = task;
 			reportValidation();
 		}
@@ -108,7 +120,26 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button onclick="report('view');" class="success">Generate</button>
+									<% if (session.getAttribute("organizationLevel").equals("0")) {
+												%>
+												<button class="primary"
+									onclick="javascript:report('printReportBOM','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Management</button>
+												<% } %>
+		<%-- 							<logic:equal name="reportForm" property="param2" value="0"> --%>
+		<!-- 								<button id="back-btn" onclick="javascript:button('back')">Home</button> -->
+		<%-- 							</logic:equal> --%>
+									<% if (session.getAttribute("organizationLevel").equals("1")) {
+												%>
+												<button class="primary" onclick="javascript:report('printReportBU','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Business Unit</button>
+												<% } %>
+												<% if (session.getAttribute("organizationLevel").equals("2")) {
+												%>
+												<button class="primary" onclick="javascript:report('printReportDept','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Department</button>
+												<% } %>
+									<button onclick="report('view');" class="info">View Report</button>
 								</td>
 							</tr>
 						</tbody>
@@ -117,6 +148,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="reportForm" />
+		<html:hidden property="buPrint" name="reportForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

@@ -19,26 +19,27 @@
 	}
 
 	$(document).ready(function() {
-		checkClaimToday();
 		$("#timepicker").timeselector();
 		$("#assignmentDate").attr("placeholder", "Assignment Date");
 		$("#timepicker").attr("placeholder", "Assignment Time");
 		$("#description").attr("placeholder", "Description");
-		$("#assignmentDate").change(function() {
-			alert("mey");
-			checkClaimToday();
-		});
+		var $myText = $("#assignmentDate");
+		$myText.data("value", $myText.val());
+		setInterval(function() {
+			var data = $myText.data("value"), val = $myText.val();
+			if (data !== val) {
+				$myText.data("value", val);
+				var cds = $("#claimDateString").val();
+				if (cds.indexOf(val) != -1) {
+					$("#btnClaim").hide();
+					$("#btnRfa").hide();
+				} else {
+					$("#btnClaim").show();
+					$("#btnRfa").show();
+				}
+			}
+		}, 100);
 	});
-
-	function checkClaimToday() {
-		if ($("#claimDateString").val().indexOf($(this).val()) >= 0) {
-			$("#btnClaim").hide();
-			$("#btnRfa").hide();
-		} else {
-			$("#btnClaim").show();
-			$("#btnRfa").show();
-		}
-	}
 </script>
 
 <title>Claim Assignment</title>

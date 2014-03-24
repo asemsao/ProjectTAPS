@@ -85,14 +85,16 @@ public class ManageRoleAction extends Action {
 			 Map params = new HashMap();
 			 params = gson.fromJson(request.getParameter("params"),HashMap.class);
 			 params.put("roleId", params.get("roleId").toString());
+			 String roleName = erMan.getRoleName(params.get("roleId").toString());
 			 if (erMan.deleteRoleMenu(params)) {
 				 String message = "";
 				 for (String item : (Iterable<String>) params.get("listMenu")) {					 
 					 params.put("menuId", item);
+					 String menuName = erMan.getMenuName(item);
 					 if (erMan.insertRoleMenu(params)) {
-						 message += params.get("menuId")+ " add to role " + params.get("roleId") +"\n";
+						 message += menuName + " add to role " + roleName +"<br />";
 					 } else {
-						 message += "Oops, there is something wrong to add" +params.get("menuId")+ " to role " + params.get("roleId") +"\n";
+						 message += "Oops, there is something wrong to add" +menuName+ " to role " + roleName +"<br />";
 					 }
 					 
 				 } 
@@ -159,8 +161,6 @@ public class ManageRoleAction extends Action {
 		}
 		
 		if ("home".equals(erForm.getTask())) {
-			System.out.println(erForm.getMessage()+"TESSSS");
-			System.out.println(erForm.getMessagecolor()+"colorTESSSS");
 			erForm.setListRole(erMan.searchListRole());
 			return mapping.findForward("ListRole");
 		}

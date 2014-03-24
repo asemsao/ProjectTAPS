@@ -232,7 +232,6 @@
 		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
-<%-- 		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view"/> --%>
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

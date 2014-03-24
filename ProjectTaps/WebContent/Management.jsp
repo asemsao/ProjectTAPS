@@ -14,10 +14,6 @@
 	    ReportClientDocument report = getClientDocument(REPORT_NAME);
 	      try {
 	 	 int i = 0;
-// 	 	System.out.println("PERIODE= "+request.getSession().getAttribute("periodePrint"));
-// 	 	System.out.println("PERIODE REPORT= "+request.getSession().getAttribute("periodeReportPrint"));
-// 	 	System.out.println("YEAR= "+request.getSession().getAttribute("yearPrint"));
-// 	 	System.out.println("BU= "+request.getSession().getAttribute("buPrint"));
 	 	String bu = "";
 	 	String periode = "";
 	 	String periodeReport = "";
@@ -34,10 +30,10 @@
 	 	if (request.getSession().getAttribute("yearPrint") != null) {
 	 		year = request.getSession().getAttribute("yearPrint").toString();
 	 	}
-	 	setDocParameter(i++,periode, report);
-	 	setDocParameter(i++,bu, report);
-	 	setDocParameter(i++,periodeReport, report);
-	 	setDocParameter(i++,year, report);
+	 	setDocParameter(i++,periode.trim(), report);
+	 	setDocParameter(i++,bu.trim(), report);
+	 	setDocParameter(i++,periodeReport.trim(), report);
+	 	setDocParameter(i++,year.trim(), report);
 		
 		
 		viewReport(report, request, response, session);

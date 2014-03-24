@@ -236,10 +236,13 @@
 <!-- 							</tr> -->
 								<tr>
 									<td colspan="5" class="text-right">
-										<button id="back-btn" onclick="javascript:button('back')">Home</button>										
-									<logic:equal name="reportForm" property="param2" value="2">
+										<button id="back-btn" onclick="javascript:button('back')">Home</button>
+										<% if (!session.getAttribute("organizationLevel").equals("2")) {
+										%>										
+<%-- 									<logic:equal name="reportForm" property='<%=session.getAttribute("organizationLevel") %>' value="2"> --%>
 										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>
-									</logic:equal>						
+<%-- 									</logic:equal>						 --%>
+										<% } %>
 									</td>
 								</tr>
 						</tbody>
