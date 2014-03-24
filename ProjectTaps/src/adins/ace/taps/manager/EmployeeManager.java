@@ -1,5 +1,6 @@
 package adins.ace.taps.manager;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import adins.ace.taps.bean.employee.EmployeeBean;
 import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
 import adins.ace.taps.bean.employee.EmployeeProjectStructureBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
+import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -261,6 +263,25 @@ public class EmployeeManager {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
+			}
+		}
+		return flag;
+	}
+	
+	public boolean insertRoleEmp(NewEmployeeBean newEmployee){
+		boolean flag = false;
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.insert("employee.insertRoleEmployee", newEmployee);
+			ibatisSqlMap.commitTransaction();
+			flag = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return flag;

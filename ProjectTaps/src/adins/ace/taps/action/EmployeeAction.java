@@ -22,6 +22,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.upload.FormFile;
 
+import com.crystaldecisions.proxy.remoteagent.am;
+
 import adins.ace.taps.bean.employee.EmployeeOrganizationBean;
 import adins.ace.taps.bean.employee.NewEmployeeBean;
 import adins.ace.taps.configuration.App;
@@ -142,7 +144,6 @@ public class EmployeeAction extends Action {
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			String tamp = mForm.getNewEmployee().getPhoneNumber().replaceAll("\\(|\\)|\\-", "-");
-			System.out.println("A"+tamp);
 			String[] temp = tamp.split("-");
 			mForm.getNewEmployee().setPhoneNumberAreaCode(temp[1].trim());
 			mForm.getNewEmployee().setPhoneNumberMidNumb(temp[2].trim());
@@ -151,7 +152,6 @@ public class EmployeeAction extends Action {
 			if(tamp.charAt(0)!='-'){
 				tamp = "-"+tamp;
 			}
-			System.out.println("B"+tamp);
 			temp = tamp.split("-");
 			mForm.getNewEmployee().setMobileNumberAreaCode(temp[1].trim());
 			mForm.getNewEmployee().setMobileNumberMidNumb(temp[2].trim());
@@ -166,6 +166,7 @@ public class EmployeeAction extends Action {
 		}
 		if ("saveNewEmployee".equals(mForm.getTask())) {
 			boolean flag = false;
+			boolean flagRole = false;
 			// Resize Photo
 			String filePathUpload = getServlet().getServletContext()
 					.getRealPath("/");
@@ -188,7 +189,8 @@ public class EmployeeAction extends Action {
 			mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
 			
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
-			if (flag) {
+			flagRole = mMan.insertRoleEmp(mForm.getNewEmployee());
+			if (flag && flagRole) {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
 				if (mForm.getPassword() != "") {
@@ -197,6 +199,8 @@ public class EmployeeAction extends Action {
 					data.put("password", "employeetaps");
 				}
 				mMan.insertLoginEmployee(data);
+				
+				
 				mForm.setMessage("Add Employee Successfull!");
 				mForm.setColor("green");
 			} else {

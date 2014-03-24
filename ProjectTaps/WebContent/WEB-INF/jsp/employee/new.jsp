@@ -14,9 +14,6 @@
 <script type="text/javascript">
 	function button(task) {
 		if (task == "cancel") {			
-// 			document.employeeForm.task.value = "";
-// 			document.employeeForm.submit();
-			
 			$("#task").val("");
 			document.employeeForm.submit();
 			return;

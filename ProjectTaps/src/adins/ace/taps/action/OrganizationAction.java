@@ -28,8 +28,9 @@ public class OrganizationAction extends Action {
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
-		orgForm.getOrgBean().setSessionUserDomain((String) session.getAttribute("username"));
-		
+		orgForm.getOrgBean().setSessionUserDomain(
+				(String) session.getAttribute("username"));
+
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
 		}
@@ -90,49 +91,33 @@ public class OrganizationAction extends Action {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.replaceAll(" ", "")));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
-			if (orgMan.countMemberOrganizations(params) == 0) {
-				if (orgMan.countChildOrganizations(orgForm
-						.getOrganizationCode().replaceAll(" ", "")) == 0) {
-					if (orgMan.countProject(params) == 0) {
-						if (orgMan.countDirectReportProject(orgForm
-								.getHeadDomain()) == 0) {
-							if (orgMan.deleteOrganization(orgForm
-									.getOrganizationCode().replaceAll(" ", ""))) {
-								orgMan.updateAssignment(orgForm.getOrgBean());
-								orgMan.deleteRoleSPV(orgForm.getHeadDomain());
-								orgMan.deleteRole(orgForm.getHeadDomain());
-								orgForm.setMessage("Delete Business Unit Successfull!");
-								orgForm.setColor("green");
-							} else {
-								orgForm.setMessage("Delete Business Unit Failed!");
-								orgForm.setColor("red");
-							}
+			if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
+				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.replaceAll(" ", ""))) {
+					orgMan.updateAssignment(orgForm.getOrgBean());
+					orgMan.deleteRoleSPV(orgForm.getHeadDomain());
+					orgMan.deleteRole(orgForm.getHeadDomain());
+					orgForm.setMessage("Delete Business Unit Successfull!");
+					orgForm.setColor("green");
+				} else {
+					orgForm.setMessage("Delete Business Unit Failed!");
+					orgForm.setColor("red");
+				}
 
-						} else {
-							if (orgMan.deleteOrganization(orgForm
-									.getOrganizationCode().replaceAll(" ", ""))) {
-								orgMan.updateAssignment(orgForm.getOrgBean());
-								orgMan.deleteRole(orgForm.getHeadDomain());
-								orgMan.deleteOrganization(orgForm
-										.getOrganizationCode().replaceAll(" ",
-												""));
-								orgForm.setMessage("Delete Business Unit Successfull!");
-								orgForm.setColor("green");
-							} else {
-								orgForm.setMessage("Delete Business Unit Failed!");
-								orgForm.setColor("red");
-							}
-						}
-					} else {
-						orgForm.setMessage("Delete Business Unit Failed! has Projects");
-						orgForm.setColor("red");
-					}
-				} else
-					orgForm.setMessage("Delete Business Unit Failed! has child");
-				orgForm.setColor("red");
-			} else
-				orgForm.setMessage("Delete Business Unit Failed! has member");
-			orgForm.setColor("red");
+			} else {
+				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.replaceAll(" ", ""))) {
+					orgMan.updateAssignment(orgForm.getOrgBean());
+					orgMan.deleteRole(orgForm.getHeadDomain());
+					orgMan.deleteOrganization(orgForm.getOrganizationCode()
+							.replaceAll(" ", ""));
+					orgForm.setMessage("Delete Business Unit Successfull!");
+					orgForm.setColor("green");
+				} else {
+					orgForm.setMessage("Delete Business Unit Failed!");
+					orgForm.setColor("red");
+				}
+			}
 		}
 		if ("first".equals(orgForm.getTask())) {
 			orgForm.setPage(1);

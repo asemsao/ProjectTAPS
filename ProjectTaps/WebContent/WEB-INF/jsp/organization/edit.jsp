@@ -106,7 +106,7 @@
 								<td>
 									<div class="input-control text size3">
 										<html:text property="orgBean.organizationName"
-											name="organizationForm" styleId="organizationName"></html:text>
+											name="organizationForm" styleId="organizationName" maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>

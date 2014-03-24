@@ -433,29 +433,65 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		</dynamic>
 	</select>
 
+	
 	<select id="selectProject" resultClass="organizationBean"
 		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
 		SELECT p.project_code as projectCode, p.project_name as projectName from projects p, organizations o
-		where p.organization_code=o.organization_code AND o.organization_code=#organizationCode#
+		where p.organization_code=o.organization_code AND o.organization_code=#organizationCode# AND p.flag='ACTIVE'
+		)
+		a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 	
 	<select id="selectChild" resultClass="organizationBean"
 		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
 		SELECT
         organization_code as organizationCode, organization_name as organizationName
         FROM organizations
         WHERE
         UPPER(parent_organization_code) =
         UPPER(#organizationCode#) AND flag='ACTIVE'
+		)
+		a
+		WHERE  <![CDATA[ ROWNUM <= #end#]]>
+		)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+		
 	</select>
+	
+		<select id="countSelectProject" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT   COUNT (1)
+  		FROM   projects p, organizations o
+		 WHERE       p.organization_code = o.organization_code
+         AND o.organization_code = #organizationCode#
+         AND p.flag = 'ACTIVE'
+		</select> 
+		
+		<select id="countSelectChild" resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT   COUNT (1)
+  		FROM organizations
+        WHERE
+        UPPER(parent_organization_code) =
+        UPPER(#organizationCode#) AND flag='ACTIVE'
+		</select> 
 	
 	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
 		SELECT
-		COUNT(1)
-		FROM employees
-		WHERE UPPER(organization_code) =
-		UPPER(#organization_code#) AND
-		LOWER(flag) = 'active'
+        COUNT(1)
+        FROM employees e, organizations o
+        WHERE UPPER(e.organization_code) =
+        UPPER(#organizationCode#) AND e.organization_code=O.ORGANIZATION_CODE AND
+        LOWER(e.flag) = 'active' AND e.user_domain != o.head_user_domain
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
