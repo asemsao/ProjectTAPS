@@ -1022,7 +1022,7 @@
 	
 	<select id="getClaimDate" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
 		parameterClass="java.lang.String">
-		SELECT   claim_date as claimDate
+		SELECT   TO_CHAR(claim_date, 'DD/MM/YYYY') as claimDate
 		  FROM   detail_claim_assignments
 		 WHERE   task_code = #taskCode#
 	</select>
