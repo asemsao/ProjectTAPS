@@ -19,11 +19,26 @@
 	}
 
 	$(document).ready(function() {
+		checkClaimToday();
 		$("#timepicker").timeselector();
 		$("#assignmentDate").attr("placeholder", "Assignment Date");
 		$("#timepicker").attr("placeholder", "Assignment Time");
 		$("#description").attr("placeholder", "Description");
+		$("#assignmentDate").change(function() {
+			alert("mey");
+			checkClaimToday();
+		});
 	});
+
+	function checkClaimToday() {
+		if ($("#claimDateString").val().indexOf($(this).val()) >= 0) {
+			$("#btnClaim").hide();
+			$("#btnRfa").hide();
+		} else {
+			$("#btnClaim").show();
+			$("#btnRfa").show();
+		}
+	}
 </script>
 
 <title>Claim Assignment</title>
@@ -34,7 +49,8 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<html:text property="stringClaimDate" name="dashboardForm"></html:text>
+					<html:text property="stringClaimDate" name="dashboardForm"
+						styleId="claimDateString" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -171,9 +187,9 @@
 							<tr>
 								<td colspan=4 class="text-right">
 									<button onclick="javascript:flyToPage('claim');"
-										class="button success">Claim</button>
+										class="button success" id="btnClaim">Claim</button>
 									<button onclick="javascript:flyToPage('rfa');"
-										class="button success">RFA</button>
+										class="button success" id="btnRfa">RFA</button>
 									<button onclick="javascript:flyToPage('cancel');"
 										class="button info">Cancel</button>
 								</td>
