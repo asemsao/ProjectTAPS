@@ -1,3 +1,4 @@
+<%@page import="adins.ace.taps.configuration.App"%>
 <%@ page import="java.io.*"%>
 
 <%@ page import="javax.servlet.http.HttpSession" %>
@@ -12,12 +13,12 @@
 <%!
 // Path directory for all reports.
 String disableCache = "rassdk://";
-String path = "C:\\Program Files\\Crystal Decisions\\Report Application Server 9\\Reports\\ACE18\\Farisa Adelia\\";
+String path = App.getConfiguration("pathRAS");
 /*********** TESTING *************/
 // Should be using XML config file: clientSDKOptions.xml.
-String rasHostName = "192.168.10.56";
-String dbUser = "TAPS";
-String dbPassword = "taps";
+String rasHostName = App.getConfiguration("rasHostName");
+String dbUser = App.getConfiguration("dbUser");
+String dbPassword = App.getConfiguration("dbPassword");
 
 
 /**
