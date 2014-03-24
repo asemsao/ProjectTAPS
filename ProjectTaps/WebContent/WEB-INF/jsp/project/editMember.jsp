@@ -54,8 +54,8 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignee</td>
-								<td>:</td>
+								<td class="field-form">Assignee</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addSProject.assigneeUserDomain"
@@ -66,8 +66,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Role</td>
-								<td>:</td>
+								<td class="field-form">Role</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:text property="addSProject.projectRole" styleId="projectRole"
@@ -76,8 +76,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Direct Report</td>
-								<td>:</td>
+								<td class="field-form">Direct Report</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addSProject.directreportUserDomain"

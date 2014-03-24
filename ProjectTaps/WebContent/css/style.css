@@ -39,8 +39,8 @@ a,button {
 }
 
 .avatar {
-	height: 160px;
-	width: 160px;
+	height: 200px;
+	width: 200px;
 	margin-bottom: 10px;
 }
 
@@ -152,4 +152,19 @@ textarea {
 
 #datepicker>span {
 	display: block !important;
+}
+
+.field-form {
+	width: 20%;
+	text-align: right;
+}
+
+.field-separator {
+	width: 2%;
+	text-align: center;
+}
+
+.field-avatar {
+	width: 25%;
+	text-align: center;
 }

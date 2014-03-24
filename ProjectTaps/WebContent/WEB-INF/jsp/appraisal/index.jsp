@@ -169,7 +169,7 @@
 								</td>
 								<td class="text-center"><a
 									href="javascript:flyToPage('New');"
-									data-hint="View Special Appraisal" data-hint-position="bottom"><img
+									data-hint="New Special Appraisal" data-hint-position="bottom"><img
 										alt="" src="<%=request.getContextPath()%>/images/ADD_STAR.png"></a></td>
 							</tr>
 						</tbody>
