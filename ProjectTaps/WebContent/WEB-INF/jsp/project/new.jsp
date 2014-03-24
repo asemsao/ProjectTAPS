@@ -58,32 +58,32 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Project Code</td>
-								<td>:</td>
+								<td class="field-form">Project Code</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="addProject.projectCode"
 											name="projectForm" styleId="projectCode"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Project Name</td>
-								<td>:</td>
+								<td class="field-form">Project Name</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="addProject.projectName"
 											name="projectForm" styleId="projectName"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Client</td>
-								<td>:</td>
+								<td class="field-form">Client</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="addProject.client" name="projectForm"
 											styleId="client"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Phase</td>
-								<td>:</td>
+								<td class="field-form">Phase</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
 										<html:select property="addProject.phaseId" name="projectForm">
@@ -97,8 +97,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Business Unit</td>
-								<td>:</td>
+								<td class="field-form">Business Unit</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="addProject.organizationCode"
@@ -110,8 +110,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Start Date</td>
-								<td>:</td>
+								<td class="field-form">Start Date</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text" id="datepicker">
 										<html:text property="addProject.startDate" name="projectForm"
@@ -121,8 +121,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Estimate Finish Date</td>
-								<td>:</td>
+								<td class="field-form">Estimate Finish Date</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text " id="datepicker">
 										<html:text property="addProject.endDate" name="projectForm"

@@ -91,11 +91,11 @@ public class AjaxAction extends Action {
 		}
 		
 		if("deleteOrganization".equals(ajaxForm.getMode())){
-			System.out.println("AC.deleteORG");
 			params.put("organizationCode", ajaxForm.getOrganizationCode());
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
+			ajaxForm.setCountRecord(ajaxForm.getCheckDeleteOrganization());
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {
@@ -144,17 +144,13 @@ public class AjaxAction extends Action {
 				ajaxForm.setCountRecord(0);
 			} else {
 				params.put("project", ajaxForm.getProjectCode());
-				ajaxForm.setListEmployeesOnProject(empMan
-						.searchEmployeesOnProject(params));
+				ajaxForm.setListEmployeesOnProject(empMan.searchEmployeesOnProject(params));
 				ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
 			}
 		}
 		if ("employeesOnOrganization".equals(ajaxForm.getMode())) {
-			// nanti dari session
-			ajaxForm.setOrganizationCode("CDD");
 			params.put("organization", ajaxForm.getOrganizationCode());
-			ajaxForm.setListEmployeesOnOrganization(empMan
-					.searchEmployees(params));
+			ajaxForm.setListEmployeesOnOrganization(empMan.searchEmployees(params));
 			ajaxForm.setCountRecord(empMan.countEmployees(params));
 		}
 		if ("organizations".equals(ajaxForm.getMode())) {
@@ -163,13 +159,11 @@ public class AjaxAction extends Action {
 		}
 		if ("parentOrganizations".equals(ajaxForm.getMode())) {
 			params.put("level", ajaxForm.getLevel() - 1);
-			ajaxForm.setListOrganizations(orgMan
-					.searchParentOrganizations(params));
+			ajaxForm.setListOrganizations(orgMan.searchParentOrganizations(params));
 			ajaxForm.setCountRecord(orgMan.countParentOrganizations(params));
 		}
 		if ("assignments".equals(ajaxForm.getMode())) {
-			ajaxForm.setListEmployeeReport(asgMan
-					.searchEmployeeReportEmployee(params));
+			ajaxForm.setListEmployeeReport(asgMan.searchEmployeeReportEmployee(params));
 			ajaxForm.setCountRecord(asgMan.countEmployeeReportEmployee(params));
 		}
 		if ("newAssignments".equals(ajaxForm.getMode())) {
@@ -257,6 +251,9 @@ public class AjaxAction extends Action {
 		}
 		if ("deleteProject".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteProject");
+		}
+		if ("deleteOrganization".equals(ajaxForm.getTask())) {
+			return mapping.findForward("deleteOrganization");
 		}
 		return null;
 	}

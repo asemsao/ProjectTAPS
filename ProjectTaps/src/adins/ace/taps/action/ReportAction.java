@@ -30,7 +30,7 @@ public class ReportAction extends Action {
 		ReportManager rMan = new ReportManager();
 		
 		String orgCode = "MAN";
-		String orgName = "MANAJEMEN";
+		String orgName = "MANAGEMENT";
 		String orgLevel = "0";
 		HttpSession session = request.getSession(true);
 		//rForm.setReportPeriode("I");

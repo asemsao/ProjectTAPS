@@ -35,13 +35,15 @@ public class NewAssignmentAction extends Action {
 		Date date = new Date();
 		boolean success = false;
 		boolean assign = false;
-
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
 				aForm.setAssignmentBean(aMan.searchRecordAssignment(taskCode));
 				return mapping.findForward("EditAssignment");
 			}
-			return mapping.findForward("NewAssignment");
+			else {
+				aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode(userDomain));
+				return mapping.findForward("NewAssignment");
+			}
 		} else {
 			if ("cancel".equals(aForm.getNewTask())) {
 				session.removeAttribute("taskCode");
@@ -70,13 +72,14 @@ public class NewAssignmentAction extends Action {
 							+ dateFormat.format(date);
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeOrganization(paramCode);
+					
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode()
 							+ dateFormat.format(date);
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeProject(paramCode);
+					
 				}
-				
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
 				if ("save".equals(aForm.getNewTask())) {

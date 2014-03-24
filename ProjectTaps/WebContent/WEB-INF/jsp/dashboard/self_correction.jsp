@@ -48,22 +48,22 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
 
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
 							</tr>
 							<%
 								if (session.getAttribute("type").equals("PROJECT")) {
 							%>
 							<tr>
-								<td>Assign By</td>
-								<td>:</td>
+								<td class="field-form">Assign By</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.projectName" name="dashboardForm"></bean:write></td>
 								<td><b>Report to </b> : <bean:write property="selfAssignBean.reportToFullName" name="dashboardForm"></bean:write></td>
 							</tr>
@@ -71,8 +71,8 @@
 								} else {
 							%>
 							<tr>
-								<td>Assign By</td>
-								<td>:</td>
+								<td class="field-form">Assign By</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.organizationName" name="dashboardForm" /></td>
 								<td><b>Report to </b> : <bean:write property="selfAssignBean.headUserName" name="dashboardForm" />
 								</td>
@@ -81,8 +81,8 @@
 								}
 							%>
 							<tr>
-								<td>Activity Type</td>
-								<td>:</td>
+								<td class="field-form">Activity Type</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
@@ -94,13 +94,13 @@
 								%>
 							</tr>
 							<tr>
-								<td>Reff Task Code</td>
-								<td>:</td>
+								<td class="field-form">Reff Task Code</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>ManHours</td>
-								<td>:</td>
+								<td class="field-form">ManHours</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="dashboardForm">
 											<html:option value="">00:00</html:option>
@@ -156,14 +156,14 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="selfAssignBean.description" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td>Comment</td>
-								<td>:</td>
+								<td class="field-form">Comment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="selfAssignBean.comment" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>

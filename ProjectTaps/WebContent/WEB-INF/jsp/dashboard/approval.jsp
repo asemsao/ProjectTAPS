@@ -67,18 +67,18 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Due Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Due Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:equal property="claimBean.assignmentType" name="dashboardForm" value="BU">Business Unit - 
 										<bean:write property="claimBean.organizationName" name="dashboardForm" />
@@ -88,24 +88,24 @@
 									</logic:equal></td>
 							</tr>
 							<tr>
-								<td>Assign To</td>
-								<td>:</td>
+								<td class="field-form">Assign To</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="claimBean.fullName" name="dashboardForm" /></td>
 								<td><b>Assignment From </b> : <bean:write property="claimBean.createdByName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Reff Assignment</td>
-								<td>:</td>
+								<td class="field-form">Reff Assignment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Detail Claim</td>
-								<td>:</td>
+								<td class="field-form">Detail Claim</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><logic:notEmpty property="listDetailClaim" name="dashboardForm">
 										<table class="table striped bordered hovered">
 											<thead>
@@ -191,8 +191,8 @@
 									</logic:notEmpty></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal Star</td>
-								<td>:</td>
+								<td  class="field-form size3">Appraisal Star</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<div class="star-hider">
 										<div class="rating-kiri" style="float: left;">
@@ -227,8 +227,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Comment</td>
-								<td>:</td>
+								<td class="field-form">Comment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="claimBean.comment" name="dashboardForm" rows="3"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>

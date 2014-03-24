@@ -21,6 +21,7 @@ import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
 
 public class ClaimSupervisorAssignmentAction extends Action {
+	//this is action for assignment from supervisor view
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +36,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		
 		if ("approved".equals(aForm.getTask())) {
+			//add comment and change status to approved
 			aForm.getClaimBean().setStatus("APPROVED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
@@ -61,6 +63,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(aForm.getTask())) {
+			//add comment and change status to correction
 			aForm.getClaimBean().setStatus("CORRECTION");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
@@ -85,6 +88,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(aForm.getTask())) {
+			//add comment and change status to rejected
 			aForm.getClaimBean().setStatus("REJECTED");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
@@ -109,7 +113,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(aForm.getTask())) {
-			// update tabel star 
+			// update tabel star
 			aForm.getClaimBean().setStarBefore(aMan.searchLastStar(taskCode));
 			aMan.addAssignmentStar(aForm.getClaimBean());
 			session.removeAttribute("taskCode");
@@ -119,11 +123,13 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 
+		//show record assignment
+		//for approved assignment, update-star button only show within certain days after it's being approved
+		//to set the range date for update star, change the value max_date from config.properties
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));
 		
-		System.out.println(params);
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));

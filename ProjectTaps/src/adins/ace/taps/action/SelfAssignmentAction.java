@@ -17,12 +17,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
+import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.assignment.ClaimAssignmentForm;
 import adins.ace.taps.form.assignment.SelfAssignmentForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
 
 public class SelfAssignmentAction extends Action {
+	//this is action for self assignment from employees view
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -40,6 +42,8 @@ public class SelfAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("RFA".equals(sForm.getTask())) {
+			//request for approval to supervisor, change status to RFA
+			//update description or manhours if there's a change
 			String tmpDescription="";
 			String tmpManHours="";
 			tmpDescription = request.getParameter("tmpDescription");
@@ -76,7 +80,12 @@ public class SelfAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 		
-		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(taskCode));
+
+//		// Show record self assignment
+		Map params = new HashMap();
+		params.put("taskCode", taskCode);
+		params.put("maxDate", App.getConfiguration("max_date"));
+		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 		
 		/*this session to check assignment type in self_correction.jsp*/
 		session.setAttribute("type", sForm.getSelfAssignBean().getAssignmentType());

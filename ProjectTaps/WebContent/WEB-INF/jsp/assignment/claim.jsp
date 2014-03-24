@@ -93,18 +93,18 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDate" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Due Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Due Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:equal property="claimBean.assignmentType" name="claimAssignmentForm" value="BU">
 										Business Unit - 
@@ -117,24 +117,24 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Assign To</td>
-								<td>:</td>
+								<td class="field-form">Assign To</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="claimBean.fullName" name="claimAssignmentForm" /></td>
 								<td><b>Assignment From </b> : <bean:write property="claimBean.createdByName" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Reff Assignment</td>
-								<td>:</td>
+								<td class="field-form">Reff Assignment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.description" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Detail Claim</td>
-								<td>:</td>
+								<td class="field-form">Detail Claim</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
 										<table class="table striped bordered hovered">
@@ -301,8 +301,8 @@
 								<%
 									if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
 								%>
-								<td>Comment</td>
-								<td>:</td>
+								<td class="field-form">Comment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3" styleClass="input-control textarea"></html:textarea>
 								</td>
@@ -314,16 +314,16 @@
 								<td colspan=4 class="text-right">
 									<%
 										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
-										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									%> <button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 									<%
 									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> <html:button property="claim-btn" onclick="javascript:flyToPage('claim');" styleClass="button success">Claim</html:button> 
-										<html:button property="claimclose-btn" onclick="javascript:flyToPage('RFA');" styleClass="button success">RFA</html:button> 
-										<html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button> 
+									 %> <button onclick="javascript:flyToPage('claim');" class="button success">Claim</button> 
+										<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 									<%
 									 	} else {
-									 %> <html:button property="cancel-btn" onclick="javascript:flyToPage('cancel');" styleClass="button info">Close</html:button>
+									 %> <button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
 								</td>
 								<%
 									}
