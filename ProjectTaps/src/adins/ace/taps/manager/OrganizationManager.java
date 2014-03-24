@@ -53,6 +53,23 @@ public class OrganizationManager {
 		return orgList;
 	}
 	
+	public String getStartDateProject(Map params){
+		String OrganizationName = "";
+		try {
+			ibatisSqlMap.startTransaction();
+			OrganizationName = (String) ibatisSqlMap.queryForObject("organization.selectOrganizationName", params);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return OrganizationName;		
+	}
+	
 	public List<OrganizationBean> listProject(Map params) {
 		List<OrganizationBean> listProject = null;
 		try {

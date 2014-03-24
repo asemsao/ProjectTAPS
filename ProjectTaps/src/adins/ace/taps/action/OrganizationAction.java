@@ -33,6 +33,7 @@ public class OrganizationAction extends Action {
 
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
+			orgForm.setMaxpage(1);
 		}
 
 		if ("new".equals(orgForm.getTask())) {
@@ -50,9 +51,7 @@ public class OrganizationAction extends Action {
 					orgForm.setColor("red");
 				}
 			} else {
-				System.out.println("norole");
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
-					System.out.println("submit");
 					orgMan.insertRole(orgForm.getOrgBean());
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
@@ -152,7 +151,7 @@ public class OrganizationAction extends Action {
 
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
-			int temp = 0;
+			orgForm.setMaxpage(1);
 
 			orgForm.setMode("structure");
 			orgForm.setSearchKeyword("");
@@ -183,7 +182,7 @@ public class OrganizationAction extends Action {
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
-
+			orgForm.setMaxpage(1);
 			if (orgForm.getCountRecord() % 10 == 0) {
 				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
@@ -194,7 +193,7 @@ public class OrganizationAction extends Action {
 
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
-
+		orgForm.setMaxpage(1);
 		if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
