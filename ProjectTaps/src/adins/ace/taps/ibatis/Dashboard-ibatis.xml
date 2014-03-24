@@ -20,7 +20,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
 						SUM (s.star_after) - SUM (s.star_before) AS totalStar
 						FROM employees e, stars s
-				WHERE 	e.user_domain = s.user_domain
+				WHERE 	e.user_domain = s.user_domain AND e.flag = 'ACTIVE'
 				<dynamic prepend="AND">
 					<isNotNull property="currentMonth">
 						<isNotEmpty property="currentMonth">
@@ -46,7 +46,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 							e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
 		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
 		            FROM   	employees e, stars s
-		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#)
+		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#) AND e.flag = 'ACTIVE'
 		    		<dynamic prepend="AND">
 						<isNotNull property="currentMonth">
 							<isNotEmpty property="currentMonth">

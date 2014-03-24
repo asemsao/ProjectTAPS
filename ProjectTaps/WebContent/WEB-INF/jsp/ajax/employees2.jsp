@@ -21,7 +21,7 @@
 		<table class="table striped bordered hovered">
 			<thead>
 				<tr>
-					<th colspan=5 class="text-center">Employee List 2</th>
+					<th colspan=5 class="text-center">Employee List</th>
 				</tr>
 				<tr>
 					<th class="text-center" colspan=2>

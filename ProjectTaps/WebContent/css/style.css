@@ -168,3 +168,13 @@ textarea {
 	width: 25%;
 	text-align: center;
 }
+
+.field-extra-text{
+	width:15%;
+	text-align:right;
+}
+
+.field-text{
+	width:25%;
+	text-align:left;
+}

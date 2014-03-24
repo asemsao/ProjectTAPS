@@ -61,8 +61,8 @@ public class DashboardAction extends Action {
 		if ("CORRECTION".equals(dForm.getTask()) && "SELF ASSIGNMENT".equals(dForm.getTaskType())) {
 			aMan.updateFlag(dForm.getTaskCode());
 			dForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
+			dForm.getSelfAssignBean().setCurrentStatus("CORRECTION");
 			session.setAttribute("type", dForm.getSelfAssignBean().getAssignmentType());
-			session.setAttribute("adhoc", dForm.getSelfAssignBean().getActivityType());
 			return mapping.findForward("CorrectionSelf");
 		}
 		if ("CORRECTION".equals(dForm.getTask()) && "ASSIGNMENT".equals(dForm.getTaskType())) {
