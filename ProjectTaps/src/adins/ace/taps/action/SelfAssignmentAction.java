@@ -80,7 +80,8 @@ public class SelfAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		}
 		
-		// Show record self assignment
+
+//		// Show record self assignment
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));

@@ -91,8 +91,8 @@
 								<%
 									if (session.getAttribute("recoveryMode") == null) {
 								%>
-								<td>Employee Domain</td>
-								<td>:</td>
+								<td class="field-form">Employee Domain</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<div class="input-control text">
@@ -103,7 +103,7 @@
 										</div>
 									</div>
 								</td>
-								<td rowspan="6" class="text-center"><img
+								<td rowspan="6" class="text-center field-avatar"><img
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
@@ -113,8 +113,8 @@
 								<%
 									} else {
 								%>
-								<td>Employee Domain</td>
-								<td>:</td>
+								<td class="field-form">Employee Domain</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<div class="input-control text">
@@ -124,7 +124,7 @@
 										</div>
 									</div>
 								</td>
-								<td rowspan="7" class="text-center"><img
+								<td rowspan="7" class="text-center field-avatar"><img
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
@@ -139,8 +139,8 @@
 								if (session.getAttribute("recoveryMode") != null) {
 							%>
 							<tr>
-								<td>Password</td>
-								<td>:</td>
+								<td class="field-form">Password</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<div class="input-control text">
 											<html:password property="password" name="employeeForm"
@@ -152,40 +152,40 @@
 								}
 							%>
 							<tr>
-								<td>Employee Code</td>
-								<td>:</td>
+								<td class="field-form">Employee Code</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.employeeCode" maxlength="3"
 											name="employeeForm" styleId="employeeCode"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Employee NIK</td>
-								<td>:</td>
+								<td class="field-form">Employee NIK</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.employeeNik" maxlength="8"
 											name="employeeForm" styleId="employeeNik"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Employee First Name</td>
-								<td>:</td>
+								<td class="field-form">Employee First Name</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.firstName" maxlength="20"
 											name="employeeForm" styleId="firstName"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Employee Last Name</td>
-								<td>:</td>
+								<td class="field-form">Employee Last Name</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="newEmployee.lastName" name="employeeForm"
 											maxlength="25" styleId="lastName"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Employee Gender</td>
-								<td>:</td>
+								<td class="field-form">Employee Gender</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
 										<label> <html:radio property="newEmployee.gender"
@@ -202,8 +202,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Business Unit</td>
-								<td>:</td>
+								<td class="field-form">Business Unit</td>
+								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="input-control text ">
 										<html:hidden property="newEmployee.businessUnit"
@@ -216,8 +216,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Address</td>
-								<td>:</td>
+								<td class="field-form">Address</td>
+								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control textarea">
 										<html:textarea property="newEmployee.employeeAddress"
 											styleClass="address-field" name="employeeForm"
@@ -225,8 +225,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Phone No</td>
-								<td>:</td>
+								<td class="field-form">Phone No</td>
+								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 										<strong>(</strong>
 										<html:text property="newEmployee.phoneNumberAreaCode"
@@ -243,8 +243,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Mobile No</td>
-								<td>:</td>
+								<td class="field-form">Mobile No</td>
+								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 										<strong>(</strong>
 										<html:text property="newEmployee.mobileNumberAreaCode"
@@ -261,16 +261,16 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Email</td>
-								<td>:</td>
+								<td class="field-form">Email</td>
+								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 										<html:text property="newEmployee.email" name="employeeForm"
 											maxlength="30" styleId="email"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Golongan</td>
-								<td>:</td>
+								<td class="field-form">Golongan</td>
+								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">

@@ -51,8 +51,8 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="size3">Appraisal Date</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Date</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="appraisalBean.createdDate"
 											styleId="createdDate" name="specialAppraisalForm" styleClass="datepicker-back"></html:text>
@@ -60,8 +60,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal To</td>
-								<td>:</td>
+								<td class="field-form">Appraisal To</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:hidden property="appraisalBean.userDomain"
 											name="specialAppraisalForm" styleId="employee-domain" />
@@ -72,15 +72,15 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal Description</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Description</td>
+								<td class="field-separator">:</td>
 								<td><html:textarea styleClass="input-control textarea"
 										styleId="description" property="appraisalBean.description"
 										name="specialAppraisalForm" /></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal Star edit</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Star edit</td>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="star-hider">
 										<div class="rating-kiri" style="float: left;">
