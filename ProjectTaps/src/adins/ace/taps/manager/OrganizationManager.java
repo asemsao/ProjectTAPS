@@ -53,7 +53,7 @@ public class OrganizationManager {
 		return orgList;
 	}
 	
-	public String getStartDateProject(Map params){
+	public String getOrganizationName(Map params){
 		String OrganizationName = "";
 		try {
 			ibatisSqlMap.startTransaction();
