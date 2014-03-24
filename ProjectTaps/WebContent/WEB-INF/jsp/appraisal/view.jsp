@@ -14,12 +14,9 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.specialAppraisalForm.task.value = task;
+		document.specialAppraisalForm.task.value = task;		
 		document.specialAppraisalForm.submit();
 	}
-	$(document).ready(function() {
-		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-	
 </script>
 <title>View Special Appraisal</title>
 </head>
@@ -77,9 +74,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="text-right"><html:button
-										property="back" onclick="javascript:flyToPage('Back');"
-										styleClass="button success">Back</html:button></td>
+								<td colspan="3" class="text-right"><button onclick="flyToPage('Back')" class="button success">Cancel</button></td>
 
 							</tr>
 						</tbody>

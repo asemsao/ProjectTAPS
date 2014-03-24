@@ -24,6 +24,7 @@ public class SpecialAppraisalAction extends Action {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
 		Map params = new HashMap();
+		System.out.println(mForm.getTask()+"task special appraisal");
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
