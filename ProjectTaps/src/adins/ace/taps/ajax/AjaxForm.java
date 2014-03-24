@@ -21,6 +21,7 @@ public class AjaxForm extends ActionForm {
 	private List<EmployeeProjectStructureBean> supervisorStatus;
 	private List<OrganizationBean> childOrganization;
 	private List<OrganizationBean> organizationProject;
+	private Integer countMemberOrganization;
 	private String task;
 	private String searchCategory;
 	private String searchKeyword;
@@ -47,6 +48,14 @@ public class AjaxForm extends ActionForm {
 	private String assignmentType;
 	private String paramProjectCode;
 
+	public Integer getCountMemberOrganization() {
+		return countMemberOrganization;
+	}
+
+	public void setCountMemberOrganization(Integer countMemberOrganization) {
+		this.countMemberOrganization = countMemberOrganization;
+	}
+
 	public int getCheckDeleteOrganization() {
 		return checkDeleteOrganization;
 	}
@@ -62,7 +71,6 @@ public class AjaxForm extends ActionForm {
 	public void setChildOrganization(List<OrganizationBean> childOrganization) {
 		this.childOrganization = childOrganization;
 	}
-
 
 	public String getUserDomain() {
 		return userDomain;
@@ -301,9 +309,9 @@ public class AjaxForm extends ActionForm {
 		return organizationProject;
 	}
 
-	public void setOrganizationProject(List<OrganizationBean> organizationProject) {
+	public void setOrganizationProject(
+			List<OrganizationBean> organizationProject) {
 		this.organizationProject = organizationProject;
 	}
-
 
 }

@@ -208,6 +208,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="lookUpDeleteOrganization"></div>
+	<div class="hide" id="lookUpDeleteOrganization"></div>
 	<jsp:include page="/frame/footer.jsp" /></body>
 </html>

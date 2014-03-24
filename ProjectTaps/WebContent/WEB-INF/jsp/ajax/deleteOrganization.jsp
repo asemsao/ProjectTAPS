@@ -15,6 +15,7 @@
 			styleId="organizationCode-delete" name="ajaxForm" />
 		<html:hidden property="task" styleId="task-organization-delete"
 			name="ajaxForm" />
+		<html:hidden property="task" styleId="taskMember" name="ajaxForm" />
 		<html:hidden property="mode" styleId="mode-organization-delete"
 			name="ajaxForm" />
 		<html:hidden property="page" styleId="page-organization-delete"
@@ -33,6 +34,18 @@
 								deleted because has
 						</strong></th>
 					</tr>
+					<logic:notEqual name="ajaxForm" property="countMemberOrganization" value="0">
+						<thead>
+							<tr>
+								<td colspan="3"><strong><bean:write
+											name="ajaxForm" property="countMemberOrganization" />
+										members in Business Unit </strong></td>
+							</tr>
+						</thead>
+
+					</logic:notEqual>
+
+
 				</thead>
 				<logic:notEmpty name="ajaxForm" property="organizationProject">
 					<thead>
@@ -44,17 +57,18 @@
 							<td>Project Name</td>
 						</tr>
 					</thead>
-					
-						<logic:iterate id="project" name="ajaxForm"
-							property="organizationProject">
-							<tr>
-								<td><bean:write name="project" property="projectCode" /></td>
-								<td><bean:write name="project" property="projectName" /></td>
-							</tr>
 
-						</logic:iterate>
-					
+					<logic:iterate id="project" name="ajaxForm"
+						property="organizationProject">
+						<tr>
+							<td><bean:write name="project" property="projectCode" /></td>
+							<td><bean:write name="project" property="projectName" /></td>
+						</tr>
+
+					</logic:iterate>
+
 				</logic:notEmpty>
+
 				<logic:notEmpty name="ajaxForm" property="childOrganization">
 					<thead>
 						<tr>
@@ -62,25 +76,25 @@
 						</tr>
 					</thead>
 					<tr>
-					<td>Business Unit Code</td>
-					<td>Business Unit Name</td>
+						<td>Business Unit Code</td>
+						<td>Business Unit Name</td>
 					</tr>
-						<logic:iterate id="organization" name="ajaxForm"
-							property="childOrganization">
-							<tr>
-								
-								<td><bean:write name="organization"
-										property="organizationCode" /></td>
-								
-								<td><bean:write name="organization"
-										property="organizationName" /></td>
-							</tr>
-						</logic:iterate>
-					
+					<logic:iterate id="organization" name="ajaxForm"
+						property="childOrganization">
+						<tr>
+
+							<td><bean:write name="organization"
+									property="organizationCode" /></td>
+
+							<td><bean:write name="organization"
+									property="organizationName" /></td>
+						</tr>
+					</logic:iterate>
+
 				</logic:notEmpty>
 				<thead>
-				<tr>
-					<th colspan=3 class="text-center">
+					<tr>
+						<th colspan=3 class="text-center">
 							<div class="pagination">
 								<ul>
 									<li class="first"><a
@@ -106,7 +120,7 @@
 								</ul>
 							</div>
 						</th>
-				</tr>
+					</tr>
 					<tr>
 						<th class="text-center" colspan="3">
 							<button type="button" class='button info'
@@ -127,7 +141,7 @@
 						</strong></th>
 					</tr>
 					<tr>
-					
+
 						<th class="text-center"><button type="button"
 								class='button danger'
 								onclick="javascript:chooseOrganizationDelete('delete')">Delete</button>
