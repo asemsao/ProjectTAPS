@@ -49,7 +49,7 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<html:text property="stringClaimDate" name="dashboardForm"
+					<html:hidden property="stringClaimDate" name="dashboardForm"
 						styleId="claimDateString" />
 					<table class="table">
 						<thead>
