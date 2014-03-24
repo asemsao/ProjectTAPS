@@ -15,21 +15,32 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		document.selfAssignmentForm.task.value = task;
+		document.getElementById("activity-type").value = getRadioValue("activity_type");
 		document.selfAssignmentForm.submit();
 	}
 
+	function getRadioValue(theRadioGroup) {
+		var elements = document.getElementsByName(theRadioGroup);
+		for ( var i = 0, l = elements.length; i < l; i++) {
+			if (elements[i].checked) {
+				return elements[i].value;
+			}
+		}
+	}
+	
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
 		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
 		}
-		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
 		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
-		$("#employee-name-2").attr("placeholder", "Employee");
+		$("#employee-name").attr("placeholder", "Employee");
 	});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Self Assignment</title>
 </head>
 <body class="metro">
@@ -45,6 +56,8 @@
 					<html:hidden property="task" name="selfAssignmentForm" />
 					<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="selfAssignmentForm" />" />
 					<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="selfAssignmentForm" />" />
+					<input type="hidden" name="tmpActivityType" value="<bean:write property="selfAssignBean.activityType" name="selfAssignmentForm" />" />
+					<input type="hidden" name="tmpAdhocDomain" value="<bean:write property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" />" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -136,9 +149,9 @@
 								<td class="adhoc field-extra-text"><b>To :</b></td>
 								<td>
 									<div class="adhoc input-control text field-text">
-										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name-2" />
-										<button type="button" class="btn-search" id="employee2"></button>
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+										<button type="button" class="btn-search" id="employee"></button>
 									</div>
 								</td>
 								<%
@@ -329,7 +342,7 @@
 					</table>
 				</html:form>
 				<div id="historyComment"></div>
-				<div id="lookUpEmployee2" class="hide"></div>
+				<div id="lookUpEmployee" class="hide"></div>
 			</div>
 		</div>
 	</div>

@@ -163,15 +163,28 @@ public class DashboardAction extends Action {
 			// add to history comment -> back to list
 			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getReportTo());
 			dForm.getSelfAssignBean().setCreatedBy(userDomain);
-			String tmpDescription = "";
-			String tmpManHours = "";
+			String tmpDescription="";
+			String tmpManHours="";
+			String tmpActivityType="";
+			String tmpAdhocUserDomain="";
 			tmpDescription = request.getParameter("tmpDescription");
 			tmpManHours = request.getParameter("tmpManHours");
+			tmpActivityType = request.getParameter("tmpActivityType");
+			tmpAdhocUserDomain = request.getParameter("tmpAdhocDomain");
+			if (dForm.getSelfAssignBean().getActivityType().equals("Routine") || dForm.getSelfAssignBean().getActivityType().equals("Initiative")){
+				dForm.getSelfAssignBean().setAdhocUserDomain(null);
+			}
 			if (!tmpDescription.equals(dForm.getSelfAssignBean().getDescription())) {
 				aMan.editDescriptionSelfAssignment(dForm.getSelfAssignBean());
 			}
 			if (!tmpManHours.equals(Double.toString(dForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(dForm.getSelfAssignBean());
+			}
+			if (!tmpActivityType.equals(dForm.getSelfAssignBean().getActivityType())) {
+				aMan.editActivityType(dForm.getSelfAssignBean());
+			}
+			if (!tmpAdhocUserDomain.equals(dForm.getSelfAssignBean().getAdhocUserDomain())) {
+				aMan.editAdhocUserDomain(dForm.getSelfAssignBean());
 			}
 			dForm.getSelfAssignBean().setCurrentStatus("RFA");
 			aMan.addHistorySelfComment(dForm.getSelfAssignBean());

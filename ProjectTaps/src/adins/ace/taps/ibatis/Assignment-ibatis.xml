@@ -918,6 +918,22 @@
 		 WHERE   task_code = #taskCode#
 	</update>
 
+	<update id="updateAdhocUserDomain" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE   assignments
+		   SET   adhoc_user_domain = #adhocUserDomain#,
+		         updated_by = #updatedBy#,
+		         updated_date = SYSDATE
+		 WHERE   task_code = #taskCode#
+	</update>
+	
+	<update id="updateActivityType" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
+		UPDATE   assignments
+		   SET   activity_type = #activityType#,
+		         updated_by = #updatedBy#,
+		         updated_date = SYSDATE
+		 WHERE   task_code = #taskCode#
+	</update>
+	
 	<update id="editDetailClaimAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		UPDATE   detail_claim_assignments
 		   SET   manhour = #manHours#,

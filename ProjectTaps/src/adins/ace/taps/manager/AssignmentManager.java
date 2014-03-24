@@ -606,6 +606,48 @@ public class AssignmentManager {
 		return success;
 	}
 
+	public boolean editActivityType(NewAssignmentBean selfAssignBean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.updateActivityType", selfAssignBean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out
+					.println("Failed to edit description assignment on self assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+
+	public boolean editAdhocUserDomain(NewAssignmentBean selfAssignBean) {
+		boolean success = true;
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.update("assignment.updateAdhocUserDomain", selfAssignBean);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			System.out
+					.println("Failed to edit description assignment on self assignment");
+			success = false;
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return success;
+	}
+	
 	public boolean editDetailClaimAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -1013,4 +1055,6 @@ public class AssignmentManager {
 		}
 		return status;
 	}
+
+	
 }
