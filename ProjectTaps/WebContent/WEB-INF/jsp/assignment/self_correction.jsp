@@ -70,22 +70,22 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.assignmentDate" name="selfAssignmentForm"></bean:write></td>
 
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.assignmentType" name="selfAssignmentForm"></bean:write></td>
 							</tr>
 							<%
 								if (session.getAttribute("type").equals("PROJECT")) {
 							%>
 							<tr>
-								<td>Assign By</td>
-								<td>:</td>
+								<td class="field-form">Assign By</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.projectName" name="selfAssignmentForm"></bean:write></td>
 								<td><b>Report to </b> : <bean:write property="selfAssignBean.reportToFullName" name="selfAssignmentForm"></bean:write></td>
 							</tr>
@@ -93,8 +93,8 @@
 								} else {
 							%>
 							<tr>
-								<td>Assign By</td>
-								<td>:</td>
+								<td class="field-form">Assign By</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" /></td>
 								<td><b>Report to </b> : <bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" /></td>
 							</tr>
@@ -102,8 +102,8 @@
 								}
 							%>
 							<tr>
-								<td>Activity Type</td>
-								<td>:</td>
+								<td class="field-form">Activity Type</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.activityType" name="selfAssignmentForm" /></td>
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
@@ -114,8 +114,8 @@
 								%>
 							</tr>
 							<tr>
-								<td>Reff Task Code</td>
-								<td>:</td>
+								<td class="field-form">Reff Task Code</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode" name="selfAssignmentForm" /></td>
 							</tr>
 							<%
@@ -124,8 +124,8 @@
 											|| "REJECTED".equals(session.getAttribute("status"))) {
 							%>
 							<tr>
-								<td>ManHours</td>
-								<td>:</td>
+								<td class="field-form">ManHours</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm" disabled="true">
 											<html:option value="">00:00</html:option>
@@ -181,8 +181,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" readonly="true"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
@@ -190,8 +190,8 @@
 								} else {
 							%>
 							<tr>
-								<td>Manhours</td>
-								<td>:</td>
+								<td class="field-form">ManHours</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="selfAssignmentForm">
 											<html:option value="">00:00</html:option>
@@ -247,8 +247,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="selfAssignBean.description"
 										name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea></td>
 							</tr>
@@ -259,8 +259,8 @@
 								if ("CORRECTION".equals(session.getAttribute("status"))) {
 							%>
 							<tr>
-								<td>Comment</td>
-								<td>:</td>
+								<td class="field-form">Comment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="selfAssignBean.comment" name="selfAssignmentForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
