@@ -1,4 +1,4 @@
-function checkAll(elem) {
+function checkAllMember(elem) {
 	if ($(elem).prop("checked")) {
 		$("input:checkbox[name='member_choose']").each(function () {
 			if (!$(this).is(":disabled")) {
@@ -204,11 +204,26 @@ function button(pagingDirection) {
 }
 
 $(document).ready(function() {
+	if ($("#message").val() != "") {
+		setTimeout(function() {
+			$.Notify({
+				style : {
+					caption: 'Confirmation',
+					background : $("#color").val(),
+					color : 'white'
+				},
+				shadow : true,
+				position : 'right',
+				content : $("#message").val()
+			});
+			$("#message").val("");
+		}, 500);
+	}
 	$("#projectKeyword").val("");
 	$("#orgKeyword").val("");
 	$("#pageP").val(1);
 	$("#pageO").val(1);
-	$("#myForm").formToWizard({ submitButton: 'submit-btn' });
+	$("#tpForm").formToWizard({ submitButton: 'submit-btn' });
 	$("input:radio[name='project_choose']:first").prop("checked", true);
 	$("input:radio[name='org_choose']:first").prop("checked", true);
 	
@@ -256,7 +271,7 @@ $(document).ready(function() {
 						+ '<tr>'
 						+ '<td width="15%">Business Unit</td>'
 						+ '<td width="5%">:</td>'
-						+ '<td>' + json.pBean.organizationName + ' (' + json.pBean.organizationCode + ')' + '</td>'
+						+ '<td>' + json.pBean.organizationName + ' ( <b>' + json.pBean.organizationCode + '</b> )' + '</td>'
 						+ '</tr>'
 						+ '<tr>'
 						+ '<td width="15%">Phase</td>'
@@ -272,7 +287,7 @@ $(document).ready(function() {
 					structureContent += "<table class=\"table striped bordered hovered\">";
 					structureContent += "<thead>";
 					structureContent += "<tr>";
-					structureContent += "<th class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" id=\"check-all\" onchange=\"checkAll(this)\" \/><span class=\"check\"><\/span><\/label><\/div><\/th>";
+					structureContent += "<th class=\"text-center\"><div class=\"input-control checkbox align-left\"><label><input type=\"checkbox\" id=\"check-all\" onchange=\"checkAllMember(this)\" \/><span class=\"check\"><\/span><\/label><\/div><\/th>";
 					structureContent += "<th class=\"text-center\">Role<\/th>";
 					structureContent += "<th class=\"text-center\">Assignee<\/th>";
 					structureContent += "<th class=\"text-center\">Direct Report<\/th>";
@@ -528,8 +543,10 @@ $(document).ready(function() {
 			   error : function() {
 					console.log("problem was here!");
 				},
-			   success: function() {
-				   alert('Success');
+			   success: function(data) {
+				   $("#message").val("Project " + $("input:radio[name='project_choose']:checked").val() + " succesfully transfered.");
+				   $("#color").val("green");
+				   $("#tpForm").submit();
 			   }
 		});
 	});

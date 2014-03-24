@@ -86,12 +86,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
-	
+
 	<update id="updateReportAssignment" parameterClass="organizationBean">
 		UPDATE
 		assignments SET
 		report_to = #headDomain#
-		WHERE assignment_type = 'BU' AND
+		WHERE assignment_type = 'BU'
+		AND
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
 
@@ -433,65 +434,73 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		</dynamic>
 	</select>
 
-	
+	<select id="selectOrganizationName" resultClass="java.lang.String"
+		parameterClass="java.util.Map">
+		SELECT organization_name AS organizationName
+		FROM organizations
+		WHERE organization_code = #organizationCode#
+	</select>
+
 	<select id="selectProject" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
-		SELECT p.project_code as projectCode, p.project_name as projectName from projects p, organizations o
-		where p.organization_code=o.organization_code AND o.organization_code=#organizationCode# AND p.flag='ACTIVE'
+		SELECT p.project_code as
+		projectCode, p.project_name as projectName from projects p,
+		organizations o
+		where p.organization_code=o.organization_code AND
+		o.organization_code=#organizationCode# AND p.flag='ACTIVE'
 		)
 		a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
+
 	<select id="selectChild" resultClass="organizationBean"
 		parameterClass="java.util.Map">
 		SELECT *
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
 		SELECT
-        organization_code as organizationCode, organization_name as organizationName
-        FROM organizations
-        WHERE
-        UPPER(parent_organization_code) =
-        UPPER(#organizationCode#) AND flag='ACTIVE'
+		organization_code as organizationCode, organization_name as organizationName
+		FROM organizations
+		WHERE
+		UPPER(parent_organization_code) =
+		UPPER(#organizationCode#) AND flag='ACTIVE'
 		)
 		a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>
 		)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
-		
+
 	</select>
-	
-		<select id="countSelectProject" resultClass="int"
+
+	<select id="countSelectProject" resultClass="int"
 		parameterClass="java.util.Map">
-		SELECT   COUNT (1)
-  		FROM   projects p, organizations o
-		 WHERE       p.organization_code = o.organization_code
-         AND o.organization_code = #organizationCode#
-         AND p.flag = 'ACTIVE'
-		</select> 
-		
-		<select id="countSelectChild" resultClass="int"
-		parameterClass="java.util.Map">
-		SELECT   COUNT (1)
-  		FROM organizations
-        WHERE
-        UPPER(parent_organization_code) =
-        UPPER(#organizationCode#) AND flag='ACTIVE'
-		</select> 
-	
+		SELECT COUNT (1)
+		FROM projects p, organizations o
+		WHERE p.organization_code = o.organization_code
+		AND o.organization_code = #organizationCode#
+		AND p.flag = 'ACTIVE'
+	</select>
+
+	<select id="countSelectChild" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT (1)
+		FROM organizations
+		WHERE
+		UPPER(parent_organization_code) =
+		UPPER(#organizationCode#) AND flag='ACTIVE'
+	</select>
+
 	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
 		SELECT
-        COUNT(1)
-        FROM employees e, organizations o
-        WHERE UPPER(e.organization_code) =
-        UPPER(#organizationCode#) AND e.organization_code=O.ORGANIZATION_CODE AND
-        LOWER(e.flag) = 'active' AND e.user_domain != o.head_user_domain
+		COUNT(1)
+		FROM employees e, organizations o
+		WHERE UPPER(e.organization_code) =
+		UPPER(#organizationCode#) AND e.organization_code=O.ORGANIZATION_CODE AND
+		LOWER(e.flag) = 'active' AND e.user_domain != o.head_user_domain
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
@@ -515,7 +524,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="countDirectReport" resultClass="int" parameterClass="java.lang.String">
 		SELECT COUNT (1)
 		FROM project_structures
-		WHERE directreport_user_domain = #headDomain# AND flag='ACTIVE'
+		WHERE directreport_user_domain
+		= #headDomain# AND flag='ACTIVE'
 	</select>
 
 	<update id="updateAssignment" parameterClass="organizationBean">
@@ -542,7 +552,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM organizations
 		WHERE
 		UPPER(parent_organization_code) =
-		UPPER(#organization_code#) AND flag='ACTIVE'
+		UPPER(#organization_code#) AND
+		flag='ACTIVE'
 	</select>
 
 	<select id="checkMemberOrganization" parameterClass="java.util.Map"

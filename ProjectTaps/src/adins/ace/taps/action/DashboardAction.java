@@ -55,6 +55,7 @@ public class DashboardAction extends Action {
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
 			aMan.updateFlag(dForm.getTaskCode());
+			dForm.setStringClaimDate(aMan.getClaimDate(dForm.getTaskCode()));
 			dForm.setClaimBean(aMan.searchRecordAssignment(dForm.getTaskCode()));
 			return mapping.findForward("Claim");
 		}
