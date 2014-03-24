@@ -46,7 +46,7 @@ public class ReportAction extends Action {
 				//System.out.println("not null  "+mForm.getParam2());
 				if (rForm.getParam2().equals("0") || rForm.getParam2().equals("1")) {
 					h = new HashMap();
-					h.put("orgCode", rForm.getParam().replaceAll(" ",""));
+					h.put("orgCode", rForm.getParam().trim());
 					h.put("orgLevel", rForm.getParam2());
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
@@ -58,19 +58,19 @@ public class ReportAction extends Action {
 						rForm.setParam4(rBean.getOrganizationParent());
 						rForm.setParam5(rBean.getOrganizationParentName());
 					}
-					session.setAttribute("buPrint", rForm.getParam().replaceAll(" ",""));
+					session.setAttribute("buPrint", rForm.getParam().trim());
 					rForm.setListReports(rMan.getReportLevel1(h));
 					return mapping.findForward("View");
 				} else
 				if (rForm.getParam2().equals("2")) {
 					h = new HashMap();
-					h.put("orgCode", rForm.getParam().replaceAll(" ",""));
+					h.put("orgCode", rForm.getParam().trim());
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
 					h.put("reportMonth", rForm.getReportMonth());
 					ReportBean rBean = new ReportBean();
 					rBean = rMan.getHeadOrganization(h);
-					session.setAttribute("buPrint", rForm.getParam().replaceAll(" ",""));
+					session.setAttribute("buPrint", rForm.getParam().trim());
 					rForm.setParam4(rBean.getOrganizationParent());
 					rForm.setParam5(rBean.getOrganizationParentName());
 					rForm.setListReports(rMan.getReportLevel2(h));
