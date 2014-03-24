@@ -17,11 +17,17 @@
 		document.dashboardForm.submit();
 	}
 
-	$(document).ready(
-			function() {
-				var task_code = $("#task-code").val();
-				$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
-			});
+	$(document).ready(function() {
+		var task_code = $("#task-code").val();
+		var activity_type = $("#activity-type").val();
+		if (activity_type == "ADHOC"){
+			$(".adhoc").show();
+		}
+		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
+		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		$("#employee-name-2").attr("placeholder", "Employee");
+	});
 </script>
 <title>Self Assignment</title>
 </head>
@@ -32,8 +38,8 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/dashboard" method="POST">
-					<html:hidden property="selfAssignBean.currentStatus" name="dashboardForm" styleId="status" />
 					<html:hidden property="selfAssignBean.taskCode" name="dashboardForm" styleId="task-code" />
+					<html:hidden property="selfAssignBean.activityType" name="dashboardForm" styleId="activity-type" />
 					<html:hidden property="task" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.assignTo" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.reportTo" name="dashboardForm" />
@@ -42,7 +48,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<td colspan=4 class="text-center text-bold"><h3>
+								<td colspan=5 class="text-center text-bold"><h3>
 										Correction Self Assignment</h3></td>
 							</tr>
 						</thead>
@@ -50,13 +56,13 @@
 							<tr>
 								<td class="field-form">Assignment Date</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
+								<td colspan=3><bean:write property="selfAssignBean.assignmentDate" name="dashboardForm"></bean:write></td>
 
 							</tr>
 							<tr>
 								<td class="field-form">Assignment Type</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
+								<td colspan=3><bean:write property="selfAssignBean.assignmentType" name="dashboardForm"></bean:write></td>
 							</tr>
 							<%
 								if (session.getAttribute("type").equals("PROJECT")) {
@@ -65,7 +71,8 @@
 								<td class="field-form">Assign By</td>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.projectName" name="dashboardForm"></bean:write></td>
-								<td><b>Report to </b> : <bean:write property="selfAssignBean.reportToFullName" name="dashboardForm"></bean:write></td>
+								<td><b>Report to </b> : </td>
+								<td><bean:write property="selfAssignBean.reportToFullName" name="dashboardForm"></bean:write></td>
 							</tr>
 							<%
 								} else {
@@ -74,34 +81,59 @@
 								<td class="field-form">Assign By</td>
 								<td class="field-separator">:</td>
 								<td><bean:write property="selfAssignBean.organizationName" name="dashboardForm" /></td>
-								<td><b>Report to </b> : <bean:write property="selfAssignBean.headUserName" name="dashboardForm" />
-								</td>
+								<td class="field-extra-text"><b>Report to </b> : </td>
+								<td class="field-text"><bean:write property="selfAssignBean.headUserName" name="dashboardForm" /></td>
 							</tr>
 							<%
 								}
 							%>
 							<tr>
-								<td class="field-form">Activity Type</td>
-								<td class="field-separator">:</td>
-								<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
-								<%
-									if (session.getAttribute("adhoc").equals("ADHOC")) {
-								%>
-								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName" name="dashboardForm" />
-								</td>
-								<%
-									}
-								%>
+								<logic:equal property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
+									<td class="field-form">Activity Type</td>
+									<td class="field-separator">:</td>
+									<td>
+										<div class="input-control radio margin10">
+											<label> <input type="radio" name="activity_type" value="Routine" /> <span class="check"></span>
+												Routine
+											</label>
+										</div>
+										<div class="input-control radio margin10">
+											<label> <input type="radio" name="activity_type" value="Initiative" /> <span class="check"></span> 
+												Initiative
+											</label>
+										</div>
+										<div class="input-control radio margin10">
+											<label> <input type="radio" name="activity_type" value="ADHOC" /> <span class="check"></span> 
+												AdHoc
+											</label>
+										</div>
+									</td>
+									<td class="adhoc field-extra-text"><b>To :</b></td>
+									<td>
+										<div class="adhoc input-control text field-text">
+											<html:hidden property="selfAssignBean.adhocUserDomain" name="dashboardForm" styleId="employee-domain-2" />
+											<html:text property="selfAssignBean.adhocFullName" readonly="true" name="dashboardForm" styleId="employee-name-2"/>
+											<button type="button" class="btn-search" id="employee2"></button>
+										</div>
+									</td>
+								</logic:equal>
+								<logic:notEqual property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
+									<td class="field-form">Activity Type</td>
+									<td class="field-separator">:</td>
+									<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
+									<td class="adhoc field-extra-text"><b>AdHoc to </b> : </td>
+									<td class="adhoc field-text"><bean:write property="selfAssignBean.adhocFullName" name="dashboardForm" /></td>
+								</logic:notEqual>
 							</tr>
 							<tr>
 								<td class="field-form">Reff Task Code</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
+								<td colspan=3><bean:write property="selfAssignBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<td class="field-form">ManHours</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><div class="input-control select">
+								<td colspan=3><div class="input-control select">
 										<html:select property="selfAssignBean.manHours" name="dashboardForm">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
@@ -158,17 +190,17 @@
 							<tr>
 								<td class="field-form">Description</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.description" name="dashboardForm"
+								<td colspan=3><html:textarea property="selfAssignBean.description" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
 								<td class="field-form">Comment</td>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.comment" name="dashboardForm"
+								<td colspan=3><html:textarea property="selfAssignBean.comment" name="dashboardForm"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>
-								<td colspan=4 class="text-right">
+								<td colspan=5 class="text-right">
 									<button onclick="javascript:flyToPage('rfaSelf')" class="button success">RFA</button> 
 									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 								</td>
@@ -177,6 +209,7 @@
 					</table>
 				</html:form>
 				<div id="historyComment"></div>
+				<div id="lookUpEmployee2" class="hide"></div>
 			</div>
 		</div>
 	</div>

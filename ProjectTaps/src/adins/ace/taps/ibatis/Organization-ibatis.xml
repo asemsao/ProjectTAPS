@@ -487,11 +487,11 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	
 	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
 		SELECT
-		COUNT(1)
-		FROM employees
-		WHERE UPPER(organization_code) =
-		UPPER(#organization_code#) AND
-		LOWER(flag) = 'active'
+        COUNT(1)
+        FROM employees e, organizations o
+        WHERE UPPER(e.organization_code) =
+        UPPER(#organizationCode#) AND e.organization_code=O.ORGANIZATION_CODE AND
+        LOWER(e.flag) = 'active' AND e.user_domain != o.head_user_domain
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">

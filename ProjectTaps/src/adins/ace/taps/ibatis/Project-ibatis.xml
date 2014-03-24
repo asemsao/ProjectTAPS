@@ -439,4 +439,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE 
 			head_user_domain = #userDomain#
 	</select>
+	
+	<select id="checkDirectReportUserDomain" parameterClass = "java.lang.String" resultClass = "adins.ace.taps.bean.project.AddStructureProjectBean">
+		SELECT 
+			directreport_user_domain AS directreportUserDomain
+		FROM
+			project_structures
+		WHERE
+			project_code = #code#
+	</select>
+	
+	<delete id="deleteProjectStructuresTable" parameterClass = "java.lang.String">
+		DELETE FROM
+			project_structures
+		WHERE 
+			project_code = #code#
+	</delete>
 </sqlMap>

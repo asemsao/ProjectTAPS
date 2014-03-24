@@ -482,4 +482,45 @@ public class ProjectManager {
 		else
 			return true;
 	}
+	
+	public List checkDirectReportUserDomain(String code)
+	{
+		List<AddStructureProjectBean> list = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			list = ibatisSqlMap.queryForList("project.checkDirectReportUserDomain", code);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public void deleteProjectStructuresTable(String code)
+	{
+		try
+		{
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.delete("project.deleteProjectStructuresTable", code);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		finally 
+		{
+			try 
+			{
+				ibatisSqlMap.endTransaction();
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

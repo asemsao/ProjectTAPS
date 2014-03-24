@@ -1,6 +1,7 @@
 package adins.ace.taps.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import adins.ace.taps.bean.project.AddStructureProjectBean;
 import adins.ace.taps.bean.project.ProjectBean;
 import adins.ace.taps.bean.project.StructureProjectBean;
 import adins.ace.taps.form.project.ProjectForm;
@@ -58,7 +60,7 @@ public class ProjectAction extends Action {
 		}
 		if ("saveProject".equals(pForm.getTask())) {
 			if (pMan.addProject(pForm.getAddProject())) {
-				pForm.setMessage("Insert Project Successfully");
+				pForm.setMessage("Inserted Successfully");
 				pForm.setColor("green");
 
 				// insert table history_projects
@@ -83,12 +85,39 @@ public class ProjectAction extends Action {
 			return mapping.findForward("EditProject");
 		}
 		if ("updateProject".equals(pForm.getTask())) {
+//			if("CLD".equals(pForm.getpBean().getPhase()))
+//			{
+//				System.out.println("CLOSED");
+//			}
 			pMan.updateProject(pForm.getpBean());
 			pForm.setListProject(pMan.searchProject(params));
 		}
 
 		if ("deleteProject".equals(pForm.getTask())) {
-			if (pMan.deleteProject(pForm.getParamProjectCode())) {
+			if (pMan.deleteProject(pForm.getParamProjectCode())) 
+			{
+				//delete all member role
+				List<AddStructureProjectBean> list = null;
+				list = pMan.checkDirectReportUserDomain(pForm.getParamProjectCode());
+				for (int i=0;i<list.size();i++) 
+				{
+					AddStructureProjectBean bean = new AddStructureProjectBean();
+					bean = list.get(i);
+						
+					// Check apakah dia head BU atau bukan(kalau bukan akan di
+					// delete supervisor role nya)
+					if (pMan.notHeadBU(bean.getDirectreportUserDomain())) 
+					{
+						// update table employee_role
+						if (pMan.checkRole(bean.getDirectreportUserDomain()) == 1) {
+							pMan.deleteRole(bean.getDirectreportUserDomain());
+						}
+					}
+				}
+				
+				//delete employee from project_structures table
+				pMan.deleteProjectStructuresTable(pForm.getParamProjectCode());
+				
 				// update table assignments
 				pMan.updateAllAssStatus(pForm.getParamProjectCode());
 
@@ -141,7 +170,7 @@ public class ProjectAction extends Action {
 					pMan.insertRole(pForm.getAddSProject()
 							.getDirectreportUserDomain());
 				}
-				pForm.setMessage("Added Employee on Project Successfully");
+				pForm.setMessage("Added Employee Successfully");
 				pForm.setColor("green");
 			} else{
 				pForm.setMessage("Add Employee on Project Failed");
