@@ -21,23 +21,6 @@
 			newBUValidation();
 		}
 	}
-
-	function changeopt() {
-		search = document.getElementById("level");
-		temp = search.options[search.selectedIndex].value;
-		if (temp != 0) {
-			document.getElementById("parent").style.visibility = "visible";
-			document.getElementById(":").style.visibility = "visible";
-			document.getElementById("parent-organization-name").style.visibility = "visible";
-			document.getElementById("organization").style.visibility = "visible";
-		} else {
-			document.getElementById("parent").style.visibility = "hidden";
-			document.getElementById(":").style.visibility = "hidden";
-			document.getElementById("parent-organization-name").style.visibility = "hidden";
-			document.getElementById("organization").style.visibility = "hidden";
-		}
-	};
-
 	$(document)
 			.ready(
 					function() {
@@ -48,17 +31,18 @@
 						$("#lookUpOrganization").load(
 								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 										+ level);
-						$('#level').bind(
-								"change",
-								function() {
-									$("#parent-organization-code").val('');
-									$("#parent-organization-name").val('');
-									$("#lookUpOrganization").html('');
-									$("#lookUpOrganization").load(
-											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-													+ $(this).val());
-								});
+						
 
+						$("#level").change(function() {
+							if ($("#level").val() == "0") {
+								$(".parent-organization").hide();
+							} else {
+								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+										+ $(this).val());
+								$(".parent-organization").show();
+							}
+						});
+						
 						$("#organizationCode").attr("placeholder", "Business Unit Code");
 						$("#organizationName").attr("placeholder", "Business Unit Name");
 						$("#employee-name").attr("placeholder", "Head of Business Unit");
@@ -108,8 +92,7 @@
 								<td>
 									<div class="input-control select">
 										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level"
-											onchange="javascript:changeopt();">
+											name="organizationForm" styleId="level">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
