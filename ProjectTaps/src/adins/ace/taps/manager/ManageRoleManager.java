@@ -134,6 +134,7 @@ public class ManageRoleManager {
 			ibatisSqlMap.delete("manageRole.deleteRoleMenu",
 					h);
 			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

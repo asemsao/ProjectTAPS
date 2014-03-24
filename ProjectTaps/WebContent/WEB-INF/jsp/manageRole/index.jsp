@@ -42,6 +42,19 @@
 			$("#CRUDForm").submit();
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+		if ($("#message").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#messagecolor").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#message").val()
+				});
+			}, 1000);
+		}
 	});
 </script>
 
@@ -50,11 +63,14 @@
 </head>
 
 <body class="metro">
+
 	<jsp:include page="/frame/header.jsp" />
 	<html:form action="/manageRole" method="post"
 		styleClass="manageRoleForm" styleId="CRUDForm">
 		<html:hidden property="task" styleId="task" name="manageRoleForm" />
 		<html:hidden property="param" styleId="param" name="manageRoleForm" />
+		<html:hidden property="message" styleId="message" name="manageRoleForm" />
+		<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -101,7 +117,8 @@
 		</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
-
+<script>
+</script>
 </body>
 
 </html>
