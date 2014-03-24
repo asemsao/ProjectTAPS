@@ -89,7 +89,7 @@
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="orgBean.organizationCode" styleId="organizationCode"
-											name="organizationForm"></html:text>
+											name="organizationForm" maxlength="3"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -98,7 +98,7 @@
 								<td>
 									<div class="input-control text">
 										<html:text property="orgBean.organizationName" styleId="organizationName"
-											name="organizationForm"></html:text>
+											name="organizationForm" maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>
