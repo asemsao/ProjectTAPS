@@ -50,45 +50,36 @@
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#timepicker").timeselector();
 		$('#project-name').bind("change",function() {
-											var project_code = $(
-													"#project-code").val();
-											$("#lookUpEmployeeOnProject").html(
-													'');
-											$("#lookUpEmployeeOnProject")
-													.load(
-															"/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode="
-																	+ project_code);
-											$("#employee-name").val("");
-											$("#employee-fullName").val("");
-											$("#employee-domain").val("");
-										});
+			var project_code = $("#project-code").val();
+			$("#lookUpEmployeeOnProject").html('');
+			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
+			$("#employee-name").val("");
+			$("#employee-fullName").val("");
+			$("#employee-domain").val("");
+		});
 
-						if ($("input[name='assignment_type']").val() == "PROJECT") {
-							$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-						} else {
-							$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-						}
-
-						$("input[name='assignment_type']").change(
-										function() {
-											if ($(this).val() == "PROJECT") {
-												$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
-											} else {
-												$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
-											}
-										});
-						$("#assignmentDate").attr("placeholder",
-								"Assignment Date");
-						$("#assignmentDueDate").attr("placeholder",
-								"Assignment Due Date");
-						$("#timepicker").attr("placeholder", "Assignment Time");
-						$("#project-name").attr("placeholder", "Project");
-						$("#employee-name").attr("placeholder", "Employee");
-						$("#assignment-code").attr("placeholder",
-								"Reff Task Code");
-						$("#description").attr("placeholder", "Description");
-						$("#description").attr("maxlength", "1000");
-					});
+		if ($("input[name='assignment_type']").val() == "PROJECT") {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+		} else {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+		}
+	
+		$("input[name='assignment_type']").change(function() {
+			if ($(this).val() == "PROJECT") {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=project");
+			} else {
+				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
+			}
+		});
+		$("#assignmentDate").attr("placeholder", "Assignment Date");
+		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
+		$("#timepicker").attr("placeholder", "Assignment Time");
+		$("#project-name").attr("placeholder", "Project");
+		$("#employee-name").attr("placeholder", "Employee");
+		$("#assignment-code").attr("placeholder", "Reff Task Code");
+		$("#description").attr("placeholder", "Description");
+		$("#description").attr("maxlength", "1000");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 </head>
@@ -237,11 +228,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ini nanti ambil session -->
-		<input type="hidden" id="organization-code-view" value="CDD" />
 		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
+		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view"/>
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

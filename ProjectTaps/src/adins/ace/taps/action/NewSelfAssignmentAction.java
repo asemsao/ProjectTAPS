@@ -56,14 +56,13 @@ public class NewSelfAssignmentAction extends Action {
 
 		if (aForm.getNewTask() == null) {
 			if (taskCode != null) {
-				aForm.setSelfAssignBean(aMan
-						.searchRecordSelfAssignmentDraft(taskCode));
+				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
-				Map params = new HashMap();
-				params.put("taskCode", taskCode);
-				params.put("maxDate", App.getConfiguration("max_date"));
-				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
+//				Map params = new HashMap();
+//				params.put("taskCode", taskCode);
+//				params.put("maxDate", App.getConfiguration("max_date"));
+//				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
 				return mapping.findForward("NewSelfAssignment");
 			}
@@ -142,12 +141,9 @@ public class NewSelfAssignmentAction extends Action {
 						session.setAttribute("color", "green");
 						if (rfa) {
 							Map paramStatus = new HashMap();
-							paramStatus.put("updatedBy", aForm
-									.getSelfAssignBean().getCreatedBy());
-							paramStatus.put("taskCode", aForm
-									.getSelfAssignBean().getTaskCode());
-							aForm.setClaimBean(aMan
-									.emailToSupervisorAssignment(paramStatus));
+							paramStatus.put("updatedBy", aForm.getSelfAssignBean().getCreatedBy());
+							paramStatus.put("taskCode", aForm.getSelfAssignBean().getTaskCode());
+							aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
 							
 							Map params = new HashMap();
 							params.put("toMail", aForm.getClaimBean().getEmailReceiver());

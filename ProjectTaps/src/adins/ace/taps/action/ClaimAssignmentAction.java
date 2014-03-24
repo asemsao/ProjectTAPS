@@ -24,6 +24,7 @@ import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
 
 public class ClaimAssignmentAction extends Action {
+	//this is action for assignment from employees view
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -50,6 +51,7 @@ public class ClaimAssignmentAction extends Action {
 		}
 		
 		if ("claim".equals(aForm.getTask())) {
+			//edit claim + add comment
 			aForm.getClaimBean().setStatus("CLAIM");
 			if (!("".equals(aForm.getClaimBean().getComment()))) {
 				aMan.addHistoryComment(aForm.getClaimBean());
@@ -57,6 +59,7 @@ public class ClaimAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("RFA".equals(aForm.getTask())) {
+			//request for approval to supervisor, change status to RFA
 			aForm.getClaimBean().setStatus("RFA");
 			aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
@@ -84,7 +87,8 @@ public class ClaimAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}
-
+		
+		// Show record assignment
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));

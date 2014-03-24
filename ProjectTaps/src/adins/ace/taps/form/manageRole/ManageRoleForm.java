@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
 
+import adins.ace.taps.bean.manageRole.EmployeeBean;
 import adins.ace.taps.bean.manageRole.MenuBean;
 import adins.ace.taps.bean.manageRole.RoleBean;
 
@@ -15,7 +16,11 @@ public class ManageRoleForm extends ActionForm {
 	
 	private String task;
 	private String param;
+	private String mode;
+	private String message;
+	private String messagecolor;
 	private String roleId;
+	private String roleName;
 	private String searchKeyword;
 	private String searchCategory;
 	private Integer page;
@@ -24,6 +29,7 @@ public class ManageRoleForm extends ActionForm {
 	private List<MenuBean> listMenu;
 	private List<RoleBean> listRole;
 	private List<MenuBean> listMenuByRole;
+	private List<EmployeeBean> listMember;
 	private MenuBean mrBean = new MenuBean();
 	private RoleBean rBean = new RoleBean();
 	
@@ -104,6 +110,36 @@ public class ManageRoleForm extends ActionForm {
 	}
 	public void setListMenuByRole(List<MenuBean> listMenuByRole) {
 		this.listMenuByRole = listMenuByRole;
+	}
+	public List<EmployeeBean> getListMember() {
+		return listMember;
+	}
+	public void setListMember(List<EmployeeBean> listMember) {
+		this.listMember = listMember;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getMessagecolor() {
+		return messagecolor;
+	}
+	public void setMessagecolor(String messagecolor) {
+		this.messagecolor = messagecolor;
+	}
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
 	
 }

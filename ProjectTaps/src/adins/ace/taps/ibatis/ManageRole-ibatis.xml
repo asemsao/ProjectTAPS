@@ -6,61 +6,128 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 <sqlMap namespace="manageRole">
 	<typeAlias alias="roleBean" type="adins.ace.taps.bean.manageRole.RoleBean" />
 	<typeAlias alias="menuBean" type="adins.ace.taps.bean.manageRole.MenuBean" />
-	
+	<typeAlias alias="memberBean"
+		type="adins.ace.taps.bean.manageRole.EmployeeBean" />
+
+	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		from employees e, employee_role er
+		where
+		er.role_id=#roleId# and er.user_domain = e.user_domain and
+		lower(e.flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER
+						('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
+
+	<select id="searchListMember" resultClass="memberBean"
+		parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (select e.user_domain as
+				employeeDomain, e.first_name||' '||e.last_name as employeeName,
+				(select count(1) from employee_role empRole where
+				empRole.user_domain=e.user_domain and role_id='ADM') as isAdmin
+				from
+				employees e, employee_role er
+				where er.role_id=#roleId# and
+				er.user_domain = e.user_domain and lower(e.flag)='active'
+		<dynamic prepend="AND">
+			<isNotNull property="keyword">
+				<isNotEmpty property="keyword">
+					<isEqual property="category" compareValue="employeeDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%'))</isEqual>
+					<isEqual property="category" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$keyword$%'))
+					</isEqual>
+					<isEqual property="category" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$keyword$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER
+						('%$keyword$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$keyword$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
+	</select>
+
 	<select id="searchListRole" resultClass="roleBean"
-	parameterClass="java.util.Map">
-		select role_id as roleId, role_name as roleName from roles
+		parameterClass="java.util.Map">
+		select role_id as roleId, role_name as roleName from
+		roles
 	</select>
-	
+
 	<select id="searchListMenu" resultClass="menuBean"
-	parameterClass="java.lang.String">
-		select m.menu_id as menuId, m.menu_name as menuName, m.task as task, m.description as description, 
-		(select count(1) from role_menu rm where rm.role_id=#roleId# and rm.menu_id = m.menu_id) as isExist from menu m
+		parameterClass="java.lang.String">
+		select m.menu_id as menuId, m.menu_name as menuName,
+		m.task as task, m.description as description,
+		(select count(1) from role_menu rm where rm.role_id=#roleId# and rm.menu_id =
+		m.menu_id) as isExist from menu m
 	</select>
-	
-<!-- 	<select id="searchListRoleMenu" resultClass="menuBean" -->
-<!-- 	parameterClass="java.util.Map"> -->
-<!-- 		select menu_id as menuId from role_menu -->
-<!-- 		where role_id = #roleId# -->
-<!-- 	</select> -->
-	
-	<delete id="deleteRoleMenu" parameterClass="java.util.Map">
-		delete from role_menu where role_id=#roleId#
-	</delete>
-	
-	<insert id="insertRoleMenu" parameterClass="java.util.Map">
-		insert into role_menu(role_id,menu_id) values (#roleId#,#menuId#)
+
+	<select id="searchListMemberNoPaging" resultClass="memberBean"
+		parameterClass="java.lang.String">
+		select e.user_domain as employeeDomain, e.first_name||'
+		'||e.last_name as employeeName,
+		(select count(1) from employee_role empRole where
+		empRole.user_domain=e.user_domain and role_id='ADM') as isAdmin
+		from
+		employees e, employee_role er
+		where er.role_id=#roleId# and
+		er.user_domain = e.user_domain and lower(e.flag)='active'
+	</select>
+
+	<select id="getRoleName" resultClass="java.lang.String"
+		parameterClass="java.lang.String">
+		select role_name as roleName from roles where role_id =
+		#roleId#
+	</select>
+
+	<select id="getEmpName" resultClass="java.lang.String"
+		parameterClass="java.lang.String">
+		select first_name||' '||last_name from employees
+		where
+		user_domain = #userDomain#
+	</select>
+
+	<insert id="insertRoleAdmin" parameterClass="java.lang.String">
+		insert into
+		employee_role(user_domain,role_id) values (#userDomain#,'ADM')
 	</insert>
-	
-	
-	
-	
-	
-	
-	
-<!-- 	<select id="searchEmployees" resultClass="roleBean" -->
-<!-- 		parameterClass="java.util.Map"> -->
-<!-- 		select e.first_name||' '||e.last_name as employeeName, e.user_domain as userDomain, -->
-<!-- 		    (select count(1) from employee_role where role_id='BOM' and user_domain=e.user_domain) as statusBOM, -->
-<!-- 		    (select count(1) from employee_role where role_id='HBU' and user_domain=e.user_domain) as statusHBU, -->
-<!-- 		    (select count(1) from employee_role where role_id='HDE' and user_domain=e.user_domain) as statusHDE, -->
-<!-- 		    (select count(1) from employee_role where role_id='SPV' and user_domain=e.user_domain) as statusSPV, -->
-<!-- 		    (select count(1) from employee_role where role_id='ADM' and user_domain=e.user_domain) as statusADM, -->
-<!-- 		    (select count(1) from employee_role where role_id='EMP' and user_domain=e.user_domain) as statusEMP -->
-<!-- 		from employees e	 -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="detailEmployeeRole" resultClass="roleBean" -->
-<!-- 		parameterClass="java.util.Map"> -->
-<!-- 		select e.first_name||' '||e.last_name as employeeName, e.user_domain as userDomain, -->
-<!-- 		    (select count(1) from employee_role where role_id='BOM' and user_domain=e.user_domain) as statusBOM, -->
-<!-- 		    (select count(1) from employee_role where role_id='HBU' and user_domain=e.user_domain) as statusHBU, -->
-<!-- 		    (select count(1) from employee_role where role_id='HDE' and user_domain=e.user_domain) as statusHDE, -->
-<!-- 		    (select count(1) from employee_role where role_id='SPV' and user_domain=e.user_domain) as statusSPV, -->
-<!-- 		    (select count(1) from employee_role where role_id='ADM' and user_domain=e.user_domain) as statusADM, -->
-<!-- 		    (select count(1) from employee_role where role_id='EMP' and user_domain=e.user_domain) as statusEMP -->
-<!-- 		from employees e -->
-<!-- 		where e.user_domain=#userDomain#	 -->
-<!-- 	</select> -->
+
+	<delete id="deleteRoleAdmin" parameterClass="java.lang.String">
+		delete from
+		employee_role where role_id='ADM' and user_domain = #userDomain#
+	</delete>
+
+	<delete id="deleteRoleMenu" parameterClass="java.util.Map">
+		delete from role_menu
+		where role_id=#roleId#
+	</delete>
+
+	<insert id="insertRoleMenu" parameterClass="java.util.Map">
+		insert into
+		role_menu(role_id,menu_id) values (#roleId#,#menuId#)
+	</insert>
 
 </sqlMap>

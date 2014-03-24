@@ -154,6 +154,123 @@ $(document).ready(
 				});
 			});
 		});
+//===============================================================================
+//Fungsi ajax look up untuk organization delete
+//===============================================================================
+function loadOrganizationDelete(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_Taps6.png">',
+			title : 'Flat window',
+			content : $("#lookUpDeleteOrganization").html(),
+			padding : 10,
+			title : 'Assignment On Organization'
+		});
+		$(".search-category-organization-delete").get(1).value = searchCategory;
+		$(".search-keyword-organization-delete").get(1).value = searchKeyword;
+	}, 400);
+}
+
+function setParameterOrganizationDelete() {
+	var task = $("#task-organization-delete").val();
+	var search = $(".search-category-organization-delete").get(1).value;
+	var value = $(".search-keyword-organization-delete").get(1).value;
+	var page = $("#page-organization-delete").val();
+	var maxpage = $("#maxpage-organization-delete").val();
+	var assignmentCategory = $("#assignmentCategory-organization-delete").val();
+	var assignmentType = $("#assignmentType-organization-delete").val();
+	var mode = $("#mode-organization-delete").val();
+	var userDomain = $("#userDomain-organization-delete").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
+			+ assignmentType + "&userDomain=" + userDomain;
+	return data;
+}
+
+function setResponseOrganizationDelete(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Type</th>";
+	content += "<th class='text-center'>Report To</th>";
+	content += "<th class='text-center'>Deadline</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeeReport) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].fullName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-assignment-delete").html(content);
+	$("#page-assignment-delete").val(json.page);
+	$("#current-page-assignment-delete").html(json.page);
+	$("#maxpage-assignment-delete").val(json.maxpage);
+	$("#max-page-assignment-delete").html(json.maxpage);
+	$("#total-record-assignment-delete").html(json.countRecord);
+	$(".search-category-assignment-delete").val(json.searchCategory);
+	$(".search-keyword-assignment-delete").val(json.searchKeyword);
+}
+
+function pagingOrganizationDelete(direction) {
+	var searchCategory = $(".search-category-assignment-delete").get(1).value;
+	var searchKeyword = $(".search-keyword-assignment-delete").get(1).value;
+	$.Dialog.close();
+	$("#task-assignment-delete").val(direction);
+	var data = setParameterOrganizationDelete();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseOrganizationDelete(data);
+		}
+	});
+
+	loadOrganizationDelete(searchCategory, searchKeyword);
+}
+
+function chooseOrganizationDelete(task) {
+	if (task == "delete") {
+		var choosen = $("input[id='userDomain-assignment-delete']").val();
+		$("#employeeDomain").val(choosen);
+		$("#task").val("delete");
+		$("#CRUDForm").submit();
+	}
+	$.Dialog.close();
+}
+
 
 // ===============================================================================
 // Fungsi ajax look up untuk assignment

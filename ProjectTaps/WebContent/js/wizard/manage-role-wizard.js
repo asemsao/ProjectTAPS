@@ -44,7 +44,7 @@ function viewListMenu() {
 						for ( var i in json.listMenu) {
 							menuContent += "<tr>";
 							if (json.listMenu[i].isExist == "1") {
-								menuContent += "<td>";
+								menuContent += "<td class=\"text-center\">";
 								menuContent += "<div class=\"input-control checkbox align-left\"><label><input checked name=\"menu_choose\" type=\"checkbox\" value=\""
 										+ json.listMenu[i].menuId
 										+ "@"
@@ -52,7 +52,7 @@ function viewListMenu() {
 										+ "\" \/><span class=\"check\"><\/span><\/label><\/div>";
 								menuContent += "</td><td>";
 							} else {
-								menuContent += "<td>";
+								menuContent += "<td class=\"text-center\">";
 								menuContent += "<div class=\"input-control checkbox align-left\"><label><input name=\"menu_choose\" type=\"checkbox\" value=\""
 										+ json.listMenu[i].menuId
 										+ "@"
@@ -83,18 +83,7 @@ function viewSummary() {
 	// $("input:radio[name='role_choose']:checked").val().split('@')[0];
 	var roleName = $("input:radio[name='role_choose']:checked").val()
 			.split('@')[1];
-	var data = "task=retrieveSummary";
-	$
-			.ajax({
-				url : "/ProjectTaps/manageRole.do",
-				type : "POST",
-				data : data,
-				context : this,
-				error : function() {
-					console.log("problem was here!");
-				},
-				success : function(data) {
-					var json = $.parseJSON(data);
+	
 					var summaryContent = "";
 					summaryContent += '<table class="table">' + '<tr>'
 					+ '<td width="15%">Role</td>'
@@ -106,7 +95,32 @@ function viewSummary() {
 						+ '<td width="5%">:</td>' + '<td>';
 						
 						$("input:checkbox[name='menu_choose']:checked").each(function() {
-							summaryContent += $(this).val().split('@')[1]+"; ";
+							if ($(this).val().split('@')[1]=="DASHBOARD") {
+								summaryContent += "<span class=\"icon-home\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="EMPLOYEE REPORT") {
+										summaryContent += "<span class=\"icon-clipboard-2\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="PROJECT") {
+										summaryContent += "<span class=\"icon-puzzle\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="ASSIGNMENT") {
+										summaryContent += "<span class=\"icon-list\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="REPORT") {
+										summaryContent += "<span class=\"icon-clipboard-2\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="EMPLOYEE") {
+										summaryContent += "<span class=\"icon-user\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="ORGANIZATION") {
+										summaryContent += "<span class=\"icon-briefcase-2\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="SUPERVISOR REPORT") {
+										summaryContent += "<span class=\"icon-clipboard-2\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="SPECIAL APPRAISAL") {
+										summaryContent += "<span class=\"icon-trophy\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="TRANSFER PROJECT") {
+										summaryContent += "<span class=\"icon-tab\"><\/span>&nbsp;&nbsp;";
+							} else if ($(this).val().split('@')[1]=="MANAGE ROLE") {
+										summaryContent += "<span class=\"icon-cog\"><\/span>&nbsp;&nbsp;";
+							} else {
+								summaryContent += "<span class=\"icon-home\"><\/span>&nbsp;&nbsp;";
+							}
+							summaryContent += $(this).val().split('@')[1]+"&nbsp;&nbsp;&nbsp;";
 						});
 						summaryContent += '</td>' + '</tr>';;
 					} else {
@@ -116,8 +130,7 @@ function viewSummary() {
 					summaryContent += "<\/tbody>";
 					summaryContent += "<\/table>";
 					$("#table-ajax-summary-menu-role").html(summaryContent);
-				}
-			});
+			
 }
 
 $(document).ready(

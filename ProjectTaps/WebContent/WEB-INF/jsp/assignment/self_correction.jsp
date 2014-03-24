@@ -272,8 +272,8 @@
 							%>
 							<tr>
 								<td colspan=4 class="text-right">
-									<html:button property="assign" onclick="javascript:flyToPage('RFA')" styleClass="button success">RFA</html:button> 
-									<html:button property="cancel" onclick="javascript:flyToPage('cancel');" styleClass="button info">Cancel</html:button></td>
+									<button onclick="javascript:flyToPage('RFA')" class="button success">RFA</button> 
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 							</tr>
 							<%
 								} else if ("RFA".equals(session.getAttribute("status"))
@@ -282,7 +282,7 @@
 							%>
 							<tr>
 								<td colspan=4 class="text-right">
-									<html:button property="cancel" onclick="javascript:flyToPage('cancel');" styleClass="button info">Close</html:button></td>
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button></td>
 							</tr>
 							<%
 								}

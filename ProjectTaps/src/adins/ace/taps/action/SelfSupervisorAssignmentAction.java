@@ -24,6 +24,7 @@ import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.module.SendMailTls;
 
 public class SelfSupervisorAssignmentAction extends Action {
+	//this is action for self assignment from supervisor view
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +42,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}else if ("approved".equals(sForm.getTask())) {
+			//add comment and change status to approved
 			String tmpDescription="";
 			String tmpManHours="";
 			tmpDescription = request.getParameter("tmpDescription");
@@ -78,6 +80,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(sForm.getTask())) {
+			//add comment and change status to correction
 			String tmpDesctiption="";
 			String tmpManHours="";
 			tmpDesctiption = request.getParameter("tmpDescription");
@@ -112,6 +115,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			System.out.println(success);
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(sForm.getTask())) {
+			//add comment and change status to rejected
 			sForm.getSelfAssignBean().setCurrentStatus("REJECTED");
 			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
@@ -150,6 +154,9 @@ public class SelfSupervisorAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		} 
 		
+		//show record self assignment
+		//for approved self assignment, update-star button only show within certain days after it's being approved
+		//to set the range date for update star, change the value max_date from config.properties
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));

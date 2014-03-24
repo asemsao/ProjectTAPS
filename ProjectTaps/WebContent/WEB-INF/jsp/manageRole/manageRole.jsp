@@ -23,33 +23,9 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/manageRole" method="post"
 					styleClass="manageRoleForm" styleId="mrForm">
-					<%-- 					<html:hidden property="task" name="manageRoleForm" styleId="task" /> --%>
-					<%-- 					<html:hidden property="pagingDirection" name="manageRoleForm" styleId="pagingDirection" /> --%>
-					<%-- 					<html:hidden property="pageP" name="manageRoleForm" styleId="pageP" /> --%>
-					<%-- 					<html:hidden property="maxPageP" name="manageRoleForm" styleId="maxPageP" /> --%>
-					<%-- 					<html:hidden property="maxPageO" name="manageRoleForm" styleId="maxPageO" /> --%>
-					<%-- 					<html:hidden property="orgBefore" name="manageRoleForm" styleId="orgBefore" /> --%>
 
 					<fieldset>
 						<legend>CHOOSE ROLE</legend>
-
-						<!-- 					<table class="table"> -->
-						<!-- 							<tr> -->
-						<!-- 								<th width="25%"> -->
-						<!-- 									<div class="input-control select"> -->
-						<%-- 										<html:select property="projectCategory" name="manageRoleForm" styleId="projectCategory"> --%>
-						<%-- 											<html:option value="all">All</html:option> --%>
-						<%-- 										</html:select> --%>
-						<!-- 									</div> -->
-						<!-- 								</th> -->
-						<!-- 								<th> -->
-						<!-- 									<div class="input-control text"> -->
-						<%-- 										<html:text property="projectKeyword" name="manageRoleForm" styleId="projectKeyword"></html:text> --%>
-						<!-- 										<button  id="search-btn-project" type="button" class="btn-search"></button> -->
-						<!-- 									</div> -->
-						<!-- 								</th> -->
-						<!-- 							</tr> -->
-						<!-- 							</table> -->
 
 						<table class="table striped bordered hovered">
 							<thead>
@@ -64,7 +40,7 @@
 									<logic:iterate id="manageRole" name="manageRoleForm"
 										property="listRole">
 										<tr>
-											<td>
+											<td class="text-center">
 												<div class="input-control radio default-style">
 													<label> <input type="radio" name="role_choose"
 														value="<bean:write name="manageRole"
@@ -76,7 +52,7 @@
 											</td>
 											<td class="text-center"><bean:write name="manageRole"
 													property="roleId" /></td>
-											<td><bean:write name="manageRole" property="roleName" /></td>
+											<td class="text-center"><bean:write name="manageRole" property="roleName" /></td>
 										</tr>
 									</logic:iterate>
 								</logic:notEmpty>
@@ -92,14 +68,12 @@
 					<fieldset>
 						<legend>CHOOSE MENU</legend>
 						<div id="table-ajax-list-menu"></div>
-<!-- 						<table id="table-ajax-list-menu" class="table striped bordered hovered"></table> -->
 						
 					</fieldset>
 					
 					<fieldset>
 						<legend>SUMMARY</legend>
 						<div id="table-ajax-summary-menu-role"></div>
-<!-- 						<table id="table-ajax-summary-menu-role" class="table"></table> -->
 					</fieldset>
 					<input id="submit-btn-menu-role" type="button" class="submit-wizard"
 						value="Finish" />
