@@ -198,8 +198,7 @@ public class EmployeeAction extends Action {
 				} else {
 					data.put("password", "employeetaps");
 				}
-				mMan.insertLoginEmployee(data);
-				
+				mMan.insertLoginEmployee(data);				
 				
 				mForm.setMessage("Add Employee Successfull!");
 				mForm.setColor("green");
