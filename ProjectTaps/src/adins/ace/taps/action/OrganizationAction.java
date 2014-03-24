@@ -1,9 +1,5 @@
-/*http://www.developerscrappad.com/963/java/jndi/java-jndi-ldap-windows-active-directory-authentication-organizational-unit-group-and-other-information-access/
- */
-
 package adins.ace.taps.action;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
