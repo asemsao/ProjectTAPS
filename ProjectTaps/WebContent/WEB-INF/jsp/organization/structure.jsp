@@ -66,18 +66,20 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="2"><h3>Business Unit Member</h3></th>
+								<th colspan="3"><h3>Business Unit Member</h3></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><b>Business Unit</b></td>
-								<td colspan="2">: <bean:write name="organizationForm"
+								<th class="field-form">Business Unit</th>
+								<td class="field-separator">:</td>
+								<td><bean:write name="organizationForm"
 										property="orgBean.organizationName" /></td>
 							</tr>
 							<tr>
-								<td><b>Business Unit Head</b></td>
-								<td colspan="2">: <bean:write name="organizationForm"
+								<th class="field-form">Business Unit Head</th>
+								<td class="field-separator">:</td>
+								<td><bean:write name="organizationForm"
 										property="orgBean.headName" /></td>
 							</tr>
 							<tr>
@@ -91,7 +93,8 @@
 										</html:select>
 									</div>
 								</td>
-								<td class="text-center" colspan=2>
+								<td class="field-separator">:</td>
+								<td class="text-center">
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="organizationForm"
 											styleId="searchKeyword"></html:text>

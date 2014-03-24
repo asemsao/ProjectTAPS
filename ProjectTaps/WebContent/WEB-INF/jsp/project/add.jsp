@@ -47,7 +47,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Role</td>
+								<th class="field-form">Role</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -57,7 +57,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Assignee</td>
+								<th class="field-form">Assignee</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -68,7 +68,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Direct Report</td>
+								<th class="field-form">Direct Report</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">

@@ -55,6 +55,8 @@ public class LoginAction extends Action {
 				pass = true;
 				if (tForm.getUsername().equals("205")) {
 					username = "DOMAIN205";
+				} else if (tForm.getUsername().equals("201")) {
+					username = "DOMAIN201";
 				} else if (tForm.getUsername().equals("3")) {
 					username = "domain3";
 				} else {
