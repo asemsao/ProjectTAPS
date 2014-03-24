@@ -131,7 +131,8 @@ function employeeValidation() {
 				digits : true
 			},
 			'newEmployee.email' : {
-				required : true
+				required : true,
+				email : true
 			},
 			'newEmployee.golonganNumber' : {
 				required : true

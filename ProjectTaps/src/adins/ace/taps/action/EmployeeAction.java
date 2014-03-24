@@ -142,7 +142,6 @@ public class EmployeeAction extends Action {
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			String tamp = mForm.getNewEmployee().getPhoneNumber().replaceAll("\\(|\\)|\\-", "-");
-			System.out.println("A"+tamp);
 			String[] temp = tamp.split("-");
 			mForm.getNewEmployee().setPhoneNumberAreaCode(temp[1].trim());
 			mForm.getNewEmployee().setPhoneNumberMidNumb(temp[2].trim());

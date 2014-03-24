@@ -28,8 +28,7 @@ public class ManageRoleAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		ManageRoleForm erForm = (ManageRoleForm) form;
-		ManageRoleManager erMan = new ManageRoleManager();
-				
+		ManageRoleManager erMan = new ManageRoleManager();		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		if ("wizard".equals(erForm.getTask())) {
@@ -86,15 +85,29 @@ public class ManageRoleAction extends Action {
 			 Map params = new HashMap();
 			 params = gson.fromJson(request.getParameter("params"),HashMap.class);
 			 params.put("roleId", params.get("roleId").toString());
-			 erMan.deleteRoleMenu(params);
-			 
-			 String temp = "";
-			 for (String item : (Iterable<String>) params.get("listMenu")) {
-				 
-				 params.put("menuId", item);
-				 erMan.insertRoleMenu(params);
+			 if (erMan.deleteRoleMenu(params)) {
+				 String message = "";
+				 for (String item : (Iterable<String>) params.get("listMenu")) {					 
+					 params.put("menuId", item);
+					 if (erMan.insertRoleMenu(params)) {
+						 message += params.get("menuId")+ " add to role " + params.get("roleId") +"\n";
+					 } else {
+						 message += "Oops, there is something wrong to add" +params.get("menuId")+ " to role " + params.get("roleId") +"\n";
+					 }
+					 
+				 } 
+				 erForm.setMessage(message);
+				 erForm.setMessagecolor("green");
+			 } else {
+				 erForm.setMessage("Ooops, there is something wrong.");
+				 erForm.setMessagecolor("red");
 			 }
-			 params.put("listMenu", temp);
+			
+			 String json = gson.toJson(erForm);
+			 PrintWriter out = response.getWriter();
+			 out.print(json);
+			 
+			 return null;
 		}
 		
 		Map params = new HashMap();
@@ -146,6 +159,8 @@ public class ManageRoleAction extends Action {
 		}
 		
 		if ("home".equals(erForm.getTask())) {
+			System.out.println(erForm.getMessage()+"TESSSS");
+			System.out.println(erForm.getMessagecolor()+"colorTESSSS");
 			erForm.setListRole(erMan.searchListRole());
 			return mapping.findForward("ListRole");
 		}

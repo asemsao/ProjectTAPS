@@ -133,8 +133,9 @@ function viewSummary() {
 			
 }
 
-$(document).ready(
+$(document).ready(		
 		function() {
+			$("input:radio[name='role_choose']:first").prop("checked", true);
 			$("#mrForm").formToWizard({
 				submitButton : 'submit-btn-menu-role'
 			});
@@ -166,8 +167,29 @@ $(document).ready(
 							error : function() {
 								console.log("problem was here!");
 							},
-							success : function() {
-								alert('Success');
+							success : function(data) {
+								var json = $.parseJSON(data);
+
+								if (json.message != "") {
+											setTimeout(function() {
+												$.Notify({
+													style : {
+														background : json.messagecolor,
+														color : 'white'
+													},
+													shadow : true,
+													position : 'top-right',
+													content : json.message
+												});
+											}, 1000);
+										} else {
+											
+										}
+								$("#messagecolor").val(json.messagecolor);
+								$("#message").val(json.message);
+								$("#task").val("home");
+								$("#mrForm").submit();
+								//window.location.href="/ProjectTaps/manageRole.do";
 							}
 						});
 					});

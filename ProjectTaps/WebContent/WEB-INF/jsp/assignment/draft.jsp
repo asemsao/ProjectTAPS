@@ -71,36 +71,36 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Assignment Due Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Due Date</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker-end">
 										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Assignment Time</td>
-								<td>:</td>
+								<td class="field-form">Assignment Time</td>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="assignmentBean.assignmentType" name="claimAssignmentForm" /></td>
 							</tr>
 							<tr>
-								<td>Assign To</td>
-								<td>:</td>
+								<td class="field-form">Assign To</td>
+								<td class="field-separator">:</td>
 								<td><div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
@@ -130,8 +130,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Reff Task Code</td>
-								<td>:</td>
+								<td class="field-form">Reff Task Code</td>
+								<td class="field-separator">:</td>
 
 								<td><div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode" name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
@@ -139,8 +139,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td><html:textarea property="assignmentBean.description" name="claimAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea></td>
 							</tr>
 							<tr>

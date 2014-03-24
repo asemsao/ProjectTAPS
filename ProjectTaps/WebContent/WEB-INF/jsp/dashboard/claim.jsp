@@ -42,54 +42,54 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Due Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Due Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Type</td>
-								<td>:</td>
+								<td class="field-form">Assignment Type</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentType" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assign To</td>
-								<td>:</td>
+								<td class="field-form">Assign To</td>
+								<td class="field-separator">:</td>
 								<td><bean:write property="claimBean.assignToFullName" name="dashboardForm" /></td>
 								<td><b>Assignment From </b> : <bean:write property="claimBean.reportToFullName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Reff Assignment</td>
-								<td>:</td>
+								<td class="field-form">Reff Assignment</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
-								<td>Assignment Date</td>
-								<td>:</td>
+								<td class="field-form">Assignment Date</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control text" id="datepicker">
 										<html:text property="claimBean.claimDate" name="dashboardForm" styleId="assignmentDate" styleClass="datepicker-back" />
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
-								<td>Assignment Time</td>
-								<td>:</td>
+								<td class="field-form">Assignment Time</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control text">
 										<html:text property="claimBean.claimTime" name="dashboardForm" styleId="timepicker" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
-								<td>ManHours</td>
-								<td>:</td>
+								<td class="field-form">ManHours</td>
+								<td class="field-separator">:</td>
 								<td colspan=2>
 									<div class="input-control select">
 										<html:select name="dashboardForm" property="claimBean.manHours">
@@ -147,8 +147,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Description</td>
-								<td>:</td>
+								<td class="field-form">Description</td>
+								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea property="claimBean.detailDescription" name="dashboardForm"
 										rows="3" styleId="description" styleClass="input-control textarea">
 									</html:textarea></td>
