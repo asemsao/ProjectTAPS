@@ -1019,6 +1019,13 @@
 		  FROM   detail_claim_assignments
 		 WHERE   task_code = #taskCode#
 	</select>
+	
+	<select id="totalManHours" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"
+		parameterClass="java.lang.String">
+		SELECT   claim_date as claimDate
+		  FROM   detail_claim_assignments
+		 WHERE   task_code = #taskCode#
+	</select>
 
 	<select id="lookUpAssignmentEmployee" resultClass="adins.ace.taps.bean.assignment.EmployeeReportBean"
 		parameterClass="java.util.Map">

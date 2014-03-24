@@ -100,10 +100,11 @@ public class AssignmentManager {
 		}
 		return list;
 	}
+
 	// **********************************************************************************************//
 
 	// **********************************AssignmentSupervisor***************************************//
-	
+
 	public Integer countEmployeeAssignmentList(Map params) {
 		Integer count = null;
 		try {
@@ -122,7 +123,7 @@ public class AssignmentManager {
 		}
 		return count;
 	}
-	
+
 	public List<EmployeeReportBean> employeeAssignmentList(Map params) {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
@@ -160,7 +161,7 @@ public class AssignmentManager {
 		}
 		return count;
 	}
-	
+
 	public List<EmployeeReportBean> pendingAssignmentList(Map params) {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
@@ -179,7 +180,7 @@ public class AssignmentManager {
 		}
 		return list;
 	}
-	
+
 	// **********************************************************************************************//
 
 	// **********************************AssignmentSupervisor***************************************//
@@ -346,7 +347,7 @@ public class AssignmentManager {
 		}
 		return generateTaskCode;
 	}
-	
+
 	public String getMaxTaskCodeProject(String paramTaskCode) {
 		String generateTaskCode = "";
 		try {
@@ -427,7 +428,7 @@ public class AssignmentManager {
 		}
 		return assignmentBean;
 	}
-	
+
 	public ClaimAssignmentBean searchRecordClaimAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
@@ -464,6 +465,29 @@ public class AssignmentManager {
 			}
 		}
 		return listDetailClaim;
+	}
+
+	public String getClaimDate(String taskCode) {
+		String claimDate = "";
+		List<ClaimAssignmentBean> listDetailClaim = new ArrayList<ClaimAssignmentBean>();
+		try {
+			ibatisSQLMap.startTransaction();
+			listDetailClaim = ibatisSQLMap.queryForList(
+					"assignment.searchDetailClaim", taskCode);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		for (int i = 0; i < listDetailClaim.size(); i++) {
+			claimDate += listDetailClaim.get(i).getClaimDate() + "|";
+		}
+		return claimDate;
 	}
 
 	public List<ClaimAssignmentBean> searchHistoryComment(Map params) {
@@ -665,7 +689,7 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
+
 	public boolean addHistoryComment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
@@ -839,8 +863,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.lookUpAssignmentEmployee",
-					params);
+			list = ibatisSQLMap.queryForList(
+					"assignment.lookUpAssignmentEmployee", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -853,7 +877,7 @@ public class AssignmentManager {
 		}
 		return list;
 	}
-	
+
 	public Integer countLookUpAssignmentSupervisor(Map params) {
 		Integer count = null;
 		try {
@@ -877,8 +901,8 @@ public class AssignmentManager {
 		List<EmployeeReportBean> list = new ArrayList<EmployeeReportBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			list = ibatisSQLMap.queryForList("assignment.lookUpAssignmentSupervisor",
-					params);
+			list = ibatisSQLMap.queryForList(
+					"assignment.lookUpAssignmentSupervisor", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -920,7 +944,7 @@ public class AssignmentManager {
 		return success;
 	}
 
-	/******email employee assignment*******/
+	/****** email employee assignment *******/
 	public ClaimAssignmentBean emailToSupervisorAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
@@ -939,7 +963,7 @@ public class AssignmentManager {
 		}
 		return assignmentBean;
 	}
-	
+
 	public ClaimAssignmentBean emailToEmployeeAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
@@ -977,12 +1001,13 @@ public class AssignmentManager {
 		}
 		return success;
 	}
-	
-	public NewAssignmentBean searchDirectReportProject(Map params){
+
+	public NewAssignmentBean searchDirectReportProject(Map params) {
 		NewAssignmentBean bean = new NewAssignmentBean();
 		try {
 			ibatisSQLMap.startTransaction();
-			bean = (NewAssignmentBean) ibatisSQLMap.queryForObject("assignment.searchDirectReportProject", params);
+			bean = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchDirectReportProject", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -995,12 +1020,13 @@ public class AssignmentManager {
 		}
 		return bean;
 	}
-	
-	public String checkClaimDate(Map params){
+
+	public String checkClaimDate(Map params) {
 		String status = null;
 		try {
 			ibatisSQLMap.startTransaction();
-			status = (String) ibatisSQLMap.queryForObject("assignment.checkClaimDate", params);
+			status = (String) ibatisSQLMap.queryForObject(
+					"assignment.checkClaimDate", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
