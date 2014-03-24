@@ -79,6 +79,7 @@ public class NewAssignmentAction extends Action {
 				}
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
+				aForm.getAssignmentBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
