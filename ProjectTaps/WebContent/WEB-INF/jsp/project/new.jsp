@@ -116,7 +116,7 @@
 									<div class="input-control text" id="datepicker">
 										<html:text property="addProject.startDate" name="projectForm"
 											styleId="startDate" readonly="true" styleClass="datepicker-start"></html:text>
-										<button type="button" class="btn-date"></button>
+										<button type="button" class="btn-date"></button>											
 									</div>
 								</td>
 							</tr>
