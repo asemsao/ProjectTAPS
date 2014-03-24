@@ -38,26 +38,26 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="size3">Appraisal Date</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Date</td>
+								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.createdDate" /></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal To</td>
-								<td>:</td>
+								<td class="field-form">Appraisal To</td>
+								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.employeeName" /></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal Description</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Description</td>
+								<td class="field-separator">:</td>
 								<td><bean:write name="specialAppraisalForm"
 										property="appraisalBean.description" /></td>
 							</tr>
 							<tr>
-								<td class="size3">Appraisal Star</td>
-								<td>:</td>
+								<td class="field-form">Appraisal Star</td>
+								<td class="field-separator">:</td>
 								<td>
 									<bean:define id="temp" name="specialAppraisalForm" property="appraisalBean.appraisalStar" type="Integer" />
 									<%
