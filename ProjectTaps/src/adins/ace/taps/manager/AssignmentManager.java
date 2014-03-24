@@ -473,7 +473,7 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.startTransaction();
 			listDetailClaim = ibatisSQLMap.queryForList(
-					"assignment.searchDetailClaim", taskCode);
+					"assignment.getClaimDate", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
