@@ -22,6 +22,7 @@ public class AjaxForm extends ActionForm {
 	private List<OrganizationBean> childOrganization;
 	private List<OrganizationBean> organizationProject;
 	private Integer countMemberOrganization;
+	private Integer countChildOrganization;
 	private String task;
 	private String searchCategory;
 	private String searchKeyword;
@@ -312,6 +313,14 @@ public class AjaxForm extends ActionForm {
 	public void setOrganizationProject(
 			List<OrganizationBean> organizationProject) {
 		this.organizationProject = organizationProject;
+	}
+
+	public Integer getCountChildOrganization() {
+		return countChildOrganization;
+	}
+
+	public void setCountChildOrganization(Integer countChildOrganization) {
+		this.countChildOrganization = countChildOrganization;
 	}
 
 }

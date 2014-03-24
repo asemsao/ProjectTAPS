@@ -93,16 +93,12 @@ public class AjaxAction extends Action {
 		}
 
 		if ("deleteOrganization".equals(ajaxForm.getMode())) {
-			recordPerPage = recordPerPage-5;
-			params.put("start", (ajaxForm.getPage() - 1) * recordPerPage + 1);
-			params.put("end", (ajaxForm.getPage() * recordPerPage));
 			params.put("organizationCode", ajaxForm.getOrganizationCode().trim());
-			int record = orgMan.countListProject(params)+orgMan.countListChild(params);
-			System.out.println(record);
+			int record = orgMan.countListProject(params);
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
-			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCountMemberOrganization(orgMan.countMember(params));
-			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ ajaxForm.getChildOrganization().size()+ ajaxForm.getCountMemberOrganization());
+			ajaxForm.setCountChildOrganization(orgMan.countListChild(params));
+			ajaxForm.setCheckDeleteOrganization(ajaxForm.getCountChildOrganization()+ajaxForm.getOrganizationProject().size()+ ajaxForm.getCountMemberOrganization());
 			ajaxForm.setCountRecord(record);
 		}
 

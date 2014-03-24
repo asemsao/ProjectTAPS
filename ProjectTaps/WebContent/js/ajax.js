@@ -207,13 +207,8 @@ function setResponseOrganizationDelete(data) {
 		content += "</td>";
 		content += "</tr>";
 	}
-	content += "<logic:empty name='ajaxForm' property='organizationProject'>";
-	content += "<tr>";
-	content += "<td class='text-center' colspan=6>No Project</td>";
-	content += "</tr>";
-	content += "</logic:empty>";
 	content += "</tbody>";
-	content += "<tbody>";
+	/*content += "<tbody>";
 	content += "<tr>";
 	content += "</tr>";
 	content += "</tbody>";
@@ -246,7 +241,7 @@ function setResponseOrganizationDelete(data) {
 	content += "</logic:empty>";
 	content += "</tbody>";
 	content += "</table>";
-	
+	*/
 	
 	/*
 	
