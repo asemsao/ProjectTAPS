@@ -96,6 +96,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		where er.role_id=#roleId# and
 		er.user_domain = e.user_domain and lower(e.flag)='active'
 	</select>
+	
+	<select id="getMenuName" resultClass="java.lang.String"
+		parameterClass="java.lang.String">
+		select menu_name from menu
+		where menu_id = #menuId#
+	</select>
 
 	<select id="getRoleName" resultClass="java.lang.String"
 		parameterClass="java.lang.String">

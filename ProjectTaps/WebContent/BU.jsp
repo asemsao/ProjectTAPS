@@ -30,10 +30,10 @@
 	 	if (request.getSession().getAttribute("yearPrint") != null) {
 	 		year = request.getSession().getAttribute("yearPrint").toString();
 	 	}
-	 	setDocParameter(i++,periode, report);
-	 	setDocParameter(i++,bu, report);
-	 	setDocParameter(i++,periodeReport, report);
-	 	setDocParameter(i++,year, report);
+	 	setDocParameter(i++,periode.trim(), report);
+	 	setDocParameter(i++,bu.trim(), report);
+	 	setDocParameter(i++,periodeReport.trim(), report);
+	 	setDocParameter(i++,year.trim(), report);
 	 	
 		
 		viewReport(report, request, response, session);

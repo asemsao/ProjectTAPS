@@ -18,6 +18,7 @@ public class ReportForm extends ActionForm{
 	private String param5;
 	private String search;
 	private String value;
+	private String buPrint;
 	private String periode;
 	private String reportYear;
 	private String reportPeriode;
@@ -135,5 +136,13 @@ public class ReportForm extends ActionForm{
 
 	public void setPeriode(String periode) {
 		this.periode = periode;
+	}
+
+	public String getBuPrint() {
+		return buPrint;
+	}
+
+	public void setBuPrint(String buPrint) {
+		this.buPrint = buPrint;
 	}
 }
