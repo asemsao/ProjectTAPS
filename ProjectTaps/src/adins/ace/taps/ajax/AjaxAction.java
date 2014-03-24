@@ -95,7 +95,7 @@ public class AjaxAction extends Action {
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ajaxForm.getChildOrganization().size());
-			ajaxForm.setCountRecord(0);
+			ajaxForm.setCountRecord(ajaxForm.getCheckDeleteOrganization());
 		}
 
 		if ("ad".equals(ajaxForm.getMode())) {

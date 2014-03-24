@@ -23,7 +23,9 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/manageRole" method="post"
 					styleClass="manageRoleForm" styleId="mrForm">
-
+				<html:hidden property="task" styleId="task" name="manageRoleForm" />
+				<html:hidden property="message" styleId="message" name="manageRoleForm" />
+				<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
 					<fieldset>
 						<legend>CHOOSE ROLE</legend>
 
