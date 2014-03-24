@@ -4,13 +4,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="login">
-	<select id="getRoles" resultClass="adins.ace.taps.bean.module.RoleBean"
+
+	<select id="getOrganizationLevel" resultClass="adins.ace.taps.bean.module.OrganizationLevelBean"
 		parameterClass="java.lang.String">
-		SELECT LOWER(e.role_id) AS roleId, INITCAP(r.role_name) AS roleName FROM
-		employee_role e JOIN roles r ON e.role_id = r.role_id where
+		SELECT e.organization_code AS organizationCode, o.organization_level AS organizationLevel FROM employees e JOIN
+		organizations o ON e.organization_code = o.organization_code WHERE
 		LOWER(e.user_domain) = LOWER(#userDomain#)
 	</select>
-	
+
+	<select id="getRoles" resultClass="adins.ace.taps.bean.module.RoleBean"
+		parameterClass="java.lang.String">
+		SELECT LOWER(e.role_id) AS roleId, INITCAP(r.role_name)
+		AS roleName FROM
+		employee_role e JOIN roles r ON e.role_id = r.role_id
+		WHERE
+		LOWER(e.user_domain) = LOWER(#userDomain#)
+	</select>
+
 	<select id="getMenu" resultClass="adins.ace.taps.bean.module.MenuBean"
 		parameterClass="java.lang.String">
 		SELECT INITCAP(m.menu_name) AS menuName,
@@ -18,13 +28,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE r.menu_id = m.menu_id AND LOWER(r.role_id) = LOWER(#roleId#)
 		ORDER BY m.menu_name ASC
 	</select>
-	
+
 	<select id="getFullName" resultClass="java.lang.String"
 		parameterClass="java.lang.String">
 		select first_name || ' ' || last_name from employees
-		where LOWER(user_domain)=LOWER(#userDomain#)
+		WHERE LOWER(user_domain)=LOWER(#userDomain#)
 	</select>
-	
+
 	<select id="tryLogin" resultClass="int" parameterClass="java.util.Map">
 		SELECT
 		COUNT(1)
@@ -32,7 +42,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE username = #username#
 		AND password =
 		DBMS_OBFUSCATION_TOOLKIT.md5 (
-		input => UTL_RAW.cast_to_raw (#password#)
+		input => UTL_RAW.cast_to_raw
+		(#password#)
 		)
 	</select>
 </sqlMap>

@@ -17,6 +17,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.bean.dashboard.DashboardBean;
+import adins.ace.taps.bean.module.OrganizationLevelBean;
 import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.login.LoginForm;
@@ -68,7 +69,10 @@ public class LoginAction extends Action {
 					// /TESTING HAPUS NANTI
 //					username = "domain100";
 					List<RoleBean> roleList = lMan.roleList(username);
+					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
+					session.setAttribute("organizationCode",organizationLevel.get(0).getOrganizationCode());
+					session.setAttribute("organizationLevel",organizationLevel.get(0).getOrganizationLevel());
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);

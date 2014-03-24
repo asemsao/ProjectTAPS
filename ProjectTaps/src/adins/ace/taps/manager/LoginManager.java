@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.module.MenuBean;
+import adins.ace.taps.bean.module.OrganizationLevelBean;
 import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
@@ -15,6 +16,23 @@ public class LoginManager {
 
 	public LoginManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
+	}
+	
+	public List<OrganizationLevelBean> GetOrganizationLevel(String userDomain) {
+		List<OrganizationLevelBean> organizationLevel = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			organizationLevel = ibatisSqlMap.queryForList("login.getOrganizationLevel", userDomain);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return organizationLevel;
 	}
 
 	public List<RoleBean> roleList(String userDomain) {
