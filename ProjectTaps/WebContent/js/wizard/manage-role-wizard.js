@@ -169,22 +169,6 @@ $(document).ready(
 							},
 							success : function(data) {
 								var json = $.parseJSON(data);
-
-								if (json.message != "") {
-											setTimeout(function() {
-												$.Notify({
-													style : {
-														background : json.messagecolor,
-														color : 'white'
-													},
-													shadow : true,
-													position : 'top-right',
-													content : json.message
-												});
-											}, 1000);
-										} else {
-											
-										}
 								$("#messagecolor").val(json.messagecolor);
 								$("#message").val(json.message);
 								$("#task").val("home");

@@ -22,7 +22,7 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-			//newAssignmentValidation();
+// 			newAssignmentValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
@@ -229,9 +229,9 @@
 			</div>
 		</div>
 		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username") %>" />
+		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" styleId="assignment-type" />
-		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view"/>
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

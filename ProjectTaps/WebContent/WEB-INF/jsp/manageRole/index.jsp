@@ -53,6 +53,8 @@
 					position : 'top-right',
 					content : $("#message").val()
 				});
+				$("#message").val("");
+				$("#messagecolor").val("");
 			}, 1000);
 		}
 	});
@@ -81,7 +83,7 @@
 							</tr>
 							<tr>
 								<th colspan=3 class="text-left"><input type="button"
-									class="wizard" value="Manage Role Menu" /></th>
+									class="wizard" value="Manage Role Menu" data-hint="This feature help you add menu for each role." /></th>
 							</tr>
 							<tr>
 								<th class="text-center">Role ID</th>
@@ -100,7 +102,8 @@
 												property="roleName" /></td>
 										<td class="text-center"><a class="listMember"
 											alt="<bean:write name="manageRole" property="roleId" />"
-											data-hint="List Member Role" data-hint-position="bottom"><img
+											data-hint="List Member <bean:write name="manageRole"
+												property="roleName" />" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
 									</tr>
 								</logic:iterate>

@@ -25,7 +25,6 @@
 
 		<logic:notEqual name="ajaxForm" property="checkDeleteOrganization"
 			value="0">
-
 			<!-- TABEL ORG PROJECT -->
 			<table class="table striped bordered hovered">
 				<thead>
@@ -40,6 +39,14 @@
 						<tr>
 							<td colspan="3"><strong><bean:write name="ajaxForm"
 										property="countMemberOrganization" /> members in Business
+									Unit </strong></td>
+						</tr>
+					</logic:notEqual>
+					<logic:notEqual name="ajaxForm" property="countChildOrganization"
+						value="0">
+						<tr>
+							<td colspan="3"><strong><bean:write name="ajaxForm"
+										property="countChildOrganization" /> Child BU in Business
 									Unit </strong></td>
 						</tr>
 					</logic:notEqual>
@@ -81,7 +88,7 @@
 						</tr>
 					</tbody>
 					<!-- TABEL BU CHILD -->
-					<thead>
+					<%-- <thead>
 						<tr>
 							<td colspan="3"><strong>Business Unit's Child</strong></td>
 						</tr>
@@ -107,7 +114,7 @@
 								<td class="text-center" colspan=6>No Child Organization</td>
 							</tr>
 						</logic:empty>
-					</tbody>
+					</tbody> --%>
 				</table>
 			</div>
 
@@ -152,7 +159,6 @@
 				</thead>
 			</table>
 		</logic:notEqual>
-		<%-- 
 		<logic:equal name="ajaxForm" property="checkDeleteOrganization"
 			value="0">
 			<table class="table striped bordered hovered">
@@ -163,7 +169,6 @@
 						</strong></th>
 					</tr>
 					<tr>
-
 						<th class="text-center"><button type="button"
 								class='button danger'
 								onclick="javascript:chooseOrganizationDelete('delete')">Delete</button>
@@ -173,7 +178,7 @@
 					</tr>
 				</thead>
 			</table>
-		</logic:equal> --%>
+		</logic:equal>
 	</html:form>
 </body>
 </html>

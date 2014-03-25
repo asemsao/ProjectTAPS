@@ -23,17 +23,7 @@
 		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
 		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
 		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects");
-		$("#employee-name").val($("#employee-fullName").val());
 		$("#timepicker").timeselector();
-
-		$('#project-name').bind("change",function() {
-			var project_code = $("#project-code").val();
-			$("#lookUpEmployeeOnProject").html('');
-			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-			$("#employee-name").val("");
-			$("#employee-fullName").val("");
-			$("#employee-domain").val("");
-		});
 
 		if ($("#assignmentType").val() == "PROJECT") {
 			$(".pr").show();
@@ -73,16 +63,16 @@
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text " id="datepicker-begin">
-										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate"></html:text>
+								<td><div class="input-control text " id="datepicker">
+										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text" id="datepicker-end">
-										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate"></html:text>
+								<td><div class="input-control text" id="datepicker">
+										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -111,8 +101,7 @@
 									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
-											<html:hidden property="assignmentBean.assignToFullName" name="claimAssignmentForm" styleId="employee-fullName" />
-											<input type="text" id="employee-name" />
+											<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
 											<div class="pr" class="in-bl">
 												<button type="button" class="btn-search" id="employeeOnProject"></button>
 											</div>
@@ -121,9 +110,6 @@
 									<div id="bu" class="input-control text">
 										<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
 										<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
-										<div class="pr" class="in-bl">
-											<button type="button" class="btn-search" id="employeeOnProject"></button>
-										</div>
 										<div id="bu" class="in-bl">
 											<button type="button" class="btn-search" id="employeeOnOrganization"></button>
 										</div>
@@ -156,12 +142,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- ini nanti ambil session -->
-<!-- 		<input type="hidden" id="organization-code-view" value="CDD" /> -->
+		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
 		<html:hidden property="newTask" name="claimAssignmentForm" />
 		<html:hidden property="assignmentType" name="claimAssignmentForm" />
 		<html:hidden property="assignmentBean.assignmentType" name="claimAssignmentForm" styleId="assignmentType" />
-		<html:hidden property="assignmentBean.organizationCode" name="claimAssignmentForm" styleId="organization-code-view" />
 	</html:form>
 
 	<div id="lookUpProject" class="hide"></div>

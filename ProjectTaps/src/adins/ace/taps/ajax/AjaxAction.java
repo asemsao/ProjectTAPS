@@ -91,18 +91,23 @@ public class AjaxAction extends Action {
 			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
 			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
 		}
-
+		if ("updateProject".equals(ajaxForm.getMode())) {
+			params.put("projectCode", ajaxForm.getProjectCode());
+			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
+			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
+			if(ajaxForm.getCountRecord() == 0)
+				request.setAttribute("buttonMode", "enable");
+			else
+				request.setAttribute("buttonMode", "disable");
+		}
+		
 		if ("deleteOrganization".equals(ajaxForm.getMode())) {
-			recordPerPage = recordPerPage-5;
-			params.put("start", (ajaxForm.getPage() - 1) * recordPerPage + 1);
-			params.put("end", (ajaxForm.getPage() * recordPerPage));
 			params.put("organizationCode", ajaxForm.getOrganizationCode().trim());
-			int record = orgMan.countListProject(params)+orgMan.countListChild(params);
-			System.out.println(record);
+			int record = orgMan.countListProject(params);
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
-			ajaxForm.setChildOrganization(orgMan.listChild(params));
 			ajaxForm.setCountMemberOrganization(orgMan.countMember(params));
-			ajaxForm.setCheckDeleteOrganization(ajaxForm.getOrganizationProject().size()+ ajaxForm.getChildOrganization().size()+ ajaxForm.getCountMemberOrganization());
+			ajaxForm.setCountChildOrganization(orgMan.countListChild(params));
+			ajaxForm.setCheckDeleteOrganization(ajaxForm.getCountChildOrganization()+ajaxForm.getOrganizationProject().size()+ ajaxForm.getCountMemberOrganization());
 			ajaxForm.setCountRecord(record);
 		}
 
@@ -276,6 +281,9 @@ public class AjaxAction extends Action {
 		}
 		if ("deleteProject".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteProject");
+		}
+		if ("updateProject".equals(ajaxForm.getTask())) {
+			return mapping.findForward("updateProject");
 		}
 		if ("deleteOrganization".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteOrganization");

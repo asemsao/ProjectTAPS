@@ -9,39 +9,39 @@
 <%@include file="CrystalReportHelper.jsp"%>
 <body>
 	<%!private final String REPORT_NAME = "ReportForManagement.rpt";%>
-	<%
 		try {
-			ReportClientDocument report = getClientDocument(REPORT_NAME);
-			try {
-				int i = 0;
-				// 	 	System.out.println("PERIODE= "+request.getSession().getAttribute("periodePrint"));
-				// 	 	System.out.println("PERIODE REPORT= "+request.getSession().getAttribute("periodeReportPrint"));
-				// 	 	System.out.println("YEAR= "+request.getSession().getAttribute("yearPrint"));
-				// 	 	System.out.println("BU= "+request.getSession().getAttribute("buPrint"));
-				String bu = "";
-				String periode = "";
-				String periodeReport = "";
-				String year = "";
-				if (request.getSession().getAttribute("buPrint") != null) {
-					bu = request.getSession().getAttribute("buPrint")
-							.toString();
-				}
-				if (request.getSession().getAttribute("periodePrint") != null) {
-					periode = request.getSession()
-							.getAttribute("periodePrint").toString();
-				}
-				if (request.getSession().getAttribute("periodeReportPrint") != null) {
-					periodeReport = request.getSession()
-							.getAttribute("periodeReportPrint").toString();
-				}
-				if (request.getSession().getAttribute("yearPrint") != null) {
-					year = request.getSession().getAttribute("yearPrint")
-							.toString();
-				}
-				setDocParameter(i++, periode, report);
-				setDocParameter(i++, bu, report);
-				setDocParameter(i++, periodeReport, report);
-				setDocParameter(i++, year, report);
+
+	    ReportClientDocument report = getClientDocument(REPORT_NAME);
+	      try {
+	 	 int i = 0;
+	 	String bu = "";
+	 	String periode = "";
+	 	String periodeReport = "";
+	 	String year = "";
+	 	if (request.getSession().getAttribute("buPrint") != null) {
+	 		bu = request.getSession().getAttribute("buPrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("periodePrint") != null) {
+	 		periode = request.getSession().getAttribute("periodePrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("periodeReportPrint") != null) {
+	 		periodeReport = request.getSession().getAttribute("periodeReportPrint").toString();
+	 	}
+	 	if (request.getSession().getAttribute("yearPrint") != null) {
+	 		year = request.getSession().getAttribute("yearPrint").toString();
+	 	}
+	 	setDocParameter(i++,periode.trim(), report);
+	 	setDocParameter(i++,bu.trim(), report);
+	 	setDocParameter(i++,periodeReport.trim(), report);
+	 	setDocParameter(i++,year.trim(), report);
+		
+		
+		viewReport(report, request, response, session);
+	      } finally {
+	        report.close();
+	        report.dispose();
+	      }
+
 
 				viewReport(report, request, response, session);
 			} finally {

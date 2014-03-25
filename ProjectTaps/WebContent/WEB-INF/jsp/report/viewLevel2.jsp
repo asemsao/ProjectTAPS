@@ -25,11 +25,11 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function button(task,param,param2,param3) {
+	function button(task,organizationCode,organizationLevel,organizationName) {
 		document.reportForm.task.value = task;
-		document.reportForm.param.value = param;
-		document.reportForm.param2.value = param2;
-		document.reportForm.param3.value = param3;
+		document.reportForm.organizationCode.value = organizationCode;
+		document.reportForm.organizationLevel.value = organizationLevel;
+		document.reportForm.organizationName.value = organizationName;
 		document.reportForm.submit();
 	}
 	$(function() {
@@ -162,7 +162,7 @@
 						<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=7 class="text-center"><h3><bean:write property="param3"/></h3></th>
+								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/></h3></th>
 							</tr>
 							<tr>
 								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
@@ -236,10 +236,13 @@
 <!-- 							</tr> -->
 								<tr>
 									<td colspan="5" class="text-right">
-										<button id="back-btn" onclick="javascript:button('back')">Home</button>										
-									<logic:equal name="reportForm" property="param2" value="2">
-										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>
-									</logic:equal>						
+										<button id="back-btn" onclick="javascript:button('back')">Home</button>
+										<% if (!session.getAttribute("organizationLevel").equals("2")) {
+										%>										
+<%-- 									<logic:equal name="reportForm" property='<%=session.getAttribute("organizationLevel") %>' value="2"> --%>
+										<button id="back-btn" onclick="javascript:button('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
+<%-- 									</logic:equal>						 --%>
+										<% } %>
 									</td>
 								</tr>
 						</tbody>
@@ -251,10 +254,10 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="reportForm" />
-		<html:hidden property="param" name="reportForm" />
-		<html:hidden property="param2" name="reportForm" />
-		<html:hidden property="param3" name="reportForm" />
-		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="organizationCode" name="reportForm" />
+		<html:hidden property="organizationLevel" name="reportForm" />
+		<html:hidden property="organizationName" name="reportForm" />
+		<html:hidden property="parentCode" name="reportForm" />
 		<html:hidden property="periode" name="reportForm" />
 		<html:hidden property="reportYear" name="reportForm" />
 		<html:hidden property="reportPeriode" name="reportForm" />
