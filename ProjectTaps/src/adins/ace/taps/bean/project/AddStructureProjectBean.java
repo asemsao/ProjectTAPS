@@ -11,6 +11,8 @@ public class AddStructureProjectBean implements Serializable
 	private String directreportUserDomain;
 	private String directreportName;
 	private String flag;
+	private String userdomain;
+	
 	public String getProjectCode() {
 		return projectCode;
 	}
@@ -53,6 +55,12 @@ public class AddStructureProjectBean implements Serializable
 	}
 	public void setDirectreportName(String directreportName) {
 		this.directreportName = directreportName;
+	}
+	public String getUserdomain() {
+		return userdomain;
+	}
+	public void setUserdomain(String userdomain) {
+		this.userdomain = userdomain;
 	}
 	
 	
