@@ -14,8 +14,14 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.selfAssignmentForm.task.value = task;
-		document.selfAssignmentForm.submit();
+		if (task == "cancel") {
+			document.selfSupervisorAssignmentComment.task.value = task;
+			document.selfSupervisorAssignmentComment.submit();
+			return;
+		} else {
+			document.selfSupervisorAssignmentComment.task.value = task;
+			commentSelfSupervisorAssignmentValidation();
+		}
 	}
 
 	$(document).ready(function() {
@@ -32,7 +38,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/selfSupervisorAssignment" method="POST">
+				<html:form action="/selfSupervisorAssignment" method="POST" styleId="selfSupervisorAssignmentComment">
 					<html:hidden property="selfAssignBean.currentStatus" name="selfAssignmentForm" styleId="status" />
 					<html:hidden property="selfAssignBean.taskCode" name="selfAssignmentForm" styleId="task-code" />
 					<html:hidden property="task" name="selfAssignmentForm" />
@@ -330,7 +336,7 @@
 							<tr>
 								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea property="selfAssignBean.comment" name="selfAssignmentForm"
+								<td colspan=2><html:textarea property="selfAssignBean.comment" name="selfAssignmentForm" styleId="comment"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<%
