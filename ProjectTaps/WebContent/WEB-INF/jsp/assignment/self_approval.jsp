@@ -15,11 +15,11 @@
 <script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.selfSupervisorAssignmentComment.task.value = task;
-			document.selfSupervisorAssignmentComment.submit();
+			document.selfAssignmentForm.task.value = task;
+			document.selfAssignmentForm.submit();
 			return;
 		} else {
-			document.selfSupervisorAssignmentComment.task.value = task;
+			document.selfAssignmentForm.task.value = task;
 			commentSelfSupervisorAssignmentValidation();
 		}
 	}
