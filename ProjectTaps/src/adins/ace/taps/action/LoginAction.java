@@ -60,7 +60,7 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("3")) {
 					username = "domain3";
 				} else {
-					username = "lukas.ws";
+					username = "domain100";
 				}
 				tForm.setPassword("");
 				tForm.setUsername("");
