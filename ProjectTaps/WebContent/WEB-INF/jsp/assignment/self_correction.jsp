@@ -12,11 +12,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">
+<script type="text/javascript">/* 
 	function flyToPage(task) {
 		document.selfAssignmentForm.task.value = task;
 		document.getElementById("activity-type").value = getRadioValue("activity_type");
 		document.selfAssignmentForm.submit();
+	} */
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.selfAssignmentForm.task.value = task;
+			document.selfAssignmentForm.submit();
+			return;
+		} else if (task == "RFA") {
+			document.selfAssignmentForm.task.value = task;
+			document.getElementById("activity-type").value = getRadioValue("activity_type");
+			newCorrectionAssignmentValidation();
+		}
 	}
 
 	function getRadioValue(theRadioGroup) {
@@ -49,7 +60,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/selfAssignment" method="POST">
+				<html:form action="/selfAssignment" method="POST"  styleId="selfAssignment">
 					<html:hidden property="selfAssignBean.taskCode" name="selfAssignmentForm" styleId="task-code" />
 					<html:hidden property="selfAssignBean.activityType" name="selfAssignmentForm" styleId="activity-type" />
 					<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" />
