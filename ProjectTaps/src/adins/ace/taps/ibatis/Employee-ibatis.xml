@@ -364,5 +364,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		(role_id, user_domain)
 		VALUES ('EMP', #employeeDomain#)
 	</insert>
-
+	
+	<delete id="deleteRoleEMP" parameterClass="java.lang.String">
+		delete from
+		employee_role
+		where
+		user_domain =#employeeDomain# AND role_id='EMP'
+	</delete>
+	
 </sqlMap>
