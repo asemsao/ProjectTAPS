@@ -59,6 +59,7 @@ public class ProjectAction extends Action {
 			return mapping.findForward("AddProject");
 		}
 		if ("saveProject".equals(pForm.getTask())) {
+			System.out.println(pForm.getAddProject().getOrganizationCode()+pForm.getAddProject().getCreatedBy());
 			if (pMan.addProject(pForm.getAddProject())) {
 				pForm.setMessage("Inserted Successfully");
 				pForm.setColor("green");

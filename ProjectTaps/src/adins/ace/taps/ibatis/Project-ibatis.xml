@@ -247,10 +247,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#client#,
 		#phaseId#,
 		#organizationCode#,
-		#startDate#,
-		#endDate#,
+		to_date(#startDate#,'DD/MM/YYYY'),
+		to_date(#endDate#,'DD/MM/YYYY'),
 		'ACTIVE',
-		'domain100',
+		'lukas.ws',
 		sysdate)
 	</insert>
 
@@ -274,7 +274,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		start_date = #startDate#,
 		end_date = #endDate#,
 		updated_by =
-		'domain100',
+		'lukas.ws',
 		updated_date = sysdate
 		WHERE
 		project_code = #projectCode#
@@ -296,7 +296,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#assigneeUserDomain#,
 		#directreportUserDomain#,
 		'ACTIVE',
-		'domain100',
+		'lukas.ws',
 		sysdate)
 	</insert>
 
@@ -329,7 +329,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			assignee_user_domain = #assigneeUserDomain#,
 			directreport_user_domain = #directreportUserDomain#,
 			project_role = #projectRole#,
-			updated_by = 'domain100',
+			updated_by = 'lukas.ws',
 			updated_date = sysdate
 		WHERE
 			project_code = #projectCode#
@@ -408,7 +408,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         	null,
         	#orgAfter#,
         	sysdate,
-        	'domain100',
+        	'lukas.ws',
         	sysdate)
 	</insert>
 	
