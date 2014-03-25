@@ -53,7 +53,6 @@ public class LoginAction extends Action {
 
 				// /TESTING HAPUS NANTI
 				pass = true;
-
 				if (tForm.getUsername().equals("inwan")) {
 					username = "inwan.ah";
 				} else if (tForm.getUsername().equals("devri")) {
@@ -69,7 +68,6 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-
 					username = "lukas.ws";
 				}
 				tForm.setPassword("");
