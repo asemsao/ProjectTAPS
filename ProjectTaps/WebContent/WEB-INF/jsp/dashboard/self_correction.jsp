@@ -12,12 +12,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
-	function flyToPage(task) {
-		document.dashboardForm.task.value = task;
-		document.getElementById("activity-type").value = getRadioValue("activity_type");
-		document.dashboardForm.submit();
-	}
+// 	function flyToPage(task) {
+// 		document.dashboardForm.task.value = task;
+// 		document.getElementById("activity-type").value = getRadioValue("activity_type");
+// 		document.dashboardForm.submit();
+// 	}
 
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.selfAssignmentForm.task.value = task;
+			document.selfAssignmentForm.submit();
+			return;
+		} else if (task == "RFA") {
+			document.selfAssignmentForm.task.value = task;
+			document.getElementById("activity-type").value = getRadioValue("activity_type");
+			newCorrectionAssignmentValidation();
+		}
+	}
+	
 	function getRadioValue(theRadioGroup) {
 		var elements = document.getElementsByName(theRadioGroup);
 		for ( var i = 0, l = elements.length; i < l; i++) {

@@ -76,7 +76,9 @@ public class SpecialAppraisalAction extends Action {
 		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
 		mForm.setCountRecord(mMan.countSpecialAppraisal(params));
 
-		if (mForm.getCountRecord() % 10 == 0) {
+		if (mForm.getCountRecord() == 0) {
+			mForm.setMaxpage(1);
+		} else if (mForm.getCountRecord() % 10 == 0) {
 			mForm.setMaxpage((int) Math.ceil(mForm.getCountRecord() / 10));
 		} else {
 			mForm.setMaxpage(((int) Math.ceil(mForm.getCountRecord() / 10)) + 1);
