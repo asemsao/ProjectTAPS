@@ -19,7 +19,7 @@
 		LEFT JOIN
 		employees e
 		ON a.report_to = e.user_domain
-		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND
+		WHERE a.current_status!='REJECTED' AND a.current_status!='APPROVED' AND a.current_status!='DELETED' AND
 		LOWER(assign_to) = #userDomain#
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
