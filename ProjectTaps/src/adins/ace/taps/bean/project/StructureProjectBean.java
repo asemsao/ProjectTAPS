@@ -15,6 +15,7 @@ public class StructureProjectBean implements Serializable
 	private byte[] assigneePhoto;
 	private byte[] directReportPhoto;
 	private String headBU;
+	private String userdomain;
 	
 	public String getOrganizationName() {
 		return organizationName;
@@ -81,6 +82,12 @@ public class StructureProjectBean implements Serializable
 	}
 	public void setHeadBU(String headBU) {
 		this.headBU = headBU;
+	}
+	public String getUserdomain() {
+		return userdomain;
+	}
+	public void setUserdomain(String userdomain) {
+		this.userdomain = userdomain;
 	}
 	
 }
