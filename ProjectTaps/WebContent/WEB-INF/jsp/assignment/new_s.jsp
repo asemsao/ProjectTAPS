@@ -22,7 +22,7 @@
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
-			newSelfAssignmentValidation();
+// 			newSelfAssignmentValidation();
 		} else if (task == "RFA") {
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");

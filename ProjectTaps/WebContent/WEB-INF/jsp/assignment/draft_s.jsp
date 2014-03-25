@@ -67,6 +67,7 @@
 		$("#employee-name-2").attr("placeholder", "Employee");
 		$("#assignment-code").attr("placeholder","Reff Task Code");
 		$("#description").attr("placeholder", "Description");
+		$("#assignmentDate").attr("placeholder","Assignment Date");
 		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
 	});
 </script>
@@ -89,7 +90,7 @@
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker">
-										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm"></html:text>
+										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
