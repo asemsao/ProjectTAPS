@@ -540,6 +540,123 @@ function chooseProjectDelete(task) {
 	$.Dialog.close();
 }
 
+//===============================================================================
+//Fungsi ajax look up untuk Update Project
+//===============================================================================
+function loadProjectUpdate(searchCategory, searchKeyword) {
+	setTimeout(function() {
+		$.Dialog({
+			overlay : true,
+			shadow : true,
+			flat : true,
+			icon : '<img src="images/LOGO_TITLE.png">',
+			title : 'Flat window',
+			content : $("#lookUpUpdateProject").html(),
+			padding : 10,
+			title : 'Assignment'
+		});
+		$(".search-category-project-update").get(1).value = searchCategory;
+		$(".search-keyword-project-update").get(1).value = searchKeyword;
+	}, 400);
+}
+
+function setParameterProjectUpdate() {
+	var task = $("#task-project-update").val();
+	var search = $(".search-category-project-update").get(1).value;
+	var value = $(".search-keyword-project-update").get(1).value;
+	var page = $("#page-project-update").val();
+	var maxpage = $("#maxpage-project-update").val();
+	var assignmentCategory = $("#assignmentCategory-project-update").val();
+	var assignmentType = $("#assignmentType-project-update").val();
+	var mode = $("#mode-project-update").val();
+	var projectCode = $("#projectCode-project-update").val();
+	var data = "task=" + task + "&searchCategory=" + search + "&searchKeyword="
+			+ value + "&page=" + page + "&maxpage=" + maxpage + "&mode=" + mode
+			+ "&assignmentCategory=" + assignmentCategory + "&assignmentType="
+			+ assignmentType + "&projectCode=" + projectCode;
+	return data;
+}
+
+function setResponseProjectUpdate(data) {
+	var json = $.parseJSON(data);
+	var content = "<table ";
+	content += "class='table striped bordered hovered'>";
+	content += "<thead>";
+	content += "</thead>";
+	content += "<tbody>";
+	content += "<thead>";
+	content += "<tr>";
+	content += "<th class='text-center'>Date</th>";
+	content += "<th class='text-center'>Code</th>";
+	content += "<th class='text-center'>Type</th>";
+	content += "<th class='text-center'>Report To</th>";
+	content += "<th class='text-center'>Deadline</th>";
+	content += "</tr>";
+	content += "</thead>";
+	content += "<tbody>";
+	for ( var i in json.listEmployeeReport) {
+		content += "<tr>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentDate;
+		content += "</td>";
+		content += "<td class='text-center'>";
+		content += json.listEmployeeReport[i].assignmentCode;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentCategory;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].fullName;
+		content += "</td>";
+		content += "<td>";
+		content += json.listEmployeeReport[i].assignmentDueDate;
+		content += "</td>";
+		content += "</tr>";
+	}
+	content += "</tbody>";
+	content += "</table>";
+	$("#table-ajax-project-update").html(content);
+	$("#page-project-update").val(json.page);
+	$("#current-page-project-update").html(json.page);
+	$("#maxpage-project-update").val(json.maxpage);
+	$("#max-page-project-update").html(json.maxpage);
+	$("#total-record-project-update").html(json.countRecord);
+	$(".search-category-project-update").val(json.searchCategory);
+	$(".search-keyword-project-update").val(json.searchKeyword);
+}
+
+function pagingProjectUpdate(direction) {
+	var searchCategory = $(".search-category-project-update").get(1).value;
+	var searchKeyword = $(".search-keyword-project-update").get(1).value;
+	$.Dialog.close();
+	$("#task-project-update").val(direction);
+	var data = setParameterProjectUpdate();
+	$.ajax({
+		url : "/ProjectTaps/ajax.do",
+		type : "POST",
+		data : data,
+		context : this,
+		error : function() {
+			console.log("problem was here!");
+		},
+		success : function(data) {
+			setResponseProjectUpdate(data);
+		}
+	});
+
+	loadProjectUpdate(searchCategory, searchKeyword);
+}
+
+function chooseProjectUpdate(task) {
+	if (task == "update") {
+		var choosen = $("input[id='projectCode-project-update']").val();
+		$("#projectCode").val(choosen);
+		$("#task").val("updateProject");
+		$("#updateProForm").submit();
+	}
+	$.Dialog.close();
+}
+
 // ===============================================================================
 // Fungsi ajax look up untuk Active Directory Employee
 // ===============================================================================

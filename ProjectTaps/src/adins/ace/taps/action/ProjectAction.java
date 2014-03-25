@@ -85,12 +85,41 @@ public class ProjectAction extends Action {
 			return mapping.findForward("EditProject");
 		}
 		if ("updateProject".equals(pForm.getTask())) {
-//			if("CLD".equals(pForm.getpBean().getPhase()))
-//			{
-//				System.out.println("CLOSED");
-//			}
-			pMan.updateProject(pForm.getpBean());
-			pForm.setListProject(pMan.searchProject(params));
+			//klo project sudah closed semua role di dalam di hapus
+			if("CLD".equals(pForm.getpBean().getPhase()))
+			{
+				//delete all member role
+				List<AddStructureProjectBean> list = null;
+				list = pMan.checkDirectReportUserDomain(pForm.getpBean().getProjectCode());
+				for (int i=0;i<list.size();i++) 
+				{
+					AddStructureProjectBean bean = new AddStructureProjectBean();
+					bean = list.get(i);
+						
+					// Check apakah dia head BU atau bukan(kalau bukan akan di
+					// delete supervisor role nya)
+					if (pMan.notHeadBU(bean.getDirectreportUserDomain())) 
+					{
+						// update table employee_role
+						if (pMan.checkRole(bean.getDirectreportUserDomain()) == 1) {
+							pMan.deleteRole(bean.getDirectreportUserDomain());
+						}
+					}
+				}
+				
+				//delete employee from project_structures table
+				pMan.deleteProjectStructuresTable(pForm.getpBean().getProjectCode());
+				
+				//back to index.jsp
+				pMan.updateProject(pForm.getpBean());
+				pForm.setListProject(pMan.searchProject(params));
+			}
+			else //update project selain closed
+			{
+				//back to index.jsp
+				pMan.updateProject(pForm.getpBean());
+				pForm.setListProject(pMan.searchProject(params));
+			}
 		}
 
 		if ("deleteProject".equals(pForm.getTask())) {
