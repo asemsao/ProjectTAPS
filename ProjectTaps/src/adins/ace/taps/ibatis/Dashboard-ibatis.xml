@@ -8,7 +8,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		type="adins.ace.taps.bean.dashboard.DashboardBean" />
 
 	<select id="starAchievement" resultClass="int" parameterClass="java.lang.String">
-		SELECT 	SUM (star_after) - SUM (star_before) AS totalStar
+		SELECT 	NVL(SUM (star_after) - SUM (star_before),0) AS totalStar
 				FROM stars
 		WHERE 	user_domain = #userDomain# AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
 	</select>
@@ -16,56 +16,66 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
-		FROM (	SELECT 	e.user_domain AS userDomain, 
-						e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
-						SUM (s.star_after) - SUM (s.star_before) AS totalStar
-						FROM employees e, stars s
-				WHERE 	e.user_domain = s.user_domain AND e.flag = 'ACTIVE'
-				AND e.user_domain NOT IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU','ADM'))
-				<dynamic prepend="AND">
-					<isNotNull property="currentMonth">
-						<isNotEmpty property="currentMonth">
-							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-						</isNotEmpty>
-					</isNotNull>
-				</dynamic>
-				<dynamic prepend="AND">
-					<isNotNull property="lastMonth">
-						<isNotEmpty property="lastMonth">
-							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-						</isNotEmpty>
-					</isNotNull>
-				</dynamic>
-				GROUP BY e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
-				ORDER BY totalStar DESC)
+		FROM (	  SELECT   emp.user_domain AS userDomain,
+						   emp.first_name || ' ' || emp.last_name AS employeeName,
+				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
+				              FROM   stars s
+				             WHERE   emp.user_domain = s.user_domain(+)
+							<dynamic prepend="AND">
+								<isNotNull property="currentMonth">
+									<isNotEmpty property="currentMonth">
+										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+									</isNotEmpty>
+								</isNotNull>
+							</dynamic>
+							<dynamic prepend="AND">
+								<isNotNull property="lastMonth">
+									<isNotEmpty property="lastMonth">
+										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+									</isNotEmpty>
+								</isNotNull>
+							</dynamic>				             
+				            )
+				              AS totalStar
+				    FROM   employees emp
+				   WHERE   emp.flag = 'ACTIVE'
+				           AND emp.user_domain NOT IN (SELECT   r.user_domain
+				                                         FROM   employee_role r
+				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
+				ORDER BY   totalStar DESC, employeeName)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
 	<select id="searchTopTenOrganization" resultClass="dashboardBean" parameterClass="java.util.Map">
-		SELECT   *
-		FROM   (  SELECT   	e.user_domain AS userDomain, 
-							e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
-		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
-		            FROM   	employees e, stars s
-		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#) AND e.flag = 'ACTIVE'
-		           AND e.user_domain NOT IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU','ADM'))
-		    		<dynamic prepend="AND">
-						<isNotNull property="currentMonth">
-							<isNotEmpty property="currentMonth">
-								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-							</isNotEmpty>
-						</isNotNull>
-					</dynamic>
-					<dynamic prepend="AND">
-						<isNotNull property="lastMonth">
-							<isNotEmpty property="lastMonth">
-								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-							</isNotEmpty>
-						</isNotNull>
-					</dynamic>
-		        GROUP BY   	e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
-		        ORDER BY   	totalStar DESC)
-		WHERE   <![CDATA[ROWNUM <= 10]]>
+		SELECT * 
+		FROM (	  SELECT   emp.user_domain AS userDomain,
+						   emp.first_name || ' ' || emp.last_name AS employeeName,
+				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
+				              FROM   stars s
+				             WHERE   emp.user_domain = s.user_domain(+) 
+							<dynamic prepend="AND">
+								<isNotNull property="currentMonth">
+									<isNotEmpty property="currentMonth">
+										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+									</isNotEmpty>
+								</isNotNull>
+							</dynamic>
+							<dynamic prepend="AND">
+								<isNotNull property="lastMonth">
+									<isNotEmpty property="lastMonth">
+										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+									</isNotEmpty>
+								</isNotNull>
+							</dynamic>				             
+				            )
+				              AS totalStar
+				    FROM   employees emp
+				   WHERE   emp.flag = 'ACTIVE' AND UPPER(EMP.ORGANIZATION_CODE) = UPPER(#organizationCode#)
+				           AND emp.user_domain NOT IN (SELECT   r.user_domain
+				                                         FROM   employee_role r
+				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
+				ORDER BY   totalStar DESC, employeeName)
+		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
 	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.dashboard.DashboardBean"

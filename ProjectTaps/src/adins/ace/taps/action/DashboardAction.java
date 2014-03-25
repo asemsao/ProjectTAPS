@@ -543,10 +543,10 @@ public class DashboardAction extends Action {
 		}
 
 		rankingLast.put("lastMonth", "true");
-		rankingLast.put("organizationCode", "CDD");
+		rankingLast.put("organizationCode", session.getAttribute("organizationCode"));
 
 		rankingCurrent.put("currentMonth", "true");
-		rankingCurrent.put("organizationCode", "CDD");
+		rankingCurrent.put("organizationCode", session.getAttribute("organizationCode"));
 
 		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization(rankingCurrent));
