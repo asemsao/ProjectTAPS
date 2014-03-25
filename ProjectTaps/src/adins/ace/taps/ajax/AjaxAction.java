@@ -90,7 +90,16 @@ public class AjaxAction extends Action {
 			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
 			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
 		}
-
+		if ("updateProject".equals(ajaxForm.getMode())) {
+			params.put("projectCode", ajaxForm.getProjectCode());
+			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
+			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
+			if(ajaxForm.getCountRecord() == 0)
+				request.setAttribute("buttonMode", "enable");
+			else
+				request.setAttribute("buttonMode", "disable");
+		}
+		
 		if ("deleteOrganization".equals(ajaxForm.getMode())) {
 			params.put("organizationCode", ajaxForm.getOrganizationCode()
 					.replaceAll(" ", ""));
@@ -279,6 +288,9 @@ public class AjaxAction extends Action {
 		}
 		if ("deleteProject".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteProject");
+		}
+		if ("updateProject".equals(ajaxForm.getTask())) {
+			return mapping.findForward("updateProject");
 		}
 		if ("deleteOrganization".equals(ajaxForm.getTask())) {
 			return mapping.findForward("deleteOrganization");

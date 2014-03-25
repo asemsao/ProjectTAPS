@@ -12,15 +12,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script>
-	function button(task) {
-		if (task == "cancel") {
-			document.projectForm.task.value = task;
-			document.projectForm.submit();
-			return;
-		} else if (task == "updateProject") {
-			document.projectForm.task.value = task;
-			editProjectValidation();
-		}
+	function button(task) 
+	{	
+			if (task == "cancel") 
+			{
+				document.projectForm.task.value = task;
+				document.projectForm.submit();
+			} 
+			else if (task == "updateProject") 
+			{
+				if($('#phase').val()=="CLD")
+				{
+					$("#save-button").attr("type", "button");
+					$("#lookUpUpdateProject").load(
+							"/ProjectTaps/ajax.do?mode=updateProject&task=updateProject&projectCode="
+									+ $('#projectCode').val());
+					setTimeout(function() {
+						$.Dialog({
+							overlay : true,
+							shadow : true,
+							flat : true,
+							icon : '<img src="images/LOGO_TITLE.png">',
+							title : 'Flat window',
+							content : $("#lookUpUpdateProject").html(),
+							padding : 10,
+							title : 'Assignment'
+						});
+					}, 500);
+				}
+				else
+				{
+					$("#save-button").removeAttr("type");
+					document.projectForm.task.value = task;
+					editProjectValidation();
+				}
+			}
 	}
 
 	$(document)
@@ -33,13 +59,14 @@
 						$("#endDate").attr("placeholder", "Finish Date");
 					});
 </script>
+<script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 
 <title>Edit Project</title>
 </head>
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/project" method="post" styleClass="projectForm">
+	<html:form action="/project" method="post" styleClass="projectForm" styleId= "updateProForm">
 		<html:hidden property="task" styleId="task" name="projectForm" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -82,7 +109,7 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
-										<html:select property="pBean.phase" name="projectForm">
+										<html:select property="pBean.phase" name="projectForm" styleId = "phase">
 											<html:optionsCollection name="projectForm"
 												property="listPhase" label="phaseName" value="phase" />
 										</html:select>
@@ -126,7 +153,7 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn"
+									<button id="save-button"
 										onclick="button('updateProject')" class="success">Save</button>
 									<button id="cancel-btn" onclick="button('cancel')" class="button info">Cancel</button>
 								</td>
@@ -137,6 +164,7 @@
 			</div>
 		</div>
 	</html:form>
+	<div id="lookUpUpdateProject" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
