@@ -135,12 +135,12 @@
 			           LEFT JOIN
 			              employees e
 			           ON a.assign_to = e.user_domain
-			   WHERE   a.report_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+			   WHERE   LOWER(a.report_to) = LOWER(#sessionUserDomain#) AND LOWER(a.current_status) != LOWER('DELETED')
 			           AND a.task_code NOT IN
 			                    (SELECT   a2.task_code
 			                       FROM   assignments a2
-			                      WHERE   a2.current_status = 'DRAFT'
-			                              AND a2.assignment_category = 'SELF ASSIGNMENT')
+			                      WHERE   LOWER(a2.current_status) = LOWER('DRAFT')
+			                              AND LOWER(a2.assignment_category) = LOWER('SELF ASSIGNMENT'))
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -177,7 +177,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, claimDate DESC
+		ORDER BY flag DESC, claimDate DESC, a.updated_date DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -190,12 +190,12 @@
 		         LEFT JOIN
 		            employees e
 		         ON a.assign_to = e.user_domain
-		 WHERE   a.report_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+		 WHERE   LOWER(a.report_to) = LOWER(#sessionUserDomain#) AND LOWER(a.current_status) != LOWER('DELETED')
 		         AND a.task_code NOT IN
 		                  (SELECT   a2.task_code
 		                     FROM   assignments a2
-		                    WHERE   a2.current_status = 'DRAFT'
-		                            AND a2.assignment_category = 'SELF ASSIGNMENT')
+		                    WHERE   LOWER(a2.current_status) = LOWER('DRAFT')
+		                            AND LOWER(a2.assignment_category) = LOWER('SELF ASSIGNMENT'))
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -255,12 +255,12 @@
 			         LEFT JOIN
 			            employees e
 			         ON a.report_to = e.user_domain
-			 WHERE   a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+			 WHERE   LOWER(a.assign_to) = LOWER(#sessionUserDomain#) AND LOWER(a.current_status) != LOWER('DELETED')
 			         AND a.task_code NOT IN
 			                  (SELECT   a2.task_code
 			                     FROM   assignments a2
-			                    WHERE   a2.current_status = 'DRAFT'
-			                            AND a2.assignment_category = 'ASSIGNMENT')
+			                    WHERE   LOWER(a2.current_status) = LOWER('DRAFT')
+			                            AND LOWER(a2.assignment_category) = LOWER('ASSIGNMENT'))
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -301,7 +301,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, claimDate DESC
+		ORDER BY flag DESC, claimDate DESC, a.updated_date DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -314,12 +314,12 @@
 		         LEFT JOIN
 		            employees e
 		         ON a.report_to = e.user_domain
-		 WHERE   a.assign_to = #sessionUserDomain# AND a.current_status != 'DELETED'
+		 WHERE   LOWER(a.assign_to) = LOWER(#sessionUserDomain#) AND LOWER(a.current_status) != LOWER('DELETED')
 		         AND a.task_code NOT IN
 		                  (SELECT   a2.task_code
 		                     FROM   assignments a2
-		                    WHERE   a2.current_status = 'DRAFT'
-		                            AND a2.assignment_category = 'ASSIGNMENT')
+		                    WHERE   LOWER(a2.current_status) = LOWER('DRAFT')
+		                            AND LOWER(a2.assignment_category) = LOWER('ASSIGNMENT'))
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -379,9 +379,9 @@
 			         LEFT JOIN
 			            employees e
 			         ON a.assign_to = e.user_domain
-			 WHERE       a.report_to = #sessionUserDomain#
-			         AND a.assignment_Category = 'ASSIGNMENT'
-			         AND a.current_status != 'DELETED'
+			 WHERE       LOWER(a.report_to) = LOWER(#sessionUserDomain#)
+			         AND LOWER(a.assignment_Category) = LOWER('ASSIGNMENT')
+			         AND LOWER(a.current_status) != LOWER('DELETED')
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -418,7 +418,7 @@
 				</isNotNull>
 			</isNotNull>
 		</dynamic>
-		ORDER BY flag DESC, claimDate DESC
+		ORDER BY flag DESC, claimDate DESC, a.updated_date DESC
 		) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -431,9 +431,9 @@
 		         LEFT JOIN
 		            employees e
 		         ON a.assign_to = e.user_domain
-		 WHERE       a.report_to = #sessionUserDomain#
-		         AND a.assignment_Category = 'ASSIGNMENT'
-		         AND a.current_status != 'DELETED'
+		 WHERE       LOWER(a.report_to) = LOWER(#sessionUserDomain#)
+		         AND LOWER(a.assignment_Category) = LOWER('ASSIGNMENT')
+		         AND LOWER(a.current_status) != LOWER('DELETED')
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -483,7 +483,7 @@
 								<dynamic>
 									<isNotNull property="assignmentDate">
 										<isNotNull property="assignmentTime">
-											<isNotEmpty prepend="," property="assignmentDate">
+											<isNotEmpty property="assignmentDate">
 												<isNotEmpty prepend="," property="assignmentTime">
 													assignment_date
 												</isNotEmpty>
@@ -520,8 +520,8 @@
 				<dynamic>
 					<isNotNull property="assignmentDate">
 						<isNotNull property="assignmentTime">
-							<isNotEmpty prepend="," property="assignmentDate">
-								<isNotEmpty property="assignmentTime">
+							<isNotEmpty property="assignmentDate">
+								<isNotEmpty prepend="," property="assignmentTime">
 									TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI')
 								</isNotEmpty>
 							</isNotEmpty>
@@ -560,7 +560,7 @@
 								<dynamic>
 									<isNotNull property="assignmentDate">
 										<isNotNull property="assignmentTime">
-											<isNotEmpty prepend="," property="assignmentDate">
+											<isNotEmpty property="assignmentDate">
 												<isNotEmpty prepend="," property="assignmentTime">
 													assignment_date
 												</isNotEmpty>
@@ -595,8 +595,8 @@
 				<dynamic>
 					<isNotNull property="assignmentDate">
 						<isNotNull property="assignmentTime">
-							<isNotEmpty prepend="," property="assignmentDate">
-								<isNotEmpty property="assignmentTime">
+							<isNotEmpty property="assignmentDate">
+								<isNotEmpty prepend="," property="assignmentTime">
 									TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI')
 								</isNotEmpty>
 							</isNotEmpty>
@@ -918,17 +918,29 @@
 
 	<insert id="addDetailClaim" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		INSERT INTO detail_claim_assignments (detail_id,
-		                                      task_code,
-		                                      claim_date,
-		                                      manhour,
+		                                      task_code
+		                                      <dynamic>
+		                                      	<isNotNull property="claimDate">
+		                                      		<isNotEmpty prepend="," property="claimDate">
+		                                      			claim_date
+		                                      		</isNotEmpty>
+		                                      	</isNotNull>
+		                                      </dynamic>
+		                                      ,manhour,
 		                                      description,
 		                                      created_by,
 		                                      created_date,
 		                                      flag)
 		  VALUES   (SEQUENCE_CLAIMS.NEXTVAL,
-		            #taskCode#,
-		            TO_DATE(#claimDate#,'DD/MM/YYYY, HH24:MI'),
-		            #manHours#,
+		            #taskCode#
+		            <dynamic>
+		                <isNotNull property="claimDate">
+		                	<isNotEmpty prepend="," property="claimDate">
+		                        TO_DATE(#claimDate#,'DD/MM/YYYYHH24:MI')
+		                    </isNotEmpty>
+		            	</isNotNull>
+		            </dynamic>
+		            ,#manHours#,
 		            #description#,
 		            #createdBy#,
 		            SYSDATE,
@@ -958,6 +970,7 @@
 		UPDATE   detail_claim_assignments
 		   SET   manhour = #manHours#,
 		         description = #description#,
+		         claim_date = TO_DATE(#claimDate#,'DD/MM/YYYYHH24:MI'),
 		         updated_by = #updatedBy#,
 		         updated_date = SYSDATE
 		 WHERE   task_code = #taskCode#
