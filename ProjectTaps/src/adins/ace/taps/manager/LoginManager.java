@@ -111,4 +111,28 @@ public class LoginManager {
 
 		return pass;
 	}
+	
+	public boolean userIsActive(Map params) {
+		boolean active = false;
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject("login.userIsActive",
+					params);
+			ibatisSqlMap.commitTransaction();
+			if (count > 0) {
+				active = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return active;
+	}
 }

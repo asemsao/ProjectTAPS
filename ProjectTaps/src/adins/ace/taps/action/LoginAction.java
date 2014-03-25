@@ -51,7 +51,6 @@ public class LoginAction extends Action {
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
 
-				// /TESTING HAPUS NANTI
 				pass = true;
 				if (tForm.getUsername().equals("inwan")) {
 					username = "inwan.ah";
@@ -68,16 +67,12 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-					username = "lukas.ws";
+					username = tForm.getUsername();
 				}
+				
 				tForm.setPassword("");
 				tForm.setUsername("");
 				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
-
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
