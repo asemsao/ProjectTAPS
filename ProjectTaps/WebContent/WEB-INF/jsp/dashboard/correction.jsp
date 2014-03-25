@@ -11,10 +11,20 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">
+<script type="text/javascript">/* 
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
+	} */
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.dashboardForm.task.value = task;
+			document.dashboardForm.submit();
+			return;
+		} else {
+			document.dashboardForm.task.value = task;
+			commentDashboardValidation();
+		}
 	}
 
 	$(document).ready(function() {
@@ -55,7 +65,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/dashboard" method="POST">
+				<html:form action="/dashboard" method="POST" styleId="dashboardComment">
 					<html:hidden property="claimBean.status" name="dashboardForm" styleId="status" />
 					<html:hidden property="claimBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<table class="table">
@@ -196,7 +206,7 @@
 							<tr>
 								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea property="claimBean.comment" name="dashboardForm" rows="3"
+								<td colspan=2><html:textarea property="claimBean.comment" name="dashboardForm" rows="3" styleId="comment"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>

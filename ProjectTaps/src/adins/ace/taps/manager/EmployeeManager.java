@@ -28,6 +28,7 @@ public class EmployeeManager {
 			ibatisSqlMap.update("employee.deleteEmployee", employeeDomain);
 			ibatisSqlMap.update("employee.deleteAssignment", employeeDomain);
 			ibatisSqlMap.delete("employee.deleteRoleEMP", employeeDomain);
+			ibatisSqlMap.delete("employee.deleteEmpOnProject", employeeDomain);
 			flag = true;
 			ibatisSqlMap.commitTransaction();
 
@@ -173,6 +174,26 @@ public class EmployeeManager {
 			}
 		}
 		return listEmpProject;
+	}
+	
+
+	public Integer countEmplooyeeOrganization(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"employee.countEmplooyeeOrganization", params);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 
 	public Integer countEmployees(Map params) {
