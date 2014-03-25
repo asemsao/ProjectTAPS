@@ -92,8 +92,8 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Business Unit Code</td>
-								<td>:</td>
+								<th class="field-form">Business Unit Code</th>
+								<td class="field-separator">:</td>
 								<td><div class="input-control text size3">
 										<html:text property="orgBean.organizationCode"
 											name="organizationForm" styleId="organizationCode"
@@ -101,8 +101,8 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td>Business Unit Name</td>
-								<td>:</td>
+								<th class="field-form">Business Unit Name</th>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text size3">
 										<html:text property="orgBean.organizationName"
@@ -111,8 +111,8 @@
 								</td>
 							</tr>
 							<tr>
-								<td>Business Unit Level</td>
-								<td>:</td>
+								<th class="field-form">Business Unit Level</th>
+								<td class="field-separator">:</td>
 								<logic:equal value="0" property="countChild"
 									name="organizationForm">
 									<td>
@@ -143,8 +143,8 @@
 								</logic:notEqual>
 							</tr>
 							<tr>
-								<td>Head Name</td>
-								<td>:</td>
+								<th class="field-form">Head Name</th>
+								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.headDomain"
@@ -157,9 +157,9 @@
 							</tr>
 
 							<tr id="parent-organization">
-								<td><label id="parent" style="visibility: visible">Parent
-										Business Unit </label></td>
-								<td><label id=":" style="visibility: visible">:</label></td>
+								<th class="field-form"><label id="parent" style="visibility: visible">Parent
+										Business Unit </label></th>
+								<td class="field-separator"><label id=":" style="visibility: visible">:</label></td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"

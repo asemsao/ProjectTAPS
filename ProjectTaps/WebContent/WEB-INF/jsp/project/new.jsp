@@ -58,7 +58,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Project Code</td>
+								<th class="field-form">Project Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="addProject.projectCode"
@@ -66,7 +66,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Project Name</td>
+								<th class="field-form">Project Name</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="addProject.projectName"
@@ -74,7 +74,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Client</td>
+								<th class="field-form">Client</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="addProject.client" name="projectForm"
@@ -82,7 +82,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Phase</td>
+								<th class="field-form">Phase</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
@@ -97,7 +97,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Business Unit</td>
+								<th class="field-form">Business Unit</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -110,7 +110,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Start Date</td>
+								<th class="field-form">Start Date</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text" id="datepicker">
@@ -121,7 +121,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Estimate Finish Date</td>
+								<th class="field-form">Estimate Finish Date</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text " id="datepicker">

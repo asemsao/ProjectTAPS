@@ -63,21 +63,23 @@
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 
-					<table class="table">
+					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan="2"><h3>Business Unit Member</h3></th>
+								<th colspan="3"><h3>Business Unit Member</h3></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><b>Business Unit</b></td>
-								<td colspan="2">: <bean:write name="organizationForm"
+								<th class="field-form">Business Unit</th>
+								<td class="field-separator">:</td>
+								<td><bean:write name="organizationForm"
 										property="orgBean.organizationName" /></td>
 							</tr>
 							<tr>
-								<td><b>Business Unit Head</b></td>
-								<td colspan="2">: <bean:write name="organizationForm"
+								<th class="field-form">Business Unit Head</th>
+								<td class="field-separator">:</td>
+								<td><bean:write name="organizationForm"
 										property="orgBean.headName" /></td>
 							</tr>
 							<tr>
@@ -91,7 +93,8 @@
 										</html:select>
 									</div>
 								</td>
-								<td class="text-center" colspan=2>
+								<td class="field-separator">:</td>
+								<td class="text-center">
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="organizationForm"
 											styleId="searchKeyword"></html:text>
@@ -118,35 +121,40 @@
 									<tr>
 										<td class="text-center"><bean:write name="organization"
 												property="memberDomain" /></td>
-										<td><bean:write name="organization"
-												property="memberName" /></td>
+										<td><bean:write name="organization" property="memberName" /></td>
 										<td class="text-center"><bean:write name="organization"
 												property="memberCode" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 							<tr>
-								<td colspan=2 class="text-center">
-									<div class="pagination">
-										<ul>
-											<li class="first"><a id="first"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write
-														name="organizationForm" property="page" /> of <bean:write
-														name="organizationForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a id="last"><i class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <bean:write
-														name="organizationForm" property="countRecord" /></a></li>
-										</ul>
-									</div>
-								</td>
-								<td class="text-right"><html:button property="cancel"
-										styleId="back" styleClass="button info">Back</html:button></td>
+
 							</tr>
 						</tbody>
+					</table>
+
+					<table class="table striped bordered hovered">
+						<tr>
+							<td class="text-center">
+								<div class="pagination">
+									<ul>
+										<li class="first"><a id="first"><i
+												class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev"><i
+												class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write
+													name="organizationForm" property="page" /> of <bean:write
+													name="organizationForm" property="maxpage" /></a></li>
+										<li class="next"><a id="next"><i class="icon-next"></i></a></li>
+										<li class="last"><a id="last"><i class="icon-last-2"></i></a></li>
+										<li class="disabled"><a>Total Record <bean:write
+													name="organizationForm" property="countRecord" /></a></li>
+									</ul>
+								</div>
+							</td>
+							<td class="text-right field-form"><html:button
+									property="cancel" styleId="back" styleClass="button info">Back</html:button></td>
+						</tr>
 					</table>
 
 				</div>

@@ -13,7 +13,19 @@
 			document.reportForm.task.value = "";
 			document.reportForm.submit();
 			return;
-		} else if (task == "view") {
+		} else {
+			document.reportForm.task.value = task;
+			reportValidation();
+		}
+	}
+	
+	function report(task,organizationCode) {
+		if (task == "cancel") {
+			document.reportForm.task.value = "";
+			document.reportForm.submit();
+			return;
+		} else {
+			document.reportForm.buPrint.value = organizationCode;
 			document.reportForm.task.value = task;
 			reportValidation();
 		}
@@ -41,7 +53,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Year</td>
+								<th class="field-form">Year</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text name="reportForm" property="reportYear" styleClass="datepicker-year"
@@ -49,7 +61,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Period</td>
+								<th class="field-form">Period</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
@@ -69,7 +81,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Choose</td>
+								<th class="field-form">Choose</th>
 								<td class="field-separator">:</td>
 								<td colspan="1">
 
@@ -108,7 +120,26 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button onclick="report('view');" class="success">Generate</button>
+									<% if (session.getAttribute("organizationLevel").equals("0")) {
+												%>
+												<button class="primary"
+									onclick="javascript:report('printReportBOM','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Management</button>
+												<% } %>
+		<%-- 							<logic:equal name="reportForm" property="organizationLevel" value="0"> --%>
+		<!-- 								<button id="back-btn" onclick="javascript:button('back')">Home</button> -->
+		<%-- 							</logic:equal> --%>
+									<% if (session.getAttribute("organizationLevel").equals("1")) {
+												%>
+												<button class="primary" onclick="javascript:report('printReportBU','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Business Unit</button>
+												<% } %>
+												<% if (session.getAttribute("organizationLevel").equals("2")) {
+												%>
+												<button class="primary" onclick="javascript:report('printReportDept','<%=session.getAttribute("organizationCode")%>')">Generate
+									Report Department</button>
+												<% } %>
+									<button onclick="report('view');" class="info">View Report</button>
 								</td>
 							</tr>
 						</tbody>
@@ -117,6 +148,7 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="reportForm" />
+		<html:hidden property="buPrint" name="reportForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

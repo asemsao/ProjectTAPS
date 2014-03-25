@@ -41,7 +41,6 @@ public class NewAssignmentAction extends Action {
 				return mapping.findForward("EditAssignment");
 			}
 			else {
-				aForm.getAssignmentBean().setOrganizationCode(aMan.searchOrganizationCode(userDomain));
 				return mapping.findForward("NewAssignment");
 			}
 		} else {
@@ -65,10 +64,8 @@ public class NewAssignmentAction extends Action {
 				aForm.getAssignmentBean().setReportTo(userDomain);
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
-					aForm.getAssignmentBean().setOrganizationCode(
-							aMan.searchOrganizationCode(userDomain));
 					aForm.getAssignmentBean().setProjectCode(null);
-					paramCode = aForm.getAssignmentBean().getOrganizationCode()
+					paramCode = (String)session.getAttribute("organizationCode")
 							+ dateFormat.format(date);
 					paramCode = paramCode
 							+ aMan.getMaxTaskCodeOrganization(paramCode);
@@ -82,6 +79,7 @@ public class NewAssignmentAction extends Action {
 				}
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
+				aForm.getAssignmentBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");

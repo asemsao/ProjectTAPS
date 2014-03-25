@@ -51,7 +51,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="field-form">Appraisal Date</td>
+								<th class="field-form">Appraisal Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="appraisalBean.createdDate"
@@ -60,7 +60,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal To</td>
+								<th class="field-form">Appraisal To</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:hidden property="appraisalBean.userDomain"
@@ -72,14 +72,14 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal Description</td>
+								<th class="field-form">Appraisal Description</th>
 								<td class="field-separator">:</td>
 								<td><html:textarea styleClass="input-control textarea"
 										styleId="description" property="appraisalBean.description"
 										name="specialAppraisalForm" /></td>
 							</tr>
 							<tr>
-								<td class="field-form">Appraisal Star edit</td>
+								<th class="field-form">Appraisal Star edit</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="star-hider">

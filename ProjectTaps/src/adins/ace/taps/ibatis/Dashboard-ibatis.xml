@@ -21,6 +21,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						SUM (s.star_after) - SUM (s.star_before) AS totalStar
 						FROM employees e, stars s
 				WHERE 	e.user_domain = s.user_domain AND e.flag = 'ACTIVE'
+				AND e.user_domain NOT IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU','ADM'))
 				<dynamic prepend="AND">
 					<isNotNull property="currentMonth">
 						<isNotEmpty property="currentMonth">
@@ -47,6 +48,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
 		            FROM   	employees e, stars s
 		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#) AND e.flag = 'ACTIVE'
+		           AND e.user_domain NOT IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU','ADM'))
 		    		<dynamic prepend="AND">
 						<isNotNull property="currentMonth">
 							<isNotEmpty property="currentMonth">

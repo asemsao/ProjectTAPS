@@ -60,7 +60,7 @@ public class ReportManager {
 		Savepoint savepoint2 = null;
 		try {
 			ibatisSqlMap.getDataSource().getConnection().setAutoCommit(false);
-			savepoint2 = ibatisSqlMap.getDataSource().getConnection().setSavepoint("SavePoint2");
+//			savepoint2 = ibatisSqlMap.getDataSource().getConnection().setSavepoint("SavePoint2");
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("report.tes", null);
 			ibatisSqlMap.insert("report.tes2", null);
@@ -76,36 +76,46 @@ public class ReportManager {
 //				e1.printStackTrace();
 //			}
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+//		finally {
+//			try {
+//				ibatisSqlMap.endTransaction();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return savepoint2;
 	}
 	
-	public boolean insertSavePoint2(Savepoint savepoint2) {
+	public boolean insertSavePoint2() {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.getDataSource().getConnection().setAutoCommit(false);
 			//savepoint2 = ibatisSqlMap.getDataSource().getConnection().setSavepoint("SavePoint2");
-			ibatisSqlMap.startTransaction();
+//			ibatisSqlMap.startTransaction();
 			//ibatisSqlMap.insert("report.tes", null);
 			//ibatisSqlMap.insert("report.tes2", null);
 			ibatisSqlMap.insert("report.tes3", null);
-			ibatisSqlMap.getDataSource().getConnection().commit();
+//			ibatisSqlMap.getDataSource().getConnection().commit();
+			ibatisSqlMap.commitTransaction();
 			flag = true;
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
+//			try {
+//				ibatisSqlMap.getDataSource().getConnection().rollback(savepoint2);
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 			try {
-				ibatisSqlMap.getDataSource().getConnection().rollback(savepoint2);
+				ibatisSqlMap.getDataSource().getConnection().rollback();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e) {

@@ -3,7 +3,6 @@
 
 package adins.ace.taps.action;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import adins.ace.taps.bean.organization.OrganizationBean;
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
 
@@ -25,7 +23,6 @@ public class OrganizationAction extends Action {
 			throws Exception {
 		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
-		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
 		orgForm.getOrgBean().setSessionUserDomain(
@@ -50,9 +47,7 @@ public class OrganizationAction extends Action {
 					orgForm.setColor("red");
 				}
 			} else {
-				System.out.println("norole");
 				if (orgMan.submitInsert(orgForm.getOrgBean())) {
-					System.out.println("submit");
 					orgMan.insertRole(orgForm.getOrgBean());
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
@@ -65,35 +60,49 @@ public class OrganizationAction extends Action {
 		}
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll(" ", "")));
+					.trim()));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
-					.getOrganizationCode().replaceAll(" ", "")));
-			System.out.println(orgForm.getCountChild());
+					.getOrganizationCode().trim()));
 			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			if (orgMan.submitEdit(orgForm.getOrgBean())) {
-				orgMan.insertRole(orgForm.getOrgBean());
-				orgMan.updateReportAssignment(orgForm.getOrgBean());
-				orgForm.setMessage("Edit Business Unit Successfull!");
-				orgForm.setColor("green");
+			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
+					.getOrgBean().getOrganizationCode()));
+			if (orgForm.getCountChild() == 0) {
+				if (orgMan.submitEdit(orgForm.getOrgBean())) {
+					orgMan.insertRole(orgForm.getOrgBean());
+					orgMan.updateReportAssignment(orgForm.getOrgBean());
+					orgForm.setMessage("Edit Business Unit Successfull!");
+					orgForm.setColor("green");
+				} else {
+					orgForm.setMessage("Edit Business Unit Failed!");
+					orgForm.setColor("red");
+				}
 			} else {
-				orgForm.setMessage("Edit Business Unit Failed!");
-				orgForm.setColor("red");
+				if (orgMan.submitEditWithChild(orgForm.getOrgBean())) {
+					orgMan.insertRole(orgForm.getOrgBean());
+					orgMan.updateReportAssignment(orgForm.getOrgBean());
+					orgForm.setMessage("Edit Business Unit Successfull!");
+					orgForm.setColor("green");
+				} else {
+					orgForm.setMessage("Edit Business Unit Failed!");
+					orgForm.setColor("red");
+				}
 			}
+
 		}
 		if ("delete".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll(" ", ""));
+					.trim());
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll(" ", "")));
+					.trim()));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
 				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.replaceAll(" ", ""))) {
+						.trim())) {
 					orgMan.updateAssignment(orgForm.getOrgBean());
 					orgMan.deleteRoleSPV(orgForm.getHeadDomain());
 					orgMan.deleteRole(orgForm.getHeadDomain());
@@ -106,11 +115,11 @@ public class OrganizationAction extends Action {
 
 			} else {
 				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.replaceAll(" ", ""))) {
+						.trim())) {
 					orgMan.updateAssignment(orgForm.getOrgBean());
 					orgMan.deleteRole(orgForm.getHeadDomain());
 					orgMan.deleteOrganization(orgForm.getOrganizationCode()
-							.replaceAll(" ", ""));
+							.trim());
 					orgForm.setMessage("Delete Business Unit Successfull!");
 					orgForm.setColor("green");
 				} else {
@@ -144,7 +153,6 @@ public class OrganizationAction extends Action {
 		if ("back".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
 		}
-
 		params.put("start", (orgForm.getPage() - 1) * 10 + 1);
 		params.put("end", (orgForm.getPage() * 10));
 		params.put("category", orgForm.getSearchCategory());
@@ -152,20 +160,21 @@ public class OrganizationAction extends Action {
 
 		if ("structure".equals(orgForm.getTask())) {
 			orgForm.setPage(1);
-			int temp = 0;
 
 			orgForm.setMode("structure");
 			orgForm.setSearchKeyword("");
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll(" ", "")));
+					.trim()));
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll(" ", ""));
+					.trim());
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
 
-			if (orgForm.getCountRecord() % 10 == 0) {
+			if (orgForm.getCountRecord() == 0) {
+				orgForm.setMaxpage(1);
+			} else if (orgForm.getCountRecord() % 10 == 0) {
 				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
 				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
@@ -176,15 +185,17 @@ public class OrganizationAction extends Action {
 
 		if ("structure".equals(orgForm.getMode())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.replaceAll(" ", "")));
+					.trim()));
 			params.put("organization_code", orgForm.getOrganizationCode()
-					.replaceAll(" ", ""));
+					.trim());
 			params.put("head_domain", orgForm.getOrgBean().getHeadDomain());
 			orgForm.setListMemberOrganizations(orgMan
 					.searchMemberOrganizations(params));
 			orgForm.setCountRecord(orgMan.countMemberOrganizations(params));
 
-			if (orgForm.getCountRecord() % 10 == 0) {
+			if (orgForm.getCountRecord() == 0) {
+				orgForm.setMaxpage(1);
+			} else if (orgForm.getCountRecord() % 10 == 0) {
 				orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 			} else {
 				orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
@@ -195,7 +206,9 @@ public class OrganizationAction extends Action {
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
 
-		if (orgForm.getCountRecord() % 10 == 0) {
+		if (orgForm.getCountRecord() == 0) {
+			orgForm.setMaxpage(1);
+		} else if (orgForm.getCountRecord() % 10 == 0) {
 			orgForm.setMaxpage((int) Math.ceil(orgForm.getCountRecord() / 10));
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);

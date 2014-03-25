@@ -100,7 +100,7 @@
 								<%
 									if (session.getAttribute("recoveryMode") == null) {
 								%>
-								<td class="field-form">Employee Domain</td>
+								<th class="field-form">Employee Domain</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -115,13 +115,13 @@
 									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%
 									} else {
 								%>
-								<td class="field-form">Employee Domain</td>
+								<th class="field-form">Employee Domain</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
@@ -136,7 +136,7 @@
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%
@@ -147,7 +147,7 @@
 								if (session.getAttribute("recoveryMode") != null) {
 							%>
 							<tr>
-								<td class="field-form">Password</td>
+								<th class="field-form">Password</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<div class="input-control text">
@@ -160,7 +160,7 @@
 								}
 							%>
 							<tr>
-								<td class="field-form">Employee Code</td>
+								<th class="field-form">Employee Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.employeeCode" maxlength="3"
@@ -168,7 +168,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Employee NIK</td>
+								<th class="field-form">Employee NIK</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.employeeNik" maxlength="8"
@@ -176,7 +176,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Employee First Name</td>
+								<th class="field-form">Employee First Name</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="newEmployee.firstName" maxlength="20"
@@ -184,7 +184,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Employee Last Name</td>
+								<th class="field-form">Employee Last Name</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="newEmployee.lastName" name="employeeForm"
@@ -192,7 +192,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Employee Gender</td>
+								<th class="field-form">Employee Gender</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
@@ -210,7 +210,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Business Unit</td>
+								<th class="field-form">Business Unit</th>
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="input-control text ">
@@ -224,7 +224,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="field-form">Address</td>
+								<th class="field-form">Address</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control textarea">
 										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
@@ -232,7 +232,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Phone No</td>
+								<th class="field-form">Phone No</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 									<strong>(</strong>
@@ -244,7 +244,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Mobile No</td>
+								<th class="field-form">Mobile No</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 									<strong>(</strong>
@@ -256,7 +256,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Email</td>
+								<th class="field-form">Email</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
 										<html:text property="newEmployee.email" name="employeeForm"
@@ -264,7 +264,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<td class="field-form">Golongan</td>
+								<th class="field-form">Golongan</th>
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="auto-complete">

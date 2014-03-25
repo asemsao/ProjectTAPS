@@ -46,6 +46,7 @@ public class DashboardForm extends ActionForm {
 	private boolean unreadCorrectionSelf;
 	private String message;
 	private String color;
+	private String stringClaimDate;
 	
 	public String getMessage() {
 		return message;
@@ -336,6 +337,14 @@ public class DashboardForm extends ActionForm {
 
 	public void setUnreadCorrectionSelf(boolean unreadCorrectionSelf) {
 		this.unreadCorrectionSelf = unreadCorrectionSelf;
+	}
+
+	public String getStringClaimDate() {
+		return stringClaimDate;
+	}
+
+	public void setStringClaimDate(String stringClaimDate) {
+		this.stringClaimDate = stringClaimDate;
 	}
 	
 }

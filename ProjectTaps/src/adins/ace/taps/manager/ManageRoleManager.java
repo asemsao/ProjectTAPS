@@ -109,6 +109,24 @@ public class ManageRoleManager {
 		return roleName;
 	}
 	
+	public String getMenuName(String menuId) {
+		String menuName = "";
+		try {
+			ibatisSqlMap.startTransaction();
+			menuName = (String) ibatisSqlMap.queryForObject("manageRole.getMenuName",
+					menuId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return menuName;
+	}
+	
 	public String getEmpName(String userDomain) {
 		String empName = "";
 		try {
