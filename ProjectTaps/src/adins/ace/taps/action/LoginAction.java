@@ -54,8 +54,8 @@ public class LoginAction extends Action {
 				// /TESTING HAPUS NANTI
 				pass = true;
 
-				if (tForm.getUsername().equals("inwan")) {
-					username = "inwan.ah";
+				if (tForm.getUsername().equals("kartiko")) {
+					username = "kartiko.ew";
 				} else if (tForm.getUsername().equals("devri")) {
 					username = "devri.rs";
 				} else if (tForm.getUsername().equals("mey")) {
