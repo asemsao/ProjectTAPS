@@ -1,16 +1,17 @@
-function newCorrectionAssignmentValidation() {
+function newSelfAssignmentSaveValidation() {
 
 	// =================================================================================
-	// New Self Assignment Correction
+	// New Self Assignment SAVE
 	// =================================================================================
-	$('#employee-name').tooltipster({
+
+	$('#newSelfAssignment input[id="project-name"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 
 	// initialize validate plugin on the form
-	$('#selfAssignment').validate({
+	$('#newSelfAssignment').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
@@ -22,7 +23,7 @@ function newCorrectionAssignmentValidation() {
 			$(element).tooltipster('update', 'accepted');
 		},
 		rules : {
-			'selfAssignBean.adhocFullName' : {
+			'selfAssignBean.projectName' : {
 				required : true
 			}
 		},
@@ -33,6 +34,7 @@ function newCorrectionAssignmentValidation() {
 	});
 
 };
+
 
 function newSelfAssignmentValidation() {
 
