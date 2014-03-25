@@ -21,11 +21,11 @@
 		document.projectForm.task.value = task;
 		document.projectForm.submit();
 	}
-	function deleteConfirm(task,paramProjectCode){
-		var con = confirm ("This project record will be deleted, are you sure?");
-		if(con){
-			flyToPage(task,paramProjectCode);	
-		}			
+	function deleteConfirm(task, paramProjectCode) {
+		var con = confirm("This project record will be deleted, are you sure?");
+		if (con) {
+			flyToPage(task, paramProjectCode);
+		}
 	}
 	$(document).ready(function() {
 		$("#searchKeyword").attr("placeholder", "Keyword of Project");
@@ -59,22 +59,29 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/project" method="post" styleClass="projectForm" styleId = "proForm">
-					<html:hidden property="task" name="projectForm" styleId="task"/>
+				<html:form action="/project" method="post" styleClass="projectForm"
+					styleId="proForm">
+					<html:hidden property="task" name="projectForm" styleId="task" />
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
-					<html:hidden property="paramProjectCode" name="projectForm" styleId="projectCode"/>
-					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
-					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="projectForm" />">
+					<html:hidden property="paramProjectCode" name="projectForm"
+						styleId="projectCode" />
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" name="projectForm" />">
+					<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" name="projectForm" />">
+
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=11 class="text-center">
+								<td colspan=2 class="text-center">
 									<h3>Project</h3>
-								</th>
+								</td>
 							</tr>
+						</thead>
+						<tbody>
 							<tr>
-								<th class="text-center" colspan=2>
+								<td class="text-center field-form">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="projectForm">
 											<html:option value="all">All</html:option>
@@ -85,16 +92,24 @@
 											<html:option value="organization">Business Unit</html:option>
 										</html:select>
 									</div>
-								</th>
-								<th class="text-center" colspan=9>
+
+								</td>
+								<td class="text-center">
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="projectForm" styleId="searchKeyword"
+										<html:text property="searchKeyword" name="projectForm"
+											styleId="searchKeyword"
 											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
 										<button class="btn-search" type="button"
 											onclick="javascript:button('search');"></button>
 									</div>
-								</th>
+
+								</td>
 							</tr>
+						</tbody>
+					</table>
+
+					<table class="table striped bordered hovered">
+						<thead>
 							<tr>
 								<th class="text-center">Project Code</th>
 								<th class="text-center">Project Name</th>
@@ -137,13 +152,14 @@
 											href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');"
 											data-hint="Edit Project" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-<%-- 										<td class="text-center"><a href="javascript:deleteConfirm('deleteProject','<bean:write name="project" property="projectCode" />')" --%>
-<!-- 											data-hint="Delete Project" data-hint-position="bottom"><img -->
-<%-- 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td> --%>
-										<td class="text-center"><a href="#" class="delete-link deleteProject"
-											data-hint="Delete Project" data-hint-position="bottom" alt="<bean:write name="project"
-												property="projectCode" />"> <img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+										<td class="text-center"><a href="#"
+											class="delete-link deleteProject" data-hint="Delete Project"
+											data-hint-position="bottom"
+											alt="<bean:write name="project"
+												property="projectCode" />">
+												<img alt=""
+												src="<%=request.getContextPath()%>/images/DELETE.png">
+										</a></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -152,34 +168,35 @@
 									<td class="text-center" colspan="11">Project Not Available</td>
 								</tr>
 							</logic:empty>
-							<tr>
-								<td colspan=9 class="text-center">
-									<div class="pagination">
-										<ul>
-											<li class="first"><a id="first"
-												onclick="button('first');"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"
-												onclick="button('prev');"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write
-														name="projectForm" property="page" /> of <bean:write
-														name="projectForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"
-												onclick="button('next');"><i class="icon-next"></i></a></li>
-											<li class="last"><a id="last"
-												onclick="button('last');"><i class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <bean:write
-														name="projectForm" property="countRecord" /></a></li>
-										</ul>
-									</div>
-								</td>
-								<td colspan=2 class="text-right"><a
-									href="javascript:button('addProject');" data-hint="Add Project"
-									data-hint-position="bottom"><img alt=""
-										src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
-							</tr>
 						</tbody>
+					</table>
+
+					<table class="table striped bordered hovered">
+						<tr>
+							<td class="text-center">
+								<div class="pagination">
+									<ul>
+										<li class="first"><a id="first"
+											onclick="button('first');"><i class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev" onclick="button('prev');"><i
+												class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write
+													name="projectForm" property="page" /> of <bean:write
+													name="projectForm" property="maxpage" /></a></li>
+										<li class="next"><a id="next" onclick="button('next');"><i
+												class="icon-next"></i></a></li>
+										<li class="last"><a id="last" onclick="button('last');"><i
+												class="icon-last-2"></i></a></li>
+										<li class="disabled"><a>Total Record <bean:write
+													name="projectForm" property="countRecord" /></a></li>
+									</ul>
+								</div>
+							</td>
+							<td class="text-right field-form"><a
+								href="javascript:button('addProject');" data-hint="Add Project"
+								data-hint-position="bottom"><img alt=""
+									src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
+						</tr>
 					</table>
 				</html:form>
 			</div>
