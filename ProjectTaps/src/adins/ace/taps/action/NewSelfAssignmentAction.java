@@ -59,6 +59,7 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
 			} else {
+				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
 				return mapping.findForward("NewSelfAssignment");
 			}
 		} else {
@@ -106,7 +107,7 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 				aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
 				aForm.getSelfAssignBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
-				String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + ", " + aForm.getSelfAssignBean().getAssignmentTime();
+				String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + aForm.getSelfAssignBean().getAssignmentTime();
 				aForm.getSelfAssignBean().setClaimDate(assignmentDate);
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
