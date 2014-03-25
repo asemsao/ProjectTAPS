@@ -16,7 +16,7 @@ public class AddProjectBean implements Serializable
 	private String flag;
 	private String createdBy;
 	private String createdDate;
-	
+	private String userdomain;
 	
 	public String getProjectCode() {
 		return projectCode;
@@ -83,6 +83,12 @@ public class AddProjectBean implements Serializable
 	}
 	public void setOrganizationName(String organizationName) {
 		this.organizationName = organizationName;
+	}
+	public String getUserdomain() {
+		return userdomain;
+	}
+	public void setUserdomain(String userdomain) {
+		this.userdomain = userdomain;
 	}
 	
 }

@@ -23,6 +23,7 @@ public class LoginManager {
 		try {
 			ibatisSqlMap.startTransaction();
 			organizationLevel = ibatisSqlMap.queryForList("login.getOrganizationLevel", userDomain);
+			System.out.println("org : "+organizationLevel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
