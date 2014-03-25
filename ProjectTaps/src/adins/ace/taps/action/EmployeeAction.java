@@ -108,7 +108,7 @@ public class EmployeeAction extends Action {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
-					//buffer = bean.getProfilePicture();
+					// buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet()
 								.getServletContext().getRealPath("/")
@@ -120,8 +120,8 @@ public class EmployeeAction extends Action {
 					outStream.flush();
 				} catch (IOException e) {
 					buffer = ExtractPhoto.extractBytes(getServlet()
-								.getServletContext().getRealPath("/")
-								+ "images/user.png");
+							.getServletContext().getRealPath("/")
+							+ "images/user.png");
 					response.reset();
 					response.setContentLength(buffer.length);
 					outStream.write(buffer);
@@ -168,7 +168,10 @@ public class EmployeeAction extends Action {
 				temp = tamp.split("-");
 				mForm.getNewEmployee().setMobileNumberAreaCode(temp[1].trim());
 				mForm.getNewEmployee().setMobileNumberMidNumb(temp[2].trim());
-				mForm.getNewEmployee().setMobileNumberLastNumb(temp[3].trim());
+				if (null != temp[3].trim()) {
+					mForm.getNewEmployee().setMobileNumberLastNumb(
+							temp[3].trim());
+				}
 			}
 			return mapping.findForward("Edit");
 		}
@@ -268,9 +271,7 @@ public class EmployeeAction extends Action {
 			params.put("userDomain", mForm.getNewEmployee().getEmployeeDomain());
 			List<EmployeeOrganizationBean> organizationList = mMan
 					.checkEmplooyeeOrganization(params);
-			System.out.println("a"+mMan.countEmplooyeeOrganization(params));
 			if (mMan.countEmplooyeeOrganization(params) == 0) {
-				System.out.println("b");
 				mForm.getNewEmployee().setUpdateBy(
 						session.getAttribute("username").toString());
 				mForm.getNewEmployee().setPhoneNumber(
@@ -347,7 +348,8 @@ public class EmployeeAction extends Action {
 				} else {
 					mForm.setTask("edit");
 					mForm.setMessage(organizationList.get(0)
-							.getHeadUserDomain() + " AS HEAD BU, Can't be Moved!");
+							.getHeadUserDomain()
+							+ " AS HEAD BU, Can't be Moved!");
 					mForm.setColor("red");
 					return mapping.findForward("Edit");
 				}
