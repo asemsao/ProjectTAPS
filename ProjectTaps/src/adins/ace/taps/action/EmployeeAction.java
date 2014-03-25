@@ -103,12 +103,12 @@ public class EmployeeAction extends Action {
 			BufferedOutputStream output = null;
 
 			OutputStream outStream = response.getOutputStream();
-
+			byte[] buffer = null;
 			try {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
-					byte[] buffer = bean.getProfilePicture();
+					//buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet()
 								.getServletContext().getRealPath("/")
@@ -119,7 +119,13 @@ public class EmployeeAction extends Action {
 					outStream.write(buffer);
 					outStream.flush();
 				} catch (IOException e) {
-					e.printStackTrace();
+					buffer = ExtractPhoto.extractBytes(getServlet()
+								.getServletContext().getRealPath("/")
+								+ "images/user.png");
+					response.reset();
+					response.setContentLength(buffer.length);
+					outStream.write(buffer);
+					outStream.flush();
 				} finally {
 					if (output != null)
 						try {
@@ -262,8 +268,9 @@ public class EmployeeAction extends Action {
 			params.put("userDomain", mForm.getNewEmployee().getEmployeeDomain());
 			List<EmployeeOrganizationBean> organizationList = mMan
 					.checkEmplooyeeOrganization(params);
-
-			if (organizationList.size() == 0) {
+			System.out.println("a"+mMan.countEmplooyeeOrganization(params));
+			if (mMan.countEmplooyeeOrganization(params) == 0) {
+				System.out.println("b");
 				mForm.getNewEmployee().setUpdateBy(
 						session.getAttribute("username").toString());
 				mForm.getNewEmployee().setPhoneNumber(
@@ -340,7 +347,7 @@ public class EmployeeAction extends Action {
 				} else {
 					mForm.setTask("edit");
 					mForm.setMessage(organizationList.get(0)
-							.getHeadUserDomain() + " Can't Move To Other BU!");
+							.getHeadUserDomain() + " AS HEAD BU, Can't be Moved!");
 					mForm.setColor("red");
 					return mapping.findForward("Edit");
 				}
