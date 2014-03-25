@@ -115,7 +115,7 @@
 									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%
@@ -136,7 +136,7 @@
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"></html:file>
+										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%

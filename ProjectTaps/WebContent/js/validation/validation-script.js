@@ -7,7 +7,6 @@ $.validator.addMethod("notEqualToAssignmentTo", function(value, element) {
 }, "You Must Select Other People");
 
 
-
 (function(d, f, g, b) {
 	var e = "tooltipster", c = {
 		animation : "fade",
