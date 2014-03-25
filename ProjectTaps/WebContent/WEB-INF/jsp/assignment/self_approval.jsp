@@ -320,7 +320,8 @@
 										<%
 											}
 										%>
-									</logic:equal></td>
+									</logic:equal>
+								</td>
 							</tr>
 							<%
 								}
