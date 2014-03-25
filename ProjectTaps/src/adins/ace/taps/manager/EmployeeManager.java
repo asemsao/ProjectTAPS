@@ -27,6 +27,7 @@ public class EmployeeManager {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("employee.deleteEmployee", employeeDomain);
 			ibatisSqlMap.update("employee.deleteAssignment", employeeDomain);
+			ibatisSqlMap.delete("employee.deleteRoleEMP", employeeDomain);
 			flag = true;
 			ibatisSqlMap.commitTransaction();
 
