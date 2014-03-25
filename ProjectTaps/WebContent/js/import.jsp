@@ -38,3 +38,4 @@
 <script src="js/validation/specialAppraisal-validation.js"></script>
 <script src="js/validation/newBU-validation.js"></script>
 <script src="js/validation/project-validation.js"></script>
+<script src="js/validation/dashboard-validation.js"></script>
