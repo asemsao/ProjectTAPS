@@ -531,7 +531,7 @@
 				<dynamic>
 					<isNotNull property="assignmentDueDate">
 						<isNotEmpty prepend="," property="assignmentDueDate">
-							#assignmentDueDate#
+							TO_DATE (#assignmentDueDate#, 'DD/MM/YYYY')
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
@@ -606,7 +606,7 @@
 				<dynamic>
 					<isNotNull property="assignmentDueDate">
 						<isNotEmpty prepend="," property="assignmentDueDate">
-							#assignmentDueDate#
+							TO_DATE (#assignmentDueDate#, 'DD/MM/YYYY')
 						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
@@ -671,7 +671,7 @@
 	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 	UPDATE   assignments
 	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
-	         assignment_due_date = #assignmentDueDate#,
+	         assignment_due_date = TO_DATE (#assignmentDueDate#,'DD/MM/YYYY'),
 	         description = #description#,
 	         reff_task_code = #reffTaskCode#,
 	         assign_to = #assignTo#,
@@ -685,7 +685,7 @@
 	<update id="editSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 	UPDATE   assignments
 	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
-	         assignment_due_date = #assignmentDueDate#,
+	         assignment_due_date = TO_DATE (#assignmentDueDate#,'DD/MM/YYYY'),
 	         report_to = #reportTo#,
 	         activity_type = #activityType#,
 	         adhoc_user_domain = #adhocUserDomain#,

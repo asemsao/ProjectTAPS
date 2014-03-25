@@ -43,7 +43,7 @@ public class LoginAction extends Action {
 			if (!"".equals(tForm.getUsername())
 					&& !"".equals(tForm.getPassword())) {
 
-				String username = ztForm.getUsername();
+				String username = tForm.getUsername();
 				String password = tForm.getPassword();
 
 				String domainName = "nu-ace.ad-ins.com";
@@ -53,15 +53,23 @@ public class LoginAction extends Action {
 
 				// /TESTING HAPUS NANTI
 				pass = true;
-				if (tForm.getUsername().equals("BOM")) {
-					username = "kartiko.ew";
-				} else if (tForm.getUsername().equals("HBU")) {
-					username = "meyliana.tanjung";
-				} else if (tForm.getUsername().equals("HDE")) {
-					username = "devri.rs";
-				}  else if (tForm.getUsername().equals("SPV")) {
+
+				if (tForm.getUsername().equals("inwan")) {
 					username = "inwan.ah";
-				}else {
+				} else if (tForm.getUsername().equals("devri")) {
+					username = "devri.rs";
+				} else if (tForm.getUsername().equals("mey")) {
+					username = "meyliana.tanjung";
+				} else if (tForm.getUsername().equals("nico")) {
+					username = "timotius.nico";
+				}  else if (tForm.getUsername().equals("wilson")) {
+					username = "wilson";
+				} else if (tForm.getUsername().equals("juned")) {
+					username = "muhammad.junaedy";
+				} else if (tForm.getUsername().equals("anthony")) {
+					username = "anthony.pangestu";
+				} else {
+
 					username = "lukas.ws";
 				}
 				tForm.setPassword("");
@@ -84,7 +92,7 @@ public class LoginAction extends Action {
 						session.setAttribute("recoveryMode", "true");
 					}
 					/* Star Achievement */
-					session.setAttribute("star", dMan.starAchievemet("domain3"));
+					session.setAttribute("star", dMan.starAchievemet(username));
 
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);

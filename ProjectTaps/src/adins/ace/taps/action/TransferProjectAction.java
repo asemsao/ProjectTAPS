@@ -215,7 +215,7 @@ public class TransferProjectAction extends Action {
 		params.put("startP", (tpForm.getPageP() - 1) * 10 + 1);
 		params.put("endP", (tpForm.getPageP() * 10));
 		tpForm.setListProject(tpMan.searchProject(params));
-		tpForm.setCountRecordP(tpMan.countProject(params));
+//		tpForm.setCountRecordP(tpMan.countProject(params));
 		
 		params.put("startO", (tpForm.getPageO() - 1) * 10 + 1);
 		params.put("endO", (tpForm.getPageO() * 10));
