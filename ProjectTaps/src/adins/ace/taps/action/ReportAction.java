@@ -3,7 +3,6 @@
 
 package adins.ace.taps.action;
 
-import java.sql.Savepoint;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +14,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.bean.report.ReportBean;
-import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.form.report.ReportForm;
-import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.OrganizationManager;
 import adins.ace.taps.manager.ReportManager;
 
@@ -40,62 +37,62 @@ public class ReportAction extends Action {
 		orgLevel = (String) session.getAttribute("organizationLevel");
 				
 		if ("view".equals(rForm.getTask())) {
-			Map h = new HashMap();
+			Map<String,String> h = new HashMap<String,String>();
 
-			if (rForm.getParam2()!=null) {
+			if (rForm.getOrganizationLevel()!=null) {
 				
-				if (rForm.getParam2().equals("0") || rForm.getParam2().equals("1")) {
-					h = new HashMap();
-					h.put("orgCode", rForm.getParam().trim());
-					h.put("orgLevel", rForm.getParam2());
+				if (rForm.getOrganizationLevel().equals("0") || rForm.getOrganizationLevel().equals("1")) {
+					h = new HashMap<String,String>();
+					h.put("orgCode", rForm.getOrganizationCode().trim());
+					h.put("orgLevel", rForm.getOrganizationLevel());
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
 					h.put("reportMonth", rForm.getReportMonth());
-					if (rForm.getParam2().equals("1")) {
+					if (rForm.getOrganizationLevel().equals("1")) {
 						ReportBean rBean = new ReportBean();
 						rBean = rMan.getHeadOrganization(h);
-						rForm.setParam4(rBean.getOrganizationParent());
-						rForm.setParam5(rBean.getOrganizationParentName());
+						rForm.setParentCode(rBean.getOrganizationParent());
+						rForm.setParentName(rBean.getOrganizationParentName());
 					}
 					rForm.setListReports(rMan.getReportLevel1(h));
 					return mapping.findForward("View");
 				} else
-				if (rForm.getParam2().equals("2")) {
-					h = new HashMap();
-					h.put("orgCode", rForm.getParam().trim());
+				if (rForm.getOrganizationLevel().equals("2")) {
+					h = new HashMap<String,String>();
+					h.put("orgCode", rForm.getOrganizationCode().trim());
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
 					h.put("reportMonth", rForm.getReportMonth());
 					ReportBean rBean = new ReportBean();
 					rBean = rMan.getHeadOrganization(h);
-					rForm.setParam4(rBean.getOrganizationParent());
-					rForm.setParam5(rBean.getOrganizationParentName());
+					rForm.setParentCode(rBean.getOrganizationParent());
+					rForm.setParentName(rBean.getOrganizationParentName());
 					rForm.setListReports(rMan.getReportLevel2(h));
 					return mapping.findForward("ViewLevel2");
 				}
 			} else {
 				if (orgLevel.equals("0") || orgLevel.equals("1")) {
-					h = new HashMap();
+					h = new HashMap<String,String>();
 					h.put("orgCode", orgCode);
 					h.put("orgLevel", orgLevel);
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
 					h.put("reportMonth", rForm.getReportMonth());
-					rForm.setParam(orgCode.toString());
-					rForm.setParam2(orgLevel.toString());
-					rForm.setParam3(orgName);
+					rForm.setOrganizationCode(orgCode.toString());
+					rForm.setOrganizationLevel(orgLevel.toString());
+					rForm.setOrganizationName(orgName);
 					rForm.setListReports(rMan.getReportLevel1(h));
 					return mapping.findForward("View");
 				} else
 				if (orgLevel.equals("2")) {
-					h = new HashMap();
+					h = new HashMap<String,String>();
 					h.put("orgCode", orgCode);
 					h.put("reportYear", rForm.getReportYear());
 					h.put("reportPeriode", rForm.getReportPeriode());
 					h.put("reportMonth", rForm.getReportMonth());
-					rForm.setParam(orgCode.toString());
-					rForm.setParam2(orgLevel.toString());
-					rForm.setParam3(orgName);
+					rForm.setOrganizationCode(orgCode.toString());
+					rForm.setOrganizationLevel(orgLevel.toString());
+					rForm.setOrganizationName(orgName);
 					rForm.setListReports(rMan.getReportLevel2(h));
 					return mapping.findForward("ViewLevel2");
 				}
@@ -134,7 +131,7 @@ public class ReportAction extends Action {
 		}
 		
 		if ("printReportDept".equals(rForm.getTask())) {
-			Map h = new HashMap();
+			Map<String,String> h = new HashMap<String,String>();
 			h.put("prjCode", "");
 			if ("6 Months".equals(rForm.getPeriode())) {
 				if ("I".equals(rForm.getReportPeriode())) {

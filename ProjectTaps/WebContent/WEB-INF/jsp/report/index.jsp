@@ -19,13 +19,13 @@
 		}
 	}
 	
-	function report(task,param) {
+	function report(task,organizationCode) {
 		if (task == "cancel") {
 			document.reportForm.task.value = "";
 			document.reportForm.submit();
 			return;
 		} else {
-			document.reportForm.buPrint.value = param;
+			document.reportForm.buPrint.value = organizationCode;
 			document.reportForm.task.value = task;
 			reportValidation();
 		}
@@ -126,7 +126,7 @@
 									onclick="javascript:report('printReportBOM','<%=session.getAttribute("organizationCode")%>')">Generate
 									Report Management</button>
 												<% } %>
-		<%-- 							<logic:equal name="reportForm" property="param2" value="0"> --%>
+		<%-- 							<logic:equal name="reportForm" property="organizationLevel" value="0"> --%>
 		<!-- 								<button id="back-btn" onclick="javascript:button('back')">Home</button> -->
 		<%-- 							</logic:equal> --%>
 									<% if (session.getAttribute("organizationLevel").equals("1")) {

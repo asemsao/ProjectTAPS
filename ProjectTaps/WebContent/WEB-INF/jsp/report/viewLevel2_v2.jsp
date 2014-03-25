@@ -25,16 +25,16 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function print(task,param) {
-		document.reportForm.buPrint.value = param;
+	function print(task,organizationCode) {
+		document.reportForm.buPrint.value = organizationCode;
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function report(task,param,param2,param3) {
+	function report(task,organizationCode,organizationLevel,organizationName) {
 		document.reportForm.task.value = task;
-		document.reportForm.param.value = param;
-		document.reportForm.param2.value = param2;
-		document.reportForm.param3.value = param3;
+		document.reportForm.organizationCode.value = organizationCode;
+		document.reportForm.organizationLevel.value = organizationLevel;
+		document.reportForm.organizationName.value = organizationName;
 		document.reportForm.submit();
 	}
 	$(function() {
@@ -160,12 +160,12 @@
 							</tbody>
 						</table>
 					</div>
-					<button class="primary" onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="param" />')">Generate Departement Report</button>
+					<button class="primary" onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="organizationCode" />')">Generate Departement Report</button>
 					<div id="print">
 						<table id="datatableshow" class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=7 class="text-center"><h3><bean:write property="param3"/></h3></th>
+								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/></h3></th>
 							</tr>
 							<tr>
 								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
@@ -223,7 +223,7 @@
 										<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
 										<% if (!session.getAttribute("organizationLevel").equals("2")) {
 										%>										
-										<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="param4" />','1','<bean:write name="reportForm" property="param5" />')">Back</button>
+										<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
 										<% } %>
 									</td>
 								</tr>
@@ -235,10 +235,10 @@
 			</div>
 		</div>
 		<html:hidden property="task" name="reportForm" />
-		<html:hidden property="param" name="reportForm" />
-		<html:hidden property="param2" name="reportForm" />
-		<html:hidden property="param3" name="reportForm" />
-		<html:hidden property="param4" name="reportForm" />
+		<html:hidden property="organizationCode" name="reportForm" />
+		<html:hidden property="organizationLevel" name="reportForm" />
+		<html:hidden property="organizationName" name="reportForm" />
+		<html:hidden property="parentCode" name="reportForm" />
 		<html:hidden property="buPrint" name="reportForm" />
 		<html:hidden property="periode" name="reportForm" />
 		<html:hidden property="reportYear" name="reportForm" />
