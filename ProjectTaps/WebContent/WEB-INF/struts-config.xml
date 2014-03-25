@@ -56,6 +56,7 @@
 			<forward name="deleteEmployee" path="/WEB-INF/jsp/ajax/deleteEmployee.jsp" />
 			<forward name="deleteProject" path="/WEB-INF/jsp/ajax/deleteProject.jsp" />
 			<forward name="deleteOrganization" path="/WEB-INF/jsp/ajax/deleteOrganization.jsp" />
+			<forward name="updateProject" path="/WEB-INF/jsp/ajax/UpdateProject.jsp" />
 		</action>
 
 		<action name="projectForm" path="/project" scope="request"

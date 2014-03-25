@@ -53,14 +53,14 @@ public class LoginAction extends Action {
 
 				// /TESTING HAPUS NANTI
 				pass = true;
-				if (tForm.getUsername().equals("205")) {
-					username = "DOMAIN205";
-				} else if (tForm.getUsername().equals("201")) {
-					username = "DOMAIN201";
-				} else if (tForm.getUsername().equals("3")) {
-					username = "domain3";
+				if (tForm.getUsername().equals("inwan")) {
+					username = "inwan.ah";
+				} else if (tForm.getUsername().equals("devri")) {
+					username = "devri.rs";
+				} else if (tForm.getUsername().equals("mey")) {
+					username = "meyliana.tanjung";
 				} else {
-					username = "domain100";
+					username = "lukas.ws";
 				}
 				tForm.setPassword("");
 				tForm.setUsername("");

@@ -63,7 +63,7 @@ public class EmployeeAction extends Action {
 							session.setAttribute("messagecp",
 									"Change Password FAILED!");
 						}
-					}else{
+					} else {
 						session.setAttribute("messagecp",
 								"Password must be contain min. 6 characters");
 					}
@@ -141,21 +141,29 @@ public class EmployeeAction extends Action {
 		}
 
 		if ("edit".equals(mForm.getTask())) {
+			String tamp = null;
+			String[] temp = null;
 			params.put("employeeDomain", mForm.getEmployeeDomain());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
-			String tamp = mForm.getNewEmployee().getPhoneNumber().replaceAll("\\(|\\)|\\-", "-");
-			String[] temp = tamp.split("-");
-			mForm.getNewEmployee().setPhoneNumberAreaCode(temp[1].trim());
-			mForm.getNewEmployee().setPhoneNumberMidNumb(temp[2].trim());
-			mForm.getNewEmployee().setPhoneNumberLastNumb(temp[3].trim());
-			tamp = mForm.getNewEmployee().getMobileNumber().replaceAll("\\(|\\)|\\-", "-");
-			if(tamp.charAt(0)!='-'){
-				tamp = "-"+tamp;
+			if (mForm.getNewEmployee().getPhoneNumber() != null) {
+				tamp = mForm.getNewEmployee().getPhoneNumber()
+						.replaceAll("\\(|\\)|\\-", "-");
+				temp = tamp.split("-");
+				mForm.getNewEmployee().setPhoneNumberAreaCode(temp[1].trim());
+				mForm.getNewEmployee().setPhoneNumberMidNumb(temp[2].trim());
+				mForm.getNewEmployee().setPhoneNumberLastNumb(temp[3].trim());
 			}
-			temp = tamp.split("-");
-			mForm.getNewEmployee().setMobileNumberAreaCode(temp[1].trim());
-			mForm.getNewEmployee().setMobileNumberMidNumb(temp[2].trim());
-			mForm.getNewEmployee().setMobileNumberLastNumb(temp[3].trim());
+			if (mForm.getNewEmployee().getMobileNumber() != null) {
+				tamp = mForm.getNewEmployee().getMobileNumber()
+						.replaceAll("\\(|\\)|\\-", "-");
+				if (tamp.charAt(0) != '-') {
+					tamp = "-" + tamp;
+				}
+				temp = tamp.split("-");
+				mForm.getNewEmployee().setMobileNumberAreaCode(temp[1].trim());
+				mForm.getNewEmployee().setMobileNumberMidNumb(temp[2].trim());
+				mForm.getNewEmployee().setMobileNumberLastNumb(temp[3].trim());
+			}
 			return mapping.findForward("Edit");
 		}
 		if ("new".equals(mForm.getTask())) {
@@ -184,22 +192,53 @@ public class EmployeeAction extends Action {
 				mForm.getNewEmployee().setProfilePicture(
 						IOUtils.toByteArray(fis));
 			}
-			mForm.getNewEmployee().setCreateBy(session.getAttribute("username").toString());
-			mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
-			mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
-			
+			mForm.getNewEmployee().setCreateBy(
+					session.getAttribute("username").toString());
+			mForm.getNewEmployee().setPhoneNumber(
+					"("
+							+ mForm.getNewEmployee().getPhoneNumberAreaCode()
+									.trim()
+							+ ")"
+							+ mForm.getNewEmployee().getPhoneNumberMidNumb()
+									.trim()
+							+ "("
+							+ mForm.getNewEmployee().getPhoneNumberLastNumb()
+									.trim() + ")");
+			if (mForm.getNewEmployee().getPhoneNumber().equals("()()")) {
+				mForm.getNewEmployee().setPhoneNumber("");
+			}
+
+			mForm.getNewEmployee().setMobileNumber(
+					"("
+							+ mForm.getNewEmployee().getMobileNumberAreaCode()
+									.trim()
+							+ ")"
+							+ mForm.getNewEmployee().getMobileNumberMidNumb()
+									.trim()
+							+ "-"
+							+ mForm.getNewEmployee().getMobileNumberLastNumb()
+									.trim());
+
+			if (mForm.getNewEmployee().getMobileNumber().equals("()-")) {
+				mForm.getNewEmployee().setMobileNumber("");
+			}
+
 			flag = mMan.insertNewEmployee(mForm.getNewEmployee());
 			flagRole = mMan.insertRoleEmp(mForm.getNewEmployee());
 			if (flag && flagRole) {
 				Map data = new HashMap();
 				data.put("username", mForm.getNewEmployee().getEmployeeDomain());
-				if (mForm.getPassword() != "") {
-					data.put("password", mForm.getPassword());
+				if (mForm.getPassword() != null) {
+					if (!mForm.getPassword().equals("")) {
+						data.put("password", mForm.getPassword());
+					} else {
+						data.put("password", "employeetaps");
+					}
 				} else {
 					data.put("password", "employeetaps");
 				}
-				mMan.insertLoginEmployee(data);				
-				
+				mMan.insertLoginEmployee(data);
+
 				mForm.setMessage("Add Employee Successfull!");
 				mForm.setColor("green");
 			} else {
@@ -227,8 +266,34 @@ public class EmployeeAction extends Action {
 			if (organizationList.size() == 0) {
 				mForm.getNewEmployee().setUpdateBy(
 						session.getAttribute("username").toString());
-				mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
-				mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
+				mForm.getNewEmployee().setPhoneNumber(
+						"("
+								+ mForm.getNewEmployee()
+										.getPhoneNumberAreaCode().trim()
+								+ ")"
+								+ mForm.getNewEmployee()
+										.getPhoneNumberMidNumb().trim()
+								+ "("
+								+ mForm.getNewEmployee()
+										.getPhoneNumberLastNumb().trim() + ")");
+				if (mForm.getNewEmployee().getPhoneNumber().equals("()()")) {
+					mForm.getNewEmployee().setPhoneNumber("");
+				}
+
+				mForm.getNewEmployee().setMobileNumber(
+						"("
+								+ mForm.getNewEmployee()
+										.getMobileNumberAreaCode().trim()
+								+ ")"
+								+ mForm.getNewEmployee()
+										.getMobileNumberMidNumb().trim()
+								+ "-"
+								+ mForm.getNewEmployee()
+										.getMobileNumberLastNumb().trim());
+
+				if (mForm.getNewEmployee().getMobileNumber().equals("()-")) {
+					mForm.getNewEmployee().setMobileNumber("");
+				}
 				flag = mMan.updateEmployee(mForm.getNewEmployee());
 				mForm.setMessage("Edit Employee Successfull!");
 				mForm.setColor("green");
@@ -240,8 +305,35 @@ public class EmployeeAction extends Action {
 								mForm.getNewEmployee().getBusinessUnit())) {
 					mForm.getNewEmployee().setUpdateBy(
 							session.getAttribute("username").toString());
-					mForm.getNewEmployee().setPhoneNumber("("+mForm.getNewEmployee().getPhoneNumberAreaCode()+")"+mForm.getNewEmployee().getPhoneNumberMidNumb()+"("+mForm.getNewEmployee().getPhoneNumberLastNumb()+")");
-					mForm.getNewEmployee().setMobileNumber("("+mForm.getNewEmployee().getMobileNumberAreaCode()+")"+mForm.getNewEmployee().getMobileNumberMidNumb()+"-"+mForm.getNewEmployee().getMobileNumberLastNumb());
+					mForm.getNewEmployee().setPhoneNumber(
+							"("
+									+ mForm.getNewEmployee()
+											.getPhoneNumberAreaCode()
+									+ ")"
+									+ mForm.getNewEmployee()
+											.getPhoneNumberMidNumb()
+									+ "("
+									+ mForm.getNewEmployee()
+											.getPhoneNumberLastNumb() + ")");
+
+					if (mForm.getNewEmployee().getPhoneNumber().equals("()()")) {
+						mForm.getNewEmployee().setPhoneNumber("");
+					}
+
+					mForm.getNewEmployee().setMobileNumber(
+							"("
+									+ mForm.getNewEmployee()
+											.getMobileNumberAreaCode()
+									+ ")"
+									+ mForm.getNewEmployee()
+											.getMobileNumberMidNumb()
+									+ "-"
+									+ mForm.getNewEmployee()
+											.getMobileNumberLastNumb());
+
+					if (mForm.getNewEmployee().getMobileNumber().equals("()-")) {
+						mForm.getNewEmployee().setMobileNumber("");
+					}
 					flag = mMan.updateEmployee(mForm.getNewEmployee());
 					mForm.setMessage("Edit Employee Successfull!");
 					mForm.setColor("green");
@@ -255,12 +347,15 @@ public class EmployeeAction extends Action {
 			}
 			if (flag) {
 				if ("true".equals(App.getConfiguration("recovery_mode"))) {
-					if (mForm.getPassword() != "") {
-						Map data = new HashMap();
-						data.put("username", mForm.getNewEmployee()
-								.getEmployeeDomain());
-						data.put("password", mForm.getPassword());
-						mMan.updateLoginEmployee(data);
+					Map data = new HashMap();
+
+					if (mForm.getPassword() != null) {
+						if (mForm.getPassword().equals("")) {
+							data.put("username", mForm.getNewEmployee()
+									.getEmployeeDomain());
+							data.put("password", mForm.getPassword());
+							mMan.updateLoginEmployee(data);
+						}
 					}
 				}
 			}
