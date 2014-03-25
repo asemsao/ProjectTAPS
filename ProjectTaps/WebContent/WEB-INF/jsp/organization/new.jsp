@@ -34,9 +34,9 @@
 						
 
 						$("#level").change(function() {
+							$("#parent-organization-name").val("");
 							if ($("#level").val() == "0") {
 								$(".parent-organization").hide();
-								$("#parent-organization-name").val("");
 							} else {
 								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
 										+ $(this).val());
