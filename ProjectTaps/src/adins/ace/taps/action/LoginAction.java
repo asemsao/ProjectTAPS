@@ -43,7 +43,7 @@ public class LoginAction extends Action {
 			if (!"".equals(tForm.getUsername())
 					&& !"".equals(tForm.getPassword())) {
 
-				String username = tForm.getUsername();
+				String username = ztForm.getUsername();
 				String password = tForm.getPassword();
 
 				String domainName = "nu-ace.ad-ins.com";
@@ -53,13 +53,15 @@ public class LoginAction extends Action {
 
 				// /TESTING HAPUS NANTI
 				pass = true;
-				if (tForm.getUsername().equals("205")) {
-					username = "DOMAIN205";
-				} else if (tForm.getUsername().equals("201")) {
-					username = "DOMAIN201";
-				} else if (tForm.getUsername().equals("3")) {
-					username = "domain3";
-				} else {
+				if (tForm.getUsername().equals("BOM")) {
+					username = "kartiko.ew";
+				} else if (tForm.getUsername().equals("HBU")) {
+					username = "meyliana.tanjung";
+				} else if (tForm.getUsername().equals("HDE")) {
+					username = "devri.rs";
+				}  else if (tForm.getUsername().equals("SPV")) {
+					username = "inwan.ah";
+				}else {
 					username = "lukas.ws";
 				}
 				tForm.setPassword("");
