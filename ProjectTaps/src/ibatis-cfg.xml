@@ -11,7 +11,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 
 		<dataSource type="SIMPLE">
 			<property name="JDBC.Driver" value="oracle.jdbc.OracleDriver" />
-			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@192.168.10.36:xe" />
+			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@192.168.10.36:1521:xe" />
 			<property name="JDBC.Username" value="TAPS" />
 			<property name="JDBC.Password" value="taps" />
 			<property name="JDBC.DefaultAutoCommit" value="true" />
