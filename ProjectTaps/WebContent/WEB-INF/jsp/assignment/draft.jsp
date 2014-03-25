@@ -23,16 +23,7 @@
 		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
 		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
 		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects");
-		$("#employee-name").val($("#employee-fullName").val());
 		$("#timepicker").timeselector();
-
-		$('#project-name').bind("change",function() {
-			var project_code = $("#project-code").val();
-			$("#lookUpEmployeeOnProject").html('');
-			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-			$("#employee-name").val("");
-			$("#employee-domain").val("");
-		});
 
 		if ($("#assignmentType").val() == "PROJECT") {
 			$(".pr").show();
@@ -110,8 +101,7 @@
 									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
-											<html:hidden property="assignmentBean.assignToFullName" name="claimAssignmentForm" styleId="employee-name" />
-											<input type="text" id="employee-name" />
+											<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
 											<div class="pr" class="in-bl">
 												<button type="button" class="btn-search" id="employeeOnProject"></button>
 											</div>
