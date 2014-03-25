@@ -478,7 +478,7 @@ $(document).ready(function() {
 						+ '<td>' + json.pBean.startDate + '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td width="15%">Finish Date</td>'
+						+ '<td width="15%">Estimate Finish Date</td>'
 						+ '<td width="5%">:</td>'
 						+ '<td>' + json.pBean.endDate + '</td>'
 						+ '</tr>'
@@ -487,7 +487,7 @@ $(document).ready(function() {
 						+ '<td width="5%">:</td>'
 						+ '<td>' + json.pBean.runningDay + ' day' + '</td>'
 						+ '</tr>';
-				
+
 				summaryContent += '<tr><td width="15%">Transfer<td width="5%">:</td><td>' + json.pBean.organizationName + ' ( <b>' + json.pBean.organizationCode + '</b> )';
 				summaryContent += '&nbsp;&nbsp;<i class="icon-arrow-right-5"></i>&nbsp;&nbsp;' + json.orgName + ' ( <b>' + json.orgCode + '</b> )';
 				summaryContent += '</td></tr>';

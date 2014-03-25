@@ -92,7 +92,10 @@ public class TransferProjectManager {
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("transferProject.updateTransferProject", params);
-			ibatisSqlMap.update("transferProject.updateTransferMember", params);
+			System.out.println(params.get("listMember"));
+			if (params.get("listMember").toString().length() > 1) {
+				ibatisSqlMap.update("transferProject.updateTransferMember", params);
+			}
 			ibatisSqlMap.insert("transferProject.insertHistoryProject", params);
 			ibatisSqlMap.commitTransaction();
 			flag = true;
