@@ -74,19 +74,24 @@
 		<html:hidden property="task" styleId="task" name="employeeForm" />
 		<html:hidden property="page" name="employeeForm" />
 		<html:hidden property="maxpage" name="employeeForm" />
-		<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
-		<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
-		<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="employeeForm" />">
+		<html:hidden property="employeeDomain" styleId="employeeDomain"
+			name="employeeForm" />
+		<input type="hidden" id="messageCRUD"
+			value="<bean:write  property="message" name="employeeForm" />">
+		<input type="hidden" id="messagecolor"
+			value="<bean:write  property="color" name="employeeForm" />">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=7 class="text-center"><h3>Employee List</h3></th>
+								<th colspan=2 class="text-center"><h3>Employee List</h3></th>
 							</tr>
+						<thead>
+						<tbody>
 							<tr>
-								<th class="text-center">
+								<th class="text-center field-form">
 									<div class="input-control select">
 										<html:select property="searchCategory" name="employeeForm">
 											<html:option value="All">All</html:option>
@@ -97,7 +102,7 @@
 										</html:select>
 									</div>
 								</th>
-								<th class="text-center" colspan=6>
+								<th class="text-center">
 									<div class="input-control text">
 										<html:text property="searchKeyword" name="employeeForm"
 											styleId="searchKeyword"></html:text>
@@ -105,6 +110,11 @@
 									</div>
 								</th>
 							</tr>
+						</tbody>
+					</table>
+
+					<table class="table striped bordered hovered">
+						<thead>
 							<tr>
 								<th class="text-center">Code</th>
 								<th class="text-center">Domain</th>
@@ -120,9 +130,12 @@
 								<logic:iterate id="employee" name="employeeForm"
 									property="listEmployees">
 									<tr>
-										<td class="text-center"><bean:write name="employee" property="employeeCode" /></td>
-										<td class="text-center"><bean:write name="employee" property="employeeDomain" /></td>
-										<td class="text-center"><bean:write name="employee" property="employeeNik" /></td>
+										<td class="text-center"><bean:write name="employee"
+												property="employeeCode" /></td>
+										<td class="text-center"><bean:write name="employee"
+												property="employeeDomain" /></td>
+										<td class="text-center"><bean:write name="employee"
+												property="employeeNik" /></td>
 										<td><bean:write name="employee" property="employeeName" /></td>
 										<td><bean:write name="employee"
 												property="employeeAddress" /></td>
@@ -130,12 +143,13 @@
 											alt="<bean:write name="employee" property="employeeDomain" />"
 											data-hint="Edit Employee" data-hint-position="bottom"><img
 												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center">
-										<a href="#" class="delete-link deleteEmployee"
-											data-hint="Delete Employee" data-hint-position="bottom" alt="<bean:write name="employee"
+										<td class="text-center"><a href="#"
+											class="delete-link deleteEmployee"
+											data-hint="Delete Employee" data-hint-position="bottom"
+											alt="<bean:write name="employee"
 												property="employeeDomain" />"><img
 												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a>
-												</td>
+										</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -144,30 +158,32 @@
 									<td class="text-center" colspan="7">Employee Not Found</td>
 								</tr>
 							</logic:empty>
-							<tr>
-								<td colspan=6 class="text-center">
-									<div class="pagination">
-										<ul>
-											<li class="first"><a id="first"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write
-														name="employeeForm" property="page" /> of <bean:write
-														name="employeeForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <bean:write
-														name="employeeForm" property="countRecord" /></a></li>
-										</ul>
-									</div>
-								</td>
-								<td class="text-center"><a id="new"
-									data-hint="Add Employee" data-hint-position="bottom"><img
-										alt=""
-										src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
-							</tr>
 						</tbody>
+					</table>
+
+					<table class="table striped bordered hovered">
+						<tr>
+							<td class="text-center">
+								<div class="pagination">
+									<ul>
+										<li class="first"><a id="first"><i
+												class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev"><i
+												class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write
+													name="employeeForm" property="page" /> of <bean:write
+													name="employeeForm" property="maxpage" /></a></li>
+										<li class="next"><a id="next"><i class="icon-next"></i></a></li>
+										<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+										<li class="disabled"><a>Total Record <bean:write
+													name="employeeForm" property="countRecord" /></a></li>
+									</ul>
+								</div>
+							</td>
+							<td class="text-center field-form"><a id="new" data-hint="Add Employee"
+								data-hint-position="bottom"><img alt=""
+									src="<%=request.getContextPath()%>/images/ADD_EMPLOYEE.png"></a></td>
+						</tr>
 					</table>
 				</div>
 			</div>
