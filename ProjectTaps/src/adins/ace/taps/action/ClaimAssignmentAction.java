@@ -37,6 +37,8 @@ public class ClaimAssignmentAction extends Action {
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo(aForm.getClaimBean().getReportTo());
 		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
+		boolean comment = false;
+		boolean update = false;
 		
 		if("updateDetailClaim".equals(aForm.getTask())){
 			PrintWriter out = response.getWriter();
@@ -52,25 +54,33 @@ public class ClaimAssignmentAction extends Action {
 		
 		if ("claim".equals(aForm.getTask())) {
 			//edit claim + add comment
+			aMan.startTransaction();
 			aForm.getClaimBean().setStatus("CLAIM");
 			if (!("".equals(aForm.getClaimBean().getComment()))) {
-				aMan.addHistoryComment(aForm.getClaimBean());
+				comment = aMan.addHistoryComment(aForm.getClaimBean());
+			}
+			if (comment){
+				aMan.commitTransaction();
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("RFA".equals(aForm.getTask())) {
 			//request for approval to supervisor, change status to RFA
+			aMan.startTransaction();
 			aForm.getClaimBean().setStatus("RFA");
-			aMan.addHistoryComment(aForm.getClaimBean());
+			comment = aMan.addHistoryComment(aForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
 			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
-			boolean success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/*sending notification on email*/
 			aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map params = new HashMap();
 				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Assignment");
@@ -79,9 +89,10 @@ public class ClaimAssignmentAction extends Action {
 				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
-			System.out.println(success);
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
 			session.removeAttribute("taskCode");

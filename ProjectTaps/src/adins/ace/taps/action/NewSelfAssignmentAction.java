@@ -122,16 +122,20 @@ public class NewSelfAssignmentAction extends Action {
 				if (taskCode != null) {
 					aForm.getSelfAssignBean().setTaskCode(taskCode);
 					aForm.getSelfAssignBean().setUpdatedBy(sessionUserDomain);
-					insertToAssignment = aMan.editSelfAssignment(aForm
-							.getSelfAssignBean());
-					insertToDetailClaim = aMan.editDetailClaim(aForm
-							.getSelfAssignBean());
-				} else {
-					insertToAssignment = aMan.addSelfAssignment(aForm
-							.getSelfAssignBean());
-					insertToDetailClaim = aMan.addDetailClaim(aForm
-							.getSelfAssignBean());
+					aMan.startTransaction();
+					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 					if (insertToDetailClaim && insertToAssignment) {
+						aMan.commitTransaction();
+					} else {
+						aMan.rollback();
+					}
+				} else {
+					aMan.startTransaction();
+					insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
+					if (insertToDetailClaim && insertToAssignment) {
+						aMan.commitTransaction();
 						session.setAttribute("message", "Create Self Assignment Success!");
 						session.setAttribute("color", "green");
 						if (rfa) {
@@ -150,6 +154,7 @@ public class NewSelfAssignmentAction extends Action {
 							SendMailTls.SendMail(params);
 						}
 					} else {
+						aMan.rollback();
 						session.setAttribute("message", "Create Self Assignment Failed!");
 						session.setAttribute("color", "red");
 					}
