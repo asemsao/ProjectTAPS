@@ -12,7 +12,7 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		if (task == "cancel") {
+		if (task == "cancelEdit") {
 			document.organizationForm.task.value = "";
 			document.organizationForm.submit();
 			return;
@@ -175,7 +175,7 @@
 							<tr>
 								<td colspan="3" class="text-right">
 									<button onclick="flyToPage('saveEdit')" class="button success">Save</button>
-									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+									<button onclick="flyToPage('cancelEdit')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
@@ -184,6 +184,8 @@
 			</div>
 		</div>
 		<input type="hidden" id="headBu" value="headBu" />
+		<html:hidden property="headDomainBefore"
+											name="organizationForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="lookUpEmployee" class="hide"></div>
