@@ -52,9 +52,7 @@ public class LoginAction extends Action {
 						domainName);
 
 
-				// /TESTING HAPUS NANTI
 				pass = true;
-
 				if (tForm.getUsername().equals("kartiko")) {
 					username = "kartiko.ew";
 				} else if (tForm.getUsername().equals("devri")) {
@@ -70,12 +68,12 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-
-					username = "lukas.ws";
+					username = tForm.getUsername();
 				}
+				
 
-//				tForm.setPassword("");
-//				tForm.setUsername("");
+				tForm.setPassword("");
+				tForm.setUsername("");
 				if (pass) {
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
