@@ -6,6 +6,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 <sqlMap namespace="employee">
 	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
 
+	<update id="deleteEmpOnProject" parameterClass="java.lang.String">
+		DELETE FROM project_structures WHERE LOWER(assignee_user_domain) = LOWER(#employeeDomain#)
+	</update>
 
 	<select id="checkEmplooyeeOrganization"
 		resultClass="adins.ace.taps.bean.employee.EmployeeOrganizationBean"
@@ -15,6 +18,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		headUserDomain FROM organizations WHERE
 		LOWER(head_user_domain)=LOWER(#userDomain#)
 	</select>
+	
+	<select id="countEmplooyeeOrganization"
+		resultClass="int"
+		parameterClass="java.util.Map">
+		SELECT COUNT(1) FROM organizations WHERE
+        LOWER(head_user_domain)=LOWER(#userDomain#)
+	</select>
+	
 	
 	<select id="checkProjectStructure"
 		resultClass="adins.ace.taps.bean.employee.EmployeeProjectStructureBean"

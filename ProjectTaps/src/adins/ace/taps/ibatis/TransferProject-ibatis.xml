@@ -154,6 +154,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		phase,
 		to_char(p.start_date,'DD-MM-YYYY') AS startDate,
 		to_char(p.end_date,'DD-MM-YYYY') AS endDate,
+		(TRUNC(SYSDATE) -
+		p.start_date) AS runningDay,
 		o.organization_name AS
 		organizationName
 		FROM
@@ -204,12 +206,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</update>
 	
 	<update id="updateTransferMember" parameterClass="java.util.Map">
-	UPDATE employees SET organization_code = #orgCode# WHERE user_domain IN ($listMember$)
+		UPDATE employees SET organization_code = #orgCode#
+		WHERE user_domain IN ($listMember$)
 	</update>
 	
 	<insert id="insertHistoryProject" parameterClass="java.util.Map">
-	INSERT INTO history_projects (history_id, project_code, organization_after, organization_before, transfer_date, created_date, created_by)
-	VALUES (sequence_history_projects.nextVal, #projectCode#, #orgCode#, #orgBefore#, #transferDate#, SYSDATE, #createdBy#)
+		INSERT INTO history_projects (history_id, project_code, organization_after, organization_before, transfer_date, created_date, created_by)
+		VALUES (sequence_history_projects.nextVal, #projectCode#, #orgCode#, #orgBefore#, #transferDate#, SYSDATE, #createdBy#)
 	</insert>
 
 	<select id="countAllProjectMember" resultClass="int"

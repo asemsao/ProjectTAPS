@@ -265,9 +265,9 @@
 					String dateString = df.format(date);
 					%>
 										<html:text property="transferDate"
-											name="transferProjectForm" styleClass="datepicker-all" value="<%=dateString %>">
+											name="transferProjectForm" styleClass="datepicker-all" styleId="transferDate" value="<%=dateString %>">
 											</html:text>
-										<button type="button" disabled class="btn-date"></button>
+										<button type="button" class="btn-date"></button>
 										</div>
 					
 					</div>

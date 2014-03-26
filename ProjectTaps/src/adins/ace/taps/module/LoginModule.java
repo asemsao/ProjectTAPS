@@ -26,11 +26,13 @@ public class LoginModule {
 		this.username = username;
 		this.password = password;
 		this.domainName = domainName;
+		LoginManager lMan = new LoginManager();
+		Map params = new HashMap();
+		
+		params.put("username", this.username);
+		params.put("password", this.password);
+		
 		if (isRecoveryMode()) {
-			LoginManager lMan = new LoginManager();
-			Map params = new HashMap();
-			params.put("username", this.username);
-			params.put("password", this.password);
 			logged = lMan.tryLogin(params);
 		} else {
 			GetUserDomainModule domainAuth = new GetUserDomainModule();
@@ -48,6 +50,7 @@ public class LoginModule {
 				System.out.println(ex.toString());
 			}
 		}
+		logged = lMan.userIsActive(params);
 		return logged;
 	}
 

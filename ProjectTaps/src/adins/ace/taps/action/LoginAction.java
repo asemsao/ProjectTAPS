@@ -51,11 +51,12 @@ public class LoginAction extends Action {
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
 
+
 				// /TESTING HAPUS NANTI
 				pass = true;
 
-				if (tForm.getUsername().equals("inwan")) {
-					username = "inwan.ah";
+				if (tForm.getUsername().equals("kartiko")) {
+					username = "kartiko.ew";
 				} else if (tForm.getUsername().equals("devri")) {
 					username = "devri.rs";
 				} else if (tForm.getUsername().equals("mey")) {
@@ -72,14 +73,10 @@ public class LoginAction extends Action {
 
 					username = "lukas.ws";
 				}
-				tForm.setPassword("");
-				tForm.setUsername("");
-				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
 
+//				tForm.setPassword("");
+//				tForm.setUsername("");
+				if (pass) {
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
