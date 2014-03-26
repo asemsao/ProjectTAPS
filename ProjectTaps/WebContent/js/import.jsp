@@ -14,8 +14,8 @@
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/jquery/jquery.widget.min.js"></script>
 <script src="js/metro/metro.min.js"></script>
-<script src="js/metro/metro-calendar.js"></script>
-<script src="js/metro/metro-datepicker.js"></script>
+<!-- <script src="js/metro/metro-calendar.js"></script> -->
+<!-- <script src="js/metro/metro-datepicker.js"></script> -->
 <script src="js/other/assignment.js"></script>
 <script src="js/other/report.js"></script>
 <script src="js/other/no-document-ready-here.js"></script>
