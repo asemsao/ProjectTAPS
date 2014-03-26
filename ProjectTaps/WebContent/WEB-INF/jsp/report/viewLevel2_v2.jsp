@@ -220,11 +220,12 @@
 							</logic:notEmpty>
 								<tr>
 									<td colspan="5" class="text-right">
-										<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
-										<% if (!session.getAttribute("organizationLevel").equals("2")) {
-										%>										
-										<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
-										<% } %>
+									<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
+									<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
+												<logic:equal name="reportForm" property="organizationLevel" value="2">
+													<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
+												</logic:equal>
+									</logic:notEqual>
 									</td>
 								</tr>
 						</tbody>
