@@ -104,7 +104,7 @@ function newAssignmentSaveValidation() {
         	}
 		},
 		submitHandler : function(form) {
-			//form.submit();
+			form.submit();
 			return false;
 		}
 	});

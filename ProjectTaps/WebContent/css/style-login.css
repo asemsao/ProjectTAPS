@@ -121,16 +121,4 @@ label.check-label {
 
 .ad {
 	text-align: center;
-	border-left: 10px slateblue solid;
-	border-right: 10px slateblue solid;
-}
-
-.border-red {
-	border-left: 10px red solid;
-	border-right: 10px red solid;
-}
-
-.border-green {
-	border-left: 10px green solid;
-	border-right: 10px green solid;
 }
