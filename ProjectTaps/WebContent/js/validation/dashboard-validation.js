@@ -108,18 +108,18 @@ function commentDashboardValidation() {
 
 };
 
-function commentClaimDateStringValidation() {
+function detailClaimValidation() {
 
 	// =================================================================================
 	// Comment Claim
 	// =================================================================================
 
-	$('#claimDateString input[id="description"]').tooltipster({
+	$('#detailClaim input[id="description"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
-	$('#claimDateString input[id="manHours"]').tooltipster({
+	$('#detailClaim input[id="manHours"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
@@ -129,14 +129,14 @@ function commentClaimDateStringValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
-	$('#claimDateString input[id="assignmentDate"]').tooltipster({
+	$('#detailClaim input[id="assignmentDate"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 
 	// initialize validate plugin on the form
-	$('#claimDateString').validate({
+	$('#detailClaim').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
