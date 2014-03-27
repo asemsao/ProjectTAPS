@@ -252,11 +252,7 @@
 										<strong>)&nbsp;&nbsp;</strong>
 										<html:text property="newEmployee.mobileNumberMidNumb"
 											name="employeeForm" styleId="mobileNumberMidNumb"
-											style="width: 50px;" maxlength="4"></html:text>
-										&nbsp;
-										<html:text property="newEmployee.mobileNumberLastNumb"
-											name="employeeForm" styleId="mobileNumberLastNumb"
-											style="width: 70px;" maxlength="7"></html:text>
+											style="width: 100px;" maxlength="10"></html:text>
 									</div></td>
 							</tr>
 							<tr>
