@@ -65,13 +65,10 @@
 					<html:hidden property="stringClaimDate" name="dashboardForm"
 						styleId="claimDateString" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=4 class="text-center text-bold"><h3>Claim
 										Assignment</h3></td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -208,7 +205,6 @@
 										class="button info">Cancel</button>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 				</div>
 			</div>

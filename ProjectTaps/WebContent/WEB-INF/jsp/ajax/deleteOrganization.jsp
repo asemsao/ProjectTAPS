@@ -27,7 +27,6 @@
 			value="0">
 			<!-- TABEL ORG PROJECT -->
 			<table class="table striped bordered hovered">
-				<thead>
 					<tr>
 						<th colspan="3"><strong>Business Unit <bean:write
 									name="ajaxForm" property="organizationCode" /> Can't be
@@ -50,7 +49,6 @@
 									Unit </strong></td>
 						</tr>
 					</logic:notEqual>
-				</thead>
 			</table>
 
 			<div id="table-ajax-organization-delete">
@@ -120,8 +118,7 @@
 
 			<!-- PAGGING -->
 
-			<table class="table striped bordered hovered">
-				<thead>
+			<table class="table">
 					<tr>
 						<th colspan=3 class="text-center">
 							<div class="pagination">
@@ -176,7 +173,6 @@
 								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
 						</th>
 					</tr>
-				</thead>
 			</table>
 		</logic:equal>
 	</html:form>

@@ -8,11 +8,21 @@ $.validator.addMethod("notEqualToAssignmentTo", function(value, element) {
 
 $.validator.addMethod("phoneNumber", function(value, element) {
 	var flag=true;
-	if($('#phoneNumberAreaCode').val().length>0 && $('#phoneNumberMidNumb').val().length == 0){
+	if($('#phoneNumberAreaCode').val().length > 0 && $('#phoneNumberMidNumb').val().length == 0){
 		flag = false;
 	}
 	return  flag
 }, "You Must Input Prefix Phone Number");
+
+
+$.validator.addMethod("phoneExt", function(value, element) {
+	var flag=true;
+	if($('#phoneNumberAreaCode').val().length == 0 && $('#phoneNumberMidNumb').val().length == 0 && $('#phoneNumberLastNumb').val().length > 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Phone Number");
+
 
 
 $.validator.addMethod("phoneArea", function(value, element) {

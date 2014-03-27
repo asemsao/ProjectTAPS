@@ -135,14 +135,11 @@
 						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 					<div class="hide">
 						<table id="datatable" class="table striped bordered hovered">
-							<thead>
 								<tr>
 									<th></th>
 									<th>Manhour BU</th>
 									<th>Manhour Project</th>
 								</tr>
-							</thead>
-							<tbody>
 								<logic:notEmpty name="reportForm" property="listReports">
 									<logic:iterate id="report" name="reportForm"
 										property="listReports">
@@ -156,9 +153,7 @@
 										</logic:notEqual>
 									</logic:iterate>
 								</logic:notEmpty>
-							</tbody>
-						</table>
-					</div>
+							<tr>
 					<td colspan="5" class="text-right">
  							<logic:equal name="reportForm" property="organizationLevel" value="0">
  								<button class="primary"
@@ -171,9 +166,11 @@
 							Report </button>
  							</logic:equal>					
 							</td>
+							</tr>
+						</table>
+					</div>
 					<div id="print">					
 					<table id="datatableshow" class="table striped bordered hovered">
-						<thead>
 							<tr>
 								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/> </h3></th>
 							</tr>
@@ -215,8 +212,6 @@
 								<th class="text-center">PROJECT</th>
 								
 							</tr>
-						</thead>
-						<tbody>
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
@@ -256,7 +251,6 @@
 							</logic:notEqual>
 							</td>
 						</tr>
-						</tbody>
 						</table>
 					</div>
 				</div>
