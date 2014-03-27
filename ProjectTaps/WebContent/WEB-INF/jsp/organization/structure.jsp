@@ -63,7 +63,7 @@
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<thead>
 							<tr>
 								<th colspan="3"><h3>Business Unit Member</h3></th>
