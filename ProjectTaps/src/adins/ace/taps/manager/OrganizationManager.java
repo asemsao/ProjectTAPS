@@ -17,6 +17,34 @@ public class OrganizationManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
+	public void startTransaction() {
+		try {
+			ibatisSqlMap.startTransaction();
+			ibatisSqlMap.getDataSource().getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void commitTransaction() {
+		try {
+			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void rollback() {
+		try {
+			ibatisSqlMap.getDataSource().getConnection().rollback();
+			ibatisSqlMap.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public List<OrganizationBean> searchOrganizations(Map params) {
 		List<OrganizationBean> orgList = null;
 		try {
@@ -52,24 +80,25 @@ public class OrganizationManager {
 		}
 		return orgList;
 	}
-	
-	public String getOrganizationName(Map params){
+
+	public String getOrganizationName(Map params) {
 		String OrganizationName = "";
 		try {
 			ibatisSqlMap.startTransaction();
-			OrganizationName = (String) ibatisSqlMap.queryForObject("organization.selectOrganizationName", params);			
+			OrganizationName = (String) ibatisSqlMap.queryForObject(
+					"organization.selectOrganizationName", params);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
+		} finally {
 			try {
 				ibatisSqlMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-		return OrganizationName;		
+		return OrganizationName;
 	}
-	
+
 	public List<OrganizationBean> listProject(Map params) {
 		List<OrganizationBean> listProject = null;
 		try {
@@ -88,13 +117,13 @@ public class OrganizationManager {
 		}
 		return listProject;
 	}
-	
+
 	public List<OrganizationBean> listChild(Map params) {
 		List<OrganizationBean> listProject = null;
 		try {
 			ibatisSqlMap.startTransaction();
-			listProject = ibatisSqlMap.queryForList(
-					"organization.selectChild", params);
+			listProject = ibatisSqlMap.queryForList("organization.selectChild",
+					params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,7 +136,7 @@ public class OrganizationManager {
 		}
 		return listProject;
 	}
-	
+
 	public Integer countListProject(Map params) {
 		Integer count = null;
 		try {
@@ -126,7 +155,7 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-	
+
 	public Integer countListChild(Map params) {
 		Integer count = null;
 		try {
@@ -145,7 +174,6 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-	
 
 	public Integer countOrganizations(Map params) {
 		Integer count = null;
@@ -299,6 +327,18 @@ public class OrganizationManager {
 		}
 		return count;
 	}
+	
+	public Integer countRoleSPVNoStart(String headDomain) {
+		Integer count = null;
+		try {
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countRoleSPV", headDomain);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
 
 	public Integer countDirectReportProject(String headDomain) {
 		Integer count = null;
@@ -318,115 +358,99 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-
 	
+	public Integer countDirectReportProjectNoStart(String headDomain) {
+		Integer count = null;
+		try {
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.countDirectReport", headDomain);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	//
+	// if (orgMan.submitInsert(orgForm.getOrgBean())) {
+	// orgMan.insertRoleSPV(orgForm.getOrgBean());
+	// orgMan.insertRole(orgForm.getOrgBean());
+
 	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
 		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("organization.insertOrganization", eBean);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
+			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return flag;
 	}
 
-	public void insertRole(OrganizationBean eBean) throws SQLException,
+	public boolean insertRoleSPV(OrganizationBean eBean) throws SQLException,
 			IOException {
+		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("organization.insertRole", eBean);
-			ibatisSqlMap.commitTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void insertRoleSPV(OrganizationBean eBean) throws SQLException,
-			IOException {
-		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("organization.insertRoleSPV", eBean);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
+			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		return flag;
 	}
 
-	public void deleteRole(String headDomain) {
+	public boolean insertRole(OrganizationBean eBean) throws SQLException,
+			IOException {
+		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("organization.deleteRole", headDomain);
-			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.insert("organization.insertRole", eBean);
+			flag = true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		return flag;
 	}
-	
-	public void deleteRoleSPV(String headDomain) {
+
+	public boolean deleteRole(String headDomain) {
+		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("organization.deleteRoleSPV", headDomain);
-			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.insert("organization.deleteRole", headDomain);
+			flag = true;
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		return flag;
+	}
+
+	public boolean deleteRoleSPV(String headDomain) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.insert("organization.deleteRoleSPV", headDomain);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 	public boolean deleteOrganization(String organization_code) {
 		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.deleteOrganization",
 					organization_code);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 
 		} catch (SQLException e) {
 			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e2) {
-				flag = false;
-				e2.printStackTrace();
-			}
 		}
 		return flag;
 	}
@@ -496,84 +520,54 @@ public class OrganizationManager {
 	public boolean submitEdit(OrganizationBean orgBean) {
 		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("organization.editOrganization", orgBean);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				flag = false;
-				e.printStackTrace();
-			}
-		}
-		return flag;
-	}
-	
-	public boolean submitEditWithChild(OrganizationBean orgBean) {
-		boolean flag = false;
-		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("organization.editOrganizationWithChild", orgBean);
-			ibatisSqlMap.commitTransaction();
-			flag = true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			flag = false;
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				flag = false;
-				e.printStackTrace();
-			}
-		}
-		return flag;
-	}
-	
-	public boolean updateAssignment(OrganizationBean orgBean) {
-		boolean flag = false;
-		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("organization.updateAssignment", orgBean);
-			ibatisSqlMap.commitTransaction();
-			flag = true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			flag = false;
-			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				flag = false;
-				e.printStackTrace();
-			}
-		}
+		} 
 		return flag;
 	}
 
-	public void updateReportAssignment(OrganizationBean orgBean) {
+	public boolean submitEditWithChild(OrganizationBean orgBean) {
+		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("organization.updateReportAssignment", orgBean);
-			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.update("organization.editOrganizationWithChild",
+					orgBean);
+			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			flag = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} 
+		return flag;
+	}
+
+	public boolean updateAssignment(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateAssignment", orgBean);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+
+	public boolean updateReportAssignment(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateReportAssignment", orgBean);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
 		}
+		return flag;
 	}
 
 }

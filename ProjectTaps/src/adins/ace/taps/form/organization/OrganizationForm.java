@@ -23,7 +23,16 @@ public class OrganizationForm extends ActionForm {
 	private String color;
 	private String mode;
 	private String headDomain;
+	private String headDomainBefore;
 	private int countChild;
+
+	public String getHeadDomainBefore() {
+		return headDomainBefore;
+	}
+
+	public void setHeadDomainBefore(String headDomainBefore) {
+		this.headDomainBefore = headDomainBefore;
+	}
 
 	public int getCountChild() {
 		return countChild;

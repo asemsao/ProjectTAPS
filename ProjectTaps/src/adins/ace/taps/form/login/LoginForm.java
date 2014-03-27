@@ -9,6 +9,8 @@ public class LoginForm extends ActionForm{
 	private String task;
 	private String username;
 	private String password;
+	private String message;
+	private String color;
 	private boolean keepMeSign;
 	
 	public String getTask() {
@@ -34,5 +36,17 @@ public class LoginForm extends ActionForm{
 	}
 	public void setKeepMeSign(boolean keepMeSign) {
 		this.keepMeSign = keepMeSign;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

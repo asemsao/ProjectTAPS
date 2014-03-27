@@ -762,9 +762,12 @@
 		         (  SELECT   CASE
 					            WHEN MIN (created_date) BETWEEN SYSDATE - #maxDate# AND SYSDATE
 					            THEN
-					               'true'
+					            	'true'
+					            WHEN MIN (created_date) IS NULL
+					            THEN
+               						'true'
 					            ELSE
-					               'false'
+					            	'false'
 					         END
 					  FROM   stars s
 					 WHERE   a.task_code = s.task_code(+)
@@ -855,9 +858,12 @@
 		         	SELECT   CASE
 					            WHEN MIN (created_date) BETWEEN SYSDATE - #maxDate# AND SYSDATE
 					            THEN
-					               'true'
+					                'true'
+					            WHEN MIN (created_date) IS NULL
+					            THEN
+               						'true'
 					            ELSE
-					               'false'
+					                'false'
 					         END
 					  FROM   stars s
 					 WHERE   a.task_code = s.task_code(+)

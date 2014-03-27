@@ -205,36 +205,61 @@
 								<th  class="field-form size3">Appraisal Star</th>
 								<td class="field-separator">:</td>
 								<td colspan=2>
-									<div class="star-hider">
-										<div class="rating-kiri" style="float: left;">
-											<select id="rating-kiri" name="rating">
-												<option value="-5">-5</option>
-												<option value="-4">-4</option>
-												<option value="-3">-3</option>
-												<option value="-2">-2</option>
-												<option value="-1">-1</option>
-											</select>
+									<logic:equal value="true" property="claimBean.updateableStar" name="dashboardForm">
+										<div class="star-hider">
+											<div class="rating-kiri" style="float: left;">
+												<select id="rating-kiri" name="rating">
+													<option value="-5">-5</option>
+													<option value="-4">-4</option>
+													<option value="-3">-3</option>
+													<option value="-2">-2</option>
+													<option value="-1">-1</option>
+												</select>
+											</div>
+	
+											<div class="rating-tengah" style="float: left;">
+												<select id="rating-tengah" name="rating">
+													<option value="0">0</option>
+												</select>
+											</div>
+	
+											<div class="rating-kanan" style="float: left;">
+												<select id="rating-kanan" name="rating">
+													<option value="1">+1</option>
+													<option value="2">+2</option>
+													<option value="3">+3</option>
+													<option value="4">+4</option>
+													<option value="5">+5</option>
+												</select>
+											</div>
+											<p class="star"></p>
+											<html:hidden property="claimBean.appraisalStar" name="dashboardForm" styleId="star" />
+											<button type="button" id="edit-star-btn" class="default">Edit</button>
 										</div>
-
-										<div class="rating-tengah" style="float: left;">
-											<select id="rating-tengah" name="rating">
-												<option value="0">0</option>
-											</select>
-										</div>
-
-										<div class="rating-kanan" style="float: left;">
-											<select id="rating-kanan" name="rating">
-												<option value="1">+1</option>
-												<option value="2">+2</option>
-												<option value="3">+3</option>
-												<option value="4">+4</option>
-												<option value="5">+5</option>
-											</select>
-										</div>
-										<p class="star"></p>
-										<html:hidden property="claimBean.appraisalStar" styleId="star" />
-										<button type="button" id="edit-star-btn" class="default">Edit</button>
-									</div>
+									</logic:equal>
+									<logic:equal value="false" property="claimBean.updateableStar" name="dashboardForm">
+										<bean:define id="temp" name="dashboardForm" property="claimBean.appraisalStar" type="Integer" />
+ 										<%
+ 											Integer sc = temp;
+ 											if (sc > 0) {
+ 												for (int i = 0; i < sc; i++) {
+ 										%> 
+ 													<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+ 										<%
+ 												}
+ 											} else if (sc < 0) {
+ 												for (int i = 0; i < Math.abs(sc); i++) {
+ 										%>
+ 													<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+ 										<%
+ 												}
+ 											} else {
+ 										%>
+ 												<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+ 										<%
+ 											}
+ 										%>
+									</logic:equal>
 								</td>
 							</tr>
 							<tr>
