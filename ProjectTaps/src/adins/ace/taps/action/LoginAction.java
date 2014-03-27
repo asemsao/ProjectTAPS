@@ -51,25 +51,31 @@ public class LoginAction extends Action {
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
 
+
 				// /TESTING HAPUS NANTI
 				pass = true;
-				if (tForm.getUsername().equals("205")) {
-					username = "DOMAIN205";
-				} else if (tForm.getUsername().equals("201")) {
-					username = "DOMAIN201";
-				} else if (tForm.getUsername().equals("3")) {
-					username = "domain3";
-				} else {
-					username = "domain100";
-				}
-				tForm.setPassword("");
-				tForm.setUsername("");
-				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
 
+				if (tForm.getUsername().equals("kartiko")) {
+					username = "kartiko.ew";
+				} else if (tForm.getUsername().equals("devri")) {
+					username = "devri.rs";
+				} else if (tForm.getUsername().equals("mey")) {
+					username = "meyliana.tanjung";
+				} else if (tForm.getUsername().equals("nico")) {
+					username = "timotius.nico";
+				}  else if (tForm.getUsername().equals("wilson")) {
+					username = "wilson";
+				} else if (tForm.getUsername().equals("juned")) {
+					username = "muhammad.junaedy";
+				} else if (tForm.getUsername().equals("anthony")) {
+					username = "anthony.pangestu";
+				} else {
+					username = "lukas.ws";
+				}
+
+//				tForm.setPassword("");
+//				tForm.setUsername("");
+				if (pass) {
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
@@ -82,7 +88,7 @@ public class LoginAction extends Action {
 						session.setAttribute("recoveryMode", "true");
 					}
 					/* Star Achievement */
-					session.setAttribute("star", dMan.starAchievemet("domain3"));
+					session.setAttribute("star", dMan.starAchievemet(username));
 
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);

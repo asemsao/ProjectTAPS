@@ -6,6 +6,10 @@ $.validator.addMethod("notEqualToAssignmentTo", function(value, element) {
 	return $('#userDomain').val() != $('#employee-domain').val()
 }, "You Must Select Other People");
 
+/*$.validator.addMethod("phone", function(value, element) {
+	return isEmptyString($('#phoneNumberAreaCode').val()) ^ !isEmptyString($('#phoneNumberMidNumb').val())
+}, "You Must Select Other People");*/
+
 
 (function(d, f, g, b) {
 	var e = "tooltipster", c = {

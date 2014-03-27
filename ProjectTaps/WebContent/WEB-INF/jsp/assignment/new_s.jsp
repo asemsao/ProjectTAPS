@@ -22,7 +22,7 @@
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
-// 			newSelfAssignmentValidation();
+ 			newSelfAssignmentSaveValidation();
 		} else if (task == "RFA") {
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
@@ -64,23 +64,29 @@
 			}
 		});
 	}
+	
 	$(document).ready(function() {
 		var project_code = $("#project-code").val();
 		var organization_code = $("#organization-code-view").val();
 		var userDomain = $("#userDomain").val();
-		
 		$("#employee-name").val($("#employee-fullName").val());
 		$("#employee-name-2").val($("#employee-fullName-2").val());
 		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
 		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-		$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		
+		if ($("input[name='assignment_type']:checked").val() == "PROJECT") {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
+		} else {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		}
+		
 		$('#project-name').bind("change", function() {
 			setReportTo();
 		});
 		
 		$("input[name='assignment_type']").change(function() {
-			if ($(this).val() == "PROJECT") {
+			if ($("input[name='assignment_type']:checked").val() == "PROJECT") {
 				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");
 			} else {
 				$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");

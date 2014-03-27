@@ -44,7 +44,7 @@ public class NewSelfAssignmentAction extends Action {
 
 		if ("retreiveReportTo".equals(aForm.getNewTask())) {
 			Map param = new HashMap();
-			param.put("userDomain", "domain3");
+			param.put("userDomain", sessionUserDomain);
 			param.put("projectCode", request.getParameter("projectCode"));
 			PrintWriter out = response.getWriter();
 			NewAssignmentBean bean = aMan.searchDirectReportProject(param);

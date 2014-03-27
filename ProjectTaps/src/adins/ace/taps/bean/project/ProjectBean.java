@@ -16,6 +16,7 @@ public class ProjectBean implements Serializable {
 	private String endDate;
 	private String projectShortName;
 	private int runningDay;
+	private String userdomain;
 
 	public String getProjectCode() {
 		return projectCode;
@@ -103,6 +104,14 @@ public class ProjectBean implements Serializable {
 
 	public void setProjectShortName(String projectShortName) {
 		this.projectShortName = projectShortName;
+	}
+
+	public String getUserdomain() {
+		return userdomain;
+	}
+
+	public void setUserdomain(String userdomain) {
+		this.userdomain = userdomain;
 	}
 
 }

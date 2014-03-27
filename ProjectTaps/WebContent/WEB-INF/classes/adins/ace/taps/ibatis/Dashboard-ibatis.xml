@@ -7,75 +7,56 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<typeAlias alias="dashboardBean"
 		type="adins.ace.taps.bean.dashboard.DashboardBean" />
 
-	<select id="starAchievement" resultClass="int" parameterClass="java.lang.String">
-		SELECT 	NVL(SUM (star_after) - SUM (star_before),0) AS totalStar
-				FROM stars
-		WHERE 	user_domain = #userDomain# AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-	</select>
-	
-
 	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
-		FROM (	  SELECT   emp.user_domain AS userDomain,
-						   emp.first_name || ' ' || emp.last_name AS employeeName,
-				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
-				              FROM   stars s
-				             WHERE   emp.user_domain = s.user_domain(+)
-							<dynamic prepend="AND">
-								<isNotNull property="currentMonth">
-									<isNotEmpty property="currentMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>
-							<dynamic prepend="AND">
-								<isNotNull property="lastMonth">
-									<isNotEmpty property="lastMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>				             
-				            )
-				              AS totalStar
-				    FROM   employees emp
-				   WHERE   emp.flag = 'ACTIVE'
-				           AND emp.user_domain NOT IN (SELECT   r.user_domain
-				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
-				ORDER BY   totalStar DESC, employeeName)
+		FROM (	SELECT 	e.user_domain AS userDomain, 
+						e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
+						SUM (s.star_after) - SUM (s.star_before) AS totalStar
+						FROM employees e, stars s
+				WHERE 	e.user_domain = s.user_domain
+				<dynamic prepend="AND">
+					<isNotNull property="currentMonth">
+						<isNotEmpty property="currentMonth">
+							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+				<dynamic prepend="AND">
+					<isNotNull property="lastMonth">
+						<isNotEmpty property="lastMonth">
+							TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+						</isNotEmpty>
+					</isNotNull>
+				</dynamic>
+				GROUP BY e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
+				ORDER BY totalStar DESC)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
 	<select id="searchTopTenOrganization" resultClass="dashboardBean" parameterClass="java.util.Map">
-		SELECT * 
-		FROM (	  SELECT   emp.user_domain AS userDomain,
-						   emp.first_name || ' ' || emp.last_name AS employeeName,
-				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
-				              FROM   stars s
-				             WHERE   emp.user_domain = s.user_domain(+) 
-							<dynamic prepend="AND">
-								<isNotNull property="currentMonth">
-									<isNotEmpty property="currentMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>
-							<dynamic prepend="AND">
-								<isNotNull property="lastMonth">
-									<isNotEmpty property="lastMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>				             
-				            )
-				              AS totalStar
-				    FROM   employees emp
-				   WHERE   emp.flag = 'ACTIVE' AND UPPER(EMP.ORGANIZATION_CODE) = UPPER(#organizationCode#)
-				           AND emp.user_domain NOT IN (SELECT   r.user_domain
-				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
-				ORDER BY   totalStar DESC, employeeName)
-		WHERE <![CDATA[ROWNUM <= 10]]>
+		SELECT   *
+		FROM   (  SELECT   	e.user_domain AS userDomain, 
+							e.employee_code, e.first_name ||' '|| e.last_name as employeeName,
+		                   	SUM (s.star_after) - SUM (s.star_before) AS totalStar
+		            FROM   	employees e, stars s
+		           WHERE   	e.user_domain = s.user_domain  AND UPPER(E.ORGANIZATION_CODE) = UPPER(#organizationCode#)
+		    		<dynamic prepend="AND">
+						<isNotNull property="currentMonth">
+							<isNotEmpty property="currentMonth">
+								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+							</isNotEmpty>
+						</isNotNull>
+					</dynamic>
+					<dynamic prepend="AND">
+						<isNotNull property="lastMonth">
+							<isNotEmpty property="lastMonth">
+								TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+							</isNotEmpty>
+						</isNotNull>
+					</dynamic>
+		        GROUP BY   	e.user_domain, e.employee_code, e.first_name ||' '|| e.last_name
+		        ORDER BY   	totalStar DESC)
+		WHERE   <![CDATA[ROWNUM <= 10]]>
 	</select>
 
 	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.dashboard.DashboardBean"
@@ -87,65 +68,31 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="claimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalClaim
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim')
+	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim') AND flag='INACTIVE'
 	</select>
 	
 	<select id="approvalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFA
 	 	FROM   		assignments
 	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
-	 	AND assignment_category = 'ASSIGNMENT'
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="approvalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFAself
 	 	FROM   		assignments
 	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
-	 	AND assignment_category = 'SELF ASSIGNMENT' 
+	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="correctionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrection
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
-	 	AND assignment_category = 'ASSIGNMENT' 
+	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="correctionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
-		SELECT   	COUNT (task_code) AS totalCorrectionself
-	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
-	 	AND assignment_category = 'SELF ASSIGNMENT' 
-	</select>
-	
-	<select id="unreadClaimDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
-		SELECT   	COUNT (task_code) AS totalClaim
-	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('claim') AND flag='INACTIVE'
-	</select>
-	
-	<select id="unreadApprovalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
-		SELECT   	COUNT (task_code) AS totalRFA
-	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
-	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
-	</select>
-	
-	<select id="unreadApprovalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
-		SELECT   	COUNT (task_code) AS totalRFAself
-	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
-	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
-	</select>
-	
-	<select id="unreadCorrectionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
-		SELECT   	COUNT (task_code) AS totalCorrection
-	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
-	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
-	</select>
-	
-	<select id="unreadCorrectionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrectionself
 	 	FROM   		assignments
 	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
@@ -155,8 +102,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listClaim" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
+				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -199,7 +145,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, claimDate DESC
+				ORDER BY a.created_date DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -247,8 +193,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listCorrection" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
+				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -291,7 +236,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, claimDate DESC
+				ORDER BY a.created_date DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -339,8 +284,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listCorrectionSelf" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
+				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -383,7 +327,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, claimDate DESC
+				ORDER BY a.created_date DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -431,8 +375,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listApproval" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
+				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -475,7 +418,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, claimDate DESC
+				ORDER BY a.created_date DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -523,8 +466,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listApprovalSelf" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
-						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
+				SELECT 	to_char(a.assignment_date,'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
@@ -567,7 +509,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 						</isNotNull>
 					</isNotNull>
 				</dynamic>
-				ORDER BY flag DESC, claimDate DESC
+				ORDER BY a.created_date DESC
 			) a WHERE <![CDATA[ROWNUM <= #end#]]>
 		)
 		WHERE <![CDATA[seqnumb >= #start#]]>
@@ -614,7 +556,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	
 	<select id="searchRecordAssignment" resultClass="adins.ace.taps.bean.dashboard.DashboardBean" parameterClass="java.lang.String">
 		SELECT 	a.task_code AS taskCode,
-				TO_CHAR((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY') AS assignmentDate,
+				TO_CHAR(a.assignment_date,'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 				TO_CHAR(a.assignment_due_date,'DD/MM/YYYY') AS assignmentDueDate,
 				a.assignment_type AS assignmentType,
 				a.assign_to AS assignTo,
@@ -624,7 +566,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				a.reff_task_code AS reffTaskCode,
 				a.description AS description
 		FROM assignments a, employees e, employees e2
-		WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain(+) AND a.report_to = e2.user_domain(+)
+		WHERE a.task_code = #taskCode# AND a.assign_to = e.user_domain AND a.report_to = e2.user_domain
 	</select>
-	
 </sqlMap>

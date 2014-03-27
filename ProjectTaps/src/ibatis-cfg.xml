@@ -8,7 +8,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 
 	<transactionManager type="JDBC" commitRequired="true">
 		<property name="UserTransaction" value="java:comp/UserTransaction" />
-
 		<dataSource type="SIMPLE">
 			<property name="JDBC.Driver" value="oracle.jdbc.OracleDriver" />
 			<property name="JDBC.ConnectionURL" value="jdbc:oracle:thin:@localhost:1521:xe" />

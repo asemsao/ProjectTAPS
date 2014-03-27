@@ -22,11 +22,10 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-// 			newAssignmentValidation();
+			newAssignmentSaveValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
-			alert(getRadioValue("assignment_type"));
 			newAssignmentValidation();
 		}
 	}

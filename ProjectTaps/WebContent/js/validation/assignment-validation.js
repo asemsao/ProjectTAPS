@@ -1,3 +1,116 @@
+function commentAssigmentValidation() {
+
+	// =================================================================================
+	// Comment Assignment
+	// =================================================================================
+
+	$('#claimAssignment input[id="comment"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+
+	// initialize validate plugin on the form
+	$('#claimAssignment').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'claimBean.comment' : {
+				required : true
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+
+};
+
+function newAssignmentSaveValidation() {
+
+	// =================================================================================
+	// New Self Assignment SAVE
+	// =================================================================================
+
+	$('#newAssignment input[id="project-name"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+
+	// initialize validate plugin on the form
+	$('#newAssignment').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'assignmentBean.projectName' : {
+				required : true
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+
+};
+
+
+function newCorrectionAssignmentValidation() {
+
+	// =================================================================================
+	// New Self Assignment Correction
+	// =================================================================================
+	$('#employee-name').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+
+	// initialize validate plugin on the form
+	$('#selfAssignment').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'selfAssignBean.projectName' : {
+				required : true
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+
+};
+
+
+
 function newAssignmentValidation() {
 	
 	// =================================================================================

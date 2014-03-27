@@ -24,11 +24,19 @@
 
 	function enablingLogin() {
 		$("#login-btn").removeAttr('disabled');
+		$("#login-btn").removeClass('login-disable');
+		$("#login-btn").addClass('login-enable');
+		$("#login-btn i").removeClass('color-disable');
+		$("#login-btn i").addClass('color-enable');
 		$("#login-btn").attr('style', 'cursor: pointer;');
 		$("#login-btn").attr('src', 'images/LOGIN_ENABLE.png');
 	}
 	function disablingLogin() {
 		$("#login-btn").attr('disabled', 'disabled');
+		$("#login-btn").removeClass('login-enable');
+		$("#login-btn").addClass('login-disable');
+		$("#login-btn i").removeClass('color-enable');
+		$("#login-btn i").addClass('color-disable');
 		$("#login-btn").attr('style', 'cursor: default;');
 		$("#login-btn").attr('src', 'images/LOGIN_DISABLE.png');
 	}
@@ -65,9 +73,11 @@
 	<div class="panel-taps">
 		<br /> <br /> <img src="images/LOGO_PANJANG3_LOGIN.png"
 			class="logo-taps" />
-		<h1 class="title-taps">Sign in to TAPS</h1>
+		<h1 class="title-taps">Please sign in</h1>
 		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
+			
+			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
 				styleClass="textbox-taps" />
 			<br />
@@ -83,10 +93,10 @@
 			<!-- 				</label> -->
 			<!-- 			</div> -->
 			<br />
+			<br />
 			<div class="input-control align-center">
-				<html:image styleClass="login-taps" styleId="login-btn"
-					src="images/LOGIN_DISABLE.png" onmouseover="hover(this);"
-					onmouseout="unhover(this)" onclick="button('login')"></html:image>
+				<button class="login-taps login-disable" id="login-btn" onmouseover="hover(this);"
+					onmouseout="unhover(this)" onclick="button('login')">Sign in <i class="icon-arrow-right-4 color-disable"></i></button>
 			</div>
 		</html:form>
 	</div>

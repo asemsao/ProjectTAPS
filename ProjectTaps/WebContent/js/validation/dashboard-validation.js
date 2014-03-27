@@ -1,17 +1,17 @@
-function newSelfAssignmentSaveValidation() {
+function commentDashboardValidationSelf() {
 
 	// =================================================================================
-	// New Self Assignment SAVE
+	// Comment Dashboard
 	// =================================================================================
 
-	$('#newSelfAssignment input[id="project-name"]').tooltipster({
+	$('#dashboardComment input[id="comment"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 
 	// initialize validate plugin on the form
-	$('#newSelfAssignment').validate({
+	$('#dashboardComment').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
@@ -23,7 +23,7 @@ function newSelfAssignmentSaveValidation() {
 			$(element).tooltipster('update', 'accepted');
 		},
 		rules : {
-			'selfAssignBean.projectName' : {
+			'selfAssignBean.comment' : {
 				required : true
 			}
 		},
@@ -35,45 +35,20 @@ function newSelfAssignmentSaveValidation() {
 
 };
 
-
-function newSelfAssignmentValidation() {
+function commentDashboardValidation() {
 
 	// =================================================================================
-	// New Self Assignment
+	// Comment Dashboard
 	// =================================================================================
-	$('#newSelfAssignment input[id="assignmentDate"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-	$('#newSelfAssignment input[id="project-name"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-	$('#newSelfAssignment input[id="employee-name"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-	$('#newSelfAssignment input[id="employee-name-2"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-	$('#newSelfAssignment input[id="timepicker"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-	$('#description').tooltipster({
+
+	$('#dashboardComment input[id="comment"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 
 	// initialize validate plugin on the form
-	$('#newSelfAssignment').validate({
+	$('#dashboardComment').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
@@ -85,23 +60,44 @@ function newSelfAssignmentValidation() {
 			$(element).tooltipster('update', 'accepted');
 		},
 		rules : {
-			'selfAssignBean.assignmentDate' : {
+			'claimBean.comment' : {
 				required : true
-			},
-			'selfAssignBean.projectName' : {
-				required : true
-			},
-			'selfAssignBean.reportToFullName' : {
-				required : true,
-				notEqualToAssignmentTo: true
-			},
-			'selfAssignBean.adhocFullName' : {
-				required : true
-			},
-			'selfAssignBean.assignmentTime' : {
-				required : true
-			},
-			'selfAssignBean.description' : {
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+			return false;
+		}
+	});
+
+};
+
+function commentClaimDateStringValidation() {
+
+	// =================================================================================
+	// Comment Claim
+	// =================================================================================
+
+	$('#claimDateString input[id="description"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+
+	// initialize validate plugin on the form
+	$('#claimDateString').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+			'claimBean.detailDescription' : {
 				required : true
 			}
 		},

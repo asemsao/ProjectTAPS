@@ -9,8 +9,8 @@
 <%@include file="CrystalReportHelper.jsp"%>
 <body>
 	<%!private final String REPORT_NAME = "ReportForManagement.rpt";%>
-	<%
 		try {
+
 	    ReportClientDocument report = getClientDocument(REPORT_NAME);
 	      try {
 	 	 int i = 0;
@@ -43,10 +43,16 @@
 	      }
 
 
-	} catch(Exception ex) {
-	    out.println("Unexpected error, cannot print report!");
-	    ex.printStackTrace();
-	}
+				viewReport(report, request, response, session);
+			} finally {
+				report.close();
+				report.dispose();
+			}
+
+		} catch (Exception ex) {
+			out.println("Unexpected error, cannot print report!");
+			ex.printStackTrace();
+		}
 	%>
 </body>
 </html>
