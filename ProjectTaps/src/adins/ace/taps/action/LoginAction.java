@@ -68,7 +68,8 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-					username = "lukas.ws";
+//					username = "lukas.ws";
+					username = tForm.getUsername();
 				}
 				tForm.setPassword("");
 				tForm.setUsername("");
