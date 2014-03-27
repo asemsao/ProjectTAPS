@@ -52,14 +52,11 @@
 				<html:form action="/specialAppraisal" method="post"
 					styleClass="specialAppraisalForm">
 					
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan=2 class="text-center"><h3>Special
 										Appraisal</h3></th>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Appraisal Date From</th>
 								<th>
@@ -92,7 +89,6 @@
 									</div>
 								</th>
 							</tr>
-						</tbody>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -156,7 +152,7 @@
 						</tbody>
 					</table>
 					
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<tr>
 							<td class="text-center">
 								<div class="pagination">

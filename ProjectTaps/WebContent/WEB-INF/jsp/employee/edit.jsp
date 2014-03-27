@@ -23,7 +23,8 @@
 	$(document)
 			.ready(
 					function() {
-						$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
+						$("#__input_file_wrapper__").attr('placeholder',
+								'Browse File');
 						$("#employeeDomain").attr("placeholder",
 								"Employee Domain");
 						$("#employeeCode").attr("placeholder", "Employee Code");
@@ -38,7 +39,8 @@
 						$("#phoneNumberLastNumb").attr("placeholder", "Ext");
 						$("#mobileNumberAreaCode").attr("placeholder", "Area");
 						$("#mobileNumberMidNumb").attr("placeholder", "Prefix");
-						$("#mobileNumberLastNumb").attr("placeholder", "Prefix");
+						$("#mobileNumberLastNumb")
+								.attr("placeholder", "Prefix");
 						$("#email").attr("placeholder", "Email");
 						$("#lookUpOrganization")
 								.load(
@@ -115,7 +117,8 @@
 									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+										<html:file property="profilePicture" accept="image/*"
+											styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%
@@ -136,7 +139,8 @@
 									src="<%=request.getContextPath()%>/images/user.png"
 									class="cycle avatar"> <br>
 									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+										<html:file property="profilePicture" accept="image/*"
+											styleClass="profilePicture"></html:file>
 										<button class="btn-file"></button>
 									</div></td>
 								<%
@@ -227,32 +231,41 @@
 								<th class="field-form">Address</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field"
-											name="employeeForm" styleId="employeeAddress"></html:textarea>
+										<html:textarea property="newEmployee.employeeAddress"
+											styleClass="address-field" name="employeeForm"
+											styleId="employeeAddress"></html:textarea>
 									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Phone No</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
-									<strong>(</strong>
-									<html:text property="newEmployee.phoneNumberAreaCode" name="employeeForm" styleId="phoneNumberAreaCode" style="width: 45px;" maxlength="4"></html:text>
-									<strong>)&nbsp;&nbsp;</strong>
-									<html:text property="newEmployee.phoneNumberMidNumb" name="employeeForm" styleId="phoneNumberMidNumb" style="width: 70px;" maxlength="7"></html:text>
-									<strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
-									<html:text property="newEmployee.phoneNumberLastNumb" name="employeeForm" styleId="phoneNumberLastNumb" style="width: 50px;" maxlength="4"></html:text>
+										<strong>(</strong>
+										<html:text property="newEmployee.phoneNumberAreaCode"
+											name="employeeForm" styleId="phoneNumberAreaCode"
+											style="width: 45px;" maxlength="4"></html:text>
+										<strong>)&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.phoneNumberMidNumb"
+											name="employeeForm" styleId="phoneNumberMidNumb"
+											style="width: 70px;" maxlength="7"></html:text>
+										<strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.phoneNumberLastNumb"
+											name="employeeForm" styleId="phoneNumberLastNumb"
+											style="width: 50px;" maxlength="4"></html:text>
 									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Mobile No</th>
 								<td class="field-separator">:</td>
 								<td colspan="2"><div class="input-control text ">
-									<strong>(</strong>
-									<html:text property="newEmployee.mobileNumberAreaCode" name="employeeForm" styleId="mobileNumberAreaCode" style="width: 45px;" maxlength="4"></html:text>
-									<strong>)&nbsp;&nbsp;</strong>
-									<html:text property="newEmployee.mobileNumberMidNumb" name="employeeForm" styleId="mobileNumberMidNumb" style="width: 50px;" maxlength="4"></html:text>
-									&nbsp;
-									<html:text property="newEmployee.mobileNumberLastNumb" name="employeeForm" styleId="mobileNumberLastNumb" style="width: 70px;" maxlength="7"></html:text>
+										<strong>(</strong>
+										<html:text property="newEmployee.mobileNumberAreaCode"
+											name="employeeForm" styleId="mobileNumberAreaCode"
+											style="width: 45px;" maxlength="4"></html:text>
+										<strong>)&nbsp;&nbsp;</strong>
+										<html:text property="newEmployee.mobileNumberMidNumb"
+											name="employeeForm" styleId="mobileNumberMidNumb"
+											style="width: 100px;" maxlength="10"></html:text>
 									</div></td>
 							</tr>
 							<tr>

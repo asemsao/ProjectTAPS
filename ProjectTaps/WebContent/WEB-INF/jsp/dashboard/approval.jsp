@@ -69,14 +69,11 @@
 					<html:hidden property="claimBean.taskCode" name="dashboardForm"
 						styleId="task-code" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=4 class="text-center text-bold">
 									<h3>Request For Approval Assignment</h3>
 								</td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -119,14 +116,11 @@
 								<td class="field-separator">:</td>
 								<td colspan=2><logic:notEmpty property="listDetailClaim" name="dashboardForm">
 										<table class="table striped bordered hovered">
-											<thead>
 												<tr>
 													<th>Claim Date</th>
 													<th>Description</th>
 													<th>ManHours</th>
 												</tr>
-											</thead>
-											<tbody>
 												<tr>
 													<logic:iterate id="assignment" property="listDetailClaim" name="dashboardForm">
 														<tr>
@@ -275,7 +269,6 @@
 									<button onclick="javascript:flyToPage('reject');" class="button danger">Reject</button>
 									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 							</tr>
-						</tbody>
 					</table>
 					<html:hidden property="task" name="dashboardForm" />
 					<html:hidden property="claimBean.assignTo" name="dashboardForm" />

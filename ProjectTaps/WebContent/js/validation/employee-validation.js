@@ -120,12 +120,12 @@ function employeeValidation() {
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
-	});
+	});/*
 	$('#employeeAddEdit input[id="mobileNumberLastNumb"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
-	});
+	});*/
 	$('#employeeAddEdit input[id="email"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
@@ -177,11 +177,13 @@ function employeeValidation() {
 			},
 			'newEmployee.phoneNumberAreaCode' : {
 				digits : true,
-				phoneArea : true
+				phoneArea : true,
+				phoneExt : true
 			},
 			'newEmployee.phoneNumberMidNumb' : {
 				digits : true,
-				phoneNumber : true
+				phoneNumber : true,
+				phoneExt : true
 			},
 			'newEmployee.phoneNumberLastNumb' : {
 				digits : true
@@ -193,10 +195,10 @@ function employeeValidation() {
 			'newEmployee.mobileNumberMidNumb' : {
 				digits : true,
 				mobileNumber : true
-			},
+			},/*
 			'newEmployee.mobileNumberLastNumb' : {
 				digits : true
-			},
+			},*/
 			'newEmployee.email' : {
 				required : true,
 				email : true

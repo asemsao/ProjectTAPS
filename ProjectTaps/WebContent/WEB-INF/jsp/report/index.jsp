@@ -46,12 +46,9 @@
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 					<table class="table">
-						<thead>
 							<tr>
 								<th colspan=3 class="text-center"><h3>Generate Report</h3></th>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Year</th>
 								<td class="field-separator">:</td>
@@ -142,7 +139,6 @@
 									<button onclick="report('view');" class="info">View Report</button>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 				</div>
 			</div>

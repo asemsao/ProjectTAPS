@@ -21,8 +21,7 @@
 			name="ajaxForm" />
 		<html:hidden property="level" styleId="level-organization"
 			name="ajaxForm" />
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=5 class="text-center">Business Unit List</th>
 				</tr>
@@ -48,7 +47,6 @@
 						</div>
 					</th>
 				</tr>
-			</thead>
 		</table>
 		<div id="table-ajax-organization">
 			<table class="table striped bordered hovered">
@@ -87,8 +85,7 @@
 				</tbody>
 			</table>
 		</div>
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=3 class="text-center">
 						<div class="pagination">
@@ -119,7 +116,6 @@
 					<th class="text-center"><button type="button"
 							class='button success' onclick="javascript:chooseOrganization()">Add</button></th>
 				</tr>
-			</thead>
 		</table>
 	</html:form>
 </body>

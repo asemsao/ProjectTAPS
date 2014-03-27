@@ -18,8 +18,7 @@
 		<html:hidden property="page" styleId="page-project" name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-project"
 			name="ajaxForm" />
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=7 class="text-center">Projects List</th>
 				</tr>
@@ -47,7 +46,6 @@
 						</div>
 					</th>
 				</tr>
-			</thead>
 		</table>
 		<div id="table-ajax-project">
 			<table class="table striped bordered hovered">
@@ -94,8 +92,7 @@
 				</tbody>
 			</table>
 		</div>
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=6 class="text-center">
 						<div class="pagination">
@@ -125,7 +122,6 @@
 					<th class="text-center"><button type="button"
 							class='button success' onclick="javascript:chooseProject()">Add</button></th>
 				</tr>
-			</thead>
 		</table>
 	</html:form>
 </body>
