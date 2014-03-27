@@ -20,14 +20,41 @@ public class AssignmentManager {
 	public AssignmentManager() {
 		this.ibatisSQLMap = IbatisHelper.getSqlMapInstance();
 	}
-
+	
+	public void startTransaction(){
+		try {
+			ibatisSQLMap.startTransaction();
+			ibatisSQLMap.getDataSource().getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void commitTransaction(){
+		try {
+			ibatisSQLMap.commitTransaction();
+			ibatisSQLMap.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void rollback(){
+		try {
+			ibatisSQLMap.getDataSource().getConnection().rollback();
+			ibatisSQLMap.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	// *********************************EmployeeReportSupervisor*************************************//
 	public Integer countEmployeeReportSupervisor(Map params) {
 		Integer count = null;
 		try {
 			ibatisSQLMap.startTransaction();
-			count = (Integer) ibatisSQLMap.queryForObject(
-					"assignment.countEmployeeReportSupervisor", params);
+			count = (Integer) ibatisSQLMap.queryForObject("assignment.countEmployeeReportSupervisor", params);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -248,20 +275,12 @@ public class AssignmentManager {
 	public boolean addSelfAssignment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addSelfAssignment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to add self assignment");
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
@@ -551,40 +570,24 @@ public class AssignmentManager {
 	public boolean editSelfAssignment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.update("assignment.editSelfAssignment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to add self assignment");
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
 	public boolean editDetailClaim(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.update("assignment.editClaimSelfAssignment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to edit detail claim assignment");
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
@@ -695,78 +698,46 @@ public class AssignmentManager {
 	public boolean addDetailClaim(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addDetailClaim", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to add detail claim assignment");
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
 	public boolean addDetailClaimAssignment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addDetailClaimAssignment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			System.out.println("Failed to add detail claim assignment");
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
 	public boolean addHistoryComment(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addHistoryComment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
 	public boolean addHistorySelfComment(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addHistorySelfComment", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
@@ -774,19 +745,11 @@ public class AssignmentManager {
 		System.out.println(paramStatus);
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.updateStatusAssignment",
 					paramStatus);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
 		}
 		return success;
 	}
@@ -794,38 +757,22 @@ public class AssignmentManager {
 	public boolean addAssignmentStar(ClaimAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addAssignmentStar", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
 	public boolean addSelfAssignmentStar(NewAssignmentBean bean) {
 		boolean success = true;
 		try {
-			ibatisSQLMap.startTransaction();
 			ibatisSQLMap.insert("assignment.addSelfAssignmentStar", bean);
-			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSQLMap.endTransaction();
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
+		} 
 		return success;
 	}
 
@@ -990,15 +937,15 @@ public class AssignmentManager {
 	public ClaimAssignmentBean emailToSupervisorAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
-			ibatisSQLMap.startTransaction();
+//			ibatisSQLMap.startTransaction();
 			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
 					"assignment.emailToSupervisorAssignment", params);
-			ibatisSQLMap.commitTransaction();
+//			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				ibatisSQLMap.endTransaction();
+//				ibatisSQLMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -1009,15 +956,15 @@ public class AssignmentManager {
 	public ClaimAssignmentBean emailToEmployeeAssignment(Map params) {
 		ClaimAssignmentBean assignmentBean = new ClaimAssignmentBean();
 		try {
-			ibatisSQLMap.startTransaction();
+//			ibatisSQLMap.startTransaction();
 			assignmentBean = (ClaimAssignmentBean) ibatisSQLMap.queryForObject(
 					"assignment.emailToEmployeeAssignment", params);
-			ibatisSQLMap.commitTransaction();
+//			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				ibatisSQLMap.endTransaction();
+//				ibatisSQLMap.endTransaction();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

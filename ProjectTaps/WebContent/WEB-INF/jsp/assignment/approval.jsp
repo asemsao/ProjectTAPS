@@ -162,16 +162,16 @@
 																					|| "CORRECTION".equals(session
 																							.getAttribute("status"))
 																					|| "REJECTED".equals(session
+																							.getAttribute("status"))
+																					|| "APPROVED".equals(session
 																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription" name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
-																} else if ("RFA".equals(session.getAttribute("status"))
-																					|| "APPROVED".equals(session
-																							.getAttribute("status"))) {
+																} else if ("RFA".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription" name="assignment" rows="2" readonly="readonly"
+															<td><html:textarea property="detailDescription" name="assignment" rows="2"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<%
 																}

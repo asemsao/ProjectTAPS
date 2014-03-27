@@ -37,6 +37,9 @@ public class SelfSupervisorAssignmentAction extends Action {
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo(sForm.getSelfAssignBean().getAssignTo());
 		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
+		boolean comment = false;
+		boolean update = false;
+		boolean starSuccess = false;
 		
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
@@ -53,21 +56,23 @@ public class SelfSupervisorAssignmentAction extends Action {
 			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(sForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			sForm.getSelfAssignBean().setCurrentStatus("APPROVED");
-			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
 			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
-			boolean success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			session.removeAttribute("taskCode");
 			//update table star
 			sForm.getSelfAssignBean().setStarBefore(0);
-			boolean starSuccess = aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			starSuccess = aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success && starSuccess) {
+			if (comment && update && starSuccess) {
+				aMan.commitTransaction();
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
@@ -76,6 +81,8 @@ public class SelfSupervisorAssignmentAction extends Action {
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
@@ -91,17 +98,19 @@ public class SelfSupervisorAssignmentAction extends Action {
 			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(sForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			sForm.getSelfAssignBean().setCurrentStatus("CORRECTION");
-			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
 			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
-			boolean success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
@@ -110,24 +119,26 @@ public class SelfSupervisorAssignmentAction extends Action {
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
-			System.out.println(success);
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(sForm.getTask())) {
 			//add comment and change status to rejected
+			aMan.startTransaction();
 			sForm.getSelfAssignBean().setCurrentStatus("REJECTED");
-			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", sForm.getSelfAssignBean().getCurrentStatus());
 			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
-			boolean success = aMan.updateStatus(paramStatus);
-			System.out.println(success);
+			update = aMan.updateStatus(paramStatus);
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
@@ -136,31 +147,36 @@ public class SelfSupervisorAssignmentAction extends Action {
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
 			
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(sForm.getTask())) {
 			// update tabel star 
-			System.out.println(aMan.searchLastStar(taskCode));
 			if(aMan.searchLastStar(taskCode) == null){
 				sForm.getSelfAssignBean().setStarBefore(0);
 			}else{
 				sForm.getSelfAssignBean().setStarBefore(aMan.searchLastStar(taskCode));
 			}
-			
-			aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			aMan.startTransaction();
+			starSuccess = aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
+			if (starSuccess){
+				aMan.commitTransaction();
+			} else {
+				aMan.rollback();
+			}
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} 
 		
 		//show record self assignment
-		//for approved self assignment, update-star button only show within certain days after it's being approved
+		//for approved self assignment, update-star button only show within certain days after it's been approved
 		//to set the range date for update star, change the value max_date from config.properties
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));
-		
 		sForm.setSelfAssignBean(aMan.searchRecordSelfAssignment(params));
 		
 		/*this session to check assignment type in self_correction.jsp*/

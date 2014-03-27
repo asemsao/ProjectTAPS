@@ -85,18 +85,14 @@ public class NewSelfAssignmentAction extends Action {
 
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
-					aForm.getSelfAssignBean().setReportTo(
-							aForm.getSelfAssignBean().getHeadUserDomain());
+					aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
 					aForm.getSelfAssignBean().setProjectCode(null);
-					paramCode = (String)session.getAttribute("organizationCode")
-							+ dateFormat.format(date);
-					paramCode = paramCode
-							+ aMan.getMaxTaskCodeOrganization(paramCode);
+					aForm.getSelfAssignBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
+					paramCode = (String)session.getAttribute("organizationCode") + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getSelfAssignBean().getProjectCode()
-							+ dateFormat.format(date);
-					paramCode = paramCode
-							+ aMan.getMaxTaskCodeProject(paramCode);
+					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
 				}
 
 				if (!("ADHOC".equals(aForm.getActivityType()))) {
@@ -106,7 +102,6 @@ public class NewSelfAssignmentAction extends Action {
 				aForm.getSelfAssignBean().setTaskCode(paramCode);
 				aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
 				aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
-				aForm.getSelfAssignBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
 				String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + aForm.getSelfAssignBean().getAssignmentTime();
 				aForm.getSelfAssignBean().setClaimDate(assignmentDate);
 				if ("save".equals(aForm.getNewTask())) {
@@ -122,16 +117,20 @@ public class NewSelfAssignmentAction extends Action {
 				if (taskCode != null) {
 					aForm.getSelfAssignBean().setTaskCode(taskCode);
 					aForm.getSelfAssignBean().setUpdatedBy(sessionUserDomain);
-					insertToAssignment = aMan.editSelfAssignment(aForm
-							.getSelfAssignBean());
-					insertToDetailClaim = aMan.editDetailClaim(aForm
-							.getSelfAssignBean());
-				} else {
-					insertToAssignment = aMan.addSelfAssignment(aForm
-							.getSelfAssignBean());
-					insertToDetailClaim = aMan.addDetailClaim(aForm
-							.getSelfAssignBean());
+					aMan.startTransaction();
+					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
 					if (insertToDetailClaim && insertToAssignment) {
+						aMan.commitTransaction();
+					} else {
+						aMan.rollback();
+					}
+				} else {
+					aMan.startTransaction();
+					insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+					insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
+					if (insertToDetailClaim && insertToAssignment) {
+						aMan.commitTransaction();
 						session.setAttribute("message", "Create Self Assignment Success!");
 						session.setAttribute("color", "green");
 						if (rfa) {
@@ -150,6 +149,7 @@ public class NewSelfAssignmentAction extends Action {
 							SendMailTls.SendMail(params);
 						}
 					} else {
+						aMan.rollback();
 						session.setAttribute("message", "Create Self Assignment Failed!");
 						session.setAttribute("color", "red");
 					}

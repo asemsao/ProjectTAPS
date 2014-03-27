@@ -20,11 +20,15 @@
 
 	function flyToPage(task) {
 		if (task == "cancel") {
-			document.selfAssignmentForm.task.value = task;
-			document.selfAssignmentForm.submit();
+			document.dashboardForm.task.value = task;
+			document.dashboardForm.submit();
 			return;
 		} else if (task == "RFA") {
-			document.selfAssignmentForm.task.value = task;
+			document.dashboardForm.task.value = task;
+			document.getElementById("activity-type").value = getRadioValue("activity_type");
+			newCorrectionAssignmentValidation();
+		}else if(task=="rfaSelf"){
+			document.dashboardForm.task.value = task;
 			document.getElementById("activity-type").value = getRadioValue("activity_type");
 			newCorrectionAssignmentValidation();
 		}
