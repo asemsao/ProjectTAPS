@@ -150,7 +150,6 @@ public class EmployeeAction extends Action {
 			String tamp = null;
 			String[] temp = null;
 			params.put("employeeDomain", mForm.getEmployeeDomain());
-			System.out.println("SS"+mForm.getNewEmployee().getPhoneNumber());
 			mForm.setNewEmployee(mMan.getEditEmployees(params));
 			if (mForm.getNewEmployee().getPhoneNumber() != null) {
 				System.out.println("AA");
