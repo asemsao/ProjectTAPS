@@ -1,3 +1,4 @@
+<%@page import="adins.ace.taps.configuration.App"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -19,13 +20,9 @@
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/jquery/jquery.widget.min.js"></script>
 <script src="js/metro/metro.min.js"></script>
-
+<script src="js/other/jquery.noty.min.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#uname").attr("placeholder", "Username");
-		$("#pass").attr("placeholder", "Password");
-	});
 
 	function enablingLogin() {
 		$("#login-btn").removeAttr('disabled');
@@ -45,7 +42,18 @@
 		$("#login-btn").attr('style', 'cursor: default;');
 		$("#login-btn").attr('src', 'images/LOGIN_DISABLE.png');
 	}
+	
+	function error(content) {
+        var n = noty({
+            text        : content,
+            type        : 'warning',
+            layout      : 'topCenter',
+        });
+    }
+
 	$(document).ready(function() {
+		$("#uname").attr("placeholder", "Username");
+		$("#pass").attr("placeholder", "Password");
 		disablingLogin();
 		$("#uname").keyup(function() {
 			if ($("#uname").val().length > 0 && $("#pass").val().length > 0)
@@ -61,20 +69,15 @@
 				disablingLogin();
 		});
 		
+		$("#login-btn").click(function() {
+			$("#loginMessage").val('<i class="icon-warning"></i>&nbsp;&nbsp;Invalid Username / Password');
+		});
+		
 		if ($("#loginMessage").val() != "") {
-			alert($("#loginMessage").val());
-			setTimeout(function() {
-				$.Notify({
-					style : {
-						background : $("#messagecolor").val(),
-						color : 'white'
-					},
-					shadow : true,
-					position : 'top-right',
-					content : $("#messageCRUD").val()
-				});
-			}, 1000);
+			error($("#loginMessage").val());
+			$("#loginMessage").val("");
 		}
+		
 	});
 
 	function button(task) {
@@ -82,7 +85,7 @@
 			document.loginForm.task.value = task;
 			document.loginForm.submit();
 		} else {
-			alert("Username can't be empty");
+			error("Username can't be empty");
 		}
 	}
 </script>
@@ -91,15 +94,21 @@
 </head>
 <body class="metro login-background">
 	<div class="panel-taps">
-		<br /> <br /> <img src="images/LOGO_PANJANG3_LOGIN.png"
+		<br /><br /> <img src="images/LOGO_PANJANG3_LOGIN.png"
 			class="logo-taps" />
 		<h1 class="title-taps">Please sign in</h1>
 		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
-			<input type="hidden" id="loginMessage" value="<bean:write property='message' name='loginForm'/>" />
-			<input type="hidden" id="messagecolor" value="<bean:write property='color' name='loginForm'/>" />
-			<div id="error-login" class="error-login">
-			
+			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
+			<br />
+			<div class="ad">
+			<% if (App.getConfiguration("recovery_mode").equals("false")) { %>
+			<img class="ad-icon" src="images/online.png">
+			<% }
+	 		else { %>
+			<img class="ad-icon" src="images/offline.png">
+			<% } %>
+			&nbsp; <img src="images/ad-text.jpg">
 			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
@@ -108,8 +117,6 @@
 			<html:password property="password" name="loginForm" styleId="pass"
 				styleClass="textbox-taps" />
 			<br />
-			<br />
-			
 			<br />
 			<br />
 			<div class="input-control align-center">
