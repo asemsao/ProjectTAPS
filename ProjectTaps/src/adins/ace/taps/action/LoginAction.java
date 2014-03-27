@@ -52,7 +52,7 @@ public class LoginAction extends Action {
 						domainName);
 
 				// /TESTING HAPUS NANTI
-				pass = true;
+//				pass = true;
 				if (tForm.getUsername().equals("inwan")) {
 					username = "inwan.ah";
 				} else if (tForm.getUsername().equals("devri")) {
@@ -68,17 +68,12 @@ public class LoginAction extends Action {
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-//					username = "lukas.ws";
 					username = tForm.getUsername();
 				}
+				
 				tForm.setPassword("");
-				tForm.setUsername("");
 				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
-
+					username = tForm.getUsername();
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
@@ -92,7 +87,6 @@ public class LoginAction extends Action {
 					}
 					/* Star Achievement */
 					session.setAttribute("star", dMan.starAchievemet(username));
-
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);
 					try {

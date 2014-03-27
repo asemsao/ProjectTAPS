@@ -148,7 +148,6 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);
 		params.put("maxDate", App.getConfiguration("max_date"));
-		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
