@@ -36,6 +36,7 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("save".equals(orgForm.getTask())) {
+			System.out.println("role : "+orgForm.getOrgBean().getHeadDomain());
 			if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
 				orgMan.startTransaction();
 				boolean submit = false;
