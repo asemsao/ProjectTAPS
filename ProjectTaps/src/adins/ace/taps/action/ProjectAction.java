@@ -1,5 +1,6 @@
 package adins.ace.taps.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,29 +109,40 @@ public class ProjectAction extends Action {
 			//klo project sudah closed semua role di dalam di hapus
 			if("CLD".equals(pForm.getpBean().getPhase()))
 			{
+				pMan.startTransaction();
 				boolean deleteProjectStruct = false;
 				boolean updateProject = false;
+				
+				//delete all member role
+				boolean errorDirectReport = false;
+				Map map = new HashMap();
+				List<AddStructureProjectBean> list = null;
+				List<Boolean> listStatus = new ArrayList<Boolean>();
+				
+				map = pMan.checkDirectReportUserDomain(pForm.getpBean().getProjectCode());
+				list = (List<AddStructureProjectBean>)map.get("list");
+				errorDirectReport = (Boolean)map.get("error");
 				
 				//delete employee from project_structures table
 				deleteProjectStruct = pMan.deleteProjectStructuresTable(pForm.getpBean().getProjectCode());
 				
-				//delete all member role
-				List<AddStructureProjectBean> list = null;
-				list = pMan.checkDirectReportUserDomain(pForm.getpBean().getProjectCode());
-				List<Boolean> listStatus = null;
 				for (int i=0;i<list.size();i++) 
 				{
 					AddStructureProjectBean bean = new AddStructureProjectBean();
 					bean = list.get(i);
-					
+
 					Map map1 = new HashMap();
 					map1 = pMan.notHeadBU(bean.getDirectreportUserDomain());
-					
+
 					boolean noMoreSPV = false;
 					boolean errorNoMoreSPV = false;
 					boolean errorNotHead = false;
 					boolean notHead = false;
 					boolean deleteRole = false;
+					
+					notHead = (Boolean)map1.get("notHead");
+					errorNotHead = (Boolean)map1.get("error");
+					
 					if(!errorNotHead)
 					{
 						if(notHead)
@@ -156,29 +168,34 @@ public class ProjectAction extends Action {
 						else
 						{
 							notHead = true;
+							deleteRole = true;
+							noMoreSPV = true;
 						}
 					}
+					
 					//set listStatus menjadi true or false
 					if(noMoreSPV && deleteRole && !errorNoMoreSPV && !errorNotHead && notHead)
 					{
-						listStatus.set(i, true);
+						listStatus.add(i, true);
 					}
 					else
 					{
-						listStatus.set(i, false);
+						listStatus.add(i, false);
 					}
 				}
-					
-				//update Project
-				updateProject = pMan.updateProject(pForm.getpBean());
 				
+				//nge recap semua status yang di dalam ListStatus
 				boolean recapStatus = true;
 				for(int i = 0;i < listStatus.size();i++)
 				{
 					recapStatus = recapStatus && listStatus.get(i);
 				}
-					
-				if(recapStatus && updateProject && deleteProjectStruct)
+				
+				//update Project
+				updateProject = pMan.updateProject(pForm.getpBean());
+				
+				
+				if(recapStatus && updateProject && deleteProjectStruct && !errorDirectReport)
 				{
 					pMan.commitTransaction();
 					pForm.setMessage("Updated Successfully");
@@ -238,7 +255,109 @@ public class ProjectAction extends Action {
 			}
 		}
 
-//		if ("deleteProject".equals(pForm.getTask())) {
+		if ("deleteProject".equals(pForm.getTask())) {
+			pMan.startTransaction();
+			boolean deleteProject = false;
+			boolean deleteProjectStruct = false;
+			
+			//delete Project
+			deleteProject = pMan.deleteProject(pForm.getParamProjectCode());
+			
+			//delete all member role
+			boolean errorDirectReport = false;
+			Map map = new HashMap();
+			List<AddStructureProjectBean> list = null;
+			List<Boolean> listStatus = new ArrayList<Boolean>();
+			
+			map = pMan.checkDirectReportUserDomain(pForm.getParamProjectCode());
+			list = (List<AddStructureProjectBean>)map.get("list");
+			errorDirectReport = (Boolean)map.get("error");
+			
+			//delete employee from project_structures table
+			deleteProjectStruct = pMan.deleteProjectStructuresTable(pForm.getParamProjectCode());
+			
+			for (int i=0;i<list.size();i++) 
+			{
+				AddStructureProjectBean bean = new AddStructureProjectBean();
+				bean = list.get(i);
+
+				Map map1 = new HashMap();
+				map1 = pMan.notHeadBU(bean.getDirectreportUserDomain());
+
+				boolean noMoreSPV = false;
+				boolean errorNoMoreSPV = false;
+				boolean errorNotHead = false;
+				boolean notHead = false;
+				boolean deleteRole = false;
+				
+				notHead = (Boolean)map1.get("notHead");
+				errorNotHead = (Boolean)map1.get("error");
+				
+				if(!errorNotHead)
+				{
+					if(notHead)
+					{
+						Map map2 = new HashMap();
+						map2 = pMan.checkRole(bean.getDirectreportUserDomain());
+						noMoreSPV = (Boolean)map2.get("noMoreSPV");
+						errorNoMoreSPV = (Boolean)map2.get("error");
+						
+						if(!errorNoMoreSPV)
+						{
+							if(noMoreSPV)
+							{
+								deleteRole = pMan.deleteRole(bean.getDirectreportUserDomain());
+							}
+							else
+							{
+								deleteRole = true;
+								noMoreSPV = true;
+							}
+						}
+					}
+					else
+					{
+						notHead = true;
+						deleteRole = true;
+						noMoreSPV = true;
+					}
+				}
+				
+				//set listStatus menjadi true or false
+				if(noMoreSPV && deleteRole && !errorNoMoreSPV && !errorNotHead && notHead)
+				{
+					listStatus.add(i, true);
+				}
+				else
+				{
+					listStatus.add(i, false);
+				}
+			}
+			
+			//nge recap semua status yang di dalam ListStatus
+			boolean recapStatus = true;
+			for(int i = 0;i < listStatus.size();i++)
+			{
+				recapStatus = recapStatus && listStatus.get(i);
+			}
+	
+			// update table assignments
+			boolean updateAssignment = false;
+			updateAssignment = pMan.updateAllAssStatus(pForm.getParamProjectCode());
+			
+			if(updateAssignment && deleteProjectStruct && recapStatus && !errorDirectReport && deleteProject)
+			{
+				pMan.commitTransaction();
+				pForm.setMessage("Deleted Successfully");
+				pForm.setColor("green");
+			}
+			else
+			{
+				pMan.rollback();
+				pForm.setMessage("Delete Project Failed");
+				pForm.setColor("red");
+			}
+			
 //			if (pMan.deleteProject(pForm.getParamProjectCode())) 
 //			{
 //				//delete all member role
@@ -262,19 +381,11 @@ public class ProjectAction extends Action {
 //				
 //				//delete employee from project_structures table
 //				pMan.deleteProjectStructuresTable(pForm.getParamProjectCode());
-//				
+				
 //				// update table assignments
 //				pMan.updateAllAssStatus(pForm.getParamProjectCode());
-//
-//				pForm.setMessage("Deleted Project Successfully");
-//				pForm.setColor("green");
-//			} 
-//			else
-//			{
-//				pForm.setMessage("Delete Project Failed");
-//				pForm.setColor("red");
-//			}
-//		}
+
+		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);
 		params.put("end", (pForm.getPage() * 10));

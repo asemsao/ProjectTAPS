@@ -1,6 +1,7 @@
 package adins.ace.taps.manager;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,19 +144,11 @@ public class ProjectManager {
 	public boolean updateProject(ProjectBean bean) {
 		boolean flag = false;
 		try {
-			//ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateProject", bean);
-			//ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				//ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return flag;
 	}
 
@@ -232,23 +225,11 @@ public class ProjectManager {
 		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.deleteProject", projectCode);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		return flag;
 	}
 	
@@ -330,24 +311,11 @@ public class ProjectManager {
 		boolean flag = false;
 		try
 		{
-			//ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateAssStatus",param);
-			//ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				//ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
 		return flag;
 	}
 	
@@ -364,26 +332,17 @@ public class ProjectManager {
 		return flag;
 	}
 	
-	public void updateAllAssStatus(String code)
+	public boolean updateAllAssStatus(String code)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateAllAssStatus",code);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		return flag;
 	}
 	
 	public boolean changeNewSupervisor(Map param)
@@ -422,23 +381,20 @@ public class ProjectManager {
 		return map;
 	}
 	
-	public List checkDirectReportUserDomain(String code)
+	public Map checkDirectReportUserDomain(String code)
 	{
-		List<AddStructureProjectBean> list = null;
+		Map map = new HashMap();
+		boolean error = false;
+		List<AddStructureProjectBean> list = new ArrayList<AddStructureProjectBean>();
 		try {
-			ibatisSqlMap.startTransaction();
 			list = ibatisSqlMap.queryForList("project.checkDirectReportUserDomain", code);
-			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			error = true;
 		}
-		return list;
+		map.put("error", error);
+		map.put("list", list);
+		return map;
 	}
 	
 	public boolean deleteProjectStructuresTable(String code)
@@ -446,23 +402,11 @@ public class ProjectManager {
 		boolean flag= false;
 		try
 		{
-			//ibatisSqlMap.startTransaction();
 			ibatisSqlMap.delete("project.deleteProjectStructuresTable", code);
-			//ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				//ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		return flag;
 	}
 	
