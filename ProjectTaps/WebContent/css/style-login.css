@@ -118,3 +118,13 @@ label.check-label {
 	font-family: Calibri;
 	font-size: 0.8em;
 }
+
+.ad {
+	text-align: center;
+	border-left: 10px slateblue solid;
+	border-right: 10px slateblue solid;
+}
+
+.ad-text {
+	font-size: 1em !important;
+}
