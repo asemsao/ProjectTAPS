@@ -65,10 +65,9 @@ public class NewAssignmentAction extends Action {
 				String paramCode = "";
 				if ("BU".equals(aForm.getAssignmentType())) {
 					aForm.getAssignmentBean().setProjectCode(null);
-					paramCode = (String)session.getAttribute("organizationCode")
-							+ dateFormat.format(date);
-					paramCode = paramCode
-							+ aMan.getMaxTaskCodeOrganization(paramCode);
+					aForm.getAssignmentBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
+					paramCode = (String)session.getAttribute("organizationCode") + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
 					
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
 					paramCode = aForm.getAssignmentBean().getProjectCode()
@@ -79,7 +78,7 @@ public class NewAssignmentAction extends Action {
 				}
 				aForm.getAssignmentBean().setTaskCode(paramCode);
 				aForm.getAssignmentBean().setCreatedBy(userDomain);
-				aForm.getAssignmentBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
+				
 				if ("save".equals(aForm.getNewTask())) {
 					aForm.getAssignmentBean().setCurrentStatus("DRAFT");
 					aForm.getAssignmentBean().setFlag("ACTIVE");
