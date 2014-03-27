@@ -36,36 +36,51 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("save".equals(orgForm.getTask())) {
-			System.out.println("role : "+orgForm.getOrgBean().getHeadDomain());
-			if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
-				orgMan.startTransaction();
-				boolean submit = false;
-				boolean roleHBU = false;
-				boolean roleSPV = false;
-				boolean orgCodeHBU = false;
-				submit = orgMan.submitInsert(orgForm.getOrgBean());
-				roleSPV = orgMan.insertRoleSPV(orgForm.getOrgBean());
-				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
-				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
-				if (submit && roleHBU && roleSPV && orgCodeHBU) {
-					orgMan.commitTransaction();
-					orgForm.setMessage("Insert Business Unit Successfull!");
-					orgForm.setColor("green");
+			if((orgForm.getOrgBean().getHeadDomain())!=("null")){
+				if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
+					orgMan.startTransaction();
+					boolean submit = false;
+					boolean roleHBU = false;
+					boolean roleSPV = false;
+					boolean orgCodeHBU = false;
+					submit = orgMan.submitInsert(orgForm.getOrgBean());
+					roleSPV = orgMan.insertRoleSPV(orgForm.getOrgBean());
+					roleHBU = orgMan.insertRole(orgForm.getOrgBean());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+					if (submit && roleHBU && roleSPV && orgCodeHBU) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Insert Business Unit Successfull!");
+						orgForm.setColor("green");
 
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Insert Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				} else {
-					orgMan.rollback();
-					orgForm.setMessage("Insert Business Unit Failed!");
-					orgForm.setColor("red");
+					orgMan.startTransaction();
+					boolean submit = false;
+					boolean roleHBU = false;
+					boolean orgCodeHBU = false;
+					submit = orgMan.submitInsert(orgForm.getOrgBean());
+					roleHBU = orgMan.insertRole(orgForm.getOrgBean());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+					if (submit && roleHBU && orgCodeHBU) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Insert Business Unit Successfull!");
+						orgForm.setColor("green");
+
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Insert Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				}
-			} else {
-				orgMan.startTransaction();
+			}else{
 				boolean submit = false;
-				boolean roleHBU = false;
-				boolean orgCodeHBU = false;
+				orgMan.startTransaction();
 				submit = orgMan.submitInsert(orgForm.getOrgBean());
-				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
-				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
-				if (submit && roleHBU && orgCodeHBU) {
+				if (submit) {
 					orgMan.commitTransaction();
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
@@ -76,6 +91,7 @@ public class OrganizationAction extends Action {
 					orgForm.setColor("red");
 				}
 			}
+			
 
 		}
 		if ("edit".equals(orgForm.getTask())) {
