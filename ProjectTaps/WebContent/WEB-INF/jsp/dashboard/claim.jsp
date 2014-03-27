@@ -42,10 +42,8 @@
 				var cds = $("#claimDateString").val();
 				if (cds.indexOf(val) != -1) {
 					$("#btnClaim").hide();
-					$("#btnRfa").hide();
 				} else {
 					$("#btnClaim").show();
-					$("#btnRfa").show();
 				}
 			}
 		}, 100);

@@ -172,7 +172,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 		} 
 		
 		//show record self assignment
-		//for approved self assignment, update-star button only show within certain days after it's being approved
+		//for approved self assignment, update-star button only show within certain days after it's been approved
 		//to set the range date for update star, change the value max_date from config.properties
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);

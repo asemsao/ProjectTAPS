@@ -877,7 +877,7 @@
 		 WHERE       a.task_code = #taskCode#
 		         AND a.assign_to = e.user_domain(+)
 		         AND e.organization_code = o.organization_code(+)
-		         AND o.head_user_domain = spv.user_domain(+)
+		         AND a.report_to = spv.user_domain(+)
 		         AND a.project_code = p.project_code(+)
 	</select>
 

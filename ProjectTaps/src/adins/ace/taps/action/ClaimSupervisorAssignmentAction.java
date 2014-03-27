@@ -143,7 +143,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		}
 
 		//show record assignment
-		//for approved assignment, update-star button only show within certain days after it's being approved
+		//for approved assignment, update-star button only show within certain days after it's been approved
 		//to set the range date for update star, change the value max_date from config.properties
 		Map params = new HashMap();
 		params.put("taskCode", taskCode);

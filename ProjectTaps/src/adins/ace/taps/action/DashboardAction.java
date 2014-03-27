@@ -43,11 +43,11 @@ public class DashboardAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
-		boolean success = false;
-		boolean claim = false;
-		boolean comment = false;
-		boolean update = false;
-		boolean starSuccess = false;
+		boolean success = true;
+		boolean claim = true;
+		boolean comment = true;
+		boolean update = true;
+		boolean starSuccess = true;
 		Map params = new HashMap();
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
@@ -121,6 +121,7 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rfa".equals(dForm.getTask())) {
+			System.out.println("masuk rfa");
 			// add to detail claim assignment / add to history comment -> back
 			// to list
 			aMan.startTransaction();
@@ -133,6 +134,17 @@ public class DashboardAction extends Action {
 				dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getReportTo());
 				dForm.getClaimBean().setCreatedBy(userDomain);
 				dForm.getClaimBean().setStatus("RFA");
+//				(SEQUENCE_COMMENTS.NEXTVAL,
+//			            #taskCode#,
+//			            #comment#,
+//			            #status#,
+//			            #commentTo#,
+//			            #createdBy#,
+				System.out.println(dForm.getClaimBean().getTaskCode());
+				System.out.println(dForm.getClaimBean().getComment());
+				System.out.println(dForm.getClaimBean().getStatus());
+				System.out.println(dForm.getClaimBean().getCommentTo());
+				System.out.println(dForm.getClaimBean().getCreatedBy());
 				comment = aMan.addHistoryComment(dForm.getClaimBean());
 			}
 
@@ -145,6 +157,7 @@ public class DashboardAction extends Action {
 
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
+			System.out.println(claim+" "+comment+" "+update);
 			if (claim && comment && update) {
 				aMan.commitTransaction();
 				Map emailParams = new HashMap();
@@ -156,14 +169,13 @@ public class DashboardAction extends Action {
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
 			} else {
+				System.out.println("gagal");
 				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
-		System.out.println(dForm.getTask());
 		if ("rfaSelf".equals(dForm.getTask())) {
 			// add to history comment -> back to list
-			System.out.println("mmasuk rfa self");
 			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getReportTo());
 			dForm.getSelfAssignBean().setCreatedBy(userDomain);
 			String tmpDescription="";
