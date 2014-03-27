@@ -71,14 +71,10 @@ public class LoginAction extends Action {
 					username = tForm.getUsername();
 //					username = "lukas.ws";
 				}
-				tForm.setPassword("");
-				tForm.setUsername("");
-				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
 
+				tForm.setPassword("");
+				if (pass) {
+					username = tForm.getUsername();
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);

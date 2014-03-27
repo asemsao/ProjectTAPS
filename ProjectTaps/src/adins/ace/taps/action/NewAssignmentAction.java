@@ -70,10 +70,8 @@ public class NewAssignmentAction extends Action {
 					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
 					
 				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getAssignmentBean().getProjectCode()
-							+ dateFormat.format(date);
-					paramCode = paramCode
-							+ aMan.getMaxTaskCodeProject(paramCode);
+					paramCode = aForm.getAssignmentBean().getProjectCode() + dateFormat.format(date);
+					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
 					
 				}
 				aForm.getAssignmentBean().setTaskCode(paramCode);
@@ -121,7 +119,7 @@ public class NewAssignmentAction extends Action {
 					session.setAttribute("message", "Create Assignment Failed!");
 					session.setAttribute("color", "red");
 				}
-
+				aForm.setTask(null);
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}

@@ -343,7 +343,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="deleteEmployee" parameterClass="java.lang.String">
 		UPDATE employees
 		SET
-		flag='INACTIVE' WHERE user_domain=#employeeDomain#
+		flag='INACTIVE',
+		created_by=#employeeDomain#,
+		created_date=SYSDATE WHERE user_domain=#employeeDomain#
 	</update>
 	
 	<update id="deleteAssignment" parameterClass="java.lang.String">
