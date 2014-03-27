@@ -178,3 +178,9 @@ textarea {
 	width:25%;
 	text-align:left;
 }
+
+.claim-msg{
+	color: red;
+	font-style: italic !important;
+	margin-right: 20px;
+}

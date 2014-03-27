@@ -60,13 +60,10 @@
 					<input type="hidden" id="color"
 						value="<bean:write property="color" name="employeeReportForm" />">
 
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Deadline From</th>
 								<th>
@@ -109,7 +106,6 @@
 									</div>
 								</th>
 							</tr>
-						</tbody>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -193,7 +189,7 @@
 						</tbody>
 					</table>
 					
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<tr>
 							<td class="text-center">
 								<div class="pagination">

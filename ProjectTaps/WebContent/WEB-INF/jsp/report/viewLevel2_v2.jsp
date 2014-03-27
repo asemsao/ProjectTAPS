@@ -135,7 +135,6 @@
 						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 					<div class="hide">
 						<table id="datatable" class="table striped bordered hovered">
-							<thead>
 								<tr>
 									<th></th>
 									<th>Self Assignment BU</th>
@@ -143,8 +142,6 @@
 									<th>Self Assignment Project</th>
 									<th>Assignment Project</th>
 								</tr>
-							</thead>
-							<tbody>
 								<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
@@ -157,13 +154,11 @@
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
-							</tbody>
 						</table>
 					</div>
 					<button class="primary" onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="organizationCode" />')">Generate Departement Report</button>
 					<div id="print">
 						<table id="datatableshow" class="table striped bordered hovered">
-						<thead>
 							<tr>
 								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/></h3></th>
 							</tr>
@@ -204,8 +199,6 @@
 								<th class="text-center">SELF ASSIGNMENT</th>
 								<th class="text-center">ASSIGNMENT</th>
 							</tr>
-						</thead>
-						<tbody>
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
@@ -228,8 +221,6 @@
 									</logic:notEqual>
 									</td>
 								</tr>
-						</tbody>
-
 					</table>
 					</div>
 				</div>

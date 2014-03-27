@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-
-<%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
-<%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
-<%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
+<%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
+<%@ taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
+<%@ taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
+<%@page import="adins.ace.taps.configuration.App"%>
 
 <!doctype html>
 <html>
@@ -104,7 +104,8 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th class="field-form">Assignment Date</th>
+								<th class="field-form">Assignment Date
+								</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><bean:write property="claimBean.assignmentDate" name="claimAssignmentForm" /></td>
 							</tr>
@@ -162,16 +163,16 @@
 																					|| "CORRECTION".equals(session
 																							.getAttribute("status"))
 																					|| "REJECTED".equals(session
+																							.getAttribute("status"))
+																					|| "APPROVED".equals(session
 																							.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription" name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
-																} else if ("RFA".equals(session.getAttribute("status"))
-																					|| "APPROVED".equals(session
-																							.getAttribute("status"))) {
+																} else if ("RFA".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription" name="assignment" rows="2" readonly="readonly"
+															<td><html:textarea property="detailDescription" name="assignment" rows="2"
 																	styleClass="input-control textarea"></html:textarea></td>
 															<%
 																}
@@ -400,8 +401,12 @@
 									} else if ("APPROVED".equals(session.getAttribute("status"))) {
 								%>
 								<td colspan=4 class="text-right">
+								
 								<logic:equal value="true" property="claimBean.updateableStar" name="claimAssignmentForm">
 									<button onclick="javascript:flyToPage('updateStar');" class="button success">Update Star</button>
+								</logic:equal>
+								<logic:equal value="false" property="claimBean.updateableStar" name="claimAssignmentForm">
+									<span class="claim-msg">You can't update star after <%=App.getConfiguration("max_date")%> days</span>
 								</logic:equal>
 								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 								<%

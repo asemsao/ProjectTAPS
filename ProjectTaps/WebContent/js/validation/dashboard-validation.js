@@ -108,20 +108,35 @@ function commentDashboardValidation() {
 
 };
 
-function commentClaimDateStringValidation() {
+function detailClaimValidation() {
 
 	// =================================================================================
 	// Comment Claim
 	// =================================================================================
 
-	$('#claimDateString input[id="description"]').tooltipster({
+	$('#detailClaim input[id="description"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#detailClaim input[id="manHours"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('.claimTime').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#detailClaim input[id="assignmentDate"]').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
 	});
 
 	// initialize validate plugin on the form
-	$('#claimDateString').validate({
+	$('#detailClaim').validate({
 		errorPlacement : function(error, element) {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
@@ -134,6 +149,15 @@ function commentClaimDateStringValidation() {
 		},
 		rules : {
 			'claimBean.detailDescription' : {
+				required : true
+			},
+			'claimBean.manHours' : {
+				required : true
+			},
+			'claimBean.claimTime' : {
+				required : true
+			},
+			'claimBean.claimDate' : {
 				required : true
 			}
 		},
