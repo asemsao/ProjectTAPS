@@ -119,7 +119,6 @@ public class NewAssignmentAction extends Action {
 					session.setAttribute("message", "Create Assignment Failed!");
 					session.setAttribute("color", "red");
 				}
-				aForm.setTask(null);
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}

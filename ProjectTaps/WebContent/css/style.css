@@ -52,6 +52,10 @@ a,button {
 	position: fixed;
 	top: 0;
 	z-index: 100;
+	background-color: #222 !important;
+	border-bottom: 1px solid #888;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
 }
 
 .footer-taps {
@@ -169,18 +173,24 @@ textarea {
 	text-align: center;
 }
 
-.field-extra-text{
-	width:15%;
-	text-align:right;
+.field-extra-text {
+	width: 15%;
+	text-align: right;
 }
 
-.field-text{
-	width:25%;
-	text-align:left;
+.field-text {
+	width: 25%;
+	text-align: left;
 }
 
-.claim-msg{
+.claim-msg {
 	color: red;
 	font-style: italic !important;
 	margin-right: 20px;
+}
+
+#graph {
+	min-width: 310px;
+	height: 400px;
+	margin: 0 auto;
 }
