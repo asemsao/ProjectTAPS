@@ -24,7 +24,7 @@
 		$("#startDate").attr("placeholder", "Start Date");
 		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-		if ($("#messageCRUD").val() != "") {
+		if ($("#message").val() != "") {
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -33,7 +33,7 @@
 					},
 					shadow : true,
 					position : 'top-right',
-					content : $("#messageCRUD").val()
+					content : $("#message").val()
 				});
 			}, 1000);
 		}
