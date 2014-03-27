@@ -504,7 +504,7 @@ public class ProjectAction extends Action {
 			pMan.startTransaction();
 			boolean deleteRole = false;
 			update = pMan.updateMember(pForm.getAddSProject());
-
+			
 			// Check apakah dia(supervisor yg lama) head BU atau bukan(kalau bukan akan di delete supervisor role nya)
 			Map map1 = new HashMap();
 			map1 = pMan.notHeadBU(pForm.getDirectReportBefore());
@@ -535,6 +535,8 @@ public class ProjectAction extends Action {
 				}
 				else
 				{
+					deleteRole = true;
+					noMoreSPV = true;
 					notHead = true;
 				}
 			}
