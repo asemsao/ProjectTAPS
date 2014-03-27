@@ -22,11 +22,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<select id="getRoles" resultClass="adins.ace.taps.bean.module.RoleBean"
 		parameterClass="java.lang.String">
-		SELECT LOWER(e.role_id) AS roleId, INITCAP(r.role_name)
-		AS roleName FROM
-		employee_role e JOIN roles r ON e.role_id = r.role_id
+		SELECT 
+				CASE
+	              WHEN LOWER (e.role_id) LIKE LOWER ('emp') THEN '1'
+	              WHEN LOWER (e.role_id) LIKE LOWER ('spv') THEN '2'
+	              WHEN LOWER (e.role_id) LIKE LOWER ('hbu') THEN '3'
+	              WHEN LOWER (e.role_id) LIKE LOWER ('adm') THEN '4'
+	           END
+	              AS orderRole,
+				LOWER(e.role_id) AS roleId, INITCAP(r.role_name)
+				AS roleName
+		FROM employee_role e JOIN roles r ON e.role_id = r.role_id
 		WHERE
-		LOWER(e.user_domain) = LOWER(#userDomain#) ORDER BY e.role_id DESC
+		LOWER(e.user_domain) = LOWER(#userDomain#) ORDER BY orderRole ASC
 	</select>
 
 	<select id="getMenu" resultClass="adins.ace.taps.bean.module.MenuBean"

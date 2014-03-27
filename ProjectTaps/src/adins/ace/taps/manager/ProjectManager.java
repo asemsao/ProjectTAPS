@@ -1,6 +1,8 @@
 package adins.ace.taps.manager;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,18 +115,10 @@ public class ProjectManager {
 	public boolean addProject(AddProjectBean apBean) {
 		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.addProject", apBean);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		return flag;
 	}
@@ -147,38 +141,25 @@ public class ProjectManager {
 		return list;
 	}
 
-	public void updateProject(ProjectBean bean) {
+	public boolean updateProject(ProjectBean bean) {
+		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateProject", bean);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		} 
+		return flag;
 	}
 
 	public boolean addProjectMember(AddStructureProjectBean bean) {
 		boolean flag = false;
 		try {
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.addProjectMember", bean);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		} 
 		return flag;
 	}
 
@@ -200,26 +181,18 @@ public class ProjectManager {
 		return bean;
 	}
 	
-	public void updateMember(AddStructureProjectBean bean)
+	public boolean updateMember(AddStructureProjectBean bean)
 	{	
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateMember", bean);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		
+		return flag;
 	}
 	
 	public boolean deleteMember(AddStructureProjectBean bean)
@@ -252,275 +225,215 @@ public class ProjectManager {
 		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.deleteProject", projectCode);
-			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		return flag;
 	}
 	
-	public boolean isExist(String name)
+	public Map isNotExist(String name)
 	{
 		int count = 0;
+		Map map = new HashMap();
+		boolean notExist = false;
+		boolean error = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
-			count = (Integer)ibatisSqlMap.queryForObject("project.isExist", name);
-			ibatisSqlMap.commitTransaction();
+			count = (Integer)ibatisSqlMap.queryForObject("project.isNotExist", name);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			error = true;
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		
 		if(count == 0)
-			return false;
-		else
-			return true;
+			notExist = true;
+		
+		map.put("notExist", notExist);
+		map.put("error", error);
+		return map;
 	}
 	
-	public void insertRole(String name)
+	public boolean insertRole(String name)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.insert("project.insertRole", name);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		
+		return flag;
 	}
 	
-	public Integer checkRole(String name)
+	public Map checkRole(String name)
 	{
 		int count = 0;
+		Map map = new HashMap();
+		boolean noMoreSPV= false;
+		boolean error = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			count = (Integer)ibatisSqlMap.queryForObject("project.checkRole", name);
-			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			error = true;
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return count;
+	
+		
+		if(count == 0)
+			noMoreSPV = true;
+		
+		map.put("noMoreSPV", noMoreSPV);
+		map.put("error", error);
+		return map;
 	}
 	
-	public void deleteRole(String name)
+	public boolean deleteRole(String name)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.delete("project.deleteRole", name);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	
+		return flag;
 	}
 	
-	public void updateAssStatus(Map param)
+	public boolean updateAssStatus(Map param)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateAssStatus",param);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		return flag;
 	}
 	
-	public void insertHistory(Map param)
+	public boolean insertHistory(Map param)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.insert("project.insertHistory",param);
-			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.insert("project.insertHistory",param);	
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		return flag;
 	}
 	
-	public void updateAllAssStatus(String code)
+	public boolean updateAllAssStatus(String code)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.updateAllAssStatus",code);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		return flag;
 	}
 	
-	public void changeNewSupervisor(Map param)
+	public boolean changeNewSupervisor(Map param)
 	{
+		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("project.changeNewSupervisor",param);
-			ibatisSqlMap.commitTransaction();
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+	
+		return flag;
 	}
 	
-	public boolean notHeadBU(String userDomain)
+	public Map notHeadBU(String userDomain)
 	{
 		int count = 0;
+		Map map = new HashMap();
+		boolean notHead = false;
+		boolean error = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
 			count = (Integer)ibatisSqlMap.queryForObject("project.notHeadBU", userDomain);
-			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			error = true;
+		} 
+	
+		if(count == 0)
+			notHead = true;
+		
+		map.put("error", error);
+		map.put("notHead", notHead);
+		return map;
+	}
+	
+	public Map checkDirectReportUserDomain(String code)
+	{
+		Map map = new HashMap();
+		boolean error = false;
+		List<AddStructureProjectBean> list = new ArrayList<AddStructureProjectBean>();
+		try {
+			list = ibatisSqlMap.queryForList("project.checkDirectReportUserDomain", code);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			error = true;
+		}
+		map.put("error", error);
+		map.put("list", list);
+		return map;
+	}
+	
+	public boolean deleteProjectStructuresTable(String code)
+	{
+		boolean flag= false;
+		try
+		{
+			ibatisSqlMap.delete("project.deleteProjectStructuresTable", code);
+			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		if(count == 1)
-			return false;
-		else
-			return true;
+		return flag;
 	}
 	
-	public List checkDirectReportUserDomain(String code)
-	{
-		List<AddStructureProjectBean> list = null;
+	public void startTransaction() {
 		try {
 			ibatisSqlMap.startTransaction();
-			list = ibatisSqlMap.queryForList("project.checkDirectReportUserDomain", code);
-			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.getDataSource().getConnection().setAutoCommit(false);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ibatisSqlMap.endTransaction();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
-		return list;
 	}
-	
-	public void deleteProjectStructuresTable(String code)
-	{
-		try
-		{
-			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.delete("project.deleteProjectStructuresTable", code);
+
+	public void commitTransaction() {
+		try {
 			ibatisSqlMap.commitTransaction();
+			ibatisSqlMap.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
+		}
+	}
+
+	public void rollback() {
+		try {
+			ibatisSqlMap.getDataSource().getConnection().rollback();
+			ibatisSqlMap.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

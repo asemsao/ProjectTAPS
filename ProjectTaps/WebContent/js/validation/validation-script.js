@@ -12,7 +12,7 @@ $.validator.addMethod("phoneNumber", function(value, element) {
 		flag = false;
 	}
 	return  flag
-}, "You Must Input Prefix Phone Number");
+}, "You Must Input Phone Number");
 
 
 $.validator.addMethod("phoneExt", function(value, element) {
@@ -36,16 +36,16 @@ $.validator.addMethod("phoneArea", function(value, element) {
 
 $.validator.addMethod("mobileNumber", function(value, element) {
 	var flag=true;
-	if($('#mobileNumberAreaCode').val().length>0 && $('#phoneNumberMidNumb').val().length == 0){
+	if($('#mobileNumberAreaCode').val().length>0 && $('#mobileNumberMidNumb').val().length == 0){
 		flag = false;
 	}
 	return  flag
-}, "You Must Input Prefix Mobile Number");
+}, "You Must Input Mobile Number");
 
 
 $.validator.addMethod("mobileArea", function(value, element) {
 	var flag=true;
-	if($('#mobileNumberMidNumb').val().length>0 && $('#phoneNumberAreaCode').val().length == 0){
+	if($('#mobileNumberMidNumb').val().length>0 && $('#mobileNumberAreaCode').val().length == 0){
 		flag = false;
 	}
 	return  flag

@@ -35,12 +35,10 @@
 						$("#employeeAddress").attr("placeholder", "Address");
 						$("#employeeAddress").attr("maxlength", "500");
 						$("#phoneNumberAreaCode").attr("placeholder", "Area");
-						$("#phoneNumberMidNumb").attr("placeholder", "Prefix");
+						$("#phoneNumberMidNumb").attr("placeholder", "Phone No");
 						$("#phoneNumberLastNumb").attr("placeholder", "Ext");
 						$("#mobileNumberAreaCode").attr("placeholder", "Area");
-						$("#mobileNumberMidNumb").attr("placeholder", "Prefix");
-						$("#mobileNumberLastNumb")
-								.attr("placeholder", "Prefix");
+						$("#mobileNumberMidNumb").attr("placeholder", "Mobile No");
 						$("#email").attr("placeholder", "Email");
 						$("#lookUpOrganization")
 								.load(
