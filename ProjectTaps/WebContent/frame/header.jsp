@@ -165,7 +165,7 @@
 				<td width="25%">Old Password</td>
 				<td>:</td>
 				<td><div class="input-control text">
-						<html:password property="password" name="employeeForm"
+						<html:password property="oldPassword" name="employeeForm"
 							styleId="old-password" />
 					</div></td>
 			</tr>
