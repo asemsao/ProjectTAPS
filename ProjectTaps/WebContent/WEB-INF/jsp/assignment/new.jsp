@@ -25,7 +25,7 @@
 			newAssignmentSaveValidation();
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
-			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
+			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			newAssignmentValidation();
 		}
 	}

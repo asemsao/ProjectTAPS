@@ -35,42 +35,7 @@ function commentAssigmentValidation() {
 
 };
 
-function newAssignmentSaveValidation() {
 
-	// =================================================================================
-	// New Self Assignment SAVE
-	// =================================================================================
-
-	$('#newAssignment input[id="project-name"]').tooltipster({
-		trigger : 'hover',
-		onlyOne : false,
-		position : 'right'
-	});
-
-	// initialize validate plugin on the form
-	$('#newAssignment').validate({
-		errorPlacement : function(error, element) {
-			$(element).tooltipster('update', $(error).text());
-			$(element).tooltipster('hide');
-			$(element).addClass('highlight-default');
-		},
-		success : function(label, element) {
-			$(element).tooltipster('hide');
-			$(element).removeClass('highlight-default');
-			$(element).tooltipster('update', 'accepted');
-		},
-		rules : {
-			'assignmentBean.projectName' : {
-				required : true
-			}
-		},
-		submitHandler : function(form) {
-			form.submit();
-			return false;
-		}
-	});
-
-};
 
 
 function newCorrectionAssignmentValidation() {
@@ -109,24 +74,64 @@ function newCorrectionAssignmentValidation() {
 
 };
 
+function newAssignmentSaveValidation() {
 
+	// =================================================================================
+	// New Self Assignment SAVE
+	// =================================================================================
+
+    $('#assignmentDate').tooltipster({
+        trigger: 'hover',
+        onlyOne: false,
+        position: 'right'
+    });
+
+	// initialize validate plugin on the form
+	$('#newAssignment').validate({
+		errorPlacement : function(error, element) {
+			$(element).tooltipster('update', $(error).text());
+			$(element).tooltipster('hide');
+			$(element).addClass('highlight-default');
+		},
+		success : function(label, element) {
+			$(element).tooltipster('hide');
+			$(element).removeClass('highlight-default');
+			$(element).tooltipster('update', 'accepted');
+		},
+		rules : {
+        	'assignmentBean.assignmentDate': {
+        		required: true
+        	}
+		},
+		submitHandler : function(form) {
+			//form.submit();
+			return false;
+		}
+	});
+
+};
 
 function newAssignmentValidation() {
 	
 	// =================================================================================
 	// Assignment
 	// =================================================================================
-    $('#newAssignment input[id="assignmentDate"]').tooltipster({
+    $('#assignmentDate').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
-    $('#newAssignment input[id="assignmentDueDate"]').tooltipster({
+    $('#assignmentDueDate').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
-    $('#newAssignment input[id="timepicker"]').tooltipster({
+    $('#timepicker').tooltipster({
+        trigger: 'hover',
+        onlyOne: false,
+        position: 'right'
+    });
+    $('#assignment-code').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
@@ -136,27 +141,12 @@ function newAssignmentValidation() {
         onlyOne: false,
         position: 'right'
     });
-    $('#newAssignment input[id="project-name"]').tooltipster({
-        trigger: 'hover',
-        onlyOne: false,
-        position: 'right'
-    });
-    $('#newAssignment input[id="employee-name"]').tooltipster({
-        trigger: 'hover',
-        onlyOne: false,
-        position: 'right'
-    });
-    $('#newAssignment input[id="employee-name"]').tooltipster({
+    $('#project-name').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
     $('#description').tooltipster({
-        trigger: 'hover',
-        onlyOne: false,
-        position: 'right'
-    });
-    $('#employee-name').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
@@ -168,6 +158,7 @@ function newAssignmentValidation() {
 			$(element).tooltipster('update', $(error).text());
 			$(element).tooltipster('hide');
 			$(element).addClass('highlight-default');
+
 		},
 		success : function(label, element) {
 			$(element).tooltipster('hide');
@@ -184,13 +175,10 @@ function newAssignmentValidation() {
         	'assignmentBean.assignmentTime': {
                 required: true
             },
-        	'#employee-name': {
-                required: true
-            },
         	'assignmentBean.projectName': {
                 required: true
             },
-        	'assignmentBean.assignToFullName': {
+        	'assignmentBean.reffTaskCode': {
                 required: true
             },
         	'assignmentBean.description': {
@@ -202,7 +190,7 @@ function newAssignmentValidation() {
             }
         },
         submitHandler: function (form) {
-            form.submit();
+            //form.submit();
             return false;
         }
     });

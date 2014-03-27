@@ -21,7 +21,6 @@
 </script>
 
 <html:form action="/menu" method="POST" styleId="menuForm">
-	<div class="bg-dark">
 		<div class="navigation-bar dark header-taps">
 			<div class="navigation-bar-content container">
 				<a href="#" class="element"> <img alt="logo" class="logo"
@@ -126,7 +125,6 @@
 			</div>
 
 		</div>
-	</div>
 	<html:hidden property="task" name="menuForm" />
 </html:form>
 

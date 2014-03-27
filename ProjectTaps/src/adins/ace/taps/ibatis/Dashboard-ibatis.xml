@@ -155,13 +155,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listClaim" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
 						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
-						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
-						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+						to_char(a.updated_date,'DD/MM/YYYY, HH24:MI') AS createdDate,
+						to_char(a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate, 
 						a.current_status AS currentStatus,
 						a.flag AS flag
 				FROM 	assignments a 
@@ -247,13 +247,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listCorrection" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
 						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
-						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
-						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+						to_char(a.updated_date,'DD/MM/YYYY, HH24:MI') AS createdDate,
+						to_char(a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate, 
 						a.current_status AS currentStatus,
 						a.flag AS flag
 				FROM 	assignments a 
@@ -339,13 +339,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listCorrectionSelf" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
 						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
-						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
-						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+						to_char(a.updated_date,'DD/MM/YYYY, HH24:MI') AS createdDate,
+						to_char(a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate, 
 						a.current_status AS currentStatus,
 						a.flag AS flag
 				FROM 	assignments a 
@@ -431,13 +431,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listApproval" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
 						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
-						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
-						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+						to_char(a.updated_date,'DD/MM/YYYY, HH24:MI') AS createdDate,
+						to_char(a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate, 
 						a.current_status AS currentStatus,
 						a.flag AS flag
 				FROM 	assignments a 
@@ -523,13 +523,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="listApprovalSelf" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean" parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD-MM-YYYY, HH24:MI') AS assignmentDate, 
+				SELECT 	to_char((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code),'DD/MM/YYYY, HH24:MI') AS assignmentDate, 
 						TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 						a.task_code AS taskCode,
 						a.assignment_category AS assignmentCategory, 
 						e.first_name || ' ' || e.last_name AS fullName,
-						to_char(a.updated_date,'DD-MM-YYYY, HH24:MI') AS createdDate,
-						to_char(a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate, 
+						to_char(a.updated_date,'DD/MM/YYYY, HH24:MI') AS createdDate,
+						to_char(a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate, 
 						a.current_status AS currentStatus,
 						a.flag AS flag
 				FROM 	assignments a 

@@ -46,15 +46,34 @@ public class LoginAction extends Action {
 				String username = tForm.getUsername();
 				String password = tForm.getPassword();
 
-				String domainName = "nu-ace.ad-ins.com";
+				String domainName = App.getConfiguration("domain_name");
 
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
+				// /TESTING HAPUS NANTI
+//				pass = true;
+				if (tForm.getUsername().equals("inwan")) {
+					username = "inwan.ah";
+				} else if (tForm.getUsername().equals("devri")) {
+					username = "devri.rs";
+				} else if (tForm.getUsername().equals("mey")) {
+					username = "meyliana.tanjung";
+				} else if (tForm.getUsername().equals("nico")) {
+					username = "timotius.nico";
+				}  else if (tForm.getUsername().equals("wilson")) {
+					username = "wilson";
+				} else if (tForm.getUsername().equals("juned")) {
+					username = "muhammad.junaedy";
+				} else if (tForm.getUsername().equals("anthony")) {
+					username = "anthony.pangestu";
+				} else {
+					username = tForm.getUsername();
+				}
 				
 				tForm.setPassword("");
 				pass = true;
 				if (pass) {
-					username = tForm.getUsername();
+//					username = tForm.getUsername();
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
