@@ -119,6 +119,21 @@ function commentClaimDateStringValidation() {
 		onlyOne : false,
 		position : 'right'
 	});
+	$('#claimDateString input[id="manHours"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('.claimTime').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
+	$('#claimDateString input[id="assignmentDate"]').tooltipster({
+		trigger : 'hover',
+		onlyOne : false,
+		position : 'right'
+	});
 
 	// initialize validate plugin on the form
 	$('#claimDateString').validate({
@@ -134,6 +149,15 @@ function commentClaimDateStringValidation() {
 		},
 		rules : {
 			'claimBean.detailDescription' : {
+				required : true
+			},
+			'claimBean.manHours' : {
+				required : true
+			},
+			'claimBean.claimTime' : {
+				required : true
+			},
+			'claimBean.claimDate' : {
 				required : true
 			}
 		},

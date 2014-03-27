@@ -36,22 +36,42 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("save".equals(orgForm.getTask())) {
+			System.out.println("role : "+orgForm.getOrgBean().getHeadDomain());
 			if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
-				if (orgMan.submitInsert(orgForm.getOrgBean())) {
-					orgMan.insertRole(orgForm.getOrgBean());
-					orgMan.insertRoleSPV(orgForm.getOrgBean());
+				orgMan.startTransaction();
+				boolean submit = false;
+				boolean roleHBU = false;
+				boolean roleSPV = false;
+				boolean orgCodeHBU = false;
+				submit = orgMan.submitInsert(orgForm.getOrgBean());
+				roleSPV = orgMan.insertRoleSPV(orgForm.getOrgBean());
+				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
+				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+				if (submit && roleHBU && roleSPV && orgCodeHBU) {
+					orgMan.commitTransaction();
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
+
 				} else {
+					orgMan.rollback();
 					orgForm.setMessage("Insert Business Unit Failed!");
 					orgForm.setColor("red");
 				}
 			} else {
-				if (orgMan.submitInsert(orgForm.getOrgBean())) {
-					orgMan.insertRole(orgForm.getOrgBean());
+				orgMan.startTransaction();
+				boolean submit = false;
+				boolean roleHBU = false;
+				boolean orgCodeHBU = false;
+				submit = orgMan.submitInsert(orgForm.getOrgBean());
+				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
+				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+				if (submit && roleHBU && orgCodeHBU) {
+					orgMan.commitTransaction();
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
+
 				} else {
+					orgMan.rollback();
 					orgForm.setMessage("Insert Business Unit Failed!");
 					orgForm.setColor("red");
 				}
@@ -61,34 +81,123 @@ public class OrganizationAction extends Action {
 		if ("edit".equals(orgForm.getTask())) {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.trim()));
-			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
+			orgForm.setHeadDomainBefore(orgForm.getOrgBean().getHeadDomain());
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 					.getOrganizationCode().trim()));
-			orgMan.deleteRole(orgForm.getHeadDomain());
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 					.getOrgBean().getOrganizationCode()));
 			if (orgForm.getCountChild() == 0) {
-				if (orgMan.submitEdit(orgForm.getOrgBean())) {
-					orgMan.insertRole(orgForm.getOrgBean());
-					orgMan.updateReportAssignment(orgForm.getOrgBean());
-					orgForm.setMessage("Edit Business Unit Successfull!");
-					orgForm.setColor("green");
+				boolean submit = false;
+				boolean updateReportAssignment = false;
+				orgMan.startTransaction();
+				submit = orgMan.submitEdit(orgForm.getOrgBean());
+				if (!orgForm.getHeadDomainBefore().equals(
+						orgForm.getOrgBean().getHeadDomain())) {
+					boolean deleteHBU = false;
+					boolean deleteSPV = false;
+					// handleHBU lama
+					deleteHBU = orgMan
+							.deleteRole(orgForm.getHeadDomainBefore());
+					if (orgMan.countDirectReportProjectNoStart(orgForm
+							.getHeadDomainBefore()) == 0) {
+						deleteSPV = orgMan.deleteRoleSPV(orgForm
+								.getHeadDomainBefore());
+					} else {
+						deleteSPV = true;
+					}
+					// handleHBU baru
+					boolean insertRoleNewHBU = false;
+					boolean insertRoleSPV = false;
+					boolean orgCodeHBU = false;
+					insertRoleNewHBU = orgMan.insertRole(orgForm.getOrgBean());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+					if (orgMan.countRoleSPVNoStart(
+							orgForm.getOrgBean().getHeadDomain()).toString() == "0") {
+						insertRoleSPV = orgMan.insertRoleSPV(orgForm
+								.getOrgBean());
+					} else {
+						insertRoleSPV = true;
+					}
+					updateReportAssignment = orgMan
+							.updateReportAssignment(orgForm.getOrgBean());
+					if (submit && deleteHBU && deleteSPV && insertRoleNewHBU
+							&& insertRoleSPV && updateReportAssignment && orgCodeHBU) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Edit Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Edit Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				} else {
-					orgForm.setMessage("Edit Business Unit Failed!");
-					orgForm.setColor("red");
+					if (submit) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Edit Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Edit Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				}
 			} else {
-				if (orgMan.submitEditWithChild(orgForm.getOrgBean())) {
-					orgMan.insertRole(orgForm.getOrgBean());
-					orgMan.updateReportAssignment(orgForm.getOrgBean());
-					orgForm.setMessage("Edit Business Unit Successfull!");
-					orgForm.setColor("green");
+				boolean submit = false;
+				boolean updateReportAssignment = false;
+				orgMan.startTransaction();
+				submit = orgMan.submitEditWithChild(orgForm.getOrgBean());
+				if (!orgForm.getHeadDomainBefore().equals(
+						orgForm.getOrgBean().getHeadDomain())) {
+					boolean deleteHBU = false;
+					boolean deleteSPV = false;
+					// handleHBU lama
+					deleteHBU = orgMan
+							.deleteRole(orgForm.getHeadDomainBefore());
+					if (orgMan.countDirectReportProjectNoStart(orgForm
+							.getHeadDomainBefore()) == 0) {
+						deleteSPV = orgMan.deleteRoleSPV(orgForm
+								.getHeadDomainBefore());
+					} else {
+						deleteSPV = true;
+					}
+					// handleHBU baru
+					boolean insertRoleNewHBU = false;
+					boolean insertRoleSPV = false;
+					boolean orgCodeHBU = false;
+					insertRoleNewHBU = orgMan.insertRole(orgForm.getOrgBean());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+					if (orgMan.countRoleSPVNoStart(
+							orgForm.getOrgBean().getHeadDomain()).toString() == "0") {
+						insertRoleSPV = orgMan.insertRoleSPV(orgForm
+								.getOrgBean());
+					} else {
+						insertRoleSPV = true;
+					}
+					updateReportAssignment = orgMan
+							.updateReportAssignment(orgForm.getOrgBean());
+					if (submit && deleteHBU && deleteSPV && insertRoleNewHBU
+							&& insertRoleSPV && updateReportAssignment && orgCodeHBU) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Edit Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Edit Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				} else {
-					orgForm.setMessage("Edit Business Unit Failed!");
-					orgForm.setColor("red");
+					if (submit) {
+						orgMan.commitTransaction();
+						orgForm.setMessage("Edit Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgMan.rollback();
+						orgForm.setMessage("Edit Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				}
 			}
 
@@ -101,11 +210,17 @@ public class OrganizationAction extends Action {
 					.trim()));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
-				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.trim())) {
-					orgMan.updateAssignment(orgForm.getOrgBean());
-					orgMan.deleteRoleSPV(orgForm.getHeadDomain());
-					orgMan.deleteRole(orgForm.getHeadDomain());
+				boolean deleteOrg=false;
+				boolean updateAssignment=false;
+				boolean deleteRoleSPV=false;
+				boolean deleteRole=false;
+				
+				updateAssignment=orgMan.updateAssignment(orgForm.getOrgBean());
+				deleteRoleSPV=orgMan.deleteRoleSPV(orgForm.getHeadDomain());
+				deleteRole=orgMan.deleteRole(orgForm.getHeadDomain());
+				deleteOrg=orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.trim());
+				if (updateAssignment && deleteRoleSPV && deleteRole && deleteOrg) {
 					orgForm.setMessage("Delete Business Unit Successfull!");
 					orgForm.setColor("green");
 				} else {
@@ -114,12 +229,15 @@ public class OrganizationAction extends Action {
 				}
 
 			} else {
-				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.trim())) {
-					orgMan.updateAssignment(orgForm.getOrgBean());
-					orgMan.deleteRole(orgForm.getHeadDomain());
-					orgMan.deleteOrganization(orgForm.getOrganizationCode()
-							.trim());
+				boolean deleteOrg=false;
+				boolean updateAssignment=false;
+				boolean deleteRole=false;
+				
+				updateAssignment=orgMan.updateAssignment(orgForm.getOrgBean());
+				deleteRole=orgMan.deleteRole(orgForm.getHeadDomain());
+				deleteOrg=orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.trim());
+				if (updateAssignment && deleteRole && deleteOrg) {
 					orgForm.setMessage("Delete Business Unit Successfull!");
 					orgForm.setColor("green");
 				} else {

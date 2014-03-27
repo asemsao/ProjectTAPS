@@ -14,7 +14,12 @@
 <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
 <link href="css/style-login.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+<script src="js/jquery/jquery-1.8.3.js"></script>
 <script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.widget.min.js"></script>
+<script src="js/metro/metro.min.js"></script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -55,6 +60,20 @@
 			else
 				disablingLogin();
 		});
+		
+		if ($("#loginMessage").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#messagecolor").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 	});
 
 	function button(task) {
@@ -76,6 +95,8 @@
 		<h1 class="title-taps">Please sign in</h1>
 		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
+			<input type="hidden" id="loginMessage" value="<bean:write property='message' name='loginForm'/>" />
+			<input type="hidden" id="messagecolor" value="<bean:write property='color' name='loginForm'/>" />
 			
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"

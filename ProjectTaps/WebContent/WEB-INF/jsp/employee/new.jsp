@@ -51,6 +51,7 @@
 										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 						$("#lookUpActiveDirectory").load(
 								"/ProjectTaps/ajax.do?mode=ad&task=ad");
+						
 
 						$("#golonganNumber").change(function() {
 							if ($("#golonganNumber").val() == "6") {
