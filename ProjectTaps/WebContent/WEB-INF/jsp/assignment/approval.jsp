@@ -11,11 +11,24 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">
+<script type="text/javascript">/* 
 	function flyToPage(task) {
 		document.claimAssignmentForm.task.value = task;
 		document.claimAssignmentForm.submit();
 	}
+	 */
+
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.claimAssignmentForm.task.value = task;
+			document.claimAssignmentForm.submit();
+			return;
+		} else {
+			document.claimAssignmentForm.task.value = task;
+			commentAssigmentValidation();
+		}
+	}
+	
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
 		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
@@ -52,7 +65,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/claimSupervisorAssignment" method="POST">
+				<html:form action="/claimSupervisorAssignment" method="POST" styleId="claimAssignment">
 					<html:hidden property="claimBean.status" name="claimAssignmentForm"
 						styleId="status" />
 					<html:hidden property="claimBean.taskCode"
@@ -367,7 +380,7 @@
 								%>
 								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3"
+								<td colspan=2><html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3" styleId="comment"
 										styleClass="input-control textarea"></html:textarea></td>
 								<%
 									}

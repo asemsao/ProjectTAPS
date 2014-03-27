@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -27,7 +28,12 @@ public class ProjectAction extends Action {
 		ProjectManager pMan = new ProjectManager();
 		ProjectBean pBean = new ProjectBean();
 		Map params = new HashMap();
-
+		HttpSession session = request.getSession(true);
+		String userDomain = (String) session.getAttribute("username");
+		pForm.getAddProject().setUserdomain((String)session.getAttribute("username"));
+		pForm.getpBean().setUserdomain((String)session.getAttribute("username"));
+		pForm.getAddSProject().setUserdomain((String)session.getAttribute("username"));
+	
 		if (pForm.getPage() == null) {
 			pForm.setPage(1);
 		}
@@ -59,7 +65,7 @@ public class ProjectAction extends Action {
 			return mapping.findForward("AddProject");
 		}
 		if ("saveProject".equals(pForm.getTask())) {
-			System.out.println(pForm.getAddProject().getOrganizationCode()+pForm.getAddProject().getCreatedBy());
+			
 			if (pMan.addProject(pForm.getAddProject())) {
 				pForm.setMessage("Inserted Successfully");
 				pForm.setColor("green");
@@ -69,6 +75,7 @@ public class ProjectAction extends Action {
 				param.put("projectCode", pForm.getAddProject().getProjectCode());
 				param.put("orgAfter", pForm.getAddProject()
 						.getOrganizationCode());
+				param.put("userdomain", userDomain);
 				pMan.insertHistory(param);
 			} else
 				pForm.setMessage("Insert Project Failed");

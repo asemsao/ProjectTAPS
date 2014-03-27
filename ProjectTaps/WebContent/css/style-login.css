@@ -84,11 +84,14 @@ label.check-label {
 
 .login-taps {
 	font-weight: none;
-	font-size: 0.8em;
+	font-size: 1em !important;
 	color: #7D9EAE !important;
-	border: 1px solid #7D9EAE;
-	padding: 8px 30px;
+	border: 1px solid #7D9EAE !important;
+	padding: 15px 30px;
 	position: relative;
+	background-color: #fff !important;
+	width: 200px;
+	height: 35px;
 }
 
 .login-disable {
@@ -97,6 +100,14 @@ label.check-label {
 
 .login-enable {
 	opacity: 1;
+}
+
+.color-disable {
+	color: #e51400 !important;
+}
+
+.color-enable {
+	color: #60a917 !important;
 }
 
 .footer-taps {

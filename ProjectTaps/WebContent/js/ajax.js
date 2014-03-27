@@ -208,65 +208,7 @@ function setResponseOrganizationDelete(data) {
 		content += "</tr>";
 	}
 	content += "</tbody>";
-	/*content += "<tbody>";
-	content += "<tr>";
-	content += "</tr>";
-	content += "</tbody>";
-	content += "<!-- TABEL BU CHILD -->";
 	
-	content += "<thead>";
-	content += "<tr>";
-	content += "<td colspan='3'><strong>Business Unit's Child</strong></td>";
-	content += "</tr>";
-	content += "<tr>";
-	content += "<td class='text-center'>Business Unit Code</td>";
-	content += "<td class='text-center'>Business Unit Name</td>";
-	content += "</tr>";
-	content += "</thead>";
-	content += "<tbody>";
-	for ( var i in json.childOrganization) {
-		content += "<tr>";
-		content += "<td class='text-center'>";
-		content += json.childOrganization[i].organizationCode;
-		content += "</td>";
-		content += "<td class='text-center'>";
-		content += json.childOrganization[i].organizationName;
-		content += "</td>";
-		content += "</tr>";
-	}
-	content += "<logic:empty name='ajaxForm' property='childOrganization'>";
-	content += "<tr>";
-	content += "<td class='text-center' colspan=6>No Child Organization</td>";
-	content += "</tr>";
-	content += "</logic:empty>";
-	content += "</tbody>";
-	content += "</table>";
-	*/
-	
-	/*
-	
-	var content = "<table ";
-	content += "class='table striped bordered hovered'>";
-	content += "<tbody>";
-	content += "<thead>";
-	content += "<tr>";
-	content += "<th class='text-center'>Project Code</th>";
-	content += "<th class='text-center'>Project Name</th>";
-	content += "</tr>";
-	content += "</thead>";
-	content += "<tbody>";
-	for ( var i in json.organizationProject) {
-		content += "<tr>";
-		content += "<td class='text-center'>";
-		content += json.organizationProject[i].projectCode;
-		content += "</td>";
-		content += "<td class='text-center'>";
-		content += json.organizationProject[i].projectName;
-		content += "</td>";
-		content += "</tr>";
-	}
-	content += "</tbody>";
-	content += "</table>";*/
 	$("#table-ajax-organization-delete").html(content);
 	$("#page-organization-delete").val(json.page);
 	$("#current-page-organization-delete").html(json.page);

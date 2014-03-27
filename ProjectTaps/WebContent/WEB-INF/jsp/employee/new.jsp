@@ -61,6 +61,7 @@
 							}
 						});
 						$('.myCheckbox').prop('checked', true);
+						
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>

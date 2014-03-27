@@ -34,6 +34,7 @@
 						
 
 						$("#level").change(function() {
+							$("#parent-organization-name").val("");
 							if ($("#level").val() == "0") {
 								$(".parent-organization").hide();
 							} else {

@@ -202,20 +202,24 @@ public class TransferProjectAction extends Action {
 			params.put("orgBefore", params.get("orgBefore"));
 			params.put("transferDate", params.get("transferDate"));
 			params.put("createdBy", session.getAttribute("username"));
-			
 			String temp = "";
 			for (String item : (Iterable<String>) params.get("listMember")) {
 				temp += "'" + item + "', ";
 			}
-			temp = temp.substring(0, temp.length() - 2);
+			if (temp.length() > 1) {
+				temp = temp.substring(0, temp.length() - 2);
+			}
 			params.put("listMember", temp);
 			boolean flag = tpMan.updateTransfer(params);
+			if (flag) {
+				System.out.println("UPDATE : " + flag);
+			}
 		}
 
 		params.put("startP", (tpForm.getPageP() - 1) * 10 + 1);
 		params.put("endP", (tpForm.getPageP() * 10));
 		tpForm.setListProject(tpMan.searchProject(params));
-//		tpForm.setCountRecordP(tpMan.countProject(params));
+		tpForm.setCountRecordP(tpMan.countProject(params));
 		
 		params.put("startO", (tpForm.getPageO() - 1) * 10 + 1);
 		params.put("endO", (tpForm.getPageO() * 10));

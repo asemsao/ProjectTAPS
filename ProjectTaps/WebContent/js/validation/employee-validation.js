@@ -103,7 +103,7 @@ function employeeValidation() {
 			'newEmployee.employeeNik' : {
 				required : true
 			},
-			'newEmployee.firstName' : {
+			'newEmployee.lastName' : {
 				required : true
 			},
 			'newEmployee.businessUnitName' : {

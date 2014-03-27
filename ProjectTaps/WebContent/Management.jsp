@@ -33,11 +33,14 @@
 	 	setDocParameter(i++,periode.trim(), report);
 	 	setDocParameter(i++,bu.trim(), report);
 	 	setDocParameter(i++,periodeReport.trim(), report);
-	 	setDocParameter(i++,year.trim(), report);
+	 	setDocParameter(i++,year.trim(), report);		
 		
-		
+	 	
 		viewReport(report, request, response, session);
+
+	        //viewReport(report, request, response, session);
 	      } finally {
+	    	  report.flushRequests();
 	        report.close();
 	        report.dispose();
 	      }

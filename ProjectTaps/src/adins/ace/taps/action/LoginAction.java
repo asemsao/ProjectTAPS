@@ -51,38 +51,37 @@ public class LoginAction extends Action {
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
 
-				// /TESTING HAPUS NANTI
 				pass = true;
-				if (tForm.getUsername().equals("inwan")) {
-					username = "inwan.ah";
+				if (tForm.getUsername().equals("kartiko")) {
+					username = "kartiko.ew";
 				} else if (tForm.getUsername().equals("devri")) {
 					username = "devri.rs";
 				} else if (tForm.getUsername().equals("mey")) {
 					username = "meyliana.tanjung";
 				} else if (tForm.getUsername().equals("nico")) {
 					username = "timotius.nico";
-				}  else if (tForm.getUsername().equals("wilson")) {
+				} else if (tForm.getUsername().equals("wilson")) {
 					username = "wilson";
 				} else if (tForm.getUsername().equals("juned")) {
 					username = "muhammad.junaedy";
 				} else if (tForm.getUsername().equals("anthony")) {
 					username = "anthony.pangestu";
 				} else {
-					username = "lukas.ws";
+					username = tForm.getUsername();
 				}
+				// username = tForm.getUsername();
 				tForm.setPassword("");
 				tForm.setUsername("");
 				if (pass) {
-					/*
-					 * SET SESSION session.setAttribute("username", username);
-					 */
-					// /TESTING HAPUS NANTI
 
 					List<RoleBean> roleList = lMan.roleList(username);
-					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
+					List<OrganizationLevelBean> organizationLevel = lMan
+							.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
-					session.setAttribute("organizationCode",organizationLevel.get(0).getOrganizationCode());
-					session.setAttribute("organizationLevel",organizationLevel.get(0).getOrganizationLevel());
+					session.setAttribute("organizationCode", organizationLevel
+							.get(0).getOrganizationCode());
+					session.setAttribute("organizationLevel", organizationLevel
+							.get(0).getOrganizationLevel());
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
@@ -117,6 +116,8 @@ public class LoginAction extends Action {
 
 					return mapping.findForward("Dashboard");
 				} else {
+					tForm.setMessage("Employee is INACTIVE or Username / Password is Incorrect!");
+					tForm.setColor("red");
 					return mapping.findForward("Welcome");
 				}
 			} else {
