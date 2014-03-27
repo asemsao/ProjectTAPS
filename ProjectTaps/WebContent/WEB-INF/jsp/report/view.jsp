@@ -14,7 +14,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<jsp:include page="../../../js/import.jsp" />
+<jsp:include page="/js/import.jsp" />
 <script src="<%=request.getContextPath()%>/js/highchart/highcharts.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/data.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/exporting.js"></script>
@@ -125,7 +125,7 @@
 <title>Report</title>
 </head>
 <body class="metro">
-	<jsp:include page="../../../frame/header.jsp" />
+	<jsp:include page="/frame/header.jsp" />
 
 	<html:form action="/report" method="POST">
 		<div class="container container-taps">
@@ -267,7 +267,7 @@
 		<html:hidden property="reportPeriode" name="reportForm" />
 		<html:hidden property="reportMonth" name="reportForm" />
 	</html:form>
-	<jsp:include page="../../../frame/footer.jsp" />
+	<jsp:include page="/frame/footer.jsp" />
 
 </body>
 
