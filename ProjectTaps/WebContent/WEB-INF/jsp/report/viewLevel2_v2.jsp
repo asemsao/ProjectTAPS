@@ -14,7 +14,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<jsp:include page="../../../js/import.jsp" />
+<jsp:include page="/js/import.jsp" />
 <script src="<%=request.getContextPath()%>/js/highchart/highcharts.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/data.js"></script>
 <script src="<%=request.getContextPath()%>/js/highchart/exporting.js"></script>
@@ -25,12 +25,12 @@
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function print(task,organizationCode) {
+	function print(task, organizationCode) {
 		document.reportForm.buPrint.value = organizationCode;
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
-	function report(task,organizationCode,organizationLevel,organizationName) {
+	function report(task, organizationCode, organizationLevel, organizationName) {
 		document.reportForm.task.value = task;
 		document.reportForm.organizationCode.value = organizationCode;
 		document.reportForm.organizationLevel.value = organizationLevel;
@@ -59,24 +59,24 @@
 								table : document.getElementById('datatable')
 							},
 							chart : {
-					            type: 'column',
-					            marginTop: 50,
-					            marginBottom:100,
-					            spacingLeft: 30,
-					            spacingRIght: 30
-							},        
-					        lang: {
-					            noData: "NO DATA FOUND"
-					        },
-					        noData: {
-					            style: {    
-					                fontWeight: 'bold',     
-					                fontSize: '15px',
-					                color: '#303030'        
-					            }
-					        },
+								type : 'column',
+								marginTop : 50,
+								marginBottom : 100,
+								spacingLeft : 30,
+								spacingRIght : 30
+							},
+							lang : {
+								noData : "NO DATA FOUND"
+							},
+							noData : {
+								style : {
+									fontWeight : 'bold',
+									fontSize : '15px',
+									color : '#303030'
+								}
+							},
 							title : {
-								floating: false,
+								floating : false,
 								text : 'Statistic Of Business Unit',
 								margin : 30
 							},
@@ -84,14 +84,14 @@
 								allowDecimals : false,
 								title : {
 									text : 'Manhours',
-									margin: 30
+									margin : 30
 								}
 							},
 							xAxis : {
 								allowDecimals : false,
 								title : {
 									text : 'Employee Name',
-									margin: 30
+									margin : 30
 								}
 							},
 							tooltip : {
@@ -102,13 +102,13 @@
 								shared : true,
 								useHTML : true
 							},
-							legend: {
-					            layout: 'vertical',
-					            backgroundColor: '#FFFFFF',
-					            align: 'right',
-					            verticalAlign: 'middle',
-					            floating: false
-					        },
+							legend : {
+								layout : 'vertical',
+								backgroundColor : '#FFFFFF',
+								align : 'right',
+								verticalAlign : 'middle',
+								floating : false
+							},
 							// tooltip : {
 							// formatter : function() {
 							// return '<b>' + this.series.name + '</b><br/>'
@@ -125,53 +125,63 @@
 <title>Report</title>
 </head>
 <body class="metro">
-	<jsp:include page="../../../frame/header.jsp" />
+	<jsp:include page="/frame/header.jsp" />
 
 	<html:form action="/report" method="POST">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<div id="graph"
-						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div id="graph"></div>
 					<div class="hide">
 						<table id="datatable" class="table striped bordered hovered">
-								<tr>
-									<th></th>
-									<th>Self Assignment BU</th>
-									<th>Assignment BU</th>
-									<th>Self Assignment Project</th>
-									<th>Assignment Project</th>
-								</tr>
-								<logic:notEmpty name="reportForm" property="listReports">
+							<tr>
+								<th></th>
+								<th>Self Assignment BU</th>
+								<th>Assignment BU</th>
+								<th>Self Assignment Project</th>
+								<th>Assignment Project</th>
+							</tr>
+							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
 									<tr>
 										<th><bean:write name="report" property="employeeName" /></th>
-										<td><bean:write name="report" property="totalSelfAssignmentBU" /></td>
-										<td><bean:write name="report" property="totalAssignmentBU" /></td>
-										<td><bean:write name="report" property="totalSelfAssignmentProject" /></td>
-										<td><bean:write name="report" property="totalAssignmentProject" /></td>
-									</tr>									
+										<td><bean:write name="report"
+												property="totalSelfAssignmentBU" /></td>
+										<td><bean:write name="report"
+												property="totalAssignmentBU" /></td>
+										<td><bean:write name="report"
+												property="totalSelfAssignmentProject" /></td>
+										<td><bean:write name="report"
+												property="totalAssignmentProject" /></td>
+									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 						</table>
 					</div>
-					<button class="primary" onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="organizationCode" />')">Generate Departement Report</button>
+					<br /> <br />
 					<div id="print">
 						<table id="datatableshow" class="table striped bordered hovered">
 							<tr>
-								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/></h3></th>
+								<th colspan=7 class="text-center"><h3>
+										<bean:write property="organizationName" />
+									</h3></th>
 							</tr>
 							<tr>
-								<th colspan=2 class="text-left"><h5>Report Year : <bean:write property="reportYear"/> </h5></th>
-								<th colspan=2 class="text-left">
-								<logic:notEmpty name="reportForm" property="reportPeriode">
-									Semester :<h5><bean:write property="reportPeriode"/></h5>
-								</logic:notEmpty>
-								<logic:notEmpty name="reportForm" property="reportMonth">
-									Month :<h5><bean:write property="reportMonth"/></h5>
-								</logic:notEmpty>
-								</th>
+								<th colspan=2 class="text-left"><h5>
+										Report Year :
+										<bean:write property="reportYear" />
+									</h5></th>
+								<th colspan=2 class="text-left"><logic:notEmpty
+										name="reportForm" property="reportPeriode">
+									Semester :<h5>
+											<bean:write property="reportPeriode" />
+										</h5>
+									</logic:notEmpty> <logic:notEmpty name="reportForm" property="reportMonth">
+									Month :<h5>
+											<bean:write property="reportMonth" />
+										</h5>
+									</logic:notEmpty></th>
 							</tr>
 							<tr>
 								<th class="text-center">
@@ -203,25 +213,38 @@
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
 									<tr class="text-center">
-										<td class="text-left"><bean:write name="report" property="employeeName" /></td>
-										<td><bean:write name="report" property="totalSelfAssignmentBU" /></td>
-										<td><bean:write name="report" property="totalAssignmentBU" /></td>
-										<td><bean:write name="report" property="totalSelfAssignmentProject" /></td>
-										<td><bean:write name="report" property="totalAssignmentProject" /></td>
-									</tr>									
+										<td class="text-left"><bean:write name="report"
+												property="employeeName" /></td>
+										<td><bean:write name="report"
+												property="totalSelfAssignmentBU" /></td>
+										<td><bean:write name="report"
+												property="totalAssignmentBU" /></td>
+										<td><bean:write name="report"
+												property="totalSelfAssignmentProject" /></td>
+										<td><bean:write name="report"
+												property="totalAssignmentProject" /></td>
+									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-								<tr>
-									<td colspan="5" class="text-right">
-									<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
-									<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
-												<logic:equal name="reportForm" property="organizationLevel" value="2">
-													<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
-												</logic:equal>
+							<tr>
+								<td colspan="5" class="text-right">
+									<button class="primary"
+										onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="organizationCode" />')">Generate
+										Departement Report</button>
+									<button id="back-btn" class="info"
+										onclick="javascript:report('back')">Home</button> <logic:notEqual
+										name="reportForm" property="organizationLevel"
+										value='<%=session.getAttribute("organizationLevel")
+							.toString()%>'>
+										<logic:equal name="reportForm" property="organizationLevel"
+											value="2">
+											<button id="back-btn" class="info"
+												onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','1','<bean:write name="reportForm" property="parentName" />')">Back</button>
+										</logic:equal>
 									</logic:notEqual>
-									</td>
-								</tr>
-					</table>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -237,7 +260,7 @@
 		<html:hidden property="reportPeriode" name="reportForm" />
 		<html:hidden property="reportMonth" name="reportForm" />
 	</html:form>
-	<jsp:include page="../../../frame/footer.jsp" />
+	<jsp:include page="/frame/footer.jsp" />
 
 </body>
 

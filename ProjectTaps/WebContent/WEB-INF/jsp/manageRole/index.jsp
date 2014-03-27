@@ -71,8 +71,10 @@
 		styleClass="manageRoleForm" styleId="CRUDForm">
 		<html:hidden property="task" styleId="task" name="manageRoleForm" />
 		<html:hidden property="param" styleId="param" name="manageRoleForm" />
-		<html:hidden property="message" styleId="message" name="manageRoleForm" />
-		<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
+		<html:hidden property="message" styleId="message"
+			name="manageRoleForm" />
+		<html:hidden property="messagecolor" styleId="messagecolor"
+			name="manageRoleForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -80,10 +82,6 @@
 						<thead>
 							<tr>
 								<th colspan=3 class="text-center"><h3>Role List</h3></th>
-							</tr>
-							<tr>
-								<th colspan=3 class="text-left"><input type="button"
-									class="wizard" value="Manage Role Menu" data-hint="This feature help you add menu for each role." /></th>
 							</tr>
 							<tr>
 								<th class="text-center">Role ID</th>
@@ -103,8 +101,9 @@
 										<td class="text-center"><a class="listMember"
 											alt="<bean:write name="manageRole" property="roleId" />"
 											data-hint="List Member <bean:write name="manageRole"
-												property="roleName" />" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
+												property="roleName" />"
+											data-hint-position="bottom"><img alt=""
+												src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -113,6 +112,11 @@
 									<td class="text-center" colspan="3">Role Not Available</td>
 								</tr>
 							</logic:empty>
+							<tr>
+								<th colspan=3 class="text-right"><input type="button"
+									class="wizard primary" value="Manage Role Menu"
+									data-hint="This feature help you add menu for each role." /></th>
+							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -120,8 +124,9 @@
 		</div>
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
-<script>
-</script>
+	<script>
+		
+	</script>
 </body>
 
 </html>

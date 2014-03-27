@@ -85,7 +85,7 @@
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="pBean.projectCode" name="projectForm"
-											styleId="projectCode"></html:text>
+											styleId="projectCode" maxlength="4"></html:text>
 									</div></td>
 							</tr>
 							<tr>
