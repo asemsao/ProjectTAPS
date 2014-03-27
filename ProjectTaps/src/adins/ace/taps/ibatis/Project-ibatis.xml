@@ -352,7 +352,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		project_code = #projectCode#
 	</update>
 	
-	<select id="isExist" resultClass = "int" parameterClass="java.lang.String">
+	<select id="isNotExist" resultClass = "int" parameterClass="java.lang.String">
 		SELECT
 			count(1)
 		FROM 
@@ -425,6 +425,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SET
 			report_to = #reportTo#
 		WHERE
+			report_to = #reportToBefore#
 			assign_to = #assignTo#
 			AND project_code = #projectCode#
 			AND NOT current_status IN ('APPROVED','REJECTED','DELETED')
@@ -437,6 +438,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			organizations
 		WHERE 
 			head_user_domain = #userDomain#
+			AND lower(flag) = 'active'
 	</select>
 	
 	<select id="checkDirectReportUserDomain" parameterClass = "java.lang.String" resultClass = "adins.ace.taps.bean.project.AddStructureProjectBean">

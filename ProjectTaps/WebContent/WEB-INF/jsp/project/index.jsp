@@ -40,6 +40,7 @@
 					position : 'top-right',
 					content : $("#messageCRUD").val()
 				});
+				$("#messageCRUD").val("");
 			}, 1000);
 		}
 		$(".delete-link").click(function() {
