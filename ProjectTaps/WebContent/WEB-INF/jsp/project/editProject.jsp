@@ -79,7 +79,88 @@
 								</th>
 							</tr>
 						</thead>
-						<tbody>
+						<bean:define id="phaseProject" name="projectForm" property="pBean.phase" type="java.lang.String"/> 
+						<%if("CLD".equals(phaseProject)){ %> 
+							<tbody>
+							<tr>
+								<th class="field-form">Project Code</th>
+								<td class="field-separator">:</td>
+								<td><div class="input-control text ">
+										<html:text property="pBean.projectCode" name="projectForm"
+											styleId="projectCode" maxlength="4" readonly="true"></html:text>
+									</div></td>
+							</tr>
+							<tr>
+								<th class="field-form">Project Name</th>
+								<td class="field-separator">:</td>
+								<td><div class="input-control text ">
+										<html:text property="pBean.projectName" name="projectForm"
+											styleId="projectName" readonly="true"></html:text>
+									</div></td>
+							</tr>
+							<tr>
+								<th class="field-form">Client</th>
+								<td class="field-separator">:</td>
+								<td><div class="input-control text">
+										<html:text property="pBean.client" name="projectForm"
+											styleId="client" readonly="true"></html:text>
+									</div></td>
+							</tr>
+							<tr>
+								<th class="field-form">Phase</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control select">
+										<html:select property="pBean.phase" name="projectForm" styleId = "phase" disabled="true">
+											<html:optionsCollection name="projectForm"
+												property="listPhase" label="phaseName" value="phase" />
+										</html:select>
+									</div>									
+								</td>
+							</tr>
+							<tr>
+								<th class="field-form">Business Unit</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<html:hidden property="pBean.organizationCode"
+											name="projectForm" styleId="organization-code"></html:hidden>
+										<html:text property="pBean.organizationName"
+											name="projectForm" styleId="businessUnit" readonly="true"></html:text>
+									</div>
+
+								</td>
+							</tr>
+							<tr>
+								<th class="field-form">Start Date</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text" id="datepicker-begin">
+										<html:text property="pBean.startDate" name="projectForm" 
+										styleId="startDate" readonly="true" styleClass="datepicker-start" disabled="true"></html:text>
+										<button type="button" class="btn-date"></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th class="field-form">Estimate Finish Date</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text " id="datepicker-end">
+										<html:text property="pBean.endDate" name="projectForm"
+										styleId="endDate" readonly="true" styleClass="datepicker-end" disabled="true"></html:text>
+										<button type="button" class="btn-date"></button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="text-right">
+									<button id="cancel-btn" onclick="button('cancel')" class="button info">Close</button>
+								</td>
+							</tr>
+						</tbody>
+						<%} else{%>
+							<tbody>
 							<tr>
 								<th class="field-form">Project Code</th>
 								<td class="field-separator">:</td>
@@ -113,7 +194,7 @@
 											<html:optionsCollection name="projectForm"
 												property="listPhase" label="phaseName" value="phase" />
 										</html:select>
-									</div>
+									</div>									
 								</td>
 							</tr>
 							<tr>
@@ -159,6 +240,8 @@
 								</td>
 							</tr>
 						</tbody>
+						<%} %>
+						
 					</table>
 				</div>
 			</div>
