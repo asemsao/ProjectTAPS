@@ -26,7 +26,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		AS roleName FROM
 		employee_role e JOIN roles r ON e.role_id = r.role_id
 		WHERE
-		LOWER(e.user_domain) = LOWER(#userDomain#)
+		LOWER(e.user_domain) = LOWER(#userDomain#) ORDER BY e.role_id DESC
 	</select>
 
 	<select id="getMenu" resultClass="adins.ace.taps.bean.module.MenuBean"

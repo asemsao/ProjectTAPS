@@ -29,19 +29,29 @@ public class OrganizationManager {
 	public void commitTransaction() {
 		try {
 			ibatisSqlMap.commitTransaction();
-			ibatisSqlMap.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 
 	public void rollback() {
 		try {
 			ibatisSqlMap.getDataSource().getConnection().rollback();
-			ibatisSqlMap.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 
@@ -369,12 +379,7 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-
-	//
-	// if (orgMan.submitInsert(orgForm.getOrgBean())) {
-	// orgMan.insertRoleSPV(orgForm.getOrgBean());
-	// orgMan.insertRole(orgForm.getOrgBean());
-
+	
 	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
 		boolean flag = false;
@@ -536,6 +541,21 @@ public class OrganizationManager {
 			ibatisSqlMap.update("organization.editOrganizationWithChild",
 					orgBean);
 			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
+	
+	public boolean updateOrgCodeHBU(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateOrgCodeHBU", orgBean);
+			flag = true;
+			System.out.println("sukses update HBU");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			flag = false;

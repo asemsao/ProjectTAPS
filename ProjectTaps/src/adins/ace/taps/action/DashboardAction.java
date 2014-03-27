@@ -43,8 +43,11 @@ public class DashboardAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		DashboardBean bean = new DashboardBean();
 		HttpSession session = request.getSession(true);
-		boolean success = false;
-		boolean starSuccess = false;
+		boolean success = true;
+		boolean claim = true;
+		boolean comment = true;
+		boolean update = true;
+		boolean starSuccess = true;
 		Map params = new HashMap();
 		Map rankingLast = new HashMap();
 		Map rankingCurrent = new HashMap();
@@ -108,35 +111,41 @@ public class DashboardAction extends Action {
 			Map checkDetailClaim = new HashMap();
 			checkDetailClaim.put("taskCode",dForm.getClaimBean().getTaskCode());
 			checkDetailClaim.put("claimDate",dForm.getClaimBean().getClaimDate());
-			String addDetail = aMan.checkClaimDate(checkDetailClaim);
-			if (addDetail.equals("true")){
-				success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
-				if (success) {
-					dForm.setMessage("Add Detail Claim Success");
-					dForm.setColor("green");
-				} else {
-					dForm.setMessage("Failed Adding Detail Claim");
-					dForm.setColor("red");
-				}
+			aMan.startTransaction();
+			success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
+			if (success){
+				aMan.commitTransaction();
 			} else {
-				dForm.setMessage("You've already claim assignment that day");
-				dForm.setColor("red");
+				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rfa".equals(dForm.getTask())) {
+			System.out.println("masuk rfa");
 			// add to detail claim assignment / add to history comment -> back
 			// to list
+			aMan.startTransaction();
 			String taskCode = dForm.getClaimBean().getTaskCode();
 			if (dForm.getClaimBean().getDetailDescription() != null) {
-				success = aMan.addDetailClaimAssignment(dForm.getClaimBean());
+				claim = aMan.addDetailClaimAssignment(dForm.getClaimBean());
 			}
 
 			if (dForm.getClaimBean().getComment() != null) {
 				dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getReportTo());
 				dForm.getClaimBean().setCreatedBy(userDomain);
 				dForm.getClaimBean().setStatus("RFA");
-				aMan.addHistoryComment(dForm.getClaimBean());
+//				(SEQUENCE_COMMENTS.NEXTVAL,
+//			            #taskCode#,
+//			            #comment#,
+//			            #status#,
+//			            #commentTo#,
+//			            #createdBy#,
+				System.out.println(dForm.getClaimBean().getTaskCode());
+				System.out.println(dForm.getClaimBean().getComment());
+				System.out.println(dForm.getClaimBean().getStatus());
+				System.out.println(dForm.getClaimBean().getCommentTo());
+				System.out.println(dForm.getClaimBean().getCreatedBy());
+				comment = aMan.addHistoryComment(dForm.getClaimBean());
 			}
 
 			Map paramStatus = new HashMap();
@@ -144,11 +153,13 @@ public class DashboardAction extends Action {
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
-			if (success) {
+			System.out.println(claim+" "+comment+" "+update);
+			if (claim && comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Assignment");
@@ -157,6 +168,9 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				System.out.println("gagal");
+				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
@@ -187,19 +201,23 @@ public class DashboardAction extends Action {
 			if (!tmpAdhocUserDomain.equals(dForm.getSelfAssignBean().getAdhocUserDomain())) {
 				aMan.editAdhocUserDomain(dForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			dForm.getSelfAssignBean().setCurrentStatus("RFA");
-			aMan.addHistorySelfComment(dForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(dForm.getSelfAssignBean());
 
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "INACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
-			if (success) {
+			
+			
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Self Assignment");
@@ -208,28 +226,32 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("approved".equals(dForm.getTask())) {
+			aMan.startTransaction();
 			String taskCode = dForm.getClaimBean().getTaskCode();
 			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
 			dForm.getClaimBean().setCreatedBy(userDomain);
 			dForm.getClaimBean().setStatus("APPROVED");
-			aMan.addHistoryComment(dForm.getClaimBean());
+			comment = aMan.addHistoryComment(dForm.getClaimBean());
 
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			// update table star
 			dForm.getClaimBean().setStarBefore(0);
 			starSuccess = aMan.addAssignmentStar(dForm.getClaimBean());
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success && starSuccess) {
+			if (comment && update && starSuccess) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Assignment");
@@ -238,25 +260,29 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("correction".equals(dForm.getTask())) {
+			aMan.startTransaction();
 			String taskCode = dForm.getClaimBean().getTaskCode();
 			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
 			dForm.getClaimBean().setCreatedBy(userDomain);
 			dForm.getClaimBean().setStatus("CORRECTION");
-			aMan.addHistoryComment(dForm.getClaimBean());
+			comment = aMan.addHistoryComment(dForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Assignment");
@@ -265,25 +291,29 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("reject".equals(dForm.getTask())) {
+			aMan.startTransaction();
 			String taskCode = dForm.getClaimBean().getTaskCode();
 			dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getAssignTo());
 			dForm.getClaimBean().setCreatedBy(userDomain);
 			dForm.getClaimBean().setStatus("REJECTED");
-			aMan.addHistoryComment(dForm.getClaimBean());
+			comment = aMan.addHistoryComment(dForm.getClaimBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "REJECTED");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Assignment");
@@ -292,6 +322,8 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
@@ -309,20 +341,22 @@ public class DashboardAction extends Action {
 			if (!tmpManHours.equals(Double.toString(dForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(dForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			dForm.getSelfAssignBean().setCurrentStatus("APPROVED");
-			aMan.addHistorySelfComment(dForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(dForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "APPROVED");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "ACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			// update table star
 			dForm.getSelfAssignBean().setStarBefore(0);
 			starSuccess = aMan.addSelfAssignmentStar(dForm.getSelfAssignBean());
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success && starSuccess) {
+			if (comment && update && starSuccess) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Self Assignment");
@@ -331,6 +365,8 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
@@ -348,17 +384,19 @@ public class DashboardAction extends Action {
 			if (!tmpManHours.equals(Double.toString(dForm.getSelfAssignBean().getManHours()))) {
 				aMan.editManHourSelf(dForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			dForm.getSelfAssignBean().setCurrentStatus("CORRECTION");
-			aMan.addHistorySelfComment(dForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(dForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "CORRECTION");
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "INACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Self Assignment");
@@ -367,24 +405,28 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rejectSelf".equals(dForm.getTask())) {
+			aMan.startTransaction();
 			dForm.getSelfAssignBean().setCommentTo(dForm.getSelfAssignBean().getAssignTo());
 			dForm.getSelfAssignBean().setCreatedBy(userDomain);
 			dForm.getSelfAssignBean().setCurrentStatus("REJECTED");
-			aMan.addHistorySelfComment(dForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(dForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", dForm.getSelfAssignBean().getCurrentStatus());
 			paramStatus.put("updatedBy", userDomain);
 			paramStatus.put("taskCode", dForm.getSelfAssignBean().getTaskCode());
 			paramStatus.put("flag", "ACTIVE");
-			success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));
-			if (success) {
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map emailParams = new HashMap();
 				emailParams.put("toMail", dForm.getClaimBean().getEmailReceiver());
 				emailParams.put("assignmentType", "Self Assignment");
@@ -393,6 +435,8 @@ public class DashboardAction extends Action {
 				emailParams.put("fromEmployee", dForm.getClaimBean().getSenderName());
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
+			} else {
+				aMan.rollback();
 			}
 			// return to list dashboard
 			dForm.setTask((String) session.getAttribute("listDashboard"));
