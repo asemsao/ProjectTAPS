@@ -16,7 +16,7 @@
 <title>Assignment</title>
 
 <script type="text/javascript">
-	function flyToPage(task) {
+	function searchingPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
@@ -95,7 +95,7 @@
 										<html:text property="keyword" name="dashboardForm"
 											styleId="searchKeyword"></html:text>
 										<button class="btn-search"
-											onclick="javascript:flyToPage('search');"></button>
+											onclick="javascript:searchingPage('search');"></button>
 									</div>
 								</th>
 							</tr>

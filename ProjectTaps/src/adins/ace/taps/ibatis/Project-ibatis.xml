@@ -272,8 +272,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		#client#,
 		phase_id = #phase#,
 		organization_code = #organizationCode#,
-		start_date = #startDate#,
-		end_date = #endDate#,
+		start_date = to_date(#startDate#,'DD/MM/YYYY'),
+		end_date = to_date(#endDate#,'DD/MM/YYYY'),
 		updated_by = #userdomain#,
 		updated_date = sysdate
 		WHERE
