@@ -86,13 +86,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
-	
+
 	<update id="editOrganizationWithChild" parameterClass="organizationBean">
 		UPDATE
 		organizations SET
 		organization_name = #organizationName#,
 		head_user_domain = #headDomain#,
-		parent_organization_code = #parentCode#,
+		parent_organization_code =
+		#parentCode#,
 		updated_by = #sessionUserDomain#,
 		updated_date = SYSDATE
 		WHERE
@@ -107,6 +108,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		AND
 		UPPER(organization_code)=UPPER(#organizationCode#)
 	</update>
+
+	<update id="updateOrgCodeHBU" parameterClass="organizationBean">
+		UPDATE employees
+		SET organization_code = #organizationCode#
+		WHERE user_domain = #headDomain#
+	</update>
+
 
 	<select id="countOrganizations" resultClass="int"
 		parameterClass="java.util.Map">
@@ -449,7 +457,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="selectOrganizationName" resultClass="java.lang.String"
 		parameterClass="java.util.Map">
 		SELECT organization_name AS organizationName
-		FROM organizations
+		FROM
+		organizations
 		WHERE organization_code = #organizationCode#
 	</select>
 
@@ -476,8 +485,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM (SELECT ROWNUM seqnum, a.*
 		FROM (
 		SELECT
-		organization_code as organizationCode, organization_name as organizationName
-		FROM organizations
+		organization_code
+		as organizationCode, organization_name as organizationName
+		FROM
+		organizations
 		WHERE
 		UPPER(parent_organization_code) =
 		UPPER(#organizationCode#) AND flag='ACTIVE'
@@ -493,8 +504,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		parameterClass="java.util.Map">
 		SELECT COUNT (1)
 		FROM projects p, organizations o
-		WHERE p.organization_code = o.organization_code
-		AND o.organization_code = #organizationCode#
+		WHERE
+		p.organization_code = o.organization_code
+		AND o.organization_code =
+		#organizationCode#
 		AND p.flag = 'ACTIVE'
 	</select>
 
@@ -503,16 +516,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM organizations
 		WHERE
 		UPPER(parent_organization_code) =
-		UPPER(#organizationCode#) AND flag='ACTIVE'
+		UPPER(#organizationCode#) AND
+		flag='ACTIVE'
 	</select>
 
 	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
 		SELECT
 		COUNT(1)
 		FROM employees e, organizations o
-		WHERE UPPER(e.organization_code) =
-		UPPER(#organizationCode#) AND e.organization_code=O.ORGANIZATION_CODE AND
-		LOWER(e.flag) = 'active' AND e.user_domain != o.head_user_domain
+		WHERE
+		UPPER(e.organization_code) =
+		UPPER(#organizationCode#) AND
+		e.organization_code=O.ORGANIZATION_CODE AND
+		LOWER(e.flag) = 'active'
+		AND e.user_domain != o.head_user_domain
 	</select>
 
 	<select id="countProject" resultClass="int" parameterClass="java.util.Map">
