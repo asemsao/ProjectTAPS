@@ -66,8 +66,7 @@
 					<input type="hidden" id="messagecolor"
 						value="<bean:write  property="color" name="projectForm" />">
 
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan=2><h3>Project Member</h3></th>
 							</tr>
@@ -80,7 +79,6 @@
 								<th class="field-form">Project Name</th>
 								<td><strong><bean:write property="projectName" /></strong></td>
 							</tr>
-						</thead>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -121,7 +119,7 @@
 						</tbody>
 					</table>
 
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<tr>
 							<td class="text-center">
 								<div class="pagination">

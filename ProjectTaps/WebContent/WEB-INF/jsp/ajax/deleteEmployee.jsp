@@ -29,16 +29,13 @@
 		<logic:notEqual name="ajaxForm" property="checkDeleteEmpoyee"
 			value="0">
 			<table class="table striped bordered hovered">
-				<thead>
 					<tr>
 						<th><strong>Employee <bean:write name="ajaxForm"
 									property="userDomain" /> Can't be deleted because he/she still
 								in
 						</strong></th>
 					</tr>
-				</thead>
 				<logic:notEmpty name="ajaxForm" property="headOrgStatus">
-					<tbody>
 						<logic:iterate id="assignment" name="ajaxForm"
 							property="headOrgStatus">
 							<tr>
@@ -48,16 +45,12 @@
 								</strong></td>
 							</tr>
 						</logic:iterate>
-					</tbody>
 				</logic:notEmpty>
 
 				<logic:notEmpty name="ajaxForm" property="supervisorStatus">
-					<thead>
 						<tr>
 							<td><strong>PROJECT</strong></td>
 						</tr>
-					</thead>
-					<tbody>
 						<logic:iterate id="assignment" name="ajaxForm"
 							property="supervisorStatus">
 							<tr>
@@ -66,17 +59,14 @@
 										property="projectRole" /></td>
 							</tr>
 						</logic:iterate>
-					</tbody>
 				</logic:notEmpty>
 
-				<thead>
 					<tr>
 						<th class="text-center">
 							<button type="button" class='button info'
 								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
 						</th>
 					</tr>
-				</thead>
 			</table>
 		</logic:notEqual>
 
@@ -146,8 +136,7 @@
 					</tbody>
 				</table>
 			</div>
-			<table class="table striped bordered hovered">
-				<thead>
+			<table class="table">
 					<tr>
 						<th colspan=3 class="text-center">
 							<div class="pagination">
@@ -182,7 +171,6 @@
 								onclick="javascript:chooseAssignmentDelete('cancel')">Cancel</button>
 						</th>
 					</tr>
-				</thead>
 			</table>
 		</logic:equal>
 	</html:form>

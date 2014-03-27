@@ -24,7 +24,7 @@
 			return;
 		} else {
 			document.dashboardForm.task.value = task;
-			commentClaimDateStringValidation();
+			detailClaimValidation();
 		}
 	}
 
@@ -33,6 +33,7 @@
 		$("#assignmentDate").attr("placeholder", "Assignment Date");
 		$("#timepicker").attr("placeholder", "Assignment Time");
 		$("#description").attr("placeholder", "Description");
+		$("#claim-message").hide();
 		var $myText = $("#assignmentDate");
 		$myText.data("value", $myText.val());
 		setInterval(function() {
@@ -42,8 +43,11 @@
 				var cds = $("#claimDateString").val();
 				if (cds.indexOf(val) != -1) {
 					$("#btnClaim").hide();
+					$("#claim-message").show();
+					
 				} else {
 					$("#btnClaim").show();
+					$("#claim-message").hide();
 				}
 			}
 		}, 100);
@@ -54,20 +58,17 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/dashboard" method="post">
+	<html:form action="/dashboard" method="post" styleId="detailClaim">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
 					<html:hidden property="stringClaimDate" name="dashboardForm"
 						styleId="claimDateString" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=4 class="text-center text-bold"><h3>Claim
 										Assignment</h3></td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -195,6 +196,7 @@
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right">
+									<span class="claim-msg" id="claim-message">You've already claim that day</span>
 									<button onclick="javascript:flyToPage('claim');"
 										class="button success" id="btnClaim">Claim</button>
 									<button onclick="javascript:flyToPage('rfa');"
@@ -203,7 +205,6 @@
 										class="button info">Cancel</button>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 				</div>
 			</div>
