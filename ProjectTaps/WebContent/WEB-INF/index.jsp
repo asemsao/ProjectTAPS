@@ -62,6 +62,7 @@
 		});
 		
 		if ($("#loginMessage").val() != "") {
+			alert($("#loginMessage").val());
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -97,7 +98,9 @@
 			<html:hidden property="task" name="loginForm" />
 			<input type="hidden" id="loginMessage" value="<bean:write property='message' name='loginForm'/>" />
 			<input type="hidden" id="messagecolor" value="<bean:write property='color' name='loginForm'/>" />
+			<div id="error-login" class="error-login">
 			
+			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
 				styleClass="textbox-taps" />
@@ -106,13 +109,7 @@
 				styleClass="textbox-taps" />
 			<br />
 			<br />
-
-			<!-- 			<div class="input-control checkbox align-left"> -->
-			<%-- 				<label class="check-label"> <html:checkbox --%>
-			<%-- 						property="keepMeSign"></html:checkbox> <span class="check"></span> --%>
-			<!-- 					Keep me signed in -->
-			<!-- 				</label> -->
-			<!-- 			</div> -->
+			
 			<br />
 			<br />
 			<div class="input-control align-center">
