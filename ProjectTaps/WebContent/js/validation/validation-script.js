@@ -6,9 +6,51 @@ $.validator.addMethod("notEqualToAssignmentTo", function(value, element) {
 	return $('#userDomain').val() != $('#employee-domain').val()
 }, "You Must Select Other People");
 
-/*$.validator.addMethod("phone", function(value, element) {
-	return isEmptyString($('#phoneNumberAreaCode').val()) ^ !isEmptyString($('#phoneNumberMidNumb').val())
-}, "You Must Select Other People");*/
+$.validator.addMethod("phoneNumber", function(value, element) {
+	var flag=true;
+	if($('#phoneNumberAreaCode').val().length > 0 && $('#phoneNumberMidNumb').val().length == 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Prefix Phone Number");
+
+
+$.validator.addMethod("phoneExt", function(value, element) {
+	var flag=true;
+	if($('#phoneNumberAreaCode').val().length == 0 && $('#phoneNumberMidNumb').val().length == 0 && $('#phoneNumberLastNumb').val().length > 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Phone Number");
+
+
+
+$.validator.addMethod("phoneArea", function(value, element) {
+	var flag=true;
+	if($('#phoneNumberMidNumb').val().length>0 && $('#phoneNumberAreaCode').val().length == 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Area Phone Number");
+
+
+$.validator.addMethod("mobileNumber", function(value, element) {
+	var flag=true;
+	if($('#mobileNumberAreaCode').val().length>0 && $('#phoneNumberMidNumb').val().length == 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Prefix Mobile Number");
+
+
+$.validator.addMethod("mobileArea", function(value, element) {
+	var flag=true;
+	if($('#mobileNumberMidNumb').val().length>0 && $('#phoneNumberAreaCode').val().length == 0){
+		flag = false;
+	}
+	return  flag
+}, "You Must Input Area Mobile Number");
+
 
 
 (function(d, f, g, b) {

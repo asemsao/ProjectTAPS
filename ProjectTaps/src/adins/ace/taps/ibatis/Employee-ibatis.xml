@@ -82,7 +82,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
 					user_domain NOT IN (SELECT
-					head_user_domain FROM organizations)
+					head_user_domain FROM organizations WHERE head_user_domain != '')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -140,7 +140,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
 					user_domain NOT IN (SELECT
-					head_user_domain FROM organizations)
+					head_user_domain FROM organizations WHERE head_user_domain != '')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -302,28 +302,28 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="getEditEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.util.Map">
 		SELECT e.picture AS profilePicture, e.user_domain AS
-		employeeDomain, TRIM(e.employee_nik) AS employeeNik,
-		TRIM(e.employee_code) AS
-		employeeCode,
-		e.first_name AS firstName,
-		e.last_name AS lastName, e.gender AS
-		gender, e.organization_code AS
-		businessUnit, o.organization_name AS
-		businessUnitName, e.address AS
-		employeeAddress,
-		e.phone_number AS
-		phoneNumber,
-		e.mobile_phone AS
-		mobileNumber, e.email AS
-		email,
-		SUBSTR(e.employee_category,1,1) AS
-		golonganNumber,
-		SUBSTR(e.employee_category,2,2) AS golonganLevel,
-		e.flag AS flag FROM
-		employees e JOIN organizations o ON
-		e.organization_code=o.organization_code
-		WHERE UPPER(user_domain) =
-		UPPER(#employeeDomain#)
+        employeeDomain, TRIM(e.employee_nik) AS employeeNik,
+        TRIM(e.employee_code) AS
+        employeeCode,
+        e.first_name AS firstName,
+        e.last_name AS lastName, e.gender AS
+        gender, e.organization_code AS
+        businessUnit, o.organization_name AS
+        businessUnitName, e.address AS
+        employeeAddress,
+        e.phone_number AS
+        phoneNumber,
+        e.mobile_phone AS
+        mobileNumber, e.email AS
+        email,
+        SUBSTR(e.employee_category,1,1) AS
+        golonganNumber,
+        SUBSTR(e.employee_category,2,2) AS golonganLevel,
+        e.flag AS flag FROM
+        employees e, organizations o
+        WHERE LOWER(e.user_domain) =
+        LOWER(#employeeDomain#) AND
+        e.organization_code=o.organization_code(+)
 	</select>
 	
 	<insert id="insertEmployee" parameterClass="adins.ace.taps.bean.employee.NewEmployeeBean">

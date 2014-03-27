@@ -89,13 +89,10 @@
 						value="<bean:write  property="message" 
 						name="organizationForm" />">
 
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan="8" class="text-center"><h3>Business Unit</h3></th>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<td class="text-center field-form">
 									<div class="input-control select">
@@ -115,7 +112,6 @@
 									</div>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -175,7 +171,7 @@
 						</tbody>
 					</table>
 
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<tr>
 							<td class="text-center">
 								<div class="pagination">

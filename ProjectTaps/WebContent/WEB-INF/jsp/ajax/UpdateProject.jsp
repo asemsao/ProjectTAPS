@@ -28,8 +28,7 @@
 		<html:hidden property="paramProjectCode" 
 			name="ajaxForm" styleId="projectCode-project-update"/>
 				
-			<table class="table striped bordered hovered">
-				<thead>
+			<table class="table">
 					<tr>
 						<th colspan=7 class="text-center">Pending Assignment List</th>
 					</tr>
@@ -55,7 +54,6 @@
 							</div>
 						</th>
 					</tr>
-				</thead>
 			</table>
 			<div id="table-ajax-project-update">
 				<table class="table striped bordered hovered">
@@ -93,8 +91,7 @@
 					</tbody>
 				</table>
 			</div>
-			<table class="table striped bordered hovered">
-				<thead>
+			<table class="table">
 					<tr>
 						<th colspan=3 class="text-center">
 							<div class="pagination">
@@ -132,7 +129,6 @@
 								onclick="javascript:chooseProjectUpdate('cancel')">Cancel</button>
 						</th>
 					</tr>
-				</thead>
 			</table>
 		
 	</html:form>

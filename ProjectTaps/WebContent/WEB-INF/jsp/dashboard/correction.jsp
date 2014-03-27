@@ -69,14 +69,11 @@
 					<html:hidden property="claimBean.status" name="dashboardForm" styleId="status" />
 					<html:hidden property="claimBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=4 class="text-center text-bold">
 									<h3>Correction Assignment</h3>
 								</td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -214,7 +211,6 @@
 								<button onclick="javascript:flyToPage('rfa');" class="button success">RFA</button> 
 								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 							</tr>
-						</tbody>
 					</table>
 					<html:hidden property="task" name="dashboardForm" />
 					<html:hidden property="claimBean.reportTo" name="dashboardForm" />

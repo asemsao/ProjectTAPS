@@ -32,7 +32,6 @@
 						</tr>
 					</thead>
 					<tbody>
-
 						<logic:iterate id="comment" name="ajaxForm"
 							property="historyComment">
 							<tr>
@@ -51,8 +50,7 @@
 					</tbody>
 				</table>
 			</div>
-			<table class="table striped bordered hovered">
-				<thead>
+			<table class="table">
 					<tr>
 						<th colspan=5 class="text-center">
 							<div class="pagination">
@@ -80,7 +78,6 @@
 							</div>
 						</th>
 					</tr>
-				</thead>
 			</table>
 		</html:form>
 	</logic:notEmpty>

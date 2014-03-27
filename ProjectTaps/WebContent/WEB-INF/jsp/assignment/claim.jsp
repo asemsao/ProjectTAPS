@@ -308,6 +308,7 @@
 										</table>
 									</logic:notEmpty></td>
 							</tr>
+							<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
 							<tr>
 								<%
 									if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
@@ -340,6 +341,30 @@
 									}
 								%>
 							</tr>
+							</logic:notEmpty>
+							<logic:empty property="listDetailClaim" name="claimAssignmentForm">
+							<tr>
+								<td colspan=4 class="text-right">
+									<%
+										if ("CORRECTION".equals(session.getAttribute("status"))) {
+									%> 
+											<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+									<%
+									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+									 %> 
+											<span class="claim-msg">You need to make a claim from dashboard</span>
+											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+									<%
+									 	} else {
+									 %> 
+									 		<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
+								</td>
+								<%
+									}
+								%>
+							</tr>
+							</logic:empty>
 						</tbody>
 					</table>
 					<html:hidden property="task" name="claimAssignmentForm" />

@@ -37,7 +37,8 @@ public class SelfAssignmentAction extends Action {
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo(sForm.getSelfAssignBean().getReportTo());
 		sForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
-
+		boolean comment = false;
+		boolean update = false;
 		if ("cancel".equals(sForm.getTask())) {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
@@ -67,17 +68,19 @@ public class SelfAssignmentAction extends Action {
 			if (!tmpAdhocUserDomain.equals(sForm.getSelfAssignBean().getAdhocUserDomain())) {
 				aMan.editAdhocUserDomain(sForm.getSelfAssignBean());
 			}
+			aMan.startTransaction();
 			sForm.getSelfAssignBean().setCurrentStatus("RFA");
-			aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
 			paramStatus.put("updatedBy", sessionUserDomain);
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "INACTIVE");
-			boolean success = aMan.updateStatus(paramStatus);
+			update = aMan.updateStatus(paramStatus);
 			/*sending notification on email*/
-			sForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
-			if (success) {
+			sForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));	
+			if (comment && update) {
+				aMan.commitTransaction();
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
@@ -86,9 +89,10 @@ public class SelfAssignmentAction extends Action {
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
 			}
 			session.removeAttribute("taskCode");
-			System.out.println(success);
 			return mapping.findForward("Cancel");
 		}
 		
