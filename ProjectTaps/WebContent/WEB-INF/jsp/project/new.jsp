@@ -31,7 +31,8 @@
 						$("#client").attr("placeholder", "Client");
 						$("#startDate").attr("placeholder", "Start Date");
 						$("#endDate").attr("placeholder", "Finish Date");
-						$("#parent-organization-name").attr("placeholder", "Business Unit");
+						$("#parent-organization-name").attr("placeholder",
+								"Business Unit");
 						$("#lookUpOrganization")
 								.load(
 										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
@@ -62,7 +63,7 @@
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
 										<html:text property="addProject.projectCode"
-											name="projectForm" styleId="projectCode"></html:text>
+											name="projectForm" styleId="projectCode" maxlength="4"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -103,8 +104,9 @@
 									<div class="input-control text">
 										<html:hidden property="addProject.organizationCode"
 											name="projectForm" styleId="organization-code" />
-										<html:text property="addProject.organizationName" readonly="true"
-											name="projectForm" styleId="parent-organization-name" />
+										<html:text property="addProject.organizationName"
+											readonly="true" name="projectForm"
+											styleId="parent-organization-name" />
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -115,8 +117,9 @@
 								<td>
 									<div class="input-control text" id="datepicker">
 										<html:text property="addProject.startDate" name="projectForm"
-											styleId="startDate" readonly="true" styleClass="datepicker-start"></html:text>
-										<button type="button" class="btn-date"></button>											
+											styleId="startDate" readonly="true"
+											styleClass="datepicker-start"></html:text>
+										<button type="button" class="btn-date"></button>
 									</div>
 								</td>
 							</tr>
@@ -133,8 +136,10 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="button('saveProject')" class="success">Save</button>
-									<button id="cancel-btn" onclick="button('back')" class="button info">Cancel</button>
+									<button id="save-btn" onclick="button('saveProject')"
+										class="success">Save</button>
+									<button id="cancel-btn" onclick="button('back')"
+										class="button info">Cancel</button>
 								</td>
 							</tr>
 
