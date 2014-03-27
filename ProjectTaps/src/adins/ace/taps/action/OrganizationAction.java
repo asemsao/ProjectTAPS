@@ -114,8 +114,7 @@ public class OrganizationAction extends Action {
 					boolean orgCodeHBU = false;
 					insertRoleNewHBU = orgMan.insertRole(orgForm.getOrgBean());
 					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
-					if (orgMan.countRoleSPVNoStart(
-							orgForm.getOrgBean().getHeadDomain()).toString() == "0") {
+					if (orgMan.countRoleSPVNoStart(orgForm.getOrgBean().getHeadDomain()) == 0) {
 						insertRoleSPV = orgMan.insertRoleSPV(orgForm
 								.getOrgBean());
 					} else {

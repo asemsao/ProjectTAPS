@@ -134,17 +134,6 @@ public class DashboardAction extends Action {
 				dForm.getClaimBean().setCommentTo(dForm.getClaimBean().getReportTo());
 				dForm.getClaimBean().setCreatedBy(userDomain);
 				dForm.getClaimBean().setStatus("RFA");
-//				(SEQUENCE_COMMENTS.NEXTVAL,
-//			            #taskCode#,
-//			            #comment#,
-//			            #status#,
-//			            #commentTo#,
-//			            #createdBy#,
-				System.out.println(dForm.getClaimBean().getTaskCode());
-				System.out.println(dForm.getClaimBean().getComment());
-				System.out.println(dForm.getClaimBean().getStatus());
-				System.out.println(dForm.getClaimBean().getCommentTo());
-				System.out.println(dForm.getClaimBean().getCreatedBy());
 				comment = aMan.addHistoryComment(dForm.getClaimBean());
 			}
 
@@ -477,7 +466,11 @@ public class DashboardAction extends Action {
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
-
+		
+		if ("search".equals(dForm.getTask())) {
+			dForm.setTask((String) session.getAttribute("listDashboard"));
+		}
+		
 		params.put("start", (dForm.getPage() - 1) * 10 + 1);
 		params.put("end", (dForm.getPage() * 10));
 		params.put("category", dForm.getCategory());
