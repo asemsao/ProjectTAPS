@@ -29,19 +29,29 @@ public class OrganizationManager {
 	public void commitTransaction() {
 		try {
 			ibatisSqlMap.commitTransaction();
-			ibatisSqlMap.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 
 	public void rollback() {
 		try {
 			ibatisSqlMap.getDataSource().getConnection().rollback();
-			ibatisSqlMap.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 
