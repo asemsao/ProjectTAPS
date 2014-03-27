@@ -52,6 +52,7 @@ public class LoginAction extends Action {
 						domainName);
 				
 				tForm.setPassword("");
+				pass = true;
 				if (pass) {
 					username = tForm.getUsername();
 					List<RoleBean> roleList = lMan.roleList(username);
