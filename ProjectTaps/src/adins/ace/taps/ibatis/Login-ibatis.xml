@@ -5,9 +5,17 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 <sqlMap namespace="login">
 
+	<select id="userIsActive" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1)
+		FROM employees
+		WHERE user_domain LIKE #username# AND
+		LOWER(flag) LIKE LOWER('ACTIVE')
+	</select>
+
 	<select id="getOrganizationLevel" resultClass="adins.ace.taps.bean.module.OrganizationLevelBean"
 		parameterClass="java.lang.String">
-		SELECT e.organization_code AS organizationCode, o.organization_level AS organizationLevel FROM employees e JOIN
+		SELECT e.organization_code AS organizationCode,
+		o.organization_level AS organizationLevel FROM employees e JOIN
 		organizations o ON e.organization_code = o.organization_code WHERE
 		LOWER(e.user_domain) = LOWER(#userDomain#)
 	</select>

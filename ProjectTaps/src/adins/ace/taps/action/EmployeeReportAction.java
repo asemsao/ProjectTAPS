@@ -62,7 +62,7 @@ public class EmployeeReportAction extends Action {
 				eForm.setPage(eForm.getPage() + 1);
 			}
 		}
-
+		
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);

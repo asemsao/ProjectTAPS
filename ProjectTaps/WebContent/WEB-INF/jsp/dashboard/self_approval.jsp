@@ -11,12 +11,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">
+<script type="text/javascript">/* 
 	function flyToPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}
-
+ */
+	function flyToPage(task) {
+		if (task == "cancel") {
+			document.dashboardForm.task.value = task;
+			document.dashboardForm.submit();
+			return;
+		} else {
+			document.dashboardForm.task.value = task;
+			commentDashboardValidationSelf();
+		}
+	}
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
 		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
@@ -31,7 +41,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/dashboard" method="POST">
+				<html:form action="/dashboard" method="POST" styleId="dashboardComment">
 					<html:hidden property="selfAssignBean.currentStatus" name="dashboardForm" styleId="status" />
 					<html:hidden property="selfAssignBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<html:hidden property="task" name="dashboardForm" />
@@ -167,45 +177,72 @@
 								<th class="field-form size3">Appraisal Star</th>
 								<td class="field-separator">:</td>
 								<td colspan=2>
-									<div class="star-hider">
-										<div class="rating-kiri" style="float: left;">
-											<select id="rating-kiri" name="rating">
-												<option value="-5">-5</option>
-												<option value="-4">-4</option>
-												<option value="-3">-3</option>
-												<option value="-2">-2</option>
-												<option value="-1">-1</option>
-											</select>
+									<logic:equal value="true" property="selfAssignBean.updateableStar" name="dashboardForm">
+										<div class="star-hider">
+											<div class="rating-kiri" style="float: left;">
+												<select id="rating-kiri" name="rating">
+													<option value="-5">-5</option>
+													<option value="-4">-4</option>
+													<option value="-3">-3</option>
+													<option value="-2">-2</option>
+													<option value="-1">-1</option>
+												</select>
+											</div>
+
+											<div class="rating-tengah" style="float: left;">
+												<select id="rating-tengah" name="rating">
+													<option value="0">0</option>
+												</select>
+											</div>
+
+											<div class="rating-kanan" style="float: left;">
+												<select id="rating-kanan" name="rating">
+													<option value="1">+1</option>
+													<option value="2">+2</option>
+													<option value="3">+3</option>
+													<option value="4">+4</option>
+													<option value="5">+5</option>
+												</select>
+											</div>
+											<p class="star"></p>
+											<html:hidden property="selfAssignBean.appraisalStar"
+												name="dashboardForm" styleId="star" />
+											<button type="button" id="edit-star-btn" class="default">Edit</button>
 										</div>
-
-										<div class="rating-tengah" style="float: left;">
-											<select id="rating-tengah" name="rating">
-												<option value="0">0</option>
-											</select>
-										</div>
-
-										<div class="rating-kanan" style="float: left;">
-											<select id="rating-kanan" name="rating">
-												<option value="1">+1</option>
-												<option value="2">+2</option>
-												<option value="3">+3</option>
-												<option value="4">+4</option>
-												<option value="5">+5</option>
-											</select>
-										</div>
-
-										<p class="star"></p>
-										<html:hidden property="selfAssignBean.appraisalStar" styleId="star" />
-										<button type="button" id="edit-star-btn" class="default">Edit</button>
-
-									</div>
+									</logic:equal> 
+									<logic:equal value="false" property="selfAssignBean.updateableStar" name="dashboardForm">
+										<bean:define id="temp" name="dashboardForm" property="selfAssignBean.appraisalStar" type="Integer" />
+										<%
+											Integer sc = temp;
+														if (sc > 0) {
+															for (int i = 0; i < sc; i++) {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+										<%
+											}
+														} else if (sc < 0) {
+															for (int i = 0; i < Math.abs(sc); i++) {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<%
+											}
+														} else {
+										%>
+										<img
+											src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+										<%
+											}
+										%>
+									</logic:equal>
 								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Comment</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><html:textarea
-										property="selfAssignBean.comment" name="dashboardForm"
+										property="selfAssignBean.comment" name="dashboardForm" styleId="comment"
 										styleClass="input-control textarea"></html:textarea></td>
 							</tr>
 							<tr>

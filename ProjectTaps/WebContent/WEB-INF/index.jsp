@@ -14,7 +14,12 @@
 <link href="css/metro-bootstrap-responsive.css" rel="stylesheet">
 <link href="css/style-login.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+<script src="js/jquery/jquery-1.8.3.js"></script>
 <script src="js/jquery/jquery.min.js"></script>
+<script src="js/jquery/jquery.widget.min.js"></script>
+<script src="js/metro/metro.min.js"></script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -26,6 +31,8 @@
 		$("#login-btn").removeAttr('disabled');
 		$("#login-btn").removeClass('login-disable');
 		$("#login-btn").addClass('login-enable');
+		$("#login-btn i").removeClass('color-disable');
+		$("#login-btn i").addClass('color-enable');
 		$("#login-btn").attr('style', 'cursor: pointer;');
 		$("#login-btn").attr('src', 'images/LOGIN_ENABLE.png');
 	}
@@ -33,6 +40,8 @@
 		$("#login-btn").attr('disabled', 'disabled');
 		$("#login-btn").removeClass('login-enable');
 		$("#login-btn").addClass('login-disable');
+		$("#login-btn i").removeClass('color-enable');
+		$("#login-btn i").addClass('color-disable');
 		$("#login-btn").attr('style', 'cursor: default;');
 		$("#login-btn").attr('src', 'images/LOGIN_DISABLE.png');
 	}
@@ -51,6 +60,20 @@
 			else
 				disablingLogin();
 		});
+		
+		if ($("#loginMessage").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#messagecolor").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 	});
 
 	function button(task) {
@@ -72,6 +95,8 @@
 		<h1 class="title-taps">Please sign in</h1>
 		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
+			<input type="hidden" id="loginMessage" value="<bean:write property='message' name='loginForm'/>" />
+			<input type="hidden" id="messagecolor" value="<bean:write property='color' name='loginForm'/>" />
 			
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
@@ -91,8 +116,8 @@
 			<br />
 			<br />
 			<div class="input-control align-center">
-				<h2><a class="login-taps login-disable" id="login-btn" onmouseover="hover(this);"
-					onmouseout="unhover(this)" onclick="button('login')">Sign in <i class="icon-arrow-right-4"></i></a></h2>
+				<button class="login-taps login-disable" id="login-btn" onmouseover="hover(this);"
+					onmouseout="unhover(this)" onclick="button('login')">Sign in <i class="icon-arrow-right-4 color-disable"></i></button>
 			</div>
 		</html:form>
 	</div>
