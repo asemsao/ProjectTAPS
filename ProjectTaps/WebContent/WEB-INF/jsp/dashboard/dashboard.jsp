@@ -142,7 +142,7 @@
 
 			<div class="row row-taps shadow-taps">
 				<div class="span-ranking-taps">
-					<h2 class="fg-steel">Top 10 Business Unit (This Month)</h2>
+					<h2 class="fg-steel">TOP 10 <i class="icon-arrow-right-4"></i>&nbsp;<%=session.getAttribute("organizationCode") %> (This Month)</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
@@ -174,7 +174,7 @@
 						</tbody>
 					</table>
 
-					<h2 class="fg-steel">Top 10 Business Unit (Last Month)</h2>
+					<h2 class="fg-steel">TOP 10 <i class="icon-arrow-right-4"></i>&nbsp;<%=session.getAttribute("organizationCode") %> (Last Month)</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
@@ -208,7 +208,7 @@
 				</div>
 
 				<div class="span-ranking-taps">
-					<h2 class="fg-steel">Top 10 All Business Unit (This Month)</h2>
+					<h2 class="fg-steel">TOP 10 <i class="icon-arrow-right-4"></i>&nbsp;All Business Unit (This Month)</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
@@ -238,7 +238,7 @@
 						</tbody>
 					</table>
 
-					<h2 class="fg-steel">Top 10 All Business Unit (Last Month)</h2>
+					<h2 class="fg-steel">TOP 10 <i class="icon-arrow-right-4"></i>&nbsp;All Business Unit (Last Month)</h2>
 					<table class="table bordered shadow-taps">
 						<thead>
 							<tr>
