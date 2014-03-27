@@ -49,8 +49,11 @@ public class LoginModule {
 			} catch (NamingException ex) {
 				System.out.println(ex.toString());
 			}
+			
 		}
-		logged = lMan.userIsActive(params);
+		if(logged){
+			logged = lMan.userIsActive(params);	
+		}
 		return logged;
 	}
 
