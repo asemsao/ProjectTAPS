@@ -50,7 +50,7 @@ public class LoginAction extends Action {
 
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
-
+				System.out.println(pass);
 				// /TESTING HAPUS NANTI
 //				pass = true;
 				if (tForm.getUsername().equals("inwan")) {
@@ -73,7 +73,7 @@ public class LoginAction extends Action {
 				
 				tForm.setPassword("");
 				if (pass) {
-					username = tForm.getUsername();
+//					username = tForm.getUsername();
 					List<RoleBean> roleList = lMan.roleList(username);
 					List<OrganizationLevelBean> organizationLevel=lMan.GetOrganizationLevel(username);
 					String fullname = lMan.getFullName(username);
