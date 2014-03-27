@@ -369,12 +369,7 @@ public class OrganizationManager {
 		}
 		return count;
 	}
-
-	//
-	// if (orgMan.submitInsert(orgForm.getOrgBean())) {
-	// orgMan.insertRoleSPV(orgForm.getOrgBean());
-	// orgMan.insertRole(orgForm.getOrgBean());
-
+	
 	public boolean submitInsert(OrganizationBean eBean) throws SQLException,
 			IOException {
 		boolean flag = false;
@@ -536,6 +531,21 @@ public class OrganizationManager {
 			ibatisSqlMap.update("organization.editOrganizationWithChild",
 					orgBean);
 			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
+	
+	public boolean updateOrgCodeHBU(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateOrgCodeHBU", orgBean);
+			flag = true;
+			System.out.println("sukses update HBU");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			flag = false;
