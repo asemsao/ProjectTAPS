@@ -711,13 +711,7 @@ public class ProjectAction extends Action {
 				param.put("projectCode", pForm.getParamProjectCode());
 				param.put("directreport", pForm.getDirectReportUserDomain());
 				updateAssStatus = pMan.updateAssStatus(param);
-				System.out.println(deleteMember);
-				System.out.println(deleteRole);
-				System.out.println(noMoreSPV);
-				System.out.println(notHead);
-				System.out.println(updateAssStatus);
-				System.out.println(!errorNoMoreSPV );
-				System.out.println(!errorNotHead);
+				
 				if(deleteMember && deleteRole && noMoreSPV && notHead && updateAssStatus && !errorNoMoreSPV && !errorNotHead)
 				{
 					pMan.commitTransaction();
