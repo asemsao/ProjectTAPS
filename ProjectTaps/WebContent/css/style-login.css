@@ -125,6 +125,12 @@ label.check-label {
 	border-right: 10px slateblue solid;
 }
 
-.ad-text {
-	font-size: 1em !important;
+.border-red {
+	border-left: 10px red solid;
+	border-right: 10px red solid;
+}
+
+.border-green {
+	border-left: 10px green solid;
+	border-right: 10px green solid;
 }

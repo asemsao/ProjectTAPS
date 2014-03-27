@@ -70,7 +70,7 @@
 		});
 		
 		$("#login-btn").click(function() {
-			$("#loginMessage").val('<i class="icon-warning"></i>&nbsp;&nbsp;Invalid Username / Password');
+			$("#loginMessage").val('<i class="icon-warning"></i>&nbsp;&nbsp;Invalid username / password<br/>/ server is having some problems.');
 		});
 		
 		if ($("#loginMessage").val() != "") {
@@ -103,12 +103,17 @@
 			<br />
 			<div class="ad">
 			<% if (App.getConfiguration("recovery_mode").equals("false")) { %>
+			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
+			&nbsp; Active Directory
+			</p>
 			<% }
 	 		else { %>
+	 		<p class="fg-red">
 			<img class="ad-icon" src="images/offline.png">
+			&nbsp; Active Directory
+			</p>
 			<% } %>
-			&nbsp; <img src="images/ad-text.jpg">
 			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
