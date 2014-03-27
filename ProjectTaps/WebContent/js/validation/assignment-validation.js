@@ -74,41 +74,29 @@ function newCorrectionAssignmentValidation() {
 
 };
 
-function newAssignmentSaveValidation() {
+function newAssignmentSaveValidation(radVal) {
 
 	// =================================================================================
 	// New Self Assignment SAVE
 	// =================================================================================
-
-    $('#assignmentDate').tooltipster({
+	$('#project-name').tooltipster({
         trigger: 'hover',
         onlyOne: false,
         position: 'right'
     });
-
-	// initialize validate plugin on the form
-	$('#newAssignment').validate({
-		errorPlacement : function(error, element) {
-			$(element).tooltipster('update', $(error).text());
-			$(element).tooltipster('hide');
-			$(element).addClass('highlight-default');
-		},
-		success : function(label, element) {
-			$(element).tooltipster('hide');
-			$(element).removeClass('highlight-default');
-			$(element).tooltipster('update', 'accepted');
-		},
-		rules : {
-        	'assignmentBean.assignmentDate': {
-        		required: true
-        	}
-		},
-		submitHandler : function(form) {
-			form.submit();
-			return false;
+	if(radVal == "PROJECT"){
+		if($('#project-name').val().length == 0){
+			$('#project-name').tooltipster('update', 'This field is required');
+			$('#project-name').addClass('highlight-default');
+			$('#project-name').tooltipster('hide');
 		}
-	});
-
+		else{
+			document.claimAssignmentForm.submit();
+		}
+	}
+	else{
+		document.claimAssignmentForm.submit();
+	}
 };
 
 function newAssignmentValidation() {
