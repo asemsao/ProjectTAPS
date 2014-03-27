@@ -36,15 +36,18 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("save".equals(orgForm.getTask())) {
+			System.out.println("role : "+orgForm.getOrgBean().getHeadDomain());
 			if ((orgMan.countRoleSPV(orgForm.getOrgBean().getHeadDomain()) == 0)) {
 				orgMan.startTransaction();
 				boolean submit = false;
 				boolean roleHBU = false;
 				boolean roleSPV = false;
+				boolean orgCodeHBU = false;
 				submit = orgMan.submitInsert(orgForm.getOrgBean());
 				roleSPV = orgMan.insertRoleSPV(orgForm.getOrgBean());
 				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
-				if (submit && roleHBU && roleSPV) {
+				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+				if (submit && roleHBU && roleSPV && orgCodeHBU) {
 					orgMan.commitTransaction();
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
@@ -58,9 +61,11 @@ public class OrganizationAction extends Action {
 				orgMan.startTransaction();
 				boolean submit = false;
 				boolean roleHBU = false;
+				boolean orgCodeHBU = false;
 				submit = orgMan.submitInsert(orgForm.getOrgBean());
 				roleHBU = orgMan.insertRole(orgForm.getOrgBean());
-				if (submit && roleHBU) {
+				orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
+				if (submit && roleHBU && orgCodeHBU) {
 					orgMan.commitTransaction();
 					orgForm.setMessage("Insert Business Unit Successfull!");
 					orgForm.setColor("green");
@@ -77,67 +82,49 @@ public class OrganizationAction extends Action {
 			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
 					.trim()));
 			orgForm.setHeadDomainBefore(orgForm.getOrgBean().getHeadDomain());
-			System.out.println(orgForm.getHeadDomainBefore()
-					+ "head before noh");
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 					.getOrganizationCode().trim()));
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			System.out.println("CHECK 1");
 			orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 					.getOrgBean().getOrganizationCode()));
 			if (orgForm.getCountChild() == 0) {
-				System.out.println("CHECK 2");
 				boolean submit = false;
 				boolean updateReportAssignment = false;
 				orgMan.startTransaction();
 				submit = orgMan.submitEdit(orgForm.getOrgBean());
-				System.out.println(orgForm.getHeadDomainBefore()
-						+ orgForm.getOrgBean().getHeadDomain());
 				if (!orgForm.getHeadDomainBefore().equals(
 						orgForm.getOrgBean().getHeadDomain())) {
-					System.out.println("CHECK 3");
 					boolean deleteHBU = false;
 					boolean deleteSPV = false;
 					// handleHBU lama
 					deleteHBU = orgMan
 							.deleteRole(orgForm.getHeadDomainBefore());
-					System.out.println("deleteHBU");
 					if (orgMan.countDirectReportProjectNoStart(orgForm
 							.getHeadDomainBefore()) == 0) {
-						System.out.println("deleteRoleSPV");
 						deleteSPV = orgMan.deleteRoleSPV(orgForm
 								.getHeadDomainBefore());
 					} else {
 						deleteSPV = true;
-						System.out.println("deleteRoleSPV else");
 					}
 					// handleHBU baru
 					boolean insertRoleNewHBU = false;
 					boolean insertRoleSPV = false;
+					boolean orgCodeHBU = false;
 					insertRoleNewHBU = orgMan.insertRole(orgForm.getOrgBean());
-					System.out.println("insertRoleNewHBU");
-					System.out.println(orgMan.countRoleSPVNoStart(
-							orgForm.getOrgBean().getHeadDomain()).toString());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
 					if (orgMan.countRoleSPVNoStart(
 							orgForm.getOrgBean().getHeadDomain()).toString() == "0") {
 						insertRoleSPV = orgMan.insertRoleSPV(orgForm
 								.getOrgBean());
-						System.out.println("insertRoleSPV");
 					} else {
 						insertRoleSPV = true;
-						System.out.println("insertRoleSPV else");
 					}
 					updateReportAssignment = orgMan
 							.updateReportAssignment(orgForm.getOrgBean());
-					System.out.println("CHECK 4");
-
-					System.out.println(submit && deleteHBU && deleteSPV
-							&& insertRoleNewHBU && insertRoleSPV
-							&& updateReportAssignment);
 					if (submit && deleteHBU && deleteSPV && insertRoleNewHBU
-							&& insertRoleSPV && updateReportAssignment) {
+							&& insertRoleSPV && updateReportAssignment && orgCodeHBU) {
 						orgMan.commitTransaction();
 						orgForm.setMessage("Edit Business Unit Successfull!");
 						orgForm.setColor("green");
@@ -148,68 +135,51 @@ public class OrganizationAction extends Action {
 					}
 				} else {
 					if (submit) {
-						System.out.println("CHECK 5");
 						orgMan.commitTransaction();
 						orgForm.setMessage("Edit Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
-						System.out.println("CHECK 6");
 						orgMan.rollback();
 						orgForm.setMessage("Edit Business Unit Failed!");
 						orgForm.setColor("red");
 					}
 				}
 			} else {
-				System.out.println("CHECK without");
 				boolean submit = false;
 				boolean updateReportAssignment = false;
 				orgMan.startTransaction();
 				submit = orgMan.submitEditWithChild(orgForm.getOrgBean());
-				System.out.println(orgForm.getHeadDomainBefore()
-						+ orgForm.getOrgBean().getHeadDomain());
 				if (!orgForm.getHeadDomainBefore().equals(
 						orgForm.getOrgBean().getHeadDomain())) {
-					System.out.println("CHECK 3");
 					boolean deleteHBU = false;
 					boolean deleteSPV = false;
 					// handleHBU lama
 					deleteHBU = orgMan
 							.deleteRole(orgForm.getHeadDomainBefore());
-					System.out.println("deleteHBU");
 					if (orgMan.countDirectReportProjectNoStart(orgForm
 							.getHeadDomainBefore()) == 0) {
-						System.out.println("deleteRoleSPV");
 						deleteSPV = orgMan.deleteRoleSPV(orgForm
 								.getHeadDomainBefore());
 					} else {
 						deleteSPV = true;
-						System.out.println("deleteRoleSPV else");
 					}
 					// handleHBU baru
 					boolean insertRoleNewHBU = false;
 					boolean insertRoleSPV = false;
+					boolean orgCodeHBU = false;
 					insertRoleNewHBU = orgMan.insertRole(orgForm.getOrgBean());
-					System.out.println("insertRoleNewHBU");
-					System.out.println(orgMan.countRoleSPVNoStart(
-							orgForm.getOrgBean().getHeadDomain()).toString());
+					orgCodeHBU = orgMan.updateOrgCodeHBU(orgForm.getOrgBean());
 					if (orgMan.countRoleSPVNoStart(
 							orgForm.getOrgBean().getHeadDomain()).toString() == "0") {
 						insertRoleSPV = orgMan.insertRoleSPV(orgForm
 								.getOrgBean());
-						System.out.println("insertRoleSPV");
 					} else {
 						insertRoleSPV = true;
-						System.out.println("insertRoleSPV else");
 					}
 					updateReportAssignment = orgMan
 							.updateReportAssignment(orgForm.getOrgBean());
-					System.out.println("CHECK 4");
-
-					System.out.println(submit && deleteHBU && deleteSPV
-							&& insertRoleNewHBU && insertRoleSPV
-							&& updateReportAssignment);
 					if (submit && deleteHBU && deleteSPV && insertRoleNewHBU
-							&& insertRoleSPV && updateReportAssignment) {
+							&& insertRoleSPV && updateReportAssignment && orgCodeHBU) {
 						orgMan.commitTransaction();
 						orgForm.setMessage("Edit Business Unit Successfull!");
 						orgForm.setColor("green");
@@ -220,12 +190,10 @@ public class OrganizationAction extends Action {
 					}
 				} else {
 					if (submit) {
-						System.out.println("CHECK 5");
 						orgMan.commitTransaction();
 						orgForm.setMessage("Edit Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
-						System.out.println("CHECK 6");
 						orgMan.rollback();
 						orgForm.setMessage("Edit Business Unit Failed!");
 						orgForm.setColor("red");
@@ -242,11 +210,17 @@ public class OrganizationAction extends Action {
 					.trim()));
 			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
 			if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
-				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.trim())) {
-					orgMan.updateAssignment(orgForm.getOrgBean());
-					orgMan.deleteRoleSPV(orgForm.getHeadDomain());
-					orgMan.deleteRole(orgForm.getHeadDomain());
+				boolean deleteOrg=false;
+				boolean updateAssignment=false;
+				boolean deleteRoleSPV=false;
+				boolean deleteRole=false;
+				
+				updateAssignment=orgMan.updateAssignment(orgForm.getOrgBean());
+				deleteRoleSPV=orgMan.deleteRoleSPV(orgForm.getHeadDomain());
+				deleteRole=orgMan.deleteRole(orgForm.getHeadDomain());
+				deleteOrg=orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.trim());
+				if (updateAssignment && deleteRoleSPV && deleteRole && deleteOrg) {
 					orgForm.setMessage("Delete Business Unit Successfull!");
 					orgForm.setColor("green");
 				} else {
@@ -255,12 +229,15 @@ public class OrganizationAction extends Action {
 				}
 
 			} else {
-				if (orgMan.deleteOrganization(orgForm.getOrganizationCode()
-						.trim())) {
-					orgMan.updateAssignment(orgForm.getOrgBean());
-					orgMan.deleteRole(orgForm.getHeadDomain());
-					orgMan.deleteOrganization(orgForm.getOrganizationCode()
-							.trim());
+				boolean deleteOrg=false;
+				boolean updateAssignment=false;
+				boolean deleteRole=false;
+				
+				updateAssignment=orgMan.updateAssignment(orgForm.getOrgBean());
+				deleteRole=orgMan.deleteRole(orgForm.getHeadDomain());
+				deleteOrg=orgMan.deleteOrganization(orgForm.getOrganizationCode()
+						.trim());
+				if (updateAssignment && deleteRole && deleteOrg) {
 					orgForm.setMessage("Delete Business Unit Successfull!");
 					orgForm.setColor("green");
 				} else {

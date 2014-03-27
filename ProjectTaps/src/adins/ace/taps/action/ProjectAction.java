@@ -160,9 +160,12 @@ public class ProjectAction extends Action {
 
 				pForm.setMessage("Deleted Project Successfully");
 				pForm.setColor("green");
-			} else
+			} 
+			else
+			{
 				pForm.setMessage("Delete Project Failed");
-			pForm.setColor("red");
+				pForm.setColor("red");
+			}
 		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);
