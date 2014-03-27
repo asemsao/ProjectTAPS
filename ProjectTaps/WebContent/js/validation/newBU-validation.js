@@ -12,12 +12,12 @@ function newBUValidation() {
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
-	});
+	});/*
 	$('#employee-name').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
 		position : 'right'
-	});
+	});*/
 	$('#parent-organization-name').tooltipster({
 		trigger : 'hover',
 		onlyOne : false,
@@ -42,10 +42,10 @@ function newBUValidation() {
 			},
 			'orgBean.organizationName' : {
 				required : true
-			},
+			},/*
 			'orgBean.headName' : {
 				required : true
-			},
+			},*/
 			'orgBean.parentName' : {
 				required : true
 			}

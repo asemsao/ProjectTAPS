@@ -122,7 +122,7 @@
 								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
 								<td colspan=2><div class="input-control text">
-										<html:text property="claimBean.claimTime" name="dashboardForm"
+										<html:text property="claimBean.claimTime" name="dashboardForm" styleClass="claimTime"
 											styleId="timepicker" readonly="true"></html:text>
 									</div></td>
 							</tr>
@@ -131,7 +131,7 @@
 								<td class="field-separator">:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm"
+										<html:select name="dashboardForm" styleId="manHours"
 											property="claimBean.manHours">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
