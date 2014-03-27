@@ -429,7 +429,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			report_to = #reportToBefore#
 			AND assign_to = #assignTo#
 			AND project_code = #projectCode#
-			AND NOT current_status IN ('APPROVED','REJECTED','DELETED')
+			AND current_status NOT IN ('APPROVED','REJECTED','DELETED')
 	</update>
 	
 	<select id="notHeadBU" parameterClass ="java.lang.String" resultClass= "int">

@@ -531,7 +531,7 @@ public class ProjectAction extends Action {
 							deleteRole = true;
 							noMoreSPV = true;
 						}
-					}
+					} 
 				}
 				else
 				{
@@ -539,7 +539,7 @@ public class ProjectAction extends Action {
 					noMoreSPV = true;
 					notHead = true;
 				}
-			}
+			} 
 			
 			//add supervisor role ke direct report yang baru
 			Map map3 = new HashMap();
@@ -651,6 +651,7 @@ public class ProjectAction extends Action {
 			
 			//delete member
 			boolean deleteMember = false;
+			pMan.startTransaction();
 			deleteMember = pMan.deleteMember(pForm.getAddSProject());
 				
 			// Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
@@ -689,8 +690,10 @@ public class ProjectAction extends Action {
 				else
 				{
 					notHead = true;
+					deleteRole = true;
+					noMoreSPV = true;
 				}
-			}				
+			} 
 					
 //			if (pMan.deleteMember(pForm.getAddSProject())) {
 //				// Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
@@ -708,7 +711,13 @@ public class ProjectAction extends Action {
 				param.put("projectCode", pForm.getParamProjectCode());
 				param.put("directreport", pForm.getDirectReportUserDomain());
 				updateAssStatus = pMan.updateAssStatus(param);
-
+				System.out.println(deleteMember);
+				System.out.println(deleteRole);
+				System.out.println(noMoreSPV);
+				System.out.println(notHead);
+				System.out.println(updateAssStatus);
+				System.out.println(!errorNoMoreSPV );
+				System.out.println(!errorNotHead);
 				if(deleteMember && deleteRole && noMoreSPV && notHead && updateAssStatus && !errorNoMoreSPV && !errorNotHead)
 				{
 					pMan.commitTransaction();
