@@ -555,7 +555,6 @@ public class OrganizationManager {
 		try {
 			ibatisSqlMap.update("organization.updateOrgCodeHBU", orgBean);
 			flag = true;
-			System.out.println("sukses update HBU");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			flag = false;
