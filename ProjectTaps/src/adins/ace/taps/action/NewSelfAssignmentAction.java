@@ -154,7 +154,6 @@ public class NewSelfAssignmentAction extends Action {
 						session.setAttribute("color", "red");
 					}
 				}
-				aForm.setTask(null);
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			}

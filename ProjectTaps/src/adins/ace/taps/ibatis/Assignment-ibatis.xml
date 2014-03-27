@@ -7,12 +7,12 @@
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
 		SELECT TO_CHAR (a.assignment_date,
-		'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 		a.task_code AS assignmentCode,
 		a.assignment_category AS assignmentCategory,
 		e.first_name || ' ' || e.last_name AS fullName,
-		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 		a.current_status AS currentStatus,
 		a.flag AS flag
 		FROM assignments a
@@ -122,13 +122,13 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			  SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			  SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 			 		   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			           a.task_code AS assignmentCode,
 			           a.assignment_category AS assignmentCategory,
 			           e.first_name || ' ' || e.last_name AS fullName,
-			           TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-			           TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+			           TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+			           TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 			           a.current_status AS currentStatus,
 			           a.flag AS flag
 			    FROM      assignments a
@@ -242,13 +242,13 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 			         TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
-			         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-			         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+			         TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+			         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 			         a.current_status AS currentStatus,
 			         a.flag AS flag
 			  FROM      assignments a
@@ -366,13 +366,13 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
-			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code) , 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+			SELECT   TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code) , 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 			         TO_CHAR ((SELECT MAX(d.claim_date) FROM detail_claim_assignments d WHERE d.task_code = a.task_code), 'YYYY-MM-DD, HH24:MI') AS claimDate,
 			         a.task_code AS assignmentCode,
 			         a.assignment_category AS assignmentCategory,
 			         e.first_name || ' ' || e.last_name AS fullName,
-			         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-			         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+			         TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+			         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 			         a.current_status AS currentStatus,
 			         a.flag AS flag
 			  FROM      assignments a
@@ -897,7 +897,7 @@
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
 				  SELECT   history_id AS historyId,
-				           TO_CHAR (c.created_date, 'DD-MM-YYYY') AS commentDate,
+				           TO_CHAR (c.created_date, 'DD/MM/YYYY') AS commentDate,
 				           c.comments AS assignmentComment,
 				           c.status AS status,
 				           e1.first_name || '
@@ -1131,12 +1131,12 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+				SELECT   TO_CHAR (a.assignment_date, 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 				         a.task_code AS assignmentCode,
 				         a.assignment_category AS assignmentCategory,
 				         e.first_name || ' ' || e.last_name AS fullName,
-				         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-				         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+				         TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+				         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 				         a.current_status AS currentStatus
 				  FROM      assignments a
 				         LEFT JOIN
@@ -1286,12 +1286,12 @@
 		parameterClass="java.util.Map">
 		SELECT * FROM (
 			SELECT ROWNUM seqnumb, a.* FROM (
-				SELECT   TO_CHAR (a.assignment_date, 'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+				SELECT   TO_CHAR (a.assignment_date, 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 				         a.task_code AS assignmentCode,
 				         a.assignment_category AS assignmentCategory,
 				         e.first_name || ' ' || e.last_name AS fullName,
-				         TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-				         TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+				         TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+				         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 				         a.current_status AS currentStatus
 				  FROM      assignments a
 				         LEFT JOIN
@@ -1488,12 +1488,12 @@
 		SELECT * FROM (
 		SELECT ROWNUM seqnumb, a.* FROM (
 		SELECT TO_CHAR (a.assignment_date,
-		'DD-MM-YYYY, HH24:MI') AS assignmentDate,
+		'DD/MM/YYYY, HH24:MI') AS assignmentDate,
 		a.task_code AS assignmentCode,
 		a.assignment_category AS assignmentCategory,
 		e.first_name || ' ' || e.last_name AS fullName,
-		TO_CHAR (a.updated_date, 'DD-MM-YYYY, HH24:MI') AS createdDate,
-		TO_CHAR (a.assignment_due_date, 'DD-MM-YYYY') AS assignmentDueDate,
+		TO_CHAR (a.updated_date, 'DD/MM/YYYY, HH24:MI') AS createdDate,
+		TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
 		a.current_status AS currentStatus,
 		a.flag AS flag
 		FROM assignments a
