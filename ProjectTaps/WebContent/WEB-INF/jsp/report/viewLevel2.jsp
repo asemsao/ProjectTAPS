@@ -122,8 +122,6 @@
 <body class="metro">
 	<jsp:include page="../../../frame/header.jsp" />
 
-
-
 	<html:form action="/report" method="POST">
 		<div class="container container-taps">
 			<div class="grid">
@@ -132,7 +130,6 @@
 						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 					<div class="hide">
 						<table id="datatable" class="table striped bordered hovered">
-							<thead>
 								<tr>
 									<th></th>
 									<th>Self Assignment</th>
@@ -140,8 +137,6 @@
 									<th>BU</th>
 									<th>Project</th>
 								</tr>
-							</thead>
-							<tbody>
 								<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
@@ -154,13 +149,11 @@
 									</tr>									
 								</logic:iterate>
 							</logic:notEmpty>
-							</tbody>
 						</table>
 					</div>
 					<button type="button" onclick="javascript:button('printReportDept')">generate Report</button>
 					<div id="print">
 						<table id="datatableshow" class="table striped bordered hovered">
-						<thead>
 							<tr>
 								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/></h3></th>
 							</tr>
@@ -202,8 +195,6 @@
 								<th class="text-center">BU</th>
 								<th class="text-center">PROJECT</th>
 							</tr>
-						</thead>
-						<tbody>
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
@@ -245,7 +236,6 @@
 										<% } %>
 									</td>
 								</tr>
-						</tbody>
 
 					</table>
 					</div>

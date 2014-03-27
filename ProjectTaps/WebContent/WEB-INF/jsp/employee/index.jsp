@@ -83,13 +83,10 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan=2 class="text-center"><h3>Employee List</h3></th>
 							</tr>
-						<thead>
-						<tbody>
 							<tr>
 								<th class="text-center field-form">
 									<div class="input-control select">
@@ -110,7 +107,6 @@
 									</div>
 								</th>
 							</tr>
-						</tbody>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -161,7 +157,7 @@
 						</tbody>
 					</table>
 
-					<table class="table striped bordered hovered">
+					<table class="table">
 						<tr>
 							<td class="text-center">
 								<div class="pagination">

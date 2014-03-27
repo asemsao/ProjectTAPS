@@ -22,8 +22,7 @@
 			styleId="assignmentCategory-assignment" name="ajaxForm" />
 		<html:hidden property="assignmentType"
 			styleId="assignmentType-assignment" name="ajaxForm" />
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=7 class="text-center">Assignment List</th>
 				</tr>
@@ -49,7 +48,6 @@
 						</div>
 					</th>
 				</tr>
-			</thead>
 		</table>
 		<div id="table-ajax-assignment">
 			<table class="table striped bordered hovered">
@@ -94,8 +92,7 @@
 				</tbody>
 			</table>
 		</div>
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=3 class="text-center">
 						<div class="pagination">
@@ -126,7 +123,6 @@
 					<th class="text-center"><button type="button"
 							class='button success' onclick="javascript:chooseAssignment()">Add</button></th>
 				</tr>
-			</thead>
 		</table>
 	</html:form>
 </body>

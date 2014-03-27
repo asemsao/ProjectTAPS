@@ -18,8 +18,7 @@
 		<html:hidden property="page" styleId="page-employee" name="ajaxForm" />
 		<html:hidden property="maxpage" styleId="maxpage-employee"
 			name="ajaxForm" />
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=5 class="text-center">Employee List</th>
 				</tr>
@@ -46,7 +45,6 @@
 						</div>
 					</th>
 				</tr>
-			</thead>
 		</table>
 		<div id="table-ajax-employee">
 			<table class="table striped bordered hovered">
@@ -87,8 +85,7 @@
 				</tbody>
 			</table>
 		</div>
-		<table class="table striped bordered hovered">
-			<thead>
+		<table class="table">
 				<tr>
 					<th colspan=3 class="text-center">
 						<div class="pagination">
@@ -118,7 +115,6 @@
 					<th class="text-center"><button type="button"
 							class='button success' onclick="javascript:chooseEmployee()">Add</button></th>
 				</tr>
-			</thead>
 		</table>
 	</html:form>
 </body>

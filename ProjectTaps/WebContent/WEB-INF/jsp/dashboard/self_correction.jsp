@@ -75,13 +75,10 @@
 					<input type="hidden" name="tmpActivityType" value="<bean:write property="selfAssignBean.activityType" name="dashboardForm" />" />
 					<input type="hidden" name="tmpAdhocDomain" value="<bean:write property="selfAssignBean.adhocUserDomain" name="dashboardForm" />" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=5 class="text-center text-bold"><h3>
 										Correction Self Assignment</h3></td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -234,7 +231,6 @@
 									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 				</html:form>
 				<div id="historyComment"></div>

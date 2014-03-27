@@ -50,14 +50,11 @@
 					<html:hidden property="selfAssignBean.assignTo" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.reportTo" name="dashboardForm" />
 					<table class="table">
-						<thead>
 							<tr>
 								<td colspan=4 class="text-center text-bold">
 									<h3>Request For Approval Self Assignment</h3>
 								</td>
 							</tr>
-						</thead>
-						<tbody>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
@@ -253,7 +250,6 @@
 									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 								</td>
 							</tr>
-						</tbody>
 					</table>
 				</html:form>
 				<div id="historyComment"></div>

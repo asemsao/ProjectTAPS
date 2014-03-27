@@ -101,8 +101,7 @@
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
-					<table class="table striped bordered hovered">
-						<thead>
+					<table class="table">
 							<tr>
 								<th colspan=3 class="text-center"><h3>
 										Role Member
@@ -127,12 +126,15 @@
 									</div>
 								</th>
 							</tr>
+							</table>
+							<table class="table striped bordered hovered">
+							<thead>
 							<tr>
 								<th class="text-center">Employee Domain</th>
 								<th class="text-center">Employee Name</th>
 								<th class="text-center">Status Admin</th>
 							</tr>
-						</thead>
+							</thead>
 						<tbody>
 							<logic:notEmpty name="manageRoleForm" property="listMember">
 								<logic:iterate id="manageRole" name="manageRoleForm"
@@ -165,6 +167,14 @@
 											</logic:notEqual></td>
 									</tr>
 								</logic:iterate>
+								</logic:notEmpty>
+							<logic:empty name="manageRoleForm" property="listMember">
+								<tr>
+									<td class="text-center" colspan="3">Employee Not Available</td>
+								</tr>
+							</logic:empty>
+								</table>
+								<table class="table">
 								<tr>
 									<td colspan=2 class="text-center">
 										<div class="pagination">
@@ -186,13 +196,6 @@
 									<td class="text-center"><input type="button"
 									class="home" value="Back" /></td>
 								</tr>
-							</logic:notEmpty>
-							<logic:empty name="manageRoleForm" property="listMember">
-								<tr>
-									<td class="text-center" colspan="3">Employee Not Available</td>
-								</tr>
-							</logic:empty>
-						</tbody>
 					</table>
 				</div>
 			</div>
