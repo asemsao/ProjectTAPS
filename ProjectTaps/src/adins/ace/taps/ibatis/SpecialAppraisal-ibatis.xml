@@ -74,7 +74,7 @@
 		0,
 		#appraisalStar#,
 		#sessionUserDomain#,
-		#createdDate#)
+		SYSDATE)
 	</insert>
 
 	<select id="searchSpecialAppraisal" resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean"
