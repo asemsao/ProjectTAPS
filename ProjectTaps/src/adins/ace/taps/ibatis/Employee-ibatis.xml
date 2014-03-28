@@ -82,7 +82,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
 					user_domain NOT IN (SELECT
-					head_user_domain FROM organizations WHERE head_user_domain != '')
+					head_user_domain FROM organizations WHERE head_user_domain IS NOT NULL)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -140,7 +140,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
 					user_domain NOT IN (SELECT
-					head_user_domain FROM organizations WHERE head_user_domain != '')
+					head_user_domain FROM organizations WHERE head_user_domain IS NOT NULL)
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
