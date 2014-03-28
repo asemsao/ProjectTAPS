@@ -102,7 +102,9 @@
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
 			<div class="text-center">
-			<% if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
+			<%
+			
+			if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
 			&nbsp; Active Directory

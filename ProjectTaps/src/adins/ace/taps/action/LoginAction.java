@@ -37,7 +37,7 @@ public class LoginAction extends Action {
 		HttpSession session = request.getSession(true);
 		DashboardManager dMan = new DashboardManager();
 		DashboardBean bean = new DashboardBean();
-
+		
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
 			if (!"".equals(tForm.getUsername())
