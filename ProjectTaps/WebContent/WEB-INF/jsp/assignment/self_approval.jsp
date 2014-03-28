@@ -117,7 +117,7 @@
 								<%
 									if (session.getAttribute("adhoc").equals("ADHOC")) {
 								%>
-								<td><b>AdHoc to </b> : <bean:write property="selfAssignBean.adhocFullName" name="selfAssignmentForm" /></td>
+								<td><b>AdHoc from </b> : <bean:write property="selfAssignBean.adhocFullName" name="selfAssignmentForm" /></td>
 								<%
 									}
 								%>

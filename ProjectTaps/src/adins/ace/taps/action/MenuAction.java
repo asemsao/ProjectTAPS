@@ -85,7 +85,20 @@ public class MenuAction extends Action {
 		}
 		
 		if ("logout".equals(mForm.getTask())) {
-			session.invalidate();
+			session.removeAttribute("username");
+			session.removeAttribute("organizationCode");
+			session.removeAttribute("organizationLevel");
+			session.removeAttribute("role");
+			session.removeAttribute("fullname");
+			session.removeAttribute("recoveryMode");
+			session.removeAttribute("taskCode");
+			session.removeAttribute("type");
+			session.removeAttribute("adhoc");
+			session.removeAttribute("listDashboard");
+			session.removeAttribute("message");
+			session.removeAttribute("color");
+			session.removeAttribute("link");
+			session.removeAttribute("status");
 			return mapping.findForward("Welcome");
 		}
 		
