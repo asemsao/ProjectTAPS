@@ -22,44 +22,35 @@
 		}
 	};
 
-	function changeopt() {
-		search = document.getElementById("level");
-		temp = search.options[search.selectedIndex].value;
-		if (temp != 0) {
-			document.getElementById("parent").style.visibility = "visible";
-			document.getElementById(":").style.visibility = "visible";
-			document.getElementById("parent-organization-name").style.visibility = "visible";
-			document.getElementById("organization").style.visibility = "visible";
-		} else {
-			document.getElementById("parent").style.visibility = "hidden";
-			document.getElementById(":").style.visibility = "hidden";
-			document.getElementById("parent-organization-name").style.visibility = "hidden";
-			document.getElementById("organization").style.visibility = "hidden";
-		}
-	};
 	$(document)
 			.ready(
 					function() {
 						var level = $("#level").val();
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
-						$("#lookUpOrganization").load(
-								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-										+ level);
 
-						if ($("#level").val() == "0") {
-							$("#parent-organization").hide();
-						}
-						$('#level').bind(
-								"change",
+						setTimeout(
 								function() {
-									$("#parent-organization-code").val('');
-									$("#parent-organization-name").val('');
-									$("#lookUpOrganization").html('');
-									$("#lookUpOrganization").load(
-											"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-													+ $(this).val());
+									$("#lookUpEmployee")
+											.load(
+													"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
+								}, 500);
+						setTimeout(function() {
+							$("#lookUpOrganization").load(
+									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+											+ level);
+						}, 500);
+
+						$("#level").change(
+								function() {
+									$("#parent-organization-name").val("");
+									$("#parent-organization-code").val("");
+									if ($("#level").val() == "0") {
+										$(".parent-organization").hide();
+									} else {
+										$("#lookUpOrganization").load(
+												"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+														+ $(this).val());
+										$(".parent-organization").show();
+									}
 								});
 
 						$("#organizationCode").attr("placeholder",
@@ -70,16 +61,6 @@
 								"Head of Business Unit");
 						$("#parent-organization-name").attr("placeholder",
 								"Parent Business Unit");
-						$("#level").change(function() {
-							$("#parent-organization-name").val("");
-							if ($("#level").val() == "0") {
-								$(".parent-organization").hide();
-							} else {
-								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-										+ $(this).val());
-								$(".parent-organization").show();
-							}
-						});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -116,7 +97,8 @@
 								<td>
 									<div class="input-control text size3">
 										<html:text property="orgBean.organizationName"
-											name="organizationForm" styleId="organizationName" maxlength="50"></html:text>
+											name="organizationForm" styleId="organizationName"
+											maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -128,8 +110,7 @@
 									<td>
 										<div class="input-control select">
 											<html:select property="orgBean.organizationLevel"
-												name="organizationForm" styleId="level"
-												onchange="javascript:changeopt();">
+												name="organizationForm" styleId="level">
 												<html:option value="2">Level 2</html:option>
 												<html:option value="1">Level 1</html:option>
 												<html:option value="0">Level 0</html:option>
@@ -166,10 +147,10 @@
 								</td>
 							</tr>
 
-							<tr id="parent-organization">
-								<th class="field-form"><label id="parent" >Parent
+							<tr class="parent-organization">
+								<th class="field-form"><label id="parent">Parent
 										Business Unit </label></th>
-								<td class="field-separator"><label id=":" >:</label></td>
+								<td class="field-separator"><label id=":">:</label></td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
@@ -194,8 +175,7 @@
 			</div>
 		</div>
 		<input type="hidden" id="headBu" value="headBu" />
-		<html:hidden property="headDomainBefore"
-											name="organizationForm" />
+		<html:hidden property="headDomainBefore" name="organizationForm" />
 	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="lookUpEmployee" class="hide"></div>
