@@ -6,7 +6,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 <sqlMap namespace="employee">
 	<typeAlias alias="employeeBean" type="adins.ace.taps.bean.employee.EmployeeBean" />
 
-	<update id="deleteEmpOnProject" parameterClass="java.lang.String">
+	<update id="deleteEmpOnProject" parameterClass="java.util.Map">
 		DELETE FROM project_structures WHERE LOWER(assignee_user_domain) = LOWER(#employeeDomain#)
 	</update>
 
@@ -340,18 +340,19 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		|| #golonganLevel#,'ACTIVE',#createBy#,SYSDATE)
 	</insert>
 	
-	<update id="deleteEmployee" parameterClass="java.lang.String">
+	<update id="deleteEmployee" parameterClass="java.util.Map">
 		UPDATE employees
 		SET
 		flag='INACTIVE',
-		updated_by=#employeeDomain#,
+		updated_by=#updateBy#,
 		updated_date=SYSDATE WHERE user_domain=#employeeDomain#
 	</update>
 	
-	<update id="deleteAssignment" parameterClass="java.lang.String">
+	<update id="deleteAssignment" parameterClass="java.util.Map">
 		UPDATE assignments
-		SET current_status='DELETED'
-		WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
+		SET current_status='DELETED',
+		updated_by=#updateBy#,
+		updated_date=SYSDATE WHERE current_status!='REJECTED' AND current_status!='APPROVED' AND
 		LOWER(assign_to) = #employeeDomain#
 	</update>
 
@@ -378,7 +379,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		VALUES ('EMP', #employeeDomain#)
 	</insert>
 	
-	<delete id="deleteRoleEMP" parameterClass="java.lang.String">
+	<delete id="deleteRoleEMP" parameterClass="java.util.Map">
 		delete from
 		employee_role
 		where

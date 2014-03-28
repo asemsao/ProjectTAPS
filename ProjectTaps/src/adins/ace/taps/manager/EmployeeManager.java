@@ -21,14 +21,14 @@ public class EmployeeManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
-	public boolean deleteEmployee(String employeeDomain) {
+	public boolean deleteEmployee(Map params) {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.startTransaction();
-			ibatisSqlMap.update("employee.deleteEmployee", employeeDomain);
-			ibatisSqlMap.update("employee.deleteAssignment", employeeDomain);
-			ibatisSqlMap.delete("employee.deleteRoleEMP", employeeDomain);
-			ibatisSqlMap.delete("employee.deleteEmpOnProject", employeeDomain);
+			ibatisSqlMap.update("employee.deleteEmployee", params);
+			ibatisSqlMap.update("employee.deleteAssignment", params);
+			ibatisSqlMap.delete("employee.deleteRoleEMP", params);
+			ibatisSqlMap.delete("employee.deleteEmpOnProject", params);
 			flag = true;
 			ibatisSqlMap.commitTransaction();
 
