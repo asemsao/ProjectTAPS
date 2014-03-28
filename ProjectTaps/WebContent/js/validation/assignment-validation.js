@@ -178,7 +178,7 @@ function newAssignmentValidation() {
             }
         },
         submitHandler: function (form) {
-            //form.submit();
+            form.submit();
             return false;
         }
     });

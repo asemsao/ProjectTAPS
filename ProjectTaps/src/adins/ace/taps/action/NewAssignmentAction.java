@@ -48,7 +48,10 @@ public class NewAssignmentAction extends Action {
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			} else if ("delete".equals(aForm.getNewTask())) {
-				success = aMan.deleteAssignment(taskCode);
+				Map paramDelete = new HashMap();
+				paramDelete.put("taskCode", taskCode);
+				paramDelete.put("updatedBy", userDomain);
+				success = aMan.deleteAssignment(paramDelete);
 				if (success) {
 					session.setAttribute("message", "Success Delete Assignment");
 					session.setAttribute("color", "green");

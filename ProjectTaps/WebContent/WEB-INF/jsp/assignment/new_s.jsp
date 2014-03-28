@@ -257,7 +257,7 @@
 								</td>
 							</tr>
 							<tr class="adhoc">
-								<th class="field-form">AdHoc To</th>
+								<th class="field-form">AdHoc from</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
