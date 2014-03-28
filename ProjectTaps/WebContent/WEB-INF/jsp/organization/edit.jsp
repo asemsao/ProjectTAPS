@@ -70,6 +70,16 @@
 								"Head of Business Unit");
 						$("#parent-organization-name").attr("placeholder",
 								"Parent Business Unit");
+						$("#level").change(function() {
+							$("#parent-organization-name").val("");
+							if ($("#level").val() == "0") {
+								$(".parent-organization").hide();
+							} else {
+								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
+										+ $(this).val());
+								$(".parent-organization").show();
+							}
+						});
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -157,9 +167,9 @@
 							</tr>
 
 							<tr id="parent-organization">
-								<th class="field-form"><label id="parent" style="visibility: visible">Parent
+								<th class="field-form"><label id="parent" >Parent
 										Business Unit </label></th>
-								<td class="field-separator"><label id=":" style="visibility: visible">:</label></td>
+								<td class="field-separator"><label id=":" >:</label></td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode"
