@@ -101,8 +101,10 @@
 			<html:hidden property="task" name="loginForm" />
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
-			<div class="ad">
-			<% if (App.getConfiguration("recovery_mode").equals("false")) { %>
+			<div class="text-center">
+			<%
+			
+			if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
 			&nbsp; Active Directory

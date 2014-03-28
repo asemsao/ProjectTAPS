@@ -13,10 +13,19 @@
 <title>New Self Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.selfAssignmentForm.newTask.value = task;
-		document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-		document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
-		document.selfAssignmentForm.submit();
+		if (task == "cancel") {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.submit();
+			return;
+		} else if (task == "RFA") {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
+			newSelfAssignmentValidation();
+		} else {
+			document.selfAssignmentForm.newTask.value = task;
+			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
+			document.selfAssignmentForm.submit();
+		} 
 	}
 
 	function getRadioValue(theRadioGroup) {
@@ -29,27 +38,14 @@
 	}
 
 	$(document).ready(function() {
-		var project_code = $("#project-code").val();
 		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
 			
 		}
-		$("#employee-name").val($("#employee-fullName").val());
-		$("#employee-name-2").val($("#employee-fullName-2").val());
-		$("#project-name").val($("#project-fullName").val());
-		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects");
+		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 		$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
-		$('#project-name').bind("change",function() {
-			var project_code = $("#project-code").val();
-			$("#lookUpEmployeeOnProject").html('');
-			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-			$("#employee-name").val("");
-			$("#employee-fullName").val("");
-			$("#employee-domain").val("");
-		});
 		
 		if ($("#assignmentType").val() == "PROJECT") {
 			$(".pr").show();
@@ -75,7 +71,7 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST">
+	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
@@ -116,9 +112,8 @@
 									</div>
 									<div class="pr">
 										<div class="input-control text">
-											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
-											<html:hidden property="selfAssignBean.projectName" name="selfAssignmentForm" styleId="project-fullName"></html:hidden>
-											<input type="text" id="project-name" readonly="readonly" />
+											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"/>
+											<html:text property="selfAssignBean.projectName" name="selfAssignmentForm" styleId="project-name"/>
 											<button type="button" class="btn-search" id=""></button>
 										</div>
 									</div></td>
@@ -129,10 +124,9 @@
 								<td>
 									<div class="input-control text">
 										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-										<html:hidden property="selfAssignBean.reportToFullName" name="selfAssignmentForm" styleId="employee-fullName" />
-										<input type="text" id="employee-name" readonly="readonly" />
+										<html:text property="selfAssignBean.reportToFullName" name="selfAssignmentForm" styleId="employee-name" readonly="true"/>
 										<div class="pr" class="in-bl">
-											<button type="button" class="btn-search" id="employeeOnProject"></button>
+											<button type="button" class="btn-search" id="employee"></button>
 										</div>
 									</div>
 								</td>
@@ -157,13 +151,12 @@
 								</td>
 							</tr>
 							<tr class="adhoc">
-								<th class="field-form">AdHoc To</th>
+								<th class="field-form">AdHoc from</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="selfAssignBean.adhocUserDomain" name="selfAssignmentForm" styleId="employee-domain-2" />
-										<html:hidden property="selfAssignBean.adhocFullName" name="selfAssignmentForm" styleId="employee-fullName-2" />
-										<input type="text" id="employee-name-2" readonly="readonly" />
+										<html:text property="selfAssignBean.adhocFullName" name="selfAssignmentForm" styleId="employee-name-2" readonly="true"/>
 										<button type="button" class="btn-search" id="employee2"></button>
 									</div>
 								</td>
@@ -265,8 +258,7 @@
 		<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view" />
 	</html:form>
 
-	<div id="lookUpProject" class="hide"></div>
-	<div id="lookUpEmployeeOnProject" class="hide"></div>
+	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<div id="lookUpAssignment" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />

@@ -37,7 +37,7 @@ public class LoginAction extends Action {
 		HttpSession session = request.getSession(true);
 		DashboardManager dMan = new DashboardManager();
 		DashboardBean bean = new DashboardBean();
-
+		
 		if ("login".equals(tForm.getTask())) {
 			boolean pass = false;
 			if (!"".equals(tForm.getUsername())
@@ -67,7 +67,14 @@ public class LoginAction extends Action {
 					session.setAttribute("fullname", fullname);
 					if ("true".equals(App.getConfiguration("recovery_mode"))) {
 						session.setAttribute("recoveryMode", "true");
+					}/*
+					if ("false".equals(App.getConfiguration("recovery_mode"))) {
+						session.setAttribute("recoveryMode", "false");
+						if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
+							session.setAttribute("recoveryMode", "true");
+						}
 					}
+					*/
 					/* Star Achievement */
 					session.setAttribute("star", dMan.starAchievemet(username));
 					/* set image for header */

@@ -243,10 +243,10 @@ public class EmployeeAction extends Action {
 					if (!mForm.getPassword().equals("")) {
 						data.put("password", mForm.getPassword());
 					} else {
-						data.put("password", "employeetaps");
+						data.put("password", "sysadmin");
 					}
 				} else {
-					data.put("password", "employeetaps");
+					data.put("password", "sysadmin");
 				}
 				mMan.insertLoginEmployee(data);
 

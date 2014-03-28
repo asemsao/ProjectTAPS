@@ -169,7 +169,7 @@
 									} else {
 								%>
 									<td><bean:write property="selfAssignBean.activityType" name="selfAssignmentForm" /></td>
-									<td class="adhoc field-extra-text"><b>AdHoc to </b> : </td>
+									<td class="adhoc field-extra-text"><b>AdHoc from </b> : </td>
 									<td class="adhoc field-text"><bean:write property="selfAssignBean.adhocFullName" name="selfAssignmentForm" /></td>
 								<%
 									}
