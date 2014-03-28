@@ -332,12 +332,12 @@ public class ProjectManager {
 		return flag;
 	}
 	
-	public boolean updateAllAssStatus(String code)
+	public boolean updateAllAssStatus(Map map)
 	{
 		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.update("project.updateAllAssStatus",code);
+			ibatisSqlMap.update("project.updateAllAssStatus",map);
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();

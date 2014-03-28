@@ -114,7 +114,7 @@
 								<th class="text-center">Business Unit</th>
 								<th class="text-center">Phase</th>
 								<th class="text-center">Start Date</th>
-								<th class="text-center">Finish Date</th>
+								<th class="text-center">Estimate Finish Date</th>
 								<th class="text-center">Running (day)</th>
 								<th class="text-center">Structure</th>
 								<th class="text-center">Edit</th>
