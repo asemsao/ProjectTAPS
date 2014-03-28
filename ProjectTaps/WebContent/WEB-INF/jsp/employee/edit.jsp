@@ -10,19 +10,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
-	function button(task) {
-		if (task == "cancel") {
-			document.employeeForm.task.value = "";
-			document.employeeForm.submit();
-			return;
-		} else if (task == "saveEditEmployee") {
-			document.employeeForm.task.value = task;
-			employeeValidation();
-		}
-	}
+// 	function button(task) {
+// 		if (task == "cancel") {
+// 			document.employeeForm.task.value = "";
+// 			document.employeeForm.submit();
+// 			return;
+// 		} else if (task == 'saveEditEmployee') {
+// 			document.employeeForm.task.value = task;
+//  		employeeValidation();
+// 		}
+// 	}
 	$(document)
-			.ready(
+			.ready( 	
 					function() {
+						$("#cancelUpdateEmp").click(function(){
+							$("#taskUpdateEmp").val('');
+							$("#employeeAddEdit").submit();
+						});
+						$("#updateEmp").click(function(){
+							$("#taskUpdateEmp").val('saveEditEmployee');
+							employeeValidation();
+						});
+						
 						$("#__input_file_wrapper__").attr('placeholder',
 								'Browse File');
 						$("#employeeDomain").attr("placeholder",
@@ -57,6 +66,8 @@
 								});
 							}, 1000);
 						}
+						
+						$('.myCheckbox').prop('checked', true);
 
 						if ($("#golonganNumber").val() == "6") {
 							$("#golonganLevel").hide();
@@ -80,7 +91,7 @@
 	<jsp:include page="/frame/header.jsp" />
 	<html:form enctype="multipart/form-data" action="/employee"
 		method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
-		<html:hidden property="task" name="employeeForm" />
+		<html:hidden property="task" name="employeeForm" styleId="taskUpdateEmp"/>
 		<input type="hidden" id="messageCRUD"
 			value="<bean:write  property="message" name="employeeForm" />">
 		<input type="hidden" id="messagecolor"
@@ -100,47 +111,47 @@
 								<%
 									if (session.getAttribute("recoveryMode") == null) {
 								%>
-								<th class="field-form">Employee Domain</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div class="input-control text">
-										<div class="input-control text">
-											<html:text property="newEmployee.employeeDomain"
-												name="employeeForm" styleId="activeDirectory-domain"
-												styleClass="employeeDomain" readonly="true"></html:text>
-										</div>
-									</div>
-								</td>
-								<td rowspan="6" class="text-center field-avatar"><img
-									src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
-									class="cycle avatar"> <br>
-									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"
-											styleClass="profilePicture"></html:file>
-										<button class="btn-file"></button>
-									</div></td>
+										<th class="field-form">Employee Domain</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div class="input-control text">
+												<div class="input-control text">
+													<html:text property="newEmployee.employeeDomain"
+														name="employeeForm" styleId="activeDirectory-domain"
+														styleClass="employeeDomain" readonly="true"></html:text>
+												</div>
+											</div>
+										</td>
+										<td rowspan="6" class="text-center field-avatar"><img
+											src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
+											class="cycle avatar"> <br>
+											<div class="input-control file">
+												<html:file property="profilePicture" accept="image/*"
+													styleClass="profilePicture"></html:file>
+												<button class="btn-file"></button>
+											</div></td>
 								<%
 									} else {
 								%>
-								<th class="field-form">Employee Domain</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div class="input-control text">
-										<div class="input-control text">
-											<html:text property="newEmployee.employeeDomain"
-												name="employeeForm" styleId="activeDirectory-domain"
-												styleClass="employeeDomain"></html:text>
-										</div>
-									</div>
-								</td>
-								<td rowspan="7" class="text-center field-avatar"><img
-									src="<%=request.getContextPath()%>/images/user.png"
-									class="cycle avatar"> <br>
-									<div class="input-control file">
-										<html:file property="profilePicture" accept="image/*"
-											styleClass="profilePicture"></html:file>
-										<button class="btn-file"></button>
-									</div></td>
+										<th class="field-form">Employee Domain</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div class="input-control text">
+												<div class="input-control text">
+													<html:text property="newEmployee.employeeDomain"
+														name="employeeForm" styleId="activeDirectory-domain"
+														styleClass="employeeDomain" readonly="true"></html:text>
+												</div>
+											</div>
+										</td>
+										<td rowspan="7" class="text-center field-avatar"><img
+											src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
+											class="cycle avatar"> <br>
+											<div class="input-control file">
+												<html:file property="profilePicture" accept="image/*"
+													styleClass="profilePicture"></html:file>
+												<button class="btn-file"></button>
+											</div></td>
 								<%
 									}
 								%>
@@ -307,9 +318,8 @@
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<button onclick="button('saveEditEmployee')"
-										class="button success">Save</button>
-									<button onclick="button('cancel')" class="button info">Cancel</button>
+									<button class="button success" id="updateEmp">Save</button>
+									<button class="button info" id="cancelUpdateEmp">Cancel</button>
 								</td>
 							</tr>
 						</tbody>

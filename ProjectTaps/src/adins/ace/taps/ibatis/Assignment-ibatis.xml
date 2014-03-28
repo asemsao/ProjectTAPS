@@ -669,9 +669,28 @@
 	
 	<!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->
 	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
-	UPDATE   assignments
-	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
-	         assignment_due_date = TO_DATE (#assignmentDueDate#,'DD/MM/YYYY'),
+	UPDATE assignments
+	SET
+			<dynamic>
+				<isNotNull property="assignmentDate">
+					<isNotNull property="assignmentTime">
+						<isNotEmpty property="assignmentDate">
+							<isNotEmpty property="assignmentTime">
+								assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#,
+								'DD/MM/YYYY HH24:MI'),
+							</isNotEmpty>
+						</isNotEmpty>
+					</isNotNull>
+				</isNotNull>
+			</dynamic>
+			<dynamic>
+				<isNotNull property="assignmentDueDate">
+					<isNotEmpty property="assignmentDueDate">
+						assignment_due_date = TO_DATE
+						(#assignmentDueDate#,'DD/MM/YYYY'),
+					</isNotEmpty>
+				</isNotNull>
+			</dynamic>
 	         description = #description#,
 	         reff_task_code = #reffTaskCode#,
 	         assign_to = #assignTo#,
@@ -683,9 +702,28 @@
 	</update>
 
 	<update id="editSelfAssignment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
-	UPDATE   assignments
-	   SET   assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI'),
-	         assignment_due_date = TO_DATE (#assignmentDueDate#,'DD/MM/YYYY'),
+	UPDATE assignments
+	SET
+			<dynamic>
+				<isNotNull property="assignmentDate">
+					<isNotNull property="assignmentTime">
+						<isNotEmpty property="assignmentDate">
+							<isNotEmpty property="assignmentTime">
+								assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#,
+								'DD/MM/YYYY HH24:MI'),
+							</isNotEmpty>
+						</isNotEmpty>
+					</isNotNull>
+				</isNotNull>
+			</dynamic>
+			<dynamic>
+				<isNotNull property="assignmentDueDate">
+					<isNotEmpty property="assignmentDueDate">
+						assignment_due_date = TO_DATE
+						(#assignmentDueDate#,'DD/MM/YYYY'),
+					</isNotEmpty>
+				</isNotNull>
+			</dynamic>
 	         report_to = #reportTo#,
 	         activity_type = #activityType#,
 	         adhoc_user_domain = #adhocUserDomain#,
@@ -1443,16 +1481,20 @@
 		WHERE task_code = #taskCode#
 	</update>
 	
-	<update id="deleteAssignment" parameterClass="java.lang.String">
+	<update id="deleteAssignment" parameterClass="java.util.Map">
 		UPDATE   assignments
-		   SET   current_status = 'DELETED'
-		 WHERE   UPPER (task_code) = UPPER (#task_code#) AND current_status = 'DRAFT'
+		   SET   current_status = 'DELETED',
+		   		 updated_by = #updatedBy#,
+		   		 updated_date = SYSDATE
+		 WHERE   UPPER (task_code) = UPPER (#taskCode#) AND current_status = 'DRAFT'
 	</update>
 	
-	<update id="deleteClaim" parameterClass="java.lang.String">
+	<update id="deleteClaim" parameterClass="java.util.Map">
 		UPDATE   detail_claim_assignments
-		   SET   flag = 'INACTIVE'
-		 WHERE   UPPER (task_code) = UPPER (#task_code#)
+		   SET   flag = 'INACTIVE',
+		   		 updated_by = #updatedBy#,
+		   		 updated_date = SYSDATE
+		 WHERE   UPPER (task_code) = UPPER (#taskCode#)
 	</update>
 
 	<select id="emailToSupervisorAssignment" resultClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean"

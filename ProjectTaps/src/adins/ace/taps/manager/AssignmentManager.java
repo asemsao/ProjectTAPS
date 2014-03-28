@@ -907,19 +907,19 @@ public class AssignmentManager {
 
 	// *********************************Delete
 	// Assignment*************************************//
-	public boolean deleteAssignment(String taskCode) {
+	public boolean deleteAssignment(Map paramDelete) {
 		boolean success = true;
 		try {
 			ibatisSQLMap.startTransaction();
-			ibatisSQLMap.update("assignment.deleteClaim", taskCode);
-			ibatisSQLMap.update("assignment.deleteAssignment", taskCode);
+			ibatisSQLMap.update("assignment.deleteClaim", paramDelete);
+			ibatisSQLMap.update("assignment.deleteAssignment", paramDelete);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			success = false;
 			try {
-				ibatisSQLMap.endTransaction();
+				ibatisSQLMap.getDataSource().getConnection().rollback();
 			} catch (SQLException e1) {
-				System.out.println("failed to end transaction");
+				System.out.println("failed to rollback");
 				e1.printStackTrace();
 			}
 			e.printStackTrace();

@@ -13,8 +13,17 @@
 <title>New Assignment</title>
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.claimAssignmentForm.newTask.value = task;
-		document.claimAssignmentForm.submit();
+		if (task == "assign") {
+			document.claimAssignmentForm.newTask.value = task;
+			newAssignmentValidation();
+		} else if (task == "cancel") {
+			document.claimAssignmentForm.newTask.value = task;
+			document.claimAssignmentForm.submit();
+			return;
+		} else {
+			document.claimAssignmentForm.newTask.value = task;
+			document.claimAssignmentForm.submit();
+		}
 	}
 
 	$(document).ready(function() {
@@ -97,23 +106,18 @@
 											<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
 											<button type="button" class="btn-search" id=""></button>
 										</div>
-									</div> <br />
-									<div class="pr" class="in-bl">
-										<div class="input-control text">
-											<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
-											<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
-											<div class="pr" class="in-bl">
-												<button type="button" class="btn-search" id="employeeOnProject"></button>
-											</div>
-										</div>
-									</div>
-									<div id="bu" class="input-control text">
+									</div> <br />									
+									<div class="input-control text">
 										<html:hidden property="assignmentBean.assignTo" name="claimAssignmentForm" styleId="employee-domain" />
 										<html:text property="assignmentBean.assignToFullName" readonly="true" name="claimAssignmentForm" styleId="employee-name" />
+										<div class="pr" class="in-bl">
+											<button type="button" class="btn-search" id="employeeOnProject"></button>
+										</div>
 										<div id="bu" class="in-bl">
 											<button type="button" class="btn-search" id="employeeOnOrganization"></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Reff Task Code</th>

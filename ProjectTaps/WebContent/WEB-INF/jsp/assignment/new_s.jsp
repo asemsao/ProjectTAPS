@@ -22,7 +22,7 @@
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			document.selfAssignmentForm.activityType.value = getRadioValue("activity_type");
- 			newSelfAssignmentSaveValidation();
+ 			newSelfAssignmentSaveValidation(getRadioValue("assignment_type"));
 		} else if (task == "RFA") {
 			document.selfAssignmentForm.newTask.value = task;
 			document.selfAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
@@ -342,7 +342,7 @@
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
-									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<input type="button" onclick="flyToPage('save')" class="button success" value="Save"/>
 									<button onclick="flyToPage('RFA')" class="button success">RFA</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>

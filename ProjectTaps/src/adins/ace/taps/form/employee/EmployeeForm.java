@@ -25,6 +25,7 @@ public class EmployeeForm extends ActionForm {
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	private String projectRole;
 	private String password;
+	private String oldPassword;
 	private String newPassword;
 	private String newPasswordConfirmation;
 
@@ -162,6 +163,14 @@ public class EmployeeForm extends ActionForm {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 
 }
