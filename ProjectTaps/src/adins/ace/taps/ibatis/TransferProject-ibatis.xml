@@ -179,8 +179,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		emp.first_name || ' ' ||
 		emp.last_name AS directReport,
 		ps.assignee_user_domain AS
-		assigneeUserDomain, e.picture AS
-		assigneePhoto, emp.picture AS directReportPhoto, (SELECT COUNT(1) FROM organizations z WHERE z.head_user_domain = ps.assignee_user_domain) AS headBU
+		assigneeUserDomain, ps.directreport_user_domain AS directReportUserDomain, (SELECT COUNT(1) FROM organizations z WHERE z.head_user_domain = ps.assignee_user_domain) AS headBU
 		FROM
 		organizations o,
 		projects p,
@@ -202,7 +201,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 	
 	<update id="updateTransferProject" parameterClass="java.util.Map">
-	UPDATE projects SET organization_code = #orgCode# WHERE project_code = #projectCode#
+	UPDATE projects SET organization_code = #orgCode#, end_date = TO_DATE(#newEstDate#, 'DD/MM/YYYY') WHERE project_code = #projectCode#
 	</update>
 	
 	<update id="updateTransferMember" parameterClass="java.util.Map">
@@ -212,7 +211,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	
 	<insert id="insertHistoryProject" parameterClass="java.util.Map">
 		INSERT INTO history_projects (history_id, project_code, organization_after, organization_before, transfer_date, created_date, created_by)
-		VALUES (sequence_history_projects.nextVal, #projectCode#, #orgCode#, #orgBefore#, #transferDate#, SYSDATE, #createdBy#)
+		VALUES (sequence_history_projects.nextVal, #projectCode#, #orgCode#, #orgBefore#, SYSDATE, SYSDATE, #createdBy#)
 	</insert>
 
 	<select id="countAllProjectMember" resultClass="int"
@@ -334,5 +333,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPPER(o.organization_code)
 		=
 		UPPER(o.parent_organization_code)
+	</select>
+	
+	<select id="getPhoto" resultClass="adins.ace.taps.bean.project.StructureProjectBean"
+		parameterClass="java.lang.String">
+		SELECT picture AS photo FROM employees WHERE user_domain = #userDomain#
 	</select>
 </sqlMap>

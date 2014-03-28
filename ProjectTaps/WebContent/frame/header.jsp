@@ -108,17 +108,28 @@
 								class="star-achievement"><%=session.getAttribute("star")%></span>
 						</div>
 					</li>
+					<%
+							if ("true".equals(session.getAttribute("recovery_mode"))) {
+						%>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
 							<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
-						<%
-							if ("true".equals(session.getAttribute("recovery_mode"))) {
-						%>
+						
 						<ul class="dropdown-menu" data-role="dropdown">
 							<li><a title="Change Password" id="change-password"><span
 									class="icon-key-2"></span> Change Password</a></li>
-						</ul> <% } %>
+						</ul> 
+					</li> <% } else { %>
+					<li><a class="element image-button image-left"
+						href="#" style="cursor: default;"><img src="<%=session.getAttribute("pathPhoto")%>" />
+							<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
+						
+						<ul class="dropdown-menu" data-role="dropdown">
+							<li><a title="Change Password" id="change-password"><span
+									class="icon-key-2"></span> Change Password</a></li>
+						</ul> 
 					</li>
+					<% } %>
 					<li><a title="Logout" href="javascript:menu('logout');"
 						class="element"><span class="icon-exit"></span> Sign out</a></li>
 				</ul>

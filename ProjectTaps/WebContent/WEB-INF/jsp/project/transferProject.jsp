@@ -248,12 +248,12 @@
 				</table>
 					</fieldset>
 					<fieldset>
-					<legend>CHOOSE TRANSFER DATE</legend>
+					<legend>CHOOSE FINISH DATE</legend>
 					<table id="table-ajax-project3" class="table"></table>
 					<div class="date-wizard">
 					<div class="notice marker-on-bottom bg-amber">
 					<div class="fg-white">
-					<i class="icon-warning"></i>&nbsp;This date will affect Report for both Business Unit (before and after)
+					<i class="icon-warning"></i>&nbsp;Please choose new estimate finish date
 					</div>
 					</div>
 					<br />
@@ -264,8 +264,8 @@
 					java.util.Date date = new java.util.Date();
 					String dateString = df.format(date);
 					%>
-										<html:text property="transferDate"
-											name="transferProjectForm" styleClass="datepicker-all" styleId="transferDate" value="<%=dateString %>">
+										<html:text property="newEstDate"
+											name="transferProjectForm" styleClass="datepicker-future" styleId="newEstDate" value="<%=dateString %>">
 											</html:text>
 										<button type="button" class="btn-date"></button>
 										</div>

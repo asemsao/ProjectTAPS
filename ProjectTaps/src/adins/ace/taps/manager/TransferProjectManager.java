@@ -92,7 +92,6 @@ public class TransferProjectManager {
 		try {
 			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.update("transferProject.updateTransferProject", params);
-			System.out.println(params.get("listMember"));
 			if (params.get("listMember").toString().length() > 1) {
 				ibatisSqlMap.update("transferProject.updateTransferMember", params);
 			}
@@ -156,7 +155,7 @@ public class TransferProjectManager {
 		try {
 			ibatisSqlMap.startTransaction();
 			count = (Integer) ibatisSqlMap.queryForObject(
-					"project.countAllProjectMember", params);
+					"transferProject.countAllProjectMember", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,4 +169,21 @@ public class TransferProjectManager {
 		return count;
 	}
 	
+	public byte[] getPhoto(String userDomain) {
+		StructureProjectBean bean = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (StructureProjectBean) ibatisSqlMap.queryForObject(
+					"transferProject.getPhoto", userDomain);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean.getPhoto();
+	}
 }
