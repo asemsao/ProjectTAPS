@@ -23,6 +23,9 @@ public class SpecialAppraisalAction extends Action {
 			throws Exception {
 		SpecialAppraisalForm mForm = (SpecialAppraisalForm) form;
 		SpecialAppraisalManager mMan = new SpecialAppraisalManager();
+		HttpSession session = request.getSession(true);
+		mForm.getAppraisalBean().setSessionUserDomain(
+				(String) session.getAttribute("username"));
 		Map params = new HashMap();
 		
 		if (mForm.getPage() == null) {
