@@ -36,7 +36,7 @@ public class SessionFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		
-		checkAD();
+		session.setAttribute("aDStatus", checkAD());
 		if (session.getAttribute("username") != null) {
 			resp.sendRedirect("/ProjectTaps/dashboard.do");
 		} else {
@@ -64,7 +64,10 @@ public class SessionFilter implements Filter {
 				flag = true;
 			}
 		} catch (NamingException ex) {
-			System.out.println("ss"+ex.toString());
+			System.out.println(ex.getCause());
+			if(ex.getCause().toString().contains(App.getConfiguration("ad_ip"))){
+				flag = false;
+			}
 		}
 		return flag;
 	}
