@@ -109,7 +109,7 @@
 						</div>
 					</li>
 					<%
-							if ("true".equals(session.getAttribute("recovery_mode"))) {
+							if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 						%>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
