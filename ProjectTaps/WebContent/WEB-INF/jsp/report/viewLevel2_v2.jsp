@@ -172,16 +172,19 @@
 										Report Year :
 										<bean:write property="reportYear" />
 									</h5></th>
-								<th colspan=2 class="text-left"><logic:notEmpty
+								<th colspan=2 class="text-left">
+								<h5>
+								<logic:notEmpty
 										name="reportForm" property="reportPeriode">
-									Semester :<h5>
+									 Semester :
 											<bean:write property="reportPeriode" />
-										</h5>
-									</logic:notEmpty> <logic:notEmpty name="reportForm" property="reportMonth">
-									Month :<h5>
-											<bean:write property="reportMonth" />
-										</h5>
-									</logic:notEmpty></th>
+									
+									</logic:notEmpty> 
+									<logic:notEmpty name="reportForm" property="reportMonth">
+									Month :<bean:write property="reportMonth" />
+									</logic:notEmpty>
+									</h5>
+								</th>
 							</tr>
 							<tr>
 								<th class="text-center">

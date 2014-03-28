@@ -112,7 +112,7 @@
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
 							<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
 						<%
-							if ("true".equals(App.getConfiguration("recovery_mode"))) {
+							if ("true".equals(session.getAttribute("recovery_mode"))) {
 						%>
 						<ul class="dropdown-menu" data-role="dropdown">
 							<li><a title="Change Password" id="change-password"><span

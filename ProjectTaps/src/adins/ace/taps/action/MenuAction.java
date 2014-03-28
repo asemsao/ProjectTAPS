@@ -85,12 +85,7 @@ public class MenuAction extends Action {
 		}
 		
 		if ("logout".equals(mForm.getTask())) {
-			session.removeAttribute("username");
-			session.removeAttribute("organizationCode");
-			session.removeAttribute("organizationLevel");
-			session.removeAttribute("role");
-			session.removeAttribute("fullname");
-			session.removeAttribute("recoveryMode");
+			session.invalidate();
 			return mapping.findForward("Welcome");
 		}
 		
