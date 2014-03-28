@@ -102,7 +102,7 @@
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
 			<div class="text-center">
-			<% if (App.getConfiguration("recovery_mode").equals("false")) { %>
+			<% if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
 			&nbsp; Active Directory

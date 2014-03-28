@@ -4,6 +4,8 @@ import java.util.Hashtable;
 
 import javax.naming.Context;
 
+import adins.ace.taps.configuration.App;
+
 public class GetUserDomainModule {
 	public GetUserDomainModule() {
 	}
@@ -14,7 +16,7 @@ public class GetUserDomainModule {
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
 		env.put(Context.SECURITY_PRINCIPAL, username+"@"+domainName);
 		env.put(Context.SECURITY_CREDENTIALS, password);
-		env.put(Context.PROVIDER_URL, "ldap://ace-router:389");
+		env.put(Context.PROVIDER_URL, "ldap://"+App.getConfiguration("ad_ip")+":"+App.getConfiguration("ad_port"));
 		return env;
 	}
 }

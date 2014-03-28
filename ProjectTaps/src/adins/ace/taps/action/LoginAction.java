@@ -67,7 +67,14 @@ public class LoginAction extends Action {
 					session.setAttribute("fullname", fullname);
 					if ("true".equals(App.getConfiguration("recovery_mode"))) {
 						session.setAttribute("recoveryMode", "true");
+					}/*
+					if ("false".equals(App.getConfiguration("recovery_mode"))) {
+						session.setAttribute("recoveryMode", "false");
+						if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
+							session.setAttribute("recoveryMode", "true");
+						}
 					}
+					*/
 					/* Star Achievement */
 					session.setAttribute("star", dMan.starAchievemet(username));
 					/* set image for header */
