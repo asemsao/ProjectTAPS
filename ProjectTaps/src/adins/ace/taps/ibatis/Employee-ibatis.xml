@@ -208,6 +208,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="userDomain">
+				<isNotEmpty property="userDomain">
+					(LOWER(directreport_user_domain) = LOWER(#userDomain#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
@@ -256,6 +263,13 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				<isNotEmpty property="project">
 					(LOWER(ps.project_code) LIKE
 					LOWER(#project#))
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		<dynamic prepend="AND">
+			<isNotNull property="userDomain">
+				<isNotEmpty property="userDomain">
+					(LOWER(directreport_user_domain) = LOWER(#userDomain#))
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
@@ -343,7 +357,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="deleteEmployee" parameterClass="java.lang.String">
 		UPDATE employees
 		SET
-		flag='INACTIVE' WHERE user_domain=#employeeDomain#
+		flag='INACTIVE',
+		updated_by=#employeeDomain#,
+		updated_date=SYSDATE WHERE user_domain=#employeeDomain#
 	</update>
 	
 	<update id="deleteAssignment" parameterClass="java.lang.String">

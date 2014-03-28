@@ -200,23 +200,23 @@ public class ProjectManager {
 		boolean flag = false;
 		try
 		{
-			ibatisSqlMap.startTransaction();
+//			ibatisSqlMap.startTransaction();
 			ibatisSqlMap.delete("project.deleteMember", bean);
-			ibatisSqlMap.commitTransaction();
+//			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-		finally 
-		{
-			try 
-			{
-				ibatisSqlMap.endTransaction();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+//		finally 
+//		{
+//			try 
+//			{
+//				ibatisSqlMap.endTransaction();
+//			} 
+//			catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return flag;
 	}
 	
