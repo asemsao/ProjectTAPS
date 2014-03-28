@@ -166,9 +166,6 @@ function newAssignmentValidation() {
         	'assignmentBean.projectName': {
                 required: true
             },
-        	'assignmentBean.reffTaskCode': {
-                required: true
-            },
         	'assignmentBean.description': {
                 required: true
             },
