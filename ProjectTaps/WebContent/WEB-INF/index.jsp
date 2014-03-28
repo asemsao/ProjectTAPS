@@ -102,9 +102,8 @@
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
 			<div class="text-center">
-			<%
-			
-			if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) { %>
+			<% if(session.getAttribute("aDStatus") != null){
+				if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
 			&nbsp; Active Directory
@@ -115,7 +114,7 @@
 			<img class="ad-icon" src="images/offline.png">
 			&nbsp; Active Directory
 			</p>
-			<% } %>
+			<% } }%>
 			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"

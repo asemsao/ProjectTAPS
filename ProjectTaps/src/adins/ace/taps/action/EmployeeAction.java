@@ -85,7 +85,9 @@ public class EmployeeAction extends Action {
 
 		if ("delete".equals(mForm.getTask())) {
 			boolean flag = false;
-			flag = mMan.deleteEmployee(mForm.getEmployeeDomain());
+			params.put("employeeDomain", mForm.getEmployeeDomain());
+			params.put("updateBy", session.getAttribute("username").toString());
+			flag = mMan.deleteEmployee(params);
 			if (flag) {
 				mForm.setMessage("Delete Employee Successfull!");
 				mForm.setColor("green");
