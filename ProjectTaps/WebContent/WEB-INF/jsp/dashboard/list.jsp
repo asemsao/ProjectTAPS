@@ -16,7 +16,7 @@
 <title>Assignment</title>
 
 <script type="text/javascript">
-	function searchingPage(task) {alert("masuk search dashboard");
+	function searchingPage(task) {
 		document.dashboardForm.task.value = task;
 		document.dashboardForm.submit();
 	}

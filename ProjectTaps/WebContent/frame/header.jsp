@@ -21,7 +21,6 @@
 </script>
 
 <html:form action="/menu" method="POST" styleId="menuForm">
-	<div class="bg-dark">
 		<div class="navigation-bar dark header-taps">
 			<div class="navigation-bar-content container">
 				<a href="#" class="element"> <img alt="logo" class="logo"
@@ -126,7 +125,6 @@
 			</div>
 
 		</div>
-	</div>
 	<html:hidden property="task" name="menuForm" />
 </html:form>
 
@@ -167,7 +165,7 @@
 				<td width="25%">Old Password</td>
 				<td>:</td>
 				<td><div class="input-control text">
-						<html:password property="password" name="employeeForm"
+						<html:password property="oldPassword" name="employeeForm"
 							styleId="old-password" />
 					</div></td>
 			</tr>

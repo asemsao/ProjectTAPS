@@ -152,6 +152,7 @@ public class SendMailTls {
 
 			System.out.println("Done to send message");
 		} catch (MessagingException e) {
+			e.printStackTrace();
 			System.out.println("Failed to send message");
 		}
 	}

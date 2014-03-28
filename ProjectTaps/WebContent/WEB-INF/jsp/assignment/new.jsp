@@ -22,10 +22,10 @@
 		} else if (task == "save") {
 			document.claimAssignmentForm.newTask.value = task;
 			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
-			newAssignmentSaveValidation();
+			newAssignmentSaveValidation(getRadioValue("assignment_type"));
 		} else if (task == "assign") {
 			document.claimAssignmentForm.newTask.value = task;
-			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type")+'';
+			document.claimAssignmentForm.assignmentType.value = getRadioValue("assignment_type");
 			newAssignmentValidation();
 		}
 	}
@@ -217,7 +217,7 @@
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
-									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<input type="button" onclick="flyToPage('save')" class="button success" value="Save" />
 									<button onclick="flyToPage('assign')" class="button success">Assign</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>

@@ -46,10 +46,13 @@ public class LoginAction extends Action {
 				String username = tForm.getUsername();
 				String password = tForm.getPassword();
 
-				String domainName = "nu-ace.ad-ins.com";
+				String domainName = App.getConfiguration("domain_name");
 
 				pass = loginAuth.getAuthenticationUser(username, password,
 						domainName);
+				
+				// jangan ubah2 action login lagi selain pass = true
+				// pass = true;
 				
 				tForm.setPassword("");
 				if (pass) {
