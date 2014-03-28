@@ -107,7 +107,6 @@
 			GetUserDomainModule checkAD = new GetUserDomainModule();
 			
 			session.setAttribute("aDStatus", checkAD.checkAD());
-			//if(session.getAttribute("aDStatus") != null){
 			if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
@@ -119,7 +118,7 @@
 			<img class="ad-icon" src="images/offline.png">
 			&nbsp; Active Directory
 			</p>
-			<% } //}%>
+			<% } %>
 			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
