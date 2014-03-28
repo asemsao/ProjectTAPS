@@ -43,7 +43,7 @@ public class AjaxAction extends Action {
 
 		PrintWriter out = response.getWriter();
 		Map params = new HashMap();
-		int recordPerPage=10;
+		int recordPerPage = 10;
 		if (ajaxForm.getPage() == null) {
 			ajaxForm.setPage(1);
 		}
@@ -95,19 +95,23 @@ public class AjaxAction extends Action {
 			params.put("projectCode", ajaxForm.getProjectCode());
 			ajaxForm.setListEmployeeReport(asgMan.pendingAssignmentList(params));
 			ajaxForm.setCountRecord(asgMan.countPendingAssignmentList(params));
-			if(ajaxForm.getCountRecord() == 0)
+			if (ajaxForm.getCountRecord() == 0)
 				request.setAttribute("buttonMode", "enable");
 			else
 				request.setAttribute("buttonMode", "disable");
 		}
-		
+
 		if ("deleteOrganization".equals(ajaxForm.getMode())) {
-			params.put("organizationCode", ajaxForm.getOrganizationCode().trim());
+			params.put("organizationCode", ajaxForm.getOrganizationCode()
+					.trim());
 			int record = orgMan.countListProject(params);
 			ajaxForm.setOrganizationProject(orgMan.listProject(params));
 			ajaxForm.setCountMemberOrganization(orgMan.countMember(params));
 			ajaxForm.setCountChildOrganization(orgMan.countListChild(params));
-			ajaxForm.setCheckDeleteOrganization(ajaxForm.getCountChildOrganization()+ajaxForm.getOrganizationProject().size()+ ajaxForm.getCountMemberOrganization());
+			ajaxForm.setCheckDeleteOrganization(ajaxForm
+					.getCountChildOrganization()
+					+ ajaxForm.getOrganizationProject().size()
+					+ ajaxForm.getCountMemberOrganization());
 			ajaxForm.setCountRecord(record);
 		}
 
@@ -165,6 +169,7 @@ public class AjaxAction extends Action {
 				ajaxForm.setCountRecord(0);
 			} else {
 				params.put("project", ajaxForm.getProjectCode());
+				params.put("userDomain", session.getAttribute("username"));
 				ajaxForm.setListEmployeesOnProject(empMan
 						.searchEmployeesOnProject(params));
 				ajaxForm.setCountRecord(empMan.countEmployeesOnProject(params));
@@ -225,9 +230,11 @@ public class AjaxAction extends Action {
 			ajaxForm.setCountRecord(prjMan.countProject(params));
 		}
 		if (ajaxForm.getCountRecord() % recordPerPage == 0) {
-			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord() / recordPerPage));
+			ajaxForm.setMaxpage((int) Math.ceil(ajaxForm.getCountRecord()
+					/ recordPerPage));
 		} else {
-			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord() / recordPerPage)) + 1);
+			ajaxForm.setMaxpage(((int) Math.ceil(ajaxForm.getCountRecord()
+					/ recordPerPage)) + 1);
 		}
 
 		if (ajaxForm.getMaxpage() == 0) {
