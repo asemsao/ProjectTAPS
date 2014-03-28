@@ -48,7 +48,8 @@ function addProjectValidation() {
 		},
 		rules : {
 			'addProject.projectCode' : {
-				required : true
+				required : true,
+				minlength: 4
 			},
 			'addProject.projectName' : {
 				required : true

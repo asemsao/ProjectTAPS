@@ -153,24 +153,12 @@
 										</logic:notEqual>
 									</logic:iterate>
 								</logic:notEmpty>
-							<tr>
-					<td colspan="5" class="text-right">
- 							<logic:equal name="reportForm" property="organizationLevel" value="0">
- 								<button class="primary"
-							onclick="javascript:print('printReportBOM','<bean:write name="reportForm" property="organizationCode" />')">Generate Management
-							Report</button>
- 							</logic:equal>
-							<logic:equal name="reportForm" property="organizationLevel" value="1">
- 								<button class="primary"
-							onclick="javascript:print('printReportBU','<bean:write name="reportForm" property="organizationCode" />')">Generate Business Unit
-							Report </button>
- 							</logic:equal>					
-							</td>
-							</tr>
+							
 						</table>
 					</div>
 					<div id="print">					
 					<table id="datatableshow" class="table striped bordered hovered">
+							
 							<tr>
 								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/> </h3></th>
 							</tr>
@@ -241,7 +229,18 @@
 								</logic:iterate>
 							</logic:notEmpty>
 						<tr>
-							<td colspan="5" class="text-right">
+							
+								<td colspan="5" class="text-right">
+			 							<logic:equal name="reportForm" property="organizationLevel" value="0">
+			 								<button class="primary"
+										onclick="javascript:print('printReportBOM','<bean:write name="reportForm" property="organizationCode" />')">Generate Management
+										Report</button>
+			 							</logic:equal>
+										<logic:equal name="reportForm" property="organizationLevel" value="1">
+			 								<button class="primary"
+										onclick="javascript:print('printReportBU','<bean:write name="reportForm" property="organizationCode" />')">Generate Business Unit
+										Report </button>
+			 							</logic:equal>			
 							
 							<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
 							<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
@@ -250,6 +249,7 @@
 										</logic:equal>
 							</logic:notEqual>
 							</td>
+							
 						</tr>
 						</table>
 					</div>
