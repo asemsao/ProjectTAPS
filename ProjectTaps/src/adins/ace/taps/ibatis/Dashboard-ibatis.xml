@@ -41,7 +41,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				   WHERE   emp.flag = 'ACTIVE'
 				           AND emp.user_domain NOT IN (SELECT   r.user_domain
 				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
+				                                        WHERE   r.role_id IN ('HBU'))
 				ORDER BY   totalStar DESC, employeeName)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
@@ -73,7 +73,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				   WHERE   emp.flag = 'ACTIVE' AND UPPER(EMP.ORGANIZATION_CODE) = UPPER(#organizationCode#)
 				           AND emp.user_domain NOT IN (SELECT   r.user_domain
 				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU', 'ADM'))
+				                                        WHERE   r.role_id IN ('HBU'))
 				ORDER BY   totalStar DESC, employeeName)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>

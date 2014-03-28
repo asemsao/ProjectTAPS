@@ -343,7 +343,10 @@ public class ProjectAction extends Action {
 	
 			// update table assignments
 			boolean updateAssignment = false;
-			updateAssignment = pMan.updateAllAssStatus(pForm.getParamProjectCode());
+			Map mapUpdate = new HashMap();
+			map.put("projectCode", pForm.getParamProjectCode());
+			map.put("userDomain", userDomain);
+			updateAssignment = pMan.updateAllAssStatus(mapUpdate);
 			
 			if(updateAssignment && deleteProjectStruct && recapStatus && !errorDirectReport && deleteProject)
 			{
@@ -587,6 +590,7 @@ public class ProjectAction extends Action {
 					.getAssigneeUserDomain());
 			param.put("projectCode", pForm.getParamProjectCode());
 			param.put("reportToBefore", pForm.getDirectReportBefore());
+			param.put("userDomain", userDomain);
 			change = pMan.changeNewSupervisor(param);
 
 			if(update && deleteRole && noMoreSPV && notHead && role && isNotExist && change && !errorNotHead && !errorNotExist)
@@ -710,6 +714,7 @@ public class ProjectAction extends Action {
 				param.put("assignee", pForm.getParamAssigneeUserDomain());
 				param.put("projectCode", pForm.getParamProjectCode());
 				param.put("directreport", pForm.getDirectReportUserDomain());
+				param.put("userDomain", userDomain);
 				updateAssStatus = pMan.updateAssStatus(param);
 				
 				if(deleteMember && deleteRole && noMoreSPV && notHead && updateAssStatus && !errorNoMoreSPV && !errorNotHead)

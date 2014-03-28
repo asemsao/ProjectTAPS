@@ -110,6 +110,7 @@ public class EmployeeAction extends Action {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
+					System.out.println(bean.getProfilePicture());
 					buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet()
