@@ -1,6 +1,7 @@
 <%@page import="adins.ace.taps.configuration.App"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="adins.ace.taps.module.GetUserDomainModule"%>
 
 <%@ taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@ taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
@@ -102,8 +103,12 @@
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
 			<div class="text-center">
-			<% if(session.getAttribute("aDStatus") != null){
-				if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
+			<% 
+			GetUserDomainModule checkAD = new GetUserDomainModule();
+			
+			session.setAttribute("aDStatus", checkAD.checkAD());
+			//if(session.getAttribute("aDStatus") != null){
+			if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
 			<p class="fg-green">
 			<img class="ad-icon" src="images/online.png">
 			&nbsp; Active Directory
@@ -114,7 +119,7 @@
 			<img class="ad-icon" src="images/offline.png">
 			&nbsp; Active Directory
 			</p>
-			<% } }%>
+			<% } //}%>
 			</div>
 			<br />
 			<html:text property="username" name="loginForm" styleId="uname"
