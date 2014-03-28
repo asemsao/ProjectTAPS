@@ -12,12 +12,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">/* 
-	function flyToPage(task) {
-		document.selfAssignmentForm.task.value = task;
-		document.getElementById("activity-type").value = getRadioValue("activity_type");
-		document.selfAssignmentForm.submit();
-	} */
+<script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
 			document.selfAssignmentForm.task.value = task;
@@ -45,9 +40,14 @@
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
 		}
-		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		
 		$("input[name=activity_type][value=" + activity_type + "]").attr('checked', 'checked');
-		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		setTimeout(function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		}, 500);
+		setTimeout(function() {
+			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
+		}, 500);
 		$("#employee-name").attr("placeholder", "Employee");
 	});
 </script>

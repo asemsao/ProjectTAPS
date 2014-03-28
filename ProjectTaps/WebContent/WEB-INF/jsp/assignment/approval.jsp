@@ -11,12 +11,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">/* 
-	function flyToPage(task) {
-		document.claimAssignmentForm.task.value = task;
-		document.claimAssignmentForm.submit();
-	}
-	 */
+<script type="text/javascript">
 
 	function flyToPage(task) {
 		if (task == "cancel") {
@@ -31,7 +26,10 @@
 	
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
-		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
+		setTimeout(function() {
+			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
+		}, 500);
+		
 		$(".manHourUpdate").change(function() {
 			var totalMh = 0.0;
 			$(".manHourUpdate").each(function() {
@@ -173,7 +171,7 @@
 																} else if ("RFA".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription" name="assignment" rows="2"
-																	styleClass="input-control textarea"></html:textarea></td>
+																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
 																}
 															%>

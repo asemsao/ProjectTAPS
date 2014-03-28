@@ -28,18 +28,23 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		SELECT LPAD (
 		o.organization_code,
 		LENGTH (o.organization_code)
-		+ (LEVEL * 2)
+		+ (LEVEL
+		* 2)
 		- 2,
 		' '
 		)
 		AS organizationCode,
-		o.organization_name AS organizationName,
+		o.organization_name AS
+		organizationName,
 		o.organization_level AS organizationLevel,
 		o.parent_organization_code AS organizationParent,
-		NVL((SELECT SUM (R.MANHOUR)
+		NVL((SELECT SUM
+		(R.MANHOUR)
 		FROM REPORTS R
-		WHERE (R.ORGANIZATION_CODE = O.ORGANIZATION_CODE)
-		AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY') LIKE '%$reportYear$%')
+		WHERE (R.ORGANIZATION_CODE =
+		O.ORGANIZATION_CODE)
+		AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
 		<dynamic prepend="AND">
 			<isNotNull property="reportPeriode">
 				<isNotEmpty property="reportPeriode">
@@ -66,28 +71,35 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		NVL (
 		(SELECT SUM (R.MANHOUR)
 		FROM REPORTS R
-		WHERE (R.PROJECT_CODE IN
+		WHERE
+		(R.PROJECT_CODE IN
 		(SELECT P.PROJECT_CODE
 		FROM PROJECTS P
-		WHERE P.ORGANIZATION_CODE =
+		WHERE
+		P.ORGANIZATION_CODE =
 		O.ORGANIZATION_CODE))
-		AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE, 'DD/MM/YYYY') BETWEEN
+		AND
+		(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE, 'DD/MM/YYYY') BETWEEN
 		TO_CHAR((SELECT h.transfer_date
 		FROM history_projects h
-		WHERE h.project_code =
+		WHERE
+		h.project_code =
 		R.PROJECT_CODE
 		AND h.organization_after =
 		O.ORGANIZATION_CODE),'DD/MM/YYYY')
 		AND CASE
 		WHEN ( (SELECT COUNT(1)
-		FROM history_projects h
+		FROM
+		history_projects h
 		WHERE h.project_code =
 		R.PROJECT_CODE
-		AND h.organization_before =
+		AND
+		h.organization_before =
 		O.ORGANIZATION_CODE) =
 		1)
 		THEN
-		TO_CHAR((SELECT h.transfer_date
+		TO_CHAR((SELECT
+		h.transfer_date
 		FROM history_projects h
 		WHERE h.project_code =
 		R.PROJECT_CODE
@@ -126,14 +138,18 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM organizations o
 		LEFT JOIN
 		employees e
-		ON o.head_user_domain = e.user_domain
+		ON
+		o.head_user_domain = e.user_domain
 		LEFT JOIN
 		organizations r
-		ON o.parent_organization_code =
+		ON
+		o.parent_organization_code =
 		r.organization_code
-		WHERE LOWER (o.flag) = 'active'
+		WHERE LOWER (o.flag) =
+		'active'
 		AND O.ORGANIZATION_LEVEL != #orgLevel#
-		START WITH o.organization_code = #orgCode#
+		START WITH
+		o.organization_code = #orgCode#
 		CONNECT BY PRIOR o.organization_code =
 		o.parent_organization_code
 	</select>
@@ -141,8 +157,10 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="getReportLevel2" resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
 		select e.first_name||' '||e.last_name as employeeName,
-		NVL((select sum(r.manhour) from reports r where
-		lower(r.assignment_category)='self assignment' and
+		NVL((select
+		sum(r.manhour) from reports r where
+		lower(r.assignment_category)='self
+		assignment' and
 		r.assign_to=e.user_domain
 		<dynamic prepend="AND">
 			<isNotNull property="reportPeriode">
@@ -164,7 +182,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 		),0) as totalSelfAssignment,
-		NVL((select sum(r.manhour) from reports r where
+		NVL((select sum(r.manhour) from reports r
+		where
 		lower(r.assignment_category)='assignment' and
 		r.assign_to=e.user_domain
 		<dynamic prepend="AND">
@@ -187,7 +206,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 		),0) as totalAssignment,
-		NVL((select sum(r.manhour) from reports r where r.assign_to=e.user_domain
+		NVL((select sum(r.manhour) from reports r
+		where r.assign_to=e.user_domain
 		and lower(r.assignment_type) = 'bu'
 		<dynamic prepend="AND">
 			<isNotNull property="reportPeriode">
@@ -241,7 +261,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="getReportLevel2_v2" resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
 		select e.first_name||' '||e.last_name as employeeName,
-		NVL((select sum(r.manhour) from reports r where
+		NVL((select
+		sum(r.manhour) from reports r where
 		(lower(r.assignment_category)='self assignment' and
 		r.assign_to=e.user_domain
 		and lower(r.assignment_type) = 'bu')
@@ -267,7 +288,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 		),0) as totalSelfAssignmentBU,
-		NVL((select sum(r.manhour) from reports r where
+		NVL((select sum(r.manhour) from reports
+		r where
 		(lower(r.assignment_category)='assignment' and
 		r.assign_to=e.user_domain
 		and lower(r.assignment_type) = 'bu')
@@ -293,7 +315,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			</isNotNull>
 		</dynamic>
 		),0) as totalAssignmentBU,
-		NVL((select sum(r.manhour) from reports r where
+		NVL((select sum(r.manhour) from reports r
+		where
 		(lower(r.assignment_category)='self assignment' and
 		r.assign_to=e.user_domain
 		and lower(r.assignment_type) = 'project')

@@ -29,11 +29,17 @@
 	$(document).ready(function() {
 		var project_code = $("#project-code").val();
 		var organization_code = $("#organization-code-view").val();
-		$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
-		$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
-		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects");
-		$("#timepicker").timeselector();
-
+		
+		setTimeout(function() {
+			$("#lookUpEmployeeOnOrganization").load("/ProjectTaps/ajax.do?mode=employeesOnOrganization&task=employeesOnOrganization&organizationCode=" + organization_code);
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpEmployeeOnProject").load("/ProjectTaps/ajax.do?mode=employeesOnProject&task=employeesOnProject&projectCode=" + project_code);
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects");
+		}, 500);
+		
 		if ($("#assignmentType").val() == "PROJECT") {
 			$(".pr").show();
 			$("#bu").hide();
@@ -44,9 +50,7 @@
 			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newAssignments&task=assignments&assignmentCategory=assignment&assignmentType=bu");
 		}
 
-		$("#assignmentDate").attr("placeholder","Assignment Date");
 		$("#assignmentDueDate").attr("placeholder", "Assignment Due Date");
-		$("#timepicker").attr("placeholder", "Assignment Time");
 		$("#project-name").attr("placeholder", "Project");
 		$("#employee-name").attr("placeholder", "Employee");
 		$("#assignment-code").attr("placeholder", "Reff Task Code");
@@ -70,26 +74,11 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th class="field-form">Assignment Date</th>
-								<td class="field-separator">:</td>
-								<td><div class="input-control text " id="datepicker">
-										<html:text property="assignmentBean.assignmentDate" name="claimAssignmentForm" styleId="assignmentDate" styleClass="datepicker-future-start"></html:text>
-										<button type="button" class="btn-date"></button>
-									</div></td>
-							</tr>
-							<tr>
 								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text" id="datepicker">
 										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
-									</div></td>
-							</tr>
-							<tr>
-								<th class="field-form">Assignment Time</th>
-								<td class="field-separator">:</td>
-								<td><div class="input-control text">
-										<html:text property="assignmentBean.assignmentTime" name="claimAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
 									</div></td>
 							</tr>
 							<tr>

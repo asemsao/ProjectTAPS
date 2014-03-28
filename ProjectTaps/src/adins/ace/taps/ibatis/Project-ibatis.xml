@@ -391,7 +391,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="updateAssStatus" parameterClass="java.util.Map">
 		UPDATE assignments
 		SET 
-    		current_status = 'DELETED'
+    		current_status = 'DELETED',
+    		updated_by = #userDomain#,
+    		updated_date = sysdate
 		WHERE 
     		assign_to = #assignee#
 	    	AND report_to = #directreport#
@@ -412,10 +414,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         	sysdate)
 	</insert>
 	
-	<update id="updateAllAssStatus" parameterClass="java.lang.String">
+	<update id="updateAllAssStatus" parameterClass="java.util.Map">
 		UPDATE assignments
 		SET 
-    		current_status = 'DELETED'
+    		current_status = 'DELETED',
+    		updated_by = #userDomain#,
+    		updated_date = sysdate
 		WHERE 
 	    	project_code = #projectCode#
 	    	AND NOT current_status IN ('APPROVED','REJECTED')
@@ -424,7 +428,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="changeNewSupervisor" parameterClass = "java.util.Map">
 		UPDATE assignments
 		SET
-			report_to = #reportTo#
+			report_to = #reportTo#,
+			updated_by = #userDomain#,
+			updated_date = sysdate
 		WHERE
 			report_to = #reportToBefore#
 			AND assign_to = #assignTo#
