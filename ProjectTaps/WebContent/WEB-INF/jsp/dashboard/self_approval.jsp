@@ -11,12 +11,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">/* 
-	function flyToPage(task) {
-		document.dashboardForm.task.value = task;
-		document.dashboardForm.submit();
-	}
- */
+<script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
 			document.dashboardForm.task.value = task;
@@ -29,7 +24,9 @@
 	}
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
-		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		setTimeout(function() {
+			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		}, 500);
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>

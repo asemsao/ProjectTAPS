@@ -104,11 +104,11 @@
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
+								<th class="text-center">Deadline</th>
 								<th class="text-center">Assignment Date</th>
 								<th class="text-center">Assignment Code</th>
 								<th class="text-center">Assignment Category</th>
 								<th class="text-center">Employee Name</th>
-								<th class="text-center">Deadline</th>
 								<th class="text-center">Data Created</th>
 								<th class="text-center">Status</th>
 							</tr>
@@ -120,6 +120,8 @@
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
 											<td class="text-center text-bold text-italic"><bean:write
+													property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic"><bean:write
 													property="assignmentDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="taskCode" name="assignment" /></td>
@@ -127,8 +129,6 @@
 													property="assignmentCategory" name="assignment" /></td>
 											<td class="text-bold text-italic"><bean:write
 													property="fullName" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><bean:write
 													property="createdDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><a
@@ -142,14 +142,14 @@
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
 										<tr>
 											<td class="text-center"><bean:write
+													property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center"><bean:write
 													property="assignmentDate" name="assignment" /></td>
 											<td class="text-center"><bean:write property="taskCode"
 													name="assignment" /></td>
 											<td class="text-center"><bean:write
 													property="assignmentCategory" name="assignment" /></td>
 											<td><bean:write property="fullName" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
 											<td class="text-center"><bean:write
 													property="createdDate" name="assignment" /></td>
 											<td class="text-center"><a

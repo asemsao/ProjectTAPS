@@ -118,6 +118,9 @@ public class EmployeeReportAction extends Action {
 			} else {
 				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
+			if (eForm.getCountRecord() == 0){
+				eForm.setMaxpage(1);
+			}
 			eForm.setListAssignment(eMan.searchEmployeeReportEmployee(params));
 
 		} else if ("employeeReportSupervisor".equals(session.getAttribute("link"))) {
@@ -171,6 +174,9 @@ public class EmployeeReportAction extends Action {
 			} else {
 				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
 			}
+			if (eForm.getCountRecord() == 0){
+				eForm.setMaxpage(1);
+			}
 			eForm.setListAssignment(eMan.searchEmployeeReportSupervisor(params));
 
 		} else if ("assignment".equals(session.getAttribute("link"))) {
@@ -211,6 +217,9 @@ public class EmployeeReportAction extends Action {
 				eForm.setMaxpage((int) Math.ceil(eForm.getCountRecord() / 10));
 			} else {
 				eForm.setMaxpage(((int) Math.ceil(eForm.getCountRecord() / 10)) + 1);
+			}
+			if (eForm.getCountRecord() == 0){
+				eForm.setMaxpage(1);
 			}
 			eForm.setListAssignment(eMan.searchAssignmentSupervisor(params));
 		}

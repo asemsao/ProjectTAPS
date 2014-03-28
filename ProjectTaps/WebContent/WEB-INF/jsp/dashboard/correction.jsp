@@ -11,11 +11,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-<script type="text/javascript">/* 
-	function flyToPage(task) {
-		document.dashboardForm.task.value = task;
-		document.dashboardForm.submit();
-	} */
+<script type="text/javascript">
 	function flyToPage(task) {
 		if (task == "cancel") {
 			document.dashboardForm.task.value = task;
@@ -29,7 +25,10 @@
 
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
-		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		setTimeout(function() {
+			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		}, 500);
+		
 		$(".manHourUpdate").change(function() {
 			var totalMh = 0.0;
 			$(".manHourUpdate").each(function() {
@@ -131,7 +130,7 @@
 														<tr>
 															<td class="text-center"><bean:write property="claimDate" name="assignment" /></td>
 															<td><html:textarea property="detailDescription" name="assignment" rows="2"
-																	styleClass="input-control textarea"></html:textarea></td>
+																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<td class="text-center">
 																<div class="input-control select">
 																	<html:hidden property="detailId" name="assignment" />

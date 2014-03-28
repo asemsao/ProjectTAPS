@@ -69,11 +69,15 @@
 		var project_code = $("#project-code").val();
 		var organization_code = $("#organization-code-view").val();
 		var userDomain = $("#userDomain").val();
-		$("#employee-name").val($("#employee-fullName").val());
-		$("#employee-name-2").val($("#employee-fullName-2").val());
-		$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
-		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
-		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		setTimeout(function() {
+			$("#lookUpProject").load("/ProjectTaps/ajax.do?mode=projects&task=projects&userDomain=" + userDomain);
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		}, 500);
 		
 		if ($("input[name='assignment_type']:checked").val() == "PROJECT") {
 			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=project");

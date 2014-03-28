@@ -43,9 +43,15 @@
 			$(".adhoc").show();
 			
 		}
-		$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
-		$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
-		$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		setTimeout(function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpAssignment").load("/ProjectTaps/ajax.do?mode=newSelfAssignments&task=assignments&assignmentCategory=self%20assignment&assignmentType=bu");
+		}, 500);
 		
 		if ($("#assignmentType").val() == "PROJECT") {
 			$(".pr").show();
