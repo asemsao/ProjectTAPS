@@ -109,7 +109,7 @@
 							<tr>
 
 								<%
-									if (session.getAttribute("recoveryMode") == null) {
+									if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("false")) {
 								%>
 										<th class="field-form">Employee Domain</th>
 										<td class="field-separator">:</td>
@@ -157,7 +157,7 @@
 								%>
 							</tr>
 							<%
-								if (session.getAttribute("recoveryMode") != null) {
+								if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("true")) {
 							%>
 							<tr>
 								<th class="field-form">Password</th>

@@ -372,6 +372,7 @@ public class EmployeeAction extends Action {
 							.getHeadUserDomain()
 							+ " AS HEAD BU, Can't be Moved!");
 					mForm.setColor("red");
+					mForm.setEmployeeDomain(mForm.getNewEmployee().getEmployeeDomain());
 					return mapping.findForward("Edit");
 				}
 			}
