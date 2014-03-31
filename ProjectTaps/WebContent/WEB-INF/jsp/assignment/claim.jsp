@@ -68,6 +68,8 @@
 					<html:hidden property="claimBean.status" name="claimAssignmentForm" styleId="status" />
 					<html:hidden property="claimBean.taskCode" name="claimAssignmentForm" styleId="task-code" />
 					<html:hidden property="claimBean.reportTo" name="claimAssignmentForm" />
+					<html:hidden property="task" name="claimAssignmentForm" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -365,7 +367,7 @@
 							</logic:empty>
 						</tbody>
 					</table>
-					<html:hidden property="task" name="claimAssignmentForm" />
+					
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

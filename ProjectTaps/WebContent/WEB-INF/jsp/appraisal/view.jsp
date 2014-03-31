@@ -38,26 +38,22 @@
 							<tr>
 								<th class="field-form">Appraisal Date</th>
 								<td class="field-separator">:</td>
-								<td><bean:write name="specialAppraisalForm"
-										property="appraisalBean.createdDate" /></td>
+								<td><bean:write name="specialAppraisalForm" property="appraisalBean.createdDate" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal To</th>
 								<td class="field-separator">:</td>
-								<td><bean:write name="specialAppraisalForm"
-										property="appraisalBean.employeeName" /></td>
+								<td><bean:write name="specialAppraisalForm" property="appraisalBean.employeeName" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Description</th>
 								<td class="field-separator">:</td>
-								<td><bean:write name="specialAppraisalForm"
-										property="appraisalBean.description" /></td>
+								<td><bean:write name="specialAppraisalForm" property="appraisalBean.description" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Star</th>
 								<td class="field-separator">:</td>
-								<td><bean:define id="temp" name="specialAppraisalForm"
-										property="appraisalBean.appraisalStar" type="Integer" />
+								<td><bean:define id="temp" name="specialAppraisalForm" property="appraisalBean.appraisalStar" type="Integer" />
 									<%
 			 							Integer sc = temp;
 								 		if (sc > 0) {

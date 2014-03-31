@@ -49,12 +49,18 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/dashboard" method="post">
-		<html:hidden property="message" name="dashboardForm" styleId="message" />
-		<html:hidden property="color" name="dashboardForm" styleId="color" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/dashboard" method="post">
+					<html:hidden property="message" name="dashboardForm" styleId="message" />
+					<html:hidden property="color" name="dashboardForm" styleId="color" />
+					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="taskCode" name="dashboardForm" />
+					<html:hidden property="taskType" name="dashboardForm" />
+					<html:hidden property="page" name="dashboardForm" />
+					<html:hidden property="maxPage" name="dashboardForm" />
+					
 					<table class="table">
 							<tr>
 								<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
@@ -63,8 +69,7 @@
 								<th class="field-form">Assignment Deadline From</th>
 								<th>
 									<div class="input-control text" id="datepicker">
-										<html:text property="startDate" name="dashboardForm"
-											styleId="startDate" styleClass="datepicker-start"></html:text>
+										<html:text property="startDate" name="dashboardForm" styleId="startDate" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -73,8 +78,7 @@
 								<th class="field-form">Assignment Deadline To</th>
 								<th>
 									<div class="input-control text" id="datepicker">
-										<html:text property="endDate" name="dashboardForm"
-											styleId="endDate" styleClass="datepicker-end"></html:text>
+										<html:text property="endDate" name="dashboardForm" styleId="endDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</th>
@@ -92,10 +96,8 @@
 								</th>
 								<th class="text-center">
 									<div class="input-control text">
-										<html:text property="keyword" name="dashboardForm"
-											styleId="searchKeyword"></html:text>
-										<button class="btn-search"
-											onclick="javascript:searchingPage('search');"></button>
+										<html:text property="keyword" name="dashboardForm" styleId="searchKeyword"></html:text>
+										<button class="btn-search" onclick="javascript:searchingPage('search');"></button>
 									</div>
 								</th>
 							</tr>
@@ -119,45 +121,36 @@
 									property="listAssignment">
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="taskCode" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="assignmentCategory" name="assignment" /></td>
-											<td class="text-bold text-italic"><bean:write
-													property="fullName" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><bean:write
-													property="createdDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentDate" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="taskCode" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="assignmentCategory" name="assignment" /></td>
+											<td class="text-bold text-italic">
+												<bean:write property="fullName" name="assignment" /></td>
+											<td class="text-center text-bold text-italic">
+												<bean:write property="createdDate" name="assignment" /></td>
 											<td class="text-center text-bold text-italic"><a
-												href="javascript:flyToPage('<bean:write
-													property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
-												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />' );"><bean:write
-														property="currentStatus" name="assignment" /></a></td>
+												href="javascript:flyToPage('<bean:write property="currentStatus" name="assignment" />', 
+												'<bean:write property="taskCode" name="assignment" />', '<bean:write property="assignmentCategory"
+												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
 										<tr>
-											<td class="text-center"><bean:write
-													property="assignmentDueDate" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentDate" name="assignment" /></td>
-											<td class="text-center"><bean:write property="taskCode"
-													name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="assignmentCategory" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentDueDate" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentDate" name="assignment" /></td>
+											<td class="text-center"><bean:write property="taskCode" name="assignment" /></td>
+											<td class="text-center"><bean:write property="assignmentCategory" name="assignment" /></td>
 											<td><bean:write property="fullName" name="assignment" /></td>
-											<td class="text-center"><bean:write
-													property="createdDate" name="assignment" /></td>
-											<td class="text-center"><a
-												href="javascript:flyToPage('<bean:write
-													property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
+											<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
+											<td class="text-center"><a href="javascript:flyToPage('<bean:write
+												property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />');"><bean:write
-														property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />');"><bean:write property="currentStatus" name="assignment" /></a></td>
 										</tr>
 									</logic:equal>
 								</logic:iterate>
@@ -175,37 +168,27 @@
 							<td class="text-center">
 								<div class="pagination">
 									<ul>
-										<li class="first"><a id="first"
-											onclick="javascript:flyToPage('first');"><i
-												class="icon-first-2"></i></a></li>
-										<li class="prev"><a id="first"
-											onclick="javascript:flyToPage('prev');"><i
-												class="icon-previous"></i></a></li>
-										<li class="disabled"><a>Page <bean:write
-													name="dashboardForm" property="page" /> of <bean:write
-													name="dashboardForm" property="maxPage" /></a></li>
-										<li class="next"><a id="first"
-											onclick="javascript:flyToPage('next');"><i
-												class="icon-next"></i></a></li>
-										<li class="last"><a id="first"
-											onclick="javascript:flyToPage('last');"><i id="last"
-												class="icon-last-2"></i></a></li>
-										<li class="disabled"><a>Total Record <bean:write
-													name="dashboardForm" property="countRecord" /></a></li>
+										<li class="first"><a id="first" onclick="javascript:flyToPage('first');">
+											<i class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="first" onclick="javascript:flyToPage('prev');">
+											<i class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write name="dashboardForm" property="page" /> 
+											of <bean:write name="dashboardForm" property="maxPage" /></a></li>
+										<li class="next"><a id="first" onclick="javascript:flyToPage('next');">
+											<i class="icon-next"></i></a></li>
+										<li class="last"><a id="first" onclick="javascript:flyToPage('last');">
+											<i id="last" class="icon-last-2"></i></a></li>
+										<li class="disabled"><a>Total Record <bean:write name="dashboardForm" property="countRecord" /></a></li>
 									</ul>
 								</div>
 							</td>
 						</tr>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="dashboardForm" />
-		<html:hidden property="taskCode" name="dashboardForm" />
-		<html:hidden property="taskType" name="dashboardForm" />
-		<html:hidden property="page" name="dashboardForm" />
-		<html:hidden property="maxPage" name="dashboardForm" />
-	</html:form>
+	</div>
+	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

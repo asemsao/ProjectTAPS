@@ -64,10 +64,10 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/claimSupervisorAssignment" method="POST" styleId="claimAssignment">
-					<html:hidden property="claimBean.status" name="claimAssignmentForm"
-						styleId="status" />
-					<html:hidden property="claimBean.taskCode"
-						name="claimAssignmentForm" styleId="task-code" />
+					<html:hidden property="claimBean.status" name="claimAssignmentForm" styleId="status" />
+					<html:hidden property="claimBean.taskCode" name="claimAssignmentForm" styleId="task-code" />
+					<html:hidden property="task" name="claimAssignmentForm" />
+					<html:hidden property="claimBean.assignTo" name="claimAssignmentForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -158,12 +158,9 @@
 															<td class="text-center"><bean:write property="claimDate" name="assignment" /></td>
 															<%
 																if ("CLAIM".equals(session.getAttribute("status"))
-																					|| "CORRECTION".equals(session
-																							.getAttribute("status"))
-																					|| "REJECTED".equals(session
-																							.getAttribute("status"))
-																					|| "APPROVED".equals(session
-																							.getAttribute("status"))) {
+																	|| "CORRECTION".equals(session.getAttribute("status"))
+																	|| "REJECTED".equals(session.getAttribute("status"))
+																	|| "APPROVED".equals(session.getAttribute("status"))) {
 															%>
 															<td><html:textarea property="detailDescription" name="assignment" rows="2"
 																	styleClass="input-control textarea" readonly="true"></html:textarea></td>
@@ -179,12 +176,9 @@
 																<div class="input-control select">
 																	<%
 																		if ("CLAIM".equals(session.getAttribute("status"))
-																							|| "CORRECTION".equals(session
-																									.getAttribute("status"))
-																							|| "APPROVED".equals(session
-																									.getAttribute("status"))
-																							|| "REJECTED".equals(session
-																									.getAttribute("status"))) {
+																			|| "CORRECTION".equals(session.getAttribute("status"))
+																			|| "APPROVED".equals(session.getAttribute("status"))
+																			|| "REJECTED".equals(session.getAttribute("status"))) {
 																	%>
 																	<html:select property="manHours" name="assignment" disabled="true">
 																		<html:option value="">00:00</html:option>
@@ -418,8 +412,6 @@
 							</tr>
 						</tbody>
 					</table>
-					<html:hidden property="task" name="claimAssignmentForm" />
-					<html:hidden property="claimBean.assignTo" name="claimAssignmentForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>
