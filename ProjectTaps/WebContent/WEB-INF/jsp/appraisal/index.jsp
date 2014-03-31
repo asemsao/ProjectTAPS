@@ -49,13 +49,17 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/specialAppraisal" method="post"
-					styleClass="specialAppraisalForm">
+				<html:form action="/specialAppraisal" method="post" styleClass="specialAppraisalForm">
+					<html:hidden property="task" name="specialAppraisalForm" />
+					<html:hidden property="param" name="specialAppraisalForm" />
+					<html:hidden property="maxpage" name="specialAppraisalForm" />
+					<html:hidden property="page" name="specialAppraisalForm" />
 					
 					<table class="table">
 							<tr>
-								<th colspan=2 class="text-center"><h3>Special
-										Appraisal</h3></th>
+								<th colspan=2 class="text-center">
+									<h3>Special	Appraisal</h3>
+								</th>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Date From</th>
@@ -145,8 +149,9 @@
 							<logic:empty name="specialAppraisalForm"
 								property="listSpecialAppraisal">
 								<tr>
-									<td class="text-center" colspan="7">Special Appraisal Not
-										Found</td>
+									<td class="text-center" colspan="7">
+										Special Appraisal Not Found
+									</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -185,10 +190,6 @@
 						value="<bean:write  property="color" name="specialAppraisalForm" />">
 					<input type="hidden" id="message"
 						value="<bean:write  property="message" name="specialAppraisalForm" />">
-					<html:hidden property="task" name="specialAppraisalForm" />
-					<html:hidden property="param" name="specialAppraisalForm" />
-					<html:hidden property="maxpage" name="specialAppraisalForm" />
-					<html:hidden property="page" name="specialAppraisalForm" />
 				</html:form>
 			</div>
 		</div>

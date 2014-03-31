@@ -52,113 +52,113 @@
 			});
 			doc.save('Report.pdf');
 		});
-		$('#graph')
-				.highcharts(
-						{
-							data : {
-								table : document.getElementById('datatable')
-							},
-							chart : {
-								type : 'column',
-								marginTop : 50,
-								marginBottom : 100,
-								spacingLeft : 30,
-								spacingRIght : 30
-							},
-							lang : {
-								noData : "NO DATA FOUND"
-							},
-							noData : {
-								style : {
-									fontWeight : 'bold',
-									fontSize : '15px',
-									color : '#303030'
-								}
-							},
-							title : {
-								floating : false,
-								text : 'Statistic Of Business Unit',
-								margin : 30
-							},
-							yAxis : {
-								allowDecimals : false,
-								title : {
-									text : 'Manhours',
-									margin : 30
-								}
-							},
-							xAxis : {
-								allowDecimals : false,
-								title : {
-									text : 'Business Unit',
-									margin : 30
-								}
-							},
-							tooltip : {
-								headerFormat : '<span style="font-size:10px">{point.key}</span><table>',
-								pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}</td><td>:</td>'
-										+ '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
-								footerFormat : '</table>',
-								shared : true,
-								useHTML : true
-							},
-							legend : {
-								layout : 'vertical',
-								backgroundColor : '#FFFFFF',
-								align : 'right',
-								verticalAlign : 'middle',
-								floating : false
-							},
-							// tooltip : {
-							// formatter : function() {
-							// return '<b>' + this.series.name + '</b><br/>'
-							// + this.point.y + ' '
-							// + this.point.name.toLowerCase();
-							// }
-							// },
-							credits : {
-								enabled : false
-							},
-						});
+		$('#graph').highcharts(
+			{
+				data : {
+					table : document.getElementById('datatable')
+				},
+				chart : {
+					type : 'column',
+					marginTop : 50,
+					marginBottom : 100,
+					spacingLeft : 30,
+					spacingRIght : 30
+				},
+				lang : {
+					noData : "NO DATA FOUND"
+				},
+				noData : {
+					style : {
+						fontWeight : 'bold',
+						fontSize : '15px',
+						color : '#303030'
+					}
+				},
+				title : {
+					floating : false,
+					text : 'Statistic Of Business Unit',
+					margin : 30
+				},
+				yAxis : {
+					allowDecimals : false,
+					title : {
+						text : 'Manhours',
+						margin : 30
+					}
+				},
+				xAxis : {
+					allowDecimals : false,
+					title : {
+						text : 'Business Unit',
+						margin : 30
+					}
+				},
+				tooltip : {
+					headerFormat : '<span style="font-size:10px">{point.key}</span><table>',
+					pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}</td><td>:</td>'
+							+ '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+					footerFormat : '</table>',
+					shared : true,
+					useHTML : true
+				},
+				legend : {
+					layout : 'vertical',
+					backgroundColor : '#FFFFFF',
+					align : 'right',
+					verticalAlign : 'middle',
+					floating : false
+				},
+				credits : {
+					enabled : false
+			},
+		});
 	});
 </script>
 <title>Report</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/report" method="POST">
+					<html:hidden property="task" name="reportForm" />
+					<html:hidden property="organizationCode" name="reportForm" />
+					<html:hidden property="organizationLevel" name="reportForm" />
+					<html:hidden property="organizationName" name="reportForm" />
+					<html:hidden property="parentCode" name="reportForm" />
+					<html:hidden property="buPrint" name="reportForm" />
+					<html:hidden property="periode" name="reportForm" />
+					<html:hidden property="reportYear" name="reportForm" />
+					<html:hidden property="reportPeriode" name="reportForm" />
+					<html:hidden property="reportMonth" name="reportForm" />
 
-	<html:form action="/report" method="POST">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-					<div id="graph"
-						style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					<div id="graph"></div>
 					<div class="hide">
 						<table id="datatable" class="table striped bordered hovered">
-								<tr>
-									<th></th>
-									<th>Manhour BU</th>
-									<th>Manhour Project</th>
-								</tr>
-								<logic:notEmpty name="reportForm" property="listReports">
-									<logic:iterate id="report" name="reportForm"
-										property="listReports">
-										<logic:notEqual value="1" property="organizationLevel" name="report">
-											<tr>
-												<th><bean:write name="report"
-														property="organizationCode" /></th>
-												<td><bean:write name="report" property="manhourBU" /></td>
-												<td><bean:write name="report" property="manhourProject" /></td>
-											</tr>
-										</logic:notEqual>
-									</logic:iterate>
-								</logic:notEmpty>
-							
+							<tr>
+								<th></th>
+								<th>Manhour BU</th>
+								<th>Manhour Project</th>
+							</tr>
+							<logic:notEmpty name="reportForm" property="listReports">
+								<logic:iterate id="report" name="reportForm"
+									property="listReports">
+									<logic:notEqual value="1" property="organizationLevel" name="report">
+										<tr>
+											<th><bean:write name="report"
+													property="organizationCode" /></th>
+											<td><bean:write name="report" property="manhourBU" /></td>
+											<td><bean:write name="report" property="manhourProject" /></td>
+										</tr>
+									</logic:notEqual>
+								</logic:iterate>
+							</logic:notEmpty>
 						</table>
 					</div>
-					<div id="print">					
-					<table id="datatableshow" class="table striped bordered hovered">
-							
+					
+					<div id="print">				
+						<table id="datatableshow" class="table striped bordered hovered">
 							<tr>
 								<th colspan=7 class="text-center"><h3><bean:write property="organizationName"/> </h3></th>
 							</tr>
@@ -228,47 +228,34 @@
 									
 								</logic:iterate>
 							</logic:notEmpty>
-						<tr>
-							
+							<tr>
 								<td colspan="5" class="text-right">
-			 							<logic:equal name="reportForm" property="organizationLevel" value="0">
-			 								<button class="primary"
-										onclick="javascript:print('printReportBOM','<bean:write name="reportForm" property="organizationCode" />')">Generate Management
-										Report</button>
-			 							</logic:equal>
+		 							<logic:equal name="reportForm" property="organizationLevel" value="0">
+		 								<button class="primary" onclick="javascript:print('printReportBOM','<bean:write name="reportForm" property="organizationCode" />')">
+			 								Generate Management Report
+			 							</button>
+		 							</logic:equal>
+									<logic:equal name="reportForm" property="organizationLevel" value="1">
+		 								<button class="primary" onclick="javascript:print('printReportBU','<bean:write name="reportForm" property="organizationCode" />')">
+		 									Generate Business Unit Report
+		 								</button>
+		 							</logic:equal>			
+									<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
+									<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
 										<logic:equal name="reportForm" property="organizationLevel" value="1">
-			 								<button class="primary"
-										onclick="javascript:print('printReportBU','<bean:write name="reportForm" property="organizationCode" />')">Generate Business Unit
-										Report </button>
-			 							</logic:equal>			
-							
-							<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
-							<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
-										<logic:equal name="reportForm" property="organizationLevel" value="1">
-											<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','0','<bean:write name="reportForm" property="parentName" />')">Back</button>
+											<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','0','<bean:write name="reportForm" property="parentName" />')">
+												Back
+											</button>
 										</logic:equal>
-							</logic:notEqual>
-							</td>
-							
-						</tr>
+									</logic:notEqual>
+								</td>
+							</tr>
 						</table>
 					</div>
-				</div>
-			</div>
+				</html:form>
+			</div>	
 		</div>
-		<html:hidden property="task" name="reportForm" />
-		<html:hidden property="organizationCode" name="reportForm" />
-		<html:hidden property="organizationLevel" name="reportForm" />
-		<html:hidden property="organizationName" name="reportForm" />
-		<html:hidden property="parentCode" name="reportForm" />
-		<html:hidden property="buPrint" name="reportForm" />
-		<html:hidden property="periode" name="reportForm" />
-		<html:hidden property="reportYear" name="reportForm" />
-		<html:hidden property="reportPeriode" name="reportForm" />
-		<html:hidden property="reportMonth" name="reportForm" />
-	</html:form>
+	</div>
 	<jsp:include page="/frame/footer.jsp" />
-
 </body>
-
 </html>
