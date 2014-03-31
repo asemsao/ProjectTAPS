@@ -67,17 +67,14 @@
 <body class="metro">
 
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/manageRole" method="post"
-		styleClass="manageRoleForm" styleId="CRUDForm">
-		<html:hidden property="task" styleId="task" name="manageRoleForm" />
-		<html:hidden property="param" styleId="param" name="manageRoleForm" />
-		<html:hidden property="message" styleId="message"
-			name="manageRoleForm" />
-		<html:hidden property="messagecolor" styleId="messagecolor"
-			name="manageRoleForm" />
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
+				<html:form action="/manageRole" method="post" styleClass="manageRoleForm" styleId="CRUDForm">
+					<html:hidden property="task" styleId="task" name="manageRoleForm" />
+					<html:hidden property="param" styleId="param" name="manageRoleForm" />
+					<html:hidden property="message" styleId="message" name="manageRoleForm" />
+					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
@@ -91,19 +88,15 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty name="manageRoleForm" property="listRole">
-								<logic:iterate id="manageRole" name="manageRoleForm"
-									property="listRole">
+								<logic:iterate id="manageRole" name="manageRoleForm" property="listRole">
 									<tr>
-										<td class="text-center"><bean:write name="manageRole"
-												property="roleId" /></td>
-										<td class="text-center"><bean:write name="manageRole"
-												property="roleName" /></td>
-										<td class="text-center"><a class="listMember"
-											alt="<bean:write name="manageRole" property="roleId" />"
-											data-hint="List Member <bean:write name="manageRole"
-												property="roleName" />"
-											data-hint-position="bottom"><img alt=""
-												src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
+										<td class="text-center"><bean:write name="manageRole" property="roleId" /></td>
+										<td class="text-center"><bean:write name="manageRole" property="roleName" /></td>
+										<td class="text-center">
+											<a class="listMember" alt="<bean:write name="manageRole" property="roleId" />"
+												data-hint="List Member <bean:write name="manageRole" property="roleName" />"
+												data-hint-position="bottom"> <img alt="" src="<%=request.getContextPath()%>/images/MEMBER.png">
+											</a></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -113,16 +106,16 @@
 								</tr>
 							</logic:empty>
 							<tr>
-								<th colspan=3 class="text-right"><input type="button"
-									class="wizard primary" value="Manage Role Menu"
+								<th colspan=3 class="text-right"><input type="button" class="wizard primary" value="Manage Role Menu"
 									data-hint="This feature help you add menu for each role." /></th>
 							</tr>
 						</tbody>
 					</table>
+					</html:form>
 				</div>
 			</div>
 		</div>
-	</html:form>
+	
 	<jsp:include page="/frame/footer.jsp" />
 	<script>
 		
