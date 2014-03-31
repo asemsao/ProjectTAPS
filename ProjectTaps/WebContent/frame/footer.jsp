@@ -1,1 +1,1 @@
-<div class="footer-taps">AdIns Taps Project. Copyright &copy; 2014 ACE Batch-18. All rights reserved.</div>
+<div class="footer-taps">Timesheet and performance score. Copyright &copy; 2014 ACE Batch-18. All rights reserved.</div>

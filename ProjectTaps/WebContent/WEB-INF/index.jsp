@@ -93,9 +93,9 @@
 
 <title>Login Taps</title>
 </head>
-<body class="metro login-background">
+<body class="metro">
 	<div class="panel-taps">
-		<br /><br /> <img src="images/LOGO_PANJANG3_LOGIN.png"
+		<br /><br /> <img src="images/LOGO_LOGIN.png"
 			class="logo-taps" />
 		<h1 class="title-taps">Please sign in</h1>
 		<html:form action="/login" method="post">
@@ -135,7 +135,7 @@
 			</div>
 		</html:form>
 	</div>
-	<div class="footer-taps">AdIns Taps Project. Copyright &copy;
+	<div class="footer-taps">Timesheet and performance score. Copyright &copy;
 		2014 ACE Batch-18. All rights reserved.</div>
 </body>
 </html>
