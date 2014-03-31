@@ -42,7 +42,7 @@ public class EmployeeAction extends Action {
 		EmployeeManager mMan = new EmployeeManager();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
-
+		
 		if ("changePassword".equals(mForm.getTask())
 				&& session.getAttribute("username") != null) {
 			LoginManager lMan = new LoginManager();
