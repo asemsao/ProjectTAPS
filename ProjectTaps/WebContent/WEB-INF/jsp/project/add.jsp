@@ -35,10 +35,11 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/project" method="post" styleClass="projectForm">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/project" method="post" styleClass="projectForm">
 					<table class="table">
 						<thead>
 							<tr>
@@ -89,10 +90,11 @@
 
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-	</html:form>
+	</div>
+	
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />

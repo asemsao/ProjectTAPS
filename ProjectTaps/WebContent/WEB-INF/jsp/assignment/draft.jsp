@@ -61,11 +61,15 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST"
-		styleId="newAssignment">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/newAssignment" method="POST" styleId="newAssignment">
+					<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
+					<html:hidden property="newTask" name="claimAssignmentForm" />
+					<html:hidden property="assignmentType" name="claimAssignmentForm" />
+					<html:hidden property="assignmentBean.assignmentType" name="claimAssignmentForm" styleId="assignmentType" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -76,10 +80,12 @@
 							<tr>
 								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text" id="datepicker">
+								<td>
+									<div class="input-control text" id="datepicker">
 										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Type</th>
@@ -89,7 +95,8 @@
 							<tr>
 								<th class="field-form">Assign To</th>
 								<td class="field-separator">:</td>
-								<td><div class="pr" class="in-bl">
+								<td>
+									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
 											<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
@@ -112,10 +119,12 @@
 								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 
-								<td><div class="input-control text">
+								<td>
+									<div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode" name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Description</th>
@@ -132,15 +141,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
-		<html:hidden property="newTask" name="claimAssignmentForm" />
-		<html:hidden property="assignmentType" name="claimAssignmentForm" />
-		<html:hidden property="assignmentBean.assignmentType" name="claimAssignmentForm" styleId="assignmentType" />
-	</html:form>
-
+	</div>
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>

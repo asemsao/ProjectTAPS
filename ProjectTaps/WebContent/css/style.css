@@ -39,9 +39,13 @@ a,button {
 }
 
 .avatar {
-	height: 200px;
-	width: 200px;
-	margin-bottom: 10px;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.field-avatar {
+	width: 25%;
+	vertical-align: top !important;
 }
 
 .float-right {
@@ -163,11 +167,6 @@ textarea {
 
 .field-separator {
 	width: 2%;
-	text-align: center;
-}
-
-.field-avatar {
-	width: 25%;
 	text-align: center;
 }
 

@@ -24,7 +24,7 @@
 		<div class="navigation-bar dark header-taps">
 			<div class="navigation-bar-content container">
 				<a href="#" class="element"> <img alt="logo" class="logo"
-					src="<%=request.getContextPath()%>/images/LOGO_PANJANG3.png"></a>
+					src="<%=request.getContextPath()%>/images/LOGO.png"></a>
 				<a class="pull-menu" href="#"></a> <span class="element-divider"></span>
 				<ul class="element-menu">
 					<li><a href="javascript:menu('dashboard');" class="heading">

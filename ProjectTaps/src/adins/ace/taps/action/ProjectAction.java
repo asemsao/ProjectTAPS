@@ -211,25 +211,6 @@ public class ProjectAction extends Action {
 				//back to index.jsp
 				pForm.setListProject(pMan.searchProject(params));
 
-//					AddStructureProjectBean bean = new AddStructureProjectBean();
-//					bean = list.get(i);
-//						
-//					// Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
-//					if (pMan.notHeadBU(bean.getDirectreportUserDomain())) 
-//					{
-//						// update table employee_role
-//						if (pMan.checkRole(bean.getDirectreportUserDomain()) == 1) {
-//							pMan.deleteRole(bean.getDirectreportUserDomain());
-//						}
-//					}
-				
-				
-//				//delete employee from project_structures table
-//				pMan.deleteProjectStructuresTable(pForm.getpBean().getProjectCode());
-//				
-//				//back to index.jsp
-//				pMan.updateProject(pForm.getpBean());
-//				pForm.setListProject(pMan.searchProject(params));
 			}
 			else //update project selain closed
 			{
@@ -361,33 +342,6 @@ public class ProjectAction extends Action {
 				pForm.setColor("red");
 			}
 			
-//			if (pMan.deleteProject(pForm.getParamProjectCode())) 
-//			{
-//				//delete all member role
-//				List<AddStructureProjectBean> list = null;
-//				list = pMan.checkDirectReportUserDomain(pForm.getParamProjectCode());
-//				for (int i=0;i<list.size();i++) 
-//				{
-//					AddStructureProjectBean bean = new AddStructureProjectBean();
-//					bean = list.get(i);
-//						
-//					// Check apakah dia head BU atau bukan(kalau bukan akan di
-//					// delete supervisor role nya)
-//					if (pMan.notHeadBU(bean.getDirectreportUserDomain())) 
-//					{
-//						// update table employee_role
-//						if (pMan.checkRole(bean.getDirectreportUserDomain()) == 1) {
-//							pMan.deleteRole(bean.getDirectreportUserDomain());
-//						}
-//					}
-//				}
-//				
-//				//delete employee from project_structures table
-//				pMan.deleteProjectStructuresTable(pForm.getParamProjectCode());
-				
-//				// update table assignments
-//				pMan.updateAllAssStatus(pForm.getParamProjectCode());
-
 		}
 
 		params.put("start", (pForm.getPage() - 1) * 10 + 1);
@@ -564,22 +518,6 @@ public class ProjectAction extends Action {
 					isNotExist = true;
 				}
 			}
-			
-			
-			
-//			
-//			if (pMan.notHeadBU(pForm.getDirectReportBefore())) {
-//				// Edit direct report yang lama
-//				if (pMan.checkRole(pForm.getDirectReportBefore()) == 0) {
-//					pMan.deleteRole(pForm.getDirectReportBefore());
-//				}
-//			}
-
-			// Add supervisor role ke Direct Report yang baru
-//			if (pMan.isNotExist(pForm.getAddSProject().getDirectreportUserDomain())) {
-//				pMan.insertRole(pForm.getAddSProject()
-//						.getDirectreportUserDomain());
-//			}
 
 			// update table assignment --> ganti directreport ke orang yang baru
 			Map param = new HashMap();
@@ -698,15 +636,6 @@ public class ProjectAction extends Action {
 					noMoreSPV = true;
 				}
 			} 
-					
-//			if (pMan.deleteMember(pForm.getAddSProject())) {
-//				// Check apakah dia head BU atau bukan(kalau bukan akan di delete supervisor role nya)
-//				if (pMan.notHeadBU(pForm.getDirectReportUserDomain())) {
-//					// update table employee_role
-//					if (pMan.checkRole(pForm.getDirectReportUserDomain()) == 0) {
-//						pMan.deleteRole(pForm.getDirectReportUserDomain());
-//					}
-//				}
 
 				// update table assignments
 				Map param = new HashMap();

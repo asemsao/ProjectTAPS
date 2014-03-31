@@ -84,6 +84,7 @@ public class SpecialAppraisalAction extends Action {
 		params.put("keyword", mForm.getSearchKeyword());
 		params.put("startDate", mForm.getStartDate());
 		params.put("endDate", mForm.getEndDate());
+		params.put("sessionUserDomain", (String) session.getAttribute("username"));
 
 		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
 		mForm.setCountRecord(mMan.countSpecialAppraisal(params));

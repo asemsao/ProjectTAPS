@@ -68,6 +68,8 @@
 					<html:hidden property="claimBean.status" name="claimAssignmentForm" styleId="status" />
 					<html:hidden property="claimBean.taskCode" name="claimAssignmentForm" styleId="task-code" />
 					<html:hidden property="claimBean.reportTo" name="claimAssignmentForm" />
+					<html:hidden property="task" name="claimAssignmentForm" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -76,23 +78,23 @@
 										<%
 											if ("CORRECTION".equals(session.getAttribute("status"))) {
 										%>
-										Correction Assignment
+												Correction Assignment
 										<%
 											} else if ("APPROVED".equals(session.getAttribute("status"))) {
 										%>
-										Approved Assignment
+												Approved Assignment
 										<%
 											} else if ("REJECTED".equals(session.getAttribute("status"))) {
 										%>
-										Rejected Assignment
+												Rejected Assignment
 										<%
 											} else if ("RFA".equals(session.getAttribute("status"))) {
 										%>
-										Request For Approval Assignment
+												Request For Approval Assignment
 										<%
 											} else {
 										%>
-										View Assignment
+												View Assignment
 										<%
 											}
 										%>
@@ -116,12 +118,10 @@
 								<td class="field-separator">:</td>
 								<td colspan=2>
 									<logic:equal property="claimBean.assignmentType" name="claimAssignmentForm" value="BU">
-										Business Unit - 
-										<bean:write property="claimBean.organizationName" name="claimAssignmentForm" />
+										Business Unit - <bean:write property="claimBean.organizationName" name="claimAssignmentForm" />
 									</logic:equal> 
 									<logic:equal property="claimBean.assignmentType" name="claimAssignmentForm" value="PROJECT"> 
-										Project - 
-										<bean:write property="claimBean.projectName" name="claimAssignmentForm" />
+										Project - <bean:write property="claimBean.projectName" name="claimAssignmentForm" />
 									</logic:equal>
 								</td>
 							</tr>
@@ -163,13 +163,13 @@
 																if ("CLAIM".equals(session.getAttribute("status")) 
 																		|| "CORRECTION".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
+																	<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
 																} else if ("APPROVED".equals(session.getAttribute("status"))
 																		|| "RFA".equals(session.getAttribute("status"))
 																		|| "REJECTED".equals(session.getAttribute("status"))) {
 															%>
-															<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
+																	<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
 																}
 															%>
@@ -179,122 +179,120 @@
 																		if ("CLAIM".equals(session.getAttribute("status"))
 																				|| "CORRECTION".equals(session.getAttribute("status"))) {
 																	%>
-																	<html:hidden property="detailId" name="assignment" />
-																	<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
-																		<html:option value="">00:00</html:option>
-																		<html:option value="0.5">00:30</html:option>
-																		<html:option value="1.0">01:00</html:option>
-																		<html:option value="1.5">01:30</html:option>
-																		<html:option value="2.0">02:00</html:option>
-																		<html:option value="2.5">02:30</html:option>
-																		<html:option value="3.0">03:00</html:option>
-																		<html:option value="3.5">03:30</html:option>
-																		<html:option value="4.0">04:00</html:option>
-																		<html:option value="4.5">04:30</html:option>
-																		<html:option value="5.0">05:00</html:option>
-																		<html:option value="5.5">05:30</html:option>
-																		<html:option value="6.0">06:00</html:option>
-																		<html:option value="6.5">06:30</html:option>
-																		<html:option value="7.0">07:00</html:option>
-																		<html:option value="7.5">07:30</html:option>
-																		<html:option value="8.0">08:00</html:option>
-																		<html:option value="8.5">08:30</html:option>
-																		<html:option value="9.0">09:00</html:option>
-																		<html:option value="9.5">09:30</html:option>
-																		<html:option value="10.0">10:00</html:option>
-																		<html:option value="10.5">10:30</html:option>
-																		<html:option value="11.0">11:00</html:option>
-																		<html:option value="11.5">11:30</html:option>
-																		<html:option value="12.0">12:00</html:option>
-																		<html:option value="12.5">12:30</html:option>
-																		<html:option value="13.0">13:00</html:option>
-																		<html:option value="13.5">13:30</html:option>
-																		<html:option value="14.0">14:00</html:option>
-																		<html:option value="14.5">14:30</html:option>
-																		<html:option value="15.0">15:00</html:option>
-																		<html:option value="15.5">15:30</html:option>
-																		<html:option value="16.0">16:00</html:option>
-																		<html:option value="16.5">16:30</html:option>
-																		<html:option value="17.0">17:00</html:option>
-																		<html:option value="17.5">17:30</html:option>
-																		<html:option value="18.0">18:00</html:option>
-																		<html:option value="18.5">18:30</html:option>
-																		<html:option value="19.0">19:00</html:option>
-																		<html:option value="19.5">19:30</html:option>
-																		<html:option value="20.0">20:00</html:option>
-																		<html:option value="20.5">20:30</html:option>
-																		<html:option value="21.0">21:00</html:option>
-																		<html:option value="21.5">21:30</html:option>
-																		<html:option value="22.0">22:00</html:option>
-																		<html:option value="22.5">22:30</html:option>
-																		<html:option value="23.0">23:00</html:option>
-																		<html:option value="23.5">23:30</html:option>
-																		<html:option value="24.0">24:00</html:option>
-																	</html:select>
+																			<html:hidden property="detailId" name="assignment" />
+																			<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
+																				<html:option value="">00:00</html:option>
+																				<html:option value="0.5">00:30</html:option>
+																				<html:option value="1.0">01:00</html:option>
+																				<html:option value="1.5">01:30</html:option>
+																				<html:option value="2.0">02:00</html:option>
+																				<html:option value="2.5">02:30</html:option>
+																				<html:option value="3.0">03:00</html:option>
+																				<html:option value="3.5">03:30</html:option>
+																				<html:option value="4.0">04:00</html:option>
+																				<html:option value="4.5">04:30</html:option>
+																				<html:option value="5.0">05:00</html:option>
+																				<html:option value="5.5">05:30</html:option>
+																				<html:option value="6.0">06:00</html:option>
+																				<html:option value="6.5">06:30</html:option>
+																				<html:option value="7.0">07:00</html:option>
+																				<html:option value="7.5">07:30</html:option>
+																				<html:option value="8.0">08:00</html:option>
+																				<html:option value="8.5">08:30</html:option>
+																				<html:option value="9.0">09:00</html:option>
+																				<html:option value="9.5">09:30</html:option>
+																				<html:option value="10.0">10:00</html:option>
+																				<html:option value="10.5">10:30</html:option>
+																				<html:option value="11.0">11:00</html:option>
+																				<html:option value="11.5">11:30</html:option>
+																				<html:option value="12.0">12:00</html:option>
+																				<html:option value="12.5">12:30</html:option>
+																				<html:option value="13.0">13:00</html:option>
+																				<html:option value="13.5">13:30</html:option>
+																				<html:option value="14.0">14:00</html:option>
+																				<html:option value="14.5">14:30</html:option>
+																				<html:option value="15.0">15:00</html:option>
+																				<html:option value="15.5">15:30</html:option>
+																				<html:option value="16.0">16:00</html:option>
+																				<html:option value="16.5">16:30</html:option>
+																				<html:option value="17.0">17:00</html:option>
+																				<html:option value="17.5">17:30</html:option>
+																				<html:option value="18.0">18:00</html:option>
+																				<html:option value="18.5">18:30</html:option>
+																				<html:option value="19.0">19:00</html:option>
+																				<html:option value="19.5">19:30</html:option>
+																				<html:option value="20.0">20:00</html:option>
+																				<html:option value="20.5">20:30</html:option>
+																				<html:option value="21.0">21:00</html:option>
+																				<html:option value="21.5">21:30</html:option>
+																				<html:option value="22.0">22:00</html:option>
+																				<html:option value="22.5">22:30</html:option>
+																				<html:option value="23.0">23:00</html:option>
+																				<html:option value="23.5">23:30</html:option>
+																				<html:option value="24.0">24:00</html:option>
+																			</html:select>
 																	<%
 																		} else if ("APPROVED".equals(session.getAttribute("status"))
 																				|| "RFA".equals(session.getAttribute("status"))
 																				|| "REJECTED".equals(session.getAttribute("status"))) {
 																	%>
-																	<html:select property="manHours" name="assignment" disabled="true">
-																		<html:option value="">00:00</html:option>
-																		<html:option value="0.5">00:30</html:option>
-																		<html:option value="1.0">01:00</html:option>
-																		<html:option value="1.5">01:30</html:option>
-																		<html:option value="2.0">02:00</html:option>
-																		<html:option value="2.5">02:30</html:option>
-																		<html:option value="3.0">03:00</html:option>
-																		<html:option value="3.5">03:30</html:option>
-																		<html:option value="4.0">04:00</html:option>
-																		<html:option value="4.5">04:30</html:option>
-																		<html:option value="5.0">05:00</html:option>
-																		<html:option value="5.5">05:30</html:option>
-																		<html:option value="6.0">06:00</html:option>
-																		<html:option value="6.5">06:30</html:option>
-																		<html:option value="7.0">07:00</html:option>
-																		<html:option value="7.5">07:30</html:option>
-																		<html:option value="8.0">08:00</html:option>
-																		<html:option value="8.5">08:30</html:option>
-																		<html:option value="9.0">09:00</html:option>
-																		<html:option value="9.5">09:30</html:option>
-																		<html:option value="10.0">10:00</html:option>
-																		<html:option value="10.5">10:30</html:option>
-																		<html:option value="11.0">11:00</html:option>
-																		<html:option value="11.5">11:30</html:option>
-																		<html:option value="12.0">12:00</html:option>
-																		<html:option value="12.5">12:30</html:option>
-																		<html:option value="13.0">13:00</html:option>
-																		<html:option value="13.5">13:30</html:option>
-																		<html:option value="14.0">14:00</html:option>
-																		<html:option value="14.5">14:30</html:option>
-																		<html:option value="15.0">15:00</html:option>
-																		<html:option value="15.5">15:30</html:option>
-																		<html:option value="16.0">16:00</html:option>
-																		<html:option value="16.5">16:30</html:option>
-																		<html:option value="17.0">17:00</html:option>
-																		<html:option value="17.5">17:30</html:option>
-																		<html:option value="18.0">18:00</html:option>
-																		<html:option value="18.5">18:30</html:option>
-																		<html:option value="19.0">19:00</html:option>
-																		<html:option value="19.5">19:30</html:option>
-																		<html:option value="20.0">20:00</html:option>
-																		<html:option value="20.5">20:30</html:option>
-																		<html:option value="21.0">21:00</html:option>
-																		<html:option value="21.5">21:30</html:option>
-																		<html:option value="22.0">22:00</html:option>
-																		<html:option value="22.5">22:30</html:option>
-																		<html:option value="23.0">23:00</html:option>
-																		<html:option value="23.5">23:30</html:option>
-																		<html:option value="24.0">24:00</html:option>
-																	</html:select>
+																			<html:select property="manHours" name="assignment" disabled="true">
+																				<html:option value="">00:00</html:option>
+																				<html:option value="0.5">00:30</html:option>
+																				<html:option value="1.0">01:00</html:option>
+																				<html:option value="1.5">01:30</html:option>
+																				<html:option value="2.0">02:00</html:option>
+																				<html:option value="2.5">02:30</html:option>
+																				<html:option value="3.0">03:00</html:option>
+																				<html:option value="3.5">03:30</html:option>
+																				<html:option value="4.0">04:00</html:option>
+																				<html:option value="4.5">04:30</html:option>
+																				<html:option value="5.0">05:00</html:option>
+																				<html:option value="5.5">05:30</html:option>
+																				<html:option value="6.0">06:00</html:option>
+																				<html:option value="6.5">06:30</html:option>
+																				<html:option value="7.0">07:00</html:option>
+																				<html:option value="7.5">07:30</html:option>
+																				<html:option value="8.0">08:00</html:option>
+																				<html:option value="8.5">08:30</html:option>
+																				<html:option value="9.0">09:00</html:option>
+																				<html:option value="9.5">09:30</html:option>
+																				<html:option value="10.0">10:00</html:option>
+																				<html:option value="10.5">10:30</html:option>
+																				<html:option value="11.0">11:00</html:option>
+																				<html:option value="11.5">11:30</html:option>
+																				<html:option value="12.0">12:00</html:option>
+																				<html:option value="12.5">12:30</html:option>
+																				<html:option value="13.0">13:00</html:option>
+																				<html:option value="13.5">13:30</html:option>
+																				<html:option value="14.0">14:00</html:option>
+																				<html:option value="14.5">14:30</html:option>
+																				<html:option value="15.0">15:00</html:option>
+																				<html:option value="15.5">15:30</html:option>
+																				<html:option value="16.0">16:00</html:option>
+																				<html:option value="16.5">16:30</html:option>
+																				<html:option value="17.0">17:00</html:option>
+																				<html:option value="17.5">17:30</html:option>
+																				<html:option value="18.0">18:00</html:option>
+																				<html:option value="18.5">18:30</html:option>
+																				<html:option value="19.0">19:00</html:option>
+																				<html:option value="19.5">19:30</html:option>
+																				<html:option value="20.0">20:00</html:option>
+																				<html:option value="20.5">20:30</html:option>
+																				<html:option value="21.0">21:00</html:option>
+																				<html:option value="21.5">21:30</html:option>
+																				<html:option value="22.0">22:00</html:option>
+																				<html:option value="22.5">22:30</html:option>
+																				<html:option value="23.0">23:00</html:option>
+																				<html:option value="23.5">23:30</html:option>
+																				<html:option value="24.0">24:00</html:option>
+																			</html:select>
 																	<%
 																		}
 																	%>
-
 																</div>
 															</td>
 														</tr>
-
 													</logic:iterate>
 												<tr>
 													<th colspan=2 class="text-right">Total</th>
@@ -304,74 +302,76 @@
 												</tr>
 											</tbody>
 										</table>
-									</logic:notEmpty></td>
+									</logic:notEmpty>
+								</td>
 							</tr>
 							<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
-							<tr>
-								<%
-									if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
-								%>
-								<th class="field-form">Comment</th>
-								<td class="field-separator">:</td>
-								<td colspan=2>
-									<html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3" styleClass="input-control textarea" styleId="comment"></html:textarea>
-								</td>
-								<%
-									}
-								%>
-							</tr>
-							<tr>
-								<td colspan=4 class="text-right">
+								<tr>
 									<%
-										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> <button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
-										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
+									%>
+											<th class="field-form">Comment</th>
+											<td class="field-separator">:</td>
+											<td colspan=2>
+												<html:textarea property="claimBean.comment" name="claimAssignmentForm" rows="3" styleClass="input-control textarea" styleId="comment"></html:textarea>
+											</td>
 									<%
-									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> <button onclick="javascript:flyToPage('claim');" class="button success">Claim</button> 
-										<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
-										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
-									<%
-									 	} else {
-									 %> <button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
-								</td>
-								<%
-									}
-								%>
-							</tr>
+										}
+									%>
+								</tr>
+								<tr>
+									<td colspan=4 class="text-right">
+										<%
+											if ("CORRECTION".equals(session.getAttribute("status"))) {
+										%> 
+												<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
+										 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+										 %> 
+										 		<button onclick="javascript:flyToPage('claim');" class="button success">Claim</button> 
+												<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
+										 	} else {
+										 %> 
+										 		<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
+										<%
+											}
+										%>
+									</td>
+								</tr>
 							</logic:notEmpty>
 							<logic:empty property="listDetailClaim" name="claimAssignmentForm">
-							<tr>
-								<td colspan=4 class="text-right">
-									<%
-										if ("CORRECTION".equals(session.getAttribute("status"))) {
-									%> 
-											<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
-											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
-									<%
-									 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
-									 %> 
-											<span class="claim-msg">You need to make a claim from dashboard</span>
-											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
-									<%
-									 	} else {
-									 %> 
-									 		<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
-								</td>
-								<%
-									}
-								%>
-							</tr>
+								<tr>
+									<td colspan=4 class="text-right">
+										<%
+											if ("CORRECTION".equals(session.getAttribute("status"))) {
+										%> 
+												<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
+										 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
+										 %> 
+												<span class="claim-msg">You need to make a claim from dashboard</span>
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
+										 	} else {
+										 %> 
+										 		<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
+										<%
+											}
+										%>
+									</td>
+								</tr>
 							</logic:empty>
 						</tbody>
 					</table>
-					<html:hidden property="task" name="claimAssignmentForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

@@ -49,7 +49,6 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
@@ -61,24 +60,22 @@
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
 					<html:hidden property="directReportUserDomain" name="projectForm" />
-					<input type="hidden" id="messageCRUD"
-						value="<bean:write  property="message" name="projectForm" />">
-					<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" name="projectForm" />">
-
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="projectForm" />">
+					
 					<table class="table">
-							<tr>
-								<th colspan=2><h3>Project Member</h3></th>
-							</tr>
-							<tr>
-								<th class="field-form">Business Unit</th>
-								<td><strong><bean:write
-											property="organizationName" /></strong></td>
-							</tr>
-							<tr>
-								<th class="field-form">Project Name</th>
-								<td><strong><bean:write property="projectName" /></strong></td>
-							</tr>
+						<tr>
+							<th colspan=2><h3>Project Member</h3></th>
+						</tr>
+						<tr>
+							<th class="field-form">Business Unit</th>
+							<td><strong><bean:write
+										property="organizationName" /></strong></td>
+						</tr>
+						<tr>
+							<th class="field-form">Project Name</th>
+							<td><strong><bean:write property="projectName" /></strong></td>
+						</tr>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -94,20 +91,21 @@
 						<tbody>
 							<logic:notEmpty name="projectForm"
 								property="listStructureProject">
-								<logic:iterate id="project" name="projectForm"
-									property="listStructureProject">
+								<logic:iterate id="project" name="projectForm" property="listStructureProject">
 									<tr>
 										<td><bean:write name="project" property="projectRole" /></td>
 										<td><bean:write name="project" property="assignee" /></td>
 										<td><bean:write name="project" property="directReport" /></td>
-										<td class="text-center"><a
-											href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')"
-											data-hint="Edit Member" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a
-											href="javascript:deleteConfirm('deleteMember','<bean:write name="project" property="assigneeUserDomain" />','<bean:write name="project" property="directReportUserDomain" />')"
-											data-hint="Delete Member" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a></td>
+										<td class="text-center">
+											<a href="javascript:flyToPage('editMember','<bean:write name="project" property="assigneeUserDomain" />')" data-hint="Edit Member" data-hint-position="bottom">
+												<img alt="" src="<%=request.getContextPath()%>/images/EDIT.png">
+											</a>
+										</td>
+										<td class="text-center">
+											<a href="javascript:deleteConfirm('deleteMember','<bean:write name="project" property="assigneeUserDomain" />','<bean:write name="project" property="directReportUserDomain" />')" data-hint="Delete Member" data-hint-position="bottom">
+												<img alt="" src="<%=request.getContextPath()%>/images/DELETE.png">
+											</a>
+										</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -124,29 +122,42 @@
 							<td class="text-center">
 								<div class="pagination">
 									<ul>
-										<li class="first"><a id="first"
-											href="javascript:button('first');"> <i
-												class="icon-first-2"></i></a></li>
-										<li class="prev"><a id="prev"
-											href="javascript:button('prev');"> <i
-												class="icon-previous"></i></a></li>
-										<li class="disabled"><a>Page <bean:write
-													name="projectForm" property="page" /> of <bean:write
-													name="projectForm" property="maxpage" /></a></li>
-										<li class="next"><a id="next"
-											href="javascript:button('next');"><i class="icon-next"></i></a></li>
-										<li class="last"><a id="last"
-											href="javascript:button('last');"><i class="icon-last-2"></i></a></li>
-										<li class="disabled"><a>Total Record <bean:write
-													name="projectForm" property="countRecord" /></a></li>
+										<li class="first">
+											<a id="first" href="javascript:button('first');">
+												<i class="icon-first-2"></i>
+											</a>
+										</li>
+										<li class="prev">
+											<a id="prev" href="javascript:button('prev');">
+												<i class="icon-previous"></i>
+											</a>
+										</li>
+										<li class="disabled">
+											<a>
+												Page <bean:write name="projectForm" property="page" /> of <bean:write name="projectForm" property="maxpage" />
+											</a>
+										</li>
+										<li class="next">
+											<a id="next" href="javascript:button('next');">
+												<i class="icon-next"></i>
+											</a>
+										</li>
+										<li class="last">
+											<a id="last" href="javascript:button('last');">
+												<i class="icon-last-2"></i>
+											</a>
+										</li>
+										<li class="disabled">
+											<a>
+												Total Record <bean:write name="projectForm" property="countRecord" />
+											</a>
+										</li>
 									</ul>
 								</div>
 							</td>
 							<td class="text-right field-form">
-								<button id="add-btn" onclick="javascript:button('addMember')"
-									class="success">Add</button>
-								<button id="back-btn" onclick="javascript:button('cancel')"
-									class="button info">Back</button>
+								<button id="add-btn" onclick="javascript:button('addMember')" class="success">Add</button>
+								<button id="back-btn" onclick="javascript:button('cancel')" class="button info">Back</button>
 							</td>
 						</tr>
 					</table>
@@ -154,8 +165,6 @@
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
-
 </html>
