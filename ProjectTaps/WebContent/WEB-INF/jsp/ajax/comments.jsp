@@ -15,8 +15,7 @@
 			<html:hidden property="task" styleId="task-comment" name="ajaxForm" />
 			<html:hidden property="mode" styleId="mode-comment" name="ajaxForm" />
 			<html:hidden property="page" styleId="page-comment" name="ajaxForm" />
-			<html:hidden property="maxpage" styleId="maxpage-comment"
-				name="ajaxForm" />
+			<html:hidden property="maxpage" styleId="maxpage-comment" name="ajaxForm" />
 			<div id="table-ajax-comment">
 				<table class="table striped bordered hovered">
 					<thead>
@@ -35,49 +34,55 @@
 						<logic:iterate id="comment" name="ajaxForm"
 							property="historyComment">
 							<tr>
-								<td class="text-center"><bean:write property="commentDate"
-										name="comment" /></td>
-								<td class="text-center"><bean:write
-										property="assignmentComment" name="comment" /></td>
-								<td class="text-center"><bean:write property="commentFrom"
-										name="comment" /></td>
-								<td class="text-center"><bean:write property="commentTo"
-										name="comment" /></td>
-								<td class="text-center"><bean:write property="status"
-										name="comment" /></td>
+								<td class="text-center"><bean:write property="commentDate" name="comment" /></td>
+								<td class="text-center"><bean:write property="assignmentComment" name="comment" /></td>
+								<td class="text-center"><bean:write property="commentFrom" name="comment" /></td>
+								<td class="text-center"><bean:write property="commentTo" name="comment" /></td>
+								<td class="text-center"><bean:write property="status" name="comment" /></td>
 							</tr>
 						</logic:iterate>
 					</tbody>
 				</table>
 			</div>
 			<table class="table">
-					<tr>
-						<th colspan=5 class="text-center">
-							<div class="pagination">
-								<ul>
-									<li class="first"><a
-										onclick="javascript:pagingComment('first');"><i
-											class="icon-first-2"></i></a></li>
-									<li class="prev"><a
-										onclick="javascript:pagingComment('prev');"><i
-											class="icon-previous"></i></a></li>
-									<li class="disabled"><a>Page <span
-											id="current-page-comment"><bean:write name="ajaxForm"
-													property="page" /></span> of <span id="max-page-comment"><bean:write
-													name="ajaxForm" property="maxpage" /></span></a></li>
-									<li class="next"><a
-										onclick="javascript:pagingComment('next');"><i
-											class="icon-next"></i></a></li>
-									<li class="last"><a
-										onclick="javascript:pagingComment('last');"><i
-											class="icon-last-2"></i></a></li>
-									<li class="disabled"><a>Total Record <span
-											id="total-record-comment"><bean:write name="ajaxForm"
-													property="countRecord" /></span></a></li>
-								</ul>
-							</div>
-						</th>
-					</tr>
+				<tr>
+					<th colspan=5 class="text-center">
+						<div class="pagination">
+							<ul>
+								<li class="first">
+									<a onclick="javascript:pagingComment('first');">
+										<i class="icon-first-2"></i>
+									</a>
+								</li>
+								<li class="prev">
+									<a onclick="javascript:pagingComment('prev');">
+										<i class="icon-previous"></i>
+									</a>
+								</li>
+								<li class="disabled">
+									<a>
+										Page <span id="current-page-comment"><bean:write name="ajaxForm" property="page" /></span> of <span id="max-page-comment"><bean:write name="ajaxForm" property="maxpage" /></span>
+									</a>
+								</li>
+								<li class="next">
+									<a onclick="javascript:pagingComment('next');">
+										<i class="icon-next"></i>
+									</a>
+								</li>
+								<li class="last">
+									<a onclick="javascript:pagingComment('last');">
+										<i class="icon-last-2"></i>
+									</a>
+								</li>
+								<li class="disabled">
+									<a>
+										Total Record <span id="total-record-comment"><bean:write name="ajaxForm" property="countRecord" /></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</th>
+				</tr>
 			</table>
 		</html:form>
 	</logic:notEmpty>
