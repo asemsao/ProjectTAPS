@@ -65,47 +65,47 @@
 					<html:hidden property="maxpage" name="employeeReportForm" />
 					
 					<table class="table">
-							<tr>
-								<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
-							</tr>
-							<tr>
-								<th class="field-form">Assignment Deadline From</th>
-								<th>
-									<div class="input-control text" id="datepicker">
-										<html:text property="startDate" name="employeeReportForm" styleId="startDate" styleClass="datepicker-start"></html:text>
-										<button type="button" class="btn-date"></button>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th class="field-form">Assignment Deadline To</th>
-								<th>
-									<div class="input-control text" id="datepicker">
-										<html:text property="endDate" name="employeeReportForm" styleId="endDate" styleClass="datepicker-end"></html:text>
-										<button type="button" class="btn-date"></button>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th class="field-form">
-									<div class="input-control select">
-										<html:select property="category" name="employeeReportForm">
-											<html:option value="All">All</html:option>
-											<html:option value="taskCode">Assignment Code</html:option>
-											<html:option value="taskType">Assignment Category</html:option>
-											<html:option value="employee">Employee Name</html:option>
-											<html:option value="status">Status</html:option>
-										</html:select>
-									</div>
-								</th>
+						<tr>
+							<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
+						</tr>
+						<tr>
+							<th class="field-form">Assignment Deadline From</th>
+							<th>
+								<div class="input-control text" id="datepicker">
+									<html:text property="startDate" name="employeeReportForm" styleId="startDate" styleClass="datepicker-start"></html:text>
+									<button type="button" class="btn-date"></button>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th class="field-form">Assignment Deadline To</th>
+							<th>
+								<div class="input-control text" id="datepicker">
+									<html:text property="endDate" name="employeeReportForm" styleId="endDate" styleClass="datepicker-end"></html:text>
+									<button type="button" class="btn-date"></button>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th class="field-form">
+								<div class="input-control select">
+									<html:select property="category" name="employeeReportForm">
+										<html:option value="All">All</html:option>
+										<html:option value="taskCode">Assignment Code</html:option>
+										<html:option value="taskType">Assignment Category</html:option>
+										<html:option value="employee">Employee Name</html:option>
+										<html:option value="status">Status</html:option>
+									</html:select>
+								</div>
+							</th>
 
-								<th class="text-center">
-									<div class="input-control text">
-										<html:text property="keyword" name="employeeReportForm" styleId="searchKeyword"></html:text>
-										<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
-									</div>
-								</th>
-							</tr>
+							<th class="text-center">
+								<div class="input-control text">
+									<html:text property="keyword" name="employeeReportForm" styleId="searchKeyword"></html:text>
+									<button class="btn-search" onclick="javascript:flyToPage('search');"></button>
+								</div>
+							</th>
+						</tr>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -118,11 +118,11 @@
 								<%
 									if ("employeeReport".equals(session.getAttribute("link"))) {
 								%>
-									<th class="text-center">Report To</th>
+										<th class="text-center">Report To</th>
 								<%
 									} else {
 								%>
-									<th class="text-center">Employee Name</th>
+										<th class="text-center">Employee Name</th>
 								<%
 									}
 								%>
@@ -131,10 +131,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listAssignment"
-								name="employeeReportForm">
-								<logic:iterate id="assignment" name="employeeReportForm"
-									property="listAssignment">
+							<logic:notEmpty property="listAssignment" name="employeeReportForm">
+								<logic:iterate id="assignment" name="employeeReportForm" property="listAssignment">
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
 											<td class="text-center text-bold text-italic">
@@ -149,11 +147,12 @@
 												<bean:write property="fullName" name="assignment" /></td>
 											<td class="text-center text-bold text-italic">
 												<bean:write property="createdDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><a
-												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+											<td class="text-center text-bold text-italic">
+												<a href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />','<bean:write property="currentStatus" 
-												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a>
+											</td>
 										</tr>
 									</logic:equal>
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
@@ -164,14 +163,14 @@
 											<td class="text-center"><bean:write property="assignmentCategory" name="assignment" /></td>
 											<td><bean:write property="fullName" name="assignment" /></td>
 											<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
-											<td class="text-center"><a
-												href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
+											<td class="text-center">
+												<a href="javascript:flyToPage('view', '<bean:write property="assignmentCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
 												name="assignment" />','<bean:write property="currentStatus" 
-												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a>
+											</td>
 										</tr>
 									</logic:equal>
-
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listAssignment" name="employeeReportForm">
@@ -220,14 +219,12 @@
 							<%
 								}
 							%>
-							
 						</tr>
 					</table>
 				</html:form>
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

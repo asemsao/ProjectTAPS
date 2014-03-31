@@ -135,19 +135,23 @@
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text" id="datepicker">
+								<td>
+									<div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate"
 											styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text">
+								<td>
+									<div class="input-control text">
 										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker"
 											readonly="true"></html:text>
-									</div></td> 
+									</div>
+								</td> 
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Type</th>
@@ -155,98 +159,109 @@
 								<td>
 									<%
 										boolean headBU = false;
-											List<RoleBean> roleList = (List) session.getAttribute("role");
-											for (int i = 0; i < roleList.size(); i++) {
-												if (roleList.get(i).getRoleId().equals("hbu")
-														|| roleList.get(i).getRoleId().equals("hde")
-														|| roleList.get(i).getRoleId().equals("bom")) {
-													headBU = true;
-												}
+										List<RoleBean> roleList = (List) session.getAttribute("role");
+										for (int i = 0; i < roleList.size(); i++) {
+											if (roleList.get(i).getRoleId().equals("hbu")
+													|| roleList.get(i).getRoleId().equals("hde")
+													|| roleList.get(i).getRoleId().equals("bom")) {
+												headBU = true;
 											}
-											if (!headBU) {
+										}
+										if (!headBU) {
 									%>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type" checked="checked" value="BU" /> <span class="check"></span>
-											Business Unit
-										</label>
-									</div>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
-										</label>
-									</div> 
+											<div class="input-control radio margin10">
+												<label>
+													<input type="radio" name="assignment_type" checked="checked" value="BU" />
+													<span class="check"></span>
+													Business Unit
+												</label>
+											</div>
+											<div class="input-control radio margin10">
+												<label>
+													<input type="radio" name="assignment_type" value="PROJECT" />
+													<span class="check"></span>
+													Project
+												</label>
+											</div> 
 									<%
 									 	} else {
-									 %>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
-											Business Unit
-										</label>
-									</div>
-									<div class="input-control radio margin10">
-										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span>
-											Project
-										</label>
-									</div> 
-								<%
-								 	}
-								 %>
+									%>
+												<div class="input-control radio margin10">
+													<label>
+														<input type="radio" name="assignment_type" disabled="disabled" value="BU" />
+														<span class="check"></span>
+														Business Unit
+													</label>
+												</div>
+												<div class="input-control radio margin10">
+													<label>
+														<input type="radio" name="assignment_type" checked="checked" value="PROJECT" />
+														<span class="check"></span>
+														Project
+													</label>
+												</div> 
+									<%
+									 	}
+									%>
 								</td>
 							</tr>
 							<%
 								if (!headBU) {
 							%>
-							<tr>
-								<th class="field-form">Assign By</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div id="bu">
-										<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
-										&nbsp;&nbsp; <b>Report to </b> :
-										<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
-									</div>
-									<div class="pr">
-										<div class="input-control text">
-											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
-											<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
-											<button type="button" class="btn-search" id="project"></button>
-										</div>
-									</div>
-								</td>
-							</tr>
-							<tr class="pr">
-								<th class="field-form">Report To</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
-										<button type="button" class="btn-search" id="employee"></button>
-									</div>
-								</td>
-							</tr>
+									<tr>
+										<th class="field-form">Assign By</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div id="bu">
+												<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
+												&nbsp;&nbsp; <b>Report to </b> :
+												<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
+											</div>
+											<div class="pr">
+												<div class="input-control text">
+													<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+													<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
+													<button type="button" class="btn-search" id="project"></button>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr class="pr">
+										<th class="field-form">Report To</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div class="input-control text">
+												<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+												<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+												<button type="button" class="btn-search" id="employee"></button>
+											</div>
+										</td>
+									</tr>
 							<%
 								} else {
 							%>
-							<tr>
-								<th class="field-form">Assign By</th>
-								<td class="field-separator">:</td>
-								<td><div class="input-control text">
-										<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
-										<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
-										<button type="button" class="btn-search" id="project"></button>
-									</div></td>
-							</tr>
-							<tr>
-								<th class="field-form">Report To</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div class="input-control text">
-										<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-										<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
-										<button type="button" class="btn-search" id="employee"></button>
-									</div>
-								</td>
-							</tr>
+									<tr>
+										<th class="field-form">Assign By</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div class="input-control text">
+												<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+												<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
+												<button type="button" class="btn-search" id="project"></button>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<th class="field-form">Report To</th>
+										<td class="field-separator">:</td>
+										<td>
+											<div class="input-control text">
+												<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+												<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+												<button type="button" class="btn-search" id="employee"></button>
+											</div>
+										</td>
+									</tr>
 							<%
 								}
 							%>
@@ -350,8 +365,9 @@
 							<tr>
 								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
-								<td><html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea"
-										styleId="description"></html:textarea></td>
+								<td>
+									<html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea" styleId="description"></html:textarea>
+								</td>
 							</tr>
 							<tr>
 								<td colspan=3 class="text-right">
@@ -366,7 +382,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
