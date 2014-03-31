@@ -37,23 +37,23 @@
 			$("#menu-dashboard").addClass('spanEmp');
 		}
 		
-		$("#approvalDashboard").click(function(){
+		$("#rfa-link").click(function(){
 			$("#taskAssignmentDashboard").val("approvalDashboard");
 			$("#dashboardAssignment").submit();
 		});
-		$("#approvalSelfDashboard").click(function(){
+		$("#rfa-s-link").click(function(){
 			$("#taskAssignmentDashboard").val("approvalSelfDashboard");
 			$("#dashboardAssignment").submit();
 		});
-		$("#claimDashboard").click(function(){
+		$("#claim-link").click(function(){
 			$("#taskAssignmentDashboard").val("claimDashboard");
 			$("#dashboardAssignment").submit();
 		});
-		$("#correctionDashboard").click(function(){
+		$("#correction-link").click(function(){
 			$("#taskAssignmentDashboard").val("correctionDashboard");
 			$("#dashboardAssignment").submit();
 		});
-		$("#correctionSelfDashboard").click(function(){
+		$("#correction-s-link").click(function(){
 			$("#taskAssignmentDashboard").val("correctionSelfDashboard");
 			$("#dashboardAssignment").submit();
 		});
@@ -101,7 +101,7 @@
 							for (int i = 0; i < roleList.size(); i++) {
 								if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
-									<a href="#" id="approvalDashboard" class="tile bg-cyan" id="rfa-link"> 
+									<a href="#" class="tile bg-cyan" id="rfa-link"> 
 										<span class="tile-content icon"> 
 											<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
 										</span> 
@@ -111,7 +111,7 @@
 											</span>
 										</span>
 									</a>
-									<a href="#" id="approvalSelfDashboard" class="tile bg-cyan" id="rfa-s-link"> 
+									<a href="#" class="tile bg-cyan" id="rfa-s-link"> 
 										<span class="tile-content icon"> 
 											<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
 										</span> 
@@ -126,7 +126,7 @@
 					 		}
 						 %>
 
-						<a href="#" id="claimDashboard" class="tile bg-cyan" id="claim-link"> 
+						<a href="#" class="tile bg-cyan" id="claim-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CLAIM_ASSIGNMENT.png">
 							</span> 
@@ -136,7 +136,7 @@
 								</span>
 							</span>
 						</a>
-						<a href="#" id="correctionDashboard" class="tile bg-cyan" id="correction-link"> 
+						<a href="#" class="tile bg-cyan" id="correction-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
 							</span> 
@@ -146,7 +146,7 @@
 								</span>
 							</span>
 						</a>
-						<a href="#" id="correctionSelfDashboard" class="tile bg-cyan" id="correction-s-link"> 
+						<a href="#" class="tile bg-cyan" id="correction-s-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png"> 
 							</span> 
