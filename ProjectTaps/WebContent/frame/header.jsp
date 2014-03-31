@@ -133,8 +133,8 @@
 
 <%
 // 	if ("true".equals(App.getConfiguration("recovery_mode"))) {
-// 	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
-	if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+// 	if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 %>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -159,8 +159,8 @@
 			});
 		</script>
 		<div id="changePassword" class="hide">
-			<html:form action="/dashboard" method="post">
-				<html:hidden property="task" name="dashboardForm" styleId="task-change-password" value="changePassword" />
+			<html:form action="/changePassword" method="post">
+				<html:hidden property="task" name="changePasswordForm" styleId="task-change-password" value="changePassword" />
 				<table class="table">
 					<tr>
 						<th colspan=3 class="text-center"><h3><%=session.getAttribute("fullname")%></h3></th>
@@ -169,21 +169,21 @@
 						<td width="25%">Old Password</td>
 						<td>:</td>
 						<td><div class="input-control text">
-								<html:password property="oldPassword" name="dashboardForm" styleId="old-password" />
+								<html:password property="oldPassword" name="changePasswordForm" styleId="old-password" />
 							</div></td>
 					</tr>
 					<tr>
 						<td width="25%">New Password</td>
 						<td>:</td>
 						<td><div class="input-control text">
-								<html:password property="newPassword" name="dashboardForm" styleId="new-password" />
+								<html:password property="newPassword" name="changePasswordForm" styleId="new-password" />
 							</div></td>
 					</tr>
 					<tr>
 						<td width="25%">Confirmation</td>
 						<td>:</td>
 						<td><div class="input-control text">
-								<html:password property="newPasswordConfirmation" name="dashboardForm" styleId="new-password-confirmation" />
+								<html:password property="newPasswordConfirmation" name="changePasswordForm" styleId="new-password-confirmation" />
 							</div></td>
 					</tr>
 					<tr>

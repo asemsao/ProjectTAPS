@@ -26,6 +26,8 @@
 			type="adins.ace.taps.form.assignment.SelfAssignmentForm" />
 		<form-bean name="dashboardForm"
 			type="adins.ace.taps.form.dashboard.DashboardForm" />
+		<form-bean name="changePasswordForm"
+			type="adins.ace.taps.form.employee.ChangePasswordForm" />
 	</form-beans>
 
 <!-- 	<global-exceptions> -->
@@ -198,6 +200,10 @@
 			scope="request" type="adins.ace.taps.action.SelfSupervisorAssignmentAction">
 			<forward name="Correction" path="/WEB-INF/jsp/assignment/self_approval.jsp" />
 			<forward name="Cancel" path="/employeeReport.do" />
+		</action>
+		<action name="changePasswordForm" path="/changePassword"
+			scope="request" type="adins.ace.taps.action.ChangePasswordAction">
+			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard/dashboard.jsp" />
 		</action>
 	</action-mappings>
 
