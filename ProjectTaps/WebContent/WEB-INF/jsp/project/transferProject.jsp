@@ -73,33 +73,24 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty name="transferProjectForm" property="listProject">
-								<logic:iterate id="transferProject" name="transferProjectForm"
-									property="listProject">
+								<logic:iterate id="transferProject" name="transferProjectForm" property="listProject">
 									<tr>
 										<td>
 											<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="project_choose" value="<bean:write name="transferProject"
-												property="projectCode" />" />
-											<span class="check"></span>
+												<input type="radio" name="project_choose" value="<bean:write name="transferProject" property="projectCode" />" />
+												<span class="check"></span>
 											</label>
 											</div>
 										</td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="projectCode" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="projectCode" /></td>
 										<td><bean:write name="transferProject" property="projectName" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="client" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="organizationCode" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="phase" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="startDate" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="endDate" /></td>
-										<td class="text-center"><bean:write name="transferProject"
-												property="runningDay" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="client" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="organizationCode" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="phase" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="startDate" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="endDate" /></td>
+										<td class="text-center"><bean:write name="transferProject" property="runningDay" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -115,22 +106,18 @@
 								<td>
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"
-												onclick="button('firstP');"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"
-												onclick="button('prevP');"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <span id="currentPageP"><bean:write
-														name="transferProjectForm" property="pageP" /></span> of <span id="lastPageP"><bean:write
-														name="transferProjectForm" property="maxPageP" /></span></a></li>
-											<li class="next"><a id="next"
-												onclick="button('nextP');"><i class="icon-next"></i></a></li>
-											<li class="last"><a id="last"
-												onclick="button('lastP');"><i
-													class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <span id="totalRecordP"><bean:write
-														name="transferProjectForm" property="countRecordP" /></span></a></li>
+											<li class="first"><a id="first" onclick="button('firstP');">
+												<i class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev" onclick="button('prevP');">
+												<i class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <span id="currentPageP"><bean:write name="transferProjectForm" property="pageP" /></span> 
+												of <span id="lastPageP"><bean:write name="transferProjectForm" property="maxPageP" /></span></a></li>
+											<li class="next"><a id="next" onclick="button('nextP');">
+												<i class="icon-next"></i></a></li>
+											<li class="last"><a id="last" onclick="button('lastP');">
+												<i class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <span id="totalRecordP">
+												<bean:write name="transferProjectForm" property="countRecordP" /></span></a></li>
 										</ul>
 									</div>
 								</td>
@@ -156,8 +143,7 @@
 								</th>
 								<th>
 									<div class="input-control text">
-										<html:text property="orgKeyword" name="transferProjectForm"
-											styleId="orgKeyword"></html:text>
+										<html:text property="orgKeyword" name="transferProjectForm" styleId="orgKeyword"></html:text>
 										<button id="search-btn-org" type="button" class="btn-search"></button>
 									</div>
 								</th>
@@ -173,36 +159,31 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty name="transferProjectForm"
-								property="listOrganization">
-								<logic:iterate id="organization" name="transferProjectForm"
-									property="listOrganization">
+							<logic:notEmpty name="transferProjectForm" property="listOrganization">
+								<logic:iterate id="organization" name="transferProjectForm" property="listOrganization">
 									<tr>
 										<td class="text-center" width="5%">
 										<div class="input-control radio default-style">
 											<label>
-											<input type="radio" name="org_choose" value="<bean:write name='organization'
-												property='organizationCode' />@<bean:write name='organization'
-												property='organizationName' />" />
-											<span class="check"></span>
+											<input type="radio" name="org_choose" value="<bean:write name='organization' property='organizationCode' />@
+													<bean:write name='organization' property='organizationName' />" /> <span class="check"></span>
 											</label>
 											</div>
 										</td>
-										<td width="4%"><logic:equal value="0" name="organization"
-												property="organizationLevel">
+										<td width="4%">
+											<logic:equal value="0" name="organization" property="organizationLevel">
 												<bean:write name="organization" property="organizationCode" />
 											</logic:equal></td>
-										<td width="4%"><logic:equal value="1" name="organization"
-												property="organizationLevel">
+										<td width="4%">
+											<logic:equal value="1" name="organization" property="organizationLevel">
 												<bean:write name="organization" property="organizationCode" />
 											</logic:equal></td>
-										<td width="4%"><logic:equal value="2" name="organization"
-												property="organizationLevel">
+										<td width="4%">
+											<logic:equal value="2" name="organization" property="organizationLevel">
 												<bean:write name="organization" property="organizationCode" />
 											</logic:equal></td>
 
-										<td><bean:write name="organization"
-												property="organizationName" /></td>
+										<td><bean:write name="organization" property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
 									</tr>
 								</logic:iterate>
@@ -219,22 +200,18 @@
 								<td>
 									<div class="pagination">
 										<ul>
-											<li class="first"><a id="first"
-												onclick="button('firstO');"><i
-													class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev"
-												onclick="button('prevO');"><i
-													class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <span id="currentPageO"><bean:write
-														name="transferProjectForm" property="pageO" /></span> of <span id="lastPageO"><bean:write
-														name="transferProjectForm" property="maxPageO" /></span></a></li>
-											<li class="next"><a id="next"
-												onclick="button('nextO');"><i class="icon-next"></i></a></li>
-											<li class="last"><a id="last"
-												onclick="button('lastO');"><i
-													class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record <span id="totalRecordO"><bean:write
-														name="transferProjectForm" property="countRecordO" /></span></a></li>
+											<li class="first"><a id="first" onclick="button('firstO');">
+												<i class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prev" onclick="button('prevO');">
+												<i class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <span id="currentPageO"><bean:write name="transferProjectForm" property="pageO" /></span> 
+												of <span id="lastPageO"><bean:write name="transferProjectForm" property="maxPageO" /></span></a></li>
+											<li class="next"><a id="next" onclick="button('nextO');">
+												<i class="icon-next"></i></a></li>
+											<li class="last"><a id="last" onclick="button('lastO');">
+												<i class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record <span id="totalRecordO">
+												<bean:write name="transferProjectForm" property="countRecordO" /></span></a></li>
 										</ul>
 									</div>
 								</td>
@@ -248,33 +225,32 @@
 				</table>
 					</fieldset>
 					<fieldset>
-					<legend>CHOOSE FINISH DATE</legend>
-					<table id="table-ajax-project3" class="table"></table>
-					<div class="date-wizard">
-					<div class="notice marker-on-bottom bg-amber">
-					<div class="fg-white">
-					<i class="icon-warning"></i>&nbsp;Please choose new estimate finish date
-					</div>
-					</div>
-					<br />
-					
-					<div class="input-control text">
-					<%
-					java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
-					java.util.Date date = new java.util.Date();
-					String dateString = df.format(date);
-					%>
-										<html:text property="newEstDate"
-											name="transferProjectForm" styleClass="datepicker-future" styleId="newEstDate" value="<%=dateString %>">
-											</html:text>
-										<button type="button" class="btn-date"></button>
-										</div>
-					
-					</div>
+						<legend>CHOOSE FINISH DATE</legend>
+						<table id="table-ajax-project3" class="table"></table>
+						<div class="date-wizard">
+							<div class="notice marker-on-bottom bg-amber">
+								<div class="fg-white">
+									<i class="icon-warning"></i>&nbsp;Please choose new estimate finish date
+								</div>
+							</div>
+								<br />
+						
+							<div class="input-control text">
+							<%
+							java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+							java.util.Date date = new java.util.Date();
+							String dateString = df.format(date);
+							%>
+								<html:text property="newEstDate" name="transferProjectForm" styleClass="datepicker-future" styleId="newEstDate" value="<%=dateString %>">
+								</html:text>
+								<button type="button" class="btn-date"></button>
+							</div>
+						
+						</div>
 					</fieldset>
 					<fieldset>
-					<legend>SUMMARY</legend>
-					<table id="table-ajax-summary" class="table"></table>
+						<legend>SUMMARY</legend>
+						<table id="table-ajax-summary" class="table"></table>
 					</fieldset>
 					<input id="submit-btn" type="button" class="submit-wizard" value="Finish" />
 				</html:form>
