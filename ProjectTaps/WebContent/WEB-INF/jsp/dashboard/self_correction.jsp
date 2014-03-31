@@ -45,7 +45,7 @@
 		}
 		setTimeout(function() {
 			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
-		}, 500);
+		}, 100);
 		setTimeout(function() {
 			$("#lookUpEmployee2").load("/ProjectTaps/ajax.do?mode=employees2&task=employees2");
 		}, 500);

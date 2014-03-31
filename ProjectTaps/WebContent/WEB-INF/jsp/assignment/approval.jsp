@@ -28,7 +28,7 @@
 		var task_code = $("#task-code").val();
 		setTimeout(function() {
 			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
-		}, 500);
+		}, 100);
 		
 		$(".manHourUpdate").change(function() {
 			var totalMh = 0.0;
