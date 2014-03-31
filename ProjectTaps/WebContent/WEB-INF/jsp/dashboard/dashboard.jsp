@@ -36,11 +36,29 @@
 		}else{
 			$("#menu-dashboard").addClass('spanEmp');
 		}
+		
+		$("#approvalDashboard").click(function(){
+			$("#taskAssignmentDashboard").val("approvalDashboard");
+			$("#dashboardAssignment").submit();
+		});
+		$("#approvalSelfDashboard").click(function(){
+			$("#taskAssignmentDashboard").val("approvalSelfDashboard");
+			$("#dashboardAssignment").submit();
+		});
+		$("#claimDashboard").click(function(){
+			$("#taskAssignmentDashboard").val("claimDashboard");
+			$("#dashboardAssignment").submit();
+		});
+		$("#correctionDashboard").click(function(){
+			$("#taskAssignmentDashboard").val("correctionDashboard");
+			$("#dashboardAssignment").submit();
+		});
+		$("#correctionSelfDashboard").click(function(){
+			$("#taskAssignmentDashboard").val("correctionSelfDashboard");
+			$("#dashboardAssignment").submit();
+		});
 	});
-	function flyToPage(task) {
-		document.dashboardForm.task.value = task;
-		document.dashboardForm.submit();
-	}
+	
 </script>
 <script src="<%=request.getContextPath()%>/js/other/dashboard.js"></script>
 <script src="<%=request.getContextPath()%>/js/jquery/jquery-ui.min.js"></script>
@@ -75,15 +93,15 @@
 				<input type="hidden" id="messagecp" value="<%=msg%>" />
 				<input type="hidden" id="messagecolor" value="<%=color%>" />
 				<input type="hidden" id="spv" value="<%=is_spv%>" />
-				<html:form action="/dashboard" method="post">
-					<html:hidden property="task" name="dashboardForm" />
+				<html:form action="/dashboard" method="post" styleId="dashboardAssignment">
+					<html:hidden property="task" name="dashboardForm" styleId="taskAssignmentDashboard"/>
 					<h2 class="fg-steel">Things To Do</h2>
 					<div id="menu-dashboard" class="center-taps">
 						<%
 							for (int i = 0; i < roleList.size(); i++) {
 								if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
-									<a href="#" onclick="javascript:flyToPage('approvalDashboard');" class="tile bg-cyan" id="rfa-link"> 
+									<a href="#" id="approvalDashboard" class="tile bg-cyan" id="rfa-link"> 
 										<span class="tile-content icon"> 
 											<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
 										</span> 
@@ -93,7 +111,7 @@
 											</span>
 										</span>
 									</a>
-									<a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" class="tile bg-cyan" id="rfa-s-link"> 
+									<a href="#" id="approvalSelfDashboard" class="tile bg-cyan" id="rfa-s-link"> 
 										<span class="tile-content icon"> 
 											<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
 										</span> 
@@ -108,7 +126,7 @@
 					 		}
 						 %>
 
-						<a href="#" onclick="javascript:flyToPage('claimDashboard');" class="tile bg-cyan" id="claim-link"> 
+						<a href="#" id="claimDashboard" class="tile bg-cyan" id="claim-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CLAIM_ASSIGNMENT.png">
 							</span> 
@@ -118,7 +136,7 @@
 								</span>
 							</span>
 						</a>
-						<a href="#" onclick="javascript:flyToPage('correctionDashboard');" class="tile bg-cyan" id="correction-link"> 
+						<a href="#" id="correctionDashboard" class="tile bg-cyan" id="correction-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
 							</span> 
@@ -128,7 +146,7 @@
 								</span>
 							</span>
 						</a>
-						<a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" class="tile bg-cyan" id="correction-s-link"> 
+						<a href="#" id="correctionSelfDashboard" class="tile bg-cyan" id="correction-s-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png"> 
 							</span> 
