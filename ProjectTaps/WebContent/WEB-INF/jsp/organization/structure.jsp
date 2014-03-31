@@ -122,9 +122,6 @@
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<tr>
-
-							</tr>
 						</tbody>
 					</table>
 
@@ -154,7 +151,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

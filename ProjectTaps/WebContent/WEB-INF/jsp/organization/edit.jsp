@@ -90,8 +90,7 @@
 								<th class="field-form">Business Unit Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text size3">
-										<html:text property="orgBean.organizationCode" name="organizationForm" styleId="organizationCode"
-											readonly="true"></html:text>
+										<html:text property="orgBean.organizationCode" name="organizationForm" styleId="organizationCode" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -99,8 +98,7 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text size3">
-										<html:text property="orgBean.organizationName" name="organizationForm" styleId="organizationName"
-											maxlength="50"></html:text>
+										<html:text property="orgBean.organizationName" name="organizationForm" styleId="organizationName" maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -149,8 +147,7 @@
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode" name="organizationForm" styleId="parent-organization-code" />
-										<html:text property="orgBean.parentName" name="organizationForm" styleId="parent-organization-name"
-											readonly="true"></html:text>
+										<html:text property="orgBean.parentName" name="organizationForm" styleId="parent-organization-name" readonly="true"></html:text>
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
@@ -168,10 +165,8 @@
 			</div>
 		</div>
 	</div>
-	
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpOrganization" class="hide"></div>
 </body>
-
 </html>
