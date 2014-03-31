@@ -63,6 +63,7 @@
 			<div class="row row-taps shadow-taps">
 			<html:form enctype="multipart/form-data" action="/employee" method="post" styleClass="employeeForm" styleId="employeeAddEdit">
 				<html:hidden property="task" name="employeeForm" styleId="task" />
+								
 				<table class="table">
 					<thead>
 						<tr>
@@ -72,7 +73,7 @@
 					<tbody>
 						<tr>
 							<%
-								if (session.getAttribute("recoveryMode") == null) {
+								if (session.getAttribute("recoveryMode") == null || "false".equals(session.getAttribute("recoveryMode").toString())) {
 							%>
 									<th class="field-form">Employee Domain</th>
 									<td class="field-separator">:</td>
@@ -117,7 +118,7 @@
 							%>
 						</tr>
 						<%
-							if (session.getAttribute("recoveryMode") != null) {
+							if (session.getAttribute("recoveryMode") != null && "true".equals(session.getAttribute("recoveryMode").toString())) {
 						%>
 							<tr>
 								<th class="field-form">Password</th>
