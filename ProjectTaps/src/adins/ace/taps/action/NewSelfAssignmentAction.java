@@ -70,7 +70,6 @@ public class NewSelfAssignmentAction extends Action {
 				Map paramDelete = new HashMap();
 				paramDelete.put("taskCode", taskCode);
 				paramDelete.put("updatedBy", sessionUserDomain);
-				System.out.println(paramDelete);
 				success = aMan.deleteAssignment(paramDelete);
 				if (success) {
 					session.setAttribute("message", "Success Delete Assignment");

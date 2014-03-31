@@ -30,6 +30,8 @@ import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.dashboard.DashboardForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
+import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.SendMailTls;
 
@@ -54,6 +56,44 @@ public class DashboardAction extends Action {
 		params.put("maxDate", App.getConfiguration("max_date"));
 		params.put("taskCode", dForm.getTaskCode());
 
+		/* code to change password */
+		if ("changePassword".equals(dForm.getTask())
+				&& session.getAttribute("username") != null) {
+			LoginManager lMan = new LoginManager();
+			EmployeeManager mMan = new EmployeeManager();
+			Map user = new HashMap();
+			user.put("username", session.getAttribute("username"));
+			user.put("password", dForm.getOldPassword());
+			session.setAttribute("messagecolor", "red");
+			if (lMan.tryLogin(user)) {
+				if (dForm.getNewPassword().equals(
+						dForm.getNewPasswordConfirmation())) {
+					if (dForm.getNewPassword().length() > 5) {
+						user.put("password", dForm.getNewPassword());
+						if (mMan.updateLoginEmployee(user)) {
+							session.setAttribute("messagecp",
+									"Change Password SUCCESSFULL!");
+							session.setAttribute("messagecolor", "green");
+						} else {
+							session.setAttribute("messagecp",
+									"Change Password FAILED!");
+						}
+					} else {
+						session.setAttribute("messagecp",
+								"Password must be contain min. 6 characters");
+					}
+
+				} else {
+					session.setAttribute("messagecp",
+							"Change Password FAILED! Your Password is Doesn't Match");
+				}
+			} else {
+				session.setAttribute("messagecp",
+						"Change Password FAILED! Your Old Password is Incorrect!");
+			}
+			return mapping.findForward("Dashboard");
+		}
+		
 		String userDomain = (String) session.getAttribute("username");
 		/* code to display detail record each status */
 		if ("CLAIM".equals(dForm.getTask())) {
@@ -121,7 +161,6 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rfa".equals(dForm.getTask())) {
-			System.out.println("masuk rfa");
 			// add to detail claim assignment / add to history comment -> back
 			// to list
 			aMan.startTransaction();
@@ -146,7 +185,6 @@ public class DashboardAction extends Action {
 
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
-			System.out.println(claim+" "+comment+" "+update);
 			if (claim && comment && update) {
 				aMan.commitTransaction();
 				Map emailParams = new HashMap();
@@ -158,7 +196,6 @@ public class DashboardAction extends Action {
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
 			} else {
-				System.out.println("gagal");
 				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));
