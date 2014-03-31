@@ -105,7 +105,7 @@
 		<logic:equal name="ajaxForm" property="checkDeleteOrganization" value="0">
 			<table class="table striped bordered hovered">
 				<tr>
-					<th><strong>Are you sure to DELETE business Unit 
+					<th><strong>Are you sure to DELETE business unit 
 						<bean:write name="ajaxForm" property="organizationCode" /> ?
 					</strong></th>
 				</tr>

@@ -23,7 +23,7 @@
 <html:form action="/menu" method="POST" styleId="menuForm">
 		<div class="navigation-bar dark header-taps">
 			<div class="navigation-bar-content container">
-				<a href="#" class="element"> <img alt="logo" class="logo" src="<%=request.getContextPath()%>/images/LOGO_PANJANG3.png"></a>
+				<a href="#" class="element"> <img alt="logo" class="logo" src="<%=request.getContextPath()%>/images/LOGO.png"></a>
 				<a class="pull-menu" href="#"></a> <span class="element-divider"></span>
 				<ul class="element-menu">
 					<li><a href="javascript:menu('dashboard');" class="heading">
@@ -114,11 +114,6 @@
 					<li><a class="element image-button image-left" href="#" style="cursor: default;">
 						<img src="<%=session.getAttribute("pathPhoto")%>" />
 						<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
-						
-<!-- 						<ul class="dropdown-menu" data-role="dropdown"> -->
-<!-- 							<li><a title="Change Password" id="change-password"><span -->
-<!-- 									class="icon-key-2"></span> Change Password</a></li> -->
-<!-- 						</ul>  -->
 					</li>
 					<% } %>
 					<li><a title="Logout" href="javascript:menu('logout');" class="element"><span class="icon-exit"></span> Sign out</a></li>

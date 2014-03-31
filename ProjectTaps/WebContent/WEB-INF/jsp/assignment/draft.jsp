@@ -80,10 +80,12 @@
 							<tr>
 								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text" id="datepicker">
+								<td>
+									<div class="input-control text" id="datepicker">
 										<html:text property="assignmentBean.assignmentDueDate" name="claimAssignmentForm" styleId="assignmentDueDate" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Type</th>
@@ -93,7 +95,8 @@
 							<tr>
 								<th class="field-form">Assign To</th>
 								<td class="field-separator">:</td>
-								<td><div class="pr" class="in-bl">
+								<td>
+									<div class="pr" class="in-bl">
 										<div class="input-control text">
 											<html:hidden property="assignmentBean.projectCode" name="claimAssignmentForm" styleId="project-code" />
 											<html:text property="assignmentBean.projectName" readonly="true" name="claimAssignmentForm" styleId="project-name" />
@@ -116,10 +119,12 @@
 								<th class="field-form">Reff Task Code</th>
 								<td class="field-separator">:</td>
 
-								<td><div class="input-control text">
+								<td>
+									<div class="input-control text">
 										<html:text property="assignmentBean.reffTaskCode" name="claimAssignmentForm" styleId="assignment-code" readonly="true"></html:text>
 										<button type="button" class="btn-search" id="assigment"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Description</th>
@@ -140,7 +145,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>
 	<div id="lookUpEmployeeOnProject" class="hide"></div>

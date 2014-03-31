@@ -62,45 +62,45 @@
 					<html:hidden property="maxPage" name="dashboardForm" />
 					
 					<table class="table">
-							<tr>
-								<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
-							</tr>
-							<tr>
-								<th class="field-form">Assignment Deadline From</th>
-								<th>
-									<div class="input-control text" id="datepicker">
-										<html:text property="startDate" name="dashboardForm" styleId="startDate" styleClass="datepicker-start"></html:text>
-										<button type="button" class="btn-date"></button>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th class="field-form">Assignment Deadline To</th>
-								<th>
-									<div class="input-control text" id="datepicker">
-										<html:text property="endDate" name="dashboardForm" styleId="endDate" styleClass="datepicker-end"></html:text>
-										<button type="button" class="btn-date"></button>
-									</div>
-								</th>
-							</tr>
-							<tr>
-								<th class="field-form">
-									<div class="input-control select">
-										<html:select property="category" name="dashboardForm">
-											<html:option value="All">All</html:option>
-											<html:option value="taskCode">Assignment Code</html:option>
-											<html:option value="taskType">Assignment Category</html:option>
-											<html:option value="employee">Employee Name</html:option>
-										</html:select>
-									</div>
-								</th>
-								<th class="text-center">
-									<div class="input-control text">
-										<html:text property="keyword" name="dashboardForm" styleId="searchKeyword"></html:text>
-										<button class="btn-search" onclick="javascript:searchingPage('search');"></button>
-									</div>
-								</th>
-							</tr>
+						<tr>
+							<th colspan=2 class="text-center"><h3>Employee Report</h3></th>
+						</tr>
+						<tr>
+							<th class="field-form">Assignment Deadline From</th>
+							<th>
+								<div class="input-control text" id="datepicker">
+									<html:text property="startDate" name="dashboardForm" styleId="startDate" styleClass="datepicker-start"></html:text>
+									<button type="button" class="btn-date"></button>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th class="field-form">Assignment Deadline To</th>
+							<th>
+								<div class="input-control text" id="datepicker">
+									<html:text property="endDate" name="dashboardForm" styleId="endDate" styleClass="datepicker-end"></html:text>
+									<button type="button" class="btn-date"></button>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th class="field-form">
+								<div class="input-control select">
+									<html:select property="category" name="dashboardForm">
+										<html:option value="All">All</html:option>
+										<html:option value="taskCode">Assignment Code</html:option>
+										<html:option value="taskType">Assignment Category</html:option>
+										<html:option value="employee">Employee Name</html:option>
+									</html:select>
+								</div>
+							</th>
+							<th class="text-center">
+								<div class="input-control text">
+									<html:text property="keyword" name="dashboardForm" styleId="searchKeyword"></html:text>
+									<button class="btn-search" onclick="javascript:searchingPage('search');"></button>
+								</div>
+							</th>
+						</tr>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -117,26 +117,32 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty property="listAssignment" name="dashboardForm">
-								<logic:iterate id="assignment" name="dashboardForm"
-									property="listAssignment">
+								<logic:iterate id="assignment" name="dashboardForm" property="listAssignment">
 									<logic:equal property="flag" name="assignment" value="INACTIVE">
 										<tr>
 											<td class="text-center text-bold text-italic">
-												<bean:write property="assignmentDueDate" name="assignment" /></td>
+												<bean:write property="assignmentDueDate" name="assignment" />
+											</td>
 											<td class="text-center text-bold text-italic">
-												<bean:write property="assignmentDate" name="assignment" /></td>
+												<bean:write property="assignmentDate" name="assignment" />
+											</td>
 											<td class="text-center text-bold text-italic">
-												<bean:write property="taskCode" name="assignment" /></td>
+												<bean:write property="taskCode" name="assignment" />
+											</td>
 											<td class="text-center text-bold text-italic">
-												<bean:write property="assignmentCategory" name="assignment" /></td>
+												<bean:write property="assignmentCategory" name="assignment" />
+											</td>
 											<td class="text-bold text-italic">
-												<bean:write property="fullName" name="assignment" /></td>
+												<bean:write property="fullName" name="assignment" />
+											</td>
 											<td class="text-center text-bold text-italic">
-												<bean:write property="createdDate" name="assignment" /></td>
-											<td class="text-center text-bold text-italic"><a
-												href="javascript:flyToPage('<bean:write property="currentStatus" name="assignment" />', 
+												<bean:write property="createdDate" name="assignment" />
+											</td>
+											<td class="text-center text-bold text-italic">
+												<a href="javascript:flyToPage('<bean:write property="currentStatus" name="assignment" />', 
 												'<bean:write property="taskCode" name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />' );"><bean:write property="currentStatus" name="assignment" /></a>
+											</td>
 										</tr>
 									</logic:equal>
 									<logic:equal property="flag" name="assignment" value="ACTIVE">
@@ -147,10 +153,12 @@
 											<td class="text-center"><bean:write property="assignmentCategory" name="assignment" /></td>
 											<td><bean:write property="fullName" name="assignment" /></td>
 											<td class="text-center"><bean:write property="createdDate" name="assignment" /></td>
-											<td class="text-center"><a href="javascript:flyToPage('<bean:write
+											<td class="text-center">
+												<a href="javascript:flyToPage('<bean:write
 												property="currentStatus" name="assignment" />', '<bean:write property="taskCode"
 												name="assignment" />', '<bean:write property="assignmentCategory"
-												name="assignment" />');"><bean:write property="currentStatus" name="assignment" /></a></td>
+												name="assignment" />');"><bean:write property="currentStatus" name="assignment" /></a>
+											</td>
 										</tr>
 									</logic:equal>
 								</logic:iterate>

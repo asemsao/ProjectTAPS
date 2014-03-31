@@ -58,8 +58,8 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/organization" method="post" styleClass="organizationForm">
-				<html:hidden property="task" name="organizationForm" />
-				<input type="hidden" id="headBu" value="headBu" />
+					<html:hidden property="task" name="organizationForm" />
+					<input type="hidden" id="headBu" value="headBu" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -72,7 +72,8 @@
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
 										<html:text property="orgBean.organizationCode" styleId="organizationCode" name="organizationForm" maxlength="3"></html:text>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Business Unit Name</th>
@@ -108,9 +109,12 @@
 								</td>
 							</tr>
 							<tr class="parent-organization">
-								<th class="field-form"><label id="parent" style="visibility: visible">
-									Parent Business Unit </label></th>
-								<td class="field-separator"><label id=":" style="visibility: visible">:</label></td>
+								<th class="field-form">
+									<label id="parent" style="visibility: visible">Parent Business Unit </label>
+								</th>
+								<td class="field-separator">
+									<label id=":" style="visibility: visible">:</label>
+								</td>
 								<td>
 									<div class="input-control text">
 										<html:hidden property="orgBean.parentCode" name="organizationForm" styleId="parent-organization-code" />
@@ -121,8 +125,8 @@
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-								<button onclick="flyToPage('save')" class="button success">Save</button>
-								<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
@@ -131,10 +135,8 @@
 			</div>
 		</div>
 	</div>
-	
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
-
 </html>

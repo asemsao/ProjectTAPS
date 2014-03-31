@@ -41,7 +41,6 @@
 		var activity_type = $("#activity-type").val();
 		if (activity_type == "ADHOC"){
 			$(".adhoc").show();
-			
 		}
 		setTimeout(function() {
 			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
@@ -100,17 +99,21 @@
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text" id="datepicker">
+								<td>
+									<div class="input-control text" id="datepicker">
 										<html:text property="selfAssignBean.assignmentDate" name="selfAssignmentForm" styleId="assignmentDate" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Time</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text">
+								<td>
+									<div class="input-control text">
 										<html:text property="selfAssignBean.assignmentTime" name="selfAssignmentForm" styleId="timepicker" readonly="readonly"></html:text>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Type</th>
@@ -120,7 +123,8 @@
 							<tr>
 								<th class="field-form">Assign By</th>
 								<td class="field-separator">:</td>
-								<td><div id="bu">
+								<td>
+									<div id="bu">
 										<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
 										&nbsp;&nbsp; <b>Report to </b> :
 										<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
@@ -131,7 +135,8 @@
 											<html:text property="selfAssignBean.projectName" name="selfAssignmentForm" styleId="project-name"/>
 											<button type="button" class="btn-search" id=""></button>
 										</div>
-									</div></td>
+									</div>
+								</td>
 							</tr>
 							<tr class="pr">
 								<th class="field-form">Report To</th>
@@ -263,7 +268,6 @@
 			</div>
 		</div>
 	</div>
-		
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<div id="lookUpAssignment" class="hide"></div>

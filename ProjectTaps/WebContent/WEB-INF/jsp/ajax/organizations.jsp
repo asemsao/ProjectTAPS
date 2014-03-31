@@ -33,8 +33,7 @@
 				</th>
 				<th class="text-center" colspan=3>
 					<div class="input-control text">
-						<html:text property="searchKeyword" name="ajaxForm" styleClass="search-keyword-organization"
-							onkeydown="if (event.keyCode == 13){ javascript:pagingOrganization('search'); return false;}"></html:text>
+						<html:text property="searchKeyword" name="ajaxForm" styleClass="search-keyword-organization" onkeydown="if (event.keyCode == 13){ javascript:pagingOrganization('search'); return false;}"></html:text>
 						<button type="button" class="btn-search" onclick="javascript:pagingOrganization('search');"></button>
 					</div>
 				</th>
@@ -54,8 +53,8 @@
 					<logic:notEmpty name="ajaxForm" property="listOrganizations">
 						<logic:iterate id="organization" name="ajaxForm" property="listOrganizations">
 							<tr>
-								<td class="text-center"><input type='radio' name='organization_choose' value='<bean:write name="organization" property="organizationCode" />@
-									<bean:write name="organization" property="organizationName" />' />
+								<td class="text-center">
+									<input type='radio' name='organization_choose' value='<bean:write name="organization" property="organizationCode" />@<bean:write name="organization" property="organizationName" />' />
 								</td>
 								<td><bean:write name="organization" property="organizationCode" /></td>
 								<td><bean:write name="organization" property="organizationName" /></td>

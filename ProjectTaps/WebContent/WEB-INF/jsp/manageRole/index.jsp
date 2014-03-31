@@ -59,13 +59,9 @@
 		}
 	});
 </script>
-
 <title>Employee Role</title>
-
 </head>
-
 <body class="metro">
-
 	<jsp:include page="/frame/header.jsp" />
 		<div class="container container-taps">
 			<div class="grid">
@@ -93,10 +89,10 @@
 										<td class="text-center"><bean:write name="manageRole" property="roleId" /></td>
 										<td class="text-center"><bean:write name="manageRole" property="roleName" /></td>
 										<td class="text-center">
-											<a class="listMember" alt="<bean:write name="manageRole" property="roleId" />"
-												data-hint="List Member <bean:write name="manageRole" property="roleName" />"
-												data-hint-position="bottom"> <img alt="" src="<%=request.getContextPath()%>/images/MEMBER.png">
-											</a></td>
+											<a class="listMember" alt="<bean:write name="manageRole" property="roleId" />" data-hint="List Member <bean:write name="manageRole" property="roleName" />" data-hint-position="bottom"> 
+												<img alt="" src="<%=request.getContextPath()%>/images/MEMBER.png">
+											</a>
+										</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -106,8 +102,9 @@
 								</tr>
 							</logic:empty>
 							<tr>
-								<th colspan=3 class="text-right"><input type="button" class="wizard primary" value="Manage Role Menu"
-									data-hint="This feature help you add menu for each role." /></th>
+								<th colspan=3 class="text-right">
+									<input type="button" class="wizard primary" value="Manage Role Menu" data-hint="This feature help you add menu for each role." />
+								</th>
 							</tr>
 						</tbody>
 					</table>
@@ -115,11 +112,6 @@
 				</div>
 			</div>
 		</div>
-	
 	<jsp:include page="/frame/footer.jsp" />
-	<script>
-		
-	</script>
 </body>
-
 </html>
