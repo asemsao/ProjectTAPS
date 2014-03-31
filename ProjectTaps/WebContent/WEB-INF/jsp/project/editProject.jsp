@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -63,6 +65,8 @@
 				<html:form action="/project" method="post" styleClass="projectForm" styleId= "updateProForm">
 					<html:hidden property="task" styleId="task" name="projectForm" />
 					<bean:define id="phaseProject" name="projectForm" property="pBean.phase" type="java.lang.String"/> 
+					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
+					
 					<table class="table">
 						<thead>
 							<tr>
