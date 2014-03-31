@@ -23,6 +23,19 @@
 	}
 
 	$(document).ready( function() {
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#messagecolor").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
 		setTimeout(	function() {
 			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
 		}, 500);
@@ -37,11 +50,18 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
+					<html:form action="/specialAppraisal" method="post"
+					styleId="specialAppraisal">
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/specialAppraisal" method="post"
-					styleId="specialAppraisal">
+			<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" 
+						name="specialAppraisalForm" />">
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" 
+						name="specialAppraisalForm" />">
+
 					<html:hidden property="task" name="specialAppraisalForm" />
 					<table class="table">
 						<thead>
@@ -123,11 +143,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</html:form>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	</html:form>
 	<div id="lookUpEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

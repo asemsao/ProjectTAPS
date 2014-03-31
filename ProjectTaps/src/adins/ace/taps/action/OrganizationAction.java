@@ -104,8 +104,9 @@ public class OrganizationAction extends Action {
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
 			if(orgForm.getOrgBean().getOrganizationCode().equals(orgForm.getOrgBean().getParentCode())){
-				orgForm.setMessage("Edit Business Unit Failed!");
+				orgForm.setMessage("Organization code cannot be same as parent code!");
 				orgForm.setColor("red");
+				return mapping.findForward("Edit");
 			}else{
 				orgForm.setCountChild(orgMan.countChildOrganizations(orgForm
 						.getOrgBean().getOrganizationCode()));
