@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -54,6 +56,7 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/specialAppraisal" method="post" styleId="specialAppraisal">
+					<input type="text" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" > 
 					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="specialAppraisalForm" />">
 					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="specialAppraisalForm" />">
 					<html:hidden property="task" name="specialAppraisalForm" />
