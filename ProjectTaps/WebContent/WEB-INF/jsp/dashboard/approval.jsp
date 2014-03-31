@@ -62,10 +62,12 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/dashboard" method="POST" styleId="dashboardComment">
-					<html:hidden property="claimBean.status" name="dashboardForm"
-						styleId="status" />
-					<html:hidden property="claimBean.taskCode" name="dashboardForm"
-						styleId="task-code" />
+					<html:hidden property="claimBean.status" name="dashboardForm" styleId="status" />
+					<html:hidden property="claimBean.taskCode" name="dashboardForm" styleId="task-code" />
+					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
+					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
+					
 					<table class="table">
 							<tr>
 								<td colspan=4 class="text-center text-bold">
@@ -268,9 +270,6 @@
 									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 							</tr>
 					</table>
-					<html:hidden property="task" name="dashboardForm" />
-					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
-					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

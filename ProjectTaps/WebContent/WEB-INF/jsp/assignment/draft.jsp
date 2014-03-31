@@ -61,11 +61,15 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newAssignment" method="POST"
-		styleId="newAssignment">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/newAssignment" method="POST" styleId="newAssignment">
+					<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
+					<html:hidden property="newTask" name="claimAssignmentForm" />
+					<html:hidden property="assignmentType" name="claimAssignmentForm" />
+					<html:hidden property="assignmentBean.assignmentType" name="claimAssignmentForm" styleId="assignmentType" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -132,14 +136,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
-		<html:hidden property="newTask" name="claimAssignmentForm" />
-		<html:hidden property="assignmentType" name="claimAssignmentForm" />
-		<html:hidden property="assignmentBean.assignmentType" name="claimAssignmentForm" styleId="assignmentType" />
-	</html:form>
+	</div>
 
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployeeOnOrganization" class="hide"></div>

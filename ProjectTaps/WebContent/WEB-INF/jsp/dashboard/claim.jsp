@@ -54,60 +54,55 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/dashboard" method="post" styleId="detailClaim">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-					<html:hidden property="stringClaimDate" name="dashboardForm"
-						styleId="claimDateString" />
+	
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/dashboard" method="post" styleId="detailClaim">
+					<html:hidden property="stringClaimDate" name="dashboardForm" styleId="claimDateString" />
+					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="claimBean.taskCode" name="dashboardForm" />
+					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
+					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 					<table class="table">
 							<tr>
-								<td colspan=4 class="text-center text-bold"><h3>Claim
-										Assignment</h3></td>
+								<td colspan=4 class="text-center text-bold"><h3>Claim Assignment</h3></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Due Date</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentDueDate" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write
-										property="claimBean.assignmentType" name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.assignmentType" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assign To</th>
 								<td class="field-separator">:</td>
-								<td><bean:write property="claimBean.assignToFullName"
-										name="dashboardForm" /></td>
-								<td><b>Assignment From </b> : <bean:write
-										property="claimBean.reportToFullName" name="dashboardForm" /></td>
+								<td><bean:write property="claimBean.assignToFullName" name="dashboardForm" /></td>
+								<td><b>Assignment From </b> : <bean:write property="claimBean.reportToFullName" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Reff Assignment</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="claimBean.reffTaskCode"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.reffTaskCode" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="claimBean.description"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Assignment Date</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><div class="input-control text"
-										id="datepicker">
+								<td colspan=2><div class="input-control text" id="datepicker">
 										<html:text property="claimBean.claimDate" name="dashboardForm"
 											styleId="assignmentDate" styleClass="datepicker-back" />
 										<button type="button" class="btn-date"></button>
@@ -126,8 +121,7 @@
 								<td class="field-separator">:</td>
 								<td colspan=2>
 									<div class="input-control select">
-										<html:select name="dashboardForm" styleId="manHours"
-											property="claimBean.manHours">
+										<html:select name="dashboardForm" styleId="manHours" property="claimBean.manHours">
 											<html:option value="">00:00</html:option>
 											<html:option value="0.5">00:30</html:option>
 											<html:option value="1.0">01:00</html:option>
@@ -184,32 +178,25 @@
 							<tr>
 								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><html:textarea
-										property="claimBean.detailDescription" name="dashboardForm"
-										rows="3" styleId="description"
-										styleClass="input-control textarea">
+								<td colspan=2>
+									<html:textarea property="claimBean.detailDescription" name="dashboardForm"
+										rows="3" styleId="description" styleClass="input-control textarea">
 									</html:textarea></td>
 							</tr>
 							<tr>
 								<td colspan=4 class="text-right">
 									<span class="claim-msg" id="claim-message">You've already claim that day</span>
-									<button onclick="javascript:flyToPage('claim');"
-										class="button success" id="btnClaim">Claim</button>
-									<button onclick="javascript:flyToPage('rfa');"
-										class="button success" id="btnRfa">RFA</button>
-									<button onclick="javascript:flyToPage('cancel');"
-										class="button info">Cancel</button>
+									<button onclick="javascript:flyToPage('claim');" class="button success" id="btnClaim">Claim</button>
+									<button onclick="javascript:flyToPage('rfa');" class="button success" id="btnRfa">RFA</button>
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 								</td>
 							</tr>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="dashboardForm" />
-		<html:hidden property="claimBean.taskCode" name="dashboardForm" />
-		<html:hidden property="claimBean.assignTo" name="dashboardForm" />
-		<html:hidden property="claimBean.reportTo" name="dashboardForm" />
-	</html:form>
+	</div>
+	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>

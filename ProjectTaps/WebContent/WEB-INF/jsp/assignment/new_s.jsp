@@ -113,15 +113,22 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
+					<html:hidden property="newTask" name="selfAssignmentForm" />
+					<html:hidden property="assignmentType" name="selfAssignmentForm" />
+					<html:hidden property="activityType" name="selfAssignmentForm" />
+					<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
+					<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
+					<input type="hidden" id="userDomain" value="<%=session.getAttribute("username")%>" />
+					<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
+					
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan=3 class="text-center"><h3>New Self
-										Assignment</h3></th>
+								<th colspan=3 class="text-center"><h3>New Self Assignment</h3></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -166,9 +173,10 @@
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" value="PROJECT" /> <span class="check"></span> Project
 										</label>
-									</div> <%
- 	} else {
- %>
+									</div> 
+									<%
+									 	} else {
+									 %>
 									<div class="input-control radio margin10">
 										<label> <input type="radio" name="assignment_type" disabled="disabled" value="BU" /> <span class="check"></span>
 											Business Unit
@@ -178,9 +186,10 @@
 										<label> <input type="radio" name="assignment_type" checked="checked" value="PROJECT" /> <span class="check"></span>
 											Project
 										</label>
-									</div> <%
- 	}
- %>
+									</div> 
+								<%
+								 	}
+								 %>
 								</td>
 							</tr>
 							<%
@@ -353,17 +362,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="newTask" name="selfAssignmentForm" />
-		<html:hidden property="assignmentType" name="selfAssignmentForm" />
-		<html:hidden property="activityType" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
-		<input type="hidden" id="userDomain" value="<%=session.getAttribute("username")%>" />
-		<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
-	</html:form>
+	</div>
 
 	<div id="lookUpProject" class="hide"></div>
 	<div id="lookUpEmployee" class="hide"></div>

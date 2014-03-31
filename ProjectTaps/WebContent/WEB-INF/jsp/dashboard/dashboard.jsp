@@ -77,64 +77,68 @@
 				<input type="hidden" id="spv" value="<%=is_spv%>" />
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
+					
 					<h2 class="fg-steel">Things To Do</h2>
 					<div id="menu-dashboard" class="center-taps">
 						<%
 								for (int i = 0; i < roleList.size(); i++) {
 									if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
-						<a href="#" onclick="javascript:flyToPage('approvalDashboard');"
-							data-hint="Approval Assignment" data-hint-position="left"
-							class="tile bg-cyan" id="rfa-link"> <span
-							class="tile-content icon"> <img alt=""
-								src="images/APPROVAL_ASSIGNMENT.png">
-						</span> <span class="brand"> <span id="rfa-badge"
-								class="badge bg-gray"><span id="rfa"><bean:write
-											property="totalRFA" name="dashboardForm" /></span></span>
-						</span>
-						</a> <a href="#"
-							onclick="javascript:flyToPage('approvalSelfDashboard');"
-							data-hint="Approval Self Assignment" data-hint-position="left"
-							class="tile bg-cyan" id="rfa-s-link"> <span
-							class="tile-content icon"> <img alt=""
-								src="images/APPROVAL_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span id="rfa-s-badge"
-								class="badge bg-gray"><span id="rfa-s"> <bean:write
-											property="totalRFAself" name="dashboardForm" /></span></span>
-						</span> <%
- 	}
- 		}
- %>
+						<a href="#" onclick="javascript:flyToPage('approvalDashboard');" data-hint="Approval Assignment" 
+							data-hint-position="left" class="tile bg-cyan" id="rfa-link"> 
+							<span class="tile-content icon"> 
+								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
+							</span> 
+							<span class="brand"> 
+								<span id="rfa-badge" class="badge bg-gray">
+									<span id="rfa"><bean:write property="totalRFA" name="dashboardForm" /></span>
+								</span>
+							</span>
+						</a> <a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" data-hint="Approval Self Assignment" 
+							data-hint-position="left" class="tile bg-cyan" id="rfa-s-link"> 
+							<span class="tile-content icon"> 
+								<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
+							</span> 
+							<span class="brand"> 
+								<span id="rfa-s-badge" class="badge bg-gray">
+									<span id="rfa-s"> <bean:write property="totalRFAself" name="dashboardForm" /></span>
+								</span>
+							</span> 
+						<%
+						 			}
+						 		}
+						 %>
 
-						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');"
-							data-hint="Claim Assignment" data-hint-position="left"
-							class="tile bg-cyan" id="claim-link"> <span
-							class="tile-content icon"> <img alt=""
-								src="images/CLAIM_ASSIGNMENT.png">
-						</span> <span class="brand"> <span id="claim-badge"
-								class="badge bg-gray"><span id="claim"><bean:write
-											property="totalClaim" name="dashboardForm" /></span></span>
-						</span>
-						</a> <a href="#"
-							onclick="javascript:flyToPage('correctionDashboard');"
-							data-hint="Correction Assignment" data-hint-position="left"
-							class="tile bg-cyan" id="correction-link"> <span
-							class="tile-content icon"> <img alt=""
-								src="images/CORRECTION_ASSIGNMENT.png">
-						</span> <span class="brand"> <span id="correction-badge"
-								class="badge bg-gray"><span id="correction"> <bean:write
-											property="totalCorrection" name="dashboardForm" /></span></span>
-						</span>
-						</a> <a href="#"
-							onclick="javascript:flyToPage('correctionSelfDashboard');"
-							data-hint="Correction Self Assignment" data-hint-position="left"
-							class="tile bg-cyan" id="correction-s-link"> <span
-							class="tile-content icon"> <img alt=""
-								src="images/CORRECTION_NEW_ASSIGNMENT.png">
-						</span> <span class="brand"> <span id="correction-s-badge"
-								class="badge bg-gray"><span id="correction-s"> <bean:write
-											property="totalCorrectionSelf" name="dashboardForm" /></span></span>
-						</span>
+						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');" data-hint="Claim Assignment" 
+							data-hint-position="left" class="tile bg-cyan" id="claim-link"> 
+							<span class="tile-content icon"> 
+								<img alt="" src="images/CLAIM_ASSIGNMENT.png">
+							</span> 
+							<span class="brand"> 
+								<span id="claim-badge" class="badge bg-gray">
+									<span id="claim"><bean:write property="totalClaim" name="dashboardForm" /></span>
+								</span>
+							</span>
+						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');" data-hint="Correction Assignment" 
+							data-hint-position="left" class="tile bg-cyan" id="correction-link"> 
+							<span class="tile-content icon"> 
+								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
+							</span> 
+							<span class="brand"> 
+								<span id="correction-badge" class="badge bg-gray">
+									<span id="correction"> <bean:write property="totalCorrection" name="dashboardForm" /></span>
+								</span>
+							</span>
+						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" data-hint="Correction Self Assignment" 
+							data-hint-position="left" class="tile bg-cyan" id="correction-s-link"> 
+							<span class="tile-content icon"> 
+								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png"> 
+							</span> 
+							<span class="brand"> 
+								<span id="correction-s-badge" class="badge bg-gray">
+									<span id="correction-s"><bean:write property="totalCorrectionSelf" name="dashboardForm" /></span>
+								</span>
+							</span>
 						</a>
 					</div>
 				</html:form>
@@ -151,22 +155,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listTopTenOrganization"
-								name="dashboardForm">
-								<logic:iterate id="employee" property="listTopTenOrganization"
-									name="dashboardForm">
+							<logic:notEmpty property="listTopTenOrganization" name="dashboardForm">
+								<logic:iterate id="employee" property="listTopTenOrganization" name="dashboardForm">
 									<tr>
-										<td class="text-center"><img
-											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											class="ava-rank"></td>
+										<td class="text-center">
+											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar"
-												name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<logic:empty property="listTopTenOrganization"
-								name="dashboardForm">
+							<logic:empty property="listTopTenOrganization" name="dashboardForm">
 								<tr>
 									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
@@ -183,22 +183,18 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty property="listTopTenOrganizationPrev"
-								name="dashboardForm">
-								<logic:iterate id="employee"
-									property="listTopTenOrganizationPrev" name="dashboardForm">
+							<logic:notEmpty property="listTopTenOrganizationPrev" name="dashboardForm">
+								<logic:iterate id="employee" property="listTopTenOrganizationPrev" name="dashboardForm">
 									<tr>
-										<td class="text-center"><img
-											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											class="ava-rank"></td>
+										<td class="text-center">
+											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar"
-												name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
-							<logic:empty property="listTopTenOrganizationPrev"
-								name="dashboardForm">
+							<logic:empty property="listTopTenOrganizationPrev" name="dashboardForm">
 								<tr>
 									<td class="text-center" colspan="3">Data Not Found</td>
 								</tr>
@@ -218,15 +214,13 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty property="listTopTen" name="dashboardForm">
-								<logic:iterate id="employee" property="listTopTen"
-									name="dashboardForm">
+								<logic:iterate id="employee" property="listTopTen" name="dashboardForm">
 									<tr>
-										<td class="text-center"><img
-											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											class="ava-rank"></td>
+										<td class="text-center">
+											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar"
-												name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -248,15 +242,13 @@
 						</thead>
 						<tbody>
 							<logic:notEmpty property="listTopTenPrev" name="dashboardForm">
-								<logic:iterate id="employee" property="listTopTenPrev"
-									name="dashboardForm">
+								<logic:iterate id="employee" property="listTopTenPrev" name="dashboardForm">
 									<tr>
-										<td class="text-center"><img
-											src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
-											class="ava-rank"></td>
+										<td class="text-center">
+											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
+												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar"
-												name="employee" /></td>
+										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>

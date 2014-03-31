@@ -77,10 +77,19 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/newSelfAssignment" method="POST" styleId="newSelfAssignment">
+					<html:hidden property="newTask" name="selfAssignmentForm" />
+					<html:hidden property="assignmentType" name="selfAssignmentForm" />
+					<html:hidden property="activityType" name="selfAssignmentForm" />
+					<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
+					<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
+					<html:hidden property="selfAssignBean.activityType" name="selfAssignmentForm" styleId="activity-type" />
+					<html:hidden property="selfAssignBean.assignmentType" name="selfAssignmentForm" styleId="assignmentType" />
+					<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -250,20 +259,11 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
+	</div>
 		
-		<html:hidden property="newTask" name="selfAssignmentForm" />
-		<html:hidden property="assignmentType" name="selfAssignmentForm" />
-		<html:hidden property="activityType" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.detailId" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
-		<html:hidden property="selfAssignBean.activityType" name="selfAssignmentForm" styleId="activity-type" />
-		<html:hidden property="selfAssignBean.assignmentType" name="selfAssignmentForm" styleId="assignmentType" />
-		<html:hidden property="selfAssignBean.organizationCode" name="selfAssignmentForm" styleId="organization-code-view" />
-	</html:form>
-
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpEmployee2" class="hide"></div>
 	<div id="lookUpAssignment" class="hide"></div>

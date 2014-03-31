@@ -67,6 +67,8 @@
 				<html:form action="/dashboard" method="POST" styleId="dashboardComment">
 					<html:hidden property="claimBean.status" name="dashboardForm" styleId="status" />
 					<html:hidden property="claimBean.taskCode" name="dashboardForm" styleId="task-code" />
+					<html:hidden property="task" name="dashboardForm" />
+					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 					<table class="table">
 							<tr>
 								<td colspan=4 class="text-center text-bold">
@@ -108,8 +110,7 @@
 							<tr>
 								<th class="field-form">Description</th>
 								<td class="field-separator">:</td>
-								<td colspan=2><bean:write property="claimBean.description"
-										name="dashboardForm" /></td>
+								<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Detail Claim</th>
@@ -188,7 +189,6 @@
 																</div>
 															</td>
 														</tr>
-
 													</logic:iterate>
 												<tr>
 													<th colspan=2 class="text-right">Total</th>
@@ -211,8 +211,6 @@
 								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 							</tr>
 					</table>
-					<html:hidden property="task" name="dashboardForm" />
-					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
 				</html:form>
 				<div id="historyComment"></div>
 			</div>

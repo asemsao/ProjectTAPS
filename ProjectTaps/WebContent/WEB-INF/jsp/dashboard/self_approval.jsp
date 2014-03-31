@@ -42,10 +42,10 @@
 					<html:hidden property="selfAssignBean.currentStatus" name="dashboardForm" styleId="status" />
 					<html:hidden property="selfAssignBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<html:hidden property="task" name="dashboardForm" />
-					<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="dashboardForm" />" />
-					<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="dashboardForm" />" />
 					<html:hidden property="selfAssignBean.assignTo" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.reportTo" name="dashboardForm" />
+					<input type="hidden" name="tmpDescription" value="<bean:write property="selfAssignBean.description" name="dashboardForm" />" />
+					<input type="hidden" name="tmpManHours" value="<bean:write property="selfAssignBean.manHours" name="dashboardForm" />" />
 					<table class="table">
 							<tr>
 								<td colspan=4 class="text-center text-bold">
