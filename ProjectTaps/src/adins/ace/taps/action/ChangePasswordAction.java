@@ -52,6 +52,9 @@ public class ChangePasswordAction extends Action{
 			} else {
 				session.setAttribute("messagecp", "Change Password FAILED! Your Old Password is Incorrect!");
 			}
+			cpForm.setOldPassword("");
+			cpForm.setNewPassword("");
+			cpForm.setNewPasswordConfirmation("");
 			return mapping.findForward("Dashboard");
 		}
 		return mapping.findForward(null);
