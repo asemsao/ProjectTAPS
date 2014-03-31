@@ -286,7 +286,7 @@
 							</tr>
 						</tbody>
 					</table>
-					</html:form>
+				</html:form>
 			</div>
 		</div>
 	</div>
