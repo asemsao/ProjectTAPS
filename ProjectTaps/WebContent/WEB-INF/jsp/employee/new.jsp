@@ -22,6 +22,15 @@
 			employeeValidation();
 		}
 	}
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('.avatar').attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	$(document).ready( function() {
 		$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
 		$(".employeeDomain").attr("placeholder", "Employee Domain");
@@ -90,7 +99,7 @@
 									<td rowspan="6" class="text-center field-avatar">
 										<img src="<%=request.getContextPath()%>/images/user.png" class="avatar"> <br>
 										<div class="input-control file">
-											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 											<button class="btn-file"></button>
 										</div>
 									</td>
@@ -109,7 +118,7 @@
 									<td rowspan="7" class="text-center field-avatar">
 										<img src="<%=request.getContextPath()%>/images/user.png" class="avatar"> <br>
 										<div class="input-control file">
-											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 											<button class="btn-file"></button>
 										</div>
 									</td>

@@ -10,6 +10,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('.avatar').attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	$(document).ready( function() {
 		$("#cancelUpdateEmp").click(function(){
 			$("#taskUpdateEmp").val('');
@@ -100,7 +109,7 @@
 										<td rowspan="6" class="text-center field-avatar">
 											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
 											</div>
 										</td>
@@ -119,7 +128,7 @@
 										<td rowspan="7" class="text-center field-avatar">
 											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
 											</div></td>
 								<%
