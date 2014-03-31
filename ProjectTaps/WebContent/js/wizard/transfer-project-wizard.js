@@ -304,10 +304,10 @@ $(document).ready(function() {
 						structureContent += "<td>";
 						structureContent += json.listMember[i].projectRole;
 						structureContent += "</td><td>";
-						structureContent += "<img src=\"transferProject.do?task=getAssigneePhoto&assigneeUserDomain=" + json.listMember[i].assigneeUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
+						structureContent += "<img src=\"transferProject.do?task=getPhoto&userDomain=" + json.listMember[i].assigneeUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
 						structureContent += json.listMember[i].assignee;
 						structureContent += "</td><td>";
-						structureContent += "<img src=\"transferProject.do?task=getDirectReportPhoto&directReportUserDomain=" + json.listMember[i].directReportUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
+						structureContent += "<img src=\"transferProject.do?task=getPhoto&userDomain=" + json.listMember[i].directReportUserDomain + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;&nbsp;";
 						structureContent += json.listMember[i].directReport;
 						structureContent += "</td>";
 						structureContent += "<\/tr>";
@@ -433,6 +433,18 @@ $(document).ready(function() {
 		var projectCode = $("input:radio[name='project_choose']:checked").val();
 		var orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
 		var orgName = $("input:radio[name='org_choose']:checked").val().split('@')[1];
+		var newEstDate = $("#newEstDate").val();
+		newEstDate = newEstDate.substring(6) + "-" + newEstDate.substring(3, 5) + "-" + newEstDate.substring(0, 2);
+		Date.prototype.ddmmyyyy = function() {         
+            
+	        var yyyy = this.getFullYear().toString();                                    
+	        var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based         
+	        var dd  = this.getDate().toString();             
+	                            
+	        return (dd[1]?dd:"0"+dd[0]) + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + yyyy;
+	   };
+		var d = new Date(newEstDate);
+		
 		var data = "task=retrieveProject&projectCode=" + projectCode + "&orgCode=" + orgCode + "&orgName=" + orgName;
 		$.ajax({
 			url : "/ProjectTaps/transferProject.do",
@@ -483,6 +495,11 @@ $(document).ready(function() {
 						+ '<td>' + json.pBean.endDate + '</td>'
 						+ '</tr>'
 						+ '<tr>'
+						+ '<td width="15%">Estimate Finish Date <b>*New</b></td>'
+						+ '<td width="5%">:</td>'
+						+ '<td>' + d.ddmmyyyy() + '</td>'
+						+ '</tr>'
+						+ '<tr>'
 						+ '<td width="15%">Running (day)</td>'
 						+ '<td width="5%">:</td>'
 						+ '<td>' + json.pBean.runningDay + ' day' + '</td>'
@@ -497,7 +514,7 @@ $(document).ready(function() {
 				summaryContent += "<td>";
 				if ($("input:checkbox[name='member_choose']:not(:checked)").length > 0) {
 					$("input:checkbox[name='member_choose']:not(:checked)").each(function() {
-						summaryContent += "<img src=\"transferProject.do?task=getAssigneePhoto&assigneeUserDomain=" + $(this).val().split('@')[0] + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;" + $(this).val().split('@')[1] + "&nbsp;&nbsp;";
+						summaryContent += "<img src=\"transferProject.do?task=getPhoto&userDomain=" + $(this).val().split('@')[0] + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;" + $(this).val().split('@')[1] + "&nbsp;&nbsp;";
 					});
 				} else {
 					summaryContent += "&nbsp;<i class=\"icon-minus-2\"></i>";
@@ -510,7 +527,7 @@ $(document).ready(function() {
 				summaryContent += "<td>";
 				if ($("input:checkbox[name='member_choose']:checked").length > 0) {
 					$("input:checkbox[name='member_choose']:checked").each(function() {
-						summaryContent += "<img src=\"transferProject.do?task=getAssigneePhoto&assigneeUserDomain=" + $(this).val().split('@')[0] + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;" + $(this).val().split('@')[1] + "&nbsp;&nbsp;";
+						summaryContent += "<img src=\"transferProject.do?task=getPhoto&userDomain=" + $(this).val().split('@')[0] + "\" style=\"width: 30px; height: 30px;\" \>&nbsp;" + $(this).val().split('@')[1] + "&nbsp;&nbsp;";
 					});
 				} else {
 					summaryContent += "&nbsp;<i class=\"icon-minus-2\"></i>";
@@ -529,7 +546,7 @@ $(document).ready(function() {
 		var params = new Object();
 		params.projectCode = $("input:radio[name='project_choose']:checked").val();
 		params.orgCode = $("input:radio[name='org_choose']:checked").val().split('@')[0];
-		params.transferDate = $("#transferDate").val();
+		params.newEstDate = $("#newEstDate").val();
 		params.orgBefore = $("#orgBefore").val();
 		var selected = $("input:checkbox[name='member_choose']:checked").map(function(i,el) {
 							return $(el).val().split('@')[0];

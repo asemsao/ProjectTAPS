@@ -479,18 +479,8 @@
 	<!-- insert current_status bergantung pada pilihan save(draft) dan assign(claim) -->
 	<insert id="addAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		INSERT INTO assignments (
-								task_code
-								<dynamic>
-									<isNotNull property="assignmentDate">
-										<isNotNull property="assignmentTime">
-											<isNotEmpty property="assignmentDate">
-												<isNotEmpty prepend="," property="assignmentTime">
-													assignment_date
-												</isNotEmpty>
-											</isNotEmpty>
-										</isNotNull>
-									</isNotNull>
-								</dynamic>
+								task_code,
+								assignment_date
                                 <dynamic>
 									<isNotNull property="assignmentDueDate">
 										<isNotEmpty prepend="," property="assignmentDueDate">
@@ -516,18 +506,8 @@
 								updated_date
 								)
 		VALUES (
-				#taskCode#
-				<dynamic>
-					<isNotNull property="assignmentDate">
-						<isNotNull property="assignmentTime">
-							<isNotEmpty property="assignmentDate">
-								<isNotEmpty prepend="," property="assignmentTime">
-									TO_DATE (#assignmentDate# || ' ' || #assignmentTime#, 'DD/MM/YYYY HH24:MI')
-								</isNotEmpty>
-							</isNotEmpty>
-						</isNotNull>
-					</isNotNull>
-				</dynamic>
+				#taskCode#,
+				SYSDATE
 				<dynamic>
 					<isNotNull property="assignmentDueDate">
 						<isNotEmpty prepend="," property="assignmentDueDate">
@@ -568,13 +548,6 @@
 										</isNotNull>
 									</isNotNull>
 								</dynamic>
-                                <dynamic>
-									<isNotNull property="assignmentDueDate">
-										<isNotEmpty prepend="," property="assignmentDueDate">
-											assignment_due_date
-										</isNotEmpty>
-									</isNotNull>
-								</dynamic>
 								,assignment_type,
 								assignment_category,
 								organization_code,
@@ -601,13 +574,6 @@
 								</isNotEmpty>
 							</isNotEmpty>
 						</isNotNull>
-					</isNotNull>
-				</dynamic>
-				<dynamic>
-					<isNotNull property="assignmentDueDate">
-						<isNotEmpty prepend="," property="assignmentDueDate">
-							TO_DATE (#assignmentDueDate#, 'DD/MM/YYYY')
-						</isNotEmpty>
 					</isNotNull>
 				</dynamic>
 				,#assignmentType#,
@@ -670,19 +636,7 @@
 	<!-- update current_status bergantung pada pilihan save(draft) dan assign(claim) -->
 	<update id="editAssignment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 	UPDATE assignments
-	SET
-			<dynamic>
-				<isNotNull property="assignmentDate">
-					<isNotNull property="assignmentTime">
-						<isNotEmpty property="assignmentDate">
-							<isNotEmpty property="assignmentTime">
-								assignment_date = TO_DATE (#assignmentDate# || ' ' || #assignmentTime#,
-								'DD/MM/YYYY HH24:MI'),
-							</isNotEmpty>
-						</isNotEmpty>
-					</isNotNull>
-				</isNotNull>
-			</dynamic>
+	SET		assignment_date = SYSDATE,
 			<dynamic>
 				<isNotNull property="assignmentDueDate">
 					<isNotEmpty property="assignmentDueDate">
@@ -714,14 +668,6 @@
 							</isNotEmpty>
 						</isNotEmpty>
 					</isNotNull>
-				</isNotNull>
-			</dynamic>
-			<dynamic>
-				<isNotNull property="assignmentDueDate">
-					<isNotEmpty property="assignmentDueDate">
-						assignment_due_date = TO_DATE
-						(#assignmentDueDate#,'DD/MM/YYYY'),
-					</isNotEmpty>
 				</isNotNull>
 			</dynamic>
 	         report_to = #reportTo#,
@@ -874,7 +820,7 @@
 		parameterClass="java.util.Map">
 		SELECT   a.task_code AS taskCode,
 		         TO_CHAR (a.assignment_due_date, 'DD/MM/YYYY') AS assignmentDueDate,
-		         TO_CHAR (a.assignment_date, 'DD/MM/YYYY, HH24:MI') AS assignmentDate,
+		         TO_CHAR (a.assignment_date, 'DD/MM/YYYY') AS assignmentDate,
 		         a.assignment_type AS assignmentType,
 		         a.assign_to AS assignTo,
 		         e.first_name || ' ' || e.last_name AS fullName,

@@ -116,8 +116,7 @@ public class TransferProjectAction extends Action {
 			return null;
 		}
 		
-		if ("getAssigneePhoto".equals(tpForm.getTask())) {
-			StructureProjectBean bean = new StructureProjectBean();
+		if ("getPhoto".equals(tpForm.getTask())) {
 			BufferedInputStream input = null;
 			BufferedOutputStream output = null;
 			OutputStream outStream = response.getOutputStream();
@@ -125,47 +124,7 @@ public class TransferProjectAction extends Action {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
-					byte[] buffer = bean.getAssigneePhoto();
-					if (buffer == null) {
-						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
-					}
-					response.reset();
-					response.setContentLength(buffer.length);
-					outStream.write(buffer);
-					outStream.flush();
-				} catch (IOException e) {
-					System.out.println("catch 1");
-					e.printStackTrace();
-				} finally {
-					if (output != null)
-						try {
-							output.flush();
-							output.close();
-						} catch (IOException logOrIgnore) {
-							System.err.println(logOrIgnore);
-						}
-					if (input != null)
-						try {
-							input.close();
-						} catch (IOException logOrIgnore) {
-							System.err.println(logOrIgnore);
-						}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if ("getDirectReportPhoto".equals(tpForm.getTask())) {
-			StructureProjectBean bean = new StructureProjectBean();
-			BufferedInputStream input = null;
-			BufferedOutputStream output = null;
-			OutputStream outStream = response.getOutputStream();
-			try {
-				response.setContentType("image/*");
-				try {
-					output = new BufferedOutputStream(outStream);
-					byte[] buffer = bean.getDirectReportPhoto();
+					byte[] buffer = tpMan.getPhoto(request.getParameter("userDomain"));
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/")+"images/user.png");
 					}
@@ -200,7 +159,7 @@ public class TransferProjectAction extends Action {
 			params = gson.fromJson(request.getParameter("params"), HashMap.class);
 			params.put("orgCode", params.get("orgCode").toString().trim());
 			params.put("orgBefore", params.get("orgBefore"));
-			params.put("transferDate", params.get("transferDate"));
+			params.put("newEstDate", params.get("newEstDate"));
 			params.put("createdBy", session.getAttribute("username"));
 			String temp = "";
 			for (String item : (Iterable<String>) params.get("listMember")) {
@@ -211,9 +170,6 @@ public class TransferProjectAction extends Action {
 			}
 			params.put("listMember", temp);
 			boolean flag = tpMan.updateTransfer(params);
-			if (flag) {
-				System.out.println("UPDATE : " + flag);
-			}
 		}
 
 		params.put("startP", (tpForm.getPageP() - 1) * 10 + 1);

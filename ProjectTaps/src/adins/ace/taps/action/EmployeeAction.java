@@ -110,6 +110,7 @@ public class EmployeeAction extends Action {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
+					System.out.println(bean.getProfilePicture());
 					buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet()
@@ -371,6 +372,7 @@ public class EmployeeAction extends Action {
 							.getHeadUserDomain()
 							+ " AS HEAD BU, Can't be Moved!");
 					mForm.setColor("red");
+					mForm.setEmployeeDomain(mForm.getNewEmployee().getEmployeeDomain());
 					return mapping.findForward("Edit");
 				}
 			}

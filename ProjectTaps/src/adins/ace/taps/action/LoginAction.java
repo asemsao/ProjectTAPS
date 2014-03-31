@@ -45,11 +45,25 @@ public class LoginAction extends Action {
 
 				String username = tForm.getUsername();
 				String password = tForm.getPassword();
-
 				String domainName = App.getConfiguration("domain_name");
+				
 
+				/*MODE AUTO
+				if ("auto".equals(App.getConfiguration("recovery_mode"))) {
+					session.setAttribute("recoveryMode", "false");
+					if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
+						session.setAttribute("recoveryMode", "true");
+					}
+				}
+				*/
+				if ("true".equals(App.getConfiguration("recovery_mode"))) {
+					session.setAttribute("recoveryMode", "true");
+				}
+				else{
+					session.setAttribute("recoveryMode", "false");
+				}
 				pass = loginAuth.getAuthenticationUser(username, password,
-						domainName);
+						domainName,request);
 				
 				// jangan ubah2 action login lagi selain pass = true
 				// pass = true;
@@ -65,16 +79,6 @@ public class LoginAction extends Action {
 					session.setAttribute("role", roleList);
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
-					if ("true".equals(App.getConfiguration("recovery_mode"))) {
-						session.setAttribute("recoveryMode", "true");
-					}/*
-					if ("false".equals(App.getConfiguration("recovery_mode"))) {
-						session.setAttribute("recoveryMode", "false");
-						if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
-							session.setAttribute("recoveryMode", "true");
-						}
-					}
-					*/
 					/* Star Achievement */
 					session.setAttribute("star", dMan.starAchievemet(username));
 					/* set image for header */

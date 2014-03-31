@@ -26,7 +26,9 @@
 
 	$(document).ready(function() {
 		var task_code = $("#task-code").val();
-		$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode=" + task_code);
+		setTimeout(function() {
+			$("#historyComment").load("/ProjectTaps/ajax.do?mode=comments&task=comments&taskCode="+ task_code);
+		}, 500);
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>

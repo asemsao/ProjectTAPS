@@ -119,11 +119,6 @@ function newAssignmentValidation() {
         onlyOne: false,
         position: 'right'
     });
-    $('#assignment-code').tooltipster({
-        trigger: 'hover',
-        onlyOne: false,
-        position: 'right'
-    });
     $('#employee-name').tooltipster({
         trigger: 'hover',
         onlyOne: false,

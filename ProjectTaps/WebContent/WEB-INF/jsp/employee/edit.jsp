@@ -109,7 +109,7 @@
 							<tr>
 
 								<%
-									if (session.getAttribute("recoveryMode") == null) {
+									if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("false")) {
 								%>
 										<th class="field-form">Employee Domain</th>
 										<td class="field-separator">:</td>
@@ -157,7 +157,7 @@
 								%>
 							</tr>
 							<%
-								if (session.getAttribute("recoveryMode") != null) {
+								if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("true")) {
 							%>
 							<tr>
 								<th class="field-form">Password</th>
@@ -286,7 +286,7 @@
 									</div></td>
 							</tr>
 							<tr>
-								<th class="field-form">Golongan</th>
+								<th class="field-form">Grade</th>
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="auto-complete">
@@ -294,7 +294,7 @@
 											<html:select property="newEmployee.golonganNumber"
 												style="width:70px;" name="employeeForm"
 												styleId="golonganNumber">
-												<html:option value="">Gol</html:option>
+												<html:option value="">Level</html:option>
 												<html:option value="2">2</html:option>
 												<html:option value="3">3</html:option>
 												<html:option value="4">4</html:option>
@@ -304,7 +304,7 @@
 											<html:select property="newEmployee.golonganLevel"
 												styleId="golonganLevel" style="width:70px;"
 												name="employeeForm">
-												<html:option value="">Level</html:option>
+												<html:option value="">Grade</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>
 												<html:option value="C">C</html:option>

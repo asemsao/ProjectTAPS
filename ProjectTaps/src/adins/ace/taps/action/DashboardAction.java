@@ -517,6 +517,9 @@ public class DashboardAction extends Action {
 			} else {
 				dForm.setMaxPage(((int) Math.ceil(dForm.getCountRecord() / 10)) + 1);
 			}
+			if (dForm.getCountRecord() == 0){
+				dForm.setMaxPage(1);
+			}
 			return mapping.findForward("ListAssignment");
 		}
 

@@ -8,6 +8,8 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.manager.LoginManager;
@@ -21,7 +23,7 @@ public class LoginModule {
 	}
 
 	public boolean getAuthenticationUser(String username, String password,
-			String domainName) {
+			String domainName,HttpServletRequest request) {
 		boolean logged = false;
 		this.username = username;
 		this.password = password;
@@ -33,7 +35,7 @@ public class LoginModule {
 		params.put("password", this.password);
 		
 		
-		if (isRecoveryMode()) {
+		if (isRecoveryMode(request)) {
 			logged = lMan.tryLogin(params);
 		} else {
 			GetUserDomainModule domainAuth = new GetUserDomainModule();
@@ -58,8 +60,9 @@ public class LoginModule {
 		return logged;
 	}
 
-	private boolean isRecoveryMode() {
-		if ("true".equals(App.getConfiguration("recovery_mode"))) {
+	private boolean isRecoveryMode(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		if ("true".equals(session.getAttribute("recoveryMode"))) {
 			return true;
 		} else {
 			return false;

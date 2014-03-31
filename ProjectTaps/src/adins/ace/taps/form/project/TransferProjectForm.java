@@ -21,9 +21,10 @@ public class TransferProjectForm extends ActionForm {
 	private String orgBefore;
 	private String orgCode;
 	private String orgName;
-	private String transferDate;
+	private String newEstDate;
 	private String assigneeUserDomain;
 	private String directReportUserDomain;
+	private byte[] photo;
 	private List<ProjectBean> listProject;
 	private List<OrganizationBean> listOrganization;
 	private List<StructureProjectBean> listMember;
@@ -36,7 +37,6 @@ public class TransferProjectForm extends ActionForm {
 	private Integer countRecordO;
 	private String message;
 	private String color;
-	
 	public String getTask() {
 		return task;
 	}
@@ -103,11 +103,11 @@ public class TransferProjectForm extends ActionForm {
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
 	}
-	public String getTransferDate() {
-		return transferDate;
+	public String getNewEstDate() {
+		return newEstDate;
 	}
-	public void setTransferDate(String transferDate) {
-		this.transferDate = transferDate;
+	public void setNewEstDate(String newEstDate) {
+		this.newEstDate = newEstDate;
 	}
 	public String getAssigneeUserDomain() {
 		return assigneeUserDomain;
@@ -120,6 +120,12 @@ public class TransferProjectForm extends ActionForm {
 	}
 	public void setDirectReportUserDomain(String directReportUserDomain) {
 		this.directReportUserDomain = directReportUserDomain;
+	}
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 	public List<ProjectBean> getListProject() {
 		return listProject;

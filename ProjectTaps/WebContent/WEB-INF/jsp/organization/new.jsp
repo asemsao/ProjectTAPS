@@ -25,21 +25,20 @@
 			.ready(
 					function() {
 						var level = $("#level").val();
-						$("#lookUpEmployee")
-								.load(
-										"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
-						$("#lookUpOrganization").load(
-								"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-										+ level);
 						
+						setTimeout(function() {
+							$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");	
+						}, 500);
+						setTimeout(function() {
+							$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + level);	
+						}, 500);
 
 						$("#level").change(function() {
 							$("#parent-organization-name").val("");
 							if ($("#level").val() == "0") {
 								$(".parent-organization").hide();
 							} else {
-								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-										+ $(this).val());
+								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
 								$(".parent-organization").show();
 							}
 						});
@@ -48,7 +47,6 @@
 						$("#organizationName").attr("placeholder", "Business Unit Name");
 						$("#employee-name").attr("placeholder", "Head of Business Unit");
 						$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
-						
 					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
