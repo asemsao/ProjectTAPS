@@ -25,8 +25,21 @@
 	$(document)
 			.ready(
 					function() {
+						if ($("#messageCRUD").val() != "") {
+							setTimeout(function() {
+								$.Notify({
+									style : {
+										background : $("#messagecolor").val(),
+										color : 'white'
+									},
+									shadow : true,
+									position : 'top-right',
+									content : $("#messageCRUD").val()
+								});
+							}, 1000);
+						}
 						var level = $("#level").val();
-						if (level == "0"){
+						if (level == "0") {
 							$(".parent-organization").hide();
 						}
 						setTimeout(
@@ -74,9 +87,16 @@
 	<html:form action="/organization" method="post"
 		styleClass="organizationForm">
 		<html:hidden property="task" name="organizationForm" />
+
 		<div class="container container-taps">
 			<div class="grid">
 				<div class="row row-taps shadow-taps">
+					<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" 
+						name="organizationForm" />">
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" 
+						name="organizationForm" />">
 					<table class="table">
 						<thead>
 							<tr>
