@@ -84,8 +84,7 @@
 								for (int i = 0; i < roleList.size(); i++) {
 									if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
-						<a href="#" onclick="javascript:flyToPage('approvalDashboard');" data-hint="Approval Assignment" 
-							data-hint-position="left" class="tile bg-cyan" id="rfa-link"> 
+						<a href="#" onclick="javascript:flyToPage('approvalDashboard');" class="tile bg-cyan" id="rfa-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
 							</span> 
@@ -94,8 +93,8 @@
 									<span id="rfa"><bean:write property="totalRFA" name="dashboardForm" /></span>
 								</span>
 							</span>
-						</a> <a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" data-hint="Approval Self Assignment" 
-							data-hint-position="left" class="tile bg-cyan" id="rfa-s-link"> 
+						</a>
+						<a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" class="tile bg-cyan" id="rfa-s-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
 							</span> 
@@ -109,8 +108,7 @@
 						 		}
 						 %>
 
-						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');" data-hint="Claim Assignment" 
-							data-hint-position="left" class="tile bg-cyan" id="claim-link"> 
+						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');" class="tile bg-cyan" id="claim-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CLAIM_ASSIGNMENT.png">
 							</span> 
@@ -119,8 +117,7 @@
 									<span id="claim"><bean:write property="totalClaim" name="dashboardForm" /></span>
 								</span>
 							</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');" data-hint="Correction Assignment" 
-							data-hint-position="left" class="tile bg-cyan" id="correction-link"> 
+						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');" class="tile bg-cyan" id="correction-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
 							</span> 
@@ -129,8 +126,7 @@
 									<span id="correction"> <bean:write property="totalCorrection" name="dashboardForm" /></span>
 								</span>
 							</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" data-hint="Correction Self Assignment" 
-							data-hint-position="left" class="tile bg-cyan" id="correction-s-link"> 
+						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" class="tile bg-cyan" id="correction-s-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png"> 
 							</span> 

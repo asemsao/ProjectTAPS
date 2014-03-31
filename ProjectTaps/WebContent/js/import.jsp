@@ -28,6 +28,7 @@
 <script src="js/wizard/manage-role-wizard.js"></script>
 <script src="js/zebra/zebra-datepicker.js"></script>
 <script src="js/zebra/define-datepicker.js"></script>
+<script src="js/other/jquery.simpletip-1.3.1.js"></script>
 
 <script src="js/validation/jquery.validate.js"></script>
 <script src="js/validation/validation-script.js"></script>
