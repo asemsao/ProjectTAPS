@@ -14,7 +14,7 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function flyToPage(task) {
-		document.specialAppraisalForm.task.value = task;		
+		document.specialAppraisalForm.task.value = task;
 		document.specialAppraisalForm.submit();
 	}
 </script>
@@ -23,10 +23,11 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/specialAppraisal" method="post">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/specialAppraisal" method="post">
+					<html:hidden property="task" name="specialAppraisalForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -55,35 +56,42 @@
 							<tr>
 								<th class="field-form">Appraisal Star</th>
 								<td class="field-separator">:</td>
-								<td>
-									<bean:define id="temp" name="specialAppraisalForm" property="appraisalBean.appraisalStar" type="Integer" />
+								<td><bean:define id="temp" name="specialAppraisalForm"
+										property="appraisalBean.appraisalStar" type="Integer" />
 									<%
-									Integer sc = temp;
-									if (sc > 0) {
-										for (int i = 0; i < sc; i++) {
-											%> <img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" /> <%
+			 							Integer sc = temp;
+								 		if (sc > 0) {
+								 			for (int i = 0; i < sc; i++) {
+									 %>
+									 	<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+									<%
+											}
+										} else if (sc < 0) {
+											for (int i = 0; i < Math.abs(sc); i++) {
+									%> 
+										<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+									<%
+											}
+										} else {
+									%> 
+										<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+									<%	
 										}
-									} else if (sc < 0) {
-										for (int i = 0; i < Math.abs(sc); i++) {
-											%> <img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" /> <%
-										}
-									} else {
-									%> <img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" /> <%
-									}
 									%>
 								</td>
 							</tr>
 							<tr>
-								<td colspan="3" class="text-right"><button onclick="flyToPage('Back')" class="button success">Cancel</button></td>
-
+								<td colspan="3" class="text-right">
+									<button	onclick="flyToPage('Back')" class="button success">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="specialAppraisalForm" />
-	</html:form>
+	</div>
+
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 

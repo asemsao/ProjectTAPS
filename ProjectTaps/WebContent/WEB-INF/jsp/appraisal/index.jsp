@@ -57,8 +57,9 @@
 					
 					<table class="table">
 							<tr>
-								<th colspan=2 class="text-center"><h3>Special
-										Appraisal</h3></th>
+								<th colspan=2 class="text-center">
+									<h3>Special	Appraisal</h3>
+								</th>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Date From</th>
@@ -148,8 +149,9 @@
 							<logic:empty name="specialAppraisalForm"
 								property="listSpecialAppraisal">
 								<tr>
-									<td class="text-center" colspan="7">Special Appraisal Not
-										Found</td>
+									<td class="text-center" colspan="7">
+										Special Appraisal Not Found
+									</td>
 								</tr>
 							</logic:empty>
 						</tbody>
