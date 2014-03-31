@@ -24,8 +24,7 @@ public class ChangePasswordAction extends Action{
 		/* code to change password */
 		ChangePasswordForm cpForm = (ChangePasswordForm) form;
 		HttpSession session = request.getSession(true);
-		if ("changePassword".equals(cpForm.getTask())
-				&& session.getAttribute("username") != null) {
+		if ("changePassword".equals(cpForm.getTask()) && session.getAttribute("username") != null) {
 			LoginManager lMan = new LoginManager();
 			EmployeeManager mMan = new EmployeeManager();
 			Map user = new HashMap();
@@ -55,8 +54,9 @@ public class ChangePasswordAction extends Action{
 			cpForm.setOldPassword("");
 			cpForm.setNewPassword("");
 			cpForm.setNewPasswordConfirmation("");
+			resetToken(request);
 			return mapping.findForward("Dashboard");
 		}
-		return mapping.findForward(null);
+		return mapping.findForward("Dashboard");
 	}
 }

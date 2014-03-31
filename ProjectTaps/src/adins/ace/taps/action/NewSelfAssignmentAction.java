@@ -55,6 +55,7 @@ public class NewSelfAssignmentAction extends Action {
 		}
 
 		if (aForm.getNewTask() == null) {
+			saveToken(request);
 			if (taskCode != null) {
 				aForm.setSelfAssignBean(aMan.searchRecordSelfAssignmentDraft(taskCode));
 				return mapping.findForward("EditSelfAssignment");
@@ -67,98 +68,111 @@ public class NewSelfAssignmentAction extends Action {
 				session.removeAttribute("taskCode");
 				return mapping.findForward("Cancel");
 			} else if ("delete".equals(aForm.getNewTask())) {
-				Map paramDelete = new HashMap();
-				paramDelete.put("taskCode", taskCode);
-				paramDelete.put("updatedBy", sessionUserDomain);
-				success = aMan.deleteAssignment(paramDelete);
-				if (success) {
-					session.setAttribute("message", "Success Delete Assignment");
-					session.setAttribute("color", "green");
-				} else {
-					session.setAttribute("message", "Failed Delete Assignment");
-					session.setAttribute("color", "red");
-				}
-				session.removeAttribute("taskCode");
-				return mapping.findForward("Cancel");
-			} else {
-				aForm.getSelfAssignBean().setAssignmentType(
-						aForm.getAssignmentType());
-				aForm.getSelfAssignBean().setActivityType(
-						aForm.getActivityType());
-
-				String paramCode = "";
-				if ("BU".equals(aForm.getAssignmentType())) {
-					aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
-					aForm.getSelfAssignBean().setProjectCode(null);
-					aForm.getSelfAssignBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
-					paramCode = (String)session.getAttribute("organizationCode") + dateFormat.format(date);
-					paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
-				} else if ("PROJECT".equals(aForm.getAssignmentType())) {
-					paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
-					paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
-				}
-
-				if (!("ADHOC".equals(aForm.getActivityType()))) {
-					aForm.getSelfAssignBean().setAdhocUserDomain(null);
-				}
-
-				aForm.getSelfAssignBean().setTaskCode(paramCode);
-				aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
-				aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
-				String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + aForm.getSelfAssignBean().getAssignmentTime();
-				aForm.getSelfAssignBean().setClaimDate(assignmentDate);
-				if ("save".equals(aForm.getNewTask())) {
-					aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
-					aForm.getSelfAssignBean().setFlag("ACTIVE");
-				} else if ("RFA".equals(aForm.getNewTask())) {
-					aForm.getSelfAssignBean().setCurrentStatus("RFA");
-					aForm.getSelfAssignBean().setFlag("INACTIVE");
-					/* checking rfa an assignment */
-					rfa = true;
-				}
-
-				if (taskCode != null) {
-					aForm.getSelfAssignBean().setTaskCode(taskCode);
-					aForm.getSelfAssignBean().setUpdatedBy(sessionUserDomain);
-					aMan.startTransaction();
-					insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
-					insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
-					if (insertToDetailClaim && insertToAssignment) {
-						aMan.commitTransaction();
-					} else {
-						aMan.rollback();
-					}
-				} else {
-					aMan.startTransaction();
-					insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
-					insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
-					if (insertToDetailClaim && insertToAssignment) {
-						aMan.commitTransaction();
-						session.setAttribute("message", "Create Self Assignment Success!");
+				if (isTokenValid(request)) {
+					Map paramDelete = new HashMap();
+					paramDelete.put("taskCode", taskCode);
+					paramDelete.put("updatedBy", sessionUserDomain);
+					success = aMan.deleteAssignment(paramDelete);
+					if (success) {
+						session.setAttribute("message", "Success Delete Assignment");
 						session.setAttribute("color", "green");
-						if (rfa) {
-							Map paramStatus = new HashMap();
-							paramStatus.put("updatedBy", aForm.getSelfAssignBean().getCreatedBy());
-							paramStatus.put("taskCode", aForm.getSelfAssignBean().getTaskCode());
-							aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
-							
-							Map params = new HashMap();
-							params.put("toMail", aForm.getClaimBean().getEmailReceiver());
-							params.put("assignmentType", "Self Assignment");
-							params.put("phase", "RFA");
-							params.put("taskCode",  aForm.getSelfAssignBean().getTaskCode());
-							params.put("fromEmployee", aForm.getClaimBean().getSenderName());
-							params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
-							SendMailTls.SendMail(params);
-						}
 					} else {
-						aMan.rollback();
-						session.setAttribute("message", "Create Self Assignment Failed!");
+						session.setAttribute("message", "Failed Delete Assignment");
 						session.setAttribute("color", "red");
 					}
+					session.removeAttribute("taskCode");
+					resetToken(request);
+					return mapping.findForward("Cancel");
+				} else {
+					resetToken(request);
+					return mapping.findForward("Cancel");
 				}
-				session.removeAttribute("taskCode");
-				return mapping.findForward("Cancel");
+				
+			} else {
+				if (isTokenValid(request)) {
+					aForm.getSelfAssignBean().setAssignmentType(
+							aForm.getAssignmentType());
+					aForm.getSelfAssignBean().setActivityType(
+							aForm.getActivityType());
+
+					String paramCode = "";
+					if ("BU".equals(aForm.getAssignmentType())) {
+						aForm.getSelfAssignBean().setReportTo(aForm.getSelfAssignBean().getHeadUserDomain());
+						aForm.getSelfAssignBean().setProjectCode(null);
+						aForm.getSelfAssignBean().setOrganizationCode((String) session.getAttribute("organizationCode"));
+						paramCode = (String)session.getAttribute("organizationCode") + dateFormat.format(date);
+						paramCode = paramCode + aMan.getMaxTaskCodeOrganization(paramCode);
+					} else if ("PROJECT".equals(aForm.getAssignmentType())) {
+						paramCode = aForm.getSelfAssignBean().getProjectCode() + dateFormat.format(date);
+						paramCode = paramCode + aMan.getMaxTaskCodeProject(paramCode);
+					}
+
+					if (!("ADHOC".equals(aForm.getActivityType()))) {
+						aForm.getSelfAssignBean().setAdhocUserDomain(null);
+					}
+
+					aForm.getSelfAssignBean().setTaskCode(paramCode);
+					aForm.getSelfAssignBean().setCreatedBy(sessionUserDomain);
+					aForm.getSelfAssignBean().setAssignTo(sessionUserDomain);
+					String assignmentDate = aForm.getSelfAssignBean().getAssignmentDate() + aForm.getSelfAssignBean().getAssignmentTime();
+					aForm.getSelfAssignBean().setClaimDate(assignmentDate);
+					if ("save".equals(aForm.getNewTask())) {
+						aForm.getSelfAssignBean().setCurrentStatus("DRAFT");
+						aForm.getSelfAssignBean().setFlag("ACTIVE");
+					} else if ("RFA".equals(aForm.getNewTask())) {
+						aForm.getSelfAssignBean().setCurrentStatus("RFA");
+						aForm.getSelfAssignBean().setFlag("INACTIVE");
+						/* checking rfa an assignment */
+						rfa = true;
+					}
+
+					if (taskCode != null) {
+						aForm.getSelfAssignBean().setTaskCode(taskCode);
+						aForm.getSelfAssignBean().setUpdatedBy(sessionUserDomain);
+						aMan.startTransaction();
+						insertToAssignment = aMan.editSelfAssignment(aForm.getSelfAssignBean());
+						insertToDetailClaim = aMan.editDetailClaim(aForm.getSelfAssignBean());
+						if (insertToDetailClaim && insertToAssignment) {
+							aMan.commitTransaction();
+						} else {
+							aMan.rollback();
+						}
+					} else {
+						aMan.startTransaction();
+						insertToAssignment = aMan.addSelfAssignment(aForm.getSelfAssignBean());
+						insertToDetailClaim = aMan.addDetailClaim(aForm.getSelfAssignBean());
+						if (insertToDetailClaim && insertToAssignment) {
+							aMan.commitTransaction();
+							session.setAttribute("message", "Create Self Assignment Success!");
+							session.setAttribute("color", "green");
+							if (rfa) {
+								Map paramStatus = new HashMap();
+								paramStatus.put("updatedBy", aForm.getSelfAssignBean().getCreatedBy());
+								paramStatus.put("taskCode", aForm.getSelfAssignBean().getTaskCode());
+								aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
+								
+								Map params = new HashMap();
+								params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+								params.put("assignmentType", "Self Assignment");
+								params.put("phase", "RFA");
+								params.put("taskCode",  aForm.getSelfAssignBean().getTaskCode());
+								params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+								params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+								SendMailTls.SendMail(params);
+							}
+						} else {
+							aMan.rollback();
+							session.setAttribute("message", "Create Self Assignment Failed!");
+							session.setAttribute("color", "red");
+						}
+					}
+					session.removeAttribute("taskCode");
+					resetToken(request);
+					return mapping.findForward("Cancel");
+				} else {
+					resetToken(request);
+					return mapping.findForward("Cancel");
+				}
 			}
 		}
 	}
