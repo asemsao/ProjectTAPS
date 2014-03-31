@@ -25,6 +25,7 @@ public class EmployeeForm extends ActionForm {
 	private NewEmployeeBean newEmployee = new NewEmployeeBean();
 	private String projectRole;
 	private String password;
+	private String photo;
 
 	public String getTask() {
 		return task;
@@ -144,6 +145,14 @@ public class EmployeeForm extends ActionForm {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }

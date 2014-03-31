@@ -42,7 +42,7 @@ public class EmployeeAction extends Action {
 		EmployeeManager mMan = new EmployeeManager();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
-
+		
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
 		}
@@ -77,7 +77,6 @@ public class EmployeeAction extends Action {
 				response.setContentType("image/*");
 				try {
 					output = new BufferedOutputStream(outStream);
-					System.out.println(bean.getProfilePicture());
 					buffer = bean.getProfilePicture();
 					if (buffer == null) {
 						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/") + "images/user.png");
@@ -110,6 +109,53 @@ public class EmployeeAction extends Action {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		if ("getPhoto".equals(mForm.getPhoto())) {
+			NewEmployeeBean bean = new NewEmployeeBean();
+			bean = mMan.getPhotoEmployees(mForm.getEmployeeDomain());
+			BufferedInputStream input = null;
+			BufferedOutputStream output = null;
+
+			OutputStream outStream = response.getOutputStream();
+			byte[] buffer = null;
+			try {
+				response.setContentType("image/*");
+				try {
+					output = new BufferedOutputStream(outStream);
+					buffer = bean.getProfilePicture();
+					if (buffer == null) {
+						buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/") + "images/user.png");
+					}
+					response.reset();
+					response.setContentLength(buffer.length);
+					outStream.write(buffer);
+					outStream.flush();
+				} catch (IOException e) {
+					buffer = ExtractPhoto.extractBytes(getServlet().getServletContext().getRealPath("/") + "images/user.png");
+					response.reset();
+					response.setContentLength(buffer.length);
+					outStream.write(buffer);
+					outStream.flush();
+				} finally {
+					if (output != null)
+						try {
+							output.flush();
+							output.close();
+						} catch (IOException logOrIgnore) {
+							System.err.println(logOrIgnore);
+						}
+					if (input != null)
+						try {
+							input.close();
+						} catch (IOException logOrIgnore) {
+							System.err.println(logOrIgnore);
+						}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
 		}
 
 		if ("edit".equals(mForm.getTask())) {
@@ -208,8 +254,9 @@ public class EmployeeAction extends Action {
 				resetToken(request);
 			}
 		}
+		
 		if ("saveEditEmployee".equals(mForm.getTask())) {
-//			if (isTokenValid(request)) {
+			if (isTokenValid(request)) {
 				boolean flag = false;
 				mForm.getNewEmployee().setTempProfPic(mForm.getProfilePicture());
 				if (!mForm.getProfilePicture().getFileName().equals("")) {
@@ -293,7 +340,7 @@ public class EmployeeAction extends Action {
 					}
 				}
 				if (flag) {
-//					if ("true".equals(App.getConfiguration("recovery_mode"))) {
+					//if ("true".equals(App.getConfiguration("recovery_mode"))) {
 					if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 						Map data = new HashMap();
 						if (mForm.getPassword() != null) {
@@ -305,8 +352,8 @@ public class EmployeeAction extends Action {
 						}
 					}
 				}
-//				resetToken(request);
-//			}
+				resetToken(request);
+			}
 		}
 
 		if ("first".equals(mForm.getTask())) {

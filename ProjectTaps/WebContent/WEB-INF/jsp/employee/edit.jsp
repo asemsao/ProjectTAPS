@@ -109,7 +109,7 @@
 											</div>
 										</td>
 										<td rowspan="6" class="text-center field-avatar">
-											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
+											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
 												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
@@ -128,7 +128,7 @@
 											</div>
 										</td>
 										<td rowspan="7" class="text-center field-avatar">
-											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
+											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
 												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
