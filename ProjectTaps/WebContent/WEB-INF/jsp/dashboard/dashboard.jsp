@@ -77,38 +77,38 @@
 				<input type="hidden" id="spv" value="<%=is_spv%>" />
 				<html:form action="/dashboard" method="post">
 					<html:hidden property="task" name="dashboardForm" />
-					
 					<h2 class="fg-steel">Things To Do</h2>
 					<div id="menu-dashboard" class="center-taps">
 						<%
-								for (int i = 0; i < roleList.size(); i++) {
-									if (roleList.get(i).getRoleId().equals("spv")) {
+							for (int i = 0; i < roleList.size(); i++) {
+								if (roleList.get(i).getRoleId().equals("spv")) {
 						%>
-						<a href="#" onclick="javascript:flyToPage('approvalDashboard');" class="tile bg-cyan" id="rfa-link"> 
-							<span class="tile-content icon"> 
-								<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
-							</span> 
-							<span class="brand"> 
-								<span id="rfa-badge" class="badge bg-gray">
-									<span id="rfa"><bean:write property="totalRFA" name="dashboardForm" /></span>
-								</span>
-							</span>
-						</a>
-						<a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" class="tile bg-cyan" id="rfa-s-link"> 
-							<span class="tile-content icon"> 
-								<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
-							</span> 
-							<span class="brand"> 
-								<span id="rfa-s-badge" class="badge bg-gray">
-									<span id="rfa-s"> <bean:write property="totalRFAself" name="dashboardForm" /></span>
-								</span>
-							</span> 
+									<a href="#" onclick="javascript:flyToPage('approvalDashboard');" class="tile bg-cyan" id="rfa-link"> 
+										<span class="tile-content icon"> 
+											<img alt="" src="images/APPROVAL_ASSIGNMENT.png">
+										</span> 
+										<span class="brand"> 
+											<span id="rfa-badge" class="badge bg-gray">
+												<span id="rfa"><bean:write property="totalRFA" name="dashboardForm" /></span>
+											</span>
+										</span>
+									</a>
+									<a href="#" onclick="javascript:flyToPage('approvalSelfDashboard');" class="tile bg-cyan" id="rfa-s-link"> 
+										<span class="tile-content icon"> 
+											<img alt="" src="images/APPROVAL_NEW_ASSIGNMENT.png">
+										</span> 
+										<span class="brand"> 
+											<span id="rfa-s-badge" class="badge bg-gray">
+												<span id="rfa-s"> <bean:write property="totalRFAself" name="dashboardForm" /></span>
+											</span>
+										</span> 
+									</a>
 						<%
-						 			}
-						 		}
+					 			}
+					 		}
 						 %>
 
-						</a> <a href="#" onclick="javascript:flyToPage('claimDashboard');" class="tile bg-cyan" id="claim-link"> 
+						<a href="#" onclick="javascript:flyToPage('claimDashboard');" class="tile bg-cyan" id="claim-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CLAIM_ASSIGNMENT.png">
 							</span> 
@@ -117,7 +117,8 @@
 									<span id="claim"><bean:write property="totalClaim" name="dashboardForm" /></span>
 								</span>
 							</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionDashboard');" class="tile bg-cyan" id="correction-link"> 
+						</a>
+						<a href="#" onclick="javascript:flyToPage('correctionDashboard');" class="tile bg-cyan" id="correction-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_ASSIGNMENT.png">
 							</span> 
@@ -126,7 +127,8 @@
 									<span id="correction"> <bean:write property="totalCorrection" name="dashboardForm" /></span>
 								</span>
 							</span>
-						</a> <a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" class="tile bg-cyan" id="correction-s-link"> 
+						</a>
+						<a href="#" onclick="javascript:flyToPage('correctionSelfDashboard');" class="tile bg-cyan" id="correction-s-link"> 
 							<span class="tile-content icon"> 
 								<img alt="" src="images/CORRECTION_NEW_ASSIGNMENT.png"> 
 							</span> 
@@ -139,7 +141,6 @@
 					</div>
 				</html:form>
 			</div>
-
 			<div class="row row-taps shadow-taps">
 				<div class="span-ranking-taps">
 					<h2 class="fg-steel">TOP 10 <i class="icon-arrow-right-4"></i>&nbsp;<%=session.getAttribute("organizationCode") %> (This Month)</h2>
