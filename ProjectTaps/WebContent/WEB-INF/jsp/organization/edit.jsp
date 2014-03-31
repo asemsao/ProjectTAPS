@@ -26,7 +26,9 @@
 			.ready(
 					function() {
 						var level = $("#level").val();
-
+						if (level == "0"){
+							$(".parent-organization").hide();
+						}
 						setTimeout(
 								function() {
 									$("#lookUpEmployee")
