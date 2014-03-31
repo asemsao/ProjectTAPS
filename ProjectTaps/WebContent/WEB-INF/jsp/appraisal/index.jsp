@@ -49,8 +49,11 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/specialAppraisal" method="post"
-					styleClass="specialAppraisalForm">
+				<html:form action="/specialAppraisal" method="post" styleClass="specialAppraisalForm">
+					<html:hidden property="task" name="specialAppraisalForm" />
+					<html:hidden property="param" name="specialAppraisalForm" />
+					<html:hidden property="maxpage" name="specialAppraisalForm" />
+					<html:hidden property="page" name="specialAppraisalForm" />
 					
 					<table class="table">
 							<tr>
@@ -185,10 +188,6 @@
 						value="<bean:write  property="color" name="specialAppraisalForm" />">
 					<input type="hidden" id="message"
 						value="<bean:write  property="message" name="specialAppraisalForm" />">
-					<html:hidden property="task" name="specialAppraisalForm" />
-					<html:hidden property="param" name="specialAppraisalForm" />
-					<html:hidden property="maxpage" name="specialAppraisalForm" />
-					<html:hidden property="page" name="specialAppraisalForm" />
 				</html:form>
 			</div>
 		</div>

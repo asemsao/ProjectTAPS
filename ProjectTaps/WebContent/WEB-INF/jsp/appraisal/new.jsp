@@ -22,29 +22,27 @@
 		}
 	}
 
-	$(document).ready(
-			function() {
-				
-				setTimeout(function() {
-				$("#lookUpEmployee").load(
-						"/ProjectTaps/ajax.do?mode=employees&task=employees");
-				}, 500);
-				$("#description").attr("maxlength", "1000");
-				$("#createdDate").attr("placeholder", "Date");
-				$("#employee-name").attr("placeholder", "Employee Name");
-				$("#description").attr("placeholder", "Description");
-			});
+	$(document).ready( function() {
+		setTimeout(	function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees");
+		}, 500);
+		$("#description").attr("maxlength", "1000");
+		$("#createdDate").attr("placeholder", "Date");
+		$("#employee-name").attr("placeholder", "Employee Name");
+		$("#description").attr("placeholder", "Description");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>New Special Appraisal</title>
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/specialAppraisal" method="post"
-		styleId="specialAppraisal">
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/specialAppraisal" method="post"
+					styleId="specialAppraisal">
+					<html:hidden property="task" name="specialAppraisalForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -57,7 +55,8 @@
 								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker-begin">
 										<html:text property="appraisalBean.createdDate"
-											styleId="createdDate" name="specialAppraisalForm" styleClass="datepicker-back"></html:text>
+											styleId="createdDate" name="specialAppraisalForm"
+											styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -124,11 +123,10 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<html:hidden property="task" name="specialAppraisalForm" />
-	</html:form>
+	</div>
 
 	<div id="lookUpEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
