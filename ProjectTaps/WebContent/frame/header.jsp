@@ -140,7 +140,8 @@
 </html:form>
 
 <%
-	if ("true".equals(App.getConfiguration("recovery_mode"))) {
+// 	if ("true".equals(App.getConfiguration("recovery_mode"))) {
+	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 %>
 <script type="text/javascript">
 	$(document).ready(function() {
