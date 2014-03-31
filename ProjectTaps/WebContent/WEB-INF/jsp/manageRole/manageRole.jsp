@@ -8,26 +8,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
-
-<title>Project</title>
+<title>Manage Role</title>
 </head>
-
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/manageRole" method="post" styleClass="manageRoleForm" styleId="mrForm">
-				<html:hidden property="task" styleId="task" name="manageRoleForm" />
-				<html:hidden property="message" styleId="message" name="manageRoleForm" />
-				<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
+					<html:hidden property="task" styleId="task" name="manageRoleForm" />
+					<html:hidden property="message" styleId="message" name="manageRoleForm" />
+					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
 					<fieldset>
 						<legend>CHOOSE ROLE</legend>
-
 						<table class="table striped bordered hovered">
 							<thead>
 								<tr>
@@ -42,10 +37,9 @@
 										<tr>
 											<td class="text-center">
 												<div class="input-control radio default-style">
-													<label> <input type="radio" name="role_choose" value="<bean:write name="manageRole"
-																	property="roleId" />@
-															<bean:write name="manageRole" property="roleName" />" />
-															<span class="check"></span>
+													<label>
+														<input type="radio" name="role_choose" value="<bean:write name="manageRole" property="roleId" />@<bean:write name="manageRole" property="roleName" />" />
+														<span class="check"></span>
 													</label>
 												</div>
 											</td>
@@ -62,24 +56,22 @@
 							</tbody>
 						</table>
 					</fieldset>
-
+					
 					<fieldset>
 						<legend>CHOOSE MENU</legend>
 						<div id="table-ajax-list-menu"></div>
-						
 					</fieldset>
 					
 					<fieldset>
 						<legend>SUMMARY</legend>
 						<div id="table-ajax-summary-menu-role"></div>
 					</fieldset>
+					
 					<input id="submit-btn-menu-role" type="button" class="submit-wizard" value="Finish" />
 				</html:form>
 			</div>
 		</div>
 	</div>
-
 	<jsp:include page="/frame/footer.jsp" />
 </body>
-
 </html>

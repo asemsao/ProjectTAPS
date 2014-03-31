@@ -46,7 +46,7 @@
 			var domain = $(this).val();
 			if(task == 'true'){
 				task = 'insert';
-			}else{
+			} else{
 				task = 'delete';
 			}
 			var data = "task=" + task + "&param=" + domain;
@@ -60,7 +60,6 @@
 				},
 				success : function(data) {
 					var json = $.parseJSON(data);
-
 					if (json.message != "") {
 						setTimeout(function() {
 							$.Notify({
@@ -80,14 +79,10 @@
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
 	});
 </script>
-
 <title>Role Member</title>
-
 </head>
-
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
@@ -102,10 +97,9 @@
 					
 					<table class="table">
 						<tr>
-							<th colspan=3 class="text-center"><h3>
-									Role Member
-									<bean:write name="manageRoleForm" property="roleName" />
-								</h3></th>
+							<th colspan=3 class="text-center">
+								<h3>Role Member <bean:write name="manageRoleForm" property="roleName" /></h3>
+							</th>
 						</tr>
 						<tr>
 							<th class="text-center">
@@ -124,16 +118,16 @@
 								</div>
 							</th>
 						</tr>
-						</table>
-						<table class="table striped bordered hovered">
-							<thead>
+					</table>
+					<table class="table striped bordered hovered">
+						<thead>
 							<tr>
 								<th class="text-center">Employee Domain</th>
 								<th class="text-center">Employee Name</th>
 								<th class="text-center">Status Admin</th>
 							</tr>
-							</thead>
-							<tbody>
+						</thead>
+						<tbody>
 							<logic:notEmpty name="manageRoleForm" property="listMember">
 								<logic:iterate id="manageRole" name="manageRoleForm" property="listMember">
 									<tr>
@@ -143,8 +137,7 @@
 											<logic:equal value="0" name="manageRole" property="isAdmin">
 												<div class="input-control switch" data-role="input-control">
 													<label class="inline-block" style="margin-right: 20px">
-														<input type="checkbox" class="grantAdmin" value="<bean:write name="manageRole"
-																property="employeeDomain" />" />
+														<input type="checkbox" class="grantAdmin" value="<bean:write name="manageRole" property="employeeDomain" />" />
 														<span class="check"></span>
 													</label>
 												</div>
@@ -152,48 +145,47 @@
 											<logic:notEqual value="0" name="manageRole" property="isAdmin">
 												<div class="input-control switch" data-role="input-control">
 													<label class="inline-block" style="margin-right: 20px">
-														<input type="checkbox" class="grantAdmin" value="<bean:write name="manageRole"
-																property="employeeDomain" />" checked /> 
+														<input type="checkbox" class="grantAdmin" value="<bean:write name="manageRole" property="employeeDomain" />" checked /> 
 														<span class="check"></span>
 													</label>
 												</div>
-											</logic:notEqual></td>
+											</logic:notEqual>
+										</td>
 									</tr>
 								</logic:iterate>
-								</logic:notEmpty>
+							</logic:notEmpty>
 							<logic:empty name="manageRoleForm" property="listMember">
 								<tr>
 									<td class="text-center" colspan="3">Employee Not Available</td>
 								</tr>
 							</logic:empty>
-							</tbody>
-						</table>
-						<table class="table">
-							<tr>
-								<td colspan=2 class="text-center">
-									<div class="pagination">
-										<ul>
-											<li class="first"><a id="first">
-												<i class="icon-first-2"></i></a></li>
-											<li class="prev"><a id="prev">
-												<i class="icon-previous"></i></a></li>
-											<li class="disabled"><a>Page <bean:write name="manageRoleForm" property="page" /> 
-												of <bean:write name="manageRoleForm" property="maxpage" /></a></li>
-											<li class="next"><a id="next"><i class="icon-next"></i></a></li>
-											<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
-											<li class="disabled"><a>Total Record 
-												<bean:write name="manageRoleForm" property="countRecord" /></a></li>
-										</ul>
-									</div>
-								</td>
-								<td class="text-center"><input type="button" class="home" value="Back" /></td>
-							</tr>
-						</table>
+						</tbody>
+					</table>
+					<table class="table">
+						<tr>
+							<td colspan=2 class="text-center">
+								<div class="pagination">
+									<ul>
+										<li class="first"><a id="first">
+											<i class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev">
+											<i class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write name="manageRoleForm" property="page" /> 
+											of <bean:write name="manageRoleForm" property="maxpage" /></a></li>
+										<li class="next"><a id="next"><i class="icon-next"></i></a></li>
+										<li class="last"><a><i id="last" class="icon-last-2"></i></a></li>
+										<li class="disabled"><a>Total Record 
+											<bean:write name="manageRoleForm" property="countRecord" /></a></li>
+									</ul>
+								</div>
+							</td>
+							<td class="text-center"><input type="button" class="home" value="Back" /></td>
+						</tr>
+					</table>
 				</html:form>
 			</div>
 		</div>
 	</div>
-	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 
