@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -76,7 +78,7 @@
 				<html:hidden property="employeeDomain" styleId="employeeDomain" name="employeeForm" />
 				<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
 				<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="employeeForm" />">
-				
+				<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
 				<table class="table">
 					<tr>
 						<th colspan=2 class="text-center"><h3>Employee List</h3></th>
