@@ -109,7 +109,8 @@
 						</div>
 					</li>
 					<%
-							if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+// 							if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+							if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 						%>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
@@ -141,7 +142,8 @@
 
 <%
 // 	if ("true".equals(App.getConfiguration("recovery_mode"))) {
-	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+// 	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+	if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 %>
 <script type="text/javascript">
 	$(document).ready(function() {

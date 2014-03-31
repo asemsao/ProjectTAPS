@@ -191,9 +191,6 @@
 									alt="" src="<%=request.getContextPath()%>/images/ADD_STAR.png"></a></td>
 						</tr>
 					</table>
-					
-
-				
 			</div>
 		</div>
 	</div>
