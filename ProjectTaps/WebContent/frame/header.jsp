@@ -109,7 +109,7 @@
 						</div>
 					</li>
 					<%
-							if ("true".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+							if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 						%>
 					<li><a class="dropdown-toggle element image-button image-left"
 						href="#"><img src="<%=session.getAttribute("pathPhoto")%>" />
@@ -124,10 +124,10 @@
 						href="#" style="cursor: default;"><img src="<%=session.getAttribute("pathPhoto")%>" />
 							<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
 						
-						<ul class="dropdown-menu" data-role="dropdown">
-							<li><a title="Change Password" id="change-password"><span
-									class="icon-key-2"></span> Change Password</a></li>
-						</ul> 
+<!-- 						<ul class="dropdown-menu" data-role="dropdown"> -->
+<!-- 							<li><a title="Change Password" id="change-password"><span -->
+<!-- 									class="icon-key-2"></span> Change Password</a></li> -->
+<!-- 						</ul>  -->
 					</li>
 					<% } %>
 					<li><a title="Logout" href="javascript:menu('logout');"
