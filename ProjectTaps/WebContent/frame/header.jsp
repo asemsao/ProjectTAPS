@@ -100,22 +100,27 @@
 						</div>
 					</li>
 					<%
-							if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
-						%>
-					<li><a class="dropdown-toggle element image-button image-left" href="#">
-						<img src="<%=session.getAttribute("pathPhoto")%>" />
-						<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
-						
-						<ul class="dropdown-menu" data-role="dropdown">
-							<li><a title="Change Password" id="change-password">
-								<span class="icon-key-2"></span> Change Password</a></li>
-						</ul> 
-					</li> <% } else { %>
-					<li><a class="element image-button image-left" href="#" style="cursor: default;">
-						<img src="<%=session.getAttribute("pathPhoto")%>" />
-						<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
-					</li>
-					<% } %>
+						if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+					%>
+							<li><a class="dropdown-toggle element image-button image-left" href="#">
+								<img src="<%=session.getAttribute("pathPhoto")%>" />
+								<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
+								
+								<ul class="dropdown-menu" data-role="dropdown">
+									<li><a title="Change Password" id="change-password">
+										<span class="icon-key-2"></span> Change Password</a></li>
+								</ul> 
+							</li> 
+					<% 
+						} else { 
+					%>
+							<li><a class="element image-button image-left" href="#" style="cursor: default;">
+								<img src="<%=session.getAttribute("pathPhoto")%>" />
+								<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
+							</li>
+					<% 
+						} 
+					%>
 					<li><a title="Logout" href="javascript:menu('logout');" class="element"><span class="icon-exit"></span> Sign out</a></li>
 				</ul>
 			</div>
