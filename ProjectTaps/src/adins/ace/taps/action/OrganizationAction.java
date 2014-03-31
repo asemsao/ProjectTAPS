@@ -109,7 +109,6 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-
 			if (isTokenValid(request)) {
 				if (orgForm.getOrgBean().getOrganizationCode()
 						.equals(orgForm.getOrgBean().getParentCode())) {
@@ -246,52 +245,55 @@ public class OrganizationAction extends Action {
 				resetToken(request);
 			}
 		}
-	
+
 		if ("delete".equals(orgForm.getTask())) {
-			orgForm.setPage(1);
-			params.put("organization_code", orgForm.getOrganizationCode()
-					.trim());
-			orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
-					.trim()));
-			orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
-			if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
-				boolean deleteOrg = false;
-				boolean updateAssignment = false;
-				boolean deleteRoleSPV = false;
-				boolean deleteRole = false;
+			if (isTokenValid(request)) {
+				orgForm.setPage(1);
+				params.put("organization_code", orgForm.getOrganizationCode()
+						.trim());
+				orgForm.setOrgBean(orgMan.getOrgCode(orgForm.getOrganizationCode()
+						.trim()));
+				orgForm.setHeadDomain(orgForm.getOrgBean().getHeadDomain());
+				if (orgMan.countDirectReportProject(orgForm.getHeadDomain()) == 0) {
+					boolean deleteOrg = false;
+					boolean updateAssignment = false;
+					boolean deleteRoleSPV = false;
+					boolean deleteRole = false;
 
-				updateAssignment = orgMan
-						.updateAssignment(orgForm.getOrgBean());
-				deleteRoleSPV = orgMan.deleteRoleSPV(orgForm.getHeadDomain());
-				deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
-				deleteOrg = orgMan.deleteOrganization(orgForm
-						.getOrganizationCode().trim());
-				if (updateAssignment && deleteRoleSPV && deleteRole
-						&& deleteOrg) {
-					orgForm.setMessage("Delete Business Unit Successfull!");
-					orgForm.setColor("green");
+					updateAssignment = orgMan
+							.updateAssignment(orgForm.getOrgBean());
+					deleteRoleSPV = orgMan.deleteRoleSPV(orgForm.getHeadDomain());
+					deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
+					deleteOrg = orgMan.deleteOrganization(orgForm
+							.getOrganizationCode().trim());
+					if (updateAssignment && deleteRoleSPV && deleteRole
+							&& deleteOrg) {
+						orgForm.setMessage("Delete Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgForm.setMessage("Delete Business Unit Failed!");
+						orgForm.setColor("red");
+					}
+
 				} else {
-					orgForm.setMessage("Delete Business Unit Failed!");
-					orgForm.setColor("red");
-				}
+					boolean deleteOrg = false;
+					boolean updateAssignment = false;
+					boolean deleteRole = false;
 
-			} else {
-				boolean deleteOrg = false;
-				boolean updateAssignment = false;
-				boolean deleteRole = false;
-
-				updateAssignment = orgMan
-						.updateAssignment(orgForm.getOrgBean());
-				deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
-				deleteOrg = orgMan.deleteOrganization(orgForm
-						.getOrganizationCode().trim());
-				if (updateAssignment && deleteRole && deleteOrg) {
-					orgForm.setMessage("Delete Business Unit Successfull!");
-					orgForm.setColor("green");
-				} else {
-					orgForm.setMessage("Delete Business Unit Failed!");
-					orgForm.setColor("red");
+					updateAssignment = orgMan
+							.updateAssignment(orgForm.getOrgBean());
+					deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
+					deleteOrg = orgMan.deleteOrganization(orgForm
+							.getOrganizationCode().trim());
+					if (updateAssignment && deleteRole && deleteOrg) {
+						orgForm.setMessage("Delete Business Unit Successfull!");
+						orgForm.setColor("green");
+					} else {
+						orgForm.setMessage("Delete Business Unit Failed!");
+						orgForm.setColor("red");
+					}
 				}
+				resetToken(request);
 			}
 		}
 		if ("first".equals(orgForm.getTask())) {
@@ -379,7 +381,7 @@ public class OrganizationAction extends Action {
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
 		}
-
+		saveToken(request);
 		return mapping.findForward("ListOrganization");
 	}
 }
