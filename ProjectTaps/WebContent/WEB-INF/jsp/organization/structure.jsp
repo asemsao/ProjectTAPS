@@ -52,17 +52,18 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post" styleId="CRUDForm">
-		<html:hidden property="task" name="organizationForm" styleId="task" />
-		<html:hidden property="mode" name="organizationForm" styleId="mode" />
-		<html:hidden property="organizationCode" name="organizationForm" />
-		<html:hidden property="orgBean.headDomain" name="organizationForm" />
-		<html:hidden property="page" name="organizationForm" />
-		<html:hidden property="maxpage" name="organizationForm" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-
+	
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/organization" method="post" styleId="CRUDForm">
+					<html:hidden property="task" name="organizationForm" styleId="task" />
+					<html:hidden property="mode" name="organizationForm" styleId="mode" />
+					<html:hidden property="organizationCode" name="organizationForm" />
+					<html:hidden property="orgBean.headDomain" name="organizationForm" />
+					<html:hidden property="page" name="organizationForm" />
+					<html:hidden property="maxpage" name="organizationForm" />
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -73,14 +74,12 @@
 							<tr>
 								<th class="field-form">Business Unit</th>
 								<td class="field-separator">:</td>
-								<td><bean:write name="organizationForm"
-										property="orgBean.organizationName" /></td>
+								<td><bean:write name="organizationForm" property="orgBean.organizationName" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Business Unit Head</th>
 								<td class="field-separator">:</td>
-								<td><bean:write name="organizationForm"
-										property="orgBean.headName" /></td>
+								<td><bean:write name="organizationForm" property="orgBean.headName" /></td>
 							</tr>
 							<tr>
 								<td class="text-center">
@@ -96,8 +95,7 @@
 								<td class="field-separator">:</td>
 								<td class="text-center">
 									<div class="input-control text">
-										<html:text property="searchKeyword" name="organizationForm"
-											styleId="searchKeyword"></html:text>
+										<html:text property="searchKeyword" name="organizationForm" styleId="searchKeyword"></html:text>
 										<button id="search" class="btn-search"></button>
 									</div>
 								</td>
@@ -116,14 +114,11 @@
 						<tbody>
 							<logic:notEmpty name="organizationForm"
 								property="listMemberOrganizations">
-								<logic:iterate id="organization" name="organizationForm"
-									property="listMemberOrganizations">
+								<logic:iterate id="organization" name="organizationForm" property="listMemberOrganizations">
 									<tr>
-										<td class="text-center"><bean:write name="organization"
-												property="memberDomain" /></td>
+										<td class="text-center"><bean:write name="organization" property="memberDomain" /></td>
 										<td><bean:write name="organization" property="memberName" /></td>
-										<td class="text-center"><bean:write name="organization"
-												property="memberCode" /></td>
+										<td class="text-center"><bean:write name="organization" property="memberCode" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -138,30 +133,28 @@
 							<td class="text-center">
 								<div class="pagination">
 									<ul>
-										<li class="first"><a id="first"><i
-												class="icon-first-2"></i></a></li>
-										<li class="prev"><a id="prev"><i
-												class="icon-previous"></i></a></li>
-										<li class="disabled"><a>Page <bean:write
-													name="organizationForm" property="page" /> of <bean:write
-													name="organizationForm" property="maxpage" /></a></li>
+										<li class="first"><a id="first">
+											<i class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev">
+											<i class="icon-previous"></i></a></li>
+										<li class="disabled">
+											<a>Page <bean:write name="organizationForm" property="page" /> 
+												of <bean:write name="organizationForm" property="maxpage" /></a></li>
 										<li class="next"><a id="next"><i class="icon-next"></i></a></li>
 										<li class="last"><a id="last"><i class="icon-last-2"></i></a></li>
-										<li class="disabled"><a>Total Record <bean:write
-													name="organizationForm" property="countRecord" /></a></li>
+										<li class="disabled"><a>Total Record 
+											<bean:write name="organizationForm" property="countRecord" /></a></li>
 									</ul>
 								</div>
 							</td>
-							<td class="text-right field-form"><html:button
-									property="cancel" styleId="back" styleClass="button info">Back</html:button></td>
+							<td class="text-right field-form"><html:button property="cancel" styleId="back" styleClass="button info">Back</html:button></td>
 						</tr>
 					</table>
-
-				</div>
+				</html:form>
 			</div>
 		</div>
-
-	</html:form>
+	</div>
+	
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
