@@ -22,33 +22,26 @@
 			addProjectValidation();
 		}
 	}
-
-	$(document)
-			.ready(
-					function() {
-						$("#projectCode").attr("placeholder", "Project Code");
-						$("#projectName").attr("placeholder", "Project Name");
-						$("#client").attr("placeholder", "Client");
-						$("#startDate").attr("placeholder", "Start Date");
-						$("#endDate").attr("placeholder", "Finish Date");
-						$("#parent-organization-name").attr("placeholder",
-								"Business Unit");
-						$("#lookUpOrganization")
-								.load(
-										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-					});
+	$(document).ready( function() {
+		$("#projectCode").attr("placeholder", "Project Code");
+		$("#projectName").attr("placeholder", "Project Name");
+		$("#client").attr("placeholder", "Client");
+		$("#startDate").attr("placeholder", "Start Date");
+		$("#endDate").attr("placeholder", "Finish Date");
+		$("#parent-organization-name").attr("placeholder", "Business Unit");
+		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add Project</title>
 </head>
-
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/project" method="post" styleClass="projectForm">
-		<html:hidden property="task" styleId="task" name="projectForm" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/project" method="post" styleClass="projectForm">
+					<html:hidden property="task" styleId="task" name="projectForm" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -62,25 +55,26 @@
 								<th class="field-form">Project Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text ">
-										<html:text property="addProject.projectCode"
-											name="projectForm" styleId="projectCode" maxlength="4"></html:text>
+										<html:text property="addProject.projectCode" name="projectForm" styleId="projectCode" maxlength="4"></html:text>
 									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Project Name</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text ">
-										<html:text property="addProject.projectName"
-											name="projectForm" styleId="projectName"></html:text>
-									</div></td>
+								<td>
+									<div class="input-control text ">
+										<html:text property="addProject.projectName" name="projectForm" styleId="projectName"></html:text>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Client</th>
 								<td class="field-separator">:</td>
-								<td><div class="input-control text">
-										<html:text property="addProject.client" name="projectForm"
-											styleId="client"></html:text>
-									</div></td>
+								<td>
+									<div class="input-control text">
+										<html:text property="addProject.client" name="projectForm" styleId="client"></html:text>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Phase</th>
@@ -102,11 +96,8 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="addProject.organizationCode"
-											name="projectForm" styleId="organization-code" />
-										<html:text property="addProject.organizationName"
-											readonly="true" name="projectForm"
-											styleId="parent-organization-name" />
+										<html:hidden property="addProject.organizationCode" name="projectForm" styleId="organization-code" />
+										<html:text property="addProject.organizationName" readonly="true" name="projectForm" styleId="parent-organization-name" />
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -116,9 +107,7 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text" id="datepicker">
-										<html:text property="addProject.startDate" name="projectForm"
-											styleId="startDate" readonly="true"
-											styleClass="datepicker-start"></html:text>
+										<html:text property="addProject.startDate" name="projectForm" styleId="startDate" readonly="true" styleClass="datepicker-start"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>
@@ -128,27 +117,23 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text " id="datepicker">
-										<html:text property="addProject.endDate" name="projectForm"
-											styleId="endDate" readonly="true" styleClass="datepicker-end"></html:text>
+										<html:text property="addProject.endDate" name="projectForm" styleId="endDate" readonly="true" styleClass="datepicker-end"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-									<button id="save-btn" onclick="button('saveProject')"
-										class="success">Save</button>
-									<button id="cancel-btn" onclick="button('back')"
-										class="button info">Cancel</button>
+									<button id="save-btn" onclick="button('saveProject')" class="success">Save</button>
+									<button id="cancel-btn" onclick="button('back')" class="button info">Cancel</button>
 								</td>
 							</tr>
-
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-	</html:form>
+	</div>
 	<div id="lookUpOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
