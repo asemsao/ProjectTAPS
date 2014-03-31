@@ -36,14 +36,23 @@ public class SpecialAppraisalAction extends Action {
 		}
 
 		if ("Appraisal".equals(mForm.getTask())) {
+			
+			if(mForm.getAppraisalBean().getSessionUserDomain().equals(mForm.getAppraisalBean().getUserDomain())){
+				mForm.setMessage("Cannot give special appraisal to yourself !");
+				mForm.setColor("red");
+				return mapping.findForward("New");
+			}else{
+			
 			if(mMan.Insert(mForm.getAppraisalBean())){
 				mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
 				mForm.setColor("green");
 			}else{
 				mForm.setMessage("Adding Special Appraisal to Employee Failed!");
 				mForm.setColor("red");
+				}
 			}
 		}
+		
 		if ("View".equals(mForm.getTask())) {
 			mForm.setAppraisalBean(mMan.getUserDomain(mForm.getParam()));
 			return mapping.findForward("View");

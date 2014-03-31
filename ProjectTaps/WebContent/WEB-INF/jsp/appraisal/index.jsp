@@ -24,7 +24,7 @@
 		$("#startDate").attr("placeholder", "Start Date");
 		$("#endDate").attr("placeholder", "End Date");
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-		if ($("#message").val() != "") {
+		if ($("#messageCRUD").val() != "") {
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -33,11 +33,10 @@
 					},
 					shadow : true,
 					position : 'top-right',
-					content : $("#message").val()
+					content : $("#messageCRUD").val()
 				});
 			}, 1000);
 		}
-		
 	});
 </script>
 
@@ -46,10 +45,17 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
+			<html:form action="/specialAppraisal" method="post" styleClass="specialAppraisalForm">
 	<div class="container container-taps">
 		<div class="grid">
+		
 			<div class="row row-taps shadow-taps">
-				<html:form action="/specialAppraisal" method="post" styleClass="specialAppraisalForm">
+							<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" 
+						name="specialAppraisalForm" />">
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" 
+						name="specialAppraisalForm" />">
 					<html:hidden property="task" name="specialAppraisalForm" />
 					<html:hidden property="param" name="specialAppraisalForm" />
 					<html:hidden property="maxpage" name="specialAppraisalForm" />
@@ -186,14 +192,12 @@
 						</tr>
 					</table>
 					
-					<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" name="specialAppraisalForm" />">
-					<input type="hidden" id="message"
-						value="<bean:write  property="message" name="specialAppraisalForm" />">
-				</html:form>
+
+				
 			</div>
 		</div>
 	</div>
+	</html:form>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
 </html>
