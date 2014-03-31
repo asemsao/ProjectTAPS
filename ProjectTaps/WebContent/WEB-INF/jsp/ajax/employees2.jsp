@@ -57,8 +57,8 @@
 					<logic:notEmpty name="ajaxForm" property="listEmployees2">
 						<logic:iterate id="employee" name="ajaxForm" property="listEmployees2">
 							<tr>
-								<td class="text-center"><input type='radio' name='employee_choose2' value='<bean:write name="employee" property="employeeDomain" />@
-										<bean:write name="employee" property="employeeName" />' />
+								<td class="text-center">
+									<input type='radio' name='employee_choose2' value='<bean:write name="employee" property="employeeDomain" />@<bean:write name="employee" property="employeeName" />' />
 								</td>
 								<td class="text-center"><bean:write name="employee" property="employeeDomain" /></td>
 								<td class="text-center"><bean:write name="employee" property="employeeCode" /></td>
