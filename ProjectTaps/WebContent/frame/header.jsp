@@ -133,62 +133,62 @@
 // 	if ("true".equals(App.getConfiguration("recovery_mode"))) {
 	if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
 %>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#change-password").on('click', function() {
-			$.Dialog({
-				shadow : true,
-				overlay : true,
-				draggable : true,
-				icon : '<span class="icon-key-2"></span>',
-				title : 'Change Password',
-				width : 500,
-				padding : 10,
-				content : 'This Window is draggable by caption.',
-				onShow : function() {
-					var content = $("#changePassword").html();
-					$.Dialog.title("Change Password");
-					$.Dialog.content(content);
-				}
-
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("#change-password").on('click', function() {
+					$.Dialog({
+						shadow : true,
+						overlay : true,
+						draggable : true,
+						icon : '<span class="icon-key-2"></span>',
+						title : 'Change Password',
+						width : 500,
+						padding : 10,
+						content : 'This Window is draggable by caption.',
+						onShow : function() {
+							var content = $("#changePassword").html();
+							$.Dialog.title("Change Password");
+							$.Dialog.content(content);
+						}
+		
+					});
+				});
 			});
-		});
-	});
-</script>
-<div id="changePassword" class="hide">
-	<html:form action="/employee" method="post">
-		<html:hidden property="task" name="employeeForm" styleId="task-change-password" value="changePassword" />
-		<table class="table">
-			<tr>
-				<th colspan=3 class="text-center"><h3><%=session.getAttribute("fullname")%></h3></th>
-			</tr>
-			<tr>
-				<td width="25%">Old Password</td>
-				<td>:</td>
-				<td><div class="input-control text">
-						<html:password property="oldPassword" name="employeeForm" styleId="old-password" />
-					</div></td>
-			</tr>
-			<tr>
-				<td width="25%">New Password</td>
-				<td>:</td>
-				<td><div class="input-control text">
-						<html:password property="newPassword" name="employeeForm" styleId="new-password" />
-					</div></td>
-			</tr>
-			<tr>
-				<td width="25%">Confirmation</td>
-				<td>:</td>
-				<td><div class="input-control text">
-						<html:password property="newPasswordConfirmation" name="employeeForm" styleId="new-password-confirmation" />
-					</div></td>
-			</tr>
-			<tr>
-				<td colspan=3 class="text-center"><button id="btn-change-password" class="button success">Change Password</button></td>
-			</tr>
-		</table>
-	</html:form>
-</div>
+		</script>
+		<div id="changePassword" class="hide">
+			<html:form action="/dashboard" method="post">
+				<html:hidden property="task" name="dashboardForm" styleId="task-change-password" value="changePassword" />
+				<table class="table">
+					<tr>
+						<th colspan=3 class="text-center"><h3><%=session.getAttribute("fullname")%></h3></th>
+					</tr>
+					<tr>
+						<td width="25%">Old Password</td>
+						<td>:</td>
+						<td><div class="input-control text">
+								<html:password property="oldPassword" name="dashboardForm" styleId="old-password" />
+							</div></td>
+					</tr>
+					<tr>
+						<td width="25%">New Password</td>
+						<td>:</td>
+						<td><div class="input-control text">
+								<html:password property="newPassword" name="dashboardForm" styleId="new-password" />
+							</div></td>
+					</tr>
+					<tr>
+						<td width="25%">Confirmation</td>
+						<td>:</td>
+						<td><div class="input-control text">
+								<html:password property="newPasswordConfirmation" name="dashboardForm" styleId="new-password-confirmation" />
+							</div></td>
+					</tr>
+					<tr>
+						<td colspan=3 class="text-center"><button id="btn-change-password" class="button success">Change Password</button></td>
+					</tr>
+				</table>
+			</html:form>
+		</div>
 <%
 	}
 %>

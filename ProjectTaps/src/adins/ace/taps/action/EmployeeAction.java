@@ -42,42 +42,6 @@ public class EmployeeAction extends Action {
 		EmployeeManager mMan = new EmployeeManager();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
-		
-		if ("changePassword".equals(mForm.getTask())
-				&& session.getAttribute("username") != null) {
-			LoginManager lMan = new LoginManager();
-			Map user = new HashMap();
-			user.put("username", session.getAttribute("username"));
-			user.put("password", mForm.getOldPassword());
-			session.setAttribute("messagecolor", "red");
-			if (lMan.tryLogin(user)) {
-				if (mForm.getNewPassword().equals(
-						mForm.getNewPasswordConfirmation())) {
-					if (mForm.getNewPassword().length() > 5) {
-						user.put("password", mForm.getNewPassword());
-						if (mMan.updateLoginEmployee(user)) {
-							session.setAttribute("messagecp",
-									"Change Password SUCCESSFULL!");
-							session.setAttribute("messagecolor", "green");
-						} else {
-							session.setAttribute("messagecp",
-									"Change Password FAILED!");
-						}
-					} else {
-						session.setAttribute("messagecp",
-								"Password must be contain min. 6 characters");
-					}
-
-				} else {
-					session.setAttribute("messagecp",
-							"Change Password FAILED! Your Password is Doesn't Match");
-				}
-			} else {
-				session.setAttribute("messagecp",
-						"Change Password FAILED! Your Old Password is Incorrect!");
-			}
-			return mapping.findForward("Dashboard");
-		}
 
 		if (mForm.getPage() == null) {
 			mForm.setPage(1);
