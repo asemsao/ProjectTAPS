@@ -50,18 +50,12 @@
 </head>
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-					<html:form action="/specialAppraisal" method="post"
-					styleId="specialAppraisal">
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-			<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" 
-						name="specialAppraisalForm" />">
-					<input type="hidden" id="messageCRUD"
-						value="<bean:write  property="message" 
-						name="specialAppraisalForm" />">
-
+				<html:form action="/specialAppraisal" method="post" styleId="specialAppraisal">
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="specialAppraisalForm" />">
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="specialAppraisalForm" />">
 					<html:hidden property="task" name="specialAppraisalForm" />
 					<table class="table">
 						<thead>
@@ -74,9 +68,7 @@
 								<th class="field-form">Appraisal Date</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text " id="datepicker-begin">
-										<html:text property="appraisalBean.createdDate"
-											styleId="createdDate" name="specialAppraisalForm"
-											styleClass="datepicker-back"></html:text>
+										<html:text property="appraisalBean.createdDate" styleId="createdDate" name="specialAppraisalForm" styleClass="datepicker-back"></html:text>
 										<button type="button" class="btn-date"></button>
 									</div></td>
 							</tr>
@@ -84,20 +76,15 @@
 								<th class="field-form">Appraisal To</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
-										<html:hidden property="appraisalBean.userDomain"
-											name="specialAppraisalForm" styleId="employee-domain" />
-										<html:text property="appraisalBean.employeeName"
-											readonly="true" name="specialAppraisalForm"
-											styleId="employee-name"></html:text>
+										<html:hidden property="appraisalBean.userDomain" name="specialAppraisalForm" styleId="employee-domain" /> <html:text property="appraisalBean.employeeName"
+											readonly="true" name="specialAppraisalForm" styleId="employee-name"></html:text>
 										<button class="btn-search" type="button" id="employee"></button>
 									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Description</th>
 								<td class="field-separator">:</td>
-								<td><html:textarea styleClass="input-control textarea"
-										styleId="description" property="appraisalBean.description"
-										name="specialAppraisalForm" /></td>
+								<td><html:textarea styleClass="input-control textarea" styleId="description" property="appraisalBean.description" name="specialAppraisalForm" /></td>
 							</tr>
 							<tr>
 								<th class="field-form">Appraisal Star edit</th>
@@ -130,8 +117,7 @@
 											</select>
 										</div>
 										<p class="star"></p>
-										<html:hidden property="appraisalBean.appraisalStar"
-											styleId="star" />
+										<html:hidden property="appraisalBean.appraisalStar" styleId="star" />
 										<button type="button" id="edit-star-btn" class="default">Edit</button>
 									</div>
 								</td>
@@ -140,13 +126,14 @@
 								<td colspan="3" class="text-right">
 									<button onclick="flyToPage('Appraisal')" class="button success">Appraisal</button>
 									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-	</html:form>
+	</div>
 	<div id="lookUpEmployee" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>

@@ -56,53 +56,44 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/project" method="post" styleClass="projectForm"
-					styleId="proForm">
+				<html:form action="/project" method="post" styleClass="projectForm" styleId="proForm">
 					<html:hidden property="task" name="projectForm" styleId="task" />
 					<html:hidden property="page" name="projectForm" />
 					<html:hidden property="maxpage" name="projectForm" />
-					<html:hidden property="paramProjectCode" name="projectForm"
-						styleId="projectCode" />
-					<input type="hidden" id="messageCRUD"
-						value="<bean:write  property="message" name="projectForm" />">
-					<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" name="projectForm" />">
+					<html:hidden property="paramProjectCode" name="projectForm" styleId="projectCode" />
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="projectForm" />">
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="projectForm" />">
 
 					<table class="table">
-							<tr>
-								<td colspan=2 class="text-center">
-									<h3>Project</h3>
-								</td>
-							</tr>
-							<tr>
-								<td class="text-center field-form">
-									<div class="input-control select">
-										<html:select property="searchCategory" name="projectForm">
-											<html:option value="all">All</html:option>
-											<html:option value="projectCode">Project Code</html:option>
-											<html:option value="projectName">Project Name</html:option>
-											<html:option value="client">Client</html:option>
-											<html:option value="phase">Phase</html:option>
-											<html:option value="organization">Business Unit</html:option>
-										</html:select>
-									</div>
+						<tr>
+							<td colspan=2 class="text-center">
+								<h3>Project</h3>
+							</td>
+						</tr>
+						<tr>
+							<td class="text-center field-form">
+								<div class="input-control select">
+									<html:select property="searchCategory" name="projectForm">
+										<html:option value="all">All</html:option>
+										<html:option value="projectCode">Project Code</html:option>
+										<html:option value="projectName">Project Name</html:option>
+										<html:option value="client">Client</html:option>
+										<html:option value="phase">Phase</html:option>
+										<html:option value="organization">Business Unit</html:option>
+									</html:select>
+								</div>
 
-								</td>
-								<td class="text-center">
-									<div class="input-control text">
-										<html:text property="searchKeyword" name="projectForm"
-											styleId="searchKeyword"
-											onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
-										<button class="btn-search" type="button"
-											onclick="javascript:button('search');"></button>
-									</div>
-
-								</td>
-							</tr>
+							</td>
+							<td class="text-center">
+								<div class="input-control text">
+									<html:text property="searchKeyword" name="projectForm" styleId="searchKeyword" onkeydown="if (event.keyCode == 13){ javascript:button('search'); return false;}"></html:text>
+									<button class="btn-search" type="button" onclick="javascript:button('search');"></button>
+								</div>
+							</td>
+						</tr>
 					</table>
 
 					<table class="table striped bordered hovered">
@@ -126,37 +117,29 @@
 								<logic:iterate id="project" name="projectForm"
 									property="listProject">
 									<tr>
-										<td class="text-center"><bean:write name="project"
-												property="projectCode" /></td>
+										<td class="text-center"><bean:write name="project" property="projectCode" /></td>
 										<td><bean:write name="project" property="projectName" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="client" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="organizationCode" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="phase" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="startDate" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="endDate" /></td>
-										<td class="text-center"><bean:write name="project"
-												property="runningDay" /></td>
-										<td class="text-center"><a
-											href="javascript:flyToPage('member','<bean:write name="project" property="projectCode" />');"
-											data-hint="Project Member" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/MEMBER.png"></a></td>
-										<td class="text-center"><a
-											href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');"
-											data-hint="Edit Project" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="#"
-											class="delete-link deleteProject" data-hint="Delete Project"
-											data-hint-position="bottom"
-											alt="<bean:write name="project"
-												property="projectCode" />">
-												<img alt=""
-												src="<%=request.getContextPath()%>/images/DELETE.png">
-										</a></td>
+										<td class="text-center"><bean:write name="project" property="client" /></td>
+										<td class="text-center"><bean:write name="project" property="organizationCode" /></td>
+										<td class="text-center"><bean:write name="project" property="phase" /></td>
+										<td class="text-center"><bean:write name="project" property="startDate" /></td>
+										<td class="text-center"><bean:write name="project" property="endDate" /></td>
+										<td class="text-center"><bean:write name="project" property="runningDay" /></td>
+										<td class="text-center">
+											<a href="javascript:flyToPage('member','<bean:write name="project" property="projectCode" />');" data-hint="Project Member" data-hint-position="bottom">
+												<img alt="" src="<%=request.getContextPath()%>/images/MEMBER.png">
+											</a>
+										</td>
+										<td class="text-center">
+											<a href="javascript:flyToPage('edit','<bean:write name="project" property="projectCode" />');" data-hint="Edit Project" data-hint-position="bottom">
+												<img alt="" src="<%=request.getContextPath()%>/images/EDIT.png">
+											</a>
+										</td>
+										<td class="text-center">
+											<a href="#" class="delete-link deleteProject" data-hint="Delete Project" data-hint-position="bottom" alt="<bean:write name="project" property="projectCode" />">
+												<img alt="" src="<%=request.getContextPath()%>/images/DELETE.png">
+											</a>
+										</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -173,26 +156,44 @@
 							<td class="text-center">
 								<div class="pagination">
 									<ul>
-										<li class="first"><a id="first"
-											onclick="button('first');"><i class="icon-first-2"></i></a></li>
-										<li class="prev"><a id="prev" onclick="button('prev');"><i
-												class="icon-previous"></i></a></li>
-										<li class="disabled"><a>Page <bean:write
-													name="projectForm" property="page" /> of <bean:write
-													name="projectForm" property="maxpage" /></a></li>
-										<li class="next"><a id="next" onclick="button('next');"><i
-												class="icon-next"></i></a></li>
-										<li class="last"><a id="last" onclick="button('last');"><i
-												class="icon-last-2"></i></a></li>
-										<li class="disabled"><a>Total Record <bean:write
-													name="projectForm" property="countRecord" /></a></li>
+										<li class="first">
+											<a id="first" onclick="button('first');">
+												<i class="icon-first-2"></i>
+											</a>
+										</li>
+										<li class="prev">
+											<a id="prev" onclick="button('prev');">
+												<i class="icon-previous"></i>
+											</a>
+										</li>
+										<li class="disabled">
+											<a>
+												Page <bean:write name="projectForm" property="page" /> of <bean:write name="projectForm" property="maxpage" />
+											</a>
+										</li>
+										<li class="next">
+											<a id="next" onclick="button('next');">
+												<i class="icon-next"></i>
+											</a>
+										</li>
+										<li class="last">
+											<a id="last" onclick="button('last');">
+												<i class="icon-last-2"></i>
+											</a>
+										</li>
+										<li class="disabled">
+											<a>
+												Total Record <bean:write name="projectForm" property="countRecord" />
+											</a>
+										</li>
 									</ul>
 								</div>
 							</td>
-							<td class="text-right field-form"><a
-								href="javascript:button('addProject');" data-hint="Add Project"
-								data-hint-position="bottom"><img alt=""
-									src="<%=request.getContextPath()%>/images/ADD_PROJECT.png"></a></td>
+							<td class="text-right field-form">
+								<a href="javascript:button('addProject');" data-hint="Add Project" data-hint-position="bottom">
+									<img alt="" src="<%=request.getContextPath()%>/images/ADD_PROJECT.png">
+								</a>
+							</td>
 						</tr>
 					</table>
 				</html:form>

@@ -11,42 +11,33 @@
 </head>
 <body>
 	<html:form action="/ajax" method="post">
-		<html:hidden property="organizationCode"
-			styleId="organizationCode-delete" name="ajaxForm" />
-		<html:hidden property="task" styleId="task-organization-delete"
-			name="ajaxForm" />
+		<html:hidden property="organizationCode" styleId="organizationCode-delete" name="ajaxForm" />
+		<html:hidden property="task" styleId="task-organization-delete" name="ajaxForm" />
 		<html:hidden property="task" styleId="taskMember" name="ajaxForm" />
-		<html:hidden property="mode" styleId="mode-organization-delete"
-			name="ajaxForm" />
-		<html:hidden property="page" styleId="page-organization-delete"
-			name="ajaxForm" />
-		<html:hidden property="maxpage" styleId="maxpage-organization-delete"
-			name="ajaxForm" />
+		<html:hidden property="mode" styleId="mode-organization-delete" name="ajaxForm" />
+		<html:hidden property="page" styleId="page-organization-delete" name="ajaxForm" />
+		<html:hidden property="maxpage" styleId="maxpage-organization-delete" name="ajaxForm" />
 
-		<logic:notEqual name="ajaxForm" property="checkDeleteOrganization"
-			value="0">
+		<logic:notEqual name="ajaxForm" property="checkDeleteOrganization" value="0">
 			<!-- TABEL ORG PROJECT -->
 			<table class="table striped bordered hovered">
 					<tr>
-						<th colspan="3"><strong>Business Unit <bean:write
-									name="ajaxForm" property="organizationCode" /> Can't be
-								deleted because has
+						<th colspan="3"><strong>Business Unit <bean:write name="ajaxForm" property="organizationCode" /> 
+							Can't be deleted because has
 						</strong></th>
 					</tr>
-					<logic:notEqual name="ajaxForm" property="countMemberOrganization"
-						value="0">
+					<logic:notEqual name="ajaxForm" property="countMemberOrganization" value="0">
 						<tr>
-							<td colspan="3"><strong><bean:write name="ajaxForm"
-										property="countMemberOrganization" /> members in Business
-									Unit </strong></td>
+							<td colspan="3"><strong><bean:write name="ajaxForm" property="countMemberOrganization" /> 
+								members in Business Unit 
+							</strong></td>
 						</tr>
 					</logic:notEqual>
-					<logic:notEqual name="ajaxForm" property="countChildOrganization"
-						value="0">
+					<logic:notEqual name="ajaxForm" property="countChildOrganization" value="0">
 						<tr>
-							<td colspan="3"><strong><bean:write name="ajaxForm"
-										property="countChildOrganization" /> Child BU in Business
-									Unit </strong></td>
+							<td colspan="3"><strong><bean:write name="ajaxForm" property="countChildOrganization" /> 
+								Child BU in Business Unit 
+							</strong></td>
 						</tr>
 					</logic:notEqual>
 			</table>
@@ -64,13 +55,10 @@
 					</thead>
 					<tbody>
 						<logic:notEmpty name="ajaxForm" property="organizationProject">
-							<logic:iterate id="project" name="ajaxForm"
-								property="organizationProject">
+							<logic:iterate id="project" name="ajaxForm" property="organizationProject">
 								<tr>
-									<td class="text-center"><bean:write name="project"
-											property="projectCode" /></td>
-									<td class="text-center"><bean:write name="project"
-											property="projectName" /></td>
+									<td class="text-center"><bean:write name="project" property="projectCode" /></td>
+									<td class="text-center"><bean:write name="project" property="projectName" /></td>
 								</tr>
 							</logic:iterate>
 						</logic:notEmpty>
@@ -79,100 +67,54 @@
 								<td class="text-center" colspan=6>No Project</td>
 							</tr>
 						</logic:empty>
-					</tbody>
-
-					<tbody>
-						<tr>
-						</tr>
-					</tbody>
-					<!-- TABEL BU CHILD -->
-					<%-- <thead>
-						<tr>
-							<td colspan="3"><strong>Business Unit's Child</strong></td>
-						</tr>
-						<tr>
-							<td class="text-center">Business Unit Code</td>
-							<td class="text-center">Business Unit Name</td>
-						</tr>
-					</thead>
-					<tbody>
-						<logic:notEmpty name="ajaxForm" property="childOrganization">
-							<logic:iterate id="organization" name="ajaxForm"
-								property="childOrganization">
-								<tr>
-									<td><bean:write name="organization"
-											property="organizationCode" /></td>
-									<td><bean:write name="organization"
-											property="organizationName" /></td>
-								</tr>
-							</logic:iterate>
-						</logic:notEmpty>
-						<logic:empty name="ajaxForm" property="childOrganization">
-							<tr>
-								<td class="text-center" colspan=6>No Child Organization</td>
-							</tr>
-						</logic:empty>
-					</tbody> --%>
+					</tbody>					
 				</table>
 			</div>
 
 			<!-- PAGGING -->
 
 			<table class="table">
-					<tr>
-						<th colspan=3 class="text-center">
-							<div class="pagination">
-								<ul>
-									<li class="first"><a
-										onclick="javascript:pagingOrganizationDelete('first');"><i
-											class="icon-first-2"></i></a></li>
-									<li class="prev"><a
-										onclick="javascript:pagingOrganizationDelete('prev');"><i
-											class="icon-previous"></i></a></li>
-									<li class="disabled"><a>Page <span
-											id="current-page-organization-delete"><bean:write
-													name="ajaxForm" property="page" /></span> of <span
-											id="max-page-organization-delete"><bean:write
-													name="ajaxForm" property="maxpage" /></span></a></li>
-									<li class="next"><a
-										onclick="javascript:pagingOrganizationDelete('next');"><i
-											class="icon-next"></i></a></li>
-									<li class="last"><a
-										onclick="javascript:pagingOrganizationDelete('last');"><i
-											class="icon-last-2"></i></a></li>
-									<li class="disabled"><a>Total Record <span
-											id="total-record-organization-delete"><bean:write
-													name="ajaxForm" property="countRecord" /></span></a></li>
-								</ul>
-							</div>
-						</th>
-					</tr>
-					<tr>
-						<th class="text-center" colspan="3">
-							<button type="button" class='button info'
-								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
-						</th>
-					</tr>
-				</thead>
+				<tr>
+					<th colspan=3 class="text-center">
+						<div class="pagination">
+							<ul>
+								<li class="first"><a onclick="javascript:pagingOrganizationDelete('first');">
+									<i class="icon-first-2"></i></a></li>
+								<li class="prev"><a onclick="javascript:pagingOrganizationDelete('prev');">
+									<i class="icon-previous"></i></a></li>
+								<li class="disabled"><a>Page <span id="current-page-organization-delete">
+									<bean:write name="ajaxForm" property="page" /></span> of <span id="max-page-organization-delete">
+									<bean:write name="ajaxForm" property="maxpage" /></span></a></li>
+								<li class="next"><a onclick="javascript:pagingOrganizationDelete('next');">
+									<i class="icon-next"></i></a></li>
+								<li class="last"><a onclick="javascript:pagingOrganizationDelete('last');">
+									<i class="icon-last-2"></i></a></li>
+								<li class="disabled"><a>Total Record <span id="total-record-organization-delete">
+									<bean:write name="ajaxForm" property="countRecord" /></span></a></li>
+							</ul>
+						</div>
+					</th>
+				</tr>
+				<tr>
+					<th class="text-center" colspan="3">
+						<button type="button" class='button info' onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
+					</th>
+				</tr>
 			</table>
 		</logic:notEqual>
-		<logic:equal name="ajaxForm" property="checkDeleteOrganization"
-			value="0">
+		<logic:equal name="ajaxForm" property="checkDeleteOrganization" value="0">
 			<table class="table striped bordered hovered">
-				<thead>
-					<tr>
-						<th><strong>Are you sure to DELETE business Unit <bean:write
-									name="ajaxForm" property="organizationCode" /> ?
-						</strong></th>
-					</tr>
-					<tr>
-						<th class="text-center"><button type="button"
-								class='button danger'
-								onclick="javascript:chooseOrganizationDelete('delete')">Delete</button>
-							<button type="button" class='button info'
-								onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
-						</th>
-					</tr>
+				<tr>
+					<th><strong>Are you sure to DELETE business Unit 
+						<bean:write name="ajaxForm" property="organizationCode" /> ?
+					</strong></th>
+				</tr>
+				<tr>
+					<th class="text-center">
+						<button type="button" class='button danger' onclick="javascript:chooseOrganizationDelete('delete')">Delete</button>
+						<button type="button" class='button info' onclick="javascript:chooseOrganizationDelete('cancel')">Cancel</button>
+					</th>
+				</tr>
 			</table>
 		</logic:equal>
 	</html:form>

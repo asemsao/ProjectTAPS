@@ -22,61 +22,47 @@
 		}
 	};
 
-	$(document)
-			.ready(
-					function() {
-						if ($("#messageCRUD").val() != "") {
-							setTimeout(function() {
-								$.Notify({
-									style : {
-										background : $("#messagecolor").val(),
-										color : 'white'
-									},
-									shadow : true,
-									position : 'top-right',
-									content : $("#messageCRUD").val()
-								});
-							}, 1000);
-						}
-						var level = $("#level").val();
-						if (level == "0") {
-							$(".parent-organization").hide();
-						}
-						setTimeout(
-								function() {
-									$("#lookUpEmployee")
-											.load(
-													"/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
-								}, 500);
-						setTimeout(function() {
-							$("#lookUpOrganization").load(
-									"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-											+ level);
-						}, 500);
+	$(document).ready(function() {
+		if ($("#messageCRUD").val() != "") {
+			setTimeout(function() {
+				$.Notify({
+					style : {
+						background : $("#messagecolor").val(),
+						color : 'white'
+					},
+					shadow : true,
+					position : 'top-right',
+					content : $("#messageCRUD").val()
+				});
+			}, 1000);
+		}
+		var level = $("#level").val();
+		if (level == "0") {
+			$(".parent-organization").hide();
+		}
+		setTimeout(function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="+ level);
+		}, 500);
 
-						$("#level").change(
-								function() {
-									$("#parent-organization-name").val("");
-									$("#parent-organization-code").val("");
-									if ($("#level").val() == "0") {
-										$(".parent-organization").hide();
-									} else {
-										$("#lookUpOrganization").load(
-												"/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="
-														+ $(this).val());
-										$(".parent-organization").show();
-									}
-								});
+		$("#level").change(function() {
+			$("#parent-organization-name").val("");
+			$("#parent-organization-code").val("");
+			if ($("#level").val() == "0") {
+				$(".parent-organization").hide();
+			} else {
+				$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
+				$(".parent-organization").show();
+			}
+		});
 
-						$("#organizationCode").attr("placeholder",
-								"Business Unit Code");
-						$("#organizationName").attr("placeholder",
-								"Business Unit Name");
-						$("#employee-name").attr("placeholder",
-								"Head of Business Unit");
-						$("#parent-organization-name").attr("placeholder",
-								"Parent Business Unit");
-					});
+		$("#organizationCode").attr("placeholder", "Business Unit Code");
+		$("#organizationName").attr("placeholder", "Business Unit Name");
+		$("#employee-name").attr("placeholder", "Head of Business Unit");
+		$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Edit Business Unit</title>
@@ -84,19 +70,15 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post"
-		styleClass="organizationForm">
-		<html:hidden property="task" name="organizationForm" />
-
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
-					<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" 
-						name="organizationForm" />">
-					<input type="hidden" id="messageCRUD"
-						value="<bean:write  property="message" 
-						name="organizationForm" />">
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/organization" method="post" styleClass="organizationForm">
+					<html:hidden property="task" name="organizationForm" />
+					<html:hidden property="headDomainBefore" name="organizationForm" />
+					<input type="hidden" id="headBu" value="headBu" />
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="organizationForm" />">
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="organizationForm" />">
 					<table class="table">
 						<thead>
 							<tr>
@@ -108,9 +90,7 @@
 								<th class="field-form">Business Unit Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text size3">
-										<html:text property="orgBean.organizationCode"
-											name="organizationForm" styleId="organizationCode"
-											readonly="true"></html:text>
+										<html:text property="orgBean.organizationCode" name="organizationForm" styleId="organizationCode" readonly="true"></html:text>
 									</div></td>
 							</tr>
 							<tr>
@@ -118,21 +98,17 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text size3">
-										<html:text property="orgBean.organizationName"
-											name="organizationForm" styleId="organizationName"
-											maxlength="50"></html:text>
+										<html:text property="orgBean.organizationName" name="organizationForm" styleId="organizationName" maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Business Unit Level</th>
 								<td class="field-separator">:</td>
-								<logic:equal value="0" property="countChild"
-									name="organizationForm">
+								<logic:equal value="0" property="countChild" name="organizationForm">
 									<td>
 										<div class="input-control select">
-											<html:select property="orgBean.organizationLevel"
-												name="organizationForm" styleId="level">
+											<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level">
 												<html:option value="2">Level 2</html:option>
 												<html:option value="1">Level 1</html:option>
 												<html:option value="0">Level 0</html:option>
@@ -141,12 +117,10 @@
 									</td>
 								</logic:equal>
 
-								<logic:notEqual value="0" property="countChild"
-									name="organizationForm">
+								<logic:notEqual value="0" property="countChild" name="organizationForm">
 									<td>
 										<div class="input-control select">
-											<html:select property="orgBean.organizationLevel"
-												name="organizationForm" styleId="level" disabled="true">
+											<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level" disabled="true">
 												<html:option value="2">Level 2</html:option>
 												<html:option value="1">Level 1</html:option>
 												<html:option value="0">Level 0</html:option>
@@ -160,26 +134,20 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="orgBean.headDomain"
-											name="organizationForm" styleId="employee-domain" />
-										<html:text property="orgBean.headName" name="organizationForm"
-											styleId="employee-name" readonly="true"></html:text>
+										<html:hidden property="orgBean.headDomain" name="organizationForm" styleId="employee-domain" />
+										<html:text property="orgBean.headName" name="organizationForm" styleId="employee-name" readonly="true"></html:text>
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
 							</tr>
 
 							<tr class="parent-organization">
-								<th class="field-form"><label id="parent">Parent
-										Business Unit </label></th>
+								<th class="field-form"><label id="parent">Parent Business Unit </label></th>
 								<td class="field-separator"><label id=":">:</label></td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="orgBean.parentCode"
-											name="organizationForm" styleId="parent-organization-code" />
-										<html:text property="orgBean.parentName"
-											name="organizationForm" styleId="parent-organization-name"
-											readonly="true"></html:text>
+										<html:hidden property="orgBean.parentCode" name="organizationForm" styleId="parent-organization-code" />
+										<html:text property="orgBean.parentName" name="organizationForm" styleId="parent-organization-name" readonly="true"></html:text>
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
@@ -193,15 +161,12 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<input type="hidden" id="headBu" value="headBu" />
-		<html:hidden property="headDomainBefore" name="organizationForm" />
-	</html:form>
+	</div>
 	<jsp:include page="/frame/footer.jsp" />
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpOrganization" class="hide"></div>
 </body>
-
 </html>

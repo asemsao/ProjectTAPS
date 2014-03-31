@@ -76,49 +76,41 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/organization" method="post" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="organizationForm" />
-					<html:hidden property="organizationCode" styleId="organizationCode"
-						name="organizationForm" />
+					<html:hidden property="organizationCode" styleId="organizationCode" name="organizationForm" />
 					<html:hidden property="page" name="organizationForm" />
 					<html:hidden property="maxpage" name="organizationForm" />
-					<html:hidden property="organizationCode" styleId="organizationCode"
-						name="organizationForm" />
-					<input type="hidden" id="messagecolor"
-						value="<bean:write  property="color" 
-						name="organizationForm" />">
-					<input type="hidden" id="messageCRUD"
-						value="<bean:write  property="message" 
-						name="organizationForm" />">
+					<html:hidden property="organizationCode" styleId="organizationCode" name="organizationForm" />
+					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="organizationForm" />">
+					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="organizationForm" />">
 
 					<table class="table">
-							<tr>
-								<th colspan="8" class="text-center"><h3>Business Unit</h3></th>
-							</tr>
-							<tr>
-								<td class="text-center field-form">
-									<div class="input-control select">
-										<html:select property="searchCategory" name="organizationForm">
-											<html:option value="all">All</html:option>
-											<html:option value="organizationCode">Business Unit Code</html:option>
-											<html:option value="organizationName">Business Unit Name</html:option>
-											<html:option value="headName">Head Name</html:option>
-										</html:select>
-									</div>
-								</td>
-								<td class="text-center">
-									<div class="input-control text">
-										<html:text property="searchKeyword" name="organizationForm"
-											styleId="searchKeyword"></html:text>
-										<button id="search" class="btn-search"></button>
-									</div>
-								</td>
-							</tr>
+						<tr>
+							<th colspan="8" class="text-center"><h3>Business Unit</h3></th>
+						</tr>
+						<tr>
+							<td class="text-center field-form">
+								<div class="input-control select">
+									<html:select property="searchCategory" name="organizationForm">
+										<html:option value="all">All</html:option>
+										<html:option value="organizationCode">Business Unit Code</html:option>
+										<html:option value="organizationName">Business Unit Name</html:option>
+										<html:option value="headName">Head Name</html:option>
+									</html:select>
+								</div>
+							</td>
+							<td class="text-center">
+								<div class="input-control text">
+									<html:text property="searchKeyword" name="organizationForm" styleId="searchKeyword"></html:text>
+									<button id="search" class="btn-search"></button>
+								</div>
+							</td>
+						</tr>
 					</table>
 
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th class="text-center" colspan="3" width="12%">Business
-									Unit Code</th>
+								<th class="text-center" colspan="3" width="12%">Business Unit Code</th>
 								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
@@ -127,44 +119,41 @@
 							</tr>
 						</thead>
 						<tbody>
-							<logic:notEmpty name="organizationForm"
-								property="listOrganizations">
-								<logic:iterate id="organization" name="organizationForm"
-									property="listOrganizations">
+							<logic:notEmpty name="organizationForm" property="listOrganizations">
+								<logic:iterate id="organization" name="organizationForm" property="listOrganizations">
 									<tr>
-										<td width="4%"><logic:equal value="0" name="organization"
-												property="organizationLevel">
+										<td width="4%">
+											<logic:equal value="0" name="organization" property="organizationLevel">
 												<bean:write name="organization" property="organizationCode" />
-											</logic:equal></td>
-										<td width="4%"><logic:equal value="1" name="organization"
-												property="organizationLevel">
-												<bean:write name="organization" property="organizationCode" />
-											</logic:equal></td>
-										<td width="4%"><logic:equal value="2" name="organization"
-												property="organizationLevel">
-												<bean:write name="organization" property="organizationCode" />
-											</logic:equal></td>
-
-										<td><bean:write name="organization"
-												property="organizationName" /></td>
-										<td><bean:write name="organization" property="headName" /></td>
-										<td class="text-center"><a class="sturctureOrganization"
-											alt="<bean:write name='organization' property='organizationCode' />"
-											data-hint="Member Organization" data-hint-position="bottom"><img
-												src="<%=request.getContextPath()%>/images/MEMBER.png" /></a></td>
-										<td class="text-center"><a class='editOrganization'
-											alt="<bean:write name='organization' property='organizationCode' />"
-											data-hint="Edit Organization" data-hint-position="bottom"><img
-												alt="" src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
-										<td class="text-center"><a href="#"
-											class="delete-link deleteOrganization"
-											data-hint="Delete Organization" data-hint-position="bottom"
-											alt="<bean:write name="organization"
-												property="organizationCode" />"><img
-												alt="" src="<%=request.getContextPath()%>/images/DELETE.png"></a>
+											</logic:equal>
 										</td>
-
-
+										<td width="4%">
+											<logic:equal value="1" name="organization" property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal>
+										</td>
+										<td width="4%">
+											<logic:equal value="2" name="organization" property="organizationLevel">
+												<bean:write name="organization" property="organizationCode" />
+											</logic:equal>
+										</td>
+										<td><bean:write name="organization" property="organizationName" /></td>
+										<td><bean:write name="organization" property="headName" /></td>
+										<td class="text-center">
+											<a class="sturctureOrganization" alt="<bean:write name='organization' property='organizationCode' />" data-hint="Member Organization" data-hint-position="bottom">
+												<img src="<%=request.getContextPath()%>/images/MEMBER.png" />
+											</a>
+										</td>
+										<td class="text-center">
+											<a class='editOrganization' alt="<bean:write name='organization' property='organizationCode' />" data-hint="Edit Organization" data-hint-position="bottom">
+												<img alt="" src="<%=request.getContextPath()%>/images/EDIT.png">
+											</a>
+										</td>
+										<td class="text-center">
+											<a href="#" class="delete-link deleteOrganization" data-hint="Delete Organization" data-hint-position="bottom" alt="<bean:write name="organization" property="organizationCode" />">
+												<img alt="" src="<%=request.getContextPath()%>/images/DELETE.png">
+											</a>
+										</td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
@@ -176,35 +165,24 @@
 							<td class="text-center">
 								<div class="pagination">
 									<ul>
-										<li class="first"><a id="first"><i
-												class="icon-first-2"></i></a></li>
-										<li class="prev"><a id="prev"><i
-												class="icon-previous"></i></a></li>
-										<li class="disabled"><a>Page <bean:write
-													name="organizationForm" property="page" /> of <bean:write
-													name="organizationForm" property="maxpage" /></a></li>
+										<li class="first"><a id="first"><i class="icon-first-2"></i></a></li>
+										<li class="prev"><a id="prev"><i class="icon-previous"></i></a></li>
+										<li class="disabled"><a>Page <bean:write name="organizationForm" property="page" /> 
+											of <bean:write name="organizationForm" property="maxpage" /></a></li>
 										<li class="next"><a id="next"><i class="icon-next"></i></a></li>
 										<li class="last"><a id="last"><i class="icon-last-2"></i></a></li>
-										<li class="disabled"><a>Total Record <bean:write
-													name="organizationForm" property="countRecord" /></a></li>
+										<li class="disabled"><a>Total Record 
+											<bean:write name="organizationForm" property="countRecord" /></a></li>
 									</ul>
 								</div>
 							</td>
-							<td class="text-center field-form"><a id="new"
-								data-hint="Add Organizations" data-hint-position="bottom"><img
-									alt=""
-									src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png"></a></td>
+							<td class="text-center field-form">
+								<a id="new"	data-hint="Add Organizations" data-hint-position="bottom">
+									<img alt="" src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png">
+								</a>
+							</td>
 						</tr>
 					</table>
-					
-					<div id="popup_delete" class="hide">
-						<div class='span3'>
-							Are you sure want to delete <span id="deleteId"></span>? <br />
-							<br /> <br /> <br /> <br />
-							<button id="delete" class="danger float-right"
-								onclick="javascript:deleteBtn();">Delete</button>
-						</div>
-					</div>
 				</html:form>
 			</div>
 		</div>

@@ -21,33 +21,31 @@
 			newBUValidation();
 		}
 	}
-	$(document)
-			.ready(
-					function() {
-						var level = $("#level").val();
-						
-						setTimeout(function() {
-							$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");	
-						}, 500);
-						setTimeout(function() {
-							$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + level);	
-						}, 500);
+	$(document).ready(function() {
+		var level = $("#level").val();
+		
+		setTimeout(function() {
+			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");	
+		}, 500);
+		setTimeout(function() {
+			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + level);	
+		}, 500);
 
-						$("#level").change(function() {
-							$("#parent-organization-name").val("");
-							if ($("#level").val() == "0") {
-								$(".parent-organization").hide();
-							} else {
-								$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
-								$(".parent-organization").show();
-							}
-						});
-						
-						$("#organizationCode").attr("placeholder", "Business Unit Code");
-						$("#organizationName").attr("placeholder", "Business Unit Name");
-						$("#employee-name").attr("placeholder", "Head of Business Unit");
-						$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
-					});
+		$("#level").change(function() {
+			$("#parent-organization-name").val("");
+			if ($("#level").val() == "0") {
+				$(".parent-organization").hide();
+			} else {
+				$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
+				$(".parent-organization").show();
+			}
+		});
+		
+		$("#organizationCode").attr("placeholder", "Business Unit Code");
+		$("#organizationName").attr("placeholder", "Business Unit Name");
+		$("#employee-name").attr("placeholder", "Head of Business Unit");
+		$("#parent-organization-name").attr("placeholder", "Parent Business Unit");
+	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Add New Business Unit</title>
@@ -55,11 +53,13 @@
 
 <body class="metro">
 	<jsp:include page="/frame/header.jsp" />
-	<html:form action="/organization" method="post" styleClass="organizationForm">
-		<html:hidden property="task" name="organizationForm" />
-		<div class="container container-taps">
-			<div class="grid">
-				<div class="row row-taps shadow-taps">
+	
+	<div class="container container-taps">
+		<div class="grid">
+			<div class="row row-taps shadow-taps">
+				<html:form action="/organization" method="post" styleClass="organizationForm">
+					<html:hidden property="task" name="organizationForm" />
+					<input type="hidden" id="headBu" value="headBu" />
 					<table class="table">
 						<thead>
 							<tr>
@@ -71,17 +71,16 @@
 								<th class="field-form">Business Unit Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
-										<html:text property="orgBean.organizationCode" styleId="organizationCode"
-											name="organizationForm" maxlength="3"></html:text>
-									</div></td>
+										<html:text property="orgBean.organizationCode" styleId="organizationCode" name="organizationForm" maxlength="3"></html:text>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<th class="field-form">Business Unit Name</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="orgBean.organizationName" styleId="organizationName"
-											name="organizationForm" maxlength="50"></html:text>
+										<html:text property="orgBean.organizationName" styleId="organizationName" name="organizationForm" maxlength="50"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -90,8 +89,7 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control select">
-										<html:select property="orgBean.organizationLevel"
-											name="organizationForm" styleId="level">
+										<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level">
 											<html:option value="2">Level 2</html:option>
 											<html:option value="1">Level 1</html:option>
 											<html:option value="0">Level 0</html:option>
@@ -104,44 +102,41 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="orgBean.headDomain"
-											name="organizationForm" styleId="employee-domain" />
-										<html:text property="orgBean.headName" readonly="true"
-											name="organizationForm" styleId="employee-name" />
+										<html:hidden property="orgBean.headDomain" name="organizationForm" styleId="employee-domain" />
+										<html:text property="orgBean.headName" readonly="true" name="organizationForm" styleId="employee-name" />
 										<button class="btn-search" type="button" id="employee"></button>
 									</div>
 								</td>
 							</tr>
 							<tr class="parent-organization">
-								<th class="field-form"><label id="parent" style="visibility: visible">Parent
-										Business Unit </label></th>
-								<td class="field-separator"><label id=":" style="visibility: visible">:</label></td>
+								<th class="field-form">
+									<label id="parent" style="visibility: visible">Parent Business Unit </label>
+								</th>
+								<td class="field-separator">
+									<label id=":" style="visibility: visible">:</label>
+								</td>
 								<td>
 									<div class="input-control text">
-										<html:hidden property="orgBean.parentCode"
-											name="organizationForm" styleId="parent-organization-code" />
-										<html:text property="orgBean.parentName" readonly="true"
-											name="organizationForm" styleId="parent-organization-name" />
+										<html:hidden property="orgBean.parentCode" name="organizationForm" styleId="parent-organization-code" />
+										<html:text property="orgBean.parentName" readonly="true" name="organizationForm" styleId="parent-organization-name" />
 										<button class="btn-search" type="button" id="organization"></button>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="3" class="text-right">
-								<button onclick="flyToPage('save')" class="button success">Save</button>
-								<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
+									<button onclick="flyToPage('save')" class="button success">Save</button>
+									<button onclick="flyToPage('cancel')" class="button info">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</html:form>
 			</div>
 		</div>
-		<input type="hidden" id="headBu" value="headBu" />
-	</html:form>
+	</div>
 	<div id="lookUpEmployee" class="hide"></div>
 	<div id="lookUpOrganization" class="hide"></div>
 	<jsp:include page="/frame/footer.jsp" />
 </body>
-
 </html>
