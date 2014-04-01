@@ -409,7 +409,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
         	#projectCode#,
         	null,
         	#orgAfter#,
-        	sysdate,
+        	to_date(#startDate#,'DD/MM/YYYY'),
         	#userdomain#,
         	sysdate)
 	</insert>
