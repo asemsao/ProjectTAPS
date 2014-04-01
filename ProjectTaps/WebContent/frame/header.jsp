@@ -115,7 +115,7 @@
 						} else { 
 					%>
 							<li><a class="element image-button image-left" href="#" style="cursor: default;">
-								<img src="<%=session.getAttribute("pathPhoto")%>" />
+								<img src="dashboard.do?task=getPhoto&employeeDomain=<%=session.getAttribute("username") %>" />
 								<span class="menu-header"><%=session.getAttribute("fullname")%></span></a>
 							</li>
 					<% 
