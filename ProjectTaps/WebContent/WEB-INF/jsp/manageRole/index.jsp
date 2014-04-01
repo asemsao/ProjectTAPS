@@ -42,7 +42,7 @@
 			$("#CRUDForm").submit();
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
-		if ($("#message").val() != "") {
+		if ($("#messageCRUD").val() != "") {
 			setTimeout(function() {
 				$.Notify({
 					style : {
@@ -51,7 +51,7 @@
 					},
 					shadow : true,
 					position : 'top-right',
-					content : $("#message").val()
+					content : $("#messageCRUD").val()
 				});
 			}, 1000);
 		}
@@ -67,8 +67,8 @@
 				<html:form action="/manageRole" method="post" styleClass="manageRoleForm" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="manageRoleForm" />
 					<html:hidden property="param" styleId="param" name="manageRoleForm" />
-					<html:hidden property="message" styleId="message" name="manageRoleForm"/>
-					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm"/>
+					<html:hidden property="message" styleId="messageCRUD" name="manageRoleForm" />
+					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>

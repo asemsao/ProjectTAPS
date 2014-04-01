@@ -30,18 +30,18 @@
 			type="adins.ace.taps.form.employee.ChangePasswordForm" />
 	</form-beans>
 
-<!-- 	<global-exceptions> -->
-<!-- 		<exception key="error.global.mesage" type="java.lang.RuntimeException" -->
-<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
-<!-- 		<exception key="error.global.mesage" type="java.lang.NullPointerException" -->
-<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
-<!-- 		<exception key="error.global.mesage" type="java.lang.Exception" -->
-<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
-<!-- 		<exception key="error.global.mesage" type="java.io.IOException" -->
-<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
-<!-- 		<exception key="error.global.mesage" type="javax.servlet.ServletException" -->
-<!-- 			path="/WEB-INF/jsp/error/error.jsp" /> -->
-<!-- 	</global-exceptions> -->
+	<global-exceptions>
+		<exception key="error.global.mesage" type="java.lang.RuntimeException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="java.lang.NullPointerException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="java.lang.Exception"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="java.io.IOException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+		<exception key="error.global.mesage" type="javax.servlet.ServletException"
+			path="/WEB-INF/jsp/error/error.jsp" />
+	</global-exceptions>
 
 	<action-mappings>
 		<action name="ajaxForm" path="/ajax" scope="request"
@@ -203,7 +203,7 @@
 		</action>
 		<action name="changePasswordForm" path="/changePassword"
 			scope="request" type="adins.ace.taps.action.ChangePasswordAction">
-			<forward name="Dashboard" path="/WEB-INF/jsp/dashboard/dashboard.jsp" />
+			<forward name="Dashboard" path="/dashboard.do" />
 		</action>
 	</action-mappings>
 
