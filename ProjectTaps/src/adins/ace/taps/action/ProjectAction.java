@@ -81,9 +81,9 @@ public class ProjectAction extends Action {
 				// insert table history_projects
 				Map param = new HashMap();
 				param.put("projectCode", pForm.getAddProject().getProjectCode());
-				param.put("orgAfter", pForm.getAddProject()
-						.getOrganizationCode());
+				param.put("orgAfter", pForm.getAddProject().getOrganizationCode());
 				param.put("userdomain", userDomain);
+				param.put("startDate",pForm.getAddProject().getStartDate());
 				history = pMan.insertHistory(param);
 
 				if (add && history) {
@@ -381,8 +381,7 @@ public class ProjectAction extends Action {
 				error = (Boolean) map.get("error");
 				if (!error) {
 					if (isNotExist) {
-						role = pMan.insertRole(pForm.getAddSProject()
-								.getDirectreportUserDomain());
+						role = pMan.insertRole(pForm.getAddSProject().getDirectreportUserDomain());
 					} else {
 						role = true;
 						isNotExist = true;
