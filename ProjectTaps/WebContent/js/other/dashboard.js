@@ -35,7 +35,7 @@ function notification(data) {
 	$("#rfa-s").html(json.totalRFAself);
 	$("#claim").html(json.totalClaim);
 	$("#correction").html(json.totalCorrection);
-	$("#coorection-s").html(json.totalCorrectionSelf);
+	$("#correction-s").html(json.totalCorrectionSelf);
 
 	if (json.unreadApproval) {
 		$("#rfa-link").addClass('notification');

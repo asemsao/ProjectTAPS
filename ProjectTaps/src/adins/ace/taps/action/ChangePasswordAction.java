@@ -54,7 +54,6 @@ public class ChangePasswordAction extends Action{
 			cpForm.setOldPassword("");
 			cpForm.setNewPassword("");
 			cpForm.setNewPasswordConfirmation("");
-			resetToken(request);
 			return mapping.findForward("Dashboard");
 		}
 		return mapping.findForward("Dashboard");
