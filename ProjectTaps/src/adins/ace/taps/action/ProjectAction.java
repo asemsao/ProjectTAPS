@@ -629,7 +629,7 @@ public class ProjectAction extends Action {
 						}
 					}
 				}
-				else
+			else
 				{
 					notHead = true;
 					deleteRole = true;

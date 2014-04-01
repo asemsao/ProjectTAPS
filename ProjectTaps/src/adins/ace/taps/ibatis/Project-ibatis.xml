@@ -17,9 +17,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			         p.client AS client,
 			         p.organization_code AS organizationCode,
 			         ph.phase_name AS phase,
-			         TO_CHAR (p.start_date, 'DD-MM-YYYY') AS startDate,
+			         TO_CHAR ((SELECT max(transfer_date) FROM history_projects WHERE project_code = p.project_code), 'DD-MM-YYYY') AS startDate,
 			         TO_CHAR (p.end_date, 'DD-MM-YYYY') AS endDate,
-			         (TRUNC (SYSDATE) - p.start_date) AS runningDay
+			         (TRUNC (SYSDATE) - (SELECT to_date(max(transfer_date)) FROM history_projects WHERE project_code = p.project_code)) AS runningDay
 			  FROM   projects p, phases ph
 			 WHERE       p.phase_id = ph.phase_id
 			         AND LOWER (p.flag) = 'active'
