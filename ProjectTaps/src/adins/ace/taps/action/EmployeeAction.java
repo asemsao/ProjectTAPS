@@ -340,8 +340,7 @@ public class EmployeeAction extends Action {
 					}
 				}
 				if (flag) {
-					//if ("true".equals(App.getConfiguration("recovery_mode"))) {
-					if ("false".equalsIgnoreCase(session.getAttribute("aDStatus").toString())) {
+					if ("true".equals(App.getConfiguration("recovery_mode"))) {
 						Map data = new HashMap();
 						if (mForm.getPassword() != null) {
 							if (!mForm.getPassword().equals("")) {
