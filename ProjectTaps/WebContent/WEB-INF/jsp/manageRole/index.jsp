@@ -53,8 +53,6 @@
 					position : 'top-right',
 					content : $("#message").val()
 				});
-				$("#message").val("");
-				$("#messagecolor").val("");
 			}, 1000);
 		}
 	});
@@ -69,8 +67,8 @@
 				<html:form action="/manageRole" method="post" styleClass="manageRoleForm" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="manageRoleForm" />
 					<html:hidden property="param" styleId="param" name="manageRoleForm" />
-					<html:hidden property="message" styleId="message" name="manageRoleForm" />
-					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
+					<html:hidden property="message" styleId="message" name="manageRoleForm"/>
+					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm"/>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
