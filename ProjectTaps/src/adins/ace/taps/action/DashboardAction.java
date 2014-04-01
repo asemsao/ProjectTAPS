@@ -30,6 +30,8 @@ import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.dashboard.DashboardForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
+import adins.ace.taps.manager.EmployeeManager;
+import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.ExtractPhoto;
 import adins.ace.taps.module.SendMailTls;
 
@@ -121,7 +123,6 @@ public class DashboardAction extends Action {
 			dForm.setTask((String) session.getAttribute("listDashboard"));
 		}
 		if ("rfa".equals(dForm.getTask())) {
-			System.out.println("masuk rfa");
 			// add to detail claim assignment / add to history comment -> back
 			// to list
 			aMan.startTransaction();
@@ -146,7 +147,6 @@ public class DashboardAction extends Action {
 
 			/* sending notification on email */
 			dForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));
-			System.out.println(claim+" "+comment+" "+update);
 			if (claim && comment && update) {
 				aMan.commitTransaction();
 				Map emailParams = new HashMap();
@@ -158,7 +158,6 @@ public class DashboardAction extends Action {
 				emailParams.put("nameReceiver", dForm.getClaimBean().getNameReceiver());
 				SendMailTls.SendMail(emailParams);
 			} else {
-				System.out.println("gagal");
 				aMan.rollback();
 			}
 			dForm.setTask((String) session.getAttribute("listDashboard"));

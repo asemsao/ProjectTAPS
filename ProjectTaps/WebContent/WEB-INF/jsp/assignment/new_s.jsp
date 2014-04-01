@@ -1,5 +1,7 @@
 <%@page import="adins.ace.taps.bean.module.RoleBean"%>
 <%@page import="java.util.List"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -124,6 +126,7 @@
 					<html:hidden property="selfAssignBean.headUserDomain" name="selfAssignmentForm" />
 					<input type="hidden" id="userDomain" value="<%=session.getAttribute("username")%>" />
 					<input type="hidden" id="organization-code-view" value="<%=session.getAttribute("organizationCode") %>" />
+					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" > 
 					
 					<table class="table">
 						<thead>

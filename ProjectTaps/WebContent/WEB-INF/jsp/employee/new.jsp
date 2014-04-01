@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -22,10 +24,19 @@
 			employeeValidation();
 		}
 	}
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('.avatar').attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	$(document).ready( function() {
 		$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
 		$(".employeeDomain").attr("placeholder", "Employee Domain");
-		$("#password").attr("placeholder", "Default Password employeetaps");
+		$("#password").attr("placeholder", "Default Password sysadmin");
 		$("#employeeCode").attr("placeholder", "Employee Code");
 		$("#employeeNik").attr("placeholder", "NIK");
 		$("#firstName").attr("placeholder", "First Name");
@@ -63,7 +74,7 @@
 			<div class="row row-taps shadow-taps">
 			<html:form enctype="multipart/form-data" action="/employee" method="post" styleClass="employeeForm" styleId="employeeAddEdit">
 				<html:hidden property="task" name="employeeForm" styleId="task" />
-								
+				<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >			
 				<table class="table">
 					<thead>
 						<tr>
@@ -90,7 +101,7 @@
 									<td rowspan="6" class="text-center field-avatar">
 										<img src="<%=request.getContextPath()%>/images/user.png" class="avatar"> <br>
 										<div class="input-control file">
-											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 											<button class="btn-file"></button>
 										</div>
 									</td>
@@ -109,7 +120,7 @@
 									<td rowspan="7" class="text-center field-avatar">
 										<img src="<%=request.getContextPath()%>/images/user.png" class="avatar"> <br>
 										<div class="input-control file">
-											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+											<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 											<button class="btn-file"></button>
 										</div>
 									</td>

@@ -53,8 +53,6 @@
 					position : 'top-right',
 					content : $("#message").val()
 				});
-				$("#message").val("");
-				$("#messagecolor").val("");
 			}, 1000);
 		}
 	});

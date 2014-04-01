@@ -550,6 +550,32 @@ public class OrganizationManager {
 	}
 	
 	
+	public boolean updateDeleteOrgCodeHBU(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateDeleteOrgCodeHBU", orgBean);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
+	public boolean updateDeleteHBU(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateDeleteHBU", orgBean);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
 	public boolean updateOrgCodeHBU(OrganizationBean orgBean) {
 		boolean flag = false;
 		try {

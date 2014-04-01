@@ -24,6 +24,7 @@ import adins.ace.taps.form.menu.MenuForm;
 import adins.ace.taps.manager.AssignmentManager;
 import adins.ace.taps.manager.DashboardManager;
 import adins.ace.taps.module.ExtractPhoto;
+import antlr.Token;
 
 public class MenuAction extends Action {
 	@Override

@@ -32,25 +32,28 @@ public class SpecialAppraisalAction extends Action {
 			mForm.setPage(1);
 		}
 		if ("New".equals(mForm.getTask())) {
+			saveToken(request);
 			return mapping.findForward("New");
 		}
 
 		if ("Appraisal".equals(mForm.getTask())) {
-			
-			if(mForm.getAppraisalBean().getSessionUserDomain().equals(mForm.getAppraisalBean().getUserDomain())){
-				mForm.setMessage("Cannot give special appraisal to yourself !");
-				mForm.setColor("red");
-				return mapping.findForward("New");
-			}else{
-			
-			if(mMan.Insert(mForm.getAppraisalBean())){
-				mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
-				mForm.setColor("green");
-			}else{
-				mForm.setMessage("Adding Special Appraisal to Employee Failed!");
-				mForm.setColor("red");
+			if (isTokenValid(request)) {
+				if(mForm.getAppraisalBean().getSessionUserDomain().equals(mForm.getAppraisalBean().getUserDomain())){
+					mForm.setMessage("Cannot give special appraisal to yourself !");
+					mForm.setColor("red");
+					return mapping.findForward("New");
+				}else{
+				
+				if(mMan.Insert(mForm.getAppraisalBean())){
+					mForm.setMessage("Adding Special Appraisal to Employee Successfully!");
+					mForm.setColor("green");
+				}else{
+					mForm.setMessage("Adding Special Appraisal to Employee Failed!");
+					mForm.setColor("red");
+					}
 				}
-			}
+				resetToken(request);
+			} 
 		}
 		
 		if ("View".equals(mForm.getTask())) {
@@ -84,6 +87,7 @@ public class SpecialAppraisalAction extends Action {
 		params.put("keyword", mForm.getSearchKeyword());
 		params.put("startDate", mForm.getStartDate());
 		params.put("endDate", mForm.getEndDate());
+		params.put("sessionUserDomain", (String) session.getAttribute("username"));
 
 		mForm.setListSpecialAppraisal(mMan.searchSpecialAppraisal(params));
 		mForm.setCountRecord(mMan.countSpecialAppraisal(params));

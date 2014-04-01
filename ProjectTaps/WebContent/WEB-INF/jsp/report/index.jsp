@@ -87,8 +87,8 @@
 										<html:select property="reportPeriode" styleId="reportPeriode"
 											name="reportForm">
 											<html:option value="">Semester</html:option>
-											<html:option value="I">First</html:option>
-											<html:option value="II">Second</html:option>
+											<html:option value="I">First Semester</html:option>
+											<html:option value="II">Second Semester</html:option>
 										</html:select>
 									</div>
 								</div>

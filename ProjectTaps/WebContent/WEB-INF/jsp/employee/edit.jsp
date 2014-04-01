@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -10,6 +12,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $('.avatar').attr('src', e.target.result);
+	        }
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	$(document).ready( function() {
 		$("#cancelUpdateEmp").click(function(){
 			$("#taskUpdateEmp").val('');
@@ -35,6 +46,7 @@
 		$("#mobileNumberAreaCode").attr("placeholder", "Area");
 		$("#mobileNumberMidNumb").attr("placeholder", "Mobile No");
 		$("#email").attr("placeholder", "Email");
+		$("#password").attr("placeholder", "Default Password sysadmin");
 		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 		if ($("#messageCRUD").val() != "") {
 			setTimeout(function() {
@@ -76,7 +88,7 @@
 					<html:hidden property="task" name="employeeForm" styleId="taskUpdateEmp"/>
 					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
 					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="employeeForm" />">
-					
+					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
 					<table class="table">
 						<thead>
 							<tr>
@@ -98,9 +110,9 @@
 											</div>
 										</td>
 										<td rowspan="6" class="text-center field-avatar">
-											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
+											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
 											</div>
 										</td>
@@ -117,9 +129,9 @@
 											</div>
 										</td>
 										<td rowspan="7" class="text-center field-avatar">
-											<img src="employee.do?task=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
+											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
 											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture"></html:file>
+												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
 												<button class="btn-file"></button>
 											</div></td>
 								<%

@@ -742,7 +742,6 @@ public class AssignmentManager {
 	}
 
 	public boolean updateStatus(Map paramStatus) {
-		System.out.println(paramStatus);
 		boolean success = true;
 		try {
 			ibatisSQLMap.insert("assignment.updateStatusAssignment",

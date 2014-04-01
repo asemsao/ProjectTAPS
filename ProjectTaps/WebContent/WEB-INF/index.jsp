@@ -95,47 +95,48 @@
 </head>
 <body class="metro">
 	<div class="panel-taps">
-		<br /><br /> <img src="images/LOGO_LOGIN.png"
-			class="logo-taps" />
+		<br /><br /> <img src="images/LOGO_LOGIN.png" class="logo-taps" />
 		<h1 class="title-taps">Please sign in</h1>
+		
 		<html:form action="/login" method="post">
 			<html:hidden property="task" name="loginForm" />
 			<html:hidden property="message" name="loginForm" styleId="loginMessage" />
 			<br />
 			<div class="text-center">
-			<% 
-			GetUserDomainModule checkAD = new GetUserDomainModule();
-			
-			session.setAttribute("aDStatus", checkAD.checkAD());
-			if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { %>
-			<p class="fg-green">
-			<img class="ad-icon" src="images/online.png">
-			&nbsp; Active Directory
-			</p>
-			<% }
-	 		else { %>
-	 		<p class="fg-red">
-			<img class="ad-icon" src="images/offline.png">
-			&nbsp; Active Directory
-			</p>
-			<% } %>
+				<% 
+					GetUserDomainModule checkAD = new GetUserDomainModule();
+					session.setAttribute("aDStatus", checkAD.checkAD());
+					if (session.getAttribute("aDStatus").toString().equalsIgnoreCase("true")) { 
+				%>
+						<p class="fg-green">
+							<img class="ad-icon" src="images/online.png">
+							&nbsp; Active Directory
+						</p>
+				<% } else{ %>
+				 		<p class="fg-red">
+							<img class="ad-icon" src="images/offline.png">
+							&nbsp; Active Directory
+						</p>
+				<% } %>
 			</div>
 			<br />
-			<html:text property="username" name="loginForm" styleId="uname"
-				styleClass="textbox-taps" />
+			<html:text property="username" name="loginForm" styleId="uname" styleClass="textbox-taps" />
 			<br />
-			<html:password property="password" name="loginForm" styleId="pass"
-				styleClass="textbox-taps" />
+			<html:password property="password" name="loginForm" styleId="pass" styleClass="textbox-taps" />
 			<br />
 			<br />
 			<br />
 			<div class="input-control align-center">
-				<button class="login-taps login-disable" id="login-btn" onmouseover="hover(this);"
-					onmouseout="unhover(this)" onclick="button('login')">Sign in <i class="icon-arrow-right-4 color-disable"></i></button>
+				<button class="login-taps login-disable" id="login-btn" onmouseover="hover(this);" onmouseout="unhover(this)" onclick="button('login')">
+					Sign in <i class="icon-arrow-right-4 color-disable"></i>
+				</button>
 			</div>
 		</html:form>
 	</div>
-	<div class="footer-taps">Timesheet and performance score. Copyright &copy;
-		2014 ACE Batch-18. All rights reserved.</div>
+	
+	<div class="footer-taps">
+		Timesheet and performance score. Copyright &copy;
+		2014 ACE Batch-18. All rights reserved.
+	</div>
 </body>
 </html>

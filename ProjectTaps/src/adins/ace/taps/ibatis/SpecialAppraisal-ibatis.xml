@@ -14,6 +14,7 @@
         FROM stars s,
         employees e
         WHERE s.user_domain=e.user_domain
+        and s.created_by = #sessionUserDomain#
 		<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -43,6 +44,7 @@
         </select>
 
 	<select id="ViewSpecialAppraisal"
+	parameterClass="java.lang.String"
 		resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
 		SELECT to_char(s.created_date,'DD-MM-YYYY') AS
 		createdDate,s.user_domain as userDomain,
@@ -90,6 +92,7 @@
         FROM stars s,
         employees e
         WHERE s.user_domain=e.user_domain
+        and s.created_by = #sessionUserDomain#
 		<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">

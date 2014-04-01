@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="org.apache.struts.Globals"%> 
+<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -40,6 +42,10 @@
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
 				<html:form action="/project" method="post" styleClass="projectForm">
+					<html:hidden property="task" name="projectForm" />
+					<html:hidden property="paramProjectCode" name="projectForm" />
+					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
+					
 					<table class="table">
 						<thead>
 							<tr>
@@ -85,9 +91,6 @@
 									<button id="cancel-btn-2" onclick="button('back')" class="button info">Cancel</button>
 								</td>
 							</tr>
-							<html:hidden property="task" name="projectForm" />
-							<html:hidden property="paramProjectCode" name="projectForm" />
-
 						</tbody>
 					</table>
 				</html:form>
