@@ -44,7 +44,7 @@
         </select>
 
 	<select id="ViewSpecialAppraisal"
-	parameterClass="java.util.Map"
+	parameterClass="java.lang.String"
 		resultClass="adins.ace.taps.bean.specialAppraisal.SpecialAppraisalBean">
 		SELECT to_char(s.created_date,'DD-MM-YYYY') AS
 		createdDate,s.user_domain as userDomain,
@@ -55,8 +55,7 @@
 		FROM stars s,
 		employees e
 		WHERE s.user_domain=e.user_domain and
-		s.star_id=LOWER(#starId#) and
-		s.created_by = #sessionUserDomain#
+		s.star_id=LOWER(#starId#)
 		group by s.created_date,s.user_domain,
 		e.first_name||' '||e.last_name, s.description,
 		s.star_id
