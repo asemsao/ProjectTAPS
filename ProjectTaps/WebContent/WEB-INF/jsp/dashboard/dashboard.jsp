@@ -59,6 +59,7 @@
 			$("#taskAssignmentDashboard").val("correctionSelfDashboard");
 			$("#dashboardAssignment").submit();
 		});
+		
 	});
 	
 </script>
