@@ -259,6 +259,7 @@ public class OrganizationAction extends Action {
 					boolean updateAssignment = false;
 					boolean deleteRoleSPV = false;
 					boolean deleteRole = false;
+					boolean updateOrgHBU = false;
 
 					updateAssignment = orgMan
 							.updateAssignment(orgForm.getOrgBean());
@@ -266,8 +267,10 @@ public class OrganizationAction extends Action {
 					deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
 					deleteOrg = orgMan.deleteOrganization(orgForm
 							.getOrganizationCode().trim());
+					updateOrgHBU=orgMan.updateDeleteOrgCodeHBU(orgForm
+							.getOrgBean());
 					if (updateAssignment && deleteRoleSPV && deleteRole
-							&& deleteOrg) {
+							&& deleteOrg && updateOrgHBU) {
 						orgForm.setMessage("Delete Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
@@ -279,13 +282,16 @@ public class OrganizationAction extends Action {
 					boolean deleteOrg = false;
 					boolean updateAssignment = false;
 					boolean deleteRole = false;
+					boolean updateOrgHBU=false;
 
 					updateAssignment = orgMan
 							.updateAssignment(orgForm.getOrgBean());
 					deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
 					deleteOrg = orgMan.deleteOrganization(orgForm
 							.getOrganizationCode().trim());
-					if (updateAssignment && deleteRole && deleteOrg) {
+					updateOrgHBU=orgMan.updateDeleteOrgCodeHBU(orgForm
+							.getOrgBean());
+					if (updateAssignment && deleteRole && deleteOrg && updateOrgHBU) {
 						orgForm.setMessage("Delete Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
