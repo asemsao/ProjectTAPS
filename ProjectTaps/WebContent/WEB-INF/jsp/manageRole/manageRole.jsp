@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="org.apache.struts.Globals"%> 
-<%@page import="org.apache.struts.taglib.html.Constants"%> 
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -23,7 +21,6 @@
 					<html:hidden property="task" styleId="task" name="manageRoleForm" />
 					<html:hidden property="message" styleId="message" name="manageRoleForm" />
 					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
-					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
 					<fieldset>
 						<legend>CHOOSE ROLE</legend>
 						<table class="table striped bordered hovered">
