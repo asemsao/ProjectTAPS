@@ -140,14 +140,14 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			<isNotNull property="headBu">
 				<isNotEmpty property="headBu">
 					user_domain NOT IN (SELECT
-					head_user_domain FROM organizations WHERE head_user_domain IS NOT NULL)
+					head_user_domain FROM organizations WHERE head_user_domain IS NOT NULL AND flag='ACTIVE')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
 		) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
 		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
-	
+	 
 	<select id="getPhotoEmployees" resultClass="adins.ace.taps.bean.employee.NewEmployeeBean"
 		parameterClass="java.lang.String">
 		SELECT picture AS profilePicture from employees WHERE

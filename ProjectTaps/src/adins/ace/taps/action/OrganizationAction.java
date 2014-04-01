@@ -260,7 +260,8 @@ public class OrganizationAction extends Action {
 					boolean deleteRoleSPV = false;
 					boolean deleteRole = false;
 					boolean updateOrgHBU = false;
-
+					boolean updateDeleteHBU = false;
+					orgMan.startTransaction();
 					updateAssignment = orgMan
 							.updateAssignment(orgForm.getOrgBean());
 					deleteRoleSPV = orgMan.deleteRoleSPV(orgForm.getHeadDomain());
@@ -269,11 +270,15 @@ public class OrganizationAction extends Action {
 							.getOrganizationCode().trim());
 					updateOrgHBU=orgMan.updateDeleteOrgCodeHBU(orgForm
 							.getOrgBean());
+					updateDeleteHBU=orgMan.updateDeleteHBU(orgForm
+							.getOrgBean());
 					if (updateAssignment && deleteRoleSPV && deleteRole
-							&& deleteOrg && updateOrgHBU) {
+							&& deleteOrg && updateOrgHBU && updateDeleteHBU) {
+						orgMan.commitTransaction();
 						orgForm.setMessage("Delete Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
+						orgMan.rollback();
 						orgForm.setMessage("Delete Business Unit Failed!");
 						orgForm.setColor("red");
 					}
@@ -283,7 +288,8 @@ public class OrganizationAction extends Action {
 					boolean updateAssignment = false;
 					boolean deleteRole = false;
 					boolean updateOrgHBU=false;
-
+					boolean updateDeleteHBU = false;
+					orgMan.startTransaction();
 					updateAssignment = orgMan
 							.updateAssignment(orgForm.getOrgBean());
 					deleteRole = orgMan.deleteRole(orgForm.getHeadDomain());
@@ -291,10 +297,14 @@ public class OrganizationAction extends Action {
 							.getOrganizationCode().trim());
 					updateOrgHBU=orgMan.updateDeleteOrgCodeHBU(orgForm
 							.getOrgBean());
-					if (updateAssignment && deleteRole && deleteOrg && updateOrgHBU) {
+					updateDeleteHBU=orgMan.updateDeleteHBU(orgForm
+							.getOrgBean());
+					if (updateAssignment && deleteRole && deleteOrg && updateOrgHBU && updateDeleteHBU) {
+						orgMan.commitTransaction();
 						orgForm.setMessage("Delete Business Unit Successfull!");
 						orgForm.setColor("green");
 					} else {
+						orgMan.rollback();
 						orgForm.setMessage("Delete Business Unit Failed!");
 						orgForm.setColor("red");
 					}

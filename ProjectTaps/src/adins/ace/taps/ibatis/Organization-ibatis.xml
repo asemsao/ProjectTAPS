@@ -116,9 +116,15 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</update>
 	
 	<update id="updateDeleteOrgCodeHBU" parameterClass="organizationBean">
-		UPDATE employees
+		UPDATE employees SET 
 		organization_code = ''
 		WHERE user_domain = #headDomain#
+	</update>
+	
+	<update id="updateDeleteHBU" parameterClass="organizationBean">
+		UPDATE organizations SET 
+		head_user_domain = ''
+		WHERE organization_code = #organizationCode#
 	</update>
 	
 	<select id="countOrganizations" resultClass="int"

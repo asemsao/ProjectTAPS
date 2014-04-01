@@ -555,7 +555,19 @@ public class OrganizationManager {
 		try {
 			ibatisSqlMap.update("organization.updateDeleteOrgCodeHBU", orgBean);
 			flag = true;
-			System.out.println("update delete org");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
+	public boolean updateDeleteHBU(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateDeleteHBU", orgBean);
+			flag = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			flag = false;
