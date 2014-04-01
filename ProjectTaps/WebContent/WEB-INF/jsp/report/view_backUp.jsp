@@ -193,6 +193,7 @@
 								<th class="text-center" rowspan="2">ORGANIZATION CODE</th>
 								<th class="text-center" rowspan="2">ORGANIZATION NAME</th>
 								<th class="text-center" colspan="2">MANHOURS</th>
+								<th class="text-center" rowspan="2">ACTION</th>
 							</tr>
 							<tr>
 								<th class="text-center">BUSINESS UNIT</th>
@@ -218,6 +219,10 @@
 										<td><bean:write name="report" property="organizationName" /></td>
 										<td class="text-center"><bean:write name="report" property="manhourBU" /></td>
 										<td class="text-center"><bean:write name="report" property="manhourProject" /></td>
+										<td class="text-center"><a
+											href="javascript:report('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
+											data-hint-position="bottom"><img alt=""
+												src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
 									</tr>
 									</logic:notEqual>
 									
