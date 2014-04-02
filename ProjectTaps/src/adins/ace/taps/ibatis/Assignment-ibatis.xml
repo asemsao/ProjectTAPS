@@ -1010,7 +1010,7 @@
 		 WHERE   detail_id = #detailId#
 	</update>
 
-	<insert id="addHistoryComment">
+	<insert id="addHistoryComment" parameterClass="adins.ace.taps.bean.assignment.ClaimAssignmentBean">
 		INSERT INTO assignment_comments (history_id,
 		                                 task_code,
 		                                 comments,
@@ -1027,7 +1027,7 @@
 		            SYSDATE)
 	</insert>
 
-	<insert id="addHistorySelfComment">
+	<insert id="addHistorySelfComment" parameterClass="adins.ace.taps.bean.assignment.NewAssignmentBean">
 		INSERT INTO assignment_comments (history_id,
 		                                 task_code,
 		                                 comments,

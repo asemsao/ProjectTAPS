@@ -64,7 +64,7 @@ public class ClaimAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("RFA".equals(aForm.getTask())) {
 			//request for approval to supervisor, change status to RFA
@@ -92,10 +92,10 @@ public class ClaimAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
-			session.removeAttribute("taskCode");
+//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}
 		
