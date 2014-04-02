@@ -78,36 +78,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE
 		P.ORGANIZATION_CODE =
 		O.ORGANIZATION_CODE))
-		AND
-		(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE, 'DD/MM/YYYY') BETWEEN
-		TO_CHAR((SELECT h.transfer_date
-		FROM history_projects h
-		WHERE
-		h.project_code =
-		R.PROJECT_CODE
-		AND h.organization_after =
-		O.ORGANIZATION_CODE),'DD/MM/YYYY')
-		AND CASE
-		WHEN ( (SELECT COUNT(1)
-		FROM
-		history_projects h
-		WHERE h.project_code =
-		R.PROJECT_CODE
-		AND
-		h.organization_before =
-		O.ORGANIZATION_CODE) =
-		1)
-		THEN
-		TO_CHAR((SELECT
-		h.transfer_date
-		FROM history_projects h
-		WHERE h.project_code =
-		R.PROJECT_CODE
-		AND h.organization_before =
-		O.ORGANIZATION_CODE),'DD/MM/YYYY')
-		ELSE
-		TO_CHAR(SYSDATE,'DD/MM/YYYY')
-		END)
+		
 		AND (TO_CHAR (R.ASSIGNMENT_APPROVED_DATE, 'YYYY') LIKE
 		'%$reportYear$%')
 		<dynamic prepend="AND">
