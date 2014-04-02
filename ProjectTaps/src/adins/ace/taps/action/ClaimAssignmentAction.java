@@ -34,13 +34,14 @@ public class ClaimAssignmentAction extends Action {
 		HttpSession session = request.getSession(true);
 		String taskCode = (String) session.getAttribute("taskCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
-		aForm.getClaimBean().setTaskCode(taskCode);
+		
 		aForm.getClaimBean().setCommentTo(aForm.getClaimBean().getReportTo());
 		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		boolean comment = false;
 		boolean update = false;
 		
 		if("updateDetailClaim".equals(aForm.getTask())){
+			aForm.getClaimBean().setTaskCode(taskCode);
 			PrintWriter out = response.getWriter();
 			ClaimAssignmentBean bean = new ClaimAssignmentBean();
 			bean.setUpdatedBy(sessionUserDomain);
@@ -74,7 +75,7 @@ public class ClaimAssignmentAction extends Action {
 			Map paramStatus = new HashMap();
 			paramStatus.put("status", "RFA");
 			paramStatus.put("updatedBy", sessionUserDomain);
-			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("taskCode", aForm.getClaimBean().getTaskCode());
 			paramStatus.put("flag", "INACTIVE");
 			update = aMan.updateStatus(paramStatus);
 			/*sending notification on email*/
