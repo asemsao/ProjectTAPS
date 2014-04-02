@@ -14,6 +14,7 @@
         FROM stars s,
         employees e
         WHERE s.user_domain=e.user_domain
+        and s.description is not null
         and s.created_by = #sessionUserDomain#
 		<dynamic prepend="AND">
 					<isNotNull property="keyword">
@@ -93,6 +94,7 @@
         employees e
         WHERE s.user_domain=e.user_domain
         and s.created_by = #sessionUserDomain#
+        and s.description is not null
 		<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
