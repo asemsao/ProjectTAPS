@@ -27,9 +27,9 @@ public class EmployeeReportAction extends Action {
 		Map params = new HashMap();
 		String sessionUserDomain = (String) session.getAttribute("username");
 		
-		if (session.getAttribute("taskCode") != null) {
-			session.removeAttribute("taskCode");
-		}
+//		if (session.getAttribute("taskCode") != null) {
+//			session.removeAttribute("taskCode");
+//		}
 
 		if (session.getAttribute("message") != null) {
 			eForm.setMessage(session.getAttribute("message").toString());

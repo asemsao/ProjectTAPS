@@ -204,11 +204,7 @@
 									property="listReports">
 									<logic:equal name="report" property="organizationLevel" value="1">
 										<tr class="text-left">
-											<td colspan="4"><h5><bean:write name="report" property="organizationName" /></h5></td>
-											<td class="text-center"><a
-												href="javascript:report('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
-												data-hint-position="bottom"><img alt=""
-													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>											
+											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>										
 										</tr>
 									</logic:equal>
 									
