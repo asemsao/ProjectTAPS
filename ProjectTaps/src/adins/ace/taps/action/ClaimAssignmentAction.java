@@ -92,6 +92,33 @@ public class ClaimAssignmentAction extends Action {
 				aMan.rollback();
 			}
 			return mapping.findForward("Cancel");
+		} else if ("RE-RFA".equals(aForm.getTask())) {
+			//request for approval to supervisor, change status to RFA
+			aMan.startTransaction();
+			aForm.getClaimBean().setStatus("RE-RFA");
+			comment = aMan.addHistoryComment(aForm.getClaimBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "RE-RFA");
+			paramStatus.put("updatedBy", sessionUserDomain);
+			paramStatus.put("taskCode", aForm.getClaimBean().getTaskCode());
+			paramStatus.put("flag", "INACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));			
+			if (comment && update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Assignment");
+				params.put("phase", "RE-RFA");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
+			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
 			return mapping.findForward("Cancel");
 		}
@@ -102,6 +129,7 @@ public class ClaimAssignmentAction extends Action {
 		params.put("maxDate", App.getConfiguration("max_date"));
 		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
+		System.out.println(aForm.getListDetailClaim());
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Claim");

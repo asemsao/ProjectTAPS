@@ -19,6 +19,7 @@
 			return;
 		} else {
 			document.claimAssignmentForm.task.value = task;
+			alert(task);
 			commentAssigmentValidation();
 		}
 	}
@@ -161,13 +162,15 @@
 															<td class="text-center"><bean:write property="claimDate" name="assignment" /></td>
 															<%
 																if ("CLAIM".equals(session.getAttribute("status")) 
-																		|| "CORRECTION".equals(session.getAttribute("status"))) {
+																		|| "CORRECTION".equals(session.getAttribute("status"))
+																		|| "REOPEN".equals(session.getAttribute("status"))) {
 															%>
 																	<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
 																} else if ("APPROVED".equals(session.getAttribute("status"))
 																		|| "RFA".equals(session.getAttribute("status"))
-																		|| "REJECTED".equals(session.getAttribute("status"))) {
+																		|| "REJECTED".equals(session.getAttribute("status"))
+																		|| "RE-RFA".equals(session.getAttribute("status"))) {
 															%>
 																	<td><html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea></td>
 															<%
@@ -177,7 +180,8 @@
 																<div class="input-control select">
 																	<%
 																		if ("CLAIM".equals(session.getAttribute("status"))
-																				|| "CORRECTION".equals(session.getAttribute("status"))) {
+																				|| "CORRECTION".equals(session.getAttribute("status"))
+																				|| "REOPEN".equals(session.getAttribute("status"))) {
 																	%>
 																			<html:hidden property="detailId" name="assignment" />
 																			<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
@@ -234,7 +238,8 @@
 																	<%
 																		} else if ("APPROVED".equals(session.getAttribute("status"))
 																				|| "RFA".equals(session.getAttribute("status"))
-																				|| "REJECTED".equals(session.getAttribute("status"))) {
+																				|| "REJECTED".equals(session.getAttribute("status"))
+																				|| "RE-RFA".equals(session.getAttribute("status"))) {
 																	%>
 																			<html:select property="manHours" name="assignment" disabled="true">
 																				<html:option value="">00:00</html:option>
@@ -308,7 +313,7 @@
 							<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
 								<tr>
 									<%
-										if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status"))) {
+										if ("CLAIM".equals(session.getAttribute("status")) || "CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))) {
 									%>
 											<th class="field-form">Comment</th>
 											<td class="field-separator">:</td>
@@ -333,6 +338,11 @@
 												<button onclick="javascript:flyToPage('RFA');" class="button success">RFA</button> 
 												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 										<%
+										 	} else if ("REOPEN".equals(session.getAttribute("status"))) {
+										 %>
+										 		<button onclick="javascript:flyToPage('RE-RFA');" class="button success">RFA</button> 
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
 										 	} else {
 										 %> 
 										 		<button onclick="javascript:flyToPage('cancel');" class="button info">Close</button>
@@ -354,6 +364,11 @@
 										 	} else if ("CLAIM".equals(session.getAttribute("status"))) {
 										 %> 
 												<span class="claim-msg">You need to make a claim from dashboard</span>
+												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
+										<%
+										 	} else if ("REOPEN".equals(session.getAttribute("status"))) {
+										 %> 
+												<button onclick="javascript:flyToPage('Re-RFA');" class="button success">RFA</button> 
 												<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button> 
 										<%
 										 	} else {

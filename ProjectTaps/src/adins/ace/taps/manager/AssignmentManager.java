@@ -494,8 +494,7 @@ public class AssignmentManager {
 		List<ClaimAssignmentBean> listDetailClaim = new ArrayList<ClaimAssignmentBean>();
 		try {
 			ibatisSQLMap.startTransaction();
-			listDetailClaim = ibatisSQLMap.queryForList(
-					"assignment.searchDetailClaim", taskCode);
+			listDetailClaim = ibatisSQLMap.queryForList("assignment.searchDetailClaim", taskCode);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -93,28 +93,28 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="approvalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFA
 	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
+	 	WHERE   	report_to = #session.user_domain# AND (UPPER(current_status) = UPPER('rfa') OR UPPER(current_status) = UPPER('re-rfa')) 
 	 	AND assignment_category = 'ASSIGNMENT'
 	</select>
 	
 	<select id="approvalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFAself
 	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
+	 	WHERE   	report_to = #session.user_domain# AND (UPPER(current_status) = UPPER('rfa') OR UPPER(current_status) = UPPER('re-rfa')) 
 	 	AND assignment_category = 'SELF ASSIGNMENT' 
 	</select>
 	
 	<select id="correctionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrection
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
+	 	WHERE   	assign_to = #session.user_domain# AND (UPPER(current_status) = UPPER('correction') OR UPPER(current_status) = UPPER('reopen')) 
 	 	AND assignment_category = 'ASSIGNMENT' 
 	</select>
 	
 	<select id="correctionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrectionself
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
+	 	WHERE   	assign_to = #session.user_domain# AND (UPPER(current_status) = UPPER('correction') OR UPPER(current_status) = UPPER('reopen')) 
 	 	AND assignment_category = 'SELF ASSIGNMENT' 
 	</select>
 	
@@ -127,28 +127,28 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<select id="unreadApprovalDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFA
 	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa') 
+	 	WHERE   	report_to = #session.user_domain# AND (UPPER(current_status) = UPPER('rfa') OR UPPER(current_status) = UPPER('re-rfa')) 
 	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="unreadApprovalSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalRFAself
 	 	FROM   		assignments
-	 	WHERE   	report_to = #session.user_domain# AND UPPER(current_status) = UPPER('rfa')
+	 	WHERE   	report_to = #session.user_domain# AND (UPPER(current_status) = UPPER('rfa') OR UPPER(current_status) = UPPER('re-rfa')) 
 	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="unreadCorrectionDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrection
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction') 
+	 	WHERE   	assign_to = #session.user_domain# AND (UPPER(current_status) = UPPER('correction') OR UPPER(current_status) = UPPER('reopen')) 
 	 	AND assignment_category = 'ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
 	<select id="unreadCorrectionSelfDashboard" resultClass="java.lang.Integer" parameterClass="java.lang.String">
 		SELECT   	COUNT (task_code) AS totalCorrectionself
 	 	FROM   		assignments
-	 	WHERE   	assign_to = #session.user_domain# AND UPPER(current_status) = UPPER('correction')
+	 	WHERE   	assign_to = #session.user_domain# AND (UPPER(current_status) = UPPER('correction') OR UPPER(current_status) = UPPER('reopen')) 
 	 	AND assignment_category = 'SELF ASSIGNMENT' AND flag='INACTIVE'
 	</select>
 	
@@ -259,7 +259,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'ASSIGNMENT' 
+				WHERE 	a.assign_to = #userDomain# AND (a.current_status = 'CORRECTION' OR a.current_status = 'REOPEN') AND assignment_category = 'ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -302,7 +302,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 	assignments a 
 		LEFT JOIN employees e
 		ON 		a.assign_to = e.user_domain 
-		WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'ASSIGNMENT' 
+		WHERE 	a.assign_to = #userDomain# AND (a.current_status = 'CORRECTION' OR a.current_status = 'REOPEN') AND assignment_category = 'ASSIGNMENT' 
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -351,7 +351,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'SELF ASSIGNMENT' 
+				WHERE 	a.assign_to = #userDomain# AND (a.current_status = 'CORRECTION' OR a.current_status = 'REOPEN') AND assignment_category = 'SELF ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -394,7 +394,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 	assignments a 
 		LEFT JOIN employees e
 		ON 		a.assign_to = e.user_domain 
-		WHERE 	a.assign_to = #userDomain# AND a.current_status = 'CORRECTION' AND assignment_category = 'SELF ASSIGNMENT' 
+		WHERE 	a.assign_to = #userDomain# AND (a.current_status = 'CORRECTION' OR a.current_status = 'REOPEN') AND assignment_category = 'SELF ASSIGNMENT' 
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -443,7 +443,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'ASSIGNMENT' 
+				WHERE 	a.report_to = #userDomain# AND (a.current_status = 'RFA' OR a.current_status = 'RE-RFA') AND assignment_category = 'ASSIGNMENT' 
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -486,7 +486,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 	assignments a 
 		LEFT JOIN employees e
 		ON 		a.assign_to = e.user_domain 
-		WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'ASSIGNMENT' 
+		WHERE 	a.report_to = #userDomain# AND (a.current_status = 'RFA' OR a.current_status = 'RE-RFA') AND assignment_category = 'ASSIGNMENT' 
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
@@ -535,7 +535,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				FROM 	assignments a 
 				LEFT JOIN employees e
 				ON 		a.assign_to = e.user_domain 
-				WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'SELF ASSIGNMENT'
+				WHERE 	a.report_to = #userDomain# AND (a.current_status = 'RFA' OR a.current_status = 'RE-RFA') AND assignment_category = 'SELF ASSIGNMENT'
 				<dynamic prepend="AND">
 					<isNotNull property="keyword">
 						<isNotEmpty property="keyword">
@@ -578,7 +578,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		FROM 	assignments a 
 		LEFT JOIN employees e
 		ON 		a.assign_to = e.user_domain 
-		WHERE 	a.report_to = #userDomain# AND a.current_status = 'RFA' AND assignment_category = 'SELF ASSIGNMENT' 
+		WHERE 	a.report_to = #userDomain# AND (a.current_status = 'RFA' OR a.current_status = 'RE-RFA') AND assignment_category = 'SELF ASSIGNMENT' 
 		<dynamic prepend="AND">
 			<isNotNull property="keyword">
 				<isNotEmpty property="keyword">
