@@ -36,7 +36,7 @@ public class NewSelfAssignmentAction extends Action {
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		String sessionUserDomain = (String) session.getAttribute("username");
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		boolean rfa = false;
 		boolean insertToAssignment = false;
 		boolean insertToDetailClaim = false;

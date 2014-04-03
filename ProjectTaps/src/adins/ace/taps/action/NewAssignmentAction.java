@@ -30,7 +30,7 @@ public class NewAssignmentAction extends Action {
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
 		String userDomain = (String) session.getAttribute("username");
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		boolean success = false;
