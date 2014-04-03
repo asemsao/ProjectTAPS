@@ -338,7 +338,7 @@
 												<html:option value="6">6</html:option>
 											</html:select>
 											<html:select property="newEmployee.golonganLevel"
-												styleId="golonganLevel" style="width:70px;"
+												styleId="golonganLevel" style="width:80px;"
 												name="employeeForm">
 												<html:option value="">Grade</html:option>
 												<html:option value="A">A</html:option>

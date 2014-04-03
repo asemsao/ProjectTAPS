@@ -31,7 +31,9 @@ import adins.ace.taps.form.employee.EmployeeForm;
 import adins.ace.taps.manager.EmployeeManager;
 import adins.ace.taps.manager.LoginManager;
 import adins.ace.taps.module.ExtractPhoto;
+import adins.ace.taps.module.GeneratePassword;
 import adins.ace.taps.module.PhotoResizeModule;
+import adins.ace.taps.module.SendMailTls;
 
 public class EmployeeAction extends Action {
 	@Override
@@ -238,10 +240,20 @@ public class EmployeeAction extends Action {
 						if (!mForm.getPassword().equals("")) {
 							data.put("password", mForm.getPassword());
 						} else {
-							data.put("password", "sysadmin");
+							char[] pswd = GeneratePassword.generatePswd();
+							data.put("password", new String(pswd));
+							data.put("toMail", mForm.getNewEmployee().getEmail());
+							data.put("nameReceiver", mForm.getNewEmployee().getFirstName()+" "+mForm.getNewEmployee().getLastName());
+							data.put("userId", mForm.getNewEmployee().getEmployeeDomain());
+							SendMailTls.SendMailPassword(data);
 						}
 					} else {
-						data.put("password", "sysadmin");
+						char[] pswd = GeneratePassword.generatePswd();
+						data.put("password", new String(pswd));
+						data.put("toMail", mForm.getNewEmployee().getEmail());
+						data.put("nameReceiver", mForm.getNewEmployee().getFirstName()+" "+mForm.getNewEmployee().getLastName());
+						data.put("userId", mForm.getNewEmployee().getEmployeeDomain());
+						SendMailTls.SendMailPassword(data);
 					}
 					mMan.insertLoginEmployee(data);
 
