@@ -37,6 +37,9 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("New");
 		}
 		if ("save".equals(orgForm.getTask())) {
+			int parentLevel=orgMan.levelParent(orgForm.getOrgBean().getParentCode());
+			int orgLevel=parentLevel+1;
+			orgForm.getOrgBean().setOrganizationLevel(orgLevel);
 			if (isTokenValid(request)) {
 				if (!(orgForm.getOrgBean().getHeadDomain()).equals("")) {
 					if ((orgMan.countRoleSPV(orgForm.getOrgBean()
@@ -109,6 +112,12 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
+			int parentLevel=orgMan.levelParent(orgForm.getOrgBean().getParentCode());
+			int orgLevel=parentLevel+1;
+			int childLevel=orgLevel+1;
+	
+			orgForm.getOrgBean().setOrganizationLevel(orgLevel);
+			orgForm.getOrgBean().setOrganizationLevelChild(childLevel);
 			if (isTokenValid(request)) {
 				if (orgForm.getOrgBean().getOrganizationCode()
 						.equals(orgForm.getOrgBean().getParentCode())) {
@@ -182,9 +191,12 @@ public class OrganizationAction extends Action {
 					} else {
 						boolean submit = false;
 						boolean updateReportAssignment = false;
+						boolean updateChild = false;
 						orgMan.startTransaction();
-						submit = orgMan.submitEditWithChild(orgForm
+						
+						submit = orgMan.submitEdit(orgForm
 								.getOrgBean());
+						updateChild = orgMan.updateLevelChild(orgForm.getOrgBean());
 						if (!orgForm.getHeadDomainBefore().equals(
 								orgForm.getOrgBean().getHeadDomain())) {
 							boolean deleteHBU = false;
@@ -220,7 +232,7 @@ public class OrganizationAction extends Action {
 											.getOrgBean());
 							if (submit && deleteHBU && deleteSPV
 									&& insertRoleNewHBU && insertRoleSPV
-									&& updateReportAssignment && orgCodeHBU) {
+									&& updateReportAssignment && orgCodeHBU && updateChild) {
 								orgMan.commitTransaction();
 								orgForm.setMessage("Edit Business Unit Successfull!");
 								orgForm.setColor("green");
@@ -386,7 +398,8 @@ public class OrganizationAction extends Action {
 			}
 			return mapping.findForward("Structure");
 		}
-
+		orgForm.setMaxLevel(orgMan.maxLevel());
+		request.setAttribute("maxLevel", orgForm.getMaxLevel());
 		orgForm.setListOrganizations(orgMan.searchOrganizations(params));
 		orgForm.setCountRecord(orgMan.countOrganizations(params));
 
