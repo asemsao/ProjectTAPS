@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import com.google.gson.GsonBuilder;
 
 import adins.ace.taps.bean.assignment.ClaimAssignmentBean;
 import adins.ace.taps.bean.dashboard.DashboardBean;
+import adins.ace.taps.bean.module.RoleBean;
 import adins.ace.taps.configuration.App;
 import adins.ace.taps.form.dashboard.DashboardForm;
 import adins.ace.taps.manager.AssignmentManager;
@@ -776,12 +778,17 @@ public class DashboardAction extends Action {
 			out.print(json);
 			return null;
 		}
-
+		
 		rankingLast.put("lastMonth", "true");
 		rankingLast.put("organizationCode", session.getAttribute("organizationCode"));
 
 		rankingCurrent.put("currentMonth", "true");
 		rankingCurrent.put("organizationCode", session.getAttribute("organizationCode"));
+		
+		if(checkLoggedAsHBU(session)){
+			rankingLast.put("asHBU", "true");
+			rankingCurrent.put("asHBU", "true");
+		}
 		
 		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization(rankingCurrent));
@@ -790,5 +797,17 @@ public class DashboardAction extends Action {
 		dForm.setListTopTenOrganizationPrev(dMan.searchTopTenOrganization(rankingLast));
 
 		return mapping.findForward("Dashboard");
+	}
+	
+	private boolean checkLoggedAsHBU(HttpSession session){
+		List<RoleBean> roleList = (List) session.getAttribute("role");
+		boolean is_hbu = false;
+		for (int i = 0; i < roleList.size(); i++) {
+			if (roleList.get(i).getRoleId().equals("hbu")) {
+				is_hbu = true;
+				break;
+			}
+		}
+		return is_hbu;
 	}
 }

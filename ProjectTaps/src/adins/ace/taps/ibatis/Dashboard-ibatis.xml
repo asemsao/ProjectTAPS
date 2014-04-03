@@ -184,9 +184,16 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 				            AS redStar
 				  FROM   employees e
 				 WHERE   e.flag = 'ACTIVE'
-				 AND	e.user_domain NOT IN (SELECT   r.user_domain
-				                                FROM   employee_role r
-				                               WHERE   r.role_id IN ('HBU'))
+				 <dynamic prepend="AND">
+					<isNotNull property="asHBU">
+						<isNotEmpty property="asHBU">
+							e.user_domain IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU'))
+						</isNotEmpty>
+					</isNotNull>
+					<isNull property="asHBU">
+						e.user_domain NOT IN (SELECT r.user_domain FROM employee_role r WHERE r.role_id IN ('HBU'))
+					</isNull>
+				 </dynamic>
 			ORDER BY greenStar DESC, redStar ASC, e.user_domain ASC
 		)
 		WHERE <![CDATA[ROWNUM <= 10]]>
