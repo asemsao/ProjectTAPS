@@ -3,6 +3,7 @@
 
 package adins.ace.taps.action;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,18 +16,24 @@ import org.apache.struts.action.ActionMapping;
 
 import adins.ace.taps.form.organization.OrganizationForm;
 import adins.ace.taps.manager.OrganizationManager;
+import adins.ace.taps.manager.RestoreOrganizationManager;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class OrganizationAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		OrganizationManager orgMan = new OrganizationManager();
 		OrganizationForm orgForm = (OrganizationForm) form;
+		OrganizationManager orgMan = new OrganizationManager();
+		RestoreOrganizationManager resMan = new RestoreOrganizationManager();
 		Map params = new HashMap();
 		HttpSession session = request.getSession(true);
 		orgForm.getOrgBean().setSessionUserDomain(
 				(String) session.getAttribute("username"));
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		if (orgForm.getPage() == null) {
 			orgForm.setPage(1);
@@ -410,6 +417,30 @@ public class OrganizationAction extends Action {
 		} else {
 			orgForm.setMaxpage(((int) Math.ceil(orgForm.getCountRecord() / 10)) + 1);
 		}
+		
+		if ("restorePage".equals(orgForm.getTask()) || "restorePage".equals(orgForm.getMode())) {
+			orgForm.setListOrganizations(resMan.searchListOrganization(params));
+			orgForm.setCountRecord(resMan.countRecord(params));
+			return mapping.findForward("RestoreOrganization");
+		}
+		
+		if ("submitRestore".equals(orgForm.getTask())) {
+			String orgName = request.getParameter("name").toString();
+			String orgCode = request.getParameter("code").toString();
+			if (resMan.restoreOrganization(orgCode)) {
+				orgForm.setMessage(orgName + " succesfully restored");
+				orgForm.setColor("green");
+			} else {
+				orgForm.setMessage("Failed to restored " + orgName);
+				orgForm.setColor("red");
+			}
+
+			String json = gson.toJson(orgForm);
+			PrintWriter out = response.getWriter();
+			out.print(json);
+			return null;
+		}
+		
 		saveToken(request);
 		return mapping.findForward("ListOrganization");
 	}

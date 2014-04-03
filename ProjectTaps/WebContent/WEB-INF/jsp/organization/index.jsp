@@ -66,6 +66,11 @@
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
+		
+		$("#restore-organization").click(function() {
+			$("#task").val("restorePage");
+			$("#CRUDForm").submit();
+		});
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -173,8 +178,11 @@
 									</ul>
 								</div>
 							</td>
+							<td>
+							<button id="restore-organization" data-hint="Restore Organization" data-hint-position="bottom">Restore Organization</button>
+							</td>
 							<td class="text-center field-form">
-								<a id="new"	data-hint="Add Organizations" data-hint-position="bottom">
+								<a id="new"	data-hint="Add Organization" data-hint-position="bottom">
 									<img alt="" src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png">
 								</a>
 							</td>
