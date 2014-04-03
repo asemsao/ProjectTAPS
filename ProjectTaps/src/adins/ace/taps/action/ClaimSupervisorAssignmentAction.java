@@ -29,7 +29,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
 		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo(aForm.getClaimBean().getAssignTo());
@@ -37,7 +37,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 		boolean comment = false;
 		boolean update = false;
 		boolean starSuccess = false;
-		
+
 		if ("approved".equals(aForm.getTask())) {
 			aMan.startTransaction();
 			//add comment and change status to approved
