@@ -64,6 +64,7 @@
 					<html:hidden property="claimBean.taskCode" name="dashboardForm" />
 					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
 					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
+					<html:hidden property="claimBean.assignmentDate" name="dashboardForm" styleId="assDate"/>
 					<table class="table">
 						<tr>
 							<td colspan=4 class="text-center text-bold"><h3>Claim Assignment</h3></td>
@@ -103,9 +104,14 @@
 							<th class="field-form">Assignment Date</th>
 							<td class="field-separator">:</td>
 							<td colspan=2>
+							<%
+							java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+							java.util.Date date = new java.util.Date();
+							String dateString = df.format(date);
+							%>
 								<div class="input-control text" id="datepicker">
 									<html:text property="claimBean.claimDate" name="dashboardForm"
-										styleId="assignmentDate" styleClass="datepicker-back" />
+										styleId="assignmentDate" styleClass="datepicker-claim" value="<%=dateString%>"/>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
