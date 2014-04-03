@@ -369,6 +369,44 @@ public class OrganizationManager {
 		return count;
 	}
 	
+	public Integer levelParent(String parentCode) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.levelParent", parentCode);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public Integer maxLevel() {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"organization.maxLevel", null);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
 	public Integer countDirectReportProjectNoStart(String headDomain) {
 		Integer count = null;
 		try {
@@ -539,6 +577,20 @@ public class OrganizationManager {
 		boolean flag = false;
 		try {
 			ibatisSqlMap.update("organization.editOrganizationWithChild",
+					orgBean);
+			flag = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			flag = false;
+			e.printStackTrace();
+		} 
+		return flag;
+	}
+	
+	public boolean updateLevelChild(OrganizationBean orgBean) {
+		boolean flag = false;
+		try {
+			ibatisSqlMap.update("organization.updateLevelChild",
 					orgBean);
 			flag = true;
 		} catch (SQLException e) {

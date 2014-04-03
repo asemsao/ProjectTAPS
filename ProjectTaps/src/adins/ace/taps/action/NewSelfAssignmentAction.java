@@ -36,7 +36,7 @@ public class NewSelfAssignmentAction extends Action {
 		DateFormat dateFormat = new SimpleDateFormat("yyMM");
 		Date date = new Date();
 		String sessionUserDomain = (String) session.getAttribute("username");
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		boolean rfa = false;
 		boolean insertToAssignment = false;
 		boolean insertToDetailClaim = false;
@@ -61,6 +61,11 @@ public class NewSelfAssignmentAction extends Action {
 				return mapping.findForward("EditSelfAssignment");
 			} else {
 				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
+				//check if he/she is a HBU
+				if (aForm.getSelfAssignBean().getHeadUserDomain().equals(sessionUserDomain)){
+					//search head BU upper organization level from him/her
+					aForm.setSelfAssignBean(aMan.searchUpperHeadOrganization(sessionUserDomain));
+				}
 				return mapping.findForward("NewSelfAssignment");
 			}
 		} else {

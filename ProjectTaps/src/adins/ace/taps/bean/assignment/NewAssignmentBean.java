@@ -42,7 +42,14 @@ public class NewAssignmentBean implements Serializable {
 	private Integer appraisalStar;
 	private Integer starBefore;
 	private String updateableStar;
+	private Integer organizationLevel;
 	
+	public Integer getOrganizationLevel() {
+		return organizationLevel;
+	}
+	public void setOrganizationLevel(Integer organizationLevel) {
+		this.organizationLevel = organizationLevel;
+	}
 	public String getAssignmentTime() {
 		return assignmentTime;
 	}

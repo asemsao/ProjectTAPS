@@ -610,15 +610,27 @@
 
 	<select id="searchHeadOrganizationCode" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean"
 		parameterClass="java.lang.String">
-		SELECT o.organization_name AS organizationName,
-		o.head_user_domain AS headUserDomain,
-		mgr.first_name || ' ' || mgr.last_name AS headUserName
-		FROM organizations o, employees mgr, employees e
-		WHERE mgr.user_domain = o.head_user_domain
-		AND o.organization_code = e.organization_code
-		AND e.user_domain = #userDomain#
+		SELECT   o.organization_name AS organizationName,
+		         o.head_user_domain AS headUserDomain,
+		         mgr.first_name || ' ' || mgr.last_name AS headUserName
+		  FROM   organizations o, employees mgr, employees e
+		 WHERE       mgr.user_domain = o.head_user_domain
+		         AND o.organization_code = e.organization_code
+		         AND e.user_domain = #userDomain#
 	</select>
-
+	
+	<select id="searchUpperHeadOrganization" resultClass="adins.ace.taps.bean.assignment.NewAssignmentBean" 
+		parameterClass="java.lang.String">
+		SELECT   po.head_user_domain AS headUserDomain,
+		         e.first_name || ' ' || e.last_name AS headUserName,
+		         co.organization_level AS organizationLevel,
+		         co.organization_name AS organizationName
+		  FROM   organizations po, organizations co, employees e
+		 WHERE       co.parent_organization_code = po.organization_code(+)
+		         AND po.head_user_domain = e.user_domain(+)
+		         AND co.head_user_domain = #userDomain#
+	</select>
+	
 	<select id="getMaxTaskCodeOrganization" resultClass="java.lang.String"
 		parameterClass="java.lang.String">
 		SELECT LPAD (SUBSTR (MAX (task_code), 8, 11) + 1, 5, 0)

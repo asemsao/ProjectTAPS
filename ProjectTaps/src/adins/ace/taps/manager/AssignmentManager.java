@@ -27,25 +27,35 @@ public class AssignmentManager {
 			ibatisSQLMap.getDataSource().getConnection().setAutoCommit(false);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public void commitTransaction(){
 		try {
 			ibatisSQLMap.commitTransaction();
-			ibatisSQLMap.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 	
 	public void rollback(){
 		try {
 			ibatisSQLMap.getDataSource().getConnection().rollback();
-			ibatisSQLMap.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 	
@@ -259,7 +269,6 @@ public class AssignmentManager {
 			ibatisSQLMap.insert("assignment.addAssignment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed to add assignment");
 			success = false;
 			e.printStackTrace();
 		} finally {
@@ -277,7 +286,6 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.insert("assignment.addSelfAssignment", bean);
 		} catch (SQLException e) {
-			System.out.println("Failed to add self assignment");
 			success = false;
 			e.printStackTrace();
 		} 
@@ -292,7 +300,6 @@ public class AssignmentManager {
 					"assignment.searchOrganizationCode", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed search organization");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -312,7 +319,6 @@ public class AssignmentManager {
 					"assignment.searchHeadUserDomain", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed search organization");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -323,7 +329,7 @@ public class AssignmentManager {
 		}
 		return headUserDomain;
 	}
-
+	
 	public NewAssignmentBean searchHeadOrganizationCode(String userDomain) {
 		NewAssignmentBean organization = new NewAssignmentBean();
 		try {
@@ -332,7 +338,6 @@ public class AssignmentManager {
 					"assignment.searchHeadOrganizationCode", userDomain);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed search organization");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -341,10 +346,28 @@ public class AssignmentManager {
 				e2.printStackTrace();
 			}
 		}
-
 		return organization;
 	}
 
+	public NewAssignmentBean searchUpperHeadOrganization(String userDomain) {
+		NewAssignmentBean organization = new NewAssignmentBean();
+		try {
+			ibatisSQLMap.startTransaction();
+			organization = (NewAssignmentBean) ibatisSQLMap.queryForObject(
+					"assignment.searchUpperHeadOrganization", userDomain);
+			ibatisSQLMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSQLMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return organization;
+	}
+	
 	public String getMaxTaskCodeOrganization(String paramTaskCode) {
 		String generateTaskCode = "";
 		try {
@@ -554,7 +577,6 @@ public class AssignmentManager {
 			ibatisSQLMap.update("assignment.editAssignment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed to add assignment");
 			success = false;
 			e.printStackTrace();
 		} finally {
@@ -572,7 +594,6 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.update("assignment.editSelfAssignment", bean);
 		} catch (SQLException e) {
-			System.out.println("Failed to add self assignment");
 			success = false;
 			e.printStackTrace();
 		} 
@@ -584,7 +605,6 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.update("assignment.editClaimSelfAssignment", bean);
 		} catch (SQLException e) {
-			System.out.println("Failed to edit detail claim assignment");
 			success = false;
 			e.printStackTrace();
 		} 
@@ -598,7 +618,6 @@ public class AssignmentManager {
 			ibatisSQLMap.update("assignment.editManHourSelfAssignment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed to edit man hours self assignment");
 			success = false;
 			e.printStackTrace();
 		} finally {
@@ -682,7 +701,6 @@ public class AssignmentManager {
 			ibatisSQLMap.update("assignment.editDetailClaimAssignment", bean);
 			ibatisSQLMap.commitTransaction();
 		} catch (SQLException e) {
-			System.out.println("Failed to edit detail claim assignment");
 			success = false;
 			e.printStackTrace();
 		} finally {
@@ -700,7 +718,6 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.insert("assignment.addDetailClaim", bean);
 		} catch (SQLException e) {
-			System.out.println("Failed to add detail claim assignment");
 			success = false;
 			e.printStackTrace();
 		} 
@@ -712,7 +729,6 @@ public class AssignmentManager {
 		try {
 			ibatisSQLMap.insert("assignment.addDetailClaimAssignment", bean);
 		} catch (SQLException e) {
-			System.out.println("Failed to add detail claim assignment");
 			success = false;
 			e.printStackTrace();
 		} 
@@ -918,7 +934,6 @@ public class AssignmentManager {
 			try {
 				ibatisSQLMap.getDataSource().getConnection().rollback();
 			} catch (SQLException e1) {
-				System.out.println("failed to rollback");
 				e1.printStackTrace();
 			}
 			e.printStackTrace();

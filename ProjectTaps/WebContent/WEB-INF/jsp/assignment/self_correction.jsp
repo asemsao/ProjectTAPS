@@ -318,10 +318,40 @@
 										<td colspan=3>
 											<html:textarea property="selfAssignBean.description" name="selfAssignmentForm" styleClass="input-control textarea"></html:textarea>
 										</td>
-									</tr>
+									</tr>									
 							<%
 								}
 							%>
+							<%
+								if ("APPROVED".equals(session.getAttribute("status"))) {
+							%> 
+								<tr>
+									<th class="field-form">Appraisal Star</th>
+									<td class="field-separator">:</td>
+									<td colspan=3><bean:define id="temp" name="selfAssignmentForm" property="selfAssignBean.appraisalStar" type="Integer" />
+										<%
+				 							Integer sc = temp;
+									 		if (sc > 0) {
+									 			for (int i = 0; i < sc; i++) {
+										 %>
+										 	<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+										<%
+												}
+											} else if (sc < 0) {
+												for (int i = 0; i < Math.abs(sc); i++) {
+										%> 
+											<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+										<%
+												}
+											} else {
+										%> 
+											<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+										<%	
+											}
+										%>
+									</td>
+								</tr>
+							<%} %>
 							<%
 								if ("CORRECTION".equals(session.getAttribute("status"))) {
 							%>

@@ -29,6 +29,9 @@ public class ReportBean implements Serializable {
 	private Double totalAssignmentBU;
 	private Double totalAssignmentProject;
 	private Double totalSelfAssignmentProject;
+	//new report
+	private Double productivity;
+	private Double quality;
 	
 	//detail report
 	private Double productivity01;
@@ -248,6 +251,18 @@ public class ReportBean implements Serializable {
 	}
 	public void setProductivity12(Double productivity12) {
 		this.productivity12 = productivity12;
+	}
+	public Double getProductivity() {
+		return productivity;
+	}
+	public void setProductivity(Double productivity) {
+		this.productivity = productivity;
+	}
+	public Double getQuality() {
+		return quality;
+	}
+	public void setQuality(Double quality) {
+		this.quality = quality;
 	}
 	
 }

@@ -21,6 +21,23 @@ public class ReportManager {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
 
+	public List getReportLevelDepartment(Map h){
+		List reportList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			reportList = ibatisSqlMap.queryForList("report.getReportLevelDepartment", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return reportList;		
+	}
+	
 	public List getAllReports(){
 		List reportList = null;
 		try {
@@ -170,6 +187,7 @@ public class ReportManager {
 			ibatisSqlMap.startTransaction();
 			reportList = ibatisSqlMap.queryForList("report.getReportLevel2_v2", h);
 			//ibatisSqlMap.commitTransaction();
+			System.out.println("reportList.get(1)"+reportList.get(1));
 		} catch (Exception e) {
 //			try {
 //				ibatisSqlMap.getCurrentConnection().rollback(savepoint1);

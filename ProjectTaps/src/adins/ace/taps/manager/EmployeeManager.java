@@ -20,6 +20,21 @@ public class EmployeeManager {
 	public EmployeeManager() {
 		this.ibatisSqlMap = IbatisHelper.getSqlMapInstance();
 	}
+	
+	public void rollback(){
+		try {
+			ibatisSqlMap.getDataSource().getConnection().rollback();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 
 	public boolean deleteEmployee(Map params) {
 		boolean flag = false;
@@ -33,6 +48,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 
 		} catch (SQLException e) {
+			rollback();
 			flag = false;
 			e.printStackTrace();
 		} finally {
@@ -54,6 +70,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -73,6 +90,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -91,6 +109,7 @@ public class EmployeeManager {
 			empList = ibatisSqlMap.queryForList("employee.searchEmployees",
 					params);
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -109,6 +128,7 @@ public class EmployeeManager {
 			photo = (NewEmployeeBean) ibatisSqlMap.queryForObject(
 					"employee.getPhotoEmployees", employeeDomain);
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -127,6 +147,7 @@ public class EmployeeManager {
 			empEdit = (NewEmployeeBean) ibatisSqlMap.queryForObject(
 					"employee.getEditEmployees", params);
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -146,6 +167,7 @@ public class EmployeeManager {
 					"employee.checkEmplooyeeOrganization", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -165,6 +187,7 @@ public class EmployeeManager {
 					"employee.checkProjectStructure", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -185,6 +208,7 @@ public class EmployeeManager {
 					"employee.countEmplooyeeOrganization", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -204,6 +228,7 @@ public class EmployeeManager {
 					"employee.countEmployees", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -222,6 +247,7 @@ public class EmployeeManager {
 			empList = ibatisSqlMap.queryForList(
 					"employee.searchEmployeesOnProject", params);
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -241,6 +267,7 @@ public class EmployeeManager {
 					"employee.countEmployeesOnProject", params);
 			ibatisSqlMap.commitTransaction();
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -260,6 +287,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -279,6 +307,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (Exception e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {
@@ -298,6 +327,7 @@ public class EmployeeManager {
 			ibatisSqlMap.commitTransaction();
 			flag = true;
 		} catch (SQLException e) {
+			rollback();
 			e.printStackTrace();
 		} finally {
 			try {

@@ -67,7 +67,7 @@ public class ReportAction extends Action {
 					rBean = rMan.getHeadOrganization(h);
 					rForm.setParentCode(rBean.getOrganizationParent());
 					rForm.setParentName(rBean.getOrganizationParentName());
-					rForm.setListReports(rMan.getReportLevel2(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
 					return mapping.findForward("ViewLevel2");
 				}
 			} else {
@@ -93,7 +93,8 @@ public class ReportAction extends Action {
 					rForm.setOrganizationCode(orgCode.toString());
 					rForm.setOrganizationLevel(orgLevel.toString());
 					rForm.setOrganizationName(orgName);
-					rForm.setListReports(rMan.getReportLevel2(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
+					System.out.println(rForm.getListReports());
 					return mapping.findForward("ViewLevel2");
 				}
 			}	

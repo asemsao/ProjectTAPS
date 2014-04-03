@@ -32,16 +32,15 @@ public class ClaimAssignmentAction extends Action {
 		ClaimAssignmentForm aForm = (ClaimAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
-		
+		aForm.getClaimBean().setTaskCode(taskCode);
 		aForm.getClaimBean().setCommentTo(aForm.getClaimBean().getReportTo());
 		aForm.getClaimBean().setCreatedBy(sessionUserDomain);
 		boolean comment = false;
 		boolean update = false;
 		
 		if("updateDetailClaim".equals(aForm.getTask())){
-			aForm.getClaimBean().setTaskCode(taskCode);
 			PrintWriter out = response.getWriter();
 			ClaimAssignmentBean bean = new ClaimAssignmentBean();
 			bean.setUpdatedBy(sessionUserDomain);
@@ -65,7 +64,6 @@ public class ClaimAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("RFA".equals(aForm.getTask())) {
 			//request for approval to supervisor, change status to RFA
@@ -93,10 +91,8 @@ public class ClaimAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
-//			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		}
 		

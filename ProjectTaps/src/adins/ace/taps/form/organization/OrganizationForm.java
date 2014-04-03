@@ -13,6 +13,7 @@ public class OrganizationForm extends ActionForm {
 	private String searchCategory;
 	private String searchKeyword;
 	private String sessionUserDomain;
+	private Integer maxLevel;
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
@@ -25,6 +26,15 @@ public class OrganizationForm extends ActionForm {
 	private String headDomain;
 	private String headDomainBefore;
 	private int countChild;
+	
+	
+	public Integer getMaxLevel() {
+		return maxLevel;
+	}
+
+	public void setMaxLevel(Integer maxLevel) {
+		this.maxLevel = maxLevel;
+	}
 
 	public String getHeadDomainBefore() {
 		return headDomainBefore;

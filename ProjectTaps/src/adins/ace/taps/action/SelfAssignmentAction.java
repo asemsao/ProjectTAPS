@@ -32,7 +32,7 @@ public class SelfAssignmentAction extends Action {
 		SelfAssignmentForm sForm = (SelfAssignmentForm) form;
 		AssignmentManager aMan = new AssignmentManager();
 		HttpSession session = request.getSession(true);
-		String taskCode = (String) session.getAttribute("taskCode");
+		String taskCode = (String) session.getAttribute("assignmentCode");
 		String sessionUserDomain = (String) session.getAttribute("username");
 		sForm.getSelfAssignBean().setTaskCode(taskCode);
 		sForm.getSelfAssignBean().setCommentTo(sForm.getSelfAssignBean().getReportTo());

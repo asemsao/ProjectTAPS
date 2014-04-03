@@ -64,6 +64,7 @@
 					<html:hidden property="claimBean.taskCode" name="dashboardForm" />
 					<html:hidden property="claimBean.assignTo" name="dashboardForm" />
 					<html:hidden property="claimBean.reportTo" name="dashboardForm" />
+					<html:hidden property="claimBean.assignmentDate" name="dashboardForm" styleId="assDate"/>
 					<table class="table">
 						<tr>
 							<td colspan=4 class="text-center text-bold"><h3>Claim Assignment</h3></td>
@@ -100,12 +101,17 @@
 							<td colspan=2><bean:write property="claimBean.description" name="dashboardForm" /></td>
 						</tr>
 						<tr>
-							<th class="field-form">Assignment Date</th>
+							<th class="field-form">Claim Assignment Date</th>
 							<td class="field-separator">:</td>
 							<td colspan=2>
+							<%
+							java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy");
+							java.util.Date date = new java.util.Date();
+							String dateString = df.format(date);
+							%>
 								<div class="input-control text" id="datepicker">
 									<html:text property="claimBean.claimDate" name="dashboardForm"
-										styleId="assignmentDate" styleClass="datepicker-back" />
+										styleId="assignmentDate" styleClass="datepicker-claim" value="<%=dateString%>"/>
 									<button type="button" class="btn-date"></button>
 								</div>
 							</td>
@@ -179,7 +185,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="field-form">Description</th>
+							<th class="field-form">Detail Claim Description</th>
 							<td class="field-separator">:</td>
 							<td colspan=2>
 								<html:textarea property="claimBean.detailDescription" name="dashboardForm" rows="3" styleId="description" styleClass="input-control textarea"></html:textarea>
@@ -189,7 +195,6 @@
 							<td colspan=4 class="text-right">
 								<span class="claim-msg" id="claim-message">You've already claim that day</span>
 								<button onclick="javascript:flyToPage('claim');" class="button success" id="btnClaim">Claim</button>
-								<button onclick="javascript:flyToPage('rfa');" class="button success" id="btnRfa">RFA</button>
 								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 							</td>
 						</tr>
