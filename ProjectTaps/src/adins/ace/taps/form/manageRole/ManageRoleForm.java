@@ -6,6 +6,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
 
 import adins.ace.taps.bean.manageRole.EmployeeBean;
+import adins.ace.taps.bean.manageRole.EmployeeRoleBean;
 import adins.ace.taps.bean.manageRole.MenuBean;
 import adins.ace.taps.bean.manageRole.RoleBean;
 
@@ -26,10 +27,16 @@ public class ManageRoleForm extends ActionForm {
 	private Integer page;
 	private Integer maxpage;
 	private Integer countRecord;
+	private String searchKeywordER;
+	private String searchCategoryER;
+	private Integer pageER;
+	private Integer maxpageER;
+	private Integer countRecordER;
 	private List<MenuBean> listMenu;
 	private List<RoleBean> listRole;
 	private List<MenuBean> listMenuByRole;
 	private List<EmployeeBean> listMember;
+	private List<EmployeeRoleBean> listEmployeeRole;
 	private MenuBean mrBean = new MenuBean();
 	private RoleBean rBean = new RoleBean();
 	
@@ -75,6 +82,36 @@ public class ManageRoleForm extends ActionForm {
 	public void setCountRecord(Integer countRecord) {
 		this.countRecord = countRecord;
 	}
+	public String getSearchKeywordER() {
+		return searchKeywordER;
+	}
+	public void setSearchKeywordER(String searchKeywordER) {
+		this.searchKeywordER = searchKeywordER;
+	}
+	public String getSearchCategoryER() {
+		return searchCategoryER;
+	}
+	public void setSearchCategoryER(String searchCategoryER) {
+		this.searchCategoryER = searchCategoryER;
+	}
+	public Integer getPageER() {
+		return pageER;
+	}
+	public void setPageER(Integer pageER) {
+		this.pageER = pageER;
+	}
+	public Integer getMaxpageER() {
+		return maxpageER;
+	}
+	public void setMaxpageER(Integer maxpageER) {
+		this.maxpageER = maxpageER;
+	}
+	public Integer getCountRecordER() {
+		return countRecordER;
+	}
+	public void setCountRecordER(Integer countRecordER) {
+		this.countRecordER = countRecordER;
+	}
 	public List<MenuBean> getListMenu() {
 		return listMenu;
 	}
@@ -116,6 +153,12 @@ public class ManageRoleForm extends ActionForm {
 	}
 	public void setListMember(List<EmployeeBean> listMember) {
 		this.listMember = listMember;
+	}
+	public List<EmployeeRoleBean> getListEmployeeRole() {
+		return listEmployeeRole;
+	}
+	public void setListEmployeeRole(List<EmployeeRoleBean> listEmployeeRole) {
+		this.listEmployeeRole = listEmployeeRole;
 	}
 	public String getRoleName() {
 		return roleName;

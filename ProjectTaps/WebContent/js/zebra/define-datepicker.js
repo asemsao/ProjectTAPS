@@ -48,6 +48,11 @@ $(document).ready(function() {
 		direction : [false, $('#assDate').val()]
 	});
 	
+	$(".datepicker-only-today").Zebra_DatePicker({
+		format : "d/m/Y",
+		direction : [$('#assDate').val(), $('#assDate').val()]
+	});
+	
 	// Year Picker
 	
 	$(".datepicker-month").Zebra_DatePicker({

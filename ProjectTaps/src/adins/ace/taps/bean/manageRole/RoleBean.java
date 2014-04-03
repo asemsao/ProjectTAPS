@@ -6,6 +6,8 @@ public class RoleBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String roleId;
 	private String roleName;
+	private Integer roleCount;
+	
 	public String getRoleId() {
 		return roleId;
 	}
@@ -18,9 +20,11 @@ public class RoleBean implements Serializable {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Integer getRoleCount() {
+		return roleCount;
 	}
-	
+	public void setRoleCount(Integer roleCount) {
+		this.roleCount = roleCount;
+	}
 	
 }
