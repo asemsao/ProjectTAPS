@@ -72,6 +72,42 @@ public class ReportManager {
 		return reportList;		
 	}
 	
+	public ReportBean getDetail(Map map)
+	{
+		ReportBean bean = new ReportBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportBean)ibatisSqlMap.queryForObject("report.getDetail", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
+	public ReportBean getDetail2(Map map)
+	{
+		ReportBean bean = new ReportBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportBean)ibatisSqlMap.queryForObject("report.getDetail2", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
 	public Savepoint insertSavePoint() {
 		boolean flag = false;
 		Savepoint savepoint2 = null;
@@ -151,6 +187,7 @@ public class ReportManager {
 			ibatisSqlMap.startTransaction();
 			reportList = ibatisSqlMap.queryForList("report.getReportLevel2_v2", h);
 			//ibatisSqlMap.commitTransaction();
+			System.out.println("reportList.get(1)"+reportList.get(1));
 		} catch (Exception e) {
 //			try {
 //				ibatisSqlMap.getCurrentConnection().rollback(savepoint1);

@@ -169,7 +169,8 @@
 						<thead>
 							<tr>
 								<th colspan=2>Employee</th>
-								<th>Total Star</th>
+								<th class="text-center">Green</th>
+								<th class="text-center">Red</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -180,13 +181,14 @@
 											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="greenStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="redStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listTopTenOrganization" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="3">Data Not Found</td>
+									<td class="text-center" colspan="4">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -197,7 +199,8 @@
 						<thead>
 							<tr>
 								<th colspan=2>Employee</th>
-								<th>Total Star</th>
+								<th class="text-center">Green</th>
+								<th class="text-center">Red</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -208,13 +211,14 @@
 											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="greenStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="redStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listTopTenOrganizationPrev" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="3">Data Not Found</td>
+									<td class="text-center" colspan="4">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -227,7 +231,8 @@
 						<thead>
 							<tr>
 								<th colspan=2>Employee</th>
-								<th>Total Star</th>
+								<th class="text-center">Green</th>
+								<th class="text-center">Red</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -238,13 +243,14 @@
 											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="greenStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="redStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listTopTen" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="3">Data Not Found</td>
+									<td class="text-center" colspan="4">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
@@ -255,7 +261,8 @@
 						<thead>
 							<tr>
 								<th colspan=2>Employee</th>
-								<th>Total Star</th>
+								<th class="text-center">Green</th>
+								<th class="text-center">Red</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -266,13 +273,14 @@
 											<img src="dashboard.do?task=getPhoto&employeeDomain=<bean:write name="employee" property="userDomain" />"
 												class="ava-rank"></td>
 										<td><bean:write property="employeeName" name="employee" /></td>
-										<td class="text-center"><bean:write property="totalStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="greenStar" name="employee" /></td>
+										<td class="text-center"><bean:write property="redStar" name="employee" /></td>
 									</tr>
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:empty property="listTopTenPrev" name="dashboardForm">
 								<tr>
-									<td class="text-center" colspan="3">Data Not Found</td>
+									<td class="text-center" colspan="4">Data Not Found</td>
 								</tr>
 							</logic:empty>
 						</tbody>
