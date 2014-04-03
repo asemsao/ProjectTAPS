@@ -1,3 +1,4 @@
+
 $.validator.addMethod("notEqualTo", function(value, element) {
 	return $('#employee-name').val() != $('#employee-name-2').val()
 }, "Assignee and Direct Report must be different");
