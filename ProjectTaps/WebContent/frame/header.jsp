@@ -81,13 +81,13 @@
 				</ul>
 				<ul class="element-menu place-right">
 					<li>
-						<div class="element place-right" title="Stars Achievement">
+						<div class="element place-right" title="Green Star Achievement">
 							<span class="icon-star-3"></span> 
 							<span class="star-achievement"><%=session.getAttribute("greenStar")%></span>
 						</div>
 					</li>
 					<li>
-						<div class="element place-right" title="Stars Achievement">
+						<div class="element place-right" title="Red Star Achievement">
 							<span class="icon-star"></span> 
 							<span class="star-achievement"><%=session.getAttribute("redStar")%></span>
 						</div>
