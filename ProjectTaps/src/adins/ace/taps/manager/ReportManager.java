@@ -23,9 +23,45 @@ public class ReportManager {
 
 	public List getReportLevelDepartment(Map h){
 		List reportList = null;
+		
+		System.out.println(h.get("start"));
+		System.out.println(h.get("end"));
 		try {
 			ibatisSqlMap.startTransaction();
 			reportList = ibatisSqlMap.queryForList("report.getReportLevelDepartment", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return reportList;		
+	}
+	
+	public List getReportLevelDivision(Map h){
+		List reportList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			reportList = ibatisSqlMap.queryForList("report.getReportLevelDivision", h);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return reportList;		
+	}
+	public List getReportLevelManagement(Map h){
+		List reportList = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			reportList = ibatisSqlMap.queryForList("report.getReportLevelManagement", h);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
@@ -289,5 +325,63 @@ public class ReportManager {
 			}
 		}
 		return count;		
+	}
+	
+	
+	public Integer countReportManagement(Map h) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"report.getCountReportManagement", h);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public Integer countReportDepartment(Map h) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"report.getCountReportDepartment", h);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
+	public Integer countReportDivision(Map h) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject(
+					"report.getCountReportDivision", h);
+			ibatisSqlMap.commitTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
 	}
 }

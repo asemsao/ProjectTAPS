@@ -34,72 +34,7 @@ public class ReportAction extends Action {
 		String orgName = "";
 		orgName = "";
 		String orgLevel = "";
-		orgLevel = (String) session.getAttribute("organizationLevel");
-				
-		if ("view".equals(rForm.getTask())) {
-			Map<String,String> h = new HashMap<String,String>();
-
-			if (rForm.getOrganizationLevel()!=null) {
-				
-				if (rForm.getOrganizationLevel().equals("0") || rForm.getOrganizationLevel().equals("1")) {
-					h = new HashMap<String,String>();
-					h.put("orgCode", rForm.getOrganizationCode().trim());
-					h.put("orgLevel", rForm.getOrganizationLevel());
-					h.put("reportYear", rForm.getReportYear());
-					h.put("reportPeriode", rForm.getReportPeriode());
-					h.put("reportMonth", rForm.getReportMonth());
-					if (rForm.getOrganizationLevel().equals("1")) {
-						ReportBean rBean = new ReportBean();
-						rBean = rMan.getHeadOrganization(h);
-						rForm.setParentCode(rBean.getOrganizationParent());
-						rForm.setParentName(rBean.getOrganizationParentName());
-					}
-					rForm.setListReports(rMan.getReportLevel1(h));
-					return mapping.findForward("View");
-				} else
-				if (rForm.getOrganizationLevel().equals("2")) {
-					h = new HashMap<String,String>();
-					h.put("orgCode", rForm.getOrganizationCode().trim());
-					h.put("reportYear", rForm.getReportYear());
-					h.put("reportPeriode", rForm.getReportPeriode());
-					h.put("reportMonth", rForm.getReportMonth());
-					ReportBean rBean = new ReportBean();
-					rBean = rMan.getHeadOrganization(h);
-					rForm.setParentCode(rBean.getOrganizationParent());
-					rForm.setParentName(rBean.getOrganizationParentName());
-					rForm.setListReports(rMan.getReportLevelDepartment(h));
-					return mapping.findForward("ViewLevel2");
-				}
-			} else {
-				if (orgLevel.equals("0") || orgLevel.equals("1")) {
-					h = new HashMap<String,String>();
-					h.put("orgCode", orgCode);
-					h.put("orgLevel", orgLevel);
-					h.put("reportYear", rForm.getReportYear());
-					h.put("reportPeriode", rForm.getReportPeriode());
-					h.put("reportMonth", rForm.getReportMonth());
-					rForm.setOrganizationCode(orgCode.toString());
-					rForm.setOrganizationLevel(orgLevel.toString());
-					rForm.setOrganizationName(orgName);
-					rForm.setListReports(rMan.getReportLevel1(h));
-					return mapping.findForward("View");
-				} else
-				if (orgLevel.equals("2")) {
-					h = new HashMap<String,String>();
-					h.put("orgCode", orgCode);
-					h.put("reportYear", rForm.getReportYear());
-					h.put("reportPeriode", rForm.getReportPeriode());
-					h.put("reportMonth", rForm.getReportMonth());
-					rForm.setOrganizationCode(orgCode.toString());
-					rForm.setOrganizationLevel(orgLevel.toString());
-					rForm.setOrganizationName(orgName);
-					rForm.setListReports(rMan.getReportLevelDepartment(h));
-					System.out.println(rForm.getListReports());
-					return mapping.findForward("ViewLevel2");
-				}
-			}	
-		}
-		
+		orgLevel = (String) session.getAttribute("organizationLevel");	
 		if("getDetail".equals(rForm.getTask()))
 		{
 			Map param = new HashMap();
@@ -115,7 +50,6 @@ public class ReportAction extends Action {
 			
 			return mapping.findForward("GetDetail");
 		}
-		
 		if ("1 Months".equals(rForm.getPeriode())) {
 			if ("01".equals(rForm.getReportMonth())) {
 				session.setAttribute("periodePrint", "January");
@@ -144,7 +78,6 @@ public class ReportAction extends Action {
 			}
 			
 		}
-		
 		if ("printReportDept".equals(rForm.getTask())) {
 			Map<String,String> h = new HashMap<String,String>();
 			h.put("prjCode", "");
@@ -202,6 +135,123 @@ public class ReportAction extends Action {
 			return mapping.findForward("PrintReportBOM");
 		}
 		
-		return mapping.findForward("Back");
+		
+			Map h = new HashMap();
+			
+			if (rForm.getPage() == null) {
+				rForm.setPage(1);
+			}
+			if ("first".equals(rForm.getTask())) {
+				rForm.setPage(1);
+			}
+			if ("last".equals(rForm.getTask())) {
+				rForm.setPage(rForm.getMaxpage());
+			}
+			if ("prev".equals(rForm.getTask())) {
+				if (rForm.getPage() > 1) {
+					rForm.setPage(rForm.getPage() - 1);
+				}
+			}
+			if ("next".equals(rForm.getTask())) {
+				if (rForm.getPage() < rForm.getMaxpage()) {
+					rForm.setPage(rForm.getPage() + 1);
+				}
+			}
+			if ("search".equals(rForm.getTask())) {
+				rForm.setPage(1);
+			}
+			
+			
+			h.put("start", ((rForm.getPage() - 1) * 10 + 1));
+			h.put("end", (rForm.getPage() * 10));
+			
+			if (rForm.getOrganizationLevel()!=null) {
+				
+				if (rForm.getOrganizationLevel().equals("0")) {
+					h.put("orgCode", rForm.getOrganizationCode().trim());
+					h.put("orgLevel", rForm.getOrganizationLevel());
+					h.put("reportYear", rForm.getReportYear());
+					h.put("reportPeriode", rForm.getReportPeriode());
+					h.put("reportMonth", rForm.getReportMonth());
+					if (rForm.getOrganizationLevel().equals("1")) {
+						ReportBean rBean = new ReportBean();
+						rBean = rMan.getHeadOrganization(h);
+						rForm.setParentCode(rBean.getOrganizationParent());
+						rForm.setParentName(rBean.getOrganizationParentName());
+					}
+					rForm.setCountRecord(rMan.countReportManagement(h));
+					rForm.setListReports(rMan.getReportLevelManagement(h));
+				} else if (rForm.getOrganizationLevel().equals("1")) {
+					h.put("orgCode", rForm.getOrganizationCode().trim());
+					h.put("orgLevel", rForm.getOrganizationLevel());
+					h.put("reportYear", rForm.getReportYear());
+					h.put("reportPeriode", rForm.getReportPeriode());
+					h.put("reportMonth", rForm.getReportMonth());
+					if (rForm.getOrganizationLevel().equals("1")) {
+						ReportBean rBean = new ReportBean();
+						rBean = rMan.getHeadOrganization(h);
+						rForm.setParentCode(rBean.getOrganizationParent());
+						rForm.setParentName(rBean.getOrganizationParentName());
+					}
+					rForm.setCountRecord(rMan.countReportDivision(h));
+					rForm.setListReports(rMan.getReportLevelDivision(h));
+				} else	if (rForm.getOrganizationLevel().equals("2")) {
+					h.put("orgCode", rForm.getOrganizationCode().trim());
+					h.put("reportYear", rForm.getReportYear());
+					h.put("reportPeriode", rForm.getReportPeriode());
+					h.put("reportMonth", rForm.getReportMonth());
+					ReportBean rBean = new ReportBean();
+					rBean = rMan.getHeadOrganization(h);
+					rForm.setParentCode(rBean.getOrganizationParent());
+					rForm.setParentName(rBean.getOrganizationParentName());
+					rForm.setCountRecord(rMan.countReportDepartment(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
+				}
+			} else {
+				if (orgLevel.equals("0")) {
+					h.put("orgCode", orgCode);
+					h.put("orgLevel", orgLevel);
+					h.put("reportYear", rForm.getReportYear());
+					h.put("reportPeriode", rForm.getReportPeriode());
+					h.put("reportMonth", rForm.getReportMonth());
+					rForm.setOrganizationCode(orgCode.toString());
+					rForm.setOrganizationLevel(orgLevel.toString());
+					rForm.setOrganizationName(orgName);
+					rForm.setCountRecord(rMan.countReportManagement(h));
+					rForm.setListReports(rMan.getReportLevelManagement(h));
+				} else
+					if (orgLevel.equals("1")) {
+						h.put("orgCode", orgCode);
+						h.put("orgLevel", orgLevel);
+						h.put("reportYear", rForm.getReportYear());
+						h.put("reportPeriode", rForm.getReportPeriode());
+						h.put("reportMonth", rForm.getReportMonth());
+						rForm.setOrganizationCode(orgCode.toString());
+						rForm.setOrganizationLevel(orgLevel.toString());
+						rForm.setOrganizationName(orgName);
+						rForm.setCountRecord(rMan.countReportDivision(h));
+						rForm.setListReports(rMan.getReportLevelDivision(h));
+					} else
+				if (orgLevel.equals("2")) {
+					h.put("orgCode", orgCode);
+					h.put("reportYear", rForm.getReportYear());
+					h.put("reportPeriode", rForm.getReportPeriode());
+					h.put("reportMonth", rForm.getReportMonth());
+					rForm.setOrganizationCode(orgCode.toString());
+					rForm.setOrganizationLevel(orgLevel.toString());
+					rForm.setOrganizationName(orgName);
+					rForm.setCountRecord(rMan.countReportDepartment(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
+				}
+			}	
+		
+		if (rForm.getCountRecord() == 0) {
+			rForm.setMaxpage(1);
+		} else if (rForm.getCountRecord() % 10 == 0) {
+			rForm.setMaxpage((int) Math.ceil(rForm.getCountRecord() / 10));
+		} else {
+			rForm.setMaxpage(((int) Math.ceil(rForm.getCountRecord() / 10)) + 1);
+		}
+		return mapping.findForward("ViewLevel2");
 	}
 }

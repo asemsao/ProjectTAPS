@@ -8,6 +8,10 @@ import org.apache.struts.action.ActionForm;
 import adins.ace.taps.bean.report.ReportBean;
 
 
+/**
+ * @author ketut.gwj
+ *
+ */
 @SuppressWarnings("serial")
 public class ReportForm extends ActionForm{
 	private String task;
@@ -26,6 +30,10 @@ public class ReportForm extends ActionForm{
 	private String reportMonth;
 	private ReportBean rBean = new ReportBean();
 	private List<ReportBean> listReports;
+	private Integer countRecord;
+	private Integer maxpage;
+	private Integer page;
+	
 	
 	public String getTask() {
 		return task;
@@ -124,5 +132,24 @@ public class ReportForm extends ActionForm{
 	public void setListReports(List<ReportBean> listReports) {
 		this.listReports = listReports;
 	}
+	public Integer getCountRecord() {
+		return countRecord;
+	}
+	public void setCountRecord(Integer countRecord) {
+		this.countRecord = countRecord;
+	}
+	public Integer getMaxpage() {
+		return maxpage;
+	}
+	public void setMaxpage(Integer maxpage) {
+		this.maxpage = maxpage;
+	}
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	
 	
 }

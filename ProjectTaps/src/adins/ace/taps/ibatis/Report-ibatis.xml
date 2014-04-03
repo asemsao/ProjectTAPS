@@ -65,28 +65,222 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			e.user_domain = #userDomain#
 	</select>
 	
-	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">
+	<select id="getReportLevelDepartment" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.report.ReportBean">
+	SELECT *
+	FROM (SELECT ROWNUM seqnum, a.*
+	FROM (
 	select e.user_domain as userDomain, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
 	where r.assign_to(+) = e.user_domain and e.organization_code = #orgCode# and lower(e.flag)='active'
-	group by e.first_name||' '||e.last_name, e.user_domain
+	group by e.first_name||' '||e.last_name, e.user_domain AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	) a WHERE  <![CDATA[ ROWNUM<=#end#]]>)
+		WHERE  <![CDATA[ seqnum>=#start#]]>
 	</select>
 	
-	<select id="getReportLevelDivision" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
-	where r.assign_to = e.user_domain and lower(e.flag)='active' and e.organization_code in (select o.organization_code from organizations o where o.parent_organization_code = #orgCode#)
-	group by e.first_name||' '||e.last_name, e.organization_code
+	<select id="getReportLevelDivision" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.report.ReportBean">
+	SELECT *
+	FROM (SELECT ROWNUM seqnum, a.*
+	FROM (
+	select e.user_domain as userDomain, e.organization_code as organizationCode, o.organization_name as organizationName, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality 
+	from reports r, employees e, organizations o
+	where o.organization_code = e.organization_code and r.assign_to = e.user_domain and lower(e.flag)='active' and e.organization_code in (select o.organization_code from organizations o where o.parent_organization_code = #orgCode#)
+	AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	group by e.first_name||' '||e.last_name, e.organization_code, e.user_domain, o.organization_name
+	) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>
 	
-	<select id="getReportLevelManagement" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
-	where r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
+	<select id="getReportLevelManagement" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.report.ReportBean">
+	SELECT *
+	FROM (SELECT ROWNUM seqnum, a.*
+	FROM (
+	select e.user_domain as userDomain, e.organization_code as organizationCode, o.organization_name as organizationName, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality 
+	from reports r, employees e, organizations o
+	where o.organization_code = e.organization_code and r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
                                                                                             	FROM organizations o 
                                                                                             	WHERE LOWER(o.flag) = 'active' and o.organization_code != #orgCode#
                                                                                             	START WITH o.organization_code = #orgCode#
                                                                                             	CONNECT BY PRIOR UPPER(o.organization_code) = UPPER(o.parent_organization_code))
-	group by e.first_name||' '||e.last_name, e.organization_code
+    AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	group by e.first_name||' '||e.last_name, e.organization_code, e.user_domain, o.organization_name
+	) a WHERE  <![CDATA[ ROWNUM <= #end#]]>)
+		WHERE  <![CDATA[ seqnum >= #start#]]>
 	</select>	
 
+
+	<select id="getCountReportDepartment" resultClass="int" parameterClass="java.util.Map">
+	select count(1)
+	from (
+	select e.user_domain as userDomain, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to(+) = e.user_domain and e.organization_code = #orgCode# and lower(e.flag)='active'
+	AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	group by e.first_name||' '||e.last_name, e.user_domain
+	)
+	</select>
+	
+	<select id="getCountReportDivision" resultClass="int" parameterClass="java.util.Map">
+		select count(1)
+	from (
+	select e.user_domain as userDomain, e.organization_code as organizationCode, o.organization_name as organizationName, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality 
+	from reports r, employees e, organizations o
+	where o.organization_code = e.organization_code and r.assign_to = e.user_domain and lower(e.flag)='active' and e.organization_code in (select o.organization_code from organizations o where o.parent_organization_code = #orgCode#)
+	AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	group by e.first_name||' '||e.last_name, e.organization_code, e.user_domain, o.organization_name
+	)
+	</select>
+	
+	<select id="getCountReportManagement" resultClass="int" parameterClass="java.util.Map">
+		select count(1)
+	from (
+	select e.user_domain as userDomain, e.organization_code as organizationCode, o.organization_name as organizationName, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality 
+	from reports r, employees e, organizations o
+	where o.organization_code = e.organization_code and r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
+                                                                                            	FROM organizations o 
+                                                                                            	WHERE LOWER(o.flag) = 'active' and o.organization_code != #orgCode#
+                                                                                            	START WITH o.organization_code = #orgCode#
+                                                                                            	CONNECT BY PRIOR UPPER(o.organization_code) = UPPER(o.parent_organization_code))
+    AND (TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'YYYY')
+		LIKE '%$reportYear$%')
+		<dynamic prepend="AND">
+			<isNotNull property="reportPeriode">
+				<isNotEmpty property="reportPeriode">
+					<isEqual property="reportPeriode" compareValue="I">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('01','02','03','04','05','06'))
+					</isEqual>
+					<isEqual property="reportPeriode" compareValue="II">
+						(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') IN
+						('07','08','09','10','11','12'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+
+		<dynamic prepend="AND">
+			<isNotNull property="reportMonth">
+				<isNotEmpty property="reportMonth">
+					(TO_CHAR(R.ASSIGNMENT_APPROVED_DATE,'MM') LIKE '%$reportMonth$%')
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	group by e.first_name||' '||e.last_name, e.organization_code, e.user_domain, o.organization_name
+	)
+	
+	</select>	
 	<select id="getReportLevel1" resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
 		SELECT LPAD (

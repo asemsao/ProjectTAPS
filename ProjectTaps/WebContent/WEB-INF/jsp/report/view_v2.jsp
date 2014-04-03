@@ -21,7 +21,12 @@
 <script src="<%=request.getContextPath()%>/js/highchart/jspdf.min.js"></script>
 
 <script type="text/javascript">
+
 	function report(task) {
+		document.reportForm.task.value = task;
+		document.reportForm.submit();
+	}
+	function flyToPage(task) {
 		document.reportForm.task.value = task;
 		document.reportForm.submit();
 	}
@@ -31,7 +36,6 @@
 		document.reportForm.submit();
 	}
 	function detail(task,userDomain) {
-		alert("DETAIL");
 		document.reportForm.task.value = task;
 		document.reportForm.userDomain.value = userDomain;
 		document.reportForm.submit();
@@ -127,7 +131,7 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form action="/report" method="POST">
+				<html:form action="/report" method="POST" styleId="reportForm">
 					<html:hidden property="task" name="reportForm" />
 					<html:hidden property="userDomain" name="reportForm" />
 					<html:hidden property="organizationCode" name="reportForm" />
@@ -139,6 +143,8 @@
 					<html:hidden property="reportYear" name="reportForm" />
 					<html:hidden property="reportPeriode" name="reportForm" />
 					<html:hidden property="reportMonth" name="reportForm" />
+					<html:hidden property="page" name="reportForm" />
+					<html:hidden property="maxpage" name="reportForm" />
 
 					<div id="graph"></div>
 					<div class="hide">
@@ -180,25 +186,13 @@
 								</th>
 							</tr>
 							<tr>
-								<th class="text-center">
-									<div class="input-control select">
-										<select>
-											<option value="">All</option>
-										</select>
-									</div>
-								</th>
-								<th class="text-center" colspan=6>
-									<div class="input-control text">
-										<input type="text" placeholder="Keyword of Report" />
-										<button class="btn-search"></button>
-									</div>
-								</th>
-							</tr>
-							<tr>
 								<th class="text-center" rowspan="2">EMPLOYEE NAME</th>
 								<th class="text-center" rowspan="2">PRODUCTIVITY</th>
 								<th class="text-center" rowspan="2">QUALITY</th>
+								<logic:equal value="6 Months" name="reportForm" property="periode">
 								<th class="text-center" colspan="2">ACTION</th>
+								</logic:equal>
+								
 							</tr>
 							<tr>
 								
@@ -209,16 +203,53 @@
 										<td><bean:write name="report" property="employeeName" /></td>
 										<td><bean:write name="report" property="productivity" /></td>
 										<td><bean:write name="report" property="quality" /></td>
+										<logic:equal value="6 Months" name="reportForm" property="periode">
 										<td class="text-center"><a
 												href="javascript:detail('getDetail','<bean:write name="report" property="userDomain" />');" data-hint="Details"
 												data-hint-position="bottom"><img alt=""
-													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>	
+													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>
+										</logic:equal>	
 									</tr>
 									
 								</logic:iterate>
 							</logic:notEmpty>
 							<tr>
-								<td colspan="5" class="text-right">
+							<td class="text-center">
+								<div class="pagination">
+									<ul>
+										<li class="first">
+											<a href="javascript:flyToPage('first');">
+												<i class="icon-first-2"></i>
+											</a>
+										</li>
+										<li class="prev">
+											<a href="javascript:flyToPage('prev');">
+												<i class="icon-previous"></i>
+											</a>
+										</li>
+										<li class="disabled">
+											<a>
+												Page <bean:write name="reportForm" property="page" /> of <bean:write name="reportForm" property="maxpage" />
+											</a>
+										</li>
+										<li class="next">
+											<a href="javascript:flyToPage('next');">
+												<i class="icon-next"></i>
+											</a>
+										</li>
+										<li class="last">
+											<a href="javascript:flyToPage('last');">
+												<i class="icon-last-2"></i></a>
+											</li>
+										<li class="disabled">
+											<a>
+												Total Record <bean:write name="reportForm" property="countRecord" />
+											</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+								<td colspan="4" class="text-right">
 		 							<logic:equal name="reportForm" property="organizationLevel" value="0">
 		 								<button class="primary" onclick="javascript:print('printReportBOM','<bean:write name="reportForm" property="organizationCode" />')">
 			 								Generate Management Report
@@ -229,18 +260,22 @@
 		 									Generate Business Unit Report
 		 								</button>
 		 							</logic:equal>			
-									<button id="back-btn" class="info" onclick="javascript:report('back')">Home</button>
-									<logic:notEqual name="reportForm" property="organizationLevel" value='<%=session.getAttribute("organizationLevel").toString() %>'>
-										<logic:equal name="reportForm" property="organizationLevel" value="1">
-											<button id="back-btn" class="info" onclick="javascript:report('view','<bean:write name="reportForm" property="parentCode" />','0','<bean:write name="reportForm" property="parentName" />')">
-												Back
-											</button>
-										</logic:equal>
-									</logic:notEqual>
+									<logic:equal name="reportForm" property="organizationLevel" value="2">
+		 								<button class="primary" onclick="javascript:print('printReportDept','<bean:write name="reportForm" property="organizationCode" />')">
+		 									Generate Department Report
+		 								</button>
+		 							</logic:equal>
 								</td>
 							</tr>
+							
+							<tr>
+							
+							</tr>
+							
 						</table>
 					</div>
+					
+					
 				</html:form>
 			</div>	
 		</div>
