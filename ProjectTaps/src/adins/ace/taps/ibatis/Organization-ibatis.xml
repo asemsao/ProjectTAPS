@@ -112,21 +112,32 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="updateOrgCodeHBU" parameterClass="organizationBean">
 		UPDATE employees
 		SET organization_code = #organizationCode#
-		WHERE user_domain = #headDomain#
+		WHERE user_domain =
+		#headDomain#
 	</update>
-	
+
+
+	<update id="updateLevelChild" parameterClass="organizationBean">
+		UPDATE organizations
+		SET organization_level = #organizationLevelChild#
+		WHERE UPPER(parent_organization_code) = UPPER(#parentCode#)
+	</update>
+
+
 	<update id="updateDeleteOrgCodeHBU" parameterClass="organizationBean">
-		UPDATE employees SET 
+		UPDATE
+		employees SET
 		organization_code = ''
 		WHERE user_domain = #headDomain#
 	</update>
-	
+
 	<update id="updateDeleteHBU" parameterClass="organizationBean">
-		UPDATE organizations SET 
+		UPDATE organizations
+		SET
 		head_user_domain = ''
 		WHERE organization_code = #organizationCode#
 	</update>
-	
+
 	<select id="countOrganizations" resultClass="int"
 		parameterClass="java.util.Map">
 		SELECT COUNT(1)
@@ -183,6 +194,20 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		UPPER(parent_organization_code)
 		=UPPER
 		(#organization_code#)
+	</select>
+
+	<select id="levelParent" resultClass="int" parameterClass="java.lang.String">
+		SELECT organization_level
+		FROM organizations
+		WHERE
+		UPPER(organization_code)
+		=UPPER
+		(#organization_code#)
+	</select>
+
+	<select id="maxLevel" resultClass="int">
+		select MAX(organization_level)
+		from organizations where flag='ACTIVE'
 	</select>
 
 	<select id="searchOrganizations" resultClass="organizationBean"
@@ -482,7 +507,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		projectCode, p.project_name as projectName from projects p,
 		organizations o
 		where p.organization_code=o.organization_code AND
-		o.organization_code=#organizationCode# AND p.flag='ACTIVE'
+		o.organization_code=#organizationCode# AND p.flag='ACTIVE' AND
+		p.phase_id != 'CLD'
 		)
 		a
 		WHERE  <![CDATA[ ROWNUM <= #end#]]>

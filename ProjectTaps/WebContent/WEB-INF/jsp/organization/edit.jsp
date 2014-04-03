@@ -38,28 +38,14 @@
 				});
 			}, 1000);
 		}
-		var level = $("#level").val();
-		if (level == "0") {
-			$(".parent-organization").hide();
-		}
+		
 		setTimeout(function() {
 			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");
 		}, 500);
 		setTimeout(function() {
-			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level="+ level);
+			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 		}, 500);
-
-		$("#level").change(function() {
-			$("#parent-organization-name").val("");
-			$("#parent-organization-code").val("");
-			if ($("#level").val() == "0") {
-				$(".parent-organization").hide();
-			} else {
-				$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
-				$(".parent-organization").show();
-			}
-		});
-
+		
 		$("#organizationCode").attr("placeholder", "Business Unit Code");
 		$("#organizationName").attr("placeholder", "Business Unit Name");
 		$("#employee-name").attr("placeholder", "Head of Business Unit");
@@ -105,33 +91,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<th class="field-form">Business Unit Level</th>
-								<td class="field-separator">:</td>
-								<logic:equal value="0" property="countChild" name="organizationForm">
-									<td>
-										<div class="input-control select">
-											<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level">
-												<html:option value="2">Level 2</html:option>
-												<html:option value="1">Level 1</html:option>
-												<html:option value="0">Level 0</html:option>
-											</html:select>
-										</div>
-									</td>
-								</logic:equal>
-
-								<logic:notEqual value="0" property="countChild" name="organizationForm">
-									<td>
-										<div class="input-control select">
-											<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level" disabled="true">
-												<html:option value="2">Level 2</html:option>
-												<html:option value="1">Level 1</html:option>
-												<html:option value="0">Level 0</html:option>
-											</html:select>
-										</div>
-									</td>
-								</logic:notEqual>
-							</tr>
+							
 							<tr>
 								<th class="field-form">Head Name</th>
 								<td class="field-separator">:</td>

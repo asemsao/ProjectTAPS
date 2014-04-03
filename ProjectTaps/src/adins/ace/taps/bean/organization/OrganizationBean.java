@@ -22,6 +22,15 @@ public class OrganizationBean implements Serializable {
 	private String sessionUserDomain;
 	private String projectCode;
 	private String projectName;
+	private Integer organizationLevelChild;
+
+	public Integer getOrganizationLevelChild() {
+		return organizationLevelChild;
+	}
+
+	public void setOrganizationLevelChild(Integer organizationLevelChild) {
+		this.organizationLevelChild = organizationLevelChild;
+	}
 
 	public String getProjectCode() {
 		return projectCode;
