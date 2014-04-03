@@ -211,7 +211,12 @@
 						</tr>
 						<tr>
 							<td colspan=4 class="text-right">
-							<button onclick="javascript:flyToPage('rfa');" class="button success">RFA</button> 
+							<logic:equal value="REOPEN" property="claimBean.status" name="dashboardForm">
+								<button onclick="javascript:flyToPage('re-rfa');" class="button success">RFA</button>
+							</logic:equal>
+							<logic:equal value="CORRECTION" property="claimBean.status" name="dashboardForm">
+								<button onclick="javascript:flyToPage('rfa');" class="button success">RFA</button> 
+							</logic:equal>
 							<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 						</tr>
 					</table>

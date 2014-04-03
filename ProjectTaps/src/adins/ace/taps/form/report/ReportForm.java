@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.report.ReportBean;
+import adins.ace.taps.bean.report.ReportStarBean;
 
 
 /**
@@ -29,6 +30,7 @@ public class ReportForm extends ActionForm{
 	private String reportPeriode;
 	private String reportMonth;
 	private ReportBean rBean = new ReportBean();
+	private ReportStarBean rsBean = new ReportStarBean();
 	private List<ReportBean> listReports;
 	private Integer countRecord;
 	private Integer maxpage;
@@ -151,5 +153,10 @@ public class ReportForm extends ActionForm{
 		this.page = page;
 	}
 	
-	
+	public ReportStarBean getRsBean() {
+		return rsBean;
+	}
+	public void setRsBean(ReportStarBean rsBean) {
+		this.rsBean = rsBean;
+	}
 }

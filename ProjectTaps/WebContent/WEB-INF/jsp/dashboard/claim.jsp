@@ -109,11 +109,20 @@
 							java.util.Date date = new java.util.Date();
 							String dateString = df.format(date);
 							%>
+							<logic:equal name="dashboardForm" property="claimBean.assignmentDate" value="<%=dateString %>">
+							<div class="input-control text" id="datepicker">
+									<html:text property="claimBean.claimDate" name="dashboardForm"
+										styleId="assignmentDate" styleClass="datepicker-only-today" value="<%=dateString%>"/>
+									<button type="button" class="btn-date"></button>
+								</div>
+							</logic:equal>
+							<logic:notEqual name="dashboardForm" property="claimBean.assignmentDate" value="<%=dateString %>">
 								<div class="input-control text" id="datepicker">
 									<html:text property="claimBean.claimDate" name="dashboardForm"
 										styleId="assignmentDate" styleClass="datepicker-claim" value="<%=dateString%>"/>
 									<button type="button" class="btn-date"></button>
 								</div>
+								</logic:notEqual>
 							</td>
 						</tr>
 						<tr>

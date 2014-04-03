@@ -8,6 +8,7 @@ import java.util.Map;
 
 import adins.ace.taps.bean.project.AddProjectBean;
 import adins.ace.taps.bean.report.ReportBean;
+import adins.ace.taps.bean.report.ReportStarBean;
 import adins.ace.taps.ibatis.IbatisHelper;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -143,6 +144,43 @@ public class ReportManager {
 		}
 		return bean;
 	}
+	
+	public ReportStarBean getStar1(Map map)
+	{
+		ReportStarBean bean = new ReportStarBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportStarBean)ibatisSqlMap.queryForObject("report.getStar1", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
+	public ReportStarBean getStar2(Map map)
+	{
+		ReportStarBean bean = new ReportStarBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportStarBean)ibatisSqlMap.queryForObject("report.getStar2", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
 	
 	public Savepoint insertSavePoint() {
 		boolean flag = false;

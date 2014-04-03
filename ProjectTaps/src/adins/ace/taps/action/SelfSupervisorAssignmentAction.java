@@ -40,11 +40,9 @@ public class SelfSupervisorAssignmentAction extends Action {
 		boolean comment = false;
 		boolean update = false;
 		boolean starSuccess = false;
-		
 		if ("cancel".equals(sForm.getTask())) {
-			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
-		}else if ("approved".equals(sForm.getTask())) {
+		} else if ("approved".equals(sForm.getTask())) {
 			//add comment and change status to approved
 			String tmpDescription="";
 			String tmpManHours="";
@@ -65,7 +63,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			update = aMan.updateStatus(paramStatus);
-			session.removeAttribute("taskCode");
+			
 			//update table star
 			sForm.getSelfAssignBean().setStarBefore(0);
 			starSuccess = aMan.addSelfAssignmentStar(sForm.getSelfAssignBean());
@@ -76,7 +74,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
-				params.put("phase", "APPROVE");
+				params.put("phase", "APPROVED");
 				params.put("taskCode", taskCode);
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
@@ -84,7 +82,45 @@ public class SelfSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+			
+			return mapping.findForward("Cancel");
+		} else if ("reapproved".equals(sForm.getTask())) {
+			//add comment and change status to approved
+			String tmpDescription="";
+			String tmpManHours="";
+			tmpDescription = request.getParameter("tmpDescription");
+			tmpManHours = request.getParameter("tmpManHours");
+			if (!tmpDescription.equals(sForm.getSelfAssignBean().getDescription())) {
+				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
+			}
+			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
+				aMan.editManHourSelf(sForm.getSelfAssignBean());
+			}
+			aMan.startTransaction();
+			sForm.getSelfAssignBean().setCurrentStatus("APPROVED");
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "APPROVED");
+			paramStatus.put("updatedBy", sessionUserDomain);
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "ACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (comment && update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "APPROVED");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
+			
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(sForm.getTask())) {
 			//add comment and change status to correction
@@ -114,7 +150,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
-				params.put("phase", "CORRECT");
+				params.put("phase", "CORRECTION");
 				params.put("taskCode", taskCode);
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
@@ -122,7 +158,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+			
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(sForm.getTask())) {
 			//add comment and change status to rejected
@@ -142,7 +178,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");
-				params.put("phase", "REJECT");
+				params.put("phase", "REJECTED");
 				params.put("taskCode", taskCode);
 				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
@@ -150,7 +186,7 @@ public class SelfSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+			
 			
 			return mapping.findForward("Cancel");
 		} else if ("updateStar".equals(sForm.getTask())) {
@@ -167,9 +203,36 @@ public class SelfSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+			
 			return mapping.findForward("Cancel");
-		} 
+		} else if ("reopen".equals(sForm.getTask())) {
+			//add comment and change status to correction
+			aMan.startTransaction();
+			sForm.getSelfAssignBean().setCurrentStatus("REOPEN");
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "REOPEN");
+			paramStatus.put("updatedBy", sessionUserDomain);
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "INACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "REOPEN");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
+			
+			return mapping.findForward("Cancel");
+		}
 		
 		//show record self assignment
 		//for approved self assignment, update-star button only show within certain days after it's been approved

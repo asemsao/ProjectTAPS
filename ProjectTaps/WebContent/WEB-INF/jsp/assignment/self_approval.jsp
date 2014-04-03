@@ -1,3 +1,4 @@
+<%@page import="adins.ace.taps.configuration.App"%>
 <%@page import="adins.ace.taps.form.assignment.SelfAssignmentForm"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -53,7 +54,7 @@
 								<td colspan=4 class="text-center text-bold">
 									<h3>
 										<%
-											if ("RFA".equals(session.getAttribute("status"))) {
+											if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))) {
 										%>
 												Request For Approval Self Assignment
 										<%
@@ -61,7 +62,7 @@
 										%>
 												Approved Self Assignment
 										<%
-											} else if ("CORRECTION".equals(session.getAttribute("status"))) {
+											} else if ("CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))) {
 										%>
 												Correction Self Assignment
 										<%
@@ -130,7 +131,7 @@
 								<td colspan=2><bean:write property="selfAssignBean.reffTaskCode" name="selfAssignmentForm" /></td>
 							</tr>
 							<%
-								if ("RFA".equals(session.getAttribute("status"))) {
+								if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))) {
 							%>
 									<tr>
 										<th class="field-form">ManHours</th>
@@ -267,7 +268,7 @@
 									</tr>
 							<%
 								}
-									if ("RFA".equals(session.getAttribute("status"))
+									if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))
 											|| "APPROVED".equals(session.getAttribute("status"))) {
 							%>
 										<tr>
@@ -334,7 +335,7 @@
 										</tr>
 								<%
 									}
-									if ("RFA".equals(session.getAttribute("status"))) {
+									if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))) {
 								%>
 										<tr>
 											<th class="field-form">Comment</th>
@@ -347,7 +348,7 @@
 								%>
 							<tr>
 								<%
-									if ("CORRECTION".equals(session.getAttribute("status"))
+									if ("CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))
 												|| "REJECTED".equals(session.getAttribute("status"))) {
 								%>
 										<td colspan=4 class="text-right">
@@ -364,12 +365,23 @@
 											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 										</td>
 								<%
+									} else if ("RE-RFA".equals(session.getAttribute("status"))) {
+								%>
+										<td colspan=4 class="text-right">
+											<button onclick="javascript:flyToPage('reapproved');" class="button success">Approve</button> 
+											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+										</td>
+								<%
 									} else if ("APPROVED".equals(session.getAttribute("status"))) {
 								%>
 										<td colspan=4 class="text-right">
 											<logic:equal value="true" property="selfAssignBean.updateableStar" name="selfAssignmentForm">
 												<button onclick="javascript:flyToPage('updateStar');" class="button success">Update Star</button>
 											</logic:equal> 
+											<logic:equal value="false" property="selfAssignBean.updateableStar" name="selfAssignmentForm">
+												<span class="claim-msg">You can't update star after <%=App.getConfiguration("max_date")%> days</span>
+											</logic:equal> 
+											<button onclick="javascript:flyToPage('reopen');" class="button warning">Reopen</button> 
 											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 										</td>
 								<%

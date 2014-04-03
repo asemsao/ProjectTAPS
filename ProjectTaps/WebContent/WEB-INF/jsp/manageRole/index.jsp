@@ -21,27 +21,27 @@
 			$("#param").val($(this).attr('alt').trim());
 			$("#CRUDForm").submit();
 		});
-		$("#first").click(function() {
-			$("#task").val("first");
+		$("#firstER").click(function() {
+			$("#mode").val("firstER");
 			$("#CRUDForm").submit();
 		});
-		$("#prev").click(function() {
-			$("#task").val("prev");
+		$("#prevER").click(function() {
+			$("#mode").val("prevER");
 			$("#CRUDForm").submit();
 		});
-		$("#next").click(function() {
-			$("#task").val("next");
+		$("#nextER").click(function() {
+			$("#mode").val("nextER");
 			$("#CRUDForm").submit();
 		});
-		$("#last").click(function() {
-			$("#task").val("last");
+		$("#lastER").click(function() {
+			$("#mode").val("lastER");
 			$("#CRUDForm").submit();
 		});
-		$("#search").click(function() {
-			$("#task").val("search");
+		$("#searchER").click(function() {
+			$("#mode").val("searchER");
 			$("#CRUDForm").submit();
 		});
-		$("#searchKeyword").attr("placeholder", "Keyword of Employee");
+		$("#searchKeywordER").attr("placeholder", "Keyword of Employee");
 		if ($("#messageCRUD").val() != "") {
 			setTimeout(function() {
 				$.Notify({
@@ -66,17 +66,21 @@
 				<div class="row row-taps shadow-taps">
 				<html:form action="/manageRole" method="post" styleClass="manageRoleForm" styleId="CRUDForm">
 					<html:hidden property="task" styleId="task" name="manageRoleForm" />
+					<html:hidden property="mode" styleId="mode" name="manageRoleForm" />
 					<html:hidden property="param" styleId="param" name="manageRoleForm" />
 					<html:hidden property="message" styleId="messageCRUD" name="manageRoleForm" />
 					<html:hidden property="messagecolor" styleId="messagecolor" name="manageRoleForm" />
+					<html:hidden property="pageER" name="manageRoleForm" />
+					<html:hidden property="maxpageER" name="manageRoleForm" />
+					
+					<br />
+					<h3 class="text-center">Roles</h3>
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th colspan=3 class="text-center"><h3>Role List</h3></th>
-							</tr>
-							<tr>
 								<th class="text-center">Role ID</th>
 								<th class="text-center">Role Name</th>
+								<th class="text-center">Total</th>
 								<th class="text-center">List Employee</th>
 							</tr>
 						</thead>
@@ -86,6 +90,7 @@
 									<tr>
 										<td class="text-center"><bean:write name="manageRole" property="roleId" /></td>
 										<td class="text-center"><bean:write name="manageRole" property="roleName" /></td>
+										<td class="text-center"><bean:write name="manageRole" property="roleCount" /></td>
 										<td class="text-center">
 											<a class="listMember" alt="<bean:write name="manageRole" property="roleId" />" data-hint="List Member <bean:write name="manageRole" property="roleName" />" data-hint-position="bottom"> 
 												<img alt="" src="<%=request.getContextPath()%>/images/MEMBER.png">
@@ -96,16 +101,115 @@
 							</logic:notEmpty>
 							<logic:empty name="manageRoleForm" property="listRole">
 								<tr>
-									<td class="text-center" colspan="3">Role Not Available</td>
+									<td class="text-center" colspan="4">Role Not Available</td>
 								</tr>
 							</logic:empty>
 							<tr>
-								<th colspan=3 class="text-right">
+								<th colspan=4 class="text-right">
 									<input type="button" class="wizard primary" value="Manage Role Menu" data-hint="This feature help you add menu for each role." />
 								</th>
 							</tr>
 						</tbody>
 					</table>
+					
+					<br />
+					<h3 class="text-center">Employee's Role</h3>
+					<table class="table">
+					<tr>
+						<th class="text-center field-form">
+							<div class="input-control select">
+								<html:select property="searchCategoryER" name="manageRoleForm">
+									<html:option value="All">All</html:option>
+									<html:option value="employeeDomain">Employee Domain</html:option>
+									<html:option value="employeeName">Employee Name</html:option>
+								</html:select>
+							</div>
+						</th>
+						<th class="text-center">
+							<div class="input-control text">
+								<html:text property="searchKeywordER" name="manageRoleForm"
+									styleId="searchKeywordER"></html:text>
+								<button id="searchER" class="btn-search"></button>
+							</div>
+						</th>
+					</tr>
+				</table>
+				
+				<table class="table striped bordered hovered">
+						<thead>
+							<tr>
+								<th class="text-center"></th>
+								<th class="text-center">Employee</th>
+								<th class="text-center">Supervisor</th>
+								<th class="text-center">Head BU</th>
+								<th class="text-center">Administrator</th>
+							</tr>
+						</thead>
+						<tbody>
+							<logic:notEmpty name="manageRoleForm" property="listEmployeeRole">
+								<logic:iterate id="employeeRole" name="manageRoleForm" property="listEmployeeRole">
+									<tr>
+										<td><bean:write name="employeeRole" property="employeeName" /> ( <bean:write name="employeeRole" property="employeeUserDomain" /> )</td>
+										<logic:equal name="employeeRole" property="isEmployee" value="1">
+										<td class="text-center"><i class="icon-checkmark fg-green"></i></td>
+										</logic:equal>
+										<logic:notEqual name="employeeRole" property="isEmployee" value="1">
+										<td class="text-center"><i class="icon-minus-2 fg-red"></i></td>
+										</logic:notEqual>
+										
+										<logic:equal name="employeeRole" property="isSupervisor" value="1">
+										<td class="text-center"><i class="icon-checkmark fg-green"></i></td>
+										</logic:equal>
+										<logic:notEqual name="employeeRole" property="isSupervisor" value="1">
+										<td class="text-center"><i class="icon-minus-2 fg-red"></i></td>
+										</logic:notEqual>
+										
+										<logic:equal name="employeeRole" property="isHeadBU" value="1">
+										<td class="text-center"><i class="icon-checkmark fg-green"></i></td>
+										</logic:equal>
+										<logic:notEqual name="employeeRole" property="isHeadBU" value="1">
+										<td class="text-center"><i class="icon-minus-2 fg-red"></i></td>
+										</logic:notEqual>
+										
+										<logic:equal name="employeeRole" property="isAdministrator" value="1">
+										<td class="text-center"><i class="icon-checkmark fg-green"></i></td>
+										</logic:equal>
+										<logic:notEqual name="employeeRole" property="isAdministrator" value="1">
+										<td class="text-center"><i class="icon-minus-2 fg-red"></i></td>
+										</logic:notEqual>
+									</tr>
+								</logic:iterate>
+							</logic:notEmpty>
+							<logic:empty name="manageRoleForm" property="listEmployeeRole">
+								<tr>
+									<td class="text-center" colspan="5">Employee Not Available</td>
+								</tr>
+							</logic:empty>
+						</tbody>
+					</table>
+					
+				<table class="table">
+							<tr>
+								<td>
+									<div class="pagination">
+										<ul>
+											<li class="first"><a id="firstER">
+												<i class="icon-first-2"></i></a></li>
+											<li class="prev"><a id="prevER">
+												<i class="icon-previous"></i></a></li>
+											<li class="disabled"><a>Page <bean:write name="manageRoleForm" property="pageER" />
+												of <bean:write name="manageRoleForm" property="maxpageER" /></a></li>
+											<li class="next"><a id="nextER">
+												<i class="icon-next"></i></a></li>
+											<li class="last"><a id="lastER">
+												<i class="icon-last-2"></i></a></li>
+											<li class="disabled"><a>Total Record 
+												<bean:write name="manageRoleForm" property="countRecordER" /></a></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</html:form>
 				</div>
 			</div>

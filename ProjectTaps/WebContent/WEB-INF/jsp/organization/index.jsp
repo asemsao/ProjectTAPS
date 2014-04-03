@@ -66,6 +66,11 @@
 			$("#CRUDForm").val($(this).attr('alt').trim());
 		});
 		$("#searchKeyword").attr("placeholder", "Keyword of Business Unit");
+		
+		$("#restore-organization").click(function() {
+			$("#task").val("restorePage");
+			$("#CRUDForm").submit();
+		});
 	});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
@@ -115,7 +120,7 @@
 						<thead>
 							<tr>
 								<th class="text-center" colspan = "<%=Integer.parseInt(request.getAttribute("maxLevel").toString())+1 %>">Business Unit Code</th>
-								<th class="text-center">Business Unit Name<bean:write name="organizationForm" property="maxLevel" /></th>
+								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
 								<th class="text-center">Edit</th>
@@ -173,8 +178,11 @@
 									</ul>
 								</div>
 							</td>
+							<td>
+							<button id="restore-organization" data-hint="Restore Organization" data-hint-position="bottom">Restore Organization</button>
+							</td>
 							<td class="text-center field-form">
-								<a id="new"	data-hint="Add Organizations" data-hint-position="bottom">
+								<a id="new"	data-hint="Add Organization" data-hint-position="bottom">
 									<img alt="" src="<%=request.getContextPath()%>/images/ADD_ORGANIZATIONS.png">
 								</a>
 							</td>

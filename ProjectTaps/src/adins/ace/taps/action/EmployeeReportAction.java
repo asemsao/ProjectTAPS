@@ -62,7 +62,7 @@ public class EmployeeReportAction extends Action {
 				eForm.setPage(eForm.getPage() + 1);
 			}
 		}
-		
+		System.out.println(eForm.getTask());
 		if ("employeeReport".equals(session.getAttribute("link"))) {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
@@ -100,6 +100,18 @@ public class EmployeeReportAction extends Action {
 						return mapping.findForward("Approved");
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("ApprovedSelfAssignment");
+					}
+				} else if ("REOPEN".equals(eForm.getCurrentStatus())) {
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("Correction");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("SelfAssignmentCorrection");
+					}
+				} else if ("RE-RFA".equals(eForm.getCurrentStatus())) {
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("RFA");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("RFASelfAssignment");
 					}
 				}
 				return mapping.findForward("View");
@@ -158,7 +170,20 @@ public class EmployeeReportAction extends Action {
 					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
 						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
 					}
-				}
+				} else if ("RE-RFA".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("RFASupervisor");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("RFASelfSupervisorAssignment");
+					}
+				} else if ("REOPEN".equals(eForm.getCurrentStatus())) {
+					if ("ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("CorrectionSupervisor");
+					} else if ("SELF ASSIGNMENT".equals(eForm.getTaskType())) {
+						return mapping.findForward("SelfAssignmentCorrectionSupervisor");
+					}
+				} 
 			}
 
 			params.put("start", (eForm.getPage() - 1) * 10 + 1);
@@ -201,7 +226,12 @@ public class EmployeeReportAction extends Action {
 					return mapping.findForward("ApprovedSupervisor");
 				} else if ("REJECTED".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("ApprovedSupervisor");
-				}
+				} else if ("RE-RFA".equals(eForm.getCurrentStatus())) {
+					eMan.updateFlag(eForm.getTaskCode());
+					return mapping.findForward("RFASupervisor");
+				} else if ("REOPEN".equals(eForm.getCurrentStatus())) {
+					return mapping.findForward("CorrectionSupervisor");
+				} 
 			}
 
 			params.put("start", (eForm.getPage() - 1) * 10 + 1);

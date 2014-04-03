@@ -40,9 +40,9 @@ public class SelfAssignmentAction extends Action {
 		boolean comment = false;
 		boolean update = false;
 		if ("cancel".equals(sForm.getTask())) {
-			session.removeAttribute("taskCode");
+			
 			return mapping.findForward("Cancel");
-		}else if ("RFA".equals(sForm.getTask())) {
+		} else if ("RFA".equals(sForm.getTask())) {
 			//request for approval to supervisor, change status to RFA
 			//update description or manhours if there's a change
 			String tmpDescription="";
@@ -92,7 +92,58 @@ public class SelfAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
+			
+			return mapping.findForward("Cancel");
+		} else if ("RE-RFA".equals(sForm.getTask())) {
+			//request for approval to supervisor, change status to RFA
+			//update description or manhours if there's a change
+			String tmpDescription="";
+			String tmpManHours="";
+			String tmpActivityType="";
+			String tmpAdhocUserDomain="";
+			tmpDescription = request.getParameter("tmpDescription");
+			tmpManHours = request.getParameter("tmpManHours");
+			tmpActivityType = request.getParameter("tmpActivityType");
+			tmpAdhocUserDomain = request.getParameter("tmpAdhocDomain");
+			if (sForm.getSelfAssignBean().getActivityType().equals("Routine") || sForm.getSelfAssignBean().getActivityType().equals("Initiative")){
+				sForm.getSelfAssignBean().setAdhocUserDomain(null);
+			}
+			if (!tmpDescription.equals(sForm.getSelfAssignBean().getDescription())) {
+				aMan.editDescriptionSelfAssignment(sForm.getSelfAssignBean());
+			}
+			if (!tmpManHours.equals(Double.toString(sForm.getSelfAssignBean().getManHours()))) {
+				aMan.editManHourSelf(sForm.getSelfAssignBean());
+			}
+			if (!tmpActivityType.equals(sForm.getSelfAssignBean().getActivityType())) {
+				aMan.editActivityType(sForm.getSelfAssignBean());
+			}
+			if (!tmpAdhocUserDomain.equals(sForm.getSelfAssignBean().getAdhocUserDomain())) {
+				aMan.editAdhocUserDomain(sForm.getSelfAssignBean());
+			}
+			aMan.startTransaction();
+			sForm.getSelfAssignBean().setCurrentStatus("RE-RFA");
+			comment = aMan.addHistorySelfComment(sForm.getSelfAssignBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "RE-RFA");
+			paramStatus.put("updatedBy", sessionUserDomain);
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "INACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			sForm.setClaimBean(aMan.emailToSupervisorAssignment(paramStatus));	
+			if (comment && update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Self Assignment");
+				params.put("phase", "RE-RFA");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", sForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", sForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
 			return mapping.findForward("Cancel");
 		}
 		

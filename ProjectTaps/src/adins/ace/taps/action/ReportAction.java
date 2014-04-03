@@ -41,13 +41,16 @@ public class ReportAction extends Action {
 			
 			param.put("userDomain", rForm.getUserDomain());
 			param.put("reportYear",rForm.getReportYear() );
-			param.put("reportPeriode", rForm.getReportPeriode());
-			param.put("reportMonth", rForm.getReportMonth());
 			if("I".equals(rForm.getReportPeriode()))
+			{
 				rForm.setrBean(rMan.getDetail(param));
+				rForm.setRsBean(rMan.getStar1(param));
+			}
 			else
+			{
 				rForm.setrBean(rMan.getDetail2(param));
-			
+				rForm.setRsBean(rMan.getStar2(param));
+			}
 			return mapping.findForward("GetDetail");
 		}
 		if ("1 Months".equals(rForm.getPeriode())) {
