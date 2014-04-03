@@ -61,6 +61,11 @@ public class NewSelfAssignmentAction extends Action {
 				return mapping.findForward("EditSelfAssignment");
 			} else {
 				aForm.setSelfAssignBean(aMan.searchHeadOrganizationCode(sessionUserDomain));
+				//check if he/she is a HBU
+				if (aForm.getSelfAssignBean().getHeadUserDomain().equals(sessionUserDomain)){
+					//search head BU upper organization level from him/her
+					aForm.setSelfAssignBean(aMan.searchUpperHeadOrganization(sessionUserDomain));
+				}
 				return mapping.findForward("NewSelfAssignment");
 			}
 		} else {

@@ -43,6 +43,11 @@ $(document).ready(function() {
 		direction : 1
 	});
 	
+	$(".datepicker-claim").Zebra_DatePicker({
+		format : "d/m/Y",
+		direction : [false, $('#assDate').val()]
+	});
+	
 	// Year Picker
 	
 	$(".datepicker-month").Zebra_DatePicker({

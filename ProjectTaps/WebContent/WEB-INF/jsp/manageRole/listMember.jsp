@@ -42,6 +42,7 @@
 			$("#CRUDForm").submit();
 		});
 		$(".grantAdmin").change(function() {
+			var elem = $(this);
 			var	task = $(this).is(':checked') + '';
 			var domain = $(this).val();
 			if(task == 'true'){
@@ -61,6 +62,9 @@
 				success : function(data) {
 					var json = $.parseJSON(data);
 					if (json.message != "") {
+						if (json.message.indexOf("Failed") != -1) {
+							elem.prop("checked", !elem.prop("checked"));
+						}
 						setTimeout(function() {
 							$.Notify({
 								style : {

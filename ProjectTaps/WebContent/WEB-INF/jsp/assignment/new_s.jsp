@@ -160,114 +160,98 @@
 								<th class="field-form">Assignment Type</th>
 								<td class="field-separator">:</td>
 								<td>
-									<%
-										boolean headBU = false;
-										List<RoleBean> roleList = (List) session.getAttribute("role");
-										for (int i = 0; i < roleList.size(); i++) {
-											if (roleList.get(i).getRoleId().equals("hbu")
-													|| roleList.get(i).getRoleId().equals("hde")
-													|| roleList.get(i).getRoleId().equals("bom")) {
-												headBU = true;
-											}
-										}
-										if (!headBU) {
-									%>
-											<div class="input-control radio margin10">
-												<label>
-													<input type="radio" name="assignment_type" checked="checked" value="BU" />
-													<span class="check"></span>
-													Business Unit
-												</label>
-											</div>
-											<div class="input-control radio margin10">
-												<label>
-													<input type="radio" name="assignment_type" value="PROJECT" />
-													<span class="check"></span>
-													Project
-												</label>
-											</div> 
-									<%
-									 	} else {
-									%>
-												<div class="input-control radio margin10">
-													<label>
-														<input type="radio" name="assignment_type" disabled="disabled" value="BU" />
-														<span class="check"></span>
-														Business Unit
-													</label>
-												</div>
-												<div class="input-control radio margin10">
-													<label>
-														<input type="radio" name="assignment_type" checked="checked" value="PROJECT" />
-														<span class="check"></span>
-														Project
-													</label>
-												</div> 
-									<%
-									 	}
-									%>
+									<logic:notEqual value="0" property="selfAssignBean.organizationLevel" name="selfAssignmentForm">
+										<div class="input-control radio margin10">
+											<label>
+												<input type="radio" name="assignment_type" checked="checked" value="BU" />
+												<span class="check"></span>
+												Business Unit
+											</label>
+										</div>
+										<div class="input-control radio margin10">
+											<label>
+												<input type="radio" name="assignment_type" value="PROJECT" />
+												<span class="check"></span>
+												Project
+											</label>
+										</div> 
+									</logic:notEqual>
+									<logic:equal value="0" property="selfAssignBean.organizationLevel" name="selfAssignmentForm">
+										<div class="input-control radio margin10">
+											<label>
+												<input type="radio" name="assignment_type" disabled="disabled" value="BU" />
+												<span class="check"></span>
+												Business Unit
+											</label>
+										</div>
+										<div class="input-control radio margin10">
+											<label>
+												<input type="radio" name="assignment_type" checked="checked" value="PROJECT" />
+												<span class="check"></span>
+												Project
+											</label>
+										</div> 
+									</logic:equal>
 								</td>
 							</tr>
-							<%
-								if (!headBU) {
-							%>
-									<tr>
-										<th class="field-form">Assign By</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div id="bu">
-												<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
-												&nbsp;&nbsp; <b>Report to </b> :
-												<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
-											</div>
-											<div class="pr">
-												<div class="input-control text">
-													<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
-													<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
-													<button type="button" class="btn-search" id="project"></button>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr class="pr">
-										<th class="field-form">Report To</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div class="input-control text">
-												<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-												<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
-												<button type="button" class="btn-search" id="employee"></button>
-											</div>
-										</td>
-									</tr>
-							<%
-								} else {
-							%>
-									<tr>
-										<th class="field-form">Assign By</th>
-										<td class="field-separator">:</td>
-										<td>
+							
+							<logic:notEqual value="0" property="selfAssignBean.organizationLevel" name="selfAssignmentForm">
+								<tr>
+									<th class="field-form">Assign By</th>
+									<td class="field-separator">:</td>
+									<td>
+										<div id="bu">
+											<bean:write property="selfAssignBean.organizationName" name="selfAssignmentForm" />
+											&nbsp;&nbsp; <b>Report to </b> :
+											<bean:write property="selfAssignBean.headUserName" name="selfAssignmentForm" />
+										</div>
+										<div class="pr">
 											<div class="input-control text">
 												<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
 												<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
 												<button type="button" class="btn-search" id="project"></button>
 											</div>
-										</td>
-									</tr>
-									<tr>
-										<th class="field-form">Report To</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div class="input-control text">
-												<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
-												<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
-												<button type="button" class="btn-search" id="employee"></button>
-											</div>
-										</td>
-									</tr>
-							<%
-								}
-							%>
+										</div>
+									</td>
+								</tr>
+								<tr class="pr">
+									<th class="field-form">Report To</th>
+									<td class="field-separator">:</td>
+									<td>
+										<div class="input-control text">
+											<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+											<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+											<button type="button" class="btn-search" id="employee"></button>
+										</div>
+									</td>
+								</tr>
+							</logic:notEqual>
+							
+							<logic:equal value="0" property="selfAssignBean.organizationLevel" name="selfAssignmentForm">
+								<tr>
+									<th class="field-form">Assign By</th>
+									<td class="field-separator">:</td>
+									<td>
+										<div class="input-control text">
+											<html:hidden property="selfAssignBean.projectCode" name="selfAssignmentForm" styleId="project-code"></html:hidden>
+											<html:text property="selfAssignBean.projectName" readonly="true" name="selfAssignmentForm" styleId="project-name"></html:text>
+											<button type="button" class="btn-search" id="project"></button>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th class="field-form">Report To</th>
+									<td class="field-separator">:</td>
+									<td>
+										<div class="input-control text">
+											<html:hidden property="selfAssignBean.reportTo" name="selfAssignmentForm" styleId="employee-domain" />
+											<html:text property="selfAssignBean.reportToFullName" readonly="true" name="selfAssignmentForm" styleId="employee-name" />
+											<button type="button" class="btn-search" id="employee"></button>
+										</div>
+									</td>
+								</tr>
+							</logic:equal>
+									
 							<tr>
 								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>

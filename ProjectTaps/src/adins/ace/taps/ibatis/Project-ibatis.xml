@@ -125,7 +125,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		<dynamic prepend="AND">
 			<isNotNull property="phaseClosed">
 				<isNotEmpty property="phaseClosed">
-					(LOWER(p.phase_id) NOT LIKE LOWER ('CLD'))
+					(LOWER(p.phase_id) NOT LIKE 'cld')
 				</isNotEmpty>
 			</isNotNull>
 		</dynamic>
