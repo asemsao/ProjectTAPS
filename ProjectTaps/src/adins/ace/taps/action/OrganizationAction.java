@@ -194,8 +194,6 @@ public class OrganizationAction extends Action {
 						orgForm.getOrgBean().setOrganizationLevel(orgLevel);
 						orgForm.getOrgBean().setOrganizationLevelChild(childLevel);
 						
-						System.out.println("level parent "+orgForm.getOrgBean().getOrganizationLevel());
-						System.out.println("level child "+orgForm.getOrgBean().getOrganizationLevel());
 						orgMan.startTransaction();
 						submit = orgMan.submitEdit(orgForm
 								.getOrgBean());
