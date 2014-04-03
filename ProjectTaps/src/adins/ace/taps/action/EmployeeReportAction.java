@@ -27,9 +27,9 @@ public class EmployeeReportAction extends Action {
 		Map params = new HashMap();
 		String sessionUserDomain = (String) session.getAttribute("username");
 		
-//		if (session.getAttribute("taskCode") != null) {
-//			session.removeAttribute("taskCode");
-//		}
+		if (session.getAttribute("assignmentCode") != null) {
+			session.removeAttribute("assignmentCode");
+		}
 
 		if (session.getAttribute("message") != null) {
 			eForm.setMessage(session.getAttribute("message").toString());
@@ -69,7 +69,7 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddSelfAssignment");
 			} else if ("view".equals(eForm.getTask())) {
-				session.setAttribute("taskCode", eForm.getTaskCode());
+				session.setAttribute("assignmentCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("Draft");
@@ -127,7 +127,7 @@ public class EmployeeReportAction extends Action {
 			if ("search".equals(eForm.getTask())) {
 				eForm.setPage(1);
 			} else if ("view".equals(eForm.getTask())) {
-				session.setAttribute("taskCode", eForm.getTaskCode());
+				session.setAttribute("assignmentCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("DraftSupervisor");
@@ -186,7 +186,7 @@ public class EmployeeReportAction extends Action {
 			} else if ("add".equals(eForm.getTask())) {
 				return mapping.findForward("AddAssignment");
 			} else if ("view".equals(eForm.getTask())) {
-				session.setAttribute("taskCode", eForm.getTaskCode());
+				session.setAttribute("assignmentCode", eForm.getTaskCode());
 				session.setAttribute("status", eForm.getCurrentStatus());
 				if ("DRAFT".equals(eForm.getCurrentStatus())) {
 					return mapping.findForward("DraftSupervisor");
