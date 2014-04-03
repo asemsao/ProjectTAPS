@@ -19,7 +19,6 @@
 			return;
 		} else {
 			document.claimAssignmentForm.task.value = task;
-			alert(task);
 			commentAssigmentValidation();
 		}
 	}

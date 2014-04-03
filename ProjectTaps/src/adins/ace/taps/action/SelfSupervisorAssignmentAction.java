@@ -86,7 +86,6 @@ public class SelfSupervisorAssignmentAction extends Action {
 			return mapping.findForward("Cancel");
 		} else if ("reapproved".equals(sForm.getTask())) {
 			//add comment and change status to approved
-			System.out.println("masuk1");
 			String tmpDescription="";
 			String tmpManHours="";
 			tmpDescription = request.getParameter("tmpDescription");
@@ -106,12 +105,10 @@ public class SelfSupervisorAssignmentAction extends Action {
 			paramStatus.put("taskCode", taskCode);
 			paramStatus.put("flag", "ACTIVE");
 			update = aMan.updateStatus(paramStatus);
-			System.out.println("masuk2");
 			/*sending notification on email*/
 			sForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
 			if (comment && update) {
 				aMan.commitTransaction();
-				System.out.println("masuk3");
 				Map params = new HashMap();
 				params.put("toMail", sForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Self Assignment");

@@ -129,7 +129,6 @@ public class ClaimAssignmentAction extends Action {
 		params.put("maxDate", App.getConfiguration("max_date"));
 		
 		aForm.setListDetailClaim(aMan.searchListDetailClaim(taskCode));
-		System.out.println(aForm.getListDetailClaim());
 		aForm.setClaimBean(aMan.searchRecordClaimAssignment(params));
 		aForm.setTotalManhours(aMan.getTotalManHours(taskCode));
 		return mapping.findForward("Claim");

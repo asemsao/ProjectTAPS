@@ -20,7 +20,6 @@
 			document.selfAssignmentForm.submit();
 			return;
 		} else {
-			alert(task);
 			document.selfAssignmentForm.task.value = task;
 			commentSelfSupervisorAssignmentValidation();
 		}
