@@ -750,6 +750,7 @@
 		         a.adhoc_user_domain AS adhocUserDomain,
 		         adhoc.first_name || ' ' || adhoc.last_name AS adhocFullName,
 		         a.description AS description,
+		         a.current_status AS currentStatus,
 		         d.manhour AS manHours,
 		         (SELECT   NVL((SUM (s.star_after) - SUM (s.star_before)),0)
 		            FROM   stars s

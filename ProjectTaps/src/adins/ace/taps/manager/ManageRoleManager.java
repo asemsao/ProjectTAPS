@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import adins.ace.taps.bean.manageRole.EmployeeBean;
+import adins.ace.taps.bean.manageRole.EmployeeRoleBean;
 import adins.ace.taps.bean.manageRole.MenuBean;
 import adins.ace.taps.bean.manageRole.RoleBean;
 import adins.ace.taps.ibatis.IbatisHelper;
@@ -225,4 +226,38 @@ public class ManageRoleManager {
 		return flag;
 	}
 	
+	public List<EmployeeRoleBean> searchListEmployeeRole(Map h) {
+		List<EmployeeRoleBean> list = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			list = ibatisSqlMap.queryForList("manageRole.searchListEmployeeRole", h);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+	
+	public Integer countRecordER(Map params) {
+		Integer count = null;
+		try {
+			ibatisSqlMap.startTransaction();
+			count = (Integer) ibatisSqlMap.queryForObject("manageRole.countRecordER", params);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return count;
+	}
 }

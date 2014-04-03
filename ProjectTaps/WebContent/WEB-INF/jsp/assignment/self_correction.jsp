@@ -22,6 +22,10 @@
 			document.selfAssignmentForm.task.value = task;
 			document.getElementById("activity-type").value = getRadioValue("activity_type");
 			newCorrectionAssignmentValidation();
+		} else if (task == "RE-RFA") {
+			document.selfAssignmentForm.task.value = task;
+			document.getElementById("activity-type").value = getRadioValue("activity_type");
+			newCorrectionAssignmentValidation();
 		}
 	}
 
@@ -74,7 +78,7 @@
 							<tr>
 								<td colspan=5 class="text-center text-bold"><h3>
 										<%
-											if ("RFA".equals(session.getAttribute("status"))) {
+											if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))) {
 										%>
 												Request For Approval Self Assignment
 										<%
@@ -82,7 +86,7 @@
 										%>
 												Approved Self Assignment
 										<%
-											} else if ("CORRECTION".equals(session.getAttribute("status"))) {
+											} else if ("CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))) {
 										%>
 												Correction Self Assignment
 										<%
@@ -139,7 +143,7 @@
 								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>
 								<%
-									if ("CORRECTION".equals(session.getAttribute("status"))) {
+									if ("CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))) {
 								%>
 										<td>
 											<div class="input-control radio margin10">
@@ -183,6 +187,7 @@
 							</tr>
 							<%
 								if ("RFA".equals(session.getAttribute("status"))
+											|| "RE-RFA".equals(session.getAttribute("status"))
 											|| "APPROVED".equals(session.getAttribute("status"))
 											|| "REJECTED".equals(session.getAttribute("status"))) {
 							%>
@@ -353,7 +358,7 @@
 								</tr>
 							<%} %>
 							<%
-								if ("CORRECTION".equals(session.getAttribute("status"))) {
+								if ("CORRECTION".equals(session.getAttribute("status")) || "REOPEN".equals(session.getAttribute("status"))) {
 							%>
 									<tr>
 										<th class="field-form">Comment</th>
@@ -372,7 +377,16 @@
 											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 									</tr>
 							<%
+								} else if ("REOPEN".equals(session.getAttribute("status"))) {
+							%>
+									<tr>
+										<td colspan=5 class="text-right">
+											<button onclick="javascript:flyToPage('RE-RFA')" class="button success">RFA</button> 
+											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
+									</tr>
+							<%
 								} else if ("RFA".equals(session.getAttribute("status"))
+											|| "RE-RFA".equals(session.getAttribute("status"))
 											|| "APPROVED".equals(session.getAttribute("status"))
 											|| "REJECTED".equals(session.getAttribute("status"))) {
 							%>

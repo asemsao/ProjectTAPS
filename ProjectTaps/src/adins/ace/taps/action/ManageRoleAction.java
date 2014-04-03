@@ -48,7 +48,6 @@ public class ManageRoleAction extends Action {
 			return null;
 		}
 		if ("insert".equals(erForm.getTask())) {
-			// System.out.println("PAram Insert "+erForm.getParam());
 			String empName = erMan.getEmpName(erForm.getParam());
 			if (erMan.insertRoleAdmin(erForm.getParam())) {
 				erForm.setMessage(empName + " granted as administrator");
@@ -114,6 +113,8 @@ public class ManageRoleAction extends Action {
 		}
 
 		Map params = new HashMap();
+		
+		//List Member Paging
 
 		if (erForm.getPage() == null) {
 			erForm.setPage(1);
@@ -141,21 +142,63 @@ public class ManageRoleAction extends Action {
 		if ("search".equals(erForm.getMode())) {
 			erForm.setPage(1);
 		}
-		params.put("start", (erForm.getPage() - 1) * 10 + 1);
-		params.put("end", (erForm.getPage() * 10));
-		params.put("category", erForm.getSearchCategory());
-		params.put("keyword", erForm.getSearchKeyword());
-
-		params.put("roleId", erForm.getParam());
-		erForm.setCountRecord(erMan.countMember(params));
-
-		if (erForm.getCountRecord() % 10 == 0) {
-			erForm.setMaxpage((int) Math.ceil(erForm.getCountRecord() / 10));
-		} else {
-			erForm.setMaxpage(((int) Math.ceil(erForm.getCountRecord() / 10)) + 1);
+		
+		//Employee Role Paging
+		
+		if (erForm.getPageER() == null) {
+			erForm.setPageER(1);
 		}
 
+		if ("firstER".equals(erForm.getMode())) {
+			erForm.setPageER(1);
+		}
+
+		if ("lastER".equals(erForm.getMode())) {
+			erForm.setPageER(erForm.getMaxpageER());
+		}
+
+		if ("prevER".equals(erForm.getMode())) {
+			if (erForm.getPageER() > 1) {
+				erForm.setPageER(erForm.getPageER() - 1);
+			}
+		}
+		if ("nextER".equals(erForm.getMode())) {
+			if (erForm.getPageER() < erForm.getMaxpageER()) {
+				erForm.setPageER(erForm.getPageER() + 1);
+			}
+		}
+
+		if ("searchER".equals(erForm.getMode())) {
+			erForm.setPageER(1);
+		}
+		
+		params.put("startER", (erForm.getPageER() - 1) * 10 + 1);
+		params.put("endER", (erForm.getPageER() * 10));
+		params.put("searchCategoryER", erForm.getSearchCategoryER());
+		params.put("searchKeywordER", erForm.getSearchKeywordER());
+
+		erForm.setCountRecordER(erMan.countRecordER(params));
+
+		if (erForm.getCountRecordER() % 10 == 0) {
+			erForm.setMaxpageER((int) Math.ceil(erForm.getCountRecordER() / 10));
+		} else {
+			erForm.setMaxpageER(((int) Math.ceil(erForm.getCountRecordER() / 10)) + 1);
+		}
+		
 		if ("listMember".equals(erForm.getTask())) {
+			params.put("start", (erForm.getPage() - 1) * 10 + 1);
+			params.put("end", (erForm.getPage() * 10));
+			params.put("category", erForm.getSearchCategory());
+			params.put("keyword", erForm.getSearchKeyword());
+
+			params.put("roleId", erForm.getParam());
+			erForm.setCountRecord(erMan.countMember(params));
+
+			if (erForm.getCountRecord() % 10 == 0) {
+				erForm.setMaxpage((int) Math.ceil(erForm.getCountRecord() / 10));
+			} else {
+				erForm.setMaxpage(((int) Math.ceil(erForm.getCountRecord() / 10)) + 1);
+			}
 			erForm.setRoleName(erMan.getRoleName(erForm.getParam()));
 			erForm.setListMember(erMan.searchListMember(params));
 			return mapping.findForward("ListMemberRole");
@@ -163,10 +206,12 @@ public class ManageRoleAction extends Action {
 
 		if ("home".equals(erForm.getTask())) {
 			erForm.setListRole(erMan.searchListRole());
+			erForm.setListEmployeeRole(erMan.searchListEmployeeRole(params));
 			return mapping.findForward("ListRole");
 		}
-
+		
 		erForm.setListRole(erMan.searchListRole());
+		erForm.setListEmployeeRole(erMan.searchListEmployeeRole(params));
 		return mapping.findForward("ListRole");
 	}
 }

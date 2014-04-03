@@ -6,8 +6,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 <sqlMap namespace="manageRole">
 	<typeAlias alias="roleBean" type="adins.ace.taps.bean.manageRole.RoleBean" />
 	<typeAlias alias="menuBean" type="adins.ace.taps.bean.manageRole.MenuBean" />
-	<typeAlias alias="memberBean"
-		type="adins.ace.taps.bean.manageRole.EmployeeBean" />
+	<typeAlias alias="memberBean" type="adins.ace.taps.bean.manageRole.EmployeeBean" />
+	<typeAlias alias="employeeRoleBean" type="adins.ace.taps.bean.manageRole.EmployeeRoleBean" />
 
 	<select id="countMember" resultClass="int" parameterClass="java.util.Map">
 		SELECT COUNT(1)
@@ -73,8 +73,8 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 	<select id="searchListRole" resultClass="roleBean"
 		parameterClass="java.util.Map">
-		select role_id as roleId, role_name as roleName from
-		roles
+		select r.role_id as roleId, r.role_name as roleName, (select count(1) from employee_role where role_id = r.role_id) AS roleCount from
+		roles r
 	</select>
 
 	<select id="searchListMenu" resultClass="menuBean"
@@ -135,5 +135,58 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		insert into
 		role_menu(role_id,menu_id) values (#roleId#,#menuId#)
 	</insert>
+	
+	<select id="searchListEmployeeRole" resultClass="employeeRoleBean" parameterClass="java.util.Map">
+		SELECT *
+		FROM (SELECT ROWNUM seqnum, a.*
+		FROM (
+		SELECT e.user_domain AS employeeUserDomain, e.first_name || ' ' || e.last_name AS employeeName, (SELECT COUNT(1) FROM employee_role WHERE user_domain = e.user_domain AND role_id = 'EMP') AS isEmployee, (SELECT COUNT(1) FROM employee_role WHERE user_domain = e.user_domain AND role_id = 'SPV') AS isSupervisor, (SELECT COUNT(1) FROM employee_role WHERE user_domain = e.user_domain AND role_id = 'HBU') AS isHeadBU, (SELECT COUNT(1) FROM employee_role WHERE user_domain = e.user_domain AND role_id = 'ADM') AS isAdministrator FROM employees e
+		WHERE 1 = 1
+		<dynamic prepend="AND">
+			<isNotNull property="searchKeywordER">
+				<isNotEmpty property="searchKeywordER">
+					<isEqual property="searchCategoryER" compareValue="employeeUserDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$searchKeywordER$%'))</isEqual>
+					<isEqual property="searchCategoryER" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$searchKeywordER$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$searchKeywordER$%'))
+					</isEqual>
+					<isEqual property="searchCategoryER" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$searchKeywordER$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER
+						('%$searchKeywordER$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$searchKeywordER$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+		) a WHERE  <![CDATA[ ROWNUM <= #endER#]]>)
+		WHERE  <![CDATA[ seqnum >= #startER#]]>
+	</select>
+	
+	<select id="countRecordER" resultClass="int" parameterClass="java.util.Map">
+		SELECT COUNT(1) FROM employees e
+		WHERE 1 = 1
+		<dynamic prepend="AND">
+			<isNotNull property="searchKeywordER">
+				<isNotEmpty property="searchKeywordER">
+					<isEqual property="searchCategoryER" compareValue="employeeUserDomain">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$searchKeywordER$%'))</isEqual>
+					<isEqual property="searchCategoryER" compareValue="employeeName">(LOWER(e.FIRST_NAME)
+						LIKE LOWER ('%$searchKeywordER$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER
+						('%$searchKeywordER$%'))
+					</isEqual>
+					<isEqual property="searchCategoryER" compareValue="All">(LOWER(e.USER_DOMAIN)
+						LIKE LOWER ('%$searchKeywordER$%') OR LOWER(e.FIRST_NAME)
+						LIKE LOWER
+						('%$searchKeywordER$%') OR
+						LOWER(e.LAST_NAME) LIKE LOWER ('%$searchKeywordER$%'))
+					</isEqual>
+				</isNotEmpty>
+			</isNotNull>
+		</dynamic>
+	</select>
 
 </sqlMap>
