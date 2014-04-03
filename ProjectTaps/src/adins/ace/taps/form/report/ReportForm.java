@@ -11,6 +11,7 @@ import adins.ace.taps.bean.report.ReportBean;
 @SuppressWarnings("serial")
 public class ReportForm extends ActionForm{
 	private String task;
+	private String userDomain;
 	private String organizationCode;
 	private String organizationLevel;
 	private String organizationName;
@@ -31,6 +32,13 @@ public class ReportForm extends ActionForm{
 	}
 	public void setTask(String task) {
 		this.task = task;
+	}
+	
+	public String getUserDomain() {
+		return userDomain;
+	}
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
 	}
 	public String getOrganizationCode() {
 		return organizationCode;

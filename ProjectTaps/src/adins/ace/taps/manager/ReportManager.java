@@ -55,6 +55,42 @@ public class ReportManager {
 		return reportList;		
 	}
 	
+	public ReportBean getDetail(Map map)
+	{
+		ReportBean bean = new ReportBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportBean)ibatisSqlMap.queryForObject("report.getDetail", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
+	public ReportBean getDetail2(Map map)
+	{
+		ReportBean bean = new ReportBean();
+		try {
+			ibatisSqlMap.startTransaction();
+			bean = (ReportBean)ibatisSqlMap.queryForObject("report.getDetail2", map);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			try {
+				ibatisSqlMap.endTransaction();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return bean;
+	}
+	
 	public Savepoint insertSavePoint() {
 		boolean flag = false;
 		Savepoint savepoint2 = null;
