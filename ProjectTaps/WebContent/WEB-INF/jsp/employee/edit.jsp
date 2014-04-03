@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="org.apache.struts.Globals"%> 
-<%@page import="org.apache.struts.taglib.html.Constants"%> 
+<%@page import="org.apache.struts.Globals"%>
+<%@page import="org.apache.struts.taglib.html.Constants"%>
 <%@taglib uri="/WEB-INF/tld/struts-html.tld" prefix="html"%>
 <%@taglib uri="/WEB-INF/tld/struts-logic.tld" prefix="logic"%>
 <%@taglib uri="/WEB-INF/tld/struts-nested.tld" prefix="bean"%>
@@ -13,68 +13,92 @@
 <jsp:include page="/js/import.jsp" />
 <script type="text/javascript">
 	function readURL(input) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	            $('.avatar').attr('src', e.target.result);
-	        }
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
-	$(document).ready( function() {
-		$("#cancelUpdateEmp").click(function(){
-			$("#taskUpdateEmp").val('');
-			$("#employeeAddEdit").submit();
-		});
-		$("#updateEmp").click(function(){
-			$("#taskUpdateEmp").val('saveEditEmployee');
-			employeeValidation();
-		});
-		
-		$("#__input_file_wrapper__").attr('placeholder', 'Browse File');
-		$("#employeeDomain").attr("placeholder", "Employee Domain");
-		$("#employeeCode").attr("placeholder", "Employee Code");
-		$("#employeeNik").attr("placeholder", "NIK");
-		$("#firstName").attr("placeholder", "First Name");
-		$("#lastName").attr("placeholder", "Last Name");
-		$(".businessUnit").attr("placeholder", "Business Unit");
-		$("#employeeAddress").attr("placeholder", "Address");
-		$("#employeeAddress").attr("maxlength", "500");
-		$("#phoneNumberAreaCode").attr("placeholder", "Area");
-		$("#phoneNumberMidNumb").attr("placeholder", "Phone No");
-		$("#phoneNumberLastNumb").attr("placeholder", "Ext");
-		$("#mobileNumberAreaCode").attr("placeholder", "Area");
-		$("#mobileNumberMidNumb").attr("placeholder", "Mobile No");
-		$("#email").attr("placeholder", "Email");
-		$("#password").attr("placeholder", "Default Password sysadmin");
-		$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
-		if ($("#messageCRUD").val() != "") {
-			setTimeout(function() {
-				$.Notify({
-					style : {
-						background : $("#messagecolor").val(),
-						color : 'white'
-					},
-					shadow : true,
-					position : 'top-right',
-					content : $("#messageCRUD").val()
-				});
-			}, 1000);
-		}
-		$('.myCheckbox').prop('checked', true);
-		if ($("#golonganNumber").val() == "6") {
-			$("#golonganLevel").hide();
-			$("#golonganLevel").val("");
-		}
-		$("#golonganNumber").change(function() {
-			if ($("#golonganNumber").val() == "6") {
-				$("#golonganLevel").hide();
-				$("#golonganLevel").val("");
-			} else {
-				$("#golonganLevel").show();
+		if (input.files[0].size <= 716800) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('.avatar').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
 			}
-		});
-	});
+		} else {
+			alert("Maximum size profile picture 700KB");
+			document.employeeForm.profilePicture.value = "";
+		}
+	}
+	function button(task) {
+		if (task == "cancel") {
+			document.employeeForm.taskUpdateEmp.value = "";
+			document.employeeForm.submit();
+			return;
+		} else if (task == "saveEditEmployee") {
+			document.employeeForm.taskUpdateEmp.value = task;
+			employeeValidation();
+		}
+	}
+	$(document)
+			.ready(
+					function() {
+						/* $("#cancelUpdateEmp").click(function(){
+							$("#taskUpdateEmp").val('');
+							$("#employeeAddEdit").submit();
+						});
+						$("#updateEmp").click(function(){
+							$("#taskUpdateEmp").val('saveEditEmployee');
+							employeeValidation();
+						}); */
+
+						$("#__input_file_wrapper__").attr('placeholder',
+								'Browse File');
+						$("#employeeDomain").attr("placeholder",
+								"Employee Domain");
+						$("#employeeCode").attr("placeholder", "Employee Code");
+						$("#employeeNik").attr("placeholder", "NIK");
+						$("#firstName").attr("placeholder", "First Name");
+						$("#lastName").attr("placeholder", "Last Name");
+						$(".businessUnit").attr("placeholder", "Business Unit");
+						$("#employeeAddress").attr("placeholder", "Address");
+						$("#employeeAddress").attr("maxlength", "500");
+						$("#phoneNumberAreaCode").attr("placeholder", "Area");
+						$("#phoneNumberMidNumb")
+								.attr("placeholder", "Phone No");
+						$("#phoneNumberLastNumb").attr("placeholder", "Ext");
+						$("#mobileNumberAreaCode").attr("placeholder", "Area");
+						$("#mobileNumberMidNumb").attr("placeholder",
+								"Mobile No");
+						$("#email").attr("placeholder", "Email");
+						$("#password").attr("placeholder",
+								"Default Password sysadmin");
+						$("#lookUpOrganization")
+								.load(
+										"/ProjectTaps/ajax.do?mode=organizations&task=organizations");
+						if ($("#messageCRUD").val() != "") {
+							setTimeout(function() {
+								$.Notify({
+									style : {
+										background : $("#messagecolor").val(),
+										color : 'white'
+									},
+									shadow : true,
+									position : 'top-right',
+									content : $("#messageCRUD").val()
+								});
+							}, 1000);
+						}
+						$('.myCheckbox').prop('checked', true);
+						if ($("#golonganNumber").val() == "6") {
+							$("#golonganLevel").hide();
+							$("#golonganLevel").val("");
+						}
+						$("#golonganNumber").change(function() {
+							if ($("#golonganNumber").val() == "6") {
+								$("#golonganLevel").hide();
+								$("#golonganLevel").val("");
+							} else {
+								$("#golonganLevel").show();
+							}
+						});
+					});
 </script>
 <script src="<%=request.getContextPath()%>/js/ajax.js"></script>
 <title>Employee</title>
@@ -84,11 +108,16 @@
 	<div class="container container-taps">
 		<div class="grid">
 			<div class="row row-taps shadow-taps">
-				<html:form enctype="multipart/form-data" action="/employee" method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
-					<html:hidden property="task" name="employeeForm" styleId="taskUpdateEmp"/>
-					<input type="hidden" id="messageCRUD" value="<bean:write  property="message" name="employeeForm" />">
-					<input type="hidden" id="messagecolor" value="<bean:write  property="color" name="employeeForm" />">
-					<input type="hidden" name="<%=Constants.TOKEN_KEY%>" value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>" >
+				<html:form enctype="multipart/form-data" action="/employee"
+					method="POST" styleClass="employeeForm" styleId="employeeAddEdit">
+					<html:hidden property="task" name="employeeForm"
+						styleId="taskUpdateEmp" />
+					<input type="hidden" id="messageCRUD"
+						value="<bean:write  property="message" name="employeeForm" />">
+					<input type="hidden" id="messagecolor"
+						value="<bean:write  property="color" name="employeeForm" />">
+					<input type="hidden" name="<%=Constants.TOKEN_KEY%>"
+						value="<%=session.getAttribute(Globals.TRANSACTION_TOKEN_KEY)%>">
 					<table class="table">
 						<thead>
 							<tr>
@@ -98,60 +127,70 @@
 						<tbody>
 							<tr>
 								<%
-									if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("false")) {
+									if (session.getAttribute("recoveryMode").toString()
+												.equalsIgnoreCase("false")) {
 								%>
-										<th class="field-form">Employee Domain</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div class="input-control text">
-												<div class="input-control text">
-													<html:text property="newEmployee.employeeDomain" name="employeeForm" styleId="activeDirectory-domain" styleClass="employeeDomain" readonly="true"></html:text>
-												</div>
-											</div>
-										</td>
-										<td rowspan="6" class="text-center field-avatar">
-											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
-											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
-												<button class="btn-file"></button>
-											</div>
-										</td>
+								<th class="field-form">Employee Domain</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain" readonly="true"></html:text>
+										</div>
+									</div>
+								</td>
+								<td rowspan="6" class="text-center field-avatar"><img
+									src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
+									class="avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"
+											styleClass="profilePicture" onchange="readURL(this)"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
 								<%
 									} else {
 								%>
-										<th class="field-form">Employee Domain</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div class="input-control text">
-												<div class="input-control text">
-													<html:text property="newEmployee.employeeDomain" name="employeeForm" styleId="activeDirectory-domain" styleClass="employeeDomain" readonly="true"></html:text>
-												</div>
-											</div>
-										</td>
-										<td rowspan="7" class="text-center field-avatar">
-											<img src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />" class="avatar"> <br>
-											<div class="input-control file">
-												<html:file property="profilePicture" accept="image/*" styleClass="profilePicture" onchange="readURL(this)"></html:file>
-												<button class="btn-file"></button>
-											</div></td>
+								<th class="field-form">Employee Domain</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:text property="newEmployee.employeeDomain"
+												name="employeeForm" styleId="activeDirectory-domain"
+												styleClass="employeeDomain" readonly="true"></html:text>
+										</div>
+									</div>
+								</td>
+								<td rowspan="7" class="text-center field-avatar"><img
+									src="employee.do?photo=getPhoto&employeeDomain=<bean:write name="employeeForm" property="employeeDomain" />"
+									class="avatar"> <br>
+									<div class="input-control file">
+										<html:file property="profilePicture" accept="image/*"
+											styleClass="profilePicture" onchange="readURL(this)"></html:file>
+										<button class="btn-file"></button>
+									</div></td>
 								<%
 									}
 								%>
 							</tr>
 							<%
-								if (session.getAttribute("recoveryMode").toString().equalsIgnoreCase("true")) {
+								if (session.getAttribute("recoveryMode").toString()
+											.equalsIgnoreCase("true")) {
 							%>
-									<tr>
-										<th class="field-form">Password</th>
-										<td class="field-separator">:</td>
-										<td>
-											<div class="input-control text">
-												<div class="input-control text">
-													<html:password property="password" name="employeeForm" styleId="password" />
-												</div>
-											</div>
-										</td>
-									</tr>
+							<tr>
+								<th class="field-form">Password</th>
+								<td class="field-separator">:</td>
+								<td>
+									<div class="input-control text">
+										<div class="input-control text">
+											<html:password property="password" name="employeeForm"
+												styleId="password" />
+										</div>
+									</div>
+								</td>
+							</tr>
 							<%
 								}
 							%>
@@ -159,16 +198,17 @@
 								<th class="field-form">Employee Code</th>
 								<td class="field-separator">:</td>
 								<td><div class="input-control text">
-										<html:text property="newEmployee.employeeCode" maxlength="3" name="employeeForm" styleId="employeeCode"></html:text>
-									</div>
-								</td>
+										<html:text property="newEmployee.employeeCode" maxlength="3"
+											name="employeeForm" styleId="employeeCode"></html:text>
+									</div></td>
 							</tr>
 							<tr>
 								<th class="field-form">Employee NIK</th>
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="newEmployee.employeeNik" maxlength="8" name="employeeForm" styleId="employeeNik"></html:text>
+										<html:text property="newEmployee.employeeNik" maxlength="8"
+											name="employeeForm" styleId="employeeNik"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -177,7 +217,8 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text">
-										<html:text property="newEmployee.firstName" maxlength="20" name="employeeForm" styleId="firstName"></html:text>
+										<html:text property="newEmployee.firstName" maxlength="20"
+											name="employeeForm" styleId="firstName"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -186,7 +227,8 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control text ">
-										<html:text property="newEmployee.lastName" name="employeeForm" maxlength="25" styleId="lastName"></html:text>
+										<html:text property="newEmployee.lastName" name="employeeForm"
+											maxlength="25" styleId="lastName"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -195,15 +237,15 @@
 								<td class="field-separator">:</td>
 								<td>
 									<div class="input-control radio margin10">
-										<label> 
-											<html:radio property="newEmployee.gender" value="M" name="employeeForm"></html:radio> 
-											<span class="check"></span> Male
+										<label> <html:radio property="newEmployee.gender"
+												value="M" name="employeeForm"></html:radio> <span
+											class="check"></span> Male
 										</label>
 									</div>
 									<div class="input-control radio margin10">
-										<label>
-											<html:radio property="newEmployee.gender" value="F" name="employeeForm"></html:radio>
-										<span class="check"></span> Female
+										<label> <html:radio property="newEmployee.gender"
+												value="F" name="employeeForm"></html:radio> <span
+											class="check"></span> Female
 										</label>
 									</div>
 								</td>
@@ -213,8 +255,11 @@
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:hidden property="newEmployee.businessUnit" name="employeeForm" styleId="organization-code"></html:hidden>
-										<html:text property="newEmployee.businessUnitName" readonly="true" name="employeeForm" styleId="organization-name" styleClass="businessUnit"></html:text>
+										<html:hidden property="newEmployee.businessUnit"
+											name="employeeForm" styleId="organization-code"></html:hidden>
+										<html:text property="newEmployee.businessUnitName"
+											readonly="true" name="employeeForm"
+											styleId="organization-name" styleClass="businessUnit"></html:text>
 										<button type="button" class="btn-search" id="organization"></button>
 									</div>
 								</td>
@@ -224,7 +269,9 @@
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="input-control textarea">
-										<html:textarea property="newEmployee.employeeAddress" styleClass="address-field" name="employeeForm" styleId="employeeAddress"></html:textarea>
+										<html:textarea property="newEmployee.employeeAddress"
+											styleClass="address-field" name="employeeForm"
+											styleId="employeeAddress"></html:textarea>
 									</div>
 								</td>
 							</tr>
@@ -234,11 +281,17 @@
 								<td colspan="2">
 									<div class="input-control text ">
 										<strong>(</strong>
-										<html:text property="newEmployee.phoneNumberAreaCode" name="employeeForm" styleId="phoneNumberAreaCode" style="width: 45px;" maxlength="4"></html:text>
+										<html:text property="newEmployee.phoneNumberAreaCode"
+											name="employeeForm" styleId="phoneNumberAreaCode"
+											style="width: 55px;" maxlength="5"></html:text>
 										<strong>)&nbsp;&nbsp;</strong>
-										<html:text property="newEmployee.phoneNumberMidNumb" name="employeeForm" styleId="phoneNumberMidNumb" style="width: 70px;" maxlength="7"></html:text>
+										<html:text property="newEmployee.phoneNumberMidNumb"
+											name="employeeForm" styleId="phoneNumberMidNumb"
+											style="width: 70px;" maxlength="7"></html:text>
 										<strong>&nbsp;&nbsp;-&nbsp;&nbsp;</strong>
-										<html:text property="newEmployee.phoneNumberLastNumb" name="employeeForm" styleId="phoneNumberLastNumb" style="width: 50px;" maxlength="4"></html:text>
+										<html:text property="newEmployee.phoneNumberLastNumb"
+											name="employeeForm" styleId="phoneNumberLastNumb"
+											style="width: 50px;" maxlength="4"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -248,9 +301,13 @@
 								<td colspan="2">
 									<div class="input-control text ">
 										<strong>(</strong>
-										<html:text property="newEmployee.mobileNumberAreaCode" name="employeeForm" styleId="mobileNumberAreaCode" style="width: 45px;" maxlength="4"></html:text>
+										<html:text property="newEmployee.mobileNumberAreaCode"
+											name="employeeForm" styleId="mobileNumberAreaCode"
+											style="width: 45px;" maxlength="4"></html:text>
 										<strong>)&nbsp;&nbsp;</strong>
-										<html:text property="newEmployee.mobileNumberMidNumb" name="employeeForm" styleId="mobileNumberMidNumb" style="width: 100px;" maxlength="10"></html:text>
+										<html:text property="newEmployee.mobileNumberMidNumb"
+											name="employeeForm" styleId="mobileNumberMidNumb"
+											style="width: 100px;" maxlength="10"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -259,7 +316,8 @@
 								<td class="field-separator">:</td>
 								<td colspan="2">
 									<div class="input-control text ">
-										<html:text property="newEmployee.email" name="employeeForm" maxlength="30" styleId="email"></html:text>
+										<html:text property="newEmployee.email" name="employeeForm"
+											maxlength="30" styleId="email"></html:text>
 									</div>
 								</td>
 							</tr>
@@ -269,7 +327,9 @@
 								<td colspan="2">
 									<div class="auto-complete">
 										<div class="input-control select">
-											<html:select property="newEmployee.golonganNumber" style="width:70px;" name="employeeForm" styleId="golonganNumber">
+											<html:select property="newEmployee.golonganNumber"
+												style="width:70px;" name="employeeForm"
+												styleId="golonganNumber">
 												<html:option value="">Level</html:option>
 												<html:option value="2">2</html:option>
 												<html:option value="3">3</html:option>
@@ -277,7 +337,9 @@
 												<html:option value="5">5</html:option>
 												<html:option value="6">6</html:option>
 											</html:select>
-											<html:select property="newEmployee.golonganLevel" styleId="golonganLevel" style="width:70px;" name="employeeForm">
+											<html:select property="newEmployee.golonganLevel"
+												styleId="golonganLevel" style="width:70px;"
+												name="employeeForm">
 												<html:option value="">Grade</html:option>
 												<html:option value="A">A</html:option>
 												<html:option value="B">B</html:option>
@@ -292,8 +354,10 @@
 							</tr>
 							<tr>
 								<td colspan="4" class="text-right">
-									<button class="button success" id="updateEmp">Save</button>
-									<button class="button info" id="cancelUpdateEmp">Cancel</button>
+									<button onclick="button('saveEditEmployee')"
+										class="button success" id="updateEmp">Save</button>
+									<button onclick="button('cancel')" class="button info"
+										id="cancelUpdateEmp">Cancel</button>
 								</td>
 							</tr>
 						</tbody>
