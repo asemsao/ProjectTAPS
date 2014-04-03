@@ -144,14 +144,12 @@
 							<logic:notEmpty name="reportForm" property="listReports">
 								<logic:iterate id="report" name="reportForm"
 									property="listReports">
-									<logic:notEqual value="1" property="organizationLevel" name="report">
 										<tr>
 											<th><bean:write name="report"
-													property="organizationCode" /></th>
-											<td><bean:write name="report" property="manhourBU" /></td>
-											<td><bean:write name="report" property="manhourProject" /></td>
+													property="employeeName" /></th>
+											<td><bean:write name="report" property="productivity" /></td>
+											<td><bean:write name="report" property="quality" /></td>
 										</tr>
-									</logic:notEqual>
 								</logic:iterate>
 							</logic:notEmpty>
 						</table>
@@ -198,26 +196,17 @@
 							<tr>
 								
 							</tr>
-							<logic:notEmpty name="reportForm" property="listReports">
-								<logic:iterate id="report" name="reportForm"
-									property="listReports">
-									<logic:equal name="report" property="organizationLevel" value="1">
-										<tr class="text-left">
-											<td colspan="3"><h5><bean:write name="report" property="organizationName" /></h5></td>										
-										</tr>
-									</logic:equal>
-									
-									<logic:notEqual name="report" property="organizationLevel" value="1">
-									<tr>
-										<td>&nbsp;&nbsp;&nbsp;<bean:write name="report" property="organizationCode" /></td>
-										<td><bean:write name="report" property="organizationName" /></td>
-										<td class="text-center"><bean:write name="report" property="manhourBU" /></td>
+							<logic:notEmpty name="reportForm" property="listReports">	
+							<logic:iterate id="report" name="reportForm" property="listReports">							
+									<tr>										
+										<td><bean:write name="report" property="employeeName" /></td>
+										<td><bean:write name="report" property="productivity" /></td>
+										<td><bean:write name="report" property="quality" /></td>
 										<td class="text-center"><a
 												href="javascript:report('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
 												data-hint-position="bottom"><img alt=""
 													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>	
 									</tr>
-									</logic:notEqual>
 									
 								</logic:iterate>
 							</logic:notEmpty>

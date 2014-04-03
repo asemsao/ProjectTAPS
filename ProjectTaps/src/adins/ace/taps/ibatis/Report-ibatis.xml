@@ -12,27 +12,26 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 	
 	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.first_name||' '||e.last_name as employeeName, round(count(1)/sum(r.manhour),3)  as productivity, sum(r.star) as quality from reports r, employees e
-	where r.assign_to = e.user_domain and e.organization_code = 'TRC' and lower(e.flag)='active'
+	select e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to = e.user_domain and e.organization_code = #orgCode# and lower(e.flag)='active'
 	group by e.first_name||' '||e.last_name
 	</select>
 	
-	<select id="getReportLevelManagement" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.organization_code, e.first_name||' '||e.last_name as employeeName, round(count(1)/sum(r.manhour),3)  as productivity, sum(r.star) as quality from reports r, employees e
-	where r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
-                                                                                            	FROM organizations o 
-                                                                                            	WHERE LOWER(o.flag) = 'active' and o.organization_code != 'MAN'
-                                                                                            	START WITH o.organization_code = 'MAN'
-                                                                                            	CONNECT BY PRIOR UPPER(o.organization_code) = UPPER(o.parent_organization_code))
+	<select id="getReportLevelDivision" resultClass="adins.ace.taps.bean.report.ReportBean">
+	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to = e.user_domain and lower(e.flag)='active' and e.organization_code in (select o.organization_code from organizations o where o.parent_organization_code = #orgCode#)
 	group by e.first_name||' '||e.last_name, e.organization_code
 	</select>
 	
-	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.first_name||' '||e.last_name as employeeName, round(count(1)/sum(r.manhour),3)  as productivity, sum(r.star) as quality from reports r, employees e
-	where r.assign_to = e.user_domain and e.organization_code = 'TRC' and lower(e.flag)='active'
-	group by e.first_name||' '||e.last_name
-	</select>
-	
+	<select id="getReportLevelManagement" resultClass="adins.ace.taps.bean.report.ReportBean">
+	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
+                                                                                            	FROM organizations o 
+                                                                                            	WHERE LOWER(o.flag) = 'active' and o.organization_code != #orgCode#
+                                                                                            	START WITH o.organization_code = #orgCode#
+                                                                                            	CONNECT BY PRIOR UPPER(o.organization_code) = UPPER(o.parent_organization_code))
+	group by e.first_name||' '||e.last_name, e.organization_code
+	</select>	
 
 	<select id="getReportLevel1" resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
