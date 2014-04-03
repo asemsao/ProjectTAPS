@@ -48,15 +48,14 @@ public class LoginAction extends Action {
 				String domainName = App.getConfiguration("domain_name");
 				
 
-				/*MODE AUTO
+				//MODE AUTO
 				if ("auto".equals(App.getConfiguration("recovery_mode"))) {
 					session.setAttribute("recoveryMode", "false");
 					if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
 						session.setAttribute("recoveryMode", "true");
 					}
 				}
-				*/
-				if ("true".equals(App.getConfiguration("recovery_mode"))) {
+				else if ("true".equals(App.getConfiguration("recovery_mode"))) {
 					session.setAttribute("recoveryMode", "true");
 				}
 				else{
@@ -80,7 +79,9 @@ public class LoginAction extends Action {
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
 					/* Star Achievement */
-					session.setAttribute("star", dMan.starAchievemet(username));
+//					session.setAttribute("star", dMan.starAchievemet(username));
+					session.setAttribute("greenStar", dMan.greenStar(username));
+					session.setAttribute("redStar", dMan.redStar(username));
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);
 					try {

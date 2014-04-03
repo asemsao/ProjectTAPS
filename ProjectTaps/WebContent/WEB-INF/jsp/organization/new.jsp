@@ -30,18 +30,8 @@
 			$("#lookUpEmployee").load("/ProjectTaps/ajax.do?mode=employees&task=employees&headBu=headBu");	
 		}, 500);
 		setTimeout(function() {
-			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + level);	
+			$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=organizations&task=organizations");
 		}, 500);
-
-		$("#level").change(function() {
-			$("#parent-organization-name").val("");
-			if ($("#level").val() == "0") {
-				$(".parent-organization").hide();
-			} else {
-				$("#lookUpOrganization").load("/ProjectTaps/ajax.do?mode=parentOrganizations&task=parentOrganizations&level=" + $(this).val());
-				$(".parent-organization").show();
-			}
-		});
 		
 		$("#organizationCode").attr("placeholder", "Business Unit Code");
 		$("#organizationName").attr("placeholder", "Business Unit Name");
@@ -84,19 +74,6 @@
 								<td>
 									<div class="input-control text">
 										<html:text property="orgBean.organizationName" styleId="organizationName" name="organizationForm" maxlength="50"></html:text>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th class="field-form">Business Unit Level</th>
-								<td class="field-separator">:</td>
-								<td>
-									<div class="input-control select">
-										<html:select property="orgBean.organizationLevel" name="organizationForm" styleId="level">
-											<html:option value="2">Level 2</html:option>
-											<html:option value="1">Level 1</html:option>
-											<html:option value="0">Level 0</html:option>
-										</html:select>
 									</div>
 								</td>
 							</tr>

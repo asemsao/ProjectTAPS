@@ -162,4 +162,87 @@ public class SendMailTls {
 			System.out.println("Failed to send message");
 		}
 	}
+	public static void SendMailPassword(Map params) {
+		final String username = App.getConfiguration("mail.name");
+		final String password = App.getConfiguration("mail.password");
+
+		String toMail = params.get("toMail").toString();
+		String nameReceiver = params.get("nameReceiver").toString();
+		String passwordReceiver = params.get("password").toString();
+		String userId = params.get("userId").toString();
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", App.getConfiguration("mail.smtp.auth"));
+		props.put("mail.smtp.starttls.enable",
+				App.getConfiguration("mail.smtp.starttls.enable"));
+		props.put("mail.smtp.host", App.getConfiguration("mail.smtp.host"));
+		props.put("mail.smtp.port", App.getConfiguration("mail.smtp.port"));
+
+		Session session = Session.getInstance(props,
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+				});
+
+		String subject = "TAPS - User Password";
+
+		String user = nameReceiver;
+		
+		String contentMail = "<html><body>";
+		contentMail += "<h3>Dear " + user + "</h3><br>";
+		contentMail +="<p>User activation process has been successfull</p>";
+		contentMail += "<table>";
+
+		contentMail += "<tr>";
+		contentMail += "<td colspan=3>";
+		contentMail += "This is the user's detail";
+		contentMail += "</td>";
+		contentMail += "</tr>";
+
+		contentMail += "<tr>";
+		contentMail += "<td>";
+		contentMail += "Username";
+		contentMail += "</td>";
+		contentMail += "<td>:</td>";
+		contentMail += "<td>";
+		contentMail += userId;
+		contentMail += "</td>";
+		contentMail += "</tr>";
+
+		contentMail += "<tr>";
+		contentMail += "<td>";
+		contentMail += "Password";		
+		contentMail += "</td>";
+		contentMail += "<td>:</td>";
+		contentMail += "<td>";
+		contentMail += passwordReceiver;
+		contentMail += "</td>";
+		contentMail += "</tr>";
+
+		contentMail += "</table><br>";
+
+		contentMail += "Thank you.</p>";
+		contentMail += "<p>Best regards,<br>";
+		contentMail += "<b>Timesheet and Performance Score (TAPS)</b><br>";
+		contentMail += "PT Adicipta Inovasi Teknologi";
+		contentMail += "</p>";
+		contentMail += "</body></html>";
+
+		try {
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(toMail));
+			message.setSubject(subject);
+			message.setContent(contentMail, "text/html");
+
+			Transport.send(message);
+
+			System.out.println("Done to send message");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			System.out.println("Failed to send message");
+		}
+	}
 }

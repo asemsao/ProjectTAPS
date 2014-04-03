@@ -67,7 +67,7 @@ public class ReportAction extends Action {
 					rBean = rMan.getHeadOrganization(h);
 					rForm.setParentCode(rBean.getOrganizationParent());
 					rForm.setParentName(rBean.getOrganizationParentName());
-					rForm.setListReports(rMan.getReportLevel2(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
 					return mapping.findForward("ViewLevel2");
 				}
 			} else {
@@ -93,12 +93,27 @@ public class ReportAction extends Action {
 					rForm.setOrganizationCode(orgCode.toString());
 					rForm.setOrganizationLevel(orgLevel.toString());
 					rForm.setOrganizationName(orgName);
-					rForm.setListReports(rMan.getReportLevel2(h));
+					rForm.setListReports(rMan.getReportLevelDepartment(h));
+					System.out.println(rForm.getListReports());
 					return mapping.findForward("ViewLevel2");
 				}
-			}
+			}	
+		}
+		
+		if("getDetail".equals(rForm.getTask()))
+		{
+			Map param = new HashMap();
 			
+			param.put("userDomain", rForm.getUserDomain());
+			param.put("reportYear",rForm.getReportYear() );
+			param.put("reportPeriode", rForm.getReportPeriode());
+			param.put("reportMonth", rForm.getReportMonth());
+			if("I".equals(rForm.getReportPeriode()))
+				rForm.setrBean(rMan.getDetail(param));
+			else
+				rForm.setrBean(rMan.getDetail2(param));
 			
+			return mapping.findForward("GetDetail");
 		}
 		
 		if ("1 Months".equals(rForm.getPeriode())) {

@@ -13,68 +13,299 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 		WHERE 	user_domain = #userDomain# AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
 	</select>
 	
+	<select id="greenStar" resultClass="int" parameterClass="java.lang.String">
+		SELECT   
+	         (NVL (
+	             (  SELECT   NVL (
+	                            SUM(NVL (
+	                                   SUM (NVL (s.star_after, 0))
+	                                   - SUM (NVL (s.star_before, 0)),
+	                                   0
+	                                )),
+	                            0
+	                         )
+	                  FROM  stars s
+	                 WHERE  s.user_domain = e.user_domain
+	                        AND s.task_code IS NOT NULL
+							AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')				                         
+	              GROUP BY  s.task_code
+	                HAVING  <![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) > 0]]>)
+	             + (SELECT  NVL (SUM (s.star_after), 0)
+	                  FROM  stars s
+	                 WHERE  s.user_domain = e.user_domain
+	                        AND s.task_code IS NULL
+	                        AND <![CDATA[s.star_after > 0]]> 
+			                AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')		
+	                 ),
+	             0
+	          ))
+	            AS greenStar
+	  FROM   employees e
+	 WHERE	e.user_domain = #userDomain# 
+	</select>
+	
+	<select id="redStar" resultClass="int" parameterClass="java.lang.String">
+		SELECT   
+	         (NVL (
+	             (  SELECT   NVL (
+	                            SUM(NVL (
+	                                   SUM (NVL (s.star_after, 0))
+	                                   - SUM (NVL (s.star_before, 0)),
+	                                   0
+	                                )),
+	                            0
+	                         )
+	                  FROM  stars s
+	                 WHERE  s.user_domain = e.user_domain
+	                        AND s.task_code IS NOT NULL
+							AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')				                         
+	              GROUP BY  s.task_code
+	                HAVING  <![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) < 0]]>)
+	             + (SELECT  NVL (SUM (s.star_after), 0)
+	                  FROM  stars s
+	                 WHERE  s.user_domain = e.user_domain
+	                        AND s.task_code IS NULL
+	                        AND <![CDATA[s.star_after < 0]]> 
+			                AND TO_CHAR (created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')		
+	                 ),
+	             0
+	          ))
+	            AS greenStar
+	  FROM   employees e
+	 WHERE	e.user_domain = #userDomain# 
+	</select>
+	
 
 	<select id="searchTopTen" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
-		FROM (	  SELECT   emp.user_domain AS userDomain,
-						   emp.first_name || ' ' || emp.last_name AS employeeName,
-				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
-				              FROM   stars s
-				             WHERE   emp.user_domain = s.user_domain(+)
-							<dynamic prepend="AND">
-								<isNotNull property="currentMonth">
-									<isNotEmpty property="currentMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>
-							<dynamic prepend="AND">
-								<isNotNull property="lastMonth">
-									<isNotEmpty property="lastMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>				             
-				            )
-				              AS totalStar
-				    FROM   employees emp
-				   WHERE   emp.flag = 'ACTIVE'
-				           AND emp.user_domain NOT IN (SELECT   r.user_domain
-				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU'))
-				ORDER BY   totalStar DESC, employeeName)
+		FROM (	  
+				SELECT   e.user_domain AS userDomain, e.first_name || ' ' || e.last_name AS employeeName,
+				         (NVL (
+				             (  SELECT   NVL (
+				                            SUM(NVL (
+				                                   SUM (NVL (s.star_after, 0))
+				                                   - SUM (NVL (s.star_before, 0)),
+				                                   0
+				                                )),
+				                            0
+				                         )
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NOT NULL
+										<dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>				                         
+				              GROUP BY  s.task_code
+				                HAVING  <![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) > 0]]>)
+				             + (SELECT  NVL (SUM (s.star_after), 0)
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NULL
+				                        AND <![CDATA[s.star_after > 0]]> 
+						                <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>		
+				                 ),
+				             0
+				          ))
+				            AS greenStar,
+				         (NVL (
+				             (  SELECT   NVL (
+				                            SUM(NVL (
+				                                   SUM (NVL (s.star_after, 0))
+				                                   - SUM (NVL (s.star_before, 0)),
+				                                   0
+				                                )),
+				                            0
+				                        )
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NOT NULL
+							            <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>				 
+				              GROUP BY   s.task_code
+				                HAVING  <![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) < 0]]>)
+				             + (SELECT  NVL (SUM (s.star_after), 0)
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NULL
+				                        AND <![CDATA[s.star_after < 0]]>
+						                <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>		   
+				                ),
+				             0
+				          ))
+				            AS redStar
+				  FROM   employees e
+				 WHERE   e.flag = 'ACTIVE'
+				 AND	e.user_domain NOT IN (SELECT   r.user_domain
+				                                FROM   employee_role r
+				                               WHERE   r.role_id IN ('HBU'))
+			ORDER BY greenStar DESC, redStar ASC, e.user_domain ASC
+		)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
 	<select id="searchTopTenOrganization" resultClass="dashboardBean" parameterClass="java.util.Map">
 		SELECT * 
-		FROM (	  SELECT   emp.user_domain AS userDomain,
-						   emp.first_name || ' ' || emp.last_name AS employeeName,
-				           (SELECT   NVL (SUM (s.star_after) - SUM (s.star_before), 0)
-				              FROM   stars s
-				             WHERE   emp.user_domain = s.user_domain(+) 
-							<dynamic prepend="AND">
-								<isNotNull property="currentMonth">
-									<isNotEmpty property="currentMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>
-							<dynamic prepend="AND">
-								<isNotNull property="lastMonth">
-									<isNotEmpty property="lastMonth">
-										TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
-									</isNotEmpty>
-								</isNotNull>
-							</dynamic>				             
-				            )
-				              AS totalStar
-				    FROM   employees emp
-				   WHERE   emp.flag = 'ACTIVE' AND UPPER(EMP.ORGANIZATION_CODE) = UPPER(#organizationCode#)
-				           AND emp.user_domain NOT IN (SELECT   r.user_domain
-				                                         FROM   employee_role r
-				                                        WHERE   r.role_id IN ('HBU'))
-				ORDER BY   totalStar DESC, employeeName)
+		FROM (	 
+				SELECT   e.user_domain AS userDomain, e.first_name || ' ' || e.last_name AS employeeName,
+				         (NVL (
+				             (  SELECT   NVL (
+				                            SUM(NVL (
+				                                   SUM (NVL (s.star_after, 0))
+				                                   - SUM (NVL (s.star_before, 0)),
+				                                   0
+				                                )),
+				                            0
+				                         )
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NOT NULL
+										<dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>				                         
+				              GROUP BY  s.task_code
+				                HAVING  <![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) > 0]]>)
+				             + (SELECT  NVL (SUM (s.star_after), 0)
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NULL
+				                        AND <![CDATA[s.star_after > 0]]> 
+						                <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>		
+				                 ),
+				             0
+				          ))
+				            AS greenStar,
+				         (NVL (
+				             (  SELECT   NVL (
+				                            SUM(NVL (
+				                                   SUM (NVL (s.star_after, 0))
+				                                   - SUM (NVL (s.star_before, 0)),
+				                                   0
+				                                )),
+				                            0
+				                        )
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NOT NULL
+							            <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>				 
+				              GROUP BY  s.task_code
+				                HAVING	<![CDATA[NVL(SUM (NVL (s.star_after, 0)) - SUM (NVL (s.star_before, 0)), 0) < 0]]>)
+				             + (SELECT  NVL (SUM (s.star_after), 0)
+				                  FROM  stars s
+				                 WHERE  s.user_domain = e.user_domain
+				                        AND s.task_code IS NULL
+				                        AND <![CDATA[s.star_after < 0]]> 
+						                <dynamic prepend="AND">
+											<isNotNull property="currentMonth">
+												<isNotEmpty property="currentMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (SYSDATE - 1, 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>
+										<dynamic prepend="AND">
+											<isNotNull property="lastMonth">
+												<isNotEmpty property="lastMonth">
+													TO_CHAR (s.created_date, 'MM') LIKE TO_CHAR (ADD_MONTHS(SYSDATE,-1), 'MM')
+												</isNotEmpty>
+											</isNotNull>
+										</dynamic>		   
+				                ),
+				             0
+				          ))
+				            AS redStar
+				  FROM  employees e
+				 WHERE  e.flag = 'ACTIVE' AND UPPER(e.ORGANIZATION_CODE) = UPPER(#organizationCode#)
+				 AND	e.user_domain NOT IN (SELECT   r.user_domain
+				                                FROM   employee_role r
+				                               WHERE   r.role_id IN ('HBU'))
+			  ORDER BY  greenStar DESC, redStar ASC, e.user_domain ASC
+		
+		)
 		WHERE <![CDATA[ROWNUM <= 10]]>
 	</select>
 
