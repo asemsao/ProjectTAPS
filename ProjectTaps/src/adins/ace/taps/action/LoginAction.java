@@ -48,15 +48,14 @@ public class LoginAction extends Action {
 				String domainName = App.getConfiguration("domain_name");
 				
 
-				/*MODE AUTO
+				//MODE AUTO
 				if ("auto".equals(App.getConfiguration("recovery_mode"))) {
 					session.setAttribute("recoveryMode", "false");
 					if(session.getAttribute("aDStatus").toString().equalsIgnoreCase("false")){
 						session.setAttribute("recoveryMode", "true");
 					}
 				}
-				*/
-				if ("true".equals(App.getConfiguration("recovery_mode"))) {
+				else if ("true".equals(App.getConfiguration("recovery_mode"))) {
 					session.setAttribute("recoveryMode", "true");
 				}
 				else{
