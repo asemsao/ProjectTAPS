@@ -115,7 +115,7 @@
 						<thead>
 							<tr>
 								<th class="text-center" colspan = "<%=Integer.parseInt(request.getAttribute("maxLevel").toString())+1 %>">Business Unit Code</th>
-								<th class="text-center">Business Unit Name<bean:write name="organizationForm" property="maxLevel" /></th>
+								<th class="text-center">Business Unit Name</th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
 								<th class="text-center">Edit</th>
