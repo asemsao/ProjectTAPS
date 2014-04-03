@@ -304,6 +304,38 @@
 										</table>
 									</logic:notEmpty>
 								</td>
+								
+								<%
+									if ("APPROVED".equals(session.getAttribute("status"))) {
+								%> 
+								<tr>
+								<th class="field-form">Appraisal Star</th>
+								<td class="field-separator">:</td>
+								<td><bean:define id="temp" name="claimAssignmentForm" property="claimBean.appraisalStar" type="Integer" />
+									<%
+			 							Integer sc = temp;
+								 		if (sc > 0) {
+								 			for (int i = 0; i < sc; i++) {
+									 %>
+									 	<img src="<%=request.getContextPath()%>/images/star/star_ijo_kecil_catu.png" />
+									<%
+											}
+										} else if (sc < 0) {
+											for (int i = 0; i < Math.abs(sc); i++) {
+									%> 
+										<img src="<%=request.getContextPath()%>/images/star/star_meyah_kecil_catu.png" />
+									<%
+											}
+										} else {
+									%> 
+										<img src="<%=request.getContextPath()%>/images/star/star_tengah_kecil_catu.png" />
+									<%	
+										}
+									%>
+								</td>
+							</tr>
+								<%} %>
+										
 							</tr>
 							<logic:notEmpty property="listDetailClaim" name="claimAssignmentForm">
 								<tr>
@@ -341,6 +373,7 @@
 										%>
 									</td>
 								</tr>
+								
 							</logic:notEmpty>
 							<logic:empty property="listDetailClaim" name="claimAssignmentForm">
 								<tr>
