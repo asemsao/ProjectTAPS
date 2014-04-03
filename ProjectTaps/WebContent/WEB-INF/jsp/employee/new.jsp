@@ -46,7 +46,7 @@
 						$(".employeeDomain").attr("placeholder",
 								"Employee Domain");
 						$("#password").attr("placeholder",
-								"Default Password sysadmin");
+								"Default will be sent email");
 						$("#employeeCode").attr("placeholder", "Employee Code");
 						$("#employeeNik").attr("placeholder", "NIK");
 						$("#firstName").attr("placeholder", "First Name");
@@ -309,7 +309,7 @@
 												<html:option value="6">6</html:option>
 											</html:select>
 											<html:select property="newEmployee.golonganLevel"
-												style="width:70px;" name="employeeForm"
+												style="width:80px;" name="employeeForm"
 												styleId="golonganLevel">
 												<html:option value="">Grade</html:option>
 												<html:option value="A">A</html:option>

@@ -586,7 +586,7 @@ public class DashboardAction extends Action {
 
 		rankingCurrent.put("currentMonth", "true");
 		rankingCurrent.put("organizationCode", session.getAttribute("organizationCode"));
-
+		
 		dForm.setListTopTen(dMan.searchTopTen(rankingCurrent));
 		dForm.setListTopTenOrganization(dMan.searchTopTenOrganization(rankingCurrent));
 
