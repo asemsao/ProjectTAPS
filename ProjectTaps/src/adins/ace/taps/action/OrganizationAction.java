@@ -119,12 +119,7 @@ public class OrganizationAction extends Action {
 			return mapping.findForward("Edit");
 		}
 		if ("saveEdit".equals(orgForm.getTask())) {
-			int parentLevel=orgMan.levelParent(orgForm.getOrgBean().getParentCode());
-			int orgLevel=parentLevel+1;
-			int childLevel=orgLevel+1;
-	
-			orgForm.getOrgBean().setOrganizationLevel(orgLevel);
-			orgForm.getOrgBean().setOrganizationLevelChild(childLevel);
+			
 			if (isTokenValid(request)) {
 				if (orgForm.getOrgBean().getOrganizationCode()
 						.equals(orgForm.getOrgBean().getParentCode())) {
@@ -199,8 +194,14 @@ public class OrganizationAction extends Action {
 						boolean submit = false;
 						boolean updateReportAssignment = false;
 						boolean updateChild = false;
-						orgMan.startTransaction();
 						
+						int parentLevel=orgMan.levelParent(orgForm.getOrgBean().getParentCode());
+						int orgLevel=parentLevel+1;
+						int childLevel=orgLevel+1;
+						orgForm.getOrgBean().setOrganizationLevel(orgLevel);
+						orgForm.getOrgBean().setOrganizationLevelChild(childLevel);
+						
+						orgMan.startTransaction();
 						submit = orgMan.submitEdit(orgForm
 								.getOrgBean());
 						updateChild = orgMan.updateLevelChild(orgForm.getOrgBean());

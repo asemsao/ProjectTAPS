@@ -242,10 +242,16 @@
 						</tr>
 						<tr>
 							<td colspan=4 class="text-right">
+							<logic:equal value="RFA" property="selfAssignBean.currentStatus" name="dashboardForm">
 								<button onclick="javascript:flyToPage('approvedSelf');" class="button success">Approve</button>
 								<button onclick="javascript:flyToPage('correctionSelf');" class="button warning">Correction</button>
 								<button onclick="javascript:flyToPage('rejectSelf');" class="button danger">Reject</button>
 								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+							</logic:equal>
+							<logic:equal value="RE-RFA" property="selfAssignBean.currentStatus" name="dashboardForm">
+								<button onclick="javascript:flyToPage('reapprovedSelf');" class="button success">Approve</button>
+								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+							</logic:equal>
 							</td>
 						</tr>
 					</table>

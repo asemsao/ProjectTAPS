@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts.action.ActionForm;
 
 import adins.ace.taps.bean.report.ReportBean;
+import adins.ace.taps.bean.report.ReportStarBean;
 
 
 @SuppressWarnings("serial")
@@ -25,6 +26,7 @@ public class ReportForm extends ActionForm{
 	private String reportPeriode;
 	private String reportMonth;
 	private ReportBean rBean = new ReportBean();
+	private ReportStarBean rsBean = new ReportStarBean();
 	private List<ReportBean> listReports;
 	
 	public String getTask() {
@@ -123,6 +125,12 @@ public class ReportForm extends ActionForm{
 	}
 	public void setListReports(List<ReportBean> listReports) {
 		this.listReports = listReports;
+	}
+	public ReportStarBean getRsBean() {
+		return rsBean;
+	}
+	public void setRsBean(ReportStarBean rsBean) {
+		this.rsBean = rsBean;
 	}
 	
 }

@@ -25,6 +25,10 @@
 			document.dashboardForm.task.value = task;
 			document.getElementById("activity-type").value = getRadioValue("activity_type");
 			newCorrectionAssignmentValidation();
+		}else if(task=="re-rfaSelf"){
+			document.dashboardForm.task.value = task;
+			document.getElementById("activity-type").value = getRadioValue("activity_type");
+			newCorrectionAssignmentValidation();
 		}
 	}
 	
@@ -66,6 +70,7 @@
 				<html:form action="/dashboard" method="POST">
 					<html:hidden property="selfAssignBean.taskCode" name="dashboardForm" styleId="task-code" />
 					<html:hidden property="selfAssignBean.activityType" name="dashboardForm" styleId="activity-type" />
+					<html:hidden property="selfAssignBean.currentStatus" name="dashboardForm"/>
 					<html:hidden property="task" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.assignTo" name="dashboardForm" />
 					<html:hidden property="selfAssignBean.reportTo" name="dashboardForm" />
@@ -145,12 +150,46 @@
 									</div>
 								</td>
 							</logic:equal>
-							<logic:notEqual property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
+							<logic:equal property="selfAssignBean.currentStatus" name="dashboardForm" value="REOPEN">
 								<th class="field-form">Activity Type</th>
 								<td class="field-separator">:</td>
-								<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
-								<td class="adhoc field-extra-text"><b>AdHoc to </b> : </td>
-								<td class="adhoc field-text"><bean:write property="selfAssignBean.adhocFullName" name="dashboardForm" /></td>
+								<td>
+									<div class="input-control radio margin10">
+										<label>
+											<input type="radio" name="activity_type" value="Routine" /> <span class="check"></span>
+											Routine
+										</label>
+									</div>
+									<div class="input-control radio margin10">
+										<label>
+											<input type="radio" name="activity_type" value="Initiative" /> <span class="check"></span> 
+											Initiative
+										</label>
+									</div>
+									<div class="input-control radio margin10">
+										<label>
+											<input type="radio" name="activity_type" value="ADHOC" /> <span class="check"></span> 
+											AdHoc
+										</label>
+									</div>
+								</td>
+								<td class="adhoc field-extra-text"><b>To :</b></td>
+								<td>
+									<div class="adhoc input-control text field-text">
+										<html:hidden property="selfAssignBean.adhocUserDomain" name="dashboardForm" styleId="employee-domain-2" />
+										<html:text property="selfAssignBean.adhocFullName" readonly="true" name="dashboardForm" styleId="employee-name-2"/>
+										<button type="button" class="btn-search" id="employee2"></button>
+									</div>
+								</td>
+							</logic:equal>
+							<logic:notEqual property="selfAssignBean.currentStatus" name="dashboardForm" value="CORRECTION">
+								<logic:notEqual property="selfAssignBean.currentStatus" name="dashboardForm" value="REOPEN">
+									<th class="field-form">Activity Type</th>
+									<td class="field-separator">:</td>
+									<td><bean:write property="selfAssignBean.activityType" name="dashboardForm" /></td>
+									<td class="adhoc field-extra-text"><b>AdHoc to </b> : </td>
+									<td class="adhoc field-text"><bean:write property="selfAssignBean.adhocFullName" name="dashboardForm" /></td>
+								</logic:notEqual>
 							</logic:notEqual>
 						</tr>
 						<tr>
@@ -232,10 +271,18 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan=5 class="text-right">
-								<button onclick="javascript:flyToPage('rfaSelf')" class="button success">RFA</button> 
-								<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
-							</td>
+							<logic:notEqual value="REOPEN" property="selfAssignBean.currentStatus" name="dashboardForm">
+								<td colspan=5 class="text-right">
+									<button onclick="javascript:flyToPage('rfaSelf')" class="button success">RFA</button> 
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+								</td>
+							</logic:notEqual>
+							<logic:equal value="REOPEN" property="selfAssignBean.currentStatus" name="dashboardForm">
+								<td colspan="5" class="text-right">
+									<button onclick="javascript:flyToPage('re-rfaSelf')" class="button success">RFA</button> 
+									<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+								</td>
+							</logic:equal>
 						</tr>
 					</table>
 				</html:form>

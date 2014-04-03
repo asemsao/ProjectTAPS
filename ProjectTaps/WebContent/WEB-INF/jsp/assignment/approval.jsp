@@ -167,7 +167,8 @@
 																		<html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea>
 																	</td>
 															<%
-																} else if ("RFA".equals(session.getAttribute("status"))) {
+																} else if ("RFA".equals(session.getAttribute("status")) 
+																	|| "RE-RFA".equals(session.getAttribute("status"))) {
 															%>
 																	<td>
 																		<html:textarea property="detailDescription" name="assignment" rows="2" styleClass="input-control textarea" readonly="true"></html:textarea>
@@ -236,7 +237,8 @@
 																				<html:option value="24.0">24:00</html:option>
 																			</html:select>
 																	<%
-																		} else if ("RFA".equals(session.getAttribute("status"))) {
+																		} else if ("RFA".equals(session.getAttribute("status"))
+																			|| "RE-RFA".equals(session.getAttribute("status"))) {
 																	%>
 																			<html:hidden property="detailId" name="assignment" />
 																			<html:select property="manHours" name="assignment" styleClass="manHourUpdate">
@@ -311,7 +313,7 @@
 								</td>
 							</tr>
 							<%
-								if ("RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) { 
+								if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status")) || "APPROVED".equals(session.getAttribute("status"))) { 
 							%>
 									<tr>
 										<th class="field-form">Appraisal Star</th>
@@ -379,7 +381,7 @@
 							%>
 							<tr>
 								<%
-									if ("RFA".equals(session.getAttribute("status"))) {
+									if ("RFA".equals(session.getAttribute("status")) || "RE-RFA".equals(session.getAttribute("status"))) {
 								%>
 										<th class="field-form">Comment</th>
 										<td class="field-separator">:</td>
@@ -402,6 +404,13 @@
 											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
 										</td>
 								<%
+									} else if ("RE-RFA".equals(session.getAttribute("status"))) {
+								%>
+										<td colspan=4 class="text-right">
+											<button onclick="javascript:flyToPage('reapproved');" class="button success">Approve</button> 
+											<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button>
+										</td>
+								<%
 									} else if ("APPROVED".equals(session.getAttribute("status"))) {
 								%>
 										<td colspan=4 class="text-right">
@@ -411,6 +420,7 @@
 										<logic:equal value="false" property="claimBean.updateableStar" name="claimAssignmentForm">
 											<span class="claim-msg">You can't update star after <%=App.getConfiguration("max_date")%> days</span>
 										</logic:equal>
+										<button onclick="javascript:flyToPage('reopen');" class="button warning">Reopen</button> 
 										<button onclick="javascript:flyToPage('cancel');" class="button info">Cancel</button></td>
 								<%
 									} else {

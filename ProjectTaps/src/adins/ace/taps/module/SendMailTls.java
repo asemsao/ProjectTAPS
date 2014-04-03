@@ -69,7 +69,13 @@ public class SendMailTls {
 		if (phase.equalsIgnoreCase("RFA")) {
 			contentMail += "<p>You've got a NEW ASSIGNMENT which need approval.</p>";
 		}
-
+		if (phase.equalsIgnoreCase("REOPEN")) {
+			contentMail += "<p>You've got a CORRECTION for your assignment.</p>";
+		}
+		if (phase.equalsIgnoreCase("RE-RFA")) {
+			contentMail += "<p>You've got a NEW ASSIGNMENT which need approval.</p>";
+		}
+		
 		contentMail += "<table>";
 
 		contentMail += "<tr>";

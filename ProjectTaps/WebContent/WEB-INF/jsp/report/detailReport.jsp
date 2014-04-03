@@ -112,6 +112,67 @@
 					enabled : false
 			},
 		});
+		
+		$('#graph2').highcharts(
+				{
+					data : {
+						table : document.getElementById('datatable2')
+					},
+					chart : {
+						type : 'column',
+						marginTop : 50,
+						marginBottom : 100,
+						spacingLeft : 30,
+						spacingRIght : 30
+					},
+					lang : {
+						noData : "NO DATA FOUND"
+					},
+					noData : {
+						style : {
+							fontWeight : 'bold',
+							fontSize : '15px',
+							color : '#303030'
+						}
+					},
+					title : {
+						floating : false,
+						text : 'Employee Quality',
+						margin : 30
+					},
+					yAxis : {
+						allowDecimals : false,
+						title : {
+							text : 'Star',
+							margin : 30
+						}
+					},
+					xAxis : {
+						allowDecimals : false,
+						title : {
+							text : 'Month',
+							margin : 30
+						}
+					},
+					tooltip : {
+						headerFormat : '<span style="font-size:10px">{point.key}</span><table>',
+						pointFormat : '<tr><td style="color:{series.color};padding:0">{series.name}</td><td>:</td>'
+								+ '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+						footerFormat : '</table>',
+						shared : true,
+						useHTML : true
+					},
+					legend : {
+						layout : 'vertical',
+						backgroundColor : '#FFFFFF',
+						align : 'right',
+						verticalAlign : 'middle',
+						floating : false
+					},
+					credits : {
+						enabled : false
+				},
+			});
 	});
 </script>
 <title>Detail Report</title>
@@ -192,6 +253,71 @@
 									<tr>
 										<th>December</th>
 										<td><bean:write name="reportForm" property="rBean.productivity12" /></td>
+									<tr>
+								</logic:equal>
+							</logic:notEmpty>	
+						</table>
+					</div>
+					
+					<div id="graph2"></div>
+					<div class="hide">
+						<table id="datatable2" class="table striped bordered hovered">
+							<tr>
+								<th></th>
+								<th>Total Star</th>
+							</tr>	
+						
+							<logic:notEmpty name="reportForm" property="rBean">
+								<logic:equal value="I" name="reportForm" property="reportPeriode">
+									<tr>
+										<th>January</th>
+										<td><bean:write name="reportForm" property="rsBean.star01" /></td>
+									<tr>
+									<tr>
+										<th>February</th>
+										<td><bean:write name="reportForm" property="rsBean.star02" /></td>
+									<tr>
+									<tr>
+										<th>March</th>
+										<td><bean:write name="reportForm" property="rsBean.star03" /></td>
+									<tr>
+									<tr>
+										<th>April</th>
+										<td><bean:write name="reportForm" property="rsBean.star04" /></td>
+									<tr>
+									<tr>
+										<th>May</th>
+										<td><bean:write name="reportForm" property="rsBean.star05" /></td>
+									<tr>
+									<tr>
+										<th>June</th>
+										<td><bean:write name="reportForm" property="rsBean.star06" /></td>
+									<tr>
+								</logic:equal>
+								<logic:equal value="II" name="reportForm" property="reportPeriode">
+									<tr>
+										<th>July</th>
+										<td><bean:write name="reportForm" property="rsBean.star07" /></td>
+									<tr>
+									<tr>
+										<th>August</th>
+										<td><bean:write name="reportForm" property="rsBean.star08" /></td>
+									<tr>
+									<tr>
+										<th>September</th>
+										<td><bean:write name="reportForm" property="rsBean.star09" /></td>
+									<tr>
+									<tr>
+										<th>October</th>
+										<td><bean:write name="reportForm" property="rsBean.star10" /></td>
+									<tr>
+									<tr>
+										<th>November</th>
+										<td><bean:write name="reportForm" property="rsBean.star11" /></td>
+									<tr>
+									<tr>
+										<th>December</th>
+										<td><bean:write name="reportForm" property="rsBean.star12" /></td>
 									<tr>
 								</logic:equal>
 							</logic:notEmpty>	

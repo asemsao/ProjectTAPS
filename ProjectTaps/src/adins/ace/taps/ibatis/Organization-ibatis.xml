@@ -120,7 +120,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	<update id="updateLevelChild" parameterClass="organizationBean">
 		UPDATE organizations
 		SET organization_level = #organizationLevelChild#
-		WHERE UPPER(parent_organization_code) = UPPER(#parentCode#)
+		WHERE UPPER(parent_organization_code) = UPPER(#organizationCode#) AND flag='ACTIVE'
 	</update>
 
 

@@ -20,6 +20,8 @@ public class ReportBean implements Serializable {
 	private Double totalInitiative; //total manhour activity initiative
 	private Double totalAdhocBU; //total manhour activity adhoc BU
 	private Double totalAdhocProject; //total manhour activity adhoc Project
+	private Integer redStar;
+	private Integer greenStar;
 	//report v1
 	private Double totalSelfAssignment;
 	private Double totalAssignment;
@@ -48,6 +50,8 @@ public class ReportBean implements Serializable {
 	private Double productivity10;
 	private Double productivity11;
 	private Double productivity12;
+	
+
 	
 	public String getOrganizationCode() {
 		return organizationCode;
@@ -270,6 +274,18 @@ public class ReportBean implements Serializable {
 	}
 	public void setUserDomain(String userDomain) {
 		this.userDomain = userDomain;
+	}
+	public Integer getRedStar() {
+		return redStar;
+	}
+	public void setRedStar(Integer redStar) {
+		this.redStar = redStar;
+	}
+	public Integer getGreenStar() {
+		return greenStar;
+	}
+	public void setGreenStar(Integer greenStar) {
+		this.greenStar = greenStar;
 	}
 	
 }

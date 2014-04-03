@@ -16,53 +16,107 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 			e.user_domain as employeeName, 
 			(select round(count(1)/sum(r.manhour),3) 
         	from reports r
-        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='01' ) as productivity01,
+        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='01' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity01,
         	(select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '02' ) as productivity02,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '02' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity02,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '03' ) as productivity03,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '03' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity03,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '04' ) as productivity04,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '04' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity04,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '05' ) as productivity05,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '05' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity05,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '06' ) as productivity06
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '06' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity06
 		FROM 
 			employees e
 		WHERE 
 			e.user_domain = #userDomain#
 	</select>
 	
-		<select id = "getDetail2" parameterClass = "java.util.Map" resultClass = "adins.ace.taps.bean.report.ReportBean">
+	<select id = "getDetail2" parameterClass = "java.util.Map" resultClass = "adins.ace.taps.bean.report.ReportBean">
 		SELECT 
 			e.user_domain as employeeName, 
 			(select round(count(1)/sum(r.manhour),3) 
         	from reports r
-        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='07' ) as productivity07,
+        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='07' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity07,
         	(select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '08' ) as productivity08,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '08' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity08,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '09' ) as productivity09,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '09' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity09,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '10' ) as productivity10,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '10' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity10,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '11' ) as productivity11,
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '11' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity11,
 	        (select round(count(1)/sum(r.manhour),3) 
 	        from reports r
-	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '12' ) as productivity12
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '12' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as productivity12
 		FROM 
 			employees e
 		WHERE 
 			e.user_domain = #userDomain#
+	</select>
+	
+	<select id="getStar1" parameterClass="java.util.Map" resultClass="adins.ace.taps.bean.report.ReportStarBean">
+		SELECT 
+            e.user_domain as employeeName, 
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='01' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star01,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='02' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star02,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='03' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star03,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='04' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star04,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='05' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star05,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='06' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star06
+        FROM 
+            employees e
+        WHERE 
+            e.user_domain = #userDomain#
+	</select>
+	
+	<select id="getStar2" parameterClass = "java.util.Map" resultClass = "adins.ace.taps.bean.report.ReportStarBean">
+		 SELECT 
+            e.user_domain as employeeName, 
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='07' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star07,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='08' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star08,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='09' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star09,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='10' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star10,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='11' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star11,
+            (select NVL(SUM(r.star),0)
+            from reports r
+            where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='12' and to_char(r.assignment_approved_date,'YYYY') = #reportYear#) as star12
+        FROM 
+            employees e
+        WHERE 
+            e.user_domain = #userDomain#
 	</select>
 	
 	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">

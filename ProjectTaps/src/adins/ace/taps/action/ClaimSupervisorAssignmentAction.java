@@ -59,7 +59,7 @@ public class ClaimSupervisorAssignmentAction extends Action {
 				Map params = new HashMap();
 				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
 				params.put("assignmentType", "Assignment");
-				params.put("phase", "APPROVE");
+				params.put("phase", "APPROVED");
 				params.put("taskCode", taskCode);
 				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
 				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
@@ -67,7 +67,6 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("correction".equals(aForm.getTask())) {
 			//add comment and change status to correction
@@ -95,7 +94,6 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			} else {
 				aMan.rollback();
 			}
-			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("reject".equals(aForm.getTask())) {
 			//add comment and change status to rejected
@@ -138,10 +136,61 @@ public class ClaimSupervisorAssignmentAction extends Action {
 			session.removeAttribute("taskCode");
 			return mapping.findForward("Cancel");
 		} else if ("cancel".equals(aForm.getTask())) {
-			session.removeAttribute("taskCode");
+			return mapping.findForward("Cancel");
+		} else if ("reopen".equals(aForm.getTask())) {
+			aMan.startTransaction();
+			aForm.getClaimBean().setStatus("REOPEN");
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "REOPEN");
+			paramStatus.put("updatedBy", sessionUserDomain);
+			paramStatus.put("taskCode", taskCode);
+			paramStatus.put("flag", "INACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Assignment");
+				params.put("phase", "REOPEN");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
+			return mapping.findForward("Cancel");
+		} else if ("reapproved".equals(aForm.getTask())) {
+			aMan.startTransaction();
+			//add comment and change status to approved
+			aForm.getClaimBean().setStatus("APPROVED");
+			comment = aMan.addHistoryComment(aForm.getClaimBean());
+			Map paramStatus = new HashMap();
+			paramStatus.put("status", "APPROVED");
+			paramStatus.put("updatedBy",sessionUserDomain);
+			paramStatus.put("taskCode",taskCode);
+			paramStatus.put("flag","ACTIVE");
+			update = aMan.updateStatus(paramStatus);
+			
+			/*sending notification on email*/
+			aForm.setClaimBean(aMan.emailToEmployeeAssignment(paramStatus));			
+			if (comment && update) {
+				aMan.commitTransaction();
+				Map params = new HashMap();
+				params.put("toMail", aForm.getClaimBean().getEmailReceiver());
+				params.put("assignmentType", "Assignment");
+				params.put("phase", "APPROVED");
+				params.put("taskCode", taskCode);
+				params.put("fromEmployee", aForm.getClaimBean().getSenderName());
+				params.put("nameReceiver", aForm.getClaimBean().getNameReceiver());
+				SendMailTls.SendMail(params);
+			} else {
+				aMan.rollback();
+			}
 			return mapping.findForward("Cancel");
 		}
-
 		//show record assignment
 		//for approved assignment, update-star button only show within certain days after it's been approved
 		//to set the range date for update star, change the value max_date from config.properties

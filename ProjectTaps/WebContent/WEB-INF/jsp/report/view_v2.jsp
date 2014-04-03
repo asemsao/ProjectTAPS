@@ -31,7 +31,6 @@
 		document.reportForm.submit();
 	}
 	function detail(task,userDomain) {
-		alert("DETAIL");
 		document.reportForm.task.value = task;
 		document.reportForm.userDomain.value = userDomain;
 		document.reportForm.submit();
