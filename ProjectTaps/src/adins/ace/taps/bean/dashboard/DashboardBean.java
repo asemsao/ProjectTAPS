@@ -9,6 +9,9 @@ public class DashboardBean implements Serializable {
 	private String totalStar;
 	private byte[] profilePicture;
 	private String userDomain;
+	private Integer greenStar;
+	private Integer redStar;
+	private Integer specialStar;
 
 
 	public String getUserName() {
@@ -49,6 +52,30 @@ public class DashboardBean implements Serializable {
 
 	public void setUserDomain(String userDomain) {
 		this.userDomain = userDomain;
+	}
+
+	public Integer getRedStar() {
+		return redStar;
+	}
+
+	public void setRedStar(Integer redStar) {
+		this.redStar = redStar;
+	}
+
+	public Integer getGreenStar() {
+		return greenStar;
+	}
+
+	public void setGreenStar(Integer greenStar) {
+		this.greenStar = greenStar;
+	}
+
+	public Integer getSpecialStar() {
+		return specialStar;
+	}
+
+	public void setSpecialStar(Integer specialStar) {
+		this.specialStar = specialStar;
 	}
 
 }

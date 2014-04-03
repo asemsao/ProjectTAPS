@@ -1,3 +1,4 @@
+<%@page import="com.sun.xml.internal.messaging.saaj.util.transform.EfficientStreamingTransformer"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="org.apache.struts.Globals"%> 
@@ -113,8 +114,8 @@
 					<table class="table striped bordered hovered">
 						<thead>
 							<tr>
-								<th class="text-center" colspan="3" width="12%">Business Unit Code</th>
-								<th class="text-center">Business Unit Name</th>
+								<th class="text-center" colspan = "<%=Integer.parseInt(request.getAttribute("maxLevel").toString())+1 %>">Business Unit Code</th>
+								<th class="text-center">Business Unit Name<bean:write name="organizationForm" property="maxLevel" /></th>
 								<th class="text-center">Head Name</th>
 								<th class="text-center">Member</th>
 								<th class="text-center">Edit</th>
@@ -125,21 +126,14 @@
 							<logic:notEmpty name="organizationForm" property="listOrganizations">
 								<logic:iterate id="organization" name="organizationForm" property="listOrganizations">
 									<tr>
-										<td width="4%">
-											<logic:equal value="0" name="organization" property="organizationLevel">
-												<bean:write name="organization" property="organizationCode" />
-											</logic:equal>
+									<%String maxLevel=request.getAttribute("maxLevel").toString();
+									for(int i=0; i<=Integer.parseInt(maxLevel);i++){ %>
+										<td>
+										<logic:equal value="<%=String.valueOf(i) %>" name="organization" property="organizationLevel">
+											<bean:write name="organization" property="organizationCode" />
+										</logic:equal>												
 										</td>
-										<td width="4%">
-											<logic:equal value="1" name="organization" property="organizationLevel">
-												<bean:write name="organization" property="organizationCode" />
-											</logic:equal>
-										</td>
-										<td width="4%">
-											<logic:equal value="2" name="organization" property="organizationLevel">
-												<bean:write name="organization" property="organizationCode" />
-											</logic:equal>
-										</td>
+										<%} %>										
 										<td><bean:write name="organization" property="organizationName" /></td>
 										<td><bean:write name="organization" property="headName" /></td>
 										<td class="text-center">

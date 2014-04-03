@@ -5,23 +5,87 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 
 <sqlMap namespace="report">
 
-	<insert id="tes">
-		insert into tes_savepoint values('test1')
-	</insert>
-
-	<insert id="tes2">
-		insert into tes_savepoint values('test2')
-	</insert>
-
-	<insert id="tes3">
-		insert into tes_savepoint values('Po')
-	</insert>
-
 	<select id="getAllReports" resultClass="adins.ace.taps.bean.report.ReportBean">
 		select task_code as
 		reportId, organization_code as firstName, project_code as lastName
 		from reports
 	</select>
+	
+	<select id = "getDetail" parameterClass = "java.util.Map" resultClass = "adins.ace.taps.bean.report.ReportBean">
+		SELECT 
+			e.user_domain as employeeName, 
+			(select round(count(1)/sum(r.manhour),3) 
+        	from reports r
+        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='01' ) as productivity01,
+        	(select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '02' ) as productivity02,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '03' ) as productivity03,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '04' ) as productivity04,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '05' ) as productivity05,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '06' ) as productivity06
+		FROM 
+			employees e
+		WHERE 
+			e.user_domain = #userDomain#
+	</select>
+	
+		<select id = "getDetail2" parameterClass = "java.util.Map" resultClass = "adins.ace.taps.bean.report.ReportBean">
+		SELECT 
+			e.user_domain as employeeName, 
+			(select round(count(1)/sum(r.manhour),3) 
+        	from reports r
+        	where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') ='07' ) as productivity07,
+        	(select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '08' ) as productivity08,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '09' ) as productivity09,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '10' ) as productivity10,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '11' ) as productivity11,
+	        (select round(count(1)/sum(r.manhour),3) 
+	        from reports r
+	        where r.assign_to = e.user_domain and to_char(r.assignment_approved_date,'MM') = '12' ) as productivity12
+		FROM 
+			employees e
+		WHERE 
+			e.user_domain = #userDomain#
+	</select>
+	
+	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">
+	select e.user_domain as userDomain, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to(+) = e.user_domain and e.organization_code = #orgCode# and lower(e.flag)='active'
+	group by e.first_name||' '||e.last_name, e.user_domain
+	</select>
+	
+	<select id="getReportLevelDivision" resultClass="adins.ace.taps.bean.report.ReportBean">
+	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to = e.user_domain and lower(e.flag)='active' and e.organization_code in (select o.organization_code from organizations o where o.parent_organization_code = #orgCode#)
+	group by e.first_name||' '||e.last_name, e.organization_code
+	</select>
+	
+	<select id="getReportLevelManagement" resultClass="adins.ace.taps.bean.report.ReportBean">
+	select e.organization_code as organizationCode, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	where r.assign_to(+) = e.user_domain and lower(e.flag)='active' and e.organization_code in (SELECT o.organization_code
+                                                                                            	FROM organizations o 
+                                                                                            	WHERE LOWER(o.flag) = 'active' and o.organization_code != #orgCode#
+                                                                                            	START WITH o.organization_code = #orgCode#
+                                                                                            	CONNECT BY PRIOR UPPER(o.organization_code) = UPPER(o.parent_organization_code))
+	group by e.first_name||' '||e.last_name, e.organization_code
+	</select>	
 
 	<select id="getReportLevel1" resultClass="adins.ace.taps.bean.report.ReportBean"
 		parameterClass="java.util.Map">
