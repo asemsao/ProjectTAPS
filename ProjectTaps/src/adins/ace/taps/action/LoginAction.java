@@ -79,7 +79,9 @@ public class LoginAction extends Action {
 					session.setAttribute("username", username);
 					session.setAttribute("fullname", fullname);
 					/* Star Achievement */
-					session.setAttribute("star", dMan.starAchievemet(username));
+//					session.setAttribute("star", dMan.starAchievemet(username));
+					session.setAttribute("greenStar", dMan.greenStar(username));
+					session.setAttribute("redStar", dMan.redStar(username));
 					/* set image for header */
 					bean = dMan.getPhotoEmployees(username);
 					try {
