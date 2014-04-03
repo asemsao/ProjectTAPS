@@ -10,6 +10,7 @@ public class ReportBean implements Serializable {
 	private String organizationLevel;
 	private String organizationParent;
 	private String organizationParentName;
+	private String userDomain;
 	private String firstName;
 	private String lastName;
 	private String employeeName;
@@ -263,6 +264,12 @@ public class ReportBean implements Serializable {
 	}
 	public void setQuality(Double quality) {
 		this.quality = quality;
+	}
+	public String getUserDomain() {
+		return userDomain;
+	}
+	public void setUserDomain(String userDomain) {
+		this.userDomain = userDomain;
 	}
 	
 }

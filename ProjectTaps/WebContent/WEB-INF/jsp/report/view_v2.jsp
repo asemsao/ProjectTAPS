@@ -30,6 +30,12 @@
 		document.reportForm.buPrint.value = organizationCode;
 		document.reportForm.submit();
 	}
+	function detail(task,userDomain) {
+		alert("DETAIL");
+		document.reportForm.task.value = task;
+		document.reportForm.userDomain.value = userDomain;
+		document.reportForm.submit();
+	}
 	function report(task, organizationCode, organizationLevel, organizationName) {
 		document.reportForm.task.value = task;
 		document.reportForm.organizationCode.value = organizationCode;
@@ -123,6 +129,7 @@
 			<div class="row row-taps shadow-taps">
 				<html:form action="/report" method="POST">
 					<html:hidden property="task" name="reportForm" />
+					<html:hidden property="userDomain" name="reportForm" />
 					<html:hidden property="organizationCode" name="reportForm" />
 					<html:hidden property="organizationLevel" name="reportForm" />
 					<html:hidden property="organizationName" name="reportForm" />
@@ -203,7 +210,7 @@
 										<td><bean:write name="report" property="productivity" /></td>
 										<td><bean:write name="report" property="quality" /></td>
 										<td class="text-center"><a
-												href="javascript:report('view','<bean:write name="report" property="organizationCode" />','<bean:write name="report" property="organizationLevel" />','<bean:write name="report" property="organizationName" />');" data-hint="Details"
+												href="javascript:detail('getDetail','<bean:write name="report" property="userDomain" />');" data-hint="Details"
 												data-hint-position="bottom"><img alt=""
 													src="<%=request.getContextPath()%>/images/EDIT.png"></a></td>	
 									</tr>

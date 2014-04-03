@@ -76,7 +76,7 @@
 				},
 				title : {
 					floating : false,
-					text : 'Productivity',
+					text : 'Employee Productivity',
 					margin : 30
 				},
 				yAxis : {

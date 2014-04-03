@@ -113,7 +113,7 @@ public class ReportAction extends Action {
 			else
 				rForm.setrBean(rMan.getDetail2(param));
 			
-			return mapping.findForward("getDetail");
+			return mapping.findForward("GetDetail");
 		}
 		
 		if ("1 Months".equals(rForm.getPeriode())) {

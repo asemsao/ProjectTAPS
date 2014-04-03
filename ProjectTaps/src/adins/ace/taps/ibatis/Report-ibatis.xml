@@ -66,9 +66,9 @@ PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
 	</select>
 	
 	<select id="getReportLevelDepartment" resultClass="adins.ace.taps.bean.report.ReportBean">
-	select e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
+	select e.user_domain as userDomain, e.first_name||' '||e.last_name as employeeName, NVL(round(count(1)/sum(r.manhour),3),0)  as productivity, NVL(sum(r.star),0) as quality from reports r, employees e
 	where r.assign_to(+) = e.user_domain and e.organization_code = #orgCode# and lower(e.flag)='active'
-	group by e.first_name||' '||e.last_name
+	group by e.first_name||' '||e.last_name, e.user_domain
 	</select>
 	
 	<select id="getReportLevelDivision" resultClass="adins.ace.taps.bean.report.ReportBean">

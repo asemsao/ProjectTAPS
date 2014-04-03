@@ -83,7 +83,7 @@
 			<forward name="PrintReportDept" path="/Dept.jsp" />
 			<forward name="PrintReportBU" path="/BU.jsp" />
 			<forward name="PrintReportBOM" path="/Management.jsp" />
-			<forward name="getDetail" path="/WEB-INF/jsp/report/detailReport.jsp" />
+			<forward name="GetDetail" path="/WEB-INF/jsp/report/detailReport.jsp" />
 		</action>
 		<action name="organizationForm" path="/organization" scope="request"
 			type="adins.ace.taps.action.OrganizationAction">
