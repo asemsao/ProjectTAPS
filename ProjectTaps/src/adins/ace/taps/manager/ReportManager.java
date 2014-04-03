@@ -151,6 +151,7 @@ public class ReportManager {
 			ibatisSqlMap.startTransaction();
 			reportList = ibatisSqlMap.queryForList("report.getReportLevel2_v2", h);
 			//ibatisSqlMap.commitTransaction();
+			System.out.println("reportList.get(1)"+reportList.get(1));
 		} catch (Exception e) {
 //			try {
 //				ibatisSqlMap.getCurrentConnection().rollback(savepoint1);
